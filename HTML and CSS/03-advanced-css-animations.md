@@ -1,6 +1,10 @@
-# 🔵 Advanced CSS & Animations (Questions 41–70)
+# 🎨 HTML & CSS Interview Notes (2025 Edition)
 
-## 41. What is CSS specificity, and how is it calculated?
+## 🔵 Section 3 — Advanced CSS & Animations — Q41-Q70
+
+---
+
+### 41. 🔵 What is CSS specificity, and how is it calculated?
 
 **🧠 Concept**
 
@@ -38,7 +42,7 @@ Specificity is calculated as (a,b,c,d) where a=inline styles, b=IDs, c=classes/a
 
 ---
 
-## 42. Why should you avoid using !important?
+### 42. 🔵 Why should you avoid using !important?
 
 **🧠 Concept**
 
@@ -76,7 +80,7 @@ Instead of `!important`, use higher specificity, CSS custom properties, or refac
 
 ---
 
-## 43. What is the difference between inline styles and CSS classes?
+### 43. 🔵 What is the difference between inline styles and CSS classes?
 
 **🧠 Concept**
 
@@ -122,7 +126,7 @@ Inline styles have the highest specificity (1,0,0,0) but are harder to maintain 
 
 ---
 
-## 44. What is the BEM naming convention?
+### 44. 🔵 What is the BEM naming convention?
 
 **🧠 Concept**
 
@@ -165,7 +169,7 @@ BEM prevents specificity issues, makes CSS self-documenting, and scales well in 
 
 ---
 
-## 45. What is OOCSS, and how does it differ from SMACSS?
+### 45. 🔵 What is OOCSS, and how does it differ from SMACSS?
 
 **🧠 Concept**
 
@@ -220,7 +224,7 @@ OOCSS emphasizes reusability through separation of concerns, while SMACSS provid
 
 ---
 
-## 46. What are CSS keyframes, and how are they defined?
+### 46. 🔵 What are CSS keyframes, and how are they defined?
 
 **🧠 Concept**
 
@@ -283,7 +287,7 @@ Keyframes can have any number of steps (0%, 25%, 50%, 100%) and can animate mult
 
 ---
 
-## 47. What is an easing function, and why is it used?
+### 47. 🔵 What is an easing function, and why is it used?
 
 **🧠 Concept**
 
@@ -325,7 +329,7 @@ Easing functions make animations feel natural by mimicking real-world physics. `
 
 ---
 
-## 48. What is animation-fill-mode, and what are its values?
+### 48. 🔵 What is animation-fill-mode, and what are its values?
 
 **🧠 Concept**
 
@@ -377,7 +381,7 @@ Easing functions make animations feel natural by mimicking real-world physics. `
 
 ---
 
-## 49. How can you pause or reverse an animation dynamically?
+### 49. 🔵 How can you pause or reverse an animation dynamically?
 
 **🧠 Concept**
 

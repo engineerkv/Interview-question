@@ -1,6 +1,10 @@
-# 🟢 HTML Fundamentals (Questions 1–20)
+# 🎨 HTML & CSS Interview Notes (2025 Edition)
 
-## 1. What is HTML, and why is it essential for the web?
+## 🟢 Section 1 — HTML Fundamentals — Q1-Q20
+
+---
+
+### 1. 🟢 What is HTML, and why is it essential for the web?
 
 **🧠 Concept**
 
@@ -32,7 +36,7 @@ HTML is the language that creates the structure of web pages. It's like the skel
 
 ---
 
-## 2. What are HTML elements, tags, and attributes?
+### 2. 🟢 What are HTML elements, tags, and attributes?
 
 **🧠 Concept**
 
@@ -62,7 +66,7 @@ HTML elements are the building blocks of web pages, tags mark the beginning and 
 
 ---
 
-## 3. What is the difference between block and inline elements?
+### 3. 🟢 What is the difference between block and inline elements?
 
 **🧠 Concept**
 
@@ -92,7 +96,7 @@ Block elements take up the full width and start on a new line, while inline elem
 
 ---
 
-## 4. What are semantic HTML elements?
+### 4. 🟢 What are semantic HTML elements?
 
 **🧠 Concept**
 
@@ -132,7 +136,7 @@ Semantic HTML elements clearly describe their meaning and purpose, making code m
 
 ---
 
-## 5. What is the difference between HTML and XHTML?
+### 5. 🟢 What is the difference between HTML and XHTML?
 
 **🧠 Concept**
 
@@ -162,7 +166,7 @@ HTML is more forgiving with syntax, while XHTML follows strict XML rules and req
 
 ---
 
-## 6. What are HTML forms and how do you create them?
+### 6. 🟢 What are HTML forms and how do you create them?
 
 **🧠 Concept**
 
@@ -195,7 +199,7 @@ HTML forms collect user input and send it to a server for processing using vario
 
 ---
 
-## 7. What are HTML tables and when should you use them?
+### 7. 🟢 What are HTML tables and when should you use them?
 
 **🧠 Concept**
 
@@ -237,7 +241,7 @@ HTML tables display data in rows and columns, but should only be used for tabula
 
 ---
 
-## 8. What are HTML lists and how do you use them?
+### 8. 🟢 What are HTML lists and how do you use them?
 
 **🧠 Concept**
 
@@ -279,7 +283,7 @@ HTML lists organize information in ordered, unordered, or definition lists using
 
 ---
 
-## 9. What are HTML links and how do you create them?
+### 9. 🟢 What are HTML links and how do you create them?
 
 **🧠 Concept**
 
@@ -311,7 +315,7 @@ HTML links connect web pages and resources using the anchor tag with href attrib
 
 ---
 
-## 10. What are HTML images and how do you optimize them?
+### 10. 🟢 What are HTML images and how do you optimize them?
 
 **🧠 Concept**
 
@@ -343,7 +347,7 @@ HTML images display visual content using the img tag with src attribute, and sho
 
 ---
 
-## 11. What are HTML meta tags and why are they important?
+### 11. 🟢 What are HTML meta tags and why are they important?
 
 **🧠 Concept**
 
@@ -371,7 +375,7 @@ Meta tags provide metadata about the HTML document, including character encoding
 
 ---
 
-## 12. What is the HTML document structure?
+### 12. 🟢 What is the HTML document structure?
 
 **🧠 Concept**
 
@@ -403,7 +407,7 @@ HTML documents follow a specific structure with DOCTYPE, html, head, and body el
 
 ---
 
-## 13. What are HTML comments and how do you use them?
+### 13. 🟢 What are HTML comments and how do you use them?
 
 **🧠 Concept**
 
@@ -434,7 +438,7 @@ for longer explanations
 
 ---
 
-## 14. What are HTML entities and when do you use them?
+### 14. 🟢 What are HTML entities and when do you use them?
 
 **🧠 Concept**
 
@@ -461,7 +465,7 @@ HTML entities represent special characters that have special meanings in HTML or
 
 ---
 
-## 15. What is HTML validation and why is it important?
+### 15. 🟢 What is HTML validation and why is it important?
 
 **🧠 Concept**
 
@@ -494,7 +498,7 @@ HTML validation checks if your HTML code follows the official standards and iden
 
 ---
 
-## 16. What are HTML data attributes and how do you use them?
+### 16. 🟢 What are HTML data attributes and how do you use them?
 
 **🧠 Concept**
 
@@ -526,7 +530,7 @@ const role = element.dataset.role;
 
 ---
 
-## 17. What are HTML iframes and when should you use them?
+### 17. 🟢 What are HTML iframes and when should you use them?
 
 **🧠 Concept**
 
@@ -561,7 +565,7 @@ HTML iframes embed external content like videos, maps, or other web pages within
 
 ---
 
-## 18. What is HTML accessibility and why is it important?
+### 18. 🟢 What is HTML accessibility and why is it important?
 
 **🧠 Concept**
 
@@ -599,7 +603,7 @@ HTML accessibility ensures web content is usable by people with disabilities thr
 
 ---
 
-## 19. What are HTML forms validation and how do you implement it?
+### 19. 🟢 What are HTML forms validation and how do you implement it?
 
 **🧠 Concept**
 
@@ -634,7 +638,7 @@ HTML form validation ensures user input meets specific requirements using built-
 
 ---
 
-## 20. What is the future of HTML and what new features are coming?
+### 20. 🟢 What is the future of HTML and what new features are coming?
 
 **🧠 Concept**
 

@@ -1,8 +1,10 @@
-# 🧩 Real-World Practical Coding Questions — Q126-Q145
+# 💻 JavaScript Interview Notes (2025 Edition)
+
+## 🟣 Section 7 — Real-World Practical Coding Questions — Q126-Q145
 
 ---
 
-## 1️⃣ Implement a `bind()` polyfill
+### 126. 🟣 Implement a `bind()` polyfill
 
 🧠 **Concept:**
 `bind()` returns a new function with a permanently bound `this` context and optional preset arguments.

@@ -1,8 +1,10 @@
-# 🏗️ Objects, Classes & Prototypes — Q46-Q65
+# 💻 JavaScript Interview Notes (2025 Edition)
+
+## 🟡 Section 3 — Objects, Classes & Prototypes — Q46-Q65
 
 ---
 
-## 1️⃣ What are objects in JavaScript?
+### 46. 🟡 What are objects in JavaScript?
 
 **🧠 Concept**
 
@@ -39,7 +41,7 @@ user
 
 ---
 
-## 2️⃣ What is prototypal inheritance?
+### 47. 🟡 What is prototypal inheritance?
 
 **🧠 Concept**
 
@@ -72,7 +74,7 @@ dog ---> animal ---> Object.prototype ---> null
 
 ---
 
-## 3️⃣ How does the prototype chain work?
+### 48. 🟡 How does the prototype chain work?
 
 **🧠 Concept**
 
@@ -109,7 +111,7 @@ null
 
 ---
 
-## 4️⃣ What is the difference between `__proto__` and `prototype`?
+### 49. 🟡 What is the difference between `__proto__` and `prototype`?
 
 **🧠 Concept**
 
@@ -145,7 +147,7 @@ Person.prototype.__proto__  Object.prototype
 
 ---
 
-## 5️⃣ What is object destructuring?
+### 50. 🟡 What is object destructuring?
 
 **🧠 Concept**
 
@@ -182,7 +184,7 @@ const { city = "Unknown" } = user;
 
 ---
 
-## 6️⃣ What are getters and setters?
+### 51. 🟡 What are getters and setters?
 
 **🧠 Concept**
 
@@ -224,7 +226,7 @@ person.fullName
 
 ---
 
-## 7️⃣ What is `Object.create()` used for?
+### 52. 🟡 What is `Object.create()` used for?
 
 **🧠 Concept**
 
@@ -255,7 +257,7 @@ rabbit  __proto__  animal  __proto__  Object.prototype
 
 ---
 
-## 8️⃣ What are static methods in classes?
+### 53. 🟡 What are static methods in classes?
 
 **🧠 Concept**
 
@@ -287,7 +289,7 @@ They can't be called on instances, only on the class itself.
 
 ---
 
-## 9️⃣ What are private fields in ES2022 classes?
+### 54. 🟡 What are private fields in ES2022 classes?
 
 **🧠 Concept**
 
@@ -416,7 +418,7 @@ console.log(fn.__proto__ === Function.prototype); // true
 
 ---
 
-## 11️⃣ How does inheritance work with ES6 classes?
+### 55. 🟡 How does inheritance work with ES6 classes?
 
 **🧠 Concept**
 
@@ -450,7 +452,7 @@ This chain enables **method lookup across generations**.
 
 ---
 
-## 12️⃣ What is the difference between composition and inheritance?
+### 56. 🟡 What is the difference between composition and inheritance?
 
 **🧠 Concept**
 

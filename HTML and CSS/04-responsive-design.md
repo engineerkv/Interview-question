@@ -1,6 +1,10 @@
-# 🟣 Responsive Design & Modern Layout Techniques (Questions 71–90)
+# 🎨 HTML & CSS Interview Notes (2025 Edition)
 
-## 71. How do you make a layout responsive?
+## 🟣 Section 4 — Responsive Design & Modern Layout Techniques — Q71-Q90
+
+---
+
+### 71. 🟣 How do you make a layout responsive?
 
 **🧠 Concept**
 
@@ -61,7 +65,7 @@ Start with mobile-first design, use flexible units (rem, %, vw/vh), implement fl
 
 ---
 
-## 72. What are mobile-first and desktop-first approaches?
+### 72. 🟣 What are mobile-first and desktop-first approaches?
 
 **🧠 Concept**
 
@@ -123,7 +127,7 @@ Mobile-first is preferred because it's more performant (loads lighter styles fir
 
 ---
 
-## 73. How do you use media queries effectively?
+### 73. 🟣 How do you use media queries effectively?
 
 **🧠 Concept**
 
@@ -189,7 +193,7 @@ Use logical breakpoints based on content needs, not device sizes. Test on real d
 
 ---
 
-## 74. What are viewport units (vw, vh, vmin, vmax)?
+### 74. 🟣 What are viewport units (vw, vh, vmin, vmax)?
 
 **🧠 Concept**
 
@@ -248,7 +252,7 @@ Viewport units are perfect for full-screen layouts and responsive typography. Be
 
 ---
 
-## 75. What is the difference between responsive units (em, rem, %)?
+### 75. 🟣 What is the difference between responsive units (em, rem, %)?
 
 **🧠 Concept**
 
@@ -304,7 +308,7 @@ Use `rem` for consistent scaling across the site, `em` for component-relative si
 
 ---
 
-## 76. What is clamp(), and how is it used for fluid typography?
+### 76. 🟣 What is clamp(), and how is it used for fluid typography?
 
 **🧠 Concept**
 
@@ -362,7 +366,7 @@ p {
 
 ---
 
-## 77. How do you build a responsive grid layout using CSS Grid?
+### 77. 🟣 How do you build a responsive grid layout using CSS Grid?
 
 **🧠 Concept**
 
@@ -438,7 +442,7 @@ CSS Grid's `auto-fit` and `minmax()` create truly responsive layouts without med
 
 ---
 
-## 78. What is a breakpoint, and how do you choose optimal ones?
+### 78. 🟣 What is a breakpoint, and how do you choose optimal ones?
 
 **🧠 Concept**
 
@@ -515,7 +519,7 @@ Choose breakpoints based on when your content needs to change, not arbitrary dev
 
 ---
 
-## 79. How do you use minmax() in Grid layouts?
+### 79. 🟣 How do you use minmax() in Grid layouts?
 
 **🧠 Concept**
 

@@ -1,8 +1,10 @@
-# ⚡ Asynchronous JavaScript — Q66-Q85
+# 💻 JavaScript Interview Notes (2025 Edition)
+
+## 🔴 Section 4 — Asynchronous JavaScript — Q66-Q85
 
 ---
 
-## 1️⃣ What is the Event Loop?
+### 66. 🔴 What is the Event Loop?
 
 **🧠 Concept**
 
@@ -45,7 +47,7 @@ Timeout
 
 ---
 
-## 2️⃣ What are Microtask and Macrotask Queues?
+### 67. 🔴 What are Microtask and Macrotask Queues?
 
 **🧠 Concept**
 
@@ -75,7 +77,7 @@ After every task (from the stack), the event loop **empties all microtasks first
 
 ---
 
-## 3️⃣ What is the Call Stack and how does it interact with the Event Loop?
+### 68. 🔴 What is the Call Stack and how does it interact with the Event Loop?
 
 **🧠 Concept**
 
@@ -109,7 +111,7 @@ Call Stack:
 
 ---
 
-## 4️⃣ What's the difference between `setTimeout()` and `setImmediate()`?
+### 69. 🔴 What's the difference between `setTimeout()` and `setImmediate()`?
 
 **🧠 Concept**
 
@@ -142,7 +144,7 @@ Timing order depends on event loop phase
 
 ---
 
-## 5️⃣ What's the difference between Promises and Callbacks?
+### 70. 🔴 What's the difference between Promises and Callbacks?
 
 **🧠 Concept**
 
@@ -176,7 +178,7 @@ Promises solve **callback hell** and allow **error propagation** through chains.
 
 ---
 
-## 6️⃣ What is a Promise Chain?
+### 71. 🔴 What is a Promise Chain?
 
 **🧠 Concept**
 
@@ -205,7 +207,7 @@ Each `.then()` returns a **new promise**, enabling sequential async flow.
 
 ---
 
-## 7️⃣ What is `async/await` and how does it simplify asynchronous code?
+### 72. 🔴 What is `async/await` and how does it simplify asynchronous code?
 
 **🧠 Concept**
 
@@ -241,7 +243,7 @@ Resumes when promise resolves
 
 ---
 
-## 8️⃣ How do you handle errors with `async/await`?
+### 73. 🔴 How do you handle errors with `async/await`?
 
 **🧠 Concept**
 
@@ -276,7 +278,7 @@ Promise rejected  jumps to catch block
 
 ---
 
-## 9️⃣ What is `Promise.all()` used for?
+### 74. 🔴 What is `Promise.all()` used for?
 
 **🧠 Concept**
 

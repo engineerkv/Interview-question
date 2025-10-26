@@ -1,6 +1,10 @@
-# 🟡 CSS Basics & Layout (Questions 21–40)
+# 🎨 HTML & CSS Interview Notes (2025 Edition)
 
-## 21. What is CSS, and why is it used?
+## 🟡 Section 2 — CSS Basics & Layout — Q21-Q40
+
+---
+
+### 21. 🟡 What is CSS, and why is it used?
 
 **🧠 Concept**
 
@@ -42,7 +46,7 @@ h1 {
 
 ---
 
-## 22. What are inline, internal, and external styles?
+### 22. 🟡 What are inline, internal, and external styles?
 
 **🧠 Concept**
 
@@ -83,7 +87,7 @@ CSS can be applied in three ways: inline (within HTML elements), internal (in `<
 
 ---
 
-## 23. What is the CSS box model?
+### 23. 🟡 What is the CSS box model?
 
 **🧠 Concept**
 
@@ -110,7 +114,7 @@ The box model can be changed with `box-sizing: border-box`, where width includes
 
 ---
 
-## 24. What is the difference between margin, border, and padding?
+### 24. 🟡 What is the difference between margin, border, and padding?
 
 **🧠 Concept**
 
@@ -149,7 +153,7 @@ Margins can collapse (overlapping margins combine), while padding never collapse
 
 ---
 
-## 25. Difference between display: none, visibility: hidden, and opacity: 0.
+### 25. 🟡 Difference between display: none, visibility: hidden, and opacity: 0.
 
 **🧠 Concept**
 
@@ -184,7 +188,7 @@ These properties hide elements differently: `display: none` removes from layout,
 
 ---
 
-## 26. What are the most common CSS units (px, em, rem, %, vw, vh)?
+### 26. 🟡 What are the most common CSS units (px, em, rem, %, vw, vh)?
 
 **🧠 Concept**
 
@@ -226,7 +230,7 @@ h1 {
 
 ---
 
-## 27. What is the difference between relative, absolute, fixed, and sticky positioning?
+### 27. 🟡 What is the difference between relative, absolute, fixed, and sticky positioning?
 
 **🧠 Concept**
 
@@ -274,7 +278,7 @@ Absolute and fixed elements are removed from normal flow. Sticky elements remain
 
 ---
 
-## 28. What is z-index, and how does stacking context work?
+### 28. 🟡 What is z-index, and how does stacking context work?
 
 **🧠 Concept**
 
@@ -321,7 +325,7 @@ Z-index only works on positioned elements. Each stacking context is isolated - a
 
 ---
 
-## 29. What are pseudo-classes (:hover, :focus) and pseudo-elements (::before, ::after)?
+### 29. 🟡 What are pseudo-classes (:hover, :focus) and pseudo-elements (::before, ::after)?
 
 **🧠 Concept**
 
@@ -379,7 +383,7 @@ Pseudo-elements require the `content` property to be visible. They're commonly u
 
 ---
 
-## 30. What are CSS combinators (>, +, ~, space)?
+### 30. 🟡 What are CSS combinators (>, +, ~, space)?
 
 **🧠 Concept**
 
@@ -425,7 +429,7 @@ Combinators create specific targeting without adding classes. Child selector (>)
 
 ---
 
-## 31. How do CSS media queries work?
+### 31. 🟡 How do CSS media queries work?
 
 **🧠 Concept**
 
@@ -488,7 +492,7 @@ Mobile-first approach is preferred as it's more performant and easier to maintai
 
 ---
 
-## 32. What is the difference between responsive and adaptive design?
+### 32. 🟡 What is the difference between responsive and adaptive design?
 
 **🧠 Concept**
 
@@ -536,7 +540,7 @@ Responsive design is more flexible and future-proof, while adaptive design offer
 
 ---
 
-## 33. What is Flexbox, and how does it differ from Grid?
+### 33. 🟡 What is Flexbox, and how does it differ from Grid?
 
 **🧠 Concept**
 
@@ -583,7 +587,7 @@ Use Flexbox for component-level layouts (navigation, cards) and Grid for page-le
 
 ---
 
-## 34. What is justify-content and align-items in Flexbox?
+### 34. 🟡 What is justify-content and align-items in Flexbox?
 
 **🧠 Concept**
 
@@ -626,7 +630,7 @@ The main axis is determined by `flex-direction` (row = horizontal, column = vert
 
 ---
 
-## 35. How do you create a two-column layout using Flexbox?
+### 35. 🟡 How do you create a two-column layout using Flexbox?
 
 **🧠 Concept**
 
@@ -683,7 +687,7 @@ Flexbox excels at two-column layouts with its automatic space distribution. Use 
 
 ---
 
-## 36. What are CSS Grid rows, columns, and areas?
+### 36. 🟡 What are CSS Grid rows, columns, and areas?
 
 **🧠 Concept**
 
@@ -740,7 +744,7 @@ Grid areas make layouts more semantic and easier to maintain. The `fr` unit repr
 
 ---
 
-## 37. What is the fr unit in CSS Grid?
+### 37. 🟡 What is the fr unit in CSS Grid?
 
 **🧠 Concept**
 
@@ -783,7 +787,7 @@ The `fr` (fractional) unit represents a fraction of available space in CSS Grid,
 
 ---
 
-## 38. What are CSS variables (--var), and how are they scoped?
+### 38. 🟡 What are CSS variables (--var), and how are they scoped?
 
 **🧠 Concept**
 
@@ -833,7 +837,7 @@ CSS variables are inherited and can be overridden by more specific selectors. Th
 
 ---
 
-## 39. How do CSS transitions work?
+### 39. 🟡 How do CSS transitions work?
 
 **🧠 Concept**
 
@@ -889,7 +893,7 @@ Transitions only work on animatable properties and require a trigger (hover, foc
 
 ---
 
-## 40. What is the difference between transitions and keyframe animations?
+### 40. 🟡 What is the difference between transitions and keyframe animations?
 
 **🧠 Concept**
 

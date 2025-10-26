@@ -1,8 +1,10 @@
-# 🧮 Performance, Optimization & Patterns — Q146-Q165
+# 💻 JavaScript Interview Notes (2025 Edition)
+
+## 🟠 Section 8 — Performance, Optimization & Patterns — Q146-Q165
 
 ---
 
-## 1️⃣ What is Memoization and when should you use it?
+### 146. 🟠 What is Memoization and when should you use it?
 
 **🧠 Concept**
 
