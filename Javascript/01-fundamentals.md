@@ -1,8 +1,10 @@
-### 🟢 1. JavaScript Fundamentals (Basics  Intermediate) — Q1-Q25
+# 💻 JavaScript Interview Notes (2025 Edition)
+
+## 🟢 Section 1 — JavaScript Fundamentals (Basics  Intermediate) — Q1-Q24
 
 ---
 
-### 1️⃣ What is JavaScript and how is it different from Java?
+### 1. 🟢 What is JavaScript and how is it different from Java?
 
 **🧠 Concept**
 
@@ -24,7 +26,7 @@ console.log("Hello from JavaScript!");
 
 ---
 
-### 2️⃣ What are primitive and non-primitive data types in JavaScript?
+### 2. 🟢 What are primitive and non-primitive data types in JavaScript?
 
 **🧠 Concept**
 
@@ -52,7 +54,7 @@ let arr = [1, 2, 3];
 
 ---
 
-### 3️⃣ What is the difference between `var`, `let`, and `const`?
+### 3. 🟢 What is the difference between `var`, `let`, and `const`?
 
 **🧠 Concept**
 
@@ -79,7 +81,7 @@ z = 35; // ❌ Error
 
 ---
 
-### 4️⃣ What is hoisting in JavaScript?
+### 4. 🟢 What is hoisting in JavaScript?
 
 **🧠 Concept**
 
@@ -106,7 +108,7 @@ function sayHi() {
 
 ---
 
-### 5️⃣ What are truthy and falsy values?
+### 5. 🟢 What are truthy and falsy values?
 
 **🧠 Concept**
 
@@ -129,7 +131,7 @@ Everything else is **truthy** (including `[]`, `{}`, `"0"`).
 
 ---
 
-### 6️⃣ What is the difference between `==` and `===`?
+### 6. 🟢 What is the difference between `==` and `===`?
 
 **🧠 Concept**
 
@@ -157,7 +159,7 @@ Use `===` almost always to avoid unexpected coercion:
 
 ---
 
-### 7️⃣ What are template literals?
+### 7. 🟢 What are template literals?
 
 **🧠 Concept**
 
@@ -181,7 +183,7 @@ console.log(`Hello, ${name}!`);
 
 ---
 
-### 8️⃣ What are default parameters in ES6?
+### 8. 🟢 What are default parameters in ES6?
 
 **🧠 Concept**
 
@@ -210,7 +212,7 @@ function calc(x, y = x * 2) { return y; }
 
 ---
 
-### 9️⃣ What is the `typeof` operator used for?
+### 9. 🟢 What is the `typeof` operator used for?
 
 **🧠 Concept**
 
@@ -258,7 +260,7 @@ console.log(Number.isNaN(result)); // true
 * `isNaN()` coerces input before checking, `Number.isNaN()` is safer.
 * Useful for validating numeric operations.
 
-### 11️⃣ What is the difference between `undefined` and `null`?
+### 10. 🟢 What is the difference between `undefined` and `null`?
 
 **🧠 Concept**
 
@@ -287,7 +289,7 @@ console.log(b); // null
 
 ---
 
-### 12️⃣ What are pass-by-value and pass-by-reference?
+### 11. 🟢 What are pass-by-value and pass-by-reference?
 
 **🧠 Concept**
 
@@ -319,7 +321,7 @@ console.log(obj1.name); // John 😅 (same reference)
 
 ---
 
-### 13️⃣ What is scope in JavaScript?
+### 12. 🟢 What is scope in JavaScript?
 
 **🧠 Concept**
 
@@ -347,7 +349,7 @@ test();
 
 ---
 
-### 14️⃣ What is the difference between global and block scope?
+### 13. 🟢 What is the difference between global and block scope?
 
 **🧠 Concept**
 
@@ -376,7 +378,7 @@ console.log(y); // ❌ ReferenceError
 
 ---
 
-### 15️⃣ What are Immediately Invoked Function Expressions (IIFEs)?
+### 14. 🟢 What are Immediately Invoked Function Expressions (IIFEs)?
 
 **🧠 Concept**
 
@@ -407,7 +409,7 @@ An IIFE runs immediately after it’s defined — often used to create private s
 
 ---
 
-### 16️⃣ What are arrow functions and how do they differ from regular functions?
+### 15. 🟢 What are arrow functions and how do they differ from regular functions?
 
 **🧠 Concept**
 
@@ -431,7 +433,7 @@ console.log(greet("Kamal"));
 
 ---
 
-### 17️⃣ What is destructuring assignment and when should you use it?
+### 16. 🟢 What is destructuring assignment and when should you use it?
 
 **🧠 Concept**
 
@@ -463,7 +465,7 @@ const { city = "Unknown" } = user;
 
 ---
 
-### 18️⃣ What are spread and rest operators?
+### 17. 🟢 What are spread and rest operators?
 
 **🧠 Concept**
 
@@ -496,7 +498,7 @@ console.log(sum(1, 2, 3)); // 6
 
 ---
 
-### 19️⃣ What is the difference between shallow and deep copies in JS?
+### 18. 🟢 What is the difference between shallow and deep copies in JS?
 
 **🧠 Concept**
 
@@ -527,7 +529,7 @@ console.log(deep.user.name); // "Kamal" ✅
 
 ---
 
-### 20️⃣ How does JavaScript handle type coercion?
+### 19. 🟢 How does JavaScript handle type coercion?
 
 **🧠 Concept**
 
@@ -549,7 +551,7 @@ console.log("5" + 2); // "52" (number  string)
 * `==` triggers coercion; `===` avoids it.
 * Always be aware of **implicit conversions** — they can lead to bugs.
 
-### 21️⃣ What are Symbols in ES6?
+### 20. 🟢 What are Symbols in ES6?
 
 **🧠 Concept**
 
@@ -577,7 +579,7 @@ console.log(user[id]); // 101
 
 ---
 
-### 22️⃣ What is the difference between mutable and immutable data types?
+### 21. 🟢 What is the difference between mutable and immutable data types?
 
 **🧠 Concept**
 
@@ -608,7 +610,7 @@ console.log(arr); // [1, 2, 3] ✅ mutable
 
 ---
 
-### 23️⃣ What are Tagged Template Literals?
+### 22. 🟢 What are Tagged Template Literals?
 
 **🧠 Concept**
 
@@ -637,7 +639,7 @@ console.log(highlight`My name is ${name} and I am ${age}.`);
 
 ---
 
-### 24️⃣ What is a module in ES6?
+### 23. 🟢 What is a module in ES6?
 
 **🧠 Concept**
 
@@ -668,7 +670,7 @@ console.log(add(2, 3)); // 5
 
 ---
 
-### 25️⃣ What are named vs default exports?
+### 24. 🟢 What are named vs default exports?
 
 **🧠 Concept**
 

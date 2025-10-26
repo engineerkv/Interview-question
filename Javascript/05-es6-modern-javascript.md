@@ -1,4 +1,6 @@
-# 🧩 ES6+ Features & Modern JavaScript — Q86-Q105
+# 💻 JavaScript Interview Notes (2025 Edition)
+
+## 🟠 Section 5 — ES6+ Features & Modern JavaScript — Q86-Q105
 
 ---
 
@@ -18,7 +20,7 @@
 
 ---
 
-## 1️⃣ What is the spread syntax and how does it differ from `Object.assign()`?
+### 86. 🟠 What is the spread syntax and how does it differ from `Object.assign()`?
 
 **🧠 Concept**
 
@@ -48,7 +50,7 @@ const obj3 = Object.assign({}, obj1, { c: 3 });
 
 ---
 
-## 2️⃣ What are arrow functions and when should you use them?
+### 87. 🟠 What are arrow functions and when should you use them?
 
 **🧠 Concept**
 
@@ -81,7 +83,7 @@ const add = (a, b) => {
 
 ---
 
-## 3️⃣ What is destructuring and how do you use it?
+### 88. 🟠 What is destructuring and how do you use it?
 
 **🧠 Concept**
 
@@ -110,7 +112,7 @@ const { user: { name, email } } = { user: { name: 'John', email: 'john@example.c
 
 ---
 
-## 4️⃣ What are template literals and tagged templates?
+### 89. 🟠 What are template literals and tagged templates?
 
 **🧠 Concept**
 
@@ -144,7 +146,7 @@ const result = highlight`Hello ${name}!`;
 
 ---
 
-## 5️⃣ What are default parameters and how do they work?
+### 90. 🟠 What are default parameters and how do they work?
 
 **🧠 Concept**
 
@@ -179,7 +181,7 @@ function log(message, timestamp = new Date().toISOString()) {
 
 ---
 
-## 6️⃣ What is the rest operator and how does it work?
+### 91. 🟠 What is the rest operator and how does it work?
 
 **🧠 Concept**
 
@@ -210,7 +212,7 @@ const { name, ...otherProps } = { name: 'John', age: 30, city: 'NYC' };
 
 ---
 
-## 7️⃣ What are Promises and how do they work?
+### 92. 🟠 What are Promises and how do they work?
 
 **🧠 Concept**
 
@@ -244,7 +246,7 @@ fetchData()
 
 ---
 
-## 8️⃣ What is async/await and how does it work?
+### 93. 🟠 What is async/await and how does it work?
 
 **🧠 Concept**
 
@@ -279,7 +281,7 @@ const user = await fetchUserData(123);
 
 ---
 
-## 9️⃣ What are classes and how do they work in JavaScript?
+### 94. 🟠 What are classes and how do they work in JavaScript?
 
 **🧠 Concept**
 

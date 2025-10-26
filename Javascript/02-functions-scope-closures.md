@@ -1,7 +1,11 @@
 
-### 🧠 2. Functions, Scope & Closures — Q26-Q45
+# 💻 JavaScript Interview Notes (2025 Edition)
 
-### 1️⃣ What are first-class functions in JavaScript?
+## 🟡 Section 2 — Functions, Scope & Closures — Q26-Q45
+
+---
+
+### 26. 🟡 What are first-class functions in JavaScript?
 
 **🧠 Concept**
 
@@ -27,7 +31,7 @@ This property makes higher-order functions, callbacks, and closures possible —
 
 ---
 
-### 2️⃣ What are higher-order functions?
+### 27. 🟡 What are higher-order functions?
 
 **🧠 Concept**
 
@@ -55,7 +59,7 @@ They make code **declarative** and **modular**.
 
 ---
 
-### 3️⃣ What is a closure in JavaScript?
+### 28. 🟡 What is a closure in JavaScript?
 
 **🧠 Concept**
 
@@ -95,7 +99,7 @@ Closures give **persistent state** without global variables — vital in React h
 
 ---
 
-### 4️⃣ How do closures help with data privacy?
+### 29. 🟡 How do closures help with data privacy?
 
 **🧠 Concept**
 
@@ -134,7 +138,7 @@ This is how JS mimics **private fields** before ES2022.
 
 ---
 
-### 5️⃣ What is the lexical environment?
+### 30. 🟡 What is the lexical environment?
 
 **🧠 Concept**
 
@@ -170,7 +174,7 @@ That’s why arrow functions preserve `this` context — they respect lexical sc
 
 ---
 
-### 6️⃣ What is the difference between function declaration and expression?
+### 31. 🟡 What is the difference between function declaration and expression?
 
 **🧠 Concept**
 
@@ -197,7 +201,7 @@ Expressions (and arrow functions) are **not callable before initialization**.
 
 ---
 
-### 7️⃣ What are pure and impure functions?
+### 32. 🟡 What are pure and impure functions?
 
 **🧠 Concept**
 
@@ -228,7 +232,7 @@ Pure functions are predictable, testable, and **core to functional programming**
 
 ---
 
-### 8️⃣ What is function currying?
+### 33. 🟡 What is function currying?
 
 **🧠 Concept**
 
@@ -264,7 +268,7 @@ Used in functional programming and frameworks (like Redux’s `compose`) to **pa
 
 ---
 
-### 9️⃣ What is partial application?
+### 34. 🟡 What is partial application?
 
 **🧠 Concept**
 

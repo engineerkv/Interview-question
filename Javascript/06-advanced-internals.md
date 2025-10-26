@@ -1,8 +1,10 @@
-# 🧩 Advanced JavaScript Internals — Q111-Q130
+# 💻 JavaScript Interview Notes (2025 Edition)
+
+## 🔴 Section 6 — Advanced JavaScript Internals — Q111-Q130
 
 ---
 
-## 1️⃣ What is the V8 JavaScript engine and how does it work?
+### 111. 🔴 What is the V8 JavaScript engine and how does it work?
 
 **🧠 Concept**
 

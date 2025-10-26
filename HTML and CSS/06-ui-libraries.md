@@ -1,6 +1,10 @@
-# 🔵 UI Libraries: Material UI & Styled Components (Questions 111–125)
+# 🎨 HTML & CSS Interview Notes (2025 Edition)
 
-## 111. What is Material UI (MUI), and how is it structured?
+## 🔵 Section 6 — UI Libraries: Material UI & Styled Components — Q111-Q125
+
+---
+
+### 111. 🔵 What is Material UI (MUI), and how is it structured?
 
 **🧠 Concept**
 

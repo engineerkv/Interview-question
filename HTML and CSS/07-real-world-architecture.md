@@ -1,6 +1,10 @@
-# ⚙️ Real-World CSS Architecture & Optimization (Questions 126–130)
+# 🎨 HTML & CSS Interview Notes (2025 Edition)
 
-## 126. How do you organize CSS in large-scale projects?
+## ⚙️ Section 7 — Real-World CSS Architecture & Optimization — Q126-Q130
+
+---
+
+### 126. ⚙️ How do you organize CSS in large-scale projects?
 
 **🧠 Concept**
 

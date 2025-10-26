@@ -1,6 +1,10 @@
-# 🟠 Tailwind CSS (Questions 91–110)
+# 🎨 HTML & CSS Interview Notes (2025 Edition)
 
-## 91. What is Tailwind CSS, and why is it popular?
+## 🟠 Section 5 — Tailwind CSS — Q91-Q110
+
+---
+
+### 91. 🟠 What is Tailwind CSS, and why is it popular?
 
 **🧠 Concept**
 
@@ -31,7 +35,7 @@ Tailwind CSS is a utility-first CSS framework that provides small utility classe
 
 ---
 
-## 92. How does Tailwind differ from traditional CSS frameworks like Bootstrap?
+### 92. 🟠 How does Tailwind differ from traditional CSS frameworks like Bootstrap?
 
 **🧠 Concept**
 
@@ -68,7 +72,7 @@ Bootstrap offers ready-made components with limited customization, while Tailwin
 
 ---
 
-## 93. How do you install and configure Tailwind in a React/Next.js app?
+### 93. 🟠 How do you install and configure Tailwind in a React/Next.js app?
 
 **🧠 Concept**
 
@@ -116,7 +120,7 @@ Tailwind scans your files for class usage and only includes the CSS for classes 
 
 ---
 
-## 94. What is JIT (Just-In-Time) mode in Tailwind?
+### 94. 🟠 What is JIT (Just-In-Time) mode in Tailwind?
 
 **🧠 Concept**
 
@@ -148,7 +152,7 @@ JIT mode eliminates the need to pre-configure every possible value, enables arbi
 
 ---
 
-## 95. How do responsive classes (sm:, md:, lg:) work in Tailwind?
+### 95. 🟠 How do responsive classes (sm:, md:, lg:) work in Tailwind?
 
 **🧠 Concept**
 
@@ -185,7 +189,7 @@ Tailwind's responsive system uses `min-width` media queries. The default breakpo
 
 ---
 
-## 96. How do you customize breakpoints in Tailwind?
+### 96. 🟠 How do you customize breakpoints in Tailwind?
 
 **🧠 Concept**
 
@@ -231,7 +235,7 @@ Custom breakpoints should be added to the `extend` object to preserve default br
 
 ---
 
-## 97. What are pseudo-class variants (hover:, focus:)?
+### 97. 🟠 What are pseudo-class variants (hover:, focus:)?
 
 **🧠 Concept**
 
@@ -269,7 +273,7 @@ Tailwind includes many pseudo-class variants: `hover:`, `focus:`, `active:`, `di
 
 ---
 
-## 98. How do you enable dark mode in Tailwind (class vs media)?
+### 98. 🟠 How do you enable dark mode in Tailwind (class vs media)?
 
 **🧠 Concept**
 
@@ -311,7 +315,7 @@ function toggleDarkMode() {
 
 ---
 
-## 99. What is the purpose of tailwind.config.js?
+### 99. 🟠 What is the purpose of tailwind.config.js?
 
 **🧠 Concept**
 

@@ -1,8 +1,10 @@
-# 🧩 Advanced & Architectural JavaScript Topics — Q166-Q175
+# 💻 JavaScript Interview Notes (2025 Edition)
+
+## 🔵 Section 9 — Advanced & Architectural JavaScript Topics — Q166-Q175
 
 ---
 
-## 1️⃣ Event Delegation — Why and How?
+### 166. 🔵 Event Delegation — Why and How?
 
 **🧠 Concept**
 
