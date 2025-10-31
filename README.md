@@ -18,6 +18,7 @@ Comprehensive interview materials for modern web development technologies with d
 | **Node.js & Express** | 100 | 10 | ✅ |
 | **Backend System Design** | 70 | 6 | ✅ |
 | **Frontend System Design** | 80 | 7 | ✅ |
+| **DSA (Top Interview 150)** | 150 | 1 | ✅ |
 
 ## 🛤️ Learning Paths
 
@@ -57,8 +58,64 @@ Interview-question/
 ├── Next/               # 60 questions, 6 sections
 ├── Node-Express/       # 100 questions, 10 sections
 ├── BE-System-Design/   # 70 questions, 6 sections
-└── FE-System-Design/   # 80 questions, 7 sections
+├── FE-System-Design/   # 80 questions, 7 sections
+└── DSA/
+    └── Top-Interview-150/
 ```
+
+## 📂 File Locations
+
+### Frontend (FE)
+- **HTML**: `FE/HTML/`
+  - Questions: `FE/HTML/question.md`
+  - Cheatsheet: `FE/HTML/HTML Interview Cheatsheet.md`
+- **CSS**: `FE/CSS/`
+  - Questions: `FE/CSS/question.md`
+  - Cheatsheet: `FE/CSS/CSS Interview Cheatsheet.md`
+- **JavaScript**: `FE/Javascript/`
+  - Questions: `FE/Javascript/question.md`
+  - Cheatsheet: `FE/Javascript/JavaScript Interview Cheatsheet.md`
+- **TypeScript**: `FE/Typescript/` (7 docs)
+- **React**: `FE/React/` (12 docs)
+- **React Native**: `FE/React-Native/` (12 docs)
+- **Next.js**: `FE/Next/` (8 docs)
+- **Frontend System Design**: `FE/FE-System-Design/`
+  - Questions: `FE/FE-System-Design/question.md`
+  - Cheatsheet: `FE/FE-System-Design/FE-System-Design Interview Cheatsheet.md`
+
+### Backend (BE)
+- **SQL**: `BE/Sql/`
+  - Questions: `BE/Sql/question.md`
+  - Cheatsheet: `BE/Sql/SQL Interview Cheatsheet.md`
+- **NoSQL (MongoDB)**: `BE/No-Sql/`
+  - Questions: `BE/No-Sql/question.md`
+  - Cheatsheet: `BE/No-Sql/MongoDB Interview Cheatsheet.md`
+- **Node.js & Express**: `BE/Node-Express/`
+  - Questions: `BE/Node-Express/question.md`
+  - Cheatsheet: `BE/Node-Express/Node-Express Interview Cheatsheet.md`
+- **Backend System Design**: `BE/BE-System-Design/`
+  - Questions: `BE/BE-System-Design/question.md`
+  - Cheatsheet: `BE/BE-System-Design/BE-System-Design Interview Cheatsheet.md`
+
+### DSA
+- **Top Interview 150**: `DSA/Top-Interview-150/`
+  - Overview: `DSA/Top-Interview-150/README.md`
+  - Tracker: `DSA/Top-Interview-150/question.md`
+
+#### DSA Index
+- `DSA/question.md` — Master Top 150 list (by topic)
+- `DSA/1) Arrays.md`
+- `DSA/2) Strings.md`
+- `DSA/3) Linked List.md`
+- `DSA/4) Stacks & Queues.md`
+- `DSA/5) Binary Trees.md`
+- `DSA/6) Binary Search Tree.md`
+- `DSA/7) Heaps & Priority Queue.md`
+- `DSA/8) Graphs.md`
+- `DSA/9) Dynamic Programming.md`
+- `DSA/10) Recursion & Backtracking.md`
+- `DSA/11) Bonus Concepts.md`
+- Cheatsheet: `DSA/DSA Interview Cheatsheet.md`
 
 ## 💡 Answer Format
 
