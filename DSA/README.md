@@ -61,22 +61,22 @@ Follow this order for optimal learning progression:
 
 | Category | Range | Count | File |
 |----------|-------|-------|------|
-| Arrays | Q1-Q25 | 25 | `1) Arrays.md` |
-| Strings | Q26-Q44 | 19 | `2) Strings.md` |
-| Linked List | Q45-Q63 | 19 | `3) Linked List.md` |
-| Stacks & Queues | Q64-Q75 | 12 | `4) Stacks & Queues.md` |
-| Binary Trees | Q76-Q95 | 20 | `5) Binary Trees.md` |
-| Binary Search Tree | Q96-Q105 | 10 | `6) Binary Search Tree.md` |
-| Heaps & Priority Queue | Q106-Q117 | 12 | `7) Heaps & Priority Queue.md` |
-| Graphs | Q118-Q140 | 23 | `8) Graphs.md` |
-| Dynamic Programming | Q141-Q165 | 25 | `9) Dynamic Programming.md` |
-| Recursion & Backtracking | Q166-Q175 | 10 | `10) Recursion & Backtracking.md` |
-| Matrix | Q176-Q180 | 5 | `12) Matrix.md` |
-| Trie | Q181-Q183 | 3 | `13) Trie.md` |
-| Binary Search | Q184-Q190 | 7 | `14) Binary Search.md` |
-| Bit Manipulation | Q191-Q196 | 6 | `15) Bit Manipulation.md` |
-| Math | Q197-Q202 | 6 | `16) Math.md` |
-| **Total** | **Q1-Q202** | **202** | |
+| Arrays | Q1-Q33 | 33 | `1) Arrays.md` |
+| Strings | Q34-Q55 | 22 | `2) Strings.md` |
+| Linked List | Q56-Q74 | 19 | `3) Linked List.md` |
+| Stacks & Queues | Q75-Q86 | 12 | `4) Stacks & Queues.md` |
+| Binary Trees | Q87-Q113 | 27 | `5) Binary Trees.md` |
+| Binary Search Tree | Q114-Q123 | 10 | `6) Binary Search Tree.md` |
+| Heaps & Priority Queue | Q124-Q135 | 12 | `7) Heaps & Priority Queue.md` |
+| Graphs | Q136-Q159 | 24 | `8) Graphs.md` |
+| Dynamic Programming | Q160-Q192 | 33 | `9) Dynamic Programming.md` |
+| Recursion & Backtracking | Q193-Q202 | 10 | `10) Recursion & Backtracking.md` |
+| Matrix | Q203-Q207 | 5 | `12) Matrix.md` |
+| Trie | Q208-Q210 | 3 | `13) Trie.md` |
+| Binary Search | Q211-Q217 | 7 | `14) Binary Search.md` |
+| Bit Manipulation | Q218-Q223 | 6 | `15) Bit Manipulation.md` |
+| Math | Q224-Q229 | 6 | `16) Math.md` |
+| **Total** | **Q1-Q229** | **229** | |
 
 ## 📖 How to Use This Repository
 
@@ -94,7 +94,7 @@ Follow this order for optimal learning progression:
 
 ## 🎯 Key Features
 
-- ✅ **177+ Problems** with detailed solutions
+- ✅ **229 Problems** with detailed solutions
 - ✅ **Consistent Format** across all problems
 - ✅ **Meaningful Variable Names** for clarity
 - ✅ **DP Solutions** use explicit arrays (not space-optimized)

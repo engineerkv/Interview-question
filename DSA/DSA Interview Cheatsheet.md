@@ -5,22 +5,22 @@ Quick reference for common DSA patterns and templates. Follow the preparation or
 ## 📚 Problem Ranges by Category
 
 - **Arrays**: Q1-Q33 (33 problems)
-- **Strings**: Q16-Q37 (22 problems)
-- **Linked List**: Q31-Q49 (19 problems)
-- **Stacks & Queues**: Q46-Q57 (12 problems)
-- **Binary Trees**: Q56-Q82 (27 problems)
-- **Binary Search Tree**: Q76-Q85 (10 problems)
-- **Heaps & Priority Queue**: Q86-Q97 (12 problems)
-- **Graphs**: Q96-Q119 (24 problems)
-- **Dynamic Programming**: Q116-Q148 (33 problems)
-- **Recursion & Backtracking**: Q141-Q150 (10 problems)
-- **Matrix**: Q151-Q155 (5 problems)
-- **Trie**: Q156-Q158 (3 problems)
-- **Binary Search**: Q159-Q165 (7 problems)
-- **Bit Manipulation**: Q166-Q171 (6 problems)
-- **Math**: Q172-Q177 (6 problems)
+- **Strings**: Q34-Q55 (22 problems)
+- **Linked List**: Q56-Q74 (19 problems)
+- **Stacks & Queues**: Q75-Q86 (12 problems)
+- **Binary Trees**: Q87-Q113 (27 problems)
+- **Binary Search Tree**: Q114-Q123 (10 problems)
+- **Heaps & Priority Queue**: Q124-Q135 (12 problems)
+- **Graphs**: Q136-Q159 (24 problems)
+- **Dynamic Programming**: Q160-Q192 (33 problems)
+- **Recursion & Backtracking**: Q193-Q202 (10 problems)
+- **Matrix**: Q203-Q207 (5 problems)
+- **Trie**: Q208-Q210 (3 problems)
+- **Binary Search**: Q211-Q217 (7 problems)
+- **Bit Manipulation**: Q218-Q223 (6 problems)
+- **Math**: Q224-Q229 (6 problems)
 
-**Total: 229 problems (Q1-Q177 + specialized)**
+**Total: 229 problems (Q1-Q229)**
 
 ---
 

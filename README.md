@@ -18,7 +18,7 @@ Comprehensive interview materials for modern web development technologies with d
 | **Node.js & Express** | 100 | 10 | ✅ |
 | **Backend System Design** | 70 | 6 | ✅ |
 | **Frontend System Design** | 80 | 7 | ✅ |
-| **DSA (Top Interview 150)** | 150 | 1 | ✅ |
+| **DSA (Top Interview 150+)** | 229 | 15 | ✅ |
 
 ## 🛤️ Learning Paths
 
@@ -59,8 +59,7 @@ Interview-question/
 ├── Node-Express/       # 100 questions, 10 sections
 ├── BE-System-Design/   # 70 questions, 6 sections
 ├── FE-System-Design/   # 80 questions, 7 sections
-└── DSA/
-    └── Top-Interview-150/
+└── DSA/              # 229 problems, 15 sections
 ```
 
 ## 📂 File Locations
@@ -98,24 +97,26 @@ Interview-question/
   - Cheatsheet: `BE/BE-System-Design/BE-System-Design Interview Cheatsheet.md`
 
 ### DSA
-- **Top Interview 150**: `DSA/Top-Interview-150/`
-  - Overview: `DSA/Top-Interview-150/README.md`
-  - Tracker: `DSA/Top-Interview-150/question.md`
+- **Overview**: `DSA/README.md`
+- **Tracker**: `DSA/question.md`
+- **Cheatsheet**: `DSA/DSA Interview Cheatsheet.md`
 
-#### DSA Index
-- `DSA/question.md` — Master Top 150 list (by topic)
-- `DSA/1) Arrays.md`
-- `DSA/2) Strings.md`
-- `DSA/3) Linked List.md`
-- `DSA/4) Stacks & Queues.md`
-- `DSA/5) Binary Trees.md`
-- `DSA/6) Binary Search Tree.md`
-- `DSA/7) Heaps & Priority Queue.md`
-- `DSA/8) Graphs.md`
-- `DSA/9) Dynamic Programming.md`
-- `DSA/10) Recursion & Backtracking.md`
-- `DSA/11) Bonus Concepts.md`
-- Cheatsheet: `DSA/DSA Interview Cheatsheet.md`
+#### DSA Index (229 Problems)
+- `DSA/1) Arrays.md` - Q1-Q33 (33 problems)
+- `DSA/2) Strings.md` - Q34-Q55 (22 problems)
+- `DSA/3) Linked List.md` - Q56-Q74 (19 problems)
+- `DSA/4) Stacks & Queues.md` - Q75-Q86 (12 problems)
+- `DSA/5) Binary Trees.md` - Q87-Q113 (27 problems)
+- `DSA/6) Binary Search Tree.md` - Q114-Q123 (10 problems)
+- `DSA/7) Heaps & Priority Queue.md` - Q124-Q135 (12 problems)
+- `DSA/8) Graphs.md` - Q136-Q159 (24 problems)
+- `DSA/9) Dynamic Programming.md` - Q160-Q192 (33 problems)
+- `DSA/10) Recursion & Backtracking.md` - Q193-Q202 (10 problems)
+- `DSA/12) Matrix.md` - Q203-Q207 (5 problems)
+- `DSA/13) Trie.md` - Q208-Q210 (3 problems)
+- `DSA/14) Binary Search.md` - Q211-Q217 (7 problems)
+- `DSA/15) Bit Manipulation.md` - Q218-Q223 (6 problems)
+- `DSA/16) Math.md` - Q224-Q229 (6 problems)
 
 ## 💡 Answer Format
 
@@ -125,10 +126,11 @@ Interview-question/
 
 ## 📊 Stats
 
-- **965+ Questions** across 12 tech stacks
-- **90+ Answer Files** with complete explanations
-- **12 Cheatsheets** for quick reference
-- **1000+ Code Examples** following best practices
+- **1194+ Questions** across 13 tech stacks
+- **100+ Answer Files** with complete explanations
+- **13 Cheatsheets** for quick reference
+- **1200+ Code Examples** following best practices
+- **229 DSA Problems** with detailed solutions and insights
 
 ---
 

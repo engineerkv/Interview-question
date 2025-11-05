@@ -1,35 +1,33 @@
-# 🧰 8. Practical JavaScript Questions (Q78–109)
+# 🧰 8. Practical JavaScript Questions (Q82–110)
 
 ---
 
-## 78) Implement function currying manually.
+## 82) Write a debounce function.
 
-Concept:
-Currying transforms a multi-argument function into a chain of single-argument functions.
+Debouncing delays function execution until after a period of inactivity, preventing rapid repeated calls.
 
-Example:
 ```js
-const curry = fn => (...args) =>
-  args.length >= fn.length ? fn(...args) : (...more) => curry(fn)(...args, ...more);
-const add = (a, b, c) => a + b + c;
-curry(add)(1)(2)(3); // 6
+const debounce = (fn, delay) => {
+  let timeoutId;
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn(...args), delay);
+  };
+};
 ```
 
-Deep Insight:
-- Check arity (`fn.length`) to determine when to execute
-- Return new curried function for partial application
-- Preserve `this` context if needed
-- Useful for partial application and composition
-- Consider placeholder support for advanced use cases
+- **Core Logic**: Clear previous timeout on each call, only execute after delay period of inactivity
+- **Real-World Use**: Useful for search inputs and resize events
+- **Common Mistake**: Not returning cleanup function for manual cancellation
+- **Advanced Feature**: Consider immediate execution option for first call
+- **Interview Tip**: Explain that debounce prevents rapid repeated function calls
 
 ---
 
-## 79) Write a custom `bind()` polyfill.
+## 83) Write a custom `bind()` polyfill.
 
-Concept:
 `bind()` creates a new function with `this` bound and optional partial arguments.
 
-Example:
 ```js
 Function.prototype.bind = function(context, ...args) {
   const fn = this;
@@ -39,30 +37,25 @@ Function.prototype.bind = function(context, ...args) {
 };
 ```
 
-Deep Insight:
-- Store original function and bound context
-- Return new function that calls original with `apply`
-- Merge bound arguments with new arguments
-- Preserve function properties if needed
-- Handle edge cases like `new` operator
+- **Core Logic**: Store original function and bound context, return new function that calls original with `apply`
+- **Real-World Use**: Merge bound arguments with new arguments
+- **Common Mistake**: Not preserving function properties or handling edge cases like `new` operator
+- **Advanced Feature**: Handle edge cases like `new` operator
+- **Interview Tip**: Explain that bind enables partial application and context binding
 
 ---
 
-## 80) Implement your own `Promise.all()` polyfill.
+## 84) Implement your own `Promise.all()` polyfill.
 
-Concept:
 `Promise.all()` resolves when all promises fulfill or rejects on first failure.
 
-Example:
 ```js
 Promise.all = function(promises) {
   return new Promise((resolve, reject) => {
-    const results = [];
-    let completed = 0;
+    const results = []; let completed = 0;
     promises.forEach((p, i) => {
       Promise.resolve(p).then(val => {
-        results[i] = val;
-        completed++;
+        results[i] = val; completed++;
         if (completed === promises.length) resolve(results);
       }).catch(reject);
     });
@@ -70,45 +63,18 @@ Promise.all = function(promises) {
 };
 ```
 
-Deep Insight:
-- Handle non-promise values with `Promise.resolve`
-- Preserve order of results array
-- Reject immediately on first failure
-- Count completions to know when done
-- Return empty array for empty input
+- **Core Logic**: Handle non-promise values with `Promise.resolve`, preserve order of results array
+- **Real-World Use**: Reject immediately on first failure, count completions to know when done
+- **Common Mistake**: Not handling empty input (return empty array)
+- **Optimization**: Return empty array for empty input
+- **Interview Tip**: Explain that Promise.all is fail-fast on first rejection
 
 ---
 
-## 81) Write a debounce function.
+## 85) Write a throttle function.
 
-Concept:
-Debounce delays function execution until after a specified time has passed since last call.
-
-Example:
-```js
-const debounce = (fn, delay) => {
-  let timeoutId;
-  return (...args) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn(...args), delay);
-  };
-```
-
-Deep Insight:
-- Clear previous timeout on each call
-- Only execute after delay period of inactivity
-- Useful for search inputs and resize events
-- Consider immediate execution option
-- Return cleanup function for manual cancellation
-
----
-
-## 82) Write a throttle function.
-
-Concept:
 Throttle limits function execution to once per specified time period.
 
-Example:
 ```js
 const throttle = (fn, delay) => {
   let lastCall = 0;
@@ -122,68 +88,36 @@ const throttle = (fn, delay) => {
 };
 ```
 
-Deep Insight:
-- Track last execution time
-- Execute immediately if enough time passed
-- Drop calls that come too soon
-- Useful for scroll and mouse move events
-- Consider leading/trailing edge options
+- **Core Logic**: Track last execution time, execute immediately if enough time passed
+- **Real-World Use**: Drop calls that come too soon, useful for scroll and mouse move events
+- **Common Mistake**: Not considering leading/trailing edge options
+- **Advanced Feature**: Consider leading/trailing edge options for different behaviors
+- **Interview Tip**: Explain that throttle guarantees execution at most once per period
 
 ---
 
-## 83) Flatten a deeply nested array.
+## 86) Flatten a deeply nested array.
 
-Concept:
 Recursively flatten arrays to any depth, handling nested structures.
 
-Example:
 ```js
 const flatten = arr => arr.reduce((acc, val) => 
   Array.isArray(val) ? acc.concat(flatten(val)) : acc.concat(val), []);
 flatten([1, [2, [3, 4]], 5]); // [1, 2, 3, 4, 5]
 ```
 
-Deep Insight:
-- Use recursion to handle arbitrary depth
-- Check `Array.isArray` for nested arrays
-- Use `reduce` for functional approach
-- Consider depth limit to prevent stack overflow
-- Handle edge cases like empty arrays
+- **Core Logic**: Use recursion to handle arbitrary depth, check `Array.isArray` for nested arrays
+- **Real-World Use**: Use `reduce` for functional approach
+- **Common Mistake**: Not considering depth limit to prevent stack overflow
+- **Optimization**: Handle edge cases like empty arrays
+- **Interview Tip**: Explain that recursive approach handles any nesting depth
 
 ---
 
-## 84) Implement a deep clone function without JSON.
+## 87) Memoize a given function to cache results.
 
-Concept:
-Recursively clone objects and arrays, handling different data types appropriately.
-
-Example:
-```js
-const deepClone = obj => {
-  if (obj === null || typeof obj !== 'object') return obj;
-  if (obj instanceof Date) return new Date(obj);
-  if (obj instanceof Array) return obj.map(deepClone);
-  return Object.fromEntries(
-    Object.entries(obj).map(([k, v]) => [k, deepClone(v)])
-  );
-};
-```
-
-Deep Insight:
-- Handle primitives, dates, arrays, and objects
-- Use `Object.fromEntries` for object cloning
-- Watch for circular references (use WeakMap)
-- Preserve constructor chains when possible
-- Consider `structuredClone` for modern environments
-
----
-
-## 85) Memoize a given function to cache results.
-
-Concept:
 Memoization caches function results based on arguments to avoid repeated computation.
 
-Example:
 ```js
 const memoize = fn => {
   const cache = new Map();
@@ -197,21 +131,18 @@ const memoize = fn => {
 };
 ```
 
-Deep Insight:
-- Use Map for O(1) cache lookups
-- Serialize arguments for cache keys
-- Consider memory limits and cache eviction
-- Works best with pure functions
-- Handle edge cases like circular references
+- **Core Logic**: Use Map for O(1) cache lookups, serialize arguments for cache keys
+- **Real-World Use**: Works best with pure functions
+- **Common Mistake**: Not considering memory limits and cache eviction
+- **Advanced Feature**: Handle edge cases like circular references
+- **Interview Tip**: Explain that memoization improves performance for expensive computations
 
 ---
 
-## 86) Implement a custom event emitter (pub/sub).
+## 88) Implement a custom event emitter (pub/sub).
 
-Concept:
 Event emitter allows objects to subscribe to and emit events with data.
 
-Example:
 ```js
 class EventEmitter {
   constructor() { this.events = {}; }
@@ -221,21 +152,18 @@ class EventEmitter {
 }
 ```
 
-Deep Insight:
-- Store event handlers in object/Map
-- Support multiple listeners per event
-- Provide `on`, `emit`, and `off` methods
-- Consider `once` method for single-use listeners
-- Handle error cases and edge scenarios
+- **Core Design**: Store event handlers in object/Map, support multiple listeners per event
+- **Real-World Use**: Provide `on`, `emit`, and `off` methods
+- **Common Mistake**: Not handling error cases and edge scenarios
+- **Advanced Feature**: Consider `once` method for single-use listeners
+- **Interview Tip**: Explain that event emitters enable decoupled communication
 
 ---
 
-## 87) Implement a retry mechanism for a failed promise.
+## 89) Implement a retry mechanism for a failed promise.
 
-Concept:
 Retry failed operations with exponential backoff and maximum attempt limits.
 
-Example:
 ```js
 const retry = (fn, maxAttempts = 3, delay = 1000) => 
   fn().catch(err => 
@@ -247,21 +175,18 @@ const retry = (fn, maxAttempts = 3, delay = 1000) =>
   );
 ```
 
-Deep Insight:
-- Use exponential backoff to prevent thundering herd
-- Add jitter to distribute retry timing
-- Consider circuit breakers for cascading failures
-- Log retries for observability
-- Set reasonable limits to avoid infinite loops
+- **Core Strategy**: Use exponential backoff to prevent thundering herd
+- **Real-World Use**: Add jitter to distribute retry timing, consider circuit breakers for cascading failures
+- **Common Mistake**: Not setting reasonable limits to avoid infinite loops
+- **Advanced Feature**: Log retries for observability
+- **Interview Tip**: Explain that retry improves reliability for transient failures
 
 ---
 
-## 88) Write a function to compose multiple functions (`compose(f,g,h)` style).
+## 90) Write a function to compose multiple functions (`compose(f,g,h)` style).
 
-Concept:
 Function composition applies functions from right to left, creating a pipeline.
 
-Example:
 ```js
 const compose = (...fns) => x => fns.reduceRight((acc, fn) => fn(acc), x);
 const add1 = x => x + 1;
@@ -269,21 +194,18 @@ const double = x => x * 2;
 compose(console.log, add1, double)(5); // 11
 ```
 
-Deep Insight:
-- Use `reduceRight` for right-to-left application
-- Each function receives result of previous
-- Great for data transformation pipelines
-- Consider `pipe` (left-to-right) alternative
-- Works well with curried functions
+- **Core Logic**: Use `reduceRight` for right-to-left application, each function receives result of previous
+- **Real-World Use**: Great for data transformation pipelines
+- **Common Mistake**: Not considering `pipe` (left-to-right) alternative
+- **Advanced Feature**: Works well with curried functions
+- **Interview Tip**: Explain that composition enables functional programming patterns
 
 ---
 
-## 89) Implement a custom `map()` method for arrays.
+## 91) Implement a custom `map()` method for arrays.
 
-Concept:
 `map()` creates new array by applying function to each element.
 
-Example:
 ```js
 Array.prototype.map = function(fn, thisArg) {
   const result = [];
@@ -294,21 +216,18 @@ Array.prototype.map = function(fn, thisArg) {
 };
 ```
 
-Deep Insight:
-- Create new array, don't modify original
-- Pass element, index, and array to callback
-- Handle sparse arrays correctly
-- Support `thisArg` for context binding
-- Consider edge cases like undefined elements
+- **Core Logic**: Create new array, don't modify original, pass element, index, and array to callback
+- **Real-World Use**: Handle sparse arrays correctly, support `thisArg` for context binding
+- **Common Mistake**: Not considering edge cases like undefined elements
+- **Optimization**: Consider edge cases like undefined elements
+- **Interview Tip**: Explain that map creates new array without mutating original
 
 ---
 
-## 90) Implement a `once()` function that executes only once.
+## 92) Implement a `once()` function that executes only once.
 
-Concept:
 `once()` ensures a function can only be called once, returning the same result on subsequent calls.
 
-Example:
 ```js
 const once = fn => {
   let called = false, result;
@@ -322,21 +241,18 @@ const once = fn => {
 };
 ```
 
-Deep Insight:
-- Track if function has been called
-- Cache result for subsequent calls
-- Useful for initialization and setup
-- Consider error handling for failed calls
-- Works with both sync and async functions
+- **Core Logic**: Track if function has been called, cache result for subsequent calls
+- **Real-World Use**: Useful for initialization and setup
+- **Common Mistake**: Not considering error handling for failed calls
+- **Advanced Feature**: Works with both sync and async functions
+- **Interview Tip**: Explain that once prevents duplicate initialization or setup
 
 ---
 
-## 91) Convert callback-based code to a promise-based version.
+## 93) Convert callback-based code to a promise-based version.
 
-Concept:
 Wrap callback-based functions in promises using the Promise constructor.
 
-Example:
 ```js
 const readFile = path => new Promise((resolve, reject) => {
   fs.readFile(path, (err, data) => {
@@ -346,77 +262,61 @@ const readFile = path => new Promise((resolve, reject) => {
 });
 ```
 
-Deep Insight:
-- Use Promise constructor for one-time operations
-- Handle both success and error cases
-- Consider promisify utilities for Node.js
-- Maintain same error handling patterns
-- Test thoroughly with edge cases
+- **Core Strategy**: Use Promise constructor for one-time operations, handle both success and error cases
+- **Real-World Use**: Consider promisify utilities for Node.js
+- **Common Mistake**: Not maintaining same error handling patterns
+- **Advanced Feature**: Test thoroughly with edge cases
+- **Interview Tip**: Explain that promises improve async code readability
 
 ---
 
-## 92) Write a function to limit the number of concurrent promises.
+## 94) Write a function to limit the number of concurrent promises.
 
-Concept:
 Control concurrency by limiting how many promises can run simultaneously.
 
-Example:
 ```js
 const limitConcurrency = (tasks, limit) => {
-  const results = [];
-  let running = 0, index = 0;
+  const results = []; let running = 0, index = 0;
   return new Promise(resolve => {
     const runNext = () => {
       if (index >= tasks.length && running === 0) return resolve(results);
       if (running >= limit || index >= tasks.length) return;
-      running++;
-      const task = tasks[index++];
-      task().then(result => {
-        results[index - 1] = result;
-        running--;
-        runNext();
-      });
-    };
-    runNext();
+      running++; const task = tasks[index++];
+      task().then(result => { results[index - 1] = result; running--; runNext(); });
+    }; runNext();
   });
 };
 ```
 
-Deep Insight:
-- Track running and completed tasks
-- Queue tasks when limit reached
-- Preserve result order in output array
-- Handle errors appropriately
-- Useful for API rate limiting
+- **Core Strategy**: Track running and completed tasks, queue tasks when limit reached
+- **Real-World Use**: Preserve result order in output array, useful for API rate limiting
+- **Common Mistake**: Not handling errors appropriately
+- **Optimization**: Handle errors appropriately
+- **Interview Tip**: Explain that concurrency limiting prevents resource exhaustion
 
 ---
 
-## 93) Write a function that returns a promise resolved after a delay.
+## 95) Write a function that returns a promise resolved after a delay.
 
-Concept:
 Create a promise that resolves after a specified time delay.
 
-Example:
 ```js
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 delay(1000).then(() => console.log('1 second later'));
 ```
 
-Deep Insight:
-- Use `setTimeout` with Promise constructor
-- Return promise for chaining
-- Useful for testing and rate limiting
-- Consider cancellation with AbortController
-- Can be used with async/await
+- **Core Logic**: Use `setTimeout` with Promise constructor, return promise for chaining
+- **Real-World Use**: Useful for testing and rate limiting
+- **Common Mistake**: Not considering cancellation with AbortController
+- **Advanced Feature**: Can be used with async/await
+- **Interview Tip**: Explain that delay is useful for testing and timing control
 
 ---
 
-## 94) Implement a chainable calculator API (`calc.add(5).multiply(2).value()`).
+## 96) Implement a chainable calculator API (`calc.add(5).multiply(2).value()`).
 
-Concept:
 Create a fluent interface where methods return the object for chaining.
 
-Example:
 ```js
 const calc = {
   value: 0,
@@ -427,21 +327,18 @@ const calc = {
 calc.add(5).multiply(2).getValue(); // 10
 ```
 
-Deep Insight:
-- Return `this` from methods for chaining
-- Store state in the object
-- Use getter for final value access
-- Consider immutable alternatives
-- Great for builder patterns
+- **Core Pattern**: Return `this` from methods for chaining, store state in the object
+- **Real-World Use**: Use getter for final value access, great for builder patterns
+- **Common Mistake**: Not considering immutable alternatives
+- **Advanced Feature**: Consider immutable alternatives
+- **Interview Tip**: Explain that method chaining enables fluent APIs
 
 ---
 
-## 95) Implement a simple version of `setInterval` using `setTimeout`.
+## 97) Implement a simple version of `setInterval` using `setTimeout`.
 
-Concept:
 Use recursive `setTimeout` calls to create interval-like behavior.
 
-Example:
 ```js
 const setInterval = (fn, delay) => {
   const run = () => {
@@ -452,21 +349,18 @@ const setInterval = (fn, delay) => {
 };
 ```
 
-Deep Insight:
-- Recursive calls create repeating behavior
-- Return cleanup function for cancellation
-- More flexible than native `setInterval`
-- Consider drift correction for precise timing
-- Handle errors to prevent stopping
+- **Core Logic**: Recursive calls create repeating behavior, return cleanup function for cancellation
+- **Real-World Use**: More flexible than native `setInterval`
+- **Common Mistake**: Not considering drift correction for precise timing
+- **Advanced Feature**: Handle errors to prevent stopping
+- **Interview Tip**: Explain that recursive setTimeout is more flexible than setInterval
 
 ---
 
-## 96) Write a function to shuffle an array randomly.
+## 98) Write a function to shuffle an array randomly.
 
-Concept:
 Randomly reorder array elements using Fisher-Yates shuffle algorithm.
 
-Example:
 ```js
 const shuffle = arr => {
   const result = [...arr];
@@ -474,23 +368,22 @@ const shuffle = arr => {
     const j = Math.floor(Math.random() * (i + 1));
     [result[i], result[j]] = [result[j], result[i]];
   }
+  return result;
+};
 ```
 
-Deep Insight:
-- Use Fisher-Yates for uniform distribution
-- Work backwards through array
-- Swap elements randomly
-- Create copy to avoid mutating original
-- Consider seeded random for testing
+- **Core Algorithm**: Use Fisher-Yates for uniform distribution, work backwards through array
+- **Real-World Use**: Swap elements randomly, create copy to avoid mutating original
+- **Common Mistake**: Not creating copy, mutating original array
+- **Advanced Feature**: Consider seeded random for testing
+- **Interview Tip**: Explain that Fisher-Yates ensures uniform random distribution
 
 ---
 
-## 97) Implement your own version of `debounce + immediate` combined logic.
+## 99) Implement your own version of `debounce + immediate` combined logic.
 
-Concept:
 Combine debounce with immediate execution option for first call.
 
-Example:
 ```js
 const debounceImmediate = (fn, delay, immediate = false) => {
   let timeoutId;
@@ -506,133 +399,84 @@ const debounceImmediate = (fn, delay, immediate = false) => {
 };
 ```
 
-Deep Insight:
-- Execute immediately on first call if enabled
-- Clear timeout on subsequent calls
-- Reset timeout flag after execution
-- Useful for search with immediate feedback
-- Consider both leading and trailing options
+- **Core Logic**: Execute immediately on first call if enabled, clear timeout on subsequent calls
+- **Real-World Use**: Reset timeout flag after execution, useful for search with immediate feedback
+- **Common Mistake**: Not considering both leading and trailing options
+- **Advanced Feature**: Consider both leading and trailing options
+- **Interview Tip**: Explain that immediate option provides instant feedback
 
 ---
 
-## 98) How do you implement useMemo from scratch?
+## 100) How do you implement useMemo from scratch?
 
-Concept:
 `useMemo` caches the result of a computation and only recalculates when dependencies change.
 
-Example:
 ```js
 const useMemo = (computeFn, deps) => {
   const [memoizedValue, setMemoizedValue] = useState(() => computeFn());
   const [prevDeps, setPrevDeps] = useState(deps);
-  
   useEffect(() => {
     const hasChanged = !deps || deps.some((dep, i) => dep !== prevDeps[i]);
-    if (hasChanged) {
-      setMemoizedValue(computeFn());
-      setPrevDeps(deps);
-    }
+    if (hasChanged) { setMemoizedValue(computeFn()); setPrevDeps(deps); }
   }, deps);
-  
   return memoizedValue;
 };
 ```
 
-Deep Insight:
-- Store previous dependencies for comparison
-- Only recalculate when dependencies change
-- Use shallow comparison for dependency checking
-- Return cached value when dependencies unchanged
-- Consider cleanup for expensive computations
+- **Core Logic**: Store previous dependencies for comparison, only recalculate when dependencies change
+- **Real-World Use**: Use shallow comparison for dependency checking, return cached value when dependencies unchanged
+- **Common Mistake**: Not considering cleanup for expensive computations
+- **Advanced Feature**: Consider cleanup for expensive computations
+- **Interview Tip**: Explain that useMemo prevents unnecessary recalculations
 
 ---
 
-## 99) How do you implement useCallback from scratch?
+## 101) How do you implement useCallback from scratch?
 
-Concept:
 `useCallback` returns a memoized version of a function that only changes when dependencies change.
 
-Example:
 ```js
 const useCallback = (callback, deps) => {
   const [memoizedCallback, setMemoizedCallback] = useState(() => callback);
   const [prevDeps, setPrevDeps] = useState(deps);
-  
   useEffect(() => {
     const hasChanged = !deps || deps.some((dep, i) => dep !== prevDeps[i]);
-    if (hasChanged) {
-      setMemoizedCallback(() => callback);
-      setPrevDeps(deps);
-    }
+    if (hasChanged) { setMemoizedCallback(() => callback); setPrevDeps(deps); }
   }, deps);
-  
   return memoizedCallback;
 };
 ```
 
-Deep Insight:
-- Memoize function reference, not execution
-- Prevent unnecessary re-renders in child components
-- Use shallow comparison for dependency arrays
-- Return same function reference when deps unchanged
-- Essential for performance optimization in React
+- **Core Logic**: Memoize function reference, not execution, prevent unnecessary re-renders in child components
+- **Real-World Use**: Use shallow comparison for dependency arrays, return same function reference when deps unchanged
+- **Common Mistake**: Essential for performance optimization in React
+- **Advanced Feature**: Essential for performance optimization in React
+- **Interview Tip**: Explain that useCallback prevents function recreation on every render
 
 ---
 
-## 100) What is Compact Number (Intl.NumberFormat)?
+## 102) What is Compact Number (Intl.NumberFormat)?
 
-Concept:
 Compact Number formatting displays large numbers in a shortened, human-readable format using locale-specific abbreviations.
 
-Example:
 ```js
 const formatter = new Intl.NumberFormat('en-US', { notation: 'compact' });
 console.log(formatter.format(1000)); // "1K"
 console.log(formatter.format(1000000)); // "1M"
-console.log(formatter.format(1500000)); // "1.5M"
 ```
 
-Deep Insight:
-- Uses `Intl.NumberFormat` with `notation: 'compact'` option
-- Supports different locales for localized formatting
-- Handles various compact notation styles (K, M, B, T)
-- Useful for displaying large numbers in UI components
-- Can be customized with additional formatting options
+- **Core Purpose**: Uses `Intl.NumberFormat` with `notation: 'compact'` option
+- **Real-World Use**: Supports different locales for localized formatting, handles various compact notation styles (K, M, B, T)
+- **Common Mistake**: Useful for displaying large numbers in UI components
+- **Advanced Feature**: Can be customized with additional formatting options
+- **Interview Tip**: Explain that compact notation improves readability for large numbers
 
 ---
 
-## 101) Explain why the following doesn't work as an IIFE: function foo(){ }();. What needs to be changed to properly make it an IIFE?
+## 103) What are JavaScript object property flags and descriptors?
 
-Concept:
-The issue is that `function foo(){ }()` is parsed as a function declaration followed by a grouping operator, not as a function expression.
-
-Example:
-```js
-// This doesn't work - parsed as function declaration + grouping
-function foo(){ }(); // SyntaxError
-
-// These work - function expressions
-(function foo(){ })();
-(function foo(){ }());
-!function foo(){ }();
-+function foo(){ }();
-```
-
-Deep Insight:
-- Function declarations can't be immediately invoked
-- Need parentheses to make it a function expression
-- Various operators can force expression context
-- IIFE creates isolated scope for variables
-- Common pattern for modules and avoiding global pollution
-
----
-
-## 102) What are JavaScript object property flags and descriptors?
-
-Concept:
 Property descriptors define the characteristics of object properties, including configurability, enumerability, writability, and value.
 
-Example:
 ```js
 const obj = {};
 Object.defineProperty(obj, 'name', {
@@ -641,152 +485,93 @@ Object.defineProperty(obj, 'name', {
   enumerable: true,
   configurable: false
 });
-
 console.log(Object.getOwnPropertyDescriptor(obj, 'name'));
-// { value: 'John', writable: false, enumerable: true, configurable: false }
 ```
 
-Deep Insight:
-- `writable`: Can property value be changed
-- `enumerable`: Shows up in `for...in` loops
-- `configurable`: Can descriptor be modified or property deleted
-- `value`: The property's value
-- Use `Object.defineProperty` to set custom descriptors
+- **Core Properties**: `writable` (can property value be changed), `enumerable` (shows up in `for...in` loops), `configurable` (can descriptor be modified or property deleted), `value` (the property's value)
+- **Real-World Use**: Use `Object.defineProperty` to set custom descriptors
+- **Common Mistake**: Not understanding how property flags affect object behavior
+- **Advanced Feature**: Property descriptors enable fine-grained control over object properties
+- **Interview Tip**: Explain that descriptors control property behavior and access
 
 ---
 
-## 103) What are server-sent events?
+## 104) What are server-sent events?
 
-Concept:
 Server-Sent Events (SSE) enable servers to push data to web pages in real-time using a unidirectional connection.
 
-Example:
 ```js
-// Client-side
 const eventSource = new EventSource('/events');
-eventSource.onmessage = function(event) {
-  console.log('Received:', event.data);
-};
-
-// Server-side (Node.js)
-app.get('/events', (req, res) => {
-  res.writeHead(200, {
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive'
-  });
-  res.write('data: Hello World\n\n');
-});
+eventSource.onmessage = event => console.log('Received:', event.data);
 ```
 
-Deep Insight:
-- Unidirectional: Server to client only
-- Built on HTTP, simpler than WebSockets
-- Automatic reconnection on connection loss
-- Use `text/event-stream` MIME type
-- Good for live updates, notifications, real-time data
+- **Core Concept**: Unidirectional: Server to client only, built on HTTP, simpler than WebSockets
+- **Real-World Use**: Automatic reconnection on connection loss, use `text/event-stream` MIME type
+- **Common Mistake**: Good for live updates, notifications, real-time data
+- **Advanced Feature**: Simpler than WebSockets for one-way communication
+- **Interview Tip**: Explain that SSE is ideal for server-to-client streaming
 
 ---
 
-## 104) What are proxies in JavaScript used for?
+## 105) What are proxies in JavaScript used for?
 
-Concept:
 Proxies allow you to intercept and customize operations performed on objects, enabling meta-programming capabilities.
 
-Example:
 ```js
-const handler = {
-  get(target, prop) {
-    console.log(`Accessing property: ${prop}`);
-    return target[prop];
-  },
-  set(target, prop, value) {
-    console.log(`Setting ${prop} to ${value}`);
-    target[prop] = value;
-    return true;
-  }
-};
-
+const handler = { get: (t, p) => (console.log(`Accessing: ${p}`), t[p]), set: (t, p, v) => (t[p] = v, true) };
 const proxy = new Proxy({}, handler);
-proxy.name = 'John'; // "Setting name to John"
-console.log(proxy.name); // "Accessing property: name" then "John"
+proxy.name = 'John'; console.log(proxy.name); // Logs then "John"
 ```
 
-Deep Insight:
-- Intercept fundamental operations (get, set, has, delete)
-- Enable validation, logging, and virtual properties
-- Used in frameworks for reactivity and data binding
-- Can create virtual objects that don't exist
-- Powerful tool for creating advanced abstractions
+- **Core Purpose**: Intercept fundamental operations (get, set, has, delete)
+- **Real-World Use**: Enable validation, logging, and virtual properties, used in frameworks for reactivity
+- **Common Mistake**: Can create virtual objects that don't exist
+- **Advanced Feature**: Powerful tool for creating advanced abstractions
+- **Interview Tip**: Explain that proxies enable meta-programming and object interception
 
 ---
 
-## 105) What are some techniques for reducing reflows and repaints?
+## 106) What are some techniques for reducing reflows and repaints?
 
-Concept:
-Reflows and repaints are expensive browser operations; minimize them by batching changes and using efficient DOM manipulation.
+Reflows and repaints are expensive browser operations. Minimize them by batching changes and using efficient DOM manipulation.
 
-Example:
 ```js
-// Bad - causes multiple reflows
-element.style.width = '100px';
-element.style.height = '100px';
-element.style.margin = '10px';
-
-// Good - batch changes
 element.style.cssText = 'width: 100px; height: 100px; margin: 10px;';
-
-// Better - use classes
 element.className = 'new-style';
-
-// Best - use DocumentFragment
 const fragment = document.createDocumentFragment();
-fragment.appendChild(newElement);
-container.appendChild(fragment);
+fragment.appendChild(newElement); container.appendChild(fragment);
 ```
 
-Deep Insight:
-- Batch DOM changes to minimize reflows
-- Use `DocumentFragment` for multiple insertions
-- Change classes instead of individual styles
-- Use `transform` and `opacity` for animations
-- Measure elements before making changes
+- **Core Strategies**: Batch DOM changes to minimize reflows, use `DocumentFragment` for multiple insertions
+- **Real-World Use**: Change classes instead of individual styles, use `transform` and `opacity` for animations
+- **Common Mistake**: Measure elements before making changes
+- **Optimization**: Use `transform` and `opacity` for animations (GPU-accelerated)
+- **Interview Tip**: Explain that reducing reflows improves rendering performance
 
 ---
 
-## 106) What are some tools that can be used to measure and analyze JavaScript performance?
+## 107) What are some tools that can be used to measure and analyze JavaScript performance?
 
-Concept:
 Various tools help measure and analyze JavaScript performance, from browser dev tools to specialized profiling tools.
 
-Example:
 ```js
-// Performance API
-const start = performance.now();
-// ... expensive operation
-const end = performance.now();
-console.log(`Operation took ${end - start} milliseconds`);
-
-// Memory usage
+const start = performance.now(); /* ... operation ... */ const end = performance.now();
+console.log(`Operation took ${end - start}ms`);
 console.log(performance.memory);
-// { usedJSHeapSize: 1000000, totalJSHeapSize: 2000000, jsHeapSizeLimit: 4000000 }
 ```
 
-Deep Insight:
-- **Chrome DevTools**: Performance tab, Memory tab, Lighthouse
-- **Performance API**: `performance.now()`, `performance.memory`
-- **Web Vitals**: LCP, FID, CLS measurements
-- **Profiling**: CPU profiling, memory profiling
-- **Third-party**: New Relic, DataDog, Sentry for production monitoring
+- **Core Tools**: Chrome DevTools (Performance tab, Memory tab, Lighthouse), Performance API (`performance.now()`, `performance.memory`)
+- **Real-World Use**: Web Vitals (LCP, FID, CLS measurements), Profiling (CPU profiling, memory profiling)
+- **Common Mistake**: Third-party: New Relic, DataDog, Sentry for production monitoring
+- **Advanced Feature**: Use multiple tools for comprehensive performance analysis
+- **Interview Tip**: Explain that performance monitoring is essential for optimization
 
 ---
 
-## 107) Explain the concept of a microtask queue?
+## 108) Explain the concept of a microtask queue?
 
-Concept:
 The microtask queue processes high-priority tasks that should execute before the next task in the main queue, including Promise callbacks and queueMicrotask.
 
-Example:
 ```js
 console.log('1');
 setTimeout(() => console.log('2'), 0);
@@ -796,170 +581,51 @@ console.log('5');
 // Output: 1, 5, 3, 4, 2
 ```
 
-Deep Insight:
-- Microtasks have higher priority than macrotasks
-- Processed after current execution stack is empty
-- Includes Promise callbacks and `queueMicrotask`
-- Can starve the main queue if not managed properly
-- Essential for understanding async JavaScript execution order
+- **Core Concept**: Microtasks have higher priority than macrotasks, processed after current execution stack is empty
+- **Real-World Impact**: Includes Promise callbacks and `queueMicrotask`
+- **Common Mistake**: Can starve the main queue if not managed properly
+- **Advanced Feature**: Essential for understanding async JavaScript execution order
+- **Interview Tip**: Explain that microtasks run before macrotasks in the event loop
 
 ---
 
-## 108) How do you check HTTP status codes in axios and fetch API?
+## 109) How do you check HTTP status codes in axios and fetch API?
 
-Concept:
-HTTP status codes indicate request success or failure; axios and fetch handle status differently—axios rejects on 4xx/5xx automatically, while fetch only rejects on network errors and requires manual status checking.
+Fetch requires manual status checking with `response.ok`, while axios automatically rejects on 4xx/5xx status codes.
 
-Example:
-```javascript
-// Fetch API - Manual status checking
-async function fetchWithStatusCheck() {
-  try {
-    const response = await fetch('/api/users');
-    
-    // Check status code manually
-    if (!response.ok) { // response.ok is true for 200-299
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    // Alternative: Check specific status codes
-    if (response.status === 404) {
-      throw new Error('Resource not found');
-    } else if (response.status === 500) {
-      throw new Error('Server error');
-    }
-    
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Fetch error:', error);
-    throw error;
-  }
-}
+```js
+fetch('/api/data').then(response => {
+  if (!response.ok) throw new Error(`Status: ${response.status}`);
+  return response.json();
+});
 
-// Using response.ok property (recommended)
-fetch('/api/data')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`Status: ${response.status}`);
-    }
-    return response.json();
-  })
-  .catch(error => console.error(error));
-
-// Axios - Automatic status handling
-import axios from 'axios';
-
-// Axios automatically rejects on status codes >= 400
-async function axiosRequest() {
-  try {
-    const response = await axios.get('/api/users');
-    // Response status is available in response.status
-    console.log('Status:', response.status); // 200, 201, etc.
-    return response.data;
-  } catch (error) {
-    // Axios wraps errors for 4xx/5xx status codes
-    if (error.response) {
-      // Server responded with error status
-      console.error('Status:', error.response.status);
-      console.error('Data:', error.response.data);
-      console.error('Headers:', error.response.headers);
-    } else if (error.request) {
-      // Request made but no response received
-      console.error('Network error:', error.request);
-    } else {
-      // Something else happened
-      console.error('Error:', error.message);
-    }
-    throw error;
-  }
-}
-
-// Axios response interceptor for global status handling
-axios.interceptors.response.use(
-  response => response,
-  error => {
-    if (error.response) {
-      const { status, data } = error.response;
-      switch (status) {
-        case 401:
-          // Redirect to login
-          window.location.href = '/login';
-          break;
-        case 403:
-          console.error('Forbidden:', data);
-          break;
-        case 404:
-          console.error('Not found:', data);
-          break;
-        case 500:
-          console.error('Server error:', data);
-          break;
-      }
-    }
-    return Promise.reject(error);
-  }
-);
-
-// Custom status checking with fetch
-function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  }
-  const error = new Error(response.statusText);
-  error.response = response;
-  throw error;
-}
-
-fetch('/api/data')
-  .then(checkStatus)
-  .then(response => response.json())
-  .catch(error => console.error('Error:', error));
+axios.get('/api/data').then(res => res.data)
+  .catch(err => console.error('Status:', err.response?.status));
 ```
 
-Deep Insight:
-- Fetch only rejects on network errors, not HTTP errors—must check `response.ok` or `response.status` manually
-- Axios automatically rejects promises for status codes >= 400, throwing errors you can catch
-- Use `response.ok` (boolean) in fetch for quick 200-299 success checks
-- Axios provides `error.response.status` for detailed error handling
-- Always handle both network errors and HTTP status errors in error boundaries
-- Consider response interceptors in axios for global status code handling
-- Remember that `fetch` doesn't throw on 4xx/5xx—this is a common mistake
+- **Core Difference**: Fetch only rejects on network errors, not HTTP errors—must check `response.ok` or `response.status` manually
+- **Real-World Use**: Axios automatically rejects promises for status codes >= 400, throwing errors you can catch
+- **Common Mistake**: Remember that `fetch` doesn't throw on 4xx/5xx—this is a common mistake
+- **Advanced Feature**: Consider response interceptors in axios for global status code handling
+- **Interview Tip**: Explain that always handle both network errors and HTTP status errors
 
 ---
 
-## 109) How can you optimize DOM manipulation for better performance?
+## 110) How can you optimize DOM manipulation for better performance?
 
-Concept:
 Optimize DOM manipulation by minimizing reflows, using efficient selectors, and leveraging modern APIs for better performance.
 
-Example:
 ```js
-// Use efficient selectors
-const elements = document.querySelectorAll('.item'); // Better than getElementsByClassName
-
-// Batch DOM changes
+const elements = document.querySelectorAll('.item');
 const fragment = document.createDocumentFragment();
-items.forEach(item => {
-  const li = document.createElement('li');
-  li.textContent = item.name;
-  fragment.appendChild(li);
-});
+items.forEach(item => { const li = document.createElement('li'); li.textContent = item.name; fragment.appendChild(li); });
 list.appendChild(fragment);
-
-// Use requestAnimationFrame for animations
-function animate() {
-  element.style.transform = `translateX(${position}px)`;
-  position += 1;
-  if (position < 1000) {
-    requestAnimationFrame(animate);
-  }
-}
 ```
 
-Deep Insight:
-- Minimize reflows and repaints
-- Use `DocumentFragment` for multiple insertions
-- Cache DOM queries and reuse elements
-- Use `requestAnimationFrame` for smooth animations
-- Consider virtual DOM libraries for complex UIs
+- **Core Strategies**: Minimize reflows and repaints, use `DocumentFragment` for multiple insertions
+- **Real-World Use**: Cache DOM queries and reuse elements, use `requestAnimationFrame` for smooth animations
+- **Common Mistake**: Not batching DOM changes, causing multiple reflows
+- **Advanced Feature**: Consider virtual DOM libraries for complex UIs
+- **Interview Tip**: Explain that DOM optimization significantly improves rendering performance
+
+---

@@ -1,6 +1,18 @@
 # 🎨 Front-End System Design Interview Cheatsheet
 
-> **Quick reference guide for front-end system design interviews**
+> **⏱️ Review Time: 25-30 minutes** | **Priority: ⭐⭐⭐ Critical** | Quick reference for front-end system design interviews
+
+**Quick Review Checklist:**
+- [ ] Architecture Patterns (Feature-based, Component Design)
+- [ ] Performance Optimization (Core Web Vitals, Code Splitting, Caching)
+- [ ] State Management (Context API, Redux, Custom Hooks)
+- [ ] Micro-Frontends (Module Federation, Communication)
+- [ ] Cross-Platform (Responsive Design, PWA)
+- [ ] Accessibility & UX (ARIA, Focus Management)
+- [ ] Browser Internals (Critical Rendering Path, Event Loop)
+- [ ] Networking & APIs (REST, GraphQL, HTTP/2)
+- [ ] Real-time Communication (WebSockets, SSE, Long Polling)
+- [ ] Data & Caching Architecture (Normalization, HTTP Cache, Service Worker)
 
 ## 📋 Table of Contents
 

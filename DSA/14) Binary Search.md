@@ -1,9 +1,12 @@
 # Binary Search
 
-## Q159. Search Insert Position
+## Q211. Search Insert Position
 
-Concept: Find insertion position for target using binary search; return index where target would be inserted.
+**Problem:** Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order. You must write an algorithm with `O(log n)` runtime complexity.
 
+**Approach:** Use binary search. If target found, return index. If not found, `left` index is the insertion position.
+
+### Solution 1: Binary Search (Optimal)
 ```javascript
 function searchInsert(nums, target) {
   let left = 0, right = nums.length - 1;
@@ -20,42 +23,47 @@ function searchInsert(nums, target) {
     }
   }
   
+  // Insertion position is left
   return left;
 }
-
-// Test Cases:
-//
-// Example 1:
-//   Input: nums = [1,3,5,6], target = 5
-//   Output: 2
-//
-// Example 2:
-//   Input: nums = [1,3,5,6], target = 2
-//   Output: 1
-//
-// Example 3:
-//   Input: nums = [1,3,5,6], target = 7
-//   Output: 4
-//
-// Example 4:
-//   Input: nums = [1,3,5,6], target = 0
-//   Output: 0
 ```
 
-Deep Insights:
-  - Rule: Binary search for target; return left index when not found; O(log n) time.
-  - Real-world: Finding insertion position, search in sorted arrays, lower bound problems.
-  - Common mistake: Wrong return value when not found; not handling edge cases correctly.
-  - Optimization: O(log n) time optimal; left index is insertion position when target not found.
-  - Interview tip: Explain binary search clearly; mention insertion position; ask about duplicates.
+// Test Cases:
+// Input: nums = [1,3,5,6], target = 5
+// Output: 2
 
-Time Complexity: O(log n) - Binary search
-Space Complexity: O(1) - Constant extra space
+// Input: nums = [1,3,5,6], target = 2
+// Output: 1
 
-## Q160. Search a 2D Matrix
+// Input: nums = [1,3,5,6], target = 7
+// Output: 4
 
-Concept: Treat 2D matrix as sorted 1D array; convert index to row/col; binary search on flattened array.
+// Input: nums = [1,3,5,6], target = 0
+// Output: 0
+```
 
+**Time Complexity:** O(log n) - Binary search  
+**Space Complexity:** O(1) - Constant extra space
+
+**Deep Insights:**
+- **Optimal Approach:** Binary search achieves O(log n) time—optimal for insertion position
+- **Insertion Position:** `left` index is insertion position when target not found—after loop ends
+- **Key Insight:** Binary search finds exact match or insertion point—same algorithm
+- **Lower Bound:** This is essentially finding lower bound—first position >= target
+- **Edge Cases:** Target smaller than all returns 0; target larger than all returns n; handles all cases
+- **Interview Tip:** Explain binary search clearly; emphasize insertion position logic; mention lower bound connection
+
+## Q212. Search a 2D Matrix
+
+**Problem:** You are given an `m x n` integer matrix `matrix` with the following two properties:
+- Each row is sorted in non-decreasing order.
+- The first integer of each row is greater than the last integer of the previous row.
+
+Given an integer `target`, return `true` if `target` is in `matrix` or `false` otherwise. You must write a solution in `O(log(m * n))` time complexity.
+
+**Approach:** Treat 2D matrix as sorted 1D array. Convert flat index to row/col using: row = mid/n, col = mid%n.
+
+### Solution 1: Binary Search on Flattened Array (Optimal)
 ```javascript
 function searchMatrix(matrix, target) {
   if (!matrix.length || !matrix[0].length) return false;
@@ -66,6 +74,7 @@ function searchMatrix(matrix, target) {
 
   while (left <= right) {
     const mid = Math.floor((left + right) / 2);
+    // Convert flat index to row/col
     const row = Math.floor(mid / n);
     const col = mid % n;
     const val = matrix[row][col];
@@ -81,32 +90,34 @@ function searchMatrix(matrix, target) {
 
   return false;
 }
-
-// Test Cases:
-//
-// Example 1:
-//   Input: matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3
-//   Output: true
-//
-// Example 2:
-//   Input: matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13
-//   Output: false
 ```
 
-Deep Insights:
-  - Rule: Treat 2D as 1D; convert index to row/col; row = mid/n, col = mid%n; O(log(mn)) time.
-  - Real-world: Search in sorted 2D arrays, matrix search problems, coordinate conversion.
-  - Common mistake: Wrong row/col conversion; not handling empty matrix; wrong binary search bounds.
-  - Optimization: O(log(mn)) time optimal; convert index: row = mid/n, col = mid%n.
-  - Interview tip: Explain 2D to 1D conversion clearly; mention coordinate conversion; ask about unsorted matrix.
+// Test Cases:
+// Input: matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3
+// Output: true
 
-Time Complexity: O(log(mn)) - Binary search on flattened array
-Space Complexity: O(1) - Constant extra space
+// Input: matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13
+// Output: false
+```
 
-## Q161. Find Peak Element
+**Time Complexity:** O(log(m × n)) - Binary search on flattened array  
+**Space Complexity:** O(1) - Constant extra space
 
-Concept: Binary search on array; if mid < right, peak is in right half; else peak is in left half.
+**Deep Insights:**
+- **Optimal Approach:** Binary search on flattened array achieves O(log(mn)) time—optimal for 2D matrix
+- **Coordinate Conversion:** row = mid/n, col = mid%n—maps flat index to 2D coordinates
+- **Key Insight:** Matrix is sorted as 1D array—can use binary search directly
+- **Two Properties:** Row sorted + row boundaries—ensures global sorted order
+- **Edge Cases:** Empty matrix returns false; single cell handled correctly; handles all cases
+- **Interview Tip:** Explain 2D to 1D conversion clearly; emphasize coordinate formula; mention matrix properties
 
+## Q213. Find Peak Element
+
+**Problem:** A peak element is an element that is strictly greater than its neighbors. Given a 0-indexed integer array `nums`, find a peak element, and return its index. If the array contains multiple peaks, return the index to any of the peaks. You may imagine that `nums[-1] = nums[n] = -∞`. You must write an algorithm that runs in `O(log n)` time.
+
+**Approach:** Use binary search. Compare mid with mid+1. If mid < mid+1, peak is in right half. Otherwise, peak is in left half.
+
+### Solution 1: Binary Search (Optimal)
 ```javascript
 function findPeakElement(nums) {
   let left = 0, right = nums.length - 1;
@@ -114,43 +125,48 @@ function findPeakElement(nums) {
   while (left < right) {
     const mid = Math.floor((left + right) / 2);
     
+    // If mid < mid+1, peak is in right half
     if (nums[mid] < nums[mid + 1]) {
       left = mid + 1;
     } else {
+      // Peak is in left half (including mid)
       right = mid;
     }
   }
 
   return left;
 }
-
-// Test Cases:
-//
-// Example 1:
-//   Input: nums = [1,2,3,1]
-//   Output: 2
-//   Explanation: 3 is a peak element and index is 2
-//
-// Example 2:
-//   Input: nums = [1,2,1,3,5,6,4]
-//   Output: 5
-//   Explanation: 6 is a peak element and index is 5
 ```
 
-Deep Insights:
-  - Rule: Binary search on array; if mid < mid+1, peak in right; else peak in left; O(log n) time.
-  - Real-world: Finding peaks in data, maximum element search, unimodal functions.
-  - Common mistake: Wrong comparison logic; not handling edge cases; wrong binary search condition.
-  - Optimization: O(log n) time optimal; compare mid with mid+1; always go toward larger neighbor.
-  - Interview tip: Explain peak finding logic clearly; mention comparison strategy; ask about multiple peaks.
+// Test Cases:
+// Input: nums = [1,2,3,1]
+// Output: 2
+// Explanation: 3 is a peak element and index is 2
 
-Time Complexity: O(log n) - Binary search
-Space Complexity: O(1) - Constant extra space
+// Input: nums = [1,2,1,3,5,6,4]
+// Output: 5
+// Explanation: 6 is a peak element and index is 5
+```
 
-## Q162. Search in Rotated Sorted Array
+**Time Complexity:** O(log n) - Binary search  
+**Space Complexity:** O(1) - Constant extra space
 
-Concept: Binary search with rotation check; if left half sorted and target in range, search left; else search right.
+**Deep Insights:**
+- **Optimal Approach:** Binary search achieves O(log n) time—optimal for peak finding
+- **Comparison Strategy:** Compare mid with mid+1—determines which half contains peak
+- **Go Toward Larger:** Always move toward larger neighbor—guaranteed to find peak
+- **Key Insight:** Array boundaries are -∞—ensures peak exists
+- **Multiple Peaks:** Can return any peak—algorithm finds one efficiently
+- **Edge Cases:** Single element returns 0; strictly increasing returns last; handles all cases
+- **Interview Tip:** Explain peak finding logic clearly; emphasize comparison strategy; mention boundary conditions
 
+## Q214. Search in Rotated Sorted Array
+
+**Problem:** There is an integer array `nums` sorted in ascending order (with distinct values). Prior to being passed to your function, `nums` is possibly rotated at an unknown pivot index `k` (1 <= k < nums.length) such that the resulting array is `[nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]` (0-indexed). For example, `[0,1,2,4,5,6,7]` might be rotated at pivot index `3` and become `[4,5,6,7,0,1,2]`. Given the array `nums` after the rotation and an integer `target`, return the index of `target` if it is in `nums`, or `-1` if it is not in `nums`. You must write an algorithm with `O(log n)` runtime complexity.
+
+**Approach:** Use binary search. Check which half is sorted. If target is in sorted half's range, search there. Otherwise, search the other half.
+
+### Solution 1: Binary Search with Rotation Handling (Optimal)
 ```javascript
 function search(nums, target) {
   let left = 0, right = nums.length - 1;
@@ -164,6 +180,7 @@ function search(nums, target) {
 
     // Left half is sorted
     if (nums[left] <= nums[mid]) {
+      // Target is in sorted left half
       if (nums[left] <= target && target < nums[mid]) {
         right = mid - 1;
       } else {
@@ -172,6 +189,7 @@ function search(nums, target) {
     } 
     // Right half is sorted
     else {
+      // Target is in sorted right half
       if (nums[mid] < target && target <= nums[right]) {
         left = mid + 1;
       } else {
@@ -182,36 +200,38 @@ function search(nums, target) {
 
   return -1;
 }
-
-// Test Cases:
-//
-// Example 1:
-//   Input: nums = [4,5,6,7,0,1,2], target = 0
-//   Output: 4
-//
-// Example 2:
-//   Input: nums = [4,5,6,7,0,1,2], target = 3
-//   Output: -1
-//
-// Example 3:
-//   Input: nums = [1], target = 0
-//   Output: -1
 ```
 
-Deep Insights:
-  - Rule: Check which half is sorted; if target in sorted half range, search there; else search other half; O(log n) time.
-  - Real-world: Search in rotated arrays, circular buffer search, pivot finding.
-  - Common mistake: Wrong sorted half detection; not checking target in range correctly; edge case handling.
-  - Optimization: O(log n) time optimal; check sorted half first; target range check crucial.
-  - Interview tip: Explain rotation handling clearly; mention sorted half detection; ask about duplicates.
+// Test Cases:
+// Input: nums = [4,5,6,7,0,1,2], target = 0
+// Output: 4
 
-Time Complexity: O(log n) - Binary search
-Space Complexity: O(1) - Constant extra space
+// Input: nums = [4,5,6,7,0,1,2], target = 3
+// Output: -1
 
-## Q163. Find First and Last Position of Element in Sorted Array
+// Input: nums = [1], target = 0
+// Output: -1
+```
 
-Concept: Binary search twice: once for first position, once for last position; adjust bounds accordingly.
+**Time Complexity:** O(log n) - Binary search  
+**Space Complexity:** O(1) - Constant extra space
 
+**Deep Insights:**
+- **Optimal Approach:** Binary search with rotation handling achieves O(log n) time—optimal for rotated arrays
+- **Sorted Half Detection:** Check if left half is sorted (nums[left] <= nums[mid])—determines search direction
+- **Target Range Check:** Check if target is in sorted half's range—narrows search space
+- **Key Insight:** At least one half is always sorted—can determine search direction
+- **Range Logic:** If target in sorted half range, search there; else search other half—narrows search
+- **Edge Cases:** Not rotated (fully sorted) handled correctly; single element handled; handles all cases
+- **Interview Tip:** Explain rotation handling clearly; emphasize sorted half detection; mention duplicate handling variant
+
+## Q215. Find First and Last Position of Element in Sorted Array
+
+**Problem:** Given an array of integers `nums` sorted in non-decreasing order, find the starting and ending position of a given `target` value. If `target` is not found in the array, return `[-1, -1]`. You must write an algorithm with `O(log n)` runtime complexity.
+
+**Approach:** Use binary search twice: once to find first position (continue searching left when found), once to find last position (continue searching right when found).
+
+### Solution 1: Two Binary Searches (Optimal)
 ```javascript
 function searchRange(nums, target) {
   const first = findFirst(nums, target);
@@ -259,36 +279,42 @@ function findLast(nums, target) {
 
   return result;
 }
-
-// Test Cases:
-//
-// Example 1:
-//   Input: nums = [5,7,7,8,8,10], target = 8
-//   Output: [3,4]
-//
-// Example 2:
-//   Input: nums = [5,7,7,8,8,10], target = 6
-//   Output: [-1,-1]
-//
-// Example 3:
-//   Input: nums = [], target = 0
-//   Output: [-1,-1]
 ```
 
-Deep Insights:
-  - Rule: Binary search twice for first and last; continue searching left/right when found; O(log n) time.
-  - Real-world: Finding range of duplicates, count occurrences, range queries.
-  - Common mistake: Not continuing search when found; wrong binary search bounds; edge cases.
-  - Optimization: O(log n) time optimal; two binary searches; continue in one direction when found.
-  - Interview tip: Explain two-pass search clearly; mention continuing search strategy; ask about optimization.
+// Test Cases:
+// Input: nums = [5,7,7,8,8,10], target = 8
+// Output: [3,4]
 
-Time Complexity: O(log n) - Two binary searches
-Space Complexity: O(1) - Constant extra space
+// Input: nums = [5,7,7,8,8,10], target = 6
+// Output: [-1,-1]
 
-## Q164. Find Minimum in Rotated Sorted Array
+// Input: nums = [], target = 0
+// Output: [-1,-1]
+```
 
-Concept: Binary search for minimum; if mid < right, minimum in left half; else minimum in right half.
+**Time Complexity:** O(log n) - Two binary searches  
+**Space Complexity:** O(1) - Constant extra space
 
+**Deep Insights:**
+- **Optimal Approach:** Two binary searches achieve O(log n) time—optimal for range finding
+- **First Position:** Continue searching left when target found—finds leftmost occurrence
+- **Last Position:** Continue searching right when target found—finds rightmost occurrence
+- **Key Insight:** Don't stop at first match—continue searching to find boundary
+- **Early Exit:** If first not found, return [-1,-1] immediately—optimization
+- **Edge Cases:** Target not found returns [-1,-1]; single occurrence returns [i,i]; handles all cases
+- **Interview Tip:** Explain two-pass search clearly; emphasize continuing search strategy; mention early exit optimization
+
+## Q216. Find Minimum in Rotated Sorted Array
+
+**Problem:** Suppose an array of length `n` sorted in ascending order is rotated between `1` and `n` times. For example, the array `nums = [0,1,2,4,5,6,7]` might become:
+- `[4,5,6,7,0,1,2]` if it was rotated `4` times.
+- `[0,1,2,4,5,6,7]` if it was rotated `7` times.
+
+Notice that rotating an array `[a[0], a[1], a[2], ..., a[n-1]]` 1 time results in the array `[a[n-1], a[0], a[1], a[2], ..., a[n-2]]`. Given the sorted rotated array `nums` of unique elements, return the minimum element of this array. You must write an algorithm that runs in `O(log n)` time.
+
+**Approach:** Use binary search. Compare mid with right. If mid < right, right half is sorted, minimum is in left half. Otherwise, minimum is in right half.
+
+### Solution 1: Binary Search (Optimal)
 ```javascript
 function findMin(nums) {
   let left = 0, right = nums.length - 1;
@@ -296,7 +322,7 @@ function findMin(nums) {
   while (left < right) {
     const mid = Math.floor((left + right) / 2);
 
-    // Right half is sorted, minimum is in left half
+    // Right half is sorted, minimum is in left half (including mid)
     if (nums[mid] < nums[right]) {
       right = mid;
     } 
@@ -308,40 +334,43 @@ function findMin(nums) {
 
   return nums[left];
 }
-
-// Test Cases:
-//
-// Example 1:
-//   Input: nums = [3,4,5,1,2]
-//   Output: 1
-//   Explanation: The original array was [1,2,3,4,5] rotated 3 times
-//
-// Example 2:
-//   Input: nums = [4,5,6,7,0,1,2]
-//   Output: 0
-//
-// Example 3:
-//   Input: nums = [11,13,15,17]
-//   Output: 11
-//   Explanation: Array not rotated
 ```
 
-Deep Insights:
-  - Rule: Binary search for minimum; if mid < right, min in left; else min in right; O(log n) time.
-  - Real-world: Finding minimum in rotated arrays, pivot finding, circular buffer problems.
-  - Common mistake: Wrong comparison logic; not handling unrotated arrays; edge cases.
-  - Optimization: O(log n) time optimal; compare mid with right; minimum always in unsorted half.
-  - Interview tip: Explain minimum finding logic clearly; mention comparison strategy; ask about duplicates.
+// Test Cases:
+// Input: nums = [3,4,5,1,2]
+// Output: 1
+// Explanation: The original array was [1,2,3,4,5] rotated 3 times
 
-Time Complexity: O(log n) - Binary search
-Space Complexity: O(1) - Constant extra space
+// Input: nums = [4,5,6,7,0,1,2]
+// Output: 0
 
-## Q165. Median of Two Sorted Arrays
+// Input: nums = [11,13,15,17]
+// Output: 11
+// Explanation: Array not rotated
+```
 
-Concept: Binary search on smaller array partition; balance left and right halves; median is max of left or avg of max/min.
+**Time Complexity:** O(log n) - Binary search  
+**Space Complexity:** O(1) - Constant extra space
 
+**Deep Insights:**
+- **Optimal Approach:** Binary search achieves O(log n) time—optimal for finding minimum
+- **Comparison Strategy:** Compare mid with right—determines which half contains minimum
+- **Sorted Half:** If right half sorted (mid < right), minimum in left half—including mid
+- **Key Insight:** Minimum always in unsorted half—can eliminate sorted half
+- **Unrotated Array:** If not rotated, algorithm still works—returns first element
+- **Edge Cases:** Single element returns that element; unrotated returns first; handles all cases
+- **Interview Tip:** Explain minimum finding logic clearly; emphasize comparison with right; mention duplicate handling variant
+
+## Q217. Median of Two Sorted Arrays
+
+**Problem:** Given two sorted arrays `nums1` and `nums2` of size `m` and `n` respectively, return the median of the two sorted arrays. The overall run time complexity should be `O(log (m+n))`.
+
+**Approach:** Use binary search on partitions. Partition both arrays such that left halves have same size as right halves. Check if partition is valid (maxLeft <= minRight). If valid, calculate median from partition boundaries.
+
+### Solution 1: Binary Search on Partitions (Optimal)
 ```javascript
 function findMedianSortedArrays(nums1, nums2) {
+  // Ensure nums1 is smaller array
   if (nums1.length > nums2.length) {
     [nums1, nums2] = [nums2, nums1];
   }
@@ -353,45 +382,52 @@ function findMedianSortedArrays(nums1, nums2) {
     const partition1 = Math.floor((left + right) / 2);
     const partition2 = Math.floor((m + n + 1) / 2) - partition1;
 
+    // Get boundary elements
     const maxLeft1 = partition1 === 0 ? -Infinity : nums1[partition1 - 1];
     const minRight1 = partition1 === m ? Infinity : nums1[partition1];
     const maxLeft2 = partition2 === 0 ? -Infinity : nums2[partition2 - 1];
     const minRight2 = partition2 === n ? Infinity : nums2[partition2];
 
+    // Check if partition is valid
     if (maxLeft1 <= minRight2 && maxLeft2 <= minRight1) {
+      // Valid partition found
       if ((m + n) % 2 === 0) {
+        // Even length: average of two middle elements
         return (Math.max(maxLeft1, maxLeft2) + Math.min(minRight1, minRight2)) / 2;
       } else {
+        // Odd length: middle element
         return Math.max(maxLeft1, maxLeft2);
       }
     } else if (maxLeft1 > minRight2) {
+      // Partition too far right, move left
       right = partition1 - 1;
     } else {
+      // Partition too far left, move right
       left = partition1 + 1;
     }
   }
 }
-
-// Test Cases:
-//
-// Example 1:
-//   Input: nums1 = [1,3], nums2 = [2]
-//   Output: 2.00000
-//   Explanation: Merged array = [1,2,3] and median is 2
-//
-// Example 2:
-//   Input: nums1 = [1,2], nums2 = [3,4]
-//   Output: 2.50000
-//   Explanation: Merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5
 ```
 
-Deep Insights:
-  - Rule: Binary search on partitions; balance left/right halves; check valid partition; O(log(min(m,n))) time.
-  - Real-world: Finding median of two arrays, statistical analysis, divide and conquer.
-  - Common mistake: Wrong partition calculation; not handling edge cases; wrong median calculation.
-  - Optimization: O(log(min(m,n))) time optimal; binary search on smaller array; partition balancing crucial.
-  - Interview tip: Explain partition strategy clearly; mention edge cases; ask about optimization.
+// Test Cases:
+// Input: nums1 = [1,3], nums2 = [2]
+// Output: 2.00000
+// Explanation: Merged array = [1,2,3] and median is 2
 
-Time Complexity: O(log(min(m,n))) - Binary search on smaller array
-Space Complexity: O(1) - Constant extra space
+// Input: nums1 = [1,2], nums2 = [3,4]
+// Output: 2.50000
+// Explanation: Merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5
+```
+
+**Time Complexity:** O(log(min(m,n))) - Binary search on smaller array  
+**Space Complexity:** O(1) - Constant extra space
+
+**Deep Insights:**
+- **Optimal Approach:** Binary search on partitions achieves O(log(min(m,n))) time—optimal for median
+- **Partition Strategy:** Partition both arrays to balance left and right halves—ensures correct median
+- **Valid Partition:** maxLeft <= minRight for both arrays—ensures sorted order maintained
+- **Key Insight:** Binary search on smaller array—reduces search space
+- **Median Calculation:** Odd length: max of left; even length: average of max(left) and min(right)
+- **Edge Cases:** Handle empty arrays with -Infinity/Infinity; single element handled; handles all cases
+- **Interview Tip:** Explain partition strategy clearly; emphasize boundary checks; mention edge case handling
 

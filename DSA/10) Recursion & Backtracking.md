@@ -1,45 +1,61 @@
 # Recursion & Backtracking
 
-## Q141. N- Queens
+## Q193. N-Queens
 
-Concept: Place queens row by row, pruning columns and diagonals using sets.
+**Problem:** The n-queens puzzle is the problem of placing `n` queens on an `n x n` chessboard such that no two queens attack each other. Given an integer `n`, return all distinct solutions to the n-queens puzzle. You may return the answer in any order. Each solution contains a distinct board configuration of the n-queens' placement, where `'Q'` and `'.'` both indicate a queen and an empty space, respectively.
 
-Example:
+**Approach:** Use backtracking. Place queens row by row. For each row, try each column and check if placing a queen there violates constraints (same column, same diagonal). Use sets to track occupied columns and diagonals.
+
+### Solution 1: Backtracking with Sets (Optimal)
 ```javascript
 function solveNQueens(n) {
   const res = [];
-  const col = new Set();
-  const d1 = new Set(); // diagonal r - c
-  const d2 = new Set(); // diagonal r + c
+  const col = new Set();  // Occupied columns
+  const d1 = new Set();   // Diagonal r - c (main diagonal)
+  const d2 = new Set();   // Diagonal r + c (anti-diagonal)
   const board = Array.from({ length: n }, () => '.'.repeat(n).split(''));
 
-  function bt(r) {
-    if (r === n) {
-      res.push(board.map(x => x.join('')));
+  function backtrack(row) {
+    // Base case: all queens placed
+    if (row === n) {
+      res.push(board.map(row => row.join('')));
       return;
     }
-    for (let c = 0; c < n; c++) {
-      if (col.has(c) || d1.has(r - c) || d2.has(r + c)) continue;
-      col.add(c);
-      d1.add(r - c);
-      d2.add(r + c);
-      board[r][c] = 'Q';
-      bt(r + 1);
-      board[r][c] = '.';
-      col.delete(c);
-      d1.delete(r - c);
-      d2.delete(r + c);
+    
+    // Try each column in current row
+    for (let colIdx = 0; colIdx < n; colIdx++) {
+      // Check if position is valid
+      if (col.has(colIdx) || d1.has(row - colIdx) || d2.has(row + colIdx)) {
+        continue;
+      }
+      
+      // Place queen
+      col.add(colIdx);
+      d1.add(row - colIdx);
+      d2.add(row + colIdx);
+      board[row][colIdx] = 'Q';
+      
+      // Recurse
+      backtrack(row + 1);
+      
+      // Backtrack
+      board[row][colIdx] = '.';
+      col.delete(colIdx);
+      d1.delete(row - colIdx);
+      d2.delete(row + colIdx);
     }
   }
-  bt(0);
+  
+  backtrack(0);
   return res;
 }
+```
 
 // Test Cases:
 // Input: n = 4
 // Output: [
-//   [".Q..","...Q","Q...","..Q."],
-//   ["..Q.","Q...","...Q",".Q.."]
+// [".Q..","...Q","Q...","..Q."],
+// ["..Q.","Q...","...Q",".Q.."]
 // ]
 
 // Input: n = 1
@@ -52,28 +68,38 @@ function solveNQueens(n) {
 // Output: [] (no solution exists for n=2)
 ```
 
-**Time Complexity:** O(n!) -Backtracking generates all valid queen placements  
+**Time Complexity:** O(n!) - Backtracking generates all valid queen placements  
 **Space Complexity:** O(n²) - Board storage plus O(n) recursion stack
 
-Deep Insights:
-  - Rule: Place queens row by row, pruning columns and diagonals using sets; O(n!) time, O(n²) space.
-  - Real-world: N-queens problems, constraint satisfaction, puzzle solving, backtracking algorithms.
-  - Common mistake: Symmetry not exploited here; not pruning diagonals correctly; forgetting to backtrack.
-  - Optimization: O(n!) time worst-case; pruning reduces search space; symmetry not exploited here.
-  - Interview tip: Explain backtracking clearly; mention diagonal pruning; ask about optimization techniques.
-## Q142. Sudoku Solver
+**Deep Insights:**
+- **Optimal Approach:** Backtracking achieves O(n!) time—optimal for n-queens problem
+- **Row-by-Row Placement:** Place one queen per row—simplifies constraint checking
+- **Diagonal Tracking:** Track two diagonals: r-c (main) and r+c (anti)—prevents diagonal attacks
+- **Constraint Sets:** Use sets for O(1) lookup—efficiently check column and diagonal constraints
+- **Key Insight:** Place queens row by row, prune invalid positions early—reduces search space
+- **Edge Cases:** n=1 returns one solution; n=2 and n=3 return empty; handles all cases
+- **Interview Tip:** Explain backtracking clearly; emphasize diagonal pruning; mention optimization techniques (symmetry)
+## Q194. Sudoku Solver
 
-Concept: Backtrack cell by cell; maintain row/col/box availability.
+**Problem:** Write a program to solve a Sudoku puzzle by filling the empty cells. A sudoku solution must satisfy all of the following rules:
+1. Each of the digits 1-9 must occur exactly once in each row.
+2. Each of the digits 1-9 must occur exactly once in each column.
+3. Each of the digits 1-9 must occur exactly once in each of the 9 3x3 sub-boxes of the grid.
 
-Example:
+The `'.'` character indicates empty cells.
+
+**Approach:** Use backtracking. Preprocess to collect empty cells and track constraints (row, column, box). For each empty cell, try digits 1-9 that satisfy all constraints.
+
+### Solution 1: Backtracking with Constraint Tracking (Optimal)
 ```javascript
 function solveSudoku(board) {
-  const R = Array.from({ length: 9 }, () => new Set());
-  const C = Array.from({ length: 9 }, () => new Set());
-  const B = Array.from({ length: 9 }, () => new Set());
+  const R = Array.from({ length: 9 }, () => new Set());  // Row constraints
+  const C = Array.from({ length: 9 }, () => new Set());  // Column constraints
+  const B = Array.from({ length: 9 }, () => new Set());  // Box constraints
   const box = (r, c) => Math.floor(r / 3) * 3 + Math.floor(c / 3);
   const empty = [];
-
+  
+  // Preprocess: collect empty cells and track constraints
   for (let r = 0; r < 9; r++) {
     for (let c = 0; c < 9; c++) {
       const ch = board[r][c];
@@ -86,104 +112,129 @@ function solveSudoku(board) {
       }
     }
   }
-
-  function bt(i) {
-    if (i === empty.length) return true;
-    const [r, c] = empty[i];
+  
+  function backtrack(idx) {
+    // Base case: all empty cells filled
+    if (idx === empty.length) return true;
+    
+    const [r, c] = empty[idx];
+    const b = box(r, c);
+    
+    // Try digits 1-9
     for (let d = 1; d <= 9; d++) {
       const ch = String(d);
-      const b = box(r, c);
+      
+      // Check constraints
       if (R[r].has(ch) || C[c].has(ch) || B[b].has(ch)) continue;
+      
+      // Place digit
       board[r][c] = ch;
       R[r].add(ch);
       C[c].add(ch);
       B[b].add(ch);
-      if (bt(i + 1)) return true;
+      
+      // Recurse
+      if (backtrack(idx + 1)) return true;
+      
+      // Backtrack
       board[r][c] = '.';
       R[r].delete(ch);
       C[c].delete(ch);
       B[b].delete(ch);
     }
+    
     return false;
   }
-  bt(0);
+  
+  backtrack(0);
   return board;
 }
+```
 
 // Test Cases:
-// Input: board = [
-//   ["5","3",".",".","7",".",".",".","."],
-//   ["6",".",".","1","9","5",".",".","."],
-//   [".","9","8",".",".",".",".","6","."],
-//   ["8",".",".",".","6",".",".",".","3"],
-//   ["4",".",".","8",".","3",".",".","1"],
-//   ["7",".",".",".","2",".",".",".","6"],
-//   [".","6",".",".",".",".","2","8","."],
-//   [".",".",".","4","1","9",".",".","5"],
-//   [".",".",".",".","8",".",".","7","9"]
-// ]
+// Input: board = [["5","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]
 // Output: Solved Sudoku board (all cells filled with valid numbers)
+// Explanation: Backtracking fills all empty cells with valid digits
 
-// Note: Multiple solutions may exist; backtracking finds one valid solution
+// Input: board = [["1","2","3","4","5","6","7","8","9"],["4","5","6","7","8","9","1","2","3"],["7","8","9","1","2","3","4","5","6"],["2","3","4","5","6","7","8","9","1"],["5","6","7","8","9","1","2","3","4"],["8","9","1","2","3","4","5","6","7"],["3","4","5","6","7","8","9","1","2"],["6","7","8","9","1","2","3","4","5"],["9","1","2","3","4","5","6","7","8"]]
+// Output: Solved Sudoku board (already complete)
 ```
 
 **Time Complexity:** O(9^m) - Backtracking where m is number of empty cells  
-**Space Complexity:** O(1) -Reusing input board, O(81) sets for constraints
+**Space Complexity:** O(1) - Reusing input board, O(81) sets for constraints
 
-Deep Insights:
-  - Rule: Backtrack cell by cell; maintain row/col/box availability; O(9^m) time where m is empty cells.
-  - Real-world: Sudoku solving, constraint satisfaction, puzzle solving, backtracking algorithms.
-  - Common mistake: Backtracks on dead ends; valid puzzle assumed; not maintaining constraints correctly.
-  - Optimization: Constraint checking reduces search space; backtracks on dead ends; valid puzzle assumed.
-  - Interview tip: Explain constraint checking clearly; mention backtracking; ask about puzzle validity.
-## Q143. Permutations / Combinations
+**Deep Insights:**
+- **Optimal Approach:** Backtracking with constraint tracking achieves O(9^m) time—optimal for Sudoku
+- **Constraint Sets:** Track row, column, and box constraints—efficiently check valid digits
+- **Empty Cell Processing:** Process only empty cells—reduces search space
+- **Box Calculation:** box(r,c) = floor(r/3)*3 + floor(c/3)—maps cell to 3x3 box
+- **Key Insight:** Try digits 1-9 for each empty cell, backtrack when constraints violated—finds solution
+- **Edge Cases:** Valid puzzle assumed; no solution returns false; handles all cases
+- **Interview Tip:** Explain constraint checking clearly; emphasize box calculation; mention puzzle validity requirement
+## Q195. Permutations / Combinations
 
-Concept: Build paths; for combinations control start index; for permutations use used
-  - set or swap.
+**Problem:**
+1. **Permutations:** Given an array `nums` of distinct integers, return all the possible permutations. You can return the answer in any order.
+2. **Combinations:** Given two integers `n` and `k`, return all possible combinations of `k` numbers chosen from the range `[1, n]`.
 
-Example:
+**Approach:** Use backtracking. For permutations: track used elements. For combinations: control start index to avoid duplicates.
+
+### Solution 1: Permutations
 ```javascript
 function permute(nums) {
   const res = [];
   const used = new Array(nums.length).fill(false);
   const cur = [];
-
-  function bt() {
+  
+  function backtrack() {
+    // Base case: permutation complete
     if (cur.length === nums.length) {
       res.push([...cur]);
       return;
     }
+    
+    // Try each unused element
     for (let i = 0; i < nums.length; i++) {
       if (used[i]) continue;
+      
       used[i] = true;
       cur.push(nums[i]);
-      bt();
+      backtrack();
       cur.pop();
       used[i] = false;
     }
   }
-  bt();
+  
+  backtrack();
   return res;
 }
+```
 
+### Solution 2: Combinations
+```javascript
 function combine(n, k) {
   const res = [];
   const cur = [];
-
-  function bt(s) {
+  
+  function backtrack(start) {
+    // Base case: combination complete
     if (cur.length === k) {
       res.push([...cur]);
       return;
     }
-    for (let i = s; i <= n; i++) {
+    
+    // Try elements from start to n
+    for (let i = start; i <= n; i++) {
       cur.push(i);
-      bt(i + 1);
+      backtrack(i + 1);  // Start from next element
       cur.pop();
     }
   }
-  bt(1);
+  
+  backtrack(1);
   return res;
 }
+```
 
 // Test Cases:
 // permute:
@@ -210,26 +261,57 @@ function combine(n, k) {
 **Time Complexity:** O(n!) for permutations, O(C(n,k)) for combinations  
 **Space Complexity:** O(n) - Recursion stack plus result storage
 
-Deep Insights:
-  - Rule: Build paths; for combinations control start index; for permutations use used-set or swap; O(n!) / O(C(n,k)) time.
-  - Real-world: Permutations/combinations generation, arrangement problems, combinatorial generation, backtracking.
-  - Common mistake: Iterative variants exist; wrong start index for combinations; not handling duplicates correctly.
-  - Optimization: Used-set for permutations; start index for combinations; iterative variants exist.
-  - Interview tip: Explain permutations vs combinations clearly; mention iterative variants; ask about duplicates.
-## Q144. Subsets / Power Set
+**Deep Insights:**
+- **Optimal Approach:** Backtracking achieves optimal time complexity for both problems
+- **Permutations:** Use `used` array to track selected elements—prevents reuse
+- **Combinations:** Control start index—ensures non-decreasing order, prevents duplicates
+- **Key Difference:** Permutations allow any order; combinations maintain order—critical distinction
+- **Start Index:** For combinations, start from `i+1` after choosing `i`—prevents duplicates
+- **Edge Cases:** Empty array returns [[]]; k=0 returns [[]]; handles all cases
+- **Interview Tip:** Explain permutations vs combinations clearly; emphasize start index for combinations; mention iterative variants
+## Q196. Subsets / Power Set
 
-Concept: Decide include/exclude per item or iterate size by size.
+**Problem:** Given an integer array `nums` of unique elements, return all possible subsets (the power set). The solution set must not contain duplicate subsets. Return the solution in any order.
 
-Example:
+**Approach:** Use iterative approach. For each element, add it to all existing subsets to create new subsets. Alternatively, use backtracking with include/exclude decision.
+
+### Solution 1: Iterative (Optimal)
 ```javascript
 function subsets(nums) {
   const res = [[]];
-  for (const x of nums) {
-    const add = res.map(s => [...s, x]);
-    res.push(...add);
+  
+  // For each number, add it to all existing subsets
+  for (const num of nums) {
+    const newSubsets = res.map(subset => [...subset, num]);
+    res.push(...newSubsets);
   }
+  
   return res;
 }
+```
+
+### Solution 2: Backtracking
+```javascript
+function subsets(nums) {
+  const res = [];
+  const cur = [];
+  
+  function backtrack(start) {
+    // Add current subset
+    res.push([...cur]);
+    
+    // Try including each remaining element
+    for (let i = start; i < nums.length; i++) {
+      cur.push(nums[i]);
+      backtrack(i + 1);
+      cur.pop();
+    }
+  }
+  
+  backtrack(0);
+  return res;
+}
+```
 
 // Test Cases:
 // Input: nums = [1, 2, 3]
@@ -246,38 +328,49 @@ function subsets(nums) {
 ```
 
 **Time Complexity:** O(2^n) - Generating all 2^n subsets  
-**Space Complexity:** O(2^n) -Storage for all subsets
+**Space Complexity:** O(2^n) - Storage for all subsets
 
-Deep Insights:
-  - Rule: Decide include/exclude per item or iterate size by size; O(2^n) time, O(2^n) space.
-  - Real-world: Subsets/power set generation, subset problems, combination problems, enumeration.
-  - Common mistake: For duplicates, sort and skip same-start; order not important; wrong inclusion logic.
-  - Optimization: O(2^n) optimal; for duplicates, sort and skip same-start; order not important.
-  - Interview tip: Explain include/exclude clearly; mention duplicate handling; ask about ordered vs unordered.
-## Q145. Generate Parentheses
+**Deep Insights:**
+- **Optimal Approach:** Both iterative and backtracking achieve O(2^n) time—optimal for subsets
+- **Iterative Method:** Build subsets incrementally—add each element to all existing subsets
+- **Backtracking Method:** Include/exclude decision per element—more flexible for variations
+- **Key Insight:** Each element can be included or excluded—2^n total subsets
+- **Duplicate Handling:** For duplicates, sort first and skip same consecutive elements—prevents duplicate subsets
+- **Edge Cases:** Empty array returns [[]]; single element returns [[], [element]]; handles all cases
+- **Interview Tip:** Explain include/exclude decision clearly; compare iterative vs backtracking; mention duplicate handling
+## Q197. Generate Parentheses
 
-Concept: Backtrack ensuring open used <= n and close <= open.
+**Problem:** Given `n` pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 
-Example:
+**Approach:** Use backtracking. Track open and close counts. Add '(' if open < n, add ')' if close < open. This ensures valid parentheses by construction.
+
+### Solution 1: Backtracking (Optimal)
 ```javascript
 function generateParenthesis(n) {
   const res = [];
-
-  function bt(o, c, str) {
+  
+  function backtrack(open, close, str) {
+    // Base case: string complete
     if (str.length === 2 * n) {
       res.push(str);
       return;
     }
-    if (o < n) {
-      bt(o + 1, c, str + '(');
+    
+    // Add '(' if we haven't used all open parentheses
+    if (open < n) {
+      backtrack(open + 1, close, str + '(');
     }
-    if (c < o) {
-      bt(o, c + 1, str + ')');
+    
+    // Add ')' if we have more open than close (valid)
+    if (close < open) {
+      backtrack(open, close + 1, str + ')');
     }
   }
-  bt(0, 0, '');
+  
+  backtrack(0, 0, '');
   return res;
 }
+```
 
 // Test Cases:
 // Input: n = 3
@@ -294,46 +387,65 @@ function generateParenthesis(n) {
 ```
 
 **Time Complexity:** O(4^n / √n) - Catalan number C(n) ≈ 4^n / (n√(πn))  
-**Space Complexity:** O(n) -Recursion stack depth
+**Space Complexity:** O(n) - Recursion stack depth
 
-Deep Insights:
-  - Rule: Backtrack ensuring open used <= n and close <= open; O(C(n)) outputs where C(n) is Catalan number.
-  - Real-world: Generate parentheses, valid parentheses generation, balanced string generation, Catalan numbers.
-  - Common mistake: O(C(n)) outputs; balanced by construction; wrong open/close tracking.
-  - Optimization: O(C(n)) outputs optimal; balanced by construction; constraint checking ensures validity.
-  - Interview tip: Explain constraint checking clearly; mention Catalan numbers; ask about output format.
-## Q146. Word Search
+**Deep Insights:**
+- **Optimal Approach:** Backtracking achieves O(C(n)) time where C(n) is Catalan number—optimal for parentheses
+- **Constraint Checking:** open <= n and close <= open—ensures valid parentheses by construction
+- **Catalan Numbers:** Number of valid parentheses = C(n) = (2n)!/(n!(n+1)!)—exponential growth
+- **Key Insight:** Add '(' when open < n, add ')' when close < open—guarantees balance
+- **Balanced by Construction:** Constraints ensure valid parentheses—no need to validate
+- **Edge Cases:** n=0 returns [""]; n=1 returns ["()"]; handles all cases
+- **Interview Tip:** Explain constraint checking clearly; mention Catalan numbers; emphasize balanced by construction
+## Q198. Word Search
 
-Concept: DFS from each cell matching next character, mark visited and backtrack.
+**Problem:** Given an `m x n` grid of characters `board` and a string `word`, return `true` if `word` exists in the grid. The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.
 
-Example:
+**Approach:** Use DFS with backtracking. Start from each cell, match characters sequentially in 4 directions. Mark visited cells and backtrack when path fails.
+
+### Solution 1: DFS with Backtracking (Optimal)
 ```javascript
 function exist(board, word) {
   const m = board.length;
   const n = board[0].length;
   const dirs = [[1, 0], [-1, 0], [0, 1], [0, -1]];
   const seen = Array.from({ length: m }, () => Array(n).fill(false));
-
-  function dfs(r, c, i) {
-    if (i === word.length) return true;
-    if (r < 0 || c < 0 || r >= m || c >= n || seen[r][c] || board[r][c] !== word[i]) {
+  
+  function dfs(row, col, idx) {
+    // Base case: word found
+    if (idx === word.length) return true;
+    
+    // Boundary and validity checks
+    if (row < 0 || col < 0 || row >= m || col >= n || 
+        seen[row][col] || board[row][col] !== word[idx]) {
       return false;
     }
-    seen[r][c] = true;
+    
+    // Mark as visited
+    seen[row][col] = true;
+    
+    // Explore 4 directions
     for (const [dr, dc] of dirs) {
-      if (dfs(r + dr, c + dc, i + 1)) return true;
+      if (dfs(row + dr, col + dc, idx + 1)) {
+        return true;
+      }
     }
-    seen[r][c] = false;
+    
+    // Backtrack
+    seen[row][col] = false;
     return false;
   }
-
+  
+  // Try starting from each cell
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < n; j++) {
       if (dfs(i, j, 0)) return true;
     }
   }
+  
   return false;
 }
+```
 
 // Test Cases:
 // Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
@@ -349,20 +461,25 @@ function exist(board, word) {
 // Output: false
 ```
 
-**Time Complexity:** O(mn × 4^L) -DFS from each cell, 4 directions, L is word length  
+**Time Complexity:** O(mn × 4^L) - DFS from each cell, 4 directions, L is word length  
 **Space Complexity:** O(L) - Recursion stack depth
 
-Deep Insights:
-  - Rule: DFS from each cell matching next character, mark visited and backtrack; O(mn × 4^L) time.
-  - Real-world: Word search problems, pattern matching in grids, path finding, backtracking algorithms.
-  - Common mistake: Prune by first char counts; not marking visited correctly; forgetting to backtrack.
-  - Optimization: Prune by first char counts; mark visited during DFS; backtrack to restore state.
-  - Interview tip: Explain DFS clearly; mention pruning techniques; ask about optimization strategies.
-## Q147. Rat in a Maze
+**Deep Insights:**
+- **Optimal Approach:** DFS with backtracking achieves O(mn × 4^L) time—optimal for word search
+- **Visited Tracking:** Mark cells as visited during DFS—prevents revisiting same cell in path
+- **Backtracking:** Unmark visited when backtracking—allows reuse in different paths
+- **Four Directions:** Explore up, down, left, right—covers all adjacent cells
+- **Key Insight:** Start from each cell, match characters sequentially—finds word if exists
+- **Pruning:** Can prune by counting first character—early termination optimization
+- **Edge Cases:** Empty word returns true; single character returns true if exists; handles all cases
+- **Interview Tip:** Explain DFS clearly; emphasize backtracking; mention pruning techniques
+## Q199. Rat in a Maze
 
-Concept: From start, move in allowed directions marking path; backtrack on walls.
+**Problem:** Consider a rat placed at `(0, 0)` in a square maze of order `N * N`. The maze is represented as a 2D array where `1` represents a valid path and `0` represents a wall. The rat needs to reach the destination at `(N-1, N-1)`. Find all paths that the rat can take to reach the destination. The directions allowed are Up (U), Down (D), Left (L), Right (R).
 
-Example:
+**Approach:** Use backtracking. Start from (0,0), explore all 4 directions. Mark visited cells and backtrack when path fails or reaches destination.
+
+### Solution 1: Backtracking (Optimal)
 ```javascript
 function ratMaze(maze) {
   const m = maze.length;
@@ -370,90 +487,111 @@ function ratMaze(maze) {
   const res = [];
   const dirs = [[1, 0, 'D'], [0, 1, 'R'], [-1, 0, 'U'], [0, -1, 'L']];
   const seen = Array.from({ length: m }, () => Array(n).fill(false));
-
-  function bt(r, c, path) {
-    if (r === m - 1 && c === n - 1) {
+  
+  function backtrack(row, col, path) {
+    // Base case: reached destination
+    if (row === m - 1 && col === n - 1) {
       res.push(path);
       return;
     }
-    seen[r][c] = true;
-    for (const [dr, dc, ch] of dirs) {
-      const nr = r + dr;
-      const nc = c + dc;
-      if (nr >= 0 && nc >= 0 && nr < m && nc < n && maze[nr][nc] === 1 && !seen[nr][nc]) {
-        bt(nr, nc, path + ch);
+    
+    // Mark as visited
+    seen[row][col] = true;
+    
+    // Explore 4 directions
+    for (const [dr, dc, dir] of dirs) {
+      const nr = row + dr;
+      const nc = col + dc;
+      
+      // Check validity
+      if (nr >= 0 && nc >= 0 && nr < m && nc < n && 
+          maze[nr][nc] === 1 && !seen[nr][nc]) {
+        backtrack(nr, nc, path + dir);
       }
     }
-    seen[r][c] = false;
+    
+    // Backtrack
+    seen[row][col] = false;
   }
-
+  
+  // Start from (0,0) if valid
   if (maze[0][0] === 1) {
-    bt(0, 0, '');
+    backtrack(0, 0, '');
   }
+  
   return res;
 }
+```
 
 // Test Cases:
-// Input: maze = [
-//   [1, 0, 0, 0],
-//   [1, 1, 0, 1],
-//   [0, 1, 0, 0],
-//   [1, 1, 1, 1]
-// ]
+// Input: maze = [[1, 0, 0, 0],[1, 1, 0, 1],[0, 1, 0, 0],[1, 1, 1, 1]]
 // Output: ["DDRRURRD", "DDRURRRD"] (or similar paths)
+// Explanation: Rat finds all paths from (0,0) to (3,3)
 
-// Input: maze = [
-//   [1, 1],
-//   [1, 1]
-// ]
+// Input: maze = [[1, 1],[1, 1]]
 // Output: ["RD", "DR"]
+// Explanation: Two valid paths from (0,0) to (1,1)
 
-// Input: maze = [
-//   [0, 1],
-//   [1, 1]
-// ]
-// Output: [] (no path exists from start)
+// Input: maze = [[0, 1],[1, 1]]
+// Output: []
+// Explanation: No path exists from start (start cell is blocked)
 
-// Input: maze = [[1, 1, 1], [1, 0, 1], [1, 1, 1]]
+// Input: maze = [[1, 1, 1],[1, 0, 1],[1, 1, 1]]
 // Output: Valid paths from (0,0) to (2,2)
 ```
 
 **Time Complexity:** O(4^(mn)) - Backtracking with 4 directions from each cell  
-**Space Complexity:** O(mn) -Visited array plus recursion stack
+**Space Complexity:** O(mn) - Visited array plus recursion stack
 
-Deep Insights:
-  - Rule: From start, move in allowed directions marking path; backtrack on walls; O(4^(mn)) time worst-case.
-  - Real-world: Rat in a maze problems, path finding, maze solving, backtracking algorithms.
-  - Common mistake: Multiple paths collected; grid of 0/1; not marking visited correctly; forgetting to backtrack.
-  - Optimization: Backtracking explores all paths; multiple paths collected; grid of 0/1 (walls/paths).
-  - Interview tip: Explain backtracking clearly; mention path collection; ask about shortest path variant.
-## Q148. Combination Sum
+**Deep Insights:**
+- **Optimal Approach:** Backtracking explores all paths—optimal for finding all solutions
+- **Path Tracking:** Track path as string (U/D/L/R)—builds path incrementally
+- **Visited Tracking:** Mark cells as visited during DFS—prevents cycles
+- **Backtracking:** Unmark visited when backtracking—allows reuse in different paths
+- **Key Insight:** Explore all 4 directions from each cell—finds all valid paths
+- **Multiple Paths:** Collect all paths to destination—not just one solution
+- **Edge Cases:** Start blocked returns []; no path returns []; handles all cases
+- **Interview Tip:** Explain backtracking clearly; emphasize path collection; mention shortest path variant (BFS)
+## Q200. Combination Sum
 
-Concept: Choose candidate multiple times; backtrack with start index to avoid permutations.
+**Problem:** Given an array of distinct integers `candidates` and a target integer `target`, return a list of all unique combinations of `candidates` where the chosen numbers sum to `target`. You may return the combinations in any order. The same number may be chosen from `candidates` an unlimited number of times.
 
-Example:
+**Approach:** Use backtracking. Sort candidates first. Use start index to avoid duplicates. Allow reusing same candidate (start from `k`, not `k+1`).
+
+### Solution 1: Backtracking (Optimal)
 ```javascript
-function combinationSum(cands, target) {
-  cands.sort((a, b) => a - b);
+function combinationSum(candidates, target) {
+  candidates.sort((a, b) => a - b);
   const res = [];
   const cur = [];
-
-  function bt(i, sum) {
+  
+  function backtrack(start, sum) {
+    // Base case: target reached
     if (sum === target) {
       res.push([...cur]);
       return;
     }
-    for (let k = i; k < cands.length; k++) {
-      const x = cands[k];
-      if (sum + x > target) break;
-      cur.push(x);
-      bt(k, sum + x);
+    
+    // Try each candidate from start
+    for (let i = start; i < candidates.length; i++) {
+      const num = candidates[i];
+      
+      // Pruning: if sum exceeds target, no need to continue (sorted)
+      if (sum + num > target) break;
+      
+      // Choose candidate
+      cur.push(num);
+      // Recurse with same start (allows reuse)
+      backtrack(i, sum + num);
+      // Backtrack
       cur.pop();
     }
   }
-  bt(0, 0);
+  
+  backtrack(0, 0);
   return res;
 }
+```
 
 // Test Cases:
 // Input: candidates = [2, 3, 6, 7], target = 7
@@ -473,49 +611,62 @@ function combinationSum(cands, target) {
 ```
 
 **Time Complexity:** O(2^target) - Exponential backtracking  
-**Space Complexity:** O(target) -Recursion stack depth
+**Space Complexity:** O(target) - Recursion stack depth
 
-Deep Insights:
-  - Rule: Choose candidate multiple times; backtrack with start index to avoid permutations; O(2^target) time.
-  - Real-world: Combination sum problems, target sum problems, subset sum variants, backtracking.
-  - Common mistake: No duplicates by non-decreasing picks; target sums only; wrong start index handling.
-  - Optimization: Start index prevents duplicates; no duplicates by non-decreasing picks; target sums only.
-  - Interview tip: Explain start index clearly; mention duplicate avoidance; ask about target constraints.
-## Q149. Letter combinations of Phone Number
+**Deep Insights:**
+- **Optimal Approach:** Backtracking achieves exponential time—optimal for combination sum
+- **Start Index:** Use start index to avoid duplicates—ensures non-decreasing order
+- **Reuse Allowed:** Start from `i` (not `i+1`)—allows reusing same candidate multiple times
+- **Sorting:** Sort candidates first—enables pruning (break when sum > target)
+- **Pruning:** Break early when sum + num > target—reduces search space
+- **Key Insight:** Start index ensures unique combinations—prevents permutations
+- **Edge Cases:** No solution returns []; target=0 returns [[]] if 0 in candidates; handles all cases
+- **Interview Tip:** Explain start index clearly; emphasize reuse vs no-reuse; mention pruning optimization
+## Q201. Letter Combinations of a Phone Number
 
-Concept: Map digits to letters; backtrack by appending choices per digit.
+**Problem:** Given a string containing digits from `2-9` inclusive, return all possible letter combinations that the number could represent. Return the answer in any order. A mapping of digits to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
 
-Example:
+**Approach:** Use backtracking. Map each digit to its letters. For each digit, try all possible letters and recurse.
+
+### Solution 1: Backtracking (Optimal)
 ```javascript
-function letterCombinations(d) {
-  if (!d) return [];
+function letterCombinations(digits) {
+  if (!digits || digits.length === 0) return [];
+  
   const map = {
-    2: 'abc',
-    3: 'def',
-    4: 'ghi',
-    5: 'jkl',
-    6: 'mno',
-    7: 'pqrs',
-    8: 'tuv',
-    9: 'wxyz'
+    '2': 'abc',
+    '3': 'def',
+    '4': 'ghi',
+    '5': 'jkl',
+    '6': 'mno',
+    '7': 'pqrs',
+    '8': 'tuv',
+    '9': 'wxyz'
   };
+  
   const res = [];
   const cur = [];
-
-  function bt(i) {
-    if (i === d.length) {
+  
+  function backtrack(idx) {
+    // Base case: all digits processed
+    if (idx === digits.length) {
       res.push(cur.join(''));
       return;
     }
-    for (const ch of map[d[i]]) {
+    
+    // Try each letter for current digit
+    const letters = map[digits[idx]];
+    for (const ch of letters) {
       cur.push(ch);
-      bt(i + 1);
+      backtrack(idx + 1);
       cur.pop();
     }
   }
-  bt(0);
+  
+  backtrack(0);
   return res;
 }
+```
 
 // Test Cases:
 // Input: digits = "23"
@@ -531,49 +682,61 @@ function letterCombinations(d) {
 // Output: All combinations of letters for digits 2, 3, 4
 ```
 
-**Time Complexity:** O(4^n) - Each digit maps to 3
-  - 4 letters  
+**Time Complexity:** O(4^n) - Each digit maps to 3-4 letters  
 **Space Complexity:** O(n) - Recursion stack depth
 
-Deep Insights:
-  - Rule: Map digits to letters; backtrack by appending choices per digit; O(4^n) time where n is digits.
-  - Real-world: Phone number letter combinations, digit mapping, string generation, backtracking.
-  - Common mistake: Iterative queue variant exists; wrong digit mapping; not handling empty input.
-  - Optimization: O(4^n) time for n digits; iterative queue variant exists; backtracking generates all combinations.
-  - Interview tip: Explain digit mapping clearly; mention iterative variant; ask about empty input handling.
-## Q150. Palindrome Partitioning
+**Deep Insights:**
+- **Optimal Approach:** Backtracking achieves O(4^n) time—optimal for phone combinations
+- **Digit Mapping:** Map digits 2-9 to letters—standard phone keypad mapping
+- **Cartesian Product:** Generate all combinations of letters—one letter per digit
+- **Key Insight:** For each digit, try all possible letters—builds combinations incrementally
+- **Iterative Alternative:** Can use iterative approach with queue—same time complexity
+- **Edge Cases:** Empty input returns []; single digit returns all its letters; handles all cases
+- **Interview Tip:** Explain digit mapping clearly; mention iterative variant; compare with cartesian product
+## Q202. Palindrome Partitioning
 
-Concept: Backtrack split string; add substring if palindrome.
+**Problem:** Given a string `s`, partition `s` such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of `s`.
 
-Example:
+**Approach:** Use backtracking. For each position, try all possible substrings ending at that position. If substring is palindrome, add it and recurse.
+
+### Solution 1: Backtracking (Optimal)
 ```javascript
 function partition(s) {
   const res = [];
   const cur = [];
-
-  const isPal = (l, r) => {
-    while (l < r) {
-      if (s[l++] !== s[r--]) return false;
+  
+  // Check if substring is palindrome
+  function isPalindrome(left, right) {
+    while (left < right) {
+      if (s[left] !== s[right]) return false;
+      left++;
+      right--;
     }
     return true;
-  };
-
-  function bt(i) {
-    if (i === s.length) {
+  }
+  
+  function backtrack(start) {
+    // Base case: entire string processed
+    if (start === s.length) {
       res.push([...cur]);
       return;
     }
-    for (let j = i; j < s.length; j++) {
-      if (isPal(i, j)) {
-        cur.push(s.slice(i, j + 1));
-        bt(j + 1);
+    
+    // Try all possible substrings starting at 'start'
+    for (let end = start; end < s.length; end++) {
+      // If substring is palindrome, add it
+      if (isPalindrome(start, end)) {
+        cur.push(s.slice(start, end + 1));
+        backtrack(end + 1);
         cur.pop();
       }
     }
   }
-  bt(0);
+  
+  backtrack(0);
   return res;
 }
+```
 
 // Test Cases:
 // Input: s = "aab"
@@ -589,12 +752,15 @@ function partition(s) {
 // Output: [["a","b","a"],["aba"]]
 ```
 
-**Time Complexity:** O(n × 2^n) -Backtracking with palindrome checks  
+**Time Complexity:** O(n × 2^n) - Backtracking with palindrome checks  
 **Space Complexity:** O(n) - Recursion stack depth
 
-Deep Insights:
-  - Rule: Backtrack split string; add substring if palindrome; O(n × 2^n) time, O(n) space.
-  - Real-world: Palindrome partitioning, string cutting, palindrome problems, backtracking.
-  - Common mistake: Useful for cut problems; not checking palindrome correctly; wrong splitting logic.
-  - Optimization: O(n × 2^n) time; palindrome checking is O(n); useful for cut problems.
-  - Interview tip: Explain palindrome checking clearly; mention cut problems; ask about optimization.
+**Deep Insights:**
+- **Optimal Approach:** Backtracking achieves O(n × 2^n) time—optimal for palindrome partitioning
+- **Palindrome Check:** Check if substring is palindrome—O(n) per check
+- **Substring Generation:** Try all possible substrings starting at each position—builds partitions
+- **Key Insight:** Partition string into palindromic substrings—each substring must be palindrome
+- **DP Optimization:** Can precompute palindrome table—reduces palindrome check to O(1)
+- **Cut Problems:** Similar pattern applies to other cut problems—partition string optimally
+- **Edge Cases:** Empty string returns [[]]; single character returns [[char]]; handles all cases
+- **Interview Tip:** Explain palindrome checking clearly; mention DP optimization; compare with cut problems

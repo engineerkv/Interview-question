@@ -4,10 +4,8 @@
 
 ## 79) How do you create an Android release build using Gradle and keystore?
 
-Concept:
 Configure signing in build.gradle, create a keystore, and build the release APK.
 
-Example:
 ```gradle
 // android/app/build.gradle
 android {
@@ -15,23 +13,34 @@ android {
         release {
             if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
                 storeFile file(MYAPP_RELEASE_STORE_FILE)
+                storePassword MYAPP_RELEASE_STORE_PASSWORD
+                keyAlias MYAPP_RELEASE_KEY_ALIAS
+                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            }
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
 ```
 
-Deep Insight:
-- **Keystore Creation**: Use keytool to create release keystore
-- **Signing Configuration**: Configure signing in build.gradle
-- **Proguard**: Enable code obfuscation for release builds
+- **Core Steps**: Use keytool to create release keystore (keystore creation)
+- **Real-World Configuration**: Configure signing in build.gradle (signing configuration)
+- **Common Practice**: Enable code obfuscation for release builds (Proguard)
 - **Security**: Keep keystore and passwords secure
-- **Build Process**: Use gradlew assembleRelease to build
+- **Interview Tip**: Explain that use gradlew assembleRelease to build (build process)
 
 ---
 
 ## 80) How do you create an iOS release build using Xcode and provisioning profiles?
 
-Concept:
 Configure code signing in Xcode, create provisioning profiles, and archive the app.
 
-Example:
 ```bash
 # iOS build process
 # 1. Open project in Xcode
@@ -41,21 +50,18 @@ Example:
 # 5. Distribute to App Store
 ```
 
-Deep Insight:
-- **Code Signing**: Configure code signing in Xcode
-- **Provisioning Profiles**: Create and manage provisioning profiles
-- **Archive Process**: Archive app for distribution
-- **App Store Connect**: Upload to App Store Connect
-- **Certificates**: Manage development and distribution certificates
+- **Core Steps**: Configure code signing in Xcode (code signing)
+- **Real-World Setup**: Create and manage provisioning profiles (provisioning profiles)
+- **Common Process**: Archive app for distribution (archive process)
+- **Advanced Feature**: Upload to App Store Connect (App Store Connect)
+- **Interview Tip**: Explain that manage development and distribution certificates (certificates)
 
 ---
 
 ## 81) How do you manage build numbers and versioning across both platforms?
 
-Concept:
 Use consistent versioning strategies and automate version management across platforms.
 
-Example:
 ```jsx
 // package.json
 {
@@ -63,47 +69,50 @@ Example:
 }
 
 // android/app/build.gradle
+android {
+    defaultConfig {
+        versionCode 123
+        versionName "1.2.3"
+    }
+}
 ```
 
-Deep Insight:
-- **Semantic Versioning**: Use semantic versioning (major.minor.patch)
-- **Version Code**: Android version code (integer)
-- **Bundle Version**: iOS bundle version (string)
-- **Automation**: Automate version management
-- **Consistency**: Keep versions consistent across platforms
+- **Core Strategy**: Use semantic versioning (major.minor.patch) (semantic versioning)
+- **Real-World Use**: Android version code (integer) (version code)
+- **Common Practice**: iOS bundle version (string) (bundle version)
+- **Advanced Feature**: Automate version management (automation)
+- **Interview Tip**: Explain that keep versions consistent across platforms (consistency)
 
 ---
 
 ## 82) What are the guidelines for Play Store submission (Android)?
 
-Concept:
 Follow Google Play Store guidelines for app quality, content, and technical requirements.
 
-Example:
 ```xml
 <!-- AndroidManifest.xml requirements -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET" />
-    
     <application
         android:name=".MainApplication"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher">
+    </application>
+</manifest>
 ```
 
-Deep Insight:
-- **App Quality**: Meet quality guidelines and standards
-- **Content Policy**: Follow content and policy guidelines
-- **Technical Requirements**: Meet technical requirements
-- **Privacy Policy**: Include privacy policy
-- **Target API**: Target recent Android API levels
+- **Core Requirements**: Meet quality guidelines and standards (app quality)
+- **Real-World Compliance**: Follow content and policy guidelines (content policy)
+- **Common Requirements**: Meet technical requirements (technical requirements)
+- **Advanced Feature**: Include privacy policy (privacy policy)
+- **Interview Tip**: Explain that target recent Android API levels (target API)
 
 ---
 
 ## 83) What are the guidelines for App Store submission (iOS)?
 
-Concept:
 Follow Apple App Store guidelines for app quality, content, and technical requirements.
 
-Example:
 ```xml
 <!-- Info.plist requirements -->
 <dict>
@@ -111,47 +120,48 @@ Example:
     <string>My App</string>
     <key>CFBundleIdentifier</key>
     <string>com.myapp</string>
+    <key>NSPrivacyPolicyURL</key>
+    <string>https://example.com/privacy</string>
+</dict>
 ```
 
-Deep Insight:
-- **App Review**: Follow App Store review guidelines
-- **Human Interface Guidelines**: Follow iOS design guidelines
-- **Technical Requirements**: Meet technical requirements
-- **Privacy Policy**: Include privacy policy
-- **App Store Connect**: Use App Store Connect for submission
+- **Core Requirements**: Follow App Store review guidelines (app review)
+- **Real-World Compliance**: Follow iOS design guidelines (human interface guidelines)
+- **Common Requirements**: Meet technical requirements (technical requirements)
+- **Advanced Feature**: Include privacy policy (privacy policy)
+- **Interview Tip**: Explain that use App Store Connect for submission (App Store Connect)
 
 ---
 
 ## 84) How do you handle **phased rollouts** or staged updates?
 
-Concept:
 Use store-specific rollout features to gradually release updates to users.
 
-Example:
 ```jsx
-// Phased rollout configuration
 const rolloutConfig = {
   android: {
-    // Google Play Console phased rollout
     rolloutPercentage: 20, // Start with 20% of users
     monitoringPeriod: 7, // Monitor for 7 days
+    autoPromote: true
+  },
+  ios: {
+    phasedReleasePeriod: 7 // 7 days for phased release
+  }
+};
 ```
 
-Deep Insight:
-- **Gradual Release**: Release updates to subset of users first
-- **Risk Mitigation**: Reduce risk of widespread issues
-- **Monitoring**: Monitor metrics and user feedback
-- **Auto-Promotion**: Automatically promote successful rollouts
-- **Rollback**: Ability to pause or rollback if issues arise
+- **Core Strategy**: Release updates to subset of users first (gradual release)
+- **Real-World Benefit**: Reduce risk of widespread issues (risk mitigation)
+- **Common Practice**: Monitor metrics and user feedback (monitoring)
+- **Advanced Feature**: Automatically promote successful rollouts (auto-promotion)
+- **Interview Tip**: Explain that ability to pause or rollback if issues arise (rollback)
 
 ---
 
 ## 85) How do you automate builds using **Fastlane**, **EAS**, or **Bitrise**?
 
-Concept:
 Use CI/CD tools to automate the build, test, and deployment process.
 
-Example:
 ```ruby
 # Fastfile
 platform :android do
@@ -159,23 +169,25 @@ platform :android do
   lane :deploy do
     gradle(
       task: "bundle",
+      build_type: "Release"
+    )
+    upload_to_play_store
+  end
+end
 ```
 
-Deep Insight:
-- **Fastlane**: Ruby-based automation tool
-- **EAS**: Expo's build and deployment service
-- **Bitrise**: Cloud-based CI/CD platform
-- **Automation**: Automate repetitive build tasks
-- **CI/CD Integration**: Integrate with CI/CD pipelines
+- **Core Tools**: Fastlane (Ruby-based automation tool), EAS (Expo's build and deployment service), Bitrise (cloud-based CI/CD platform)
+- **Real-World Use**: Automate repetitive build tasks (automation)
+- **Common Integration**: Integrate with CI/CD pipelines (CI/CD integration)
+- **Advanced Feature**: Full automation of build and deployment
+- **Interview Tip**: Explain that automation improves development workflow
 
 ---
 
 ## 86) What are common causes of store rejections and how to fix them?
 
-Concept:
 Common causes include policy violations, technical issues, and quality problems that need to be addressed.
 
-Example:
 ```jsx
 // Common rejection causes and fixes
 
@@ -183,23 +195,24 @@ Example:
 // Fix: Add privacy policy link in app
 
 // 2. App crashes on launch
+// Fix: Test thoroughly and fix crashes
+
+// 3. Misleading metadata
+// Fix: Ensure accurate app descriptions
 ```
 
-Deep Insight:
-- **Policy Violations**: Follow store policies and guidelines
-- **Technical Issues**: Fix crashes and performance issues
-- **Content Issues**: Ensure appropriate content
-- **Metadata Issues**: Accurate app descriptions
-- **Quality Issues**: Meet quality standards
+- **Common Causes**: Follow store policies and guidelines (policy violations), Fix crashes and performance issues (technical issues)
+- **Real-World Problems**: Ensure appropriate content (content issues), Accurate app descriptions (metadata issues)
+- **Common Fix**: Meet quality standards (quality issues)
+- **Advanced Practice**: Address all rejection reasons systematically
+- **Interview Tip**: Explain that prevention is better than fixing rejections
 
 ---
 
 ## 87) How do you reduce app size (Hermes, Proguard, asset optimization)?
 
-Concept:
 Use Hermes, code obfuscation, asset optimization, and other techniques to reduce app size.
 
-Example:
 ```gradle
 // android/app/build.gradle
 android {
@@ -207,71 +220,71 @@ android {
         release {
             minifyEnabled true
             shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
 ```
 
-Deep Insight:
-- **Hermes**: Use Hermes JavaScript engine
-- **Proguard**: Enable code obfuscation and shrinking
-- **Asset Optimization**: Optimize images and assets
-- **Bundle Analysis**: Analyze bundle size
-- **Tree Shaking**: Remove unused code
+- **Core Techniques**: Use Hermes JavaScript engine, Enable code obfuscation and shrinking (Proguard)
+- **Real-World Practice**: Optimize images and assets (asset optimization)
+- **Common Analysis**: Analyze bundle size (bundle analysis)
+- **Advanced Feature**: Remove unused code (tree shaking)
+- **Interview Tip**: Explain that smaller apps improve download rates
 
 ---
 
 ## 88) How do you handle app analytics and tracking (Firebase, Segment)?
 
-Concept:
 Integrate analytics tools to track user behavior and app performance.
 
-Example:
 ```jsx
-// Firebase Analytics
 import analytics from '@react-native-firebase/analytics';
 
 function App() {
   useEffect(() => {
-    // Track app open
+    analytics().logAppOpen();
+  }, []);
+  
+  const trackEvent = (eventName, params) => {
+    analytics().logEvent(eventName, params);
+  };
+}
 ```
 
-Deep Insight:
-- **Firebase Analytics**: Google's analytics platform
-- **Segment**: Customer data platform
-- **Event Tracking**: Track user interactions
-- **User Behavior**: Understand user behavior
-- **Performance Monitoring**: Monitor app performance
+- **Core Tools**: Firebase Analytics (Google's analytics platform), Segment (customer data platform)
+- **Real-World Use**: Track user interactions (event tracking)
+- **Common Practice**: Understand user behavior (user behavior)
+- **Advanced Feature**: Monitor app performance (performance monitoring)
+- **Interview Tip**: Explain that analytics help improve app experience
 
 ---
 
 ## 89) What are best practices for signing, certificates, and release management?
 
-Concept:
 Use proper certificate management, secure signing practices, and automated release processes.
 
-Example:
 ```bash
 # Android keystore management
 keytool -genkey -v -keystore my-release-key.keystore \
         -alias my-key-alias -keyalg RSA -keysize 2048 \
         -validity 10000
 
-# iOS certificate management
+# iOS certificate management - Use Xcode
 ```
 
-Deep Insight:
-- **Keystore Security**: Keep Android keystore secure
-- **Certificate Management**: Manage iOS certificates properly
-- **Automated Signing**: Use automated signing when possible
-- **Backup**: Backup signing keys and certificates
-- **Rotation**: Rotate certificates regularly
+- **Core Practices**: Keep Android keystore secure (keystore security), Manage iOS certificates properly (certificate management)
+- **Real-World Use**: Use automated signing when possible (automated signing)
+- **Common Practice**: Backup signing keys and certificates (backup)
+- **Advanced Feature**: Rotate certificates regularly (rotation)
+- **Interview Tip**: Explain that secure signing is critical for production
 
 ---
 
 ## 90) How do you set up CI/CD pipelines for React Native apps?
 
-Concept:
 Configure automated pipelines for building, testing, and deploying React Native apps.
 
-Example:
 ```yaml
 # .github/workflows/deploy.yml
 name: Deploy
@@ -279,13 +292,21 @@ on:
   push:
     branches: [main]
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - run: npm test
+      - run: npm run build:android
+      - run: npm run build:ios
 ```
 
-Deep Insight:
-- **GitHub Actions**: Use GitHub Actions for CI/CD
-- **Automated Testing**: Run tests automatically
-- **Automated Building**: Build apps automatically
-- **Automated Deployment**: Deploy to stores automatically
-- **Quality Gates**: Implement quality gates in pipeline
+- **Core Tools**: Use GitHub Actions for CI/CD (GitHub Actions)
+- **Real-World Use**: Run tests automatically (automated testing)
+- **Common Practice**: Build apps automatically (automated building)
+- **Advanced Feature**: Deploy to stores automatically (automated deployment)
+- **Interview Tip**: Explain that implement quality gates in pipeline (quality gates)
 
 ---

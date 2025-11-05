@@ -52,43 +52,43 @@
 
 ### 1.1 Functional Requirements
 
-- **Auth & Onboarding:** OTP (phone/email), social/OIDC; KYC prompts; referrals.
+**Auth & Onboarding:** Users can log in with OTP (phone/email) or social login. System prompts for KYC when needed and supports referral flows.
 
-- **Home/Discover:** upcoming matches by sport/league; promos; search.
+**Home/Discover:** Shows upcoming matches organized by sport and league. Displays promotions and includes search functionality.
 
-- **Match Details:** squads, probable XI, credit values, venue/pitch, toss/lineup badges, lock countdown.
+**Match Details:** Shows team squads, probable playing XI, player credit values, venue/pitch info, toss/lineup status, and lock countdown timer.
 
-- **Contest Catalog:** mega, H2H, WTA, practice/private; filters (fee/size/multi‑entry/prize pool); join/leave rules.
+**Contest Catalog:** Supports multiple contest types (mega, head-to-head, winner-takes-all, practice, private). Users can filter by entry fee, contest size, multi-entry options, and prize pool. Includes join/leave rules.
 
-- **Team Builder:** select XI with credit cap; C/VC multipliers; formation rules; auto‑pick; clone; validation.
+**Team Builder:** Users select 11 players within credit cap. Supports captain/vice-captain multipliers, formation rules, auto-pick, team cloning, and validation.
 
-- **Join Contests:** select team(s), entries; payment (wallet/UPI/card); coupons; taxes display; idempotent joins.
+**Join Contests:** Users select team(s) and number of entries. Payment via wallet/UPI/card. Supports coupons and displays taxes. Uses idempotent joins to prevent duplicates.
 
-- **Live Mode:** ball/raid/goal events; points; ranks; leaderboards; team compare; notifications.
+**Live Mode:** Shows real-time events (ball/raid/goal), player points, user ranks, leaderboards, team comparison, and notifications.
 
-- **Results & Winnings:** post‑match settlement; winnings; transactions.
+**Results & Winnings:** Displays post-match settlement, winnings breakdown, and transaction history.
 
-- **Wallet & Payments:** add/withdraw; UPI intent; failure/retry; KYC gating.
+**Wallet & Payments:** Users can add/withdraw money via UPI/cards. Handles payment failures with retry logic. KYC gating for certain transactions.
 
-- **Profile & Settings:** language, theme, favorites; responsible play; state restrictions messaging.
+**Profile & Settings:** Language selection, theme preferences, favorite teams/players, responsible play settings, and state-specific restriction messaging.
 
 ### 1.2 Non‑Functional Requirements
 
-- **Performance KPIs:** LCP ≤ **2.0s** (entry routes), INP ≤ **200ms**, CLS < **0.1**; JS ≤ **300KB gz** on first route.
+**Performance KPIs:** Largest Contentful Paint (LCP) under 2.0s on entry routes, Interaction to Next Paint (INP) under 200ms, Cumulative Layout Shift (CLS) below 0.1. JavaScript bundle under 300KB gzipped on first route.
 
-- **Realtime:** ≤ **1s** latency for rank/points deltas; back‑pressure tolerant.
+**Realtime:** Live rank and points updates arrive within 1 second. System handles back-pressure gracefully.
 
-- **Reliability:** offline reads (schedules/teams), graceful live fallback; 99.9% target.
+**Reliability:** Offline reads work for schedules and saved teams. Live mode gracefully falls back when connection fails. Target 99.9% uptime.
 
-- **Scalability:** 1M+ concurrents at peak; SSR/ISR + CDN.
+**Scalability:** Handles 1M+ concurrent users during peak matches. Uses SSR/ISR for performance and CDN for global distribution.
 
-- **Security:** CSP, SRI, HTTPS/HSTS, SameSite cookies, token rotation; anti‑automation basics.
+**Security:** Content Security Policy (CSP), Subresource Integrity (SRI), HTTPS/HSTS, SameSite cookies, token rotation. Basic anti-automation measures.
 
-- **Accessibility:** WCAG 2.2 AA; color‑safe heatmaps; reduced motion.
+**Accessibility:** WCAG 2.2 AA compliance. Color-safe heatmaps for score visualization. Supports reduced motion preferences.
 
-- **Privacy/Compliance:** consent, PII minimization, KYC flows, audit logs.
+**Privacy/Compliance:** User consent management, PII minimization, KYC flows, audit logs for compliance.
 
-- **Observability:** RUM, logs, traces; error tracking with source maps.
+**Observability:** Real User Monitoring (RUM), structured logs, distributed traces. Error tracking with source maps for debugging.
 
 ---
 
@@ -96,7 +96,7 @@
 
 ### 2.1 High‑Level Diagram
 
-**Architecture Overview:** The system follows a layered architecture with client-side caching, offline support, and real-time capabilities.
+**Architecture Overview:** We use a layered architecture that separates concerns for better maintainability. The system includes client-side caching, offline support, and real-time updates through WebSocket connections.
 
 ```mermaid
 flowchart TB
@@ -156,76 +156,63 @@ flowchart TB
 **Architecture Layers Explained:**
 
 **1. Client Layer (Browser/PWA):**
-- **View Layer:** React components rendering UI, handles user interactions
-- **Controller Layer:** State management (Zustand/Redux) + Server state (React Query)
-- **Storage Layer:**
-  - **Memory Cache:** Fastest access (< 1ms), stores hot data (current match, active team)
-  - **IndexedDB:** Persistent storage for offline access (teams, matches, preferences)
-- **Service Worker:** Offline caching, background sync, push notifications
+- **View Layer:** React components render the UI and handle user interactions
+- **Controller Layer:** Zustand/Redux manages app state (like theme, sidebar), while React Query handles server data (matches, contests)
+- **Storage:** Memory cache gives instant access (< 1ms) for frequently used data. IndexedDB stores data persistently for offline access
+- **Service Worker:** Handles offline caching, background sync when connection returns, and push notifications
 
 **2. Edge/Network Layer:**
-- **CDN:** Serves static assets (JS, CSS, images) from edge locations
-- **SSR/SSG:** Server-side rendering for SEO, static generation for performance
+- **CDN:** Serves static assets (JS, CSS, images) from edge locations worldwide for faster loads
+- **SSR/SSG:** Server-side rendering helps with SEO and initial page load. Static generation caches pages for even better performance
 
 **3. Backend Services:**
-- **REST/GraphQL Gateway:** API endpoints for data fetching (matches, contests, wallet)
-- **Realtime Hub:** WebSocket/SSE connection for live score updates
-- **Auth Service:** OAuth/OIDC for social login, OTP for phone/email verification
+- **API Gateway:** REST/GraphQL endpoints for fetching data like matches, contests, user teams
+- **Realtime Hub:** WebSocket or Server-Sent Events for live score updates
+- **Auth Service:** OAuth/OIDC for social logins, OTP for phone/email authentication
 
 **Data Flow:**
-1. **Initial Load:** CDN → SSR → Browser (static HTML + JS)
-2. **Data Fetch:** UI → API → Backend (with caching via React Query)
-3. **Live Updates:** UI ↔ RT (bidirectional WebSocket)
-4. **Offline:** UI → IndexedDB → Background Sync when online
+1. **Initial Load:** CDN serves static assets → SSR generates HTML → Browser renders
+2. **Data Fetch:** UI makes API call → Backend responds → React Query caches the response
+3. **Live Updates:** UI connects via WebSocket → Server pushes updates → UI updates in real-time
+4. **Offline:** UI saves to IndexedDB → When online, Service Worker syncs queued actions
 
 **Key Design Decisions:**
-- **Layered Architecture:** Separation of concerns (View, Controller, Service)
-- **Caching Strategy:** 3-tier (Memory → IndexedDB → Network) for performance
-- **Real-time:** WebSocket/SSE for live updates with polling fallback
-- **Offline Support:** Service Worker + IndexedDB for offline team building
+- **Layered Architecture:** Keeps view, controller, and service logic separate for easier maintenance
+- **3-Tier Caching:** Memory (fastest) → IndexedDB (persistent) → Network (fresh) ensures instant UI with offline support
+- **Real-time:** WebSocket/SSE for live updates, with polling as fallback if WebSocket fails
+- **Offline Support:** Service Worker + IndexedDB lets users build teams offline and sync when online
 
 ### 2.2 View Layer
 
 **Technology Choices:**
-- **Framework:** React + TypeScript; **Next.js** for SSR/ISR
-- **Design System:** Design tokens (color/spacing/typography), Tailwind + shadcn/ui
-- **Styling:** Utility-first CSS (Tailwind) for consistency and performance
+- **Framework:** React with TypeScript for type safety. Next.js handles SSR/ISR for SEO and performance
+- **Design System:** Design tokens (colors, spacing, typography) ensure consistency. Tailwind CSS + shadcn/ui components
+- **Styling:** Utility-first CSS (Tailwind) keeps styles consistent and performant
 
-**Rendering Strategy (Interview Point):**
-- **Public Pages (SSR/ISR):** Home, match listing pages for SEO and fast initial load
-  - Example: `/matches` page server-rendered, revalidated every 30s (ISR)
-- **Interactive Pages (CSR):** Live scores, team builder for real-time updates
-  - Example: `/live/:matchId` client-side rendered with WebSocket streaming
-- **Long Lists (Virtualization):** Contest list, leaderboards for performance
-  - Example: Virtual scrolling for 10k+ contests, renders only visible items
+**Rendering Strategy:**
+- **Public Pages (SSR/ISR):** Home page and match listings use server-side rendering for SEO and fast initial load
+- **Interactive Pages (CSR):** Live scores and team builder use client-side rendering for real-time updates
+- **Long Lists (Virtualization):** Contest lists and leaderboards only render visible items to improve performance
 
 **Accessibility:**
-- Semantic HTML, ARIA live regions for score changes, keyboard-first navigation
-- WCAG 2.2 AA compliance for color contrast, screen reader support
+- Semantic HTML for better screen reader support. ARIA live regions announce score changes. Keyboard-first navigation throughout
 
 ### 2.3 Controller Layer
 
-**State Management Strategy (Interview Point):**
-- **App State (Zustand/Redux):** Session, feature flags, UI preferences
-  - Example: User authentication state, theme preference, sidebar open/close
-- **Server State (React Query):** API data with caching, pagination, invalidation
-  - Example: Matches list, contest catalog, user teams (auto-refetch on window focus)
-- **Form State (React Hook Form):** Local form state with validation (Zod schema)
-  - Example: Team builder form, OTP input with real-time validation
+**State Management Strategy (Key Interview Point):**
+- **App State (Zustand/Redux):** Manages session, feature flags, UI preferences. Examples: user auth state, theme preference, sidebar open/close
+- **Server State (React Query):** Handles API data with automatic caching, pagination, and invalidation. Examples: matches list, contest catalog, user teams (auto-refetches when window regains focus)
+- **Form State (React Hook Form):** Local form state with validation using Zod schemas. Examples: team builder form, OTP input with real-time validation
 
 **Key Patterns:**
-- **Optimistic Updates:** UI updates instantly, rolls back if server rejects
-  - Example: Join contest → immediately shows "Joined", confirms with server response
-- **Debounced Queries:** Reduces API calls for search/filtering
-  - Example: Contest search debounced 300ms to avoid excessive API calls
-- **Idempotent Mutations:** Safe retries with idempotency keys
-  - Example: Join contest mutation includes idempotency key to prevent duplicate joins
-- **Error Boundaries:** Graceful degradation per route
-  - Example: If live scores API fails, show cached data with error message
+- **Optimistic Updates:** UI updates instantly for better UX, then rolls back if server rejects. Example: Join contest → immediately shows "Joined", confirms with server response
+- **Debounced Queries:** Reduces API calls for search/filtering. Example: Contest search waits 300ms after user stops typing
+- **Idempotent Mutations:** Safe retries with idempotency keys prevent duplicate operations. Example: Join contest includes idempotency key to prevent double-joins
+- **Error Boundaries:** Graceful degradation when errors occur. Example: If live scores API fails, show cached data with error message
 
 ### 2.4 IndexedDB & Caching
 
-**Caching Strategy:** Multi-tier caching with memory cache (fastest), IndexedDB (persistent), and network (fresh data).
+**Caching Strategy:** We use a three-tier caching system. Memory cache is fastest, IndexedDB persists data, and network provides fresh data when needed.
 
 ```mermaid
 sequenceDiagram
@@ -259,22 +246,22 @@ sequenceDiagram
 ```
 
 **Why This Approach?**
-- **Instant UI:** Memory cache provides sub-millisecond access
-- **Offline Support:** IndexedDB allows viewing cached data when offline
-- **Stale-While-Revalidate:** Shows cached data immediately, updates in background
-- **Storage Limits:** IndexedDB stores critical data (matches, teams) for offline access
+- **Instant UI:** Memory cache provides sub-millisecond access for immediate display
+- **Offline Support:** IndexedDB lets users view cached data even when offline
+- **Stale-While-Revalidate:** Shows cached data immediately, then updates in background when fresh data arrives
+- **Storage Limits:** IndexedDB stores critical data (matches, teams) for offline access without bloating memory
 
 **IDB Stores:** `matches`, `contests`, `teams`, `players`, `sportConfig`, `userPrefs`, `walletSnapshot`, `mutationsQueue`
 
-**Offline Policy:** drafting teams allowed offline; joins/payments require online; queued mutations with Background Sync
+**Offline Policy:** Users can draft teams offline. Joins and payments require online connection. Mutations queue up and sync when connection returns.
 
-**SW:** precache shell; runtime `stale‑while‑revalidate` (images), `network‑first` (data)
+**Service Worker:** Pre-caches app shell for instant loads. Uses `stale-while-revalidate` for images, `network-first` for API data.
 
 ### 2.5 Service Layer
 
-- Thin wrapper over `fetch` with: auth headers, `x-trace-id`, retries/backoff, 429 handling, timeouts, error normalization (RFC7807).
+Thin wrapper over `fetch` that adds auth headers, trace IDs for debugging, automatic retries with backoff, 429 (rate limit) handling, timeouts, and standardized error format (RFC7807).
 
-- Codegen types from OpenAPI/GraphQL; WebSocket client with reconnect + seq gap detection.
+Codegen generates TypeScript types from OpenAPI/GraphQL schemas. WebSocket client includes automatic reconnection and sequence gap detection for reliable real-time updates.
 
 ---
 
@@ -387,15 +374,17 @@ export interface LiveSnapshot {
 
 ## 4) APIs: REST vs GraphQL
 
-**Choose REST** for cacheable resources and simpler CDN behavior. **Choose GraphQL** for complex, composite views and subscriptions.
+**When to Choose REST:** Use REST for cacheable resources and simpler CDN behavior. Works well for standard CRUD operations.
+
+**When to Choose GraphQL:** Use GraphQL for complex, composite views where you need multiple related resources in one request. Also good for subscriptions.
 
 ### 4.1 REST Examples
 
-**Base:** `https://api.example.com/v1`
+**Base URL:** `https://api.example.com/v1`
 
 **Auth (OTP):**
-- `POST /auth/otp/start` — req: `{ phone }` → `202 { txnId }`
-- `POST /auth/otp/verify` — req: `{ txnId, code }` → `200 { accessToken, refreshToken, user }`
+- `POST /auth/otp/start` — Request: `{ phone }` → Response: `202 { txnId }`
+- `POST /auth/otp/verify` — Request: `{ txnId, code }` → Response: `200 { accessToken, refreshToken, user }`
 
 **Matches:**
 - `GET /sports/{sport}/matches?status=upcoming` → `200 Match[]`
@@ -406,11 +395,11 @@ export interface LiveSnapshot {
 
 **Contests:**
 - `GET /matches/{id}/contests?type=mega&limit=50&cursor=...` → `200 { items: Contest[], nextCursor }`
-- `POST /contests/{id}/join` — req: `{ teamId }` → `200 Entry` or `402 { code: 'INSUFFICIENT_FUNDS' }`
+- `POST /contests/{id}/join` — Request: `{ teamId }` → `200 Entry` or `402 { code: 'INSUFFICIENT_FUNDS' }`
 
 **Teams:**
 - `GET /matches/{id}/teams/my` → `200 TeamXI[]`
-- `POST /matches/{id}/teams` — body: `TeamXI` → `201 TeamXI`
+- `POST /matches/{id}/teams` — Body: `TeamXI` → `201 TeamXI`
 
 **Wallet:**
 - `GET /wallet` → `200 Wallet`
@@ -418,17 +407,17 @@ export interface LiveSnapshot {
 
 **Live:**
 - `GET /matches/{id}/live/snapshot` → `200 LiveSnapshot`
-- `wss://rt.example.com/live?matchId=...` → deltas `{ type:'points', playerId, delta, seq }`
+- `wss://rt.example.com/live?matchId=...` → Deltas: `{ type:'points', playerId, delta, seq }`
 
-**Errors:** RFC7807 Problem Details `{ type, title, status, detail, traceId }`
+**Errors:** Uses RFC7807 Problem Details format: `{ type, title, status, detail, traceId }`
 
-**Caching:** `ETag`, `If-None-Match`, appropriate `Cache-Control`
+**Caching:** Uses `ETag` and `If-None-Match` headers. Appropriate `Cache-Control` directives for each resource type.
 
 ### 4.2 GraphQL Examples
 
-**Endpoint:** `POST /graphql` (with APQ)
+**Endpoint:** `POST /graphql` (with Automatic Persisted Queries for better caching)
 
-**Query — Hub**
+**Query — Hub (Fetches multiple related resources):**
 
 ```graphql
 query MatchHub($matchId: ID!, $after: String) {
@@ -436,10 +425,7 @@ query MatchHub($matchId: ID!, $after: String) {
     id
     sport
     lockAt
-    teams {
-      a
-      b
-    }
+    teams { a b }
   }
   contests(matchId: $matchId, first: 50, after: $after) {
     edges {
@@ -476,7 +462,7 @@ query MatchHub($matchId: ID!, $after: String) {
 }
 ```
 
-**Mutation — Join**
+**Mutation — Join Contest:**
 
 ```graphql
 mutation Join($contestId: ID!, $teamId: ID!) {
@@ -494,7 +480,7 @@ mutation Join($contestId: ID!, $teamId: ID!) {
 }
 ```
 
-**Subscription — Live**
+**Subscription — Live Updates:**
 
 ```graphql
 subscription Live($matchId: ID!) {
@@ -511,9 +497,9 @@ subscription Live($matchId: ID!) {
 
 ## 5) Implementation Details
 
-**Stack:** Next.js (SSR/ISR) • React 18 • TypeScript • React Query + Zustand/Redux • Tailwind + shadcn/ui • Workbox PWA • Playwright/MSW • Sentry/Analytics
+**Tech Stack:** Next.js (SSR/ISR) • React 18 • TypeScript • React Query + Zustand/Redux • Tailwind + shadcn/ui • Workbox PWA • Playwright/MSW • Sentry/Analytics
 
-**Structure:**
+**Project Structure:**
 
 ```
 src/
@@ -528,9 +514,9 @@ src/
 
 **Key Flows**
 
-- **Build Team & Join (Optimistic):**
+**Build Team & Join (Optimistic):**
 
-**Flow Explanation:** Optimistic updates provide instant feedback while API calls happen in background. If server rejects, UI rolls back.
+**Flow Explanation:** Optimistic updates make the UI feel instant. We update the UI immediately, then confirm with the server. If the server rejects, we roll back the change.
 
 ```mermaid
 sequenceDiagram
@@ -563,9 +549,9 @@ sequenceDiagram
   end
 ```
 
-- **Live Deltas → Snapshot:**
+**Live Deltas → Snapshot:**
 
-**Flow Explanation:** Real-time updates arrive as deltas (small changes). UI batches updates for performance and requests full snapshot if gaps detected.
+**Flow Explanation:** Real-time updates come as small deltas (changes). We batch these updates for performance. If we detect missing updates, we request a full snapshot to sync.
 
 ```mermaid
 sequenceDiagram
@@ -587,37 +573,31 @@ sequenceDiagram
 ```
 
 **Performance Optimizations:**
-- **RequestAnimationFrame (RAF):** Throttles DOM updates to screen refresh rate
-- **Batching:** Groups multiple delta updates every 250ms
-- **Snapshot Recovery:** Detects sequence gaps and fetches full state
+- **RequestAnimationFrame (RAF):** Throttles DOM updates to match screen refresh rate (60fps)
+- **Batching:** Groups multiple delta updates every 250ms to reduce render cycles
+- **Snapshot Recovery:** Detects sequence gaps and fetches full state to ensure accuracy
 
 **Performance Budget & Tactics**
 
-- Code‑split by route/component; hydrate only interactive islands.
+- Code-split by route/component. Only hydrate interactive islands for faster initial load
+- Virtualize long lists. Memoize expensive rank calculations from deltas
+- Media: Use AVIF/WebP formats with `srcset` for responsive images. Lazy load below fold. Use icon sprites
+- Fonts: Prefer system fonts or subset custom fonts. Use `display: swap` to prevent invisible text
 
-- Virtualize lists; memoize rank derivation from deltas.
+**Security & Anti‑Abuse (Frontend)**
 
-- Media: AVIF/WebP + `srcset`; lazyload; icon sprite.
+- Use SameSite/HttpOnly cookies for sessions. Include CSRF tokens if using cookies
+- Collect device signals for risk scoring (no PII stored). Rate-limit sensitive actions like payments
+- Include idempotency keys on payments/joins. Add `x-trace-id` for request tracing
 
-- Fonts: system default or subset; `display: swap`.
+**Accessibility & Internationalization**
 
-**Security & Anti‑Abuse (frontend)**
-
-- SameSite/HttpOnly session cookies; CSRF tokens if cookies used.
-
-- Device signals for risk scoring (no PII in storage); rate‑limit sensitive actions.
-
-- Idempotency keys on payments/joins; include `x-trace-id`.
-
-**A11y & i18n**
-
-- Keyboard‑navigable builder; ARIA live regions for scores.
-
-- Intl APIs for dates/numbers; ICU plurals; RTL‑safe CSS.
+- Make team builder keyboard-navigable. Use ARIA live regions to announce score changes
+- Use Intl APIs for dates/numbers. Support ICU plurals. Ensure CSS works for RTL languages
 
 **Error Handling**
 
-- Unified problem model → toast + inline remediation; payment resume flow.
+- Use unified problem model (RFC7807) → Show toast notifications + inline error messages. Include payment resume flow for failed transactions
 
 ---
 
@@ -625,37 +605,37 @@ sequenceDiagram
 
 ### 6.1 Unit
 
-- **Scope:** lineup validators, credit calculators, reducers/selectors, pure hooks.
+**Scope:** Test lineup validators, credit calculators, reducers/selectors, and pure hooks in isolation.
 
-- **Tools:** Vitest/Jest + React Testing Library.
+**Tools:** Vitest/Jest for test runner, React Testing Library for component testing.
 
 ### 6.2 Integration
 
-- **Scope:** team builder rules; join mutation with wallet updates; ws→cache pipeline.
+**Scope:** Test team builder rules, join mutation with wallet updates, WebSocket → cache pipeline.
 
-- **Tools:** RTL + **MSW** (REST/GraphQL) + fake WS server.
+**Tools:** React Testing Library + MSW (Mock Service Worker) for REST/GraphQL mocking, fake WebSocket server for real-time testing.
 
 ### 6.3 E2E
 
-- **Scope:** OTP login (stub), create team, join contest, payment success/failure, live sanity, results view.
+**Scope:** Test complete flows: OTP login (stubbed), create team, join contest, payment success/failure, live score display, results view.
 
-- **Tools:** Playwright; run on preview env; save traces/videos.
+**Tools:** Playwright for end-to-end tests. Run on preview environment. Save traces/videos for debugging.
 
 ### 6.4 Contract & Visual
 
-- **Contract:** Pact (consumer) vs API gateway stubs.
+**Contract Testing:** Use Pact for consumer-driven contract testing against API gateway stubs.
 
-- **Visual:** Storybook + Chromatic/Playwright snapshots for design system.
+**Visual Testing:** Storybook + Chromatic/Playwright snapshots for design system components.
 
-### 6.5 Performance & A11y
+### 6.5 Performance & Accessibility
 
-- **Lighthouse CI** budgets; **Web Vitals RUM** gates in CI.
+**Performance:** Lighthouse CI enforces performance budgets. Web Vitals RUM gates in CI pipeline.
 
-- **axe-core** automated checks; manual SR passes on key flows.
+**Accessibility:** axe-core for automated checks. Manual screen reader passes on key user flows.
 
 ### 6.6 Synthetic Live Replay
 
-- Record `{seq, delta}` streams + snapshots; deterministic replay to verify ranking/points and UI throttling.
+Record `{seq, delta}` streams + snapshots. Deterministic replay verifies ranking/points calculation and UI throttling behavior.
 
 **Test Pyramid**
 
@@ -671,25 +651,25 @@ pie
 
 ## 7) Observability & Analytics
 
-- **RUM:** TTFB, LCP, CLS, INP; route timings; ws reconnects/gaps.
+**Real User Monitoring (RUM):** Track TTFB, LCP, CLS, INP. Monitor route timings. Track WebSocket reconnects and gaps.
 
-- **Errors:** Sentry with source maps; grouped by `traceId`.
+**Error Tracking:** Sentry with source maps for production debugging. Group errors by `traceId` for easier investigation.
 
-- **Analytics Events:** `match_view`, `team_saved`, `contest_joined`, `payment_attempted`, `payment_succeeded`, `payment_failed`, `live_view_open`, `notification_click`.
+**Analytics Events:** Track `match_view`, `team_saved`, `contest_joined`, `payment_attempted`, `payment_succeeded`, `payment_failed`, `live_view_open`, `notification_click`.
 
-- **Dashboards:** join funnel, conversion, live latency, error rate, JS weight.
+**Dashboards:** Monitor join funnel, conversion rates, live update latency, error rates, JavaScript bundle size.
 
 ---
 
 ## 8) Release & Delivery
 
-- **CI:** typecheck, lint, unit/integration, build, Lighthouse, bundle stats.
+**CI Pipeline:** Typecheck, lint, unit/integration tests, build, Lighthouse checks, bundle size analysis.
 
-- **Preview Deploys:** per PR with seeded fixtures & stubbed payments.
+**Preview Deploys:** Each PR gets a preview deployment with seeded test data and stubbed payment flows.
 
-- **Rollout:** flags + canaries; progressive (5% → 25% → 100%).
+**Rollout Strategy:** Feature flags + canary deployments. Progressive rollout: 5% → 25% → 100% of users.
 
-- **CDN/Cache:** immutable assets (1y); HTML ISR 30–120s pre‑lock.
+**CDN/Cache:** Immutable assets cached for 1 year. HTML uses ISR with 30–120s revalidation before match lock.
 
 ---
 
@@ -778,5 +758,3 @@ workbox.routing.registerRoute(
 ```
 
 > **Note:** Replace `api.example.com` with real endpoints; wire codegen for types; adapt KPIs and budgets to your product SLOs.
-
-

@@ -1,6 +1,15 @@
 # ⚛️ **Next.js Interview Cheatsheet**
 
-*Quick reference guide for Next.js interview preparation*
+> **⏱️ Review Time: 15-20 minutes** | **Priority: ⭐⭐ Medium** | Quick reference for Next.js interviews
+
+**Quick Review Checklist:**
+- [ ] Next.js Basics (App Router, Server/Client Components)
+- [ ] Data Fetching (SSR, SSG, ISR, Server Components)
+- [ ] Routing & Navigation (Dynamic Routes, Link Component)
+- [ ] Performance (Image Optimization, Code Splitting, Scripts)
+- [ ] API Routes & Server Actions
+- [ ] Authentication (NextAuth.js, Middleware)
+- [ ] Deployment (Vercel, Docker, Build Output)
 
 ---
 

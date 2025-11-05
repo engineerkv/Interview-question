@@ -1,60 +1,65 @@
 # Math
 
-## Q172. Palindrome Number
+## Q224. Palindrome Number
 
-Concept: Check if integer is palindrome by reversing half and comparing with remaining half.
+**Problem:** Given an integer `x`, return `true` if `x` is a palindrome, and `false` otherwise.
 
+**Approach:** Reverse half of the number and compare with remaining half. Stop when reversed >= original.
+
+### Solution 1: Half Reversal (Optimal)
 ```javascript
 function isPalindrome(x) {
+  // Negative numbers and multiples of 10 (except 0) are not palindromes
   if (x < 0 || (x !== 0 && x % 10 === 0)) return false;
   
   let reversed = 0;
-  let original = x;
   
+  // Reverse half of number
   while (x > reversed) {
     reversed = reversed * 10 + x % 10;
     x = Math.floor(x / 10);
   }
   
+  // Compare: x === reversed (even digits) or x === reversed/10 (odd digits)
   return x === reversed || x === Math.floor(reversed / 10);
 }
 
 // Test Cases:
-//
-// Example 1:
-//   Input: x = 121
-//   Output: true
-//   Explanation: Reads 121 from left to right and from right to left
-//
-// Example 2:
-//   Input: x = -121
-//   Output: false
-//   Explanation: From left to right, it reads -121. From right to left, it becomes 121-
-//
-// Example 3:
-//   Input: x = 10
-//   Output: false
-//   Explanation: Reads 01 from right to left
-//
-// Example 4:
-//   Input: x = -101
-//   Output: false
+// Input: x = 121
+// Output: true
+// Explanation: Reads 121 from left to right and from right to left
+
+// Input: x = -121
+// Output: false
+// Explanation: From left to right, it reads -121. From right to left, it becomes 121-
+
+// Input: x = 10
+// Output: false
+// Explanation: Reads 01 from right to left
+
+// Input: x = -101
+// Output: false
 ```
 
-Deep Insights:
-  - Rule: Reverse half of number and compare; stop when reversed >= original; O(log n) time.
-  - Real-world: Palindrome checking, number validation, string comparison.
-  - Common mistake: Not handling negative numbers; not handling multiples of 10; wrong comparison.
-  - Optimization: O(log n) time, O(1) space; reverse half only; compare with original half.
-  - Interview tip: Explain half-reversal strategy clearly; mention edge cases; ask about optimization.
+**Time Complexity:** O(log n) - Number of digits  
+**Space Complexity:** O(1) - Constant extra space
 
-Time Complexity: O(log n) - Number of digits
-Space Complexity: O(1) - Constant extra space
+**Deep Insights:**
+- **Optimal Approach:** Half reversal achieves O(log n) time, O(1) space—optimal for palindrome
+- **Half Reversal:** Reverse only half of number—avoids full reversal and overflow
+- **Key Insight:** Stop when reversed >= original—compares halves efficiently
+- **Edge Case Handling:** Negative numbers and multiples of 10 (except 0) are not palindromes
+- **Even/Odd Digits:** Handle both cases—x === reversed or x === reversed/10
+- **Edge Cases:** Single digit returns true; 0 returns true; handles all cases
+- **Interview Tip:** Explain half-reversal strategy clearly; emphasize edge cases; mention optimization
 
-## Q173. Plus One
+## Q225. Plus One
 
-Concept: Add one to number represented as array of digits; handle carry from right to left.
+**Problem:** You are given a large integer represented as an integer array `digits`, where each `digits[i]` is the `i`th digit of the integer. The digits are ordered from most significant to least significant in left-to-right order. The large integer does not contain any leading zeros. Increment the large integer by one and return the resulting array of digits.
 
+**Approach:** Add one from right to left. If digit < 9, increment and return. If digit = 9, set to 0 and continue. If all 9s, add new digit at front.
+
+### Solution 1: Carry Propagation (Optimal)
 ```javascript
 function plusOne(digits) {
   for (let i = digits.length - 1; i >= 0; i--) {
@@ -62,7 +67,7 @@ function plusOne(digits) {
       digits[i]++;
       return digits;
     }
-    digits[i] = 0;
+    digits[i] = 0;  // Carry propagation
   }
   
   // All 9s, need to add new digit at front
@@ -71,46 +76,46 @@ function plusOne(digits) {
 }
 
 // Test Cases:
-//
-// Example 1:
-//   Input: digits = [1,2,3]
-//   Output: [1,2,4]
-//   Explanation: 123 + 1 = 124
-//
-// Example 2:
-//   Input: digits = [4,3,2,1]
-//   Output: [4,3,2,2]
-//   Explanation: 4321 + 1 = 4322
-//
-// Example 3:
-//   Input: digits = [9]
-//   Output: [1,0]
-//   Explanation: 9 + 1 = 10
-//
-// Example 4:
-//   Input: digits = [9,9,9]
-//   Output: [1,0,0,0]
-//   Explanation: 999 + 1 = 1000
+// Input: digits = [1,2,3]
+// Output: [1,2,4]
+// Explanation: 123 + 1 = 124
+
+// Input: digits = [4,3,2,1]
+// Output: [4,3,2,2]
+// Explanation: 4321 + 1 = 4322
+
+// Input: digits = [9]
+// Output: [1,0]
+// Explanation: 9 + 1 = 10
+
+// Input: digits = [9,9,9]
+// Output: [1,0,0,0]
+// Explanation: 999 + 1 = 1000
 ```
 
-Deep Insights:
-  - Rule: Add one from right to left; handle carry; if all 9s, add new digit at front; O(n) time.
-  - Real-world: Arithmetic operations, big number addition, carry propagation.
-  - Common mistake: Wrong carry handling; not handling all 9s case; wrong digit manipulation.
-  - Optimization: O(n) time, O(1) space (excluding result); handle carry from right; unshift if all 9s.
-  - Interview tip: Explain carry propagation clearly; mention all 9s case; ask about optimization.
+**Time Complexity:** O(n) - Worst case traverse all digits  
+**Space Complexity:** O(1) - Excluding result array
 
-Time Complexity: O(n) - Worst case traverse all digits
-Space Complexity: O(1) - Excluding result array
+**Deep Insights:**
+- **Optimal Approach:** Carry propagation achieves O(n) time—optimal for plus one
+- **Carry Handling:** Propagate carry from right to left—same as decimal addition
+- **All 9s Case:** If all digits are 9, add new digit at front—handles overflow
+- **Key Insight:** Early return when digit < 9—optimizes common case
+- **Edge Cases:** Single digit handled; all 9s handled correctly; handles all cases
+- **Interview Tip:** Explain carry propagation clearly; emphasize all 9s case; mention early return optimization
 
-## Q174. Factorial Trailing Zeroes
+## Q226. Factorial Trailing Zeroes
 
-Concept: Count trailing zeroes in n! by counting factors of 5; each 5 contributes a zero (with 2).
+**Problem:** Given an integer `n`, return the number of trailing zeroes in `n!`. Note that `n! = n * (n - 1) * (n - 2) * ... * 3 * 2 * 1`.
 
+**Approach:** Count factors of 5 in n!. Each 5 contributes a trailing zero (paired with a 2). Count powers of 5 repeatedly.
+
+### Solution 1: Factor 5 Counting (Optimal)
 ```javascript
 function trailingZeroes(n) {
   let count = 0;
   
+  // Count factors of 5 (including powers: 25, 125, etc.)
   while (n >= 5) {
     count += Math.floor(n / 5);
     n = Math.floor(n / 5);
@@ -120,41 +125,40 @@ function trailingZeroes(n) {
 }
 
 // Test Cases:
-//
-// Example 1:
-//   Input: n = 3
-//   Output: 0
-//   Explanation: 3! = 6, no trailing zero
-//
-// Example 2:
-//   Input: n = 5
-//   Output: 1
-//   Explanation: 5! = 120, one trailing zero
-//
-// Example 3:
-//   Input: n = 0
-//   Output: 0
-//
-// Example 4:
-//   Input: n = 25
-//   Output: 6
-//   Explanation: 25! has 6 trailing zeroes (5, 10, 15, 20, 25 contribute; 25 contributes 2)
+// Input: n = 3
+// Output: 0
+// Explanation: 3! = 6, no trailing zero
+
+// Input: n = 5
+// Output: 1
+// Explanation: 5! = 120, one trailing zero
+
+// Input: n = 0
+// Output: 0
+
+// Input: n = 25
+// Output: 6
+// Explanation: 25! has 6 trailing zeroes (5, 10, 15, 20, 25 contribute; 25 contributes 2)
 ```
 
-Deep Insights:
-  - Rule: Count factors of 5 in n!; each 5 contributes a zero (paired with 2); O(log n) time.
-  - Real-world: Factorial calculations, combinatorics, mathematical analysis.
-  - Common mistake: Wrong factor counting; not handling powers of 5; wrong calculation.
-  - Optimization: O(log n) time, O(1) space; count 5s repeatedly; powers of 5 contribute multiple zeroes.
-  - Interview tip: Explain factor 5 counting clearly; mention pairing with 2s; ask about optimization.
+**Time Complexity:** O(log n) - Base 5 logarithm  
+**Space Complexity:** O(1) - Constant extra space
 
-Time Complexity: O(log n) - Base 5 logarithm
-Space Complexity: O(1) - Constant extra space
+**Deep Insights:**
+- **Optimal Approach:** Factor 5 counting achieves O(log n) time—optimal for trailing zeroes
+- **Factor 5:** Each 5 contributes a trailing zero—paired with abundant 2s
+- **Powers of 5:** Count 25, 125, etc. repeatedly—each contributes multiple zeroes
+- **Key Insight:** Count factors of 5 repeatedly—handles all powers of 5
+- **Edge Cases:** n=0 returns 0; n<5 returns 0; handles all cases
+- **Interview Tip:** Explain factor 5 counting clearly; emphasize pairing with 2s; mention powers of 5
 
-## Q175. Sqrt(x)
+## Q227. Sqrt(x)
 
-Concept: Find integer square root using binary search; find largest number whose square <= x.
+**Problem:** Given a non-negative integer `x`, return the square root of `x` rounded down to the nearest integer. The returned integer should be non-negative as well. You must not use any built-in exponent function or operator.
 
+**Approach:** Use binary search to find largest number whose square <= x. Search in range [2, x/2].
+
+### Solution 1: Binary Search (Optimal)
 ```javascript
 function mySqrt(x) {
   if (x < 2) return x;
@@ -174,43 +178,42 @@ function mySqrt(x) {
     }
   }
   
-  return right;
+  return right;  // Largest number whose square <= x
 }
 
 // Test Cases:
-//
-// Example 1:
-//   Input: x = 4
-//   Output: 2
-//
-// Example 2:
-//   Input: x = 8
-//   Output: 2
-//   Explanation: Square root of 8 is 2.82842..., and since 2^2 < 8 < 3^2, return 2
-//
-// Example 3:
-//   Input: x = 0
-//   Output: 0
-//
-// Example 4:
-//   Input: x = 1
-//   Output: 1
+// Input: x = 4
+// Output: 2
+
+// Input: x = 8
+// Output: 2
+// Explanation: Square root of 8 is 2.82842..., and since 2^2 < 8 < 3^2, return 2
+
+// Input: x = 0
+// Output: 0
+
+// Input: x = 1
+// Output: 1
 ```
 
-Deep Insights:
-  - Rule: Binary search for largest number whose square <= x; O(log x) time.
-  - Real-world: Square root calculation, mathematical functions, approximation.
-  - Common mistake: Wrong binary search bounds; not handling edge cases; wrong return value.
-  - Optimization: O(log x) time optimal; binary search on range [2, x/2]; return right when not found.
-  - Interview tip: Explain binary search strategy clearly; mention bounds; ask about precision.
+**Time Complexity:** O(log x) - Binary search  
+**Space Complexity:** O(1) - Constant extra space
 
-Time Complexity: O(log x) - Binary search
-Space Complexity: O(1) - Constant extra space
+**Deep Insights:**
+- **Optimal Approach:** Binary search achieves O(log x) time—optimal for square root
+- **Binary Search:** Find largest number whose square <= x—efficient search
+- **Key Insight:** Search in range [2, x/2]—optimizes bounds
+- **Return Value:** Return right when not found—largest valid square root
+- **Edge Cases:** x=0 returns 0; x=1 returns 1; handles all cases
+- **Interview Tip:** Explain binary search strategy clearly; emphasize bounds optimization; mention precision
 
-## Q176. Pow(x, n)
+## Q228. Pow(x, n)
 
-Concept: Compute x^n using binary exponentiation; if n is even, x^n = (x^(n/2))^2; else x^n = x * (x^((n-1)/2))^2.
+**Problem:** Implement `pow(x, n)`, which calculates `x` raised to the power `n` (i.e., `x^n`).
 
+**Approach:** Use binary exponentiation. If n is odd, multiply result by x. Square x and halve n. Handle negative n by inverting x.
+
+### Solution 1: Binary Exponentiation (Optimal)
 ```javascript
 function myPow(x, n) {
   if (n === 0) return 1;
@@ -222,9 +225,11 @@ function myPow(x, n) {
   let result = 1;
   
   while (n > 0) {
+    // If n is odd, multiply result by x
     if (n % 2 === 1) {
       result *= x;
     }
+    // Square x and halve n
     x *= x;
     n = Math.floor(n / 2);
   }
@@ -233,35 +238,36 @@ function myPow(x, n) {
 }
 
 // Test Cases:
-//
-// Example 1:
-//   Input: x = 2.00000, n = 10
-//   Output: 1024.00000
-//
-// Example 2:
-//   Input: x = 2.10000, n = 3
-//   Output: 9.26100
-//
-// Example 3:
-//   Input: x = 2.00000, n = -2
-//   Output: 0.25000
-//   Explanation: 2^-2 = 1/2^2 = 1/4 = 0.25
+// Input: x = 2.00000, n = 10
+// Output: 1024.00000
+
+// Input: x = 2.10000, n = 3
+// Output: 9.26100
+
+// Input: x = 2.00000, n = -2
+// Output: 0.25000
+// Explanation: 2^-2 = 1/2^2 = 1/4 = 0.25
 ```
 
-Deep Insights:
-  - Rule: Binary exponentiation; if n odd, multiply result; square x; halve n; O(log n) time.
-  - Real-world: Exponentiation, mathematical computations, power calculations.
-  - Common mistake: Wrong exponentiation logic; not handling negative exponents; wrong iteration.
-  - Optimization: O(log n) time optimal; binary exponentiation; handle negative n by inverting x.
-  - Interview tip: Explain binary exponentiation clearly; mention negative exponents; ask about optimization.
+**Time Complexity:** O(log n) - Binary exponentiation  
+**Space Complexity:** O(1) - Constant extra space
 
-Time Complexity: O(log n) - Binary exponentiation
-Space Complexity: O(1) - Constant extra space
+**Deep Insights:**
+- **Optimal Approach:** Binary exponentiation achieves O(log n) time—optimal for pow
+- **Binary Exponentiation:** Square x and halve n—reduces operations exponentially
+- **Odd n Handling:** Multiply result by x when n is odd—accumulates result
+- **Key Insight:** x^n = (x^(n/2))^2 if n even, x * (x^((n-1)/2))^2 if n odd—divide and conquer
+- **Negative n:** Invert x and make n positive—handles negative exponents
+- **Edge Cases:** n=0 returns 1; x=0 returns 0; handles all cases
+- **Interview Tip:** Explain binary exponentiation clearly; emphasize negative exponent handling; mention optimization
 
-## Q177. Max Points on a Line
+## Q229. Max Points on a Line
 
-Concept: Count points on same line using slope; track (dx,dy) pairs; reduce fractions using GCD.
+**Problem:** Given an array of `points` where `points[i] = [xi, yi]` represents a point on the X-Y plane, return the maximum number of points that lie on the same straight line.
 
+**Approach:** For each point, calculate slopes to all other points. Normalize slopes using GCD. Count points with same normalized slope. Handle duplicate points separately.
+
+### Solution 1: Slope Normalization (Optimal)
 ```javascript
 function maxPoints(points) {
   if (points.length <= 2) return points.length;
@@ -270,15 +276,17 @@ function maxPoints(points) {
   
   for (let i = 0; i < points.length; i++) {
     const slopes = new Map();
-    let same = 1;
+    let same = 1;  // Count duplicate points
     
     for (let j = i + 1; j < points.length; j++) {
       const [x1, y1] = points[i];
       const [x2, y2] = points[j];
       
+      // Handle duplicate points
       if (x1 === x2 && y1 === y2) {
         same++;
       } else {
+        // Calculate slope and normalize using GCD
         const dx = x2 - x1;
         const dy = y2 - y1;
         const g = gcd(Math.abs(dx), Math.abs(dy));
@@ -287,6 +295,7 @@ function maxPoints(points) {
       }
     }
     
+    // Find max points on same line
     let currentMax = same;
     for (const count of slopes.values()) {
       currentMax = Math.max(currentMax, same + count);
@@ -305,23 +314,22 @@ function gcd(a, b) {
 }
 
 // Test Cases:
-//
-// Example 1:
-//   Input: points = [[1,1],[2,2],[3,3]]
-//   Output: 3
-//
-// Example 2:
-//   Input: points = [[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]
-//   Output: 4
+// Input: points = [[1,1],[2,2],[3,3]]
+// Output: 3
+
+// Input: points = [[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]
+// Output: 4
 ```
 
-Deep Insights:
-  - Rule: Count points on same line using normalized slopes; use GCD to reduce fractions; O(n²) time.
-  - Real-world: Geometry problems, line detection, point clustering.
-  - Common mistake: Wrong slope calculation; not handling duplicate points; not normalizing slopes.
-  - Optimization: O(n²) time, O(n) space; normalize slopes with GCD; handle duplicate points separately.
-  - Interview tip: Explain slope normalization clearly; mention GCD; ask about edge cases.
+**Time Complexity:** O(n²) - For each point, check all other points  
+**Space Complexity:** O(n) - Slope map per point
 
-Time Complexity: O(n²) - For each point, check all other points
-Space Complexity: O(n) - Slope map per point
+**Deep Insights:**
+- **Optimal Approach:** Slope normalization achieves O(n²) time—optimal for max points on line
+- **Slope Normalization:** Use GCD to normalize slopes—reduces fractions to simplest form
+- **Duplicate Points:** Handle duplicate points separately—count them for all lines
+- **Key Insight:** Normalize slopes using GCD—ensures same slope representation
+- **Map Storage:** Use map to count points with same slope—efficient grouping
+- **Edge Cases:** ≤2 points returns length; all points same returns length; handles all cases
+- **Interview Tip:** Explain slope normalization clearly; emphasize GCD usage; mention duplicate point handling
 

@@ -40,269 +40,269 @@ Below is a curated **Top 200+ DSA Interview Questions** list, grouped by topic f
 
 ---
 
-## ✅ **Strings (22 problems)** - Q16-Q37
+## ✅ **Strings (22 problems)** - Q34-Q55
 
-16. Valid Anagram
-17. Longest Substring Without Repeating Characters
-18. Palindrome Check
-19. Longest Palindromic Substring
-20. Group Anagrams
-21. String Rotation / Reverse Words
-22. Longest Repeating Character Replacement
-23. Minimum Window Substring
-24. Isomorphic Strings
-25. Count & Say
-26. Rabin-Karp / KMP Pattern Match
-27. Roman to Integer / Integer to Roman
-28. Longest Common Prefix
-29. Length of Last Word
-30. Zigzag Conversion
-31. Find the Index of the First Occurrence in a String
-32. Text Justification
-33. Ransom Note
-34. Word Pattern
-35. Happy Number
-36. Contains Duplicate II
-37. Substring with Concatenation of All Words
-
----
-
-## ✅ **Linked List (19 problems)** - Q31-Q49
-
-31. Reverse Linked List
-32. Detect Cycle
-33. Remove Nth Node From End
-34. Merge Two Sorted Lists
-35. Middle of Linked List
-36. Palindrome Linked List
-37. Flatten Multilevel LL
-38. Intersection of Two LL
-39. Add Two Numbers (LL)
-40. Sort LL
-41. Clone LL with Random Pointer
-42. Reverse Nodes in K-Group
-43. Rotate List
-44. Delete Node w/o Head Pointer
-45. Find Start Node of Cycle
-46. Reverse Linked List II
-47. Remove Duplicates from Sorted List II
-48. Partition List
-49. LRU Cache
+34. Valid Anagram
+35. Longest Substring Without Repeating Characters
+36. Palindrome Check
+37. Longest Palindromic Substring
+38. Group Anagrams
+39. String Rotation / Reverse Words
+40. Longest Repeating Character Replacement
+41. Minimum Window Substring
+42. Isomorphic Strings
+43. Count & Say
+44. Rabin-Karp / KMP Pattern Match
+45. Roman to Integer / Integer to Roman
+46. Longest Common Prefix
+47. Length of Last Word
+48. Zigzag Conversion
+49. Find the Index of the First Occurrence in a String
+50. Text Justification
+51. Ransom Note
+52. Word Pattern
+53. Happy Number
+54. Contains Duplicate II
+55. Substring with Concatenation of All Words
 
 ---
 
-## ✅ **Stacks & Queues (12 problems)** - Q46-Q57
+## ✅ **Linked List (19 problems)** - Q56-Q74
 
-46. Implement Stack using Queues
-47. Implement Queue using Stacks
-48. Min Stack
-49. Valid Parentheses
-50. Next Greater Element
-51. Daily Temperatures
-52. Evaluate Reverse Polish Notation
-53. Largest Rectangle in Histogram
-54. Sliding Window Maximum
-55. Circular Queue
-56. Simplify Path
-57. Basic Calculator
-
----
-
-## ✅ **Binary Trees (27 problems)** - Q56-Q82
-
-56. Binary Tree Traversals (DFS/BFS)
-57. Max Depth of Binary Tree
-58. Diameter of Binary Tree
-59. Balanced Binary Tree
-60. Invert Binary Tree
-61. Symmetric Tree
-62. Path Sum
-63. LCA in Binary Tree
-64. Serialize & Deserialize
-65. Level Order Traversal
-66. Zigzag Traversal
-67. Left/Right View of Tree
-68. Boundary Traversal
-69. DFS Pre/In/Post Order
-70. Construct Tree from Inorder & Preorder
-71. Morris Traversal
-72. Maximum Path Sum
-73. Vertical Order Traversal
-74. Count Nodes in Complete Tree
-75. Binary Tree to DLL
-76. Same Tree
-77. Construct Binary Tree from Inorder and Postorder Traversal
-78. Populating Next Right Pointers in Each Node II
-79. Flatten Binary Tree to Linked List
-80. Sum Root to Leaf Numbers
-81. Binary Tree Right Side View
-82. Average of Levels in Binary Tree
+56. Reverse Linked List
+57. Detect Cycle
+58. Remove Nth Node From End
+59. Merge Two Sorted Lists
+60. Middle of Linked List
+61. Palindrome Linked List
+62. Flatten Multilevel LL
+63. Intersection of Two LL
+64. Add Two Numbers (LL)
+65. Sort LL
+66. Clone LL with Random Pointer
+67. Reverse Nodes in K-Group
+68. Rotate List
+69. Delete Node w/o Head Pointer
+70. Find Start Node of Cycle
+71. Reverse Linked List II
+72. Remove Duplicates from Sorted List II
+73. Partition List
+74. LRU Cache
 
 ---
 
-## ✅ **Binary Search Tree (10 problems)** - Q76-Q85
+## ✅ **Stacks & Queues (12 problems)** - Q75-Q86
 
-76. Insert/Delete/Search in BST
-77. Validate BST
-78. Lowest Common Ancestor in BST
-79. Kth Smallest in BST
-80. BST Iterator
-81. Recover BST
-82. Floor and Ceil in BST
-83. Range Sum in BST
-84. Predecessor & Successor
-85. Convert Sorted Array to BST
-
----
-
-## ✅ **Heaps & Priority Queue (12 problems)** - Q86-Q97
-
-86. Kth Largest Element
-87. Top K Frequent Elements
-88. Merge K Sorted Lists
-89. Find Median from Stream
-90. K Closest Points to Origin
-91. Connect Ropes to Min Cost
-92. Reorganize String
-93. Maximum Sliding Window (Heap variant)
-94. Smallest Range Covering Elements (k lists)
-95. Heapsort
-96. IPO
-97. Find K Pairs with Smallest Sums
+75. Implement Stack using Queues
+76. Implement Queue using Stacks
+77. Min Stack
+78. Valid Parentheses
+79. Next Greater Element
+80. Daily Temperatures
+81. Evaluate Reverse Polish Notation
+82. Largest Rectangle in Histogram
+83. Sliding Window Maximum
+84. Circular Queue
+85. Simplify Path
+86. Basic Calculator
 
 ---
 
-## ✅ **Graphs (24 problems)** - Q96-Q119
+## ✅ **Binary Trees (27 problems)** - Q87-Q113
 
-96. DFS / BFS
-97. Detect Cycle (Directed & Undirected)
-98. Topological Sort
-99. Number of Islands
-100. Clone Graph
-101. Rotten Oranges
-102. Course Schedule
-103. Bipartite Graph
-104. Dijkstra's Algorithm
-105. Bellman-Ford
-106. Floyd-Warshall
-107. Minimum Spanning Tree (Kruskal/Prim)
-108. Bridges in Graph
-109. Articulation Points
-110. Shortest Path in DAG
-111. Detect Cycle in DAG
-112. Word Ladder
-113. Snake & Ladder Problem
-114. DSU (Union-Find)
-115. Tarjan's Algorithm for SCC
-116. Surrounded Regions
-117. Evaluate Division
-118. Course Schedule II
-119. Minimum Genetic Mutation
-
----
-
-## ✅ **Dynamic Programming (33 problems)** - Q116-Q148
-
-116. Fibonacci (Memo & Tabulation)
-117. Climbing Stairs
-118. Coin Change
-119. 0-1 Knapsack
-120. Longest Increasing Subsequence
-121. Longest Common Subsequence
-122. Edit Distance
-123. Rod Cutting
-124. Partition Equal Subset Sum
-125. House Robber
-126. House Robber II
-127. Decode Ways
-128. DP on Grid — Min Path / Unique Paths
-129. Palindromic Substrings
-130. Burst Balloons
-131. Job Scheduling
-132. Wildcard Matching
-133. Subset Sum
-134. Unbounded Knapsack
-135. Maximum Rectangle
-136. Rain Water with DP
-137. Egg Dropping
-138. Matrix Chain Multiplication
-139. Min Cost Climbing Stairs
-140. Buy & Sell Stock DP (multiple variants)
-141. Word Break
-142. Triangle
-143. Unique Paths II
-144. Interleaving String
-145. Best Time to Buy and Sell Stock III
-146. Best Time to Buy and Sell Stock IV
-147. Maximal Square
-148. Maximum Sum Circular Subarray
+87. Binary Tree Traversals (DFS/BFS)
+88. Max Depth of Binary Tree
+89. Diameter of Binary Tree
+90. Balanced Binary Tree
+91. Invert Binary Tree
+92. Symmetric Tree
+93. Path Sum
+94. LCA in Binary Tree
+95. Serialize & Deserialize
+96. Level Order Traversal
+97. Zigzag Traversal
+98. Left/Right View of Tree
+99. Boundary Traversal
+100. DFS Pre/In/Post Order
+101. Construct Tree from Inorder & Preorder
+102. Morris Traversal
+103. Maximum Path Sum
+104. Vertical Order Traversal
+105. Count Nodes in Complete Tree
+106. Binary Tree to DLL
+107. Same Tree
+108. Construct Binary Tree from Inorder and Postorder Traversal
+109. Populating Next Right Pointers in Each Node II
+110. Flatten Binary Tree to Linked List
+111. Sum Root to Leaf Numbers
+112. Binary Tree Right Side View
+113. Average of Levels in Binary Tree
 
 ---
 
-## ✅ **Recursion & Backtracking (10 problems)** - Q141-Q150
+## ✅ **Binary Search Tree (10 problems)** - Q114-Q123
 
-141. N-Queens
-142. Sudoku Solver
-143. Permutations / Combinations
-144. Subsets / Power Set
-145. Generate Parentheses
-146. Word Search
-147. Rat in a Maze
-148. Combination Sum
-149. Letter Combinations of Phone Number
-150. Palindrome Partitioning
-
----
-
-## ✅ **Matrix (5 problems)** - Q151-Q155
-
-151. Valid Sudoku
-152. Spiral Matrix
-153. Rotate Image
-154. Set Matrix Zeroes
-155. Game of Life
+114. Insert/Delete/Search in BST
+115. Validate BST
+116. Lowest Common Ancestor in BST
+117. Kth Smallest in BST
+118. BST Iterator
+119. Recover BST
+120. Floor and Ceil in BST
+121. Range Sum in BST
+122. Predecessor & Successor
+123. Convert Sorted Array to BST
 
 ---
 
-## ✅ **Trie (3 problems)** - Q156-Q158
+## ✅ **Heaps & Priority Queue (12 problems)** - Q124-Q135
 
-156. Implement Trie (Prefix Tree)
-157. Design Add and Search Words Data Structure
-158. Word Search II
-
----
-
-## ✅ **Binary Search (7 problems)** - Q159-Q165
-
-159. Search Insert Position
-160. Search a 2D Matrix
-161. Find Peak Element
-162. Search in Rotated Sorted Array
-163. Find First and Last Position of Element in Sorted Array
-164. Find Minimum in Rotated Sorted Array
-165. Median of Two Sorted Arrays
+124. Kth Largest Element
+125. Top K Frequent Elements
+126. Merge K Sorted Lists
+127. Find Median from Stream
+128. K Closest Points to Origin
+129. Connect Ropes to Min Cost
+130. Reorganize String
+131. Maximum Sliding Window (Heap variant)
+132. Smallest Range Covering Elements (k lists)
+133. Heapsort
+134. IPO
+135. Find K Pairs with Smallest Sums
 
 ---
 
-## ✅ **Bit Manipulation (6 problems)** - Q166-Q171
+## ✅ **Graphs (24 problems)** - Q136-Q159
 
-166. Add Binary
-167. Reverse Bits
-168. Number of 1 Bits
-169. Single Number
-170. Single Number II
-171. Bitwise AND of Numbers Range
+136. DFS / BFS
+137. Detect Cycle (Directed & Undirected)
+138. Topological Sort
+139. Number of Islands
+140. Clone Graph
+141. Rotten Oranges
+142. Course Schedule
+143. Bipartite Graph
+144. Dijkstra's Algorithm
+145. Bellman-Ford
+146. Floyd-Warshall
+147. Minimum Spanning Tree (Kruskal/Prim)
+148. Bridges in Graph
+149. Articulation Points
+150. Shortest Path in DAG
+151. Detect Cycle in DAG
+152. Word Ladder
+153. Snake & Ladder Problem
+154. DSU (Union-Find)
+155. Tarjan's Algorithm for SCC
+156. Surrounded Regions
+157. Evaluate Division
+158. Course Schedule II
+159. Minimum Genetic Mutation
 
 ---
 
-## ✅ **Math (6 problems)** - Q172-Q177
+## ✅ **Dynamic Programming (33 problems)** - Q160-Q192
 
-172. Palindrome Number
-173. Plus One
-174. Factorial Trailing Zeroes
-175. Sqrt(x)
-176. Pow(x, n)
-177. Max Points on a Line
+160. Fibonacci (Memo & Tabulation)
+161. Climbing Stairs
+162. Coin Change
+163. 0-1 Knapsack
+164. Longest Increasing Subsequence
+165. Longest Common Subsequence
+166. Edit Distance
+167. Rod Cutting
+168. Partition Equal Subset Sum
+169. House Robber
+170. House Robber II
+171. Decode Ways
+172. DP on Grid — Min Path / Unique Paths
+173. Palindromic Substrings
+174. Burst Balloons
+175. Job Scheduling
+176. Wildcard Matching
+177. Subset Sum
+178. Unbounded Knapsack
+179. Maximum Rectangle
+180. Rain Water with DP
+181. Egg Dropping
+182. Matrix Chain Multiplication
+183. Min Cost Climbing Stairs
+184. Buy & Sell Stock DP (multiple variants)
+185. Word Break
+186. Triangle
+187. Unique Paths II
+188. Interleaving String
+189. Best Time to Buy and Sell Stock III
+190. Best Time to Buy and Sell Stock IV
+191. Maximal Square
+192. Maximum Sum Circular Subarray
+
+---
+
+## ✅ **Recursion & Backtracking (10 problems)** - Q193-Q202
+
+193. N-Queens
+194. Sudoku Solver
+195. Permutations / Combinations
+196. Subsets / Power Set
+197. Generate Parentheses
+198. Word Search
+199. Rat in a Maze
+200. Combination Sum
+201. Letter Combinations of Phone Number
+202. Palindrome Partitioning
+
+---
+
+## ✅ **Matrix (5 problems)** - Q203-Q207
+
+203. Valid Sudoku
+204. Spiral Matrix
+205. Rotate Image
+206. Set Matrix Zeroes
+207. Game of Life
+
+---
+
+## ✅ **Trie (3 problems)** - Q208-Q210
+
+208. Implement Trie (Prefix Tree)
+209. Design Add and Search Words Data Structure
+210. Word Search II
+
+---
+
+## ✅ **Binary Search (7 problems)** - Q211-Q217
+
+211. Search Insert Position
+212. Search a 2D Matrix
+213. Find Peak Element
+214. Search in Rotated Sorted Array
+215. Find First and Last Position of Element in Sorted Array
+216. Find Minimum in Rotated Sorted Array
+217. Median of Two Sorted Arrays
+
+---
+
+## ✅ **Bit Manipulation (6 problems)** - Q218-Q223
+
+218. Add Binary
+219. Reverse Bits
+220. Number of 1 Bits
+221. Single Number
+222. Single Number II
+223. Bitwise AND of Numbers Range
+
+---
+
+## ✅ **Math (6 problems)** - Q224-Q229
+
+224. Palindrome Number
+225. Plus One
+226. Factorial Trailing Zeroes
+227. Sqrt(x)
+228. Pow(x, n)
+229. Max Points on a Line
 
 ---
 
@@ -319,25 +319,25 @@ Below is a curated **Top 200+ DSA Interview Questions** list, grouped by topic f
 
 ## 📊 Summary
 
-**Total Problems: 229 problems (Q1-Q177 + specialized)**
+**Total Problems: 229 problems (Q1-Q229)**
 
 | Category | Count | Range |
 |----------|-------|-------|
 | Arrays | 33 | Q1-Q33 |
-| Strings | 22 | Q16-Q37 |
-| Linked List | 19 | Q31-Q49 |
-| Stacks & Queues | 12 | Q46-Q57 |
-| Binary Trees | 27 | Q56-Q82 |
-| Binary Search Tree | 10 | Q76-Q85 |
-| Heaps & Priority Queue | 12 | Q86-Q97 |
-| Graphs | 24 | Q96-Q119 |
-| Dynamic Programming | 33 | Q116-Q148 |
-| Recursion & Backtracking | 10 | Q141-Q150 |
-| Matrix | 5 | Q151-Q155 |
-| Trie | 3 | Q156-Q158 |
-| Binary Search | 7 | Q159-Q165 |
-| Bit Manipulation | 6 | Q166-Q171 |
-| Math | 6 | Q172-Q177 |
+| Strings | 22 | Q34-Q55 |
+| Linked List | 19 | Q56-Q74 |
+| Stacks & Queues | 12 | Q75-Q86 |
+| Binary Trees | 27 | Q87-Q113 |
+| Binary Search Tree | 10 | Q114-Q123 |
+| Heaps & Priority Queue | 12 | Q124-Q135 |
+| Graphs | 24 | Q136-Q159 |
+| Dynamic Programming | 33 | Q160-Q192 |
+| Recursion & Backtracking | 10 | Q193-Q202 |
+| Matrix | 5 | Q203-Q207 |
+| Trie | 3 | Q208-Q210 |
+| Binary Search | 7 | Q211-Q217 |
+| Bit Manipulation | 6 | Q218-Q223 |
+| Math | 6 | Q224-Q229 |
 
 ---
 

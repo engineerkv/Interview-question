@@ -1,6 +1,6 @@
 # ⚡️ JavaScript Interview Questions
 
-146 carefully curated questions covering JavaScript fundamentals to advanced topics.
+180 carefully curated questions covering JavaScript fundamentals to advanced topics, including 50 output-based questions.
 
 ## 📋 Quick Navigation
 
@@ -9,13 +9,12 @@
 | [1️⃣](#1-core-javascript-fundamentals) | Core JavaScript Fundamentals | Q1–15 | ⭐⭐ |
 | [2️⃣](#2-functions-closures--execution-context) | Functions, Closures & Execution Context | Q16–25 | ⭐⭐⭐ |
 | [3️⃣](#3-promises-asyncawait-and-event-loop) | Promises, Async/Await & Event Loop | Q26–51 | ⭐⭐⭐⭐ |
-| [4️⃣](#4-objects-prototypes--inheritance) | Objects, Prototypes & Inheritance | Q52–63 | ⭐⭐⭐ |
-| [5️⃣](#5-classes--inheritance-es6) | Classes & Inheritance (ES6+) | Q64–73 | ⭐⭐⭐ |
-| [6️⃣](#6-es6-features) | ES6+ Features | Q66–75 | ⭐⭐ |
-| [7️⃣](#7-v8-engine-internals-step-by-step-deep-dive) | V8 Engine Internals - Deep Dive | Q76–88 | ⭐⭐⭐⭐⭐ |
-| [8️⃣](#8-practical-javascript-questions) | Practical JavaScript Questions | Q78–109 | ⭐⭐⭐⭐ |
-| [9️⃣](#9-web-workers--service-workers) | Web Workers & Service Workers | Q120–129 | ⭐⭐⭐⭐ |
-| [🔟](#10-real-world--edge-javascript-topics) | Real-World & Edge Topics | Q130–139 | ⭐⭐⭐ |
+| [4️⃣](#4-objects-prototypes--inheritance) | Objects, Prototypes & Inheritance | Q52–71 | ⭐⭐⭐ |
+| [6️⃣](#6-es6-features) | ES6+ Features | Q72–81 | ⭐⭐ |
+| [8️⃣](#8-practical-javascript-questions) | Practical JavaScript Questions | Q82–110 | ⭐⭐⭐⭐ |
+| [9️⃣](#9-web-workers--service-workers) | Web Workers & Service Workers | Q111–120 | ⭐⭐⭐⭐ |
+| [🔟](#10-real-world--edge-javascript-topics) | Real-World & Edge Topics | Q121–130 | ⭐⭐⭐ |
+| [1️⃣1️⃣](#11-javascript-output-questions) | JavaScript Output Questions | Q131–180 | ⭐⭐⭐⭐ |
 
 ## 🧠 1. Core JavaScript Fundamentals
 
@@ -37,176 +36,206 @@
 
 ## 🧩 2. Functions, Closures & Execution Context
 
-11. What is a closure?
-12. What is the difference between function declaration and function expression?
-13. What is the execution context in JavaScript?
-14. What is the call stack?
-15. What is the difference between synchronous and asynchronous JavaScript?
-16. What is lexical environment?
-17. How does the `this` keyword work in JavaScript?
-18. What is the difference between call, apply, and bind?
-19. What is a higher-order function?
-20. What is currying in JavaScript?
+16. What is a closure?
+17. What are higher-order functions?
+18. What is function currying and how do you implement it?
+19. What are IIFEs (Immediately Invoked Function Expressions)?
+20. How does the `this` keyword behave in different contexts?
+21. What is the call stack?
+22. What happens in the creation and execution phases of JavaScript?
+23. What is the difference between synchronous and asynchronous execution?
+24. How does lexical environment relate to closures?
+25. What is the difference between function declaration and arrow function `this` binding?
 
 ## ⚡ 3. Promises, Async/Await & Event Loop
 
-21. What is a Promise in JavaScript?
-22. What is the difference between callbacks and Promises?
-23. How do you chain Promises?
-24. What is async/await and how does it work?
-25. What is the difference between Promise.resolve() and new Promise()?
-26. How do you handle errors in Promises?
-27. What is callback hell and how do you avoid it?
-28. What is the Event Loop in JavaScript?
-29. What is the difference between microtasks and macrotasks?
-30. How do you run Promises concurrently?
-31. What is Promise.all() and when do you use it?
-32. What is Promise.race() and when do you use it?
-33. What is Promise.allSettled() and when do you use it?
-34. What is Promise.any() and when do you use it?
-35. How do you implement retry logic with Promises?
-36. What is Promise cancellation and how do you implement it?
-37. How do you run Promises sequentially?
-38. How do you implement progress updates with Promises?
-39. What is Promise.finally() and when do you use it?
-40. How do you mix Promises and async/await?
-41. What is the difference between Promise and async/await?
-42. How do you handle multiple async operations?
-43. What is the difference between Promise and Observable?
-44. How do you implement timeout with Promises?
-45. What is the difference between Promise and Generator?
-46. How does the fetch Promise work internally in V8?
+26. What is a Promise in JavaScript?
+27. What is the difference between callbacks and Promises?
+28. How do you chain Promises?
+29. What is async/await and how does it work?
+30. What is the difference between Promise.resolve() and new Promise()?
+31. How do you handle errors in Promises?
+32. What is callback hell and how do you avoid it?
+33. What is the Event Loop in JavaScript?
+34. What is the difference between microtasks and macrotasks?
+35. How do you run Promises concurrently?
+36. What is Promise.all() and when do you use it?
+37. What is Promise.race() and when do you use it?
+38. What is Promise.allSettled() and when do you use it?
+39. What is Promise.any() and when do you use it?
+40. How do you implement retry logic with Promises?
+41. What is Promise cancellation and how do you implement it?
+42. How do you run Promises sequentially?
+43. How do you implement progress updates with Promises?
+44. What is Promise.finally() and when do you use it?
+45. How do you mix Promises and async/await?
+46. What is the difference between Promise and async/await?
+47. How do you handle multiple async operations?
+48. What is the difference between Promise and Observable?
+49. How do you implement timeout with Promises?
+50. What is the difference between Promise and Generator?
+51. How does the fetch Promise work internally in V8?
 
 ## 🏗️ 4. Objects, Prototypes & Inheritance
 
-46. What is an object in JavaScript?
-47. What is the difference between object literal and object constructor?
-48. What is a prototype in JavaScript?
-49. What is __proto__ in JavaScript?
-50. What is the prototype chain?
-51. What is the difference between `__proto__` and `prototype`?
-52. What is the difference between `hasOwnProperty` and `in` operator?
-53. What is the difference between `Object.create()` and `new` operator?
-54. What is the difference between `Object.assign()` and spread operator?
-55. What is the difference between `Object.freeze()` and `Object.seal()`?
-56. What is the difference between `Object.keys()` and `Object.getOwnPropertyNames()`?
-57. What is the difference between `Object.entries()` and `Object.values()`?
-
-## 🏛️ 5. Classes & Inheritance (ES6+)
-
-58. What is a class in JavaScript?
-59. What is the difference between class and function constructor?
-60. What is the difference between `static` and instance methods?
-61. What is the difference between `public` and `private` fields?
-62. What is the difference between `extends` and `implements`?
-63. What is the difference between `super()` and `super.method()`?
-64. What is the difference between `get` and `set` methods?
-65. What is the difference between `Symbol` and `Symbol.for()`?
-66. What is the difference between `Symbol.iterator` and `Symbol.asyncIterator`?
-67. What is the difference between `Symbol.toPrimitive` and `valueOf()`?
+52. What is an object in JavaScript?
+53. What is the difference between object literal and object constructor?
+54. What is a prototype in JavaScript?
+55. What is __proto__ in JavaScript?
+56. What is the prototype chain?
+57. What is the difference between `__proto__` and `prototype`?
+58. What is the difference between `hasOwnProperty` and `in` operator?
+59. What is the difference between `Object.create()` and `new` operator?
+60. What is the difference between `Object.assign()` and spread operator?
+61. What is the difference between `Object.freeze()` and `Object.seal()`?
+62. What is the difference between `Object.keys()` and `Object.getOwnPropertyNames()`?
+63. What is the difference between `Object.entries()` and `Object.values()`?
+64. What are getters and setters in JavaScript?
+65. What are classes in JavaScript?
+66. What is the difference between class declaration and class expression?
+67. What is the `extends` keyword and how does it work?
+68. What is `super()` and when do you use it?
+69. What are static members in classes?
+70. What are private class fields?
+71. What is the difference between ES6 classes and prototype-based inheritance?
 
 ## 🚀 6. ES6+ Features
 
-68. What is destructuring assignment?
-69. What is the spread operator and how do you use it?
-70. What is the rest parameter and how do you use it?
-71. What is template literals and how do you use it?
-72. What is the difference between `let` and `const`?
-73. What is the difference between `var` and `let`?
-74. What is the difference between `const` and `let`?
-75. What is the difference between `const` and `var`?
-76. What is the difference between `const` and `var`?
-77. What is the difference between `const` and `var`?
-
-## ⚙️ 7. V8 Engine Internals: Step-by-Step Deep Dive
-
-78. What is the V8 engine and how does it work?
-79. What is the difference between compilation and interpretation?
-80. What is the difference between JIT and AOT compilation?
-81. What is the difference between garbage collection and memory management?
-82. What is the difference between heap and stack memory?
-83. What is the difference between shallow and deep copying?
-84. What is the difference between `Object.assign()` and spread operator?
-85. What is the difference between `Object.freeze()` and `Object.seal()`?
-86. What is the difference between `Object.keys()` and `Object.getOwnPropertyNames()`?
-87. What is the difference between `Object.entries()` and `Object.values()`?
-88. How does the Fetch API work internally in V8?
+72. What is destructuring assignment?
+73. What is the spread operator and how do you use it?
+74. What is the rest parameter and how do you use it?
+75. What is template literals and how do you use it?
+76. What is the difference between `let` and `const`?
+77. What are ES modules and how do you use them?
+78. What are generators and how do you use them?
+79. What are async generators?
+80. What are Symbols and how do you use them?
+81. What are Maps, Sets, WeakMaps, and WeakSets?
 
 ## 🛠️ 8. Practical JavaScript Questions
 
-89. How do you implement a debounce function?
-90. How do you implement a throttle function?
-91. How do you implement a deep clone function?
-92. How do you implement a memoization function?
-93. How do you implement a curry function?
-94. How do you implement a compose function?
-95. How do you implement a pipe function?
-96. How do you implement a flatten function?
-97. How do you implement a unique function?
-98. How do you implement a groupBy function?
-99. How do you implement a chunk function?
-100. How do you implement a zip function?
-101. How do you implement a unzip function?
-102. How do you implement a intersection function?
-103. How do you implement a difference function?
-104. How do you implement a union function?
-105. How do you implement a symmetricDifference function?
-106. How do you implement a isEqual function?
-107. How do you implement a isEmpty function?
-108. How do you implement a isArray function?
-109. How do you implement useMemo from scratch?
-110. How do you implement useCallback from scratch?
-111. What is Compact Number (Intl.NumberFormat)?
-112. Explain why the following doesn't work as an IIFE: function foo(){ }();. What needs to be changed to properly make it an IIFE?
-113. What are JavaScript object property flags and descriptors?
-114. What are server-sent events?
-115. What are proxies in JavaScript used for?
-116. What are some techniques for reducing reflows and repaints?
-117. What are some tools that can be used to measure and analyze JavaScript performance?
-118. Explain the concept of a microtask queue?
-119. How do you check HTTP status codes in axios and fetch API?
-120. How can you optimize DOM manipulation for better performance?
+82. How do you implement a debounce function?
+83. How do you implement a throttle function?
+84. How do you implement a deep clone function?
+85. How do you implement a memoization function?
+86. How do you implement a curry function?
+87. How do you implement a compose function?
+88. How do you implement a pipe function?
+89. How do you implement a flatten function?
+90. How do you implement a unique function?
+91. How do you implement a groupBy function?
+92. How do you implement a chunk function?
+93. How do you implement a zip function?
+94. How do you implement a unzip function?
+95. How do you implement a intersection function?
+96. How do you implement a difference function?
+97. How do you implement a union function?
+98. How do you implement a symmetricDifference function?
+99. How do you implement a isEqual function?
+100. How do you implement a isEmpty function?
+101. How do you implement a isArray function?
+102. How do you implement useMemo from scratch?
+103. How do you implement useCallback from scratch?
+104. What is Compact Number (Intl.NumberFormat)?
+105. Explain why the following doesn't work as an IIFE: function foo(){ }();. What needs to be changed to properly make it an IIFE?
+106. What are JavaScript object property flags and descriptors?
+107. What are server-sent events?
+108. What are proxies in JavaScript used for?
+109. What are some techniques for reducing reflows and repaints?
+110. What are some tools that can be used to measure and analyze JavaScript performance?
 
 ## 🔧 9. Web Workers & Service Workers
 
-120. What is a Web Worker and how do you use it?
-121. What is the difference between Web Worker and Service Worker?
-122. What is the difference between Dedicated Worker and Shared Worker?
-123. What is the difference between Web Worker and iframe?
-124. What is the difference between Web Worker and WebSocket?
-125. What is the difference between Web Worker and WebRTC?
-126. What is the difference between Web Worker and WebAssembly?
-127. What is the difference between Web Worker and WebGL?
-128. What is the difference between Web Worker and Web Audio API?
-129. What is the difference between Web Worker and Web Crypto API?
+111. What is a Web Worker and how do you use it?
+112. What is the difference between Web Worker and Service Worker?
+113. What is the difference between Dedicated Worker and Shared Worker?
+114. What are the restrictions on what Web Workers can access?
+115. How do Web Workers communicate with the main thread?
+116. What is a Service Worker and how do you use it?
+117. What is the Service Worker lifecycle?
+118. How do you implement offline caching with Service Workers?
+119. What is the difference between Web Workers and Service Workers?
+120. How do you unregister a Service Worker?
 
 ## 🌟 10. Real-World & Edge Topics
 
-130. What is the difference between JavaScript and TypeScript?
-131. What is the difference between JavaScript and CoffeeScript?
-132. What is the difference between JavaScript and Dart?
-133. What is the difference between JavaScript and Python?
-134. What is the difference between JavaScript and Java?
-135. What is the difference between JavaScript and C#?
-136. What is the difference between JavaScript and Go?
-137. What is the difference between JavaScript and Rust?
-138. What is the difference between JavaScript and Swift?
-139. What is the difference between JavaScript and Kotlin?
+121. What is event delegation and how does it work?
+122. What is event bubbling and event capturing?
+123. What is Shadow DOM and how does it work?
+124. What is the difference between `innerHTML`, `textContent`, and `innerText`?
+125. What is the difference between `for...in` and `for...of` loops?
+126. What are polyfills and how do you create them?
+127. What are data attributes and how do you use them?
+128. What are pure functions and side effects?
+129. What are memory leaks and how do you prevent them?
+130. What is tail call optimization?
+
+## 🎯 11. JavaScript Output Questions
+
+131. What will be the output of the following code? (var hoisting)
+132. What will be the output of the following code? (let TDZ)
+133. What will be the output of the following code? (function hoisting)
+134. What will be the output of the following code? (typeof null)
+135. What will be the output of the following code? (0.1 + 0.2 == 0.3)
+136. What will be the output of the following code? (0.1 + 0.2 === 0.3)
+137. What will be the output of the following code? ('5' + 3)
+138. What will be the output of the following code? ('5' - 3)
+139. What will be the output of the following code? ('5' * 2)
+140. What will be the output of the following code? ('5' / 2)
+141. What will be the output of the following code? (typeof NaN)
+142. What will be the output of the following code? (post-increment)
+143. What will be the output of the following code? (pre-increment)
+144. What will be the output of the following code? (1 + '1' - 1)
+145. What will be the output of the following code? (1 + true)
+146. What will be the output of the following code? (1 + false)
+147. What will be the output of the following code? ('5' + true)
+148. What will be the output of the following code? ('5' - true)
+149. What will be the output of the following code? ([] + [])
+150. What will be the output of the following code? ([] + {})
+151. What will be the output of the following code? ({} + [])
+152. What will be the output of the following code? ([1,2,3] + [4,5])
+153. What will be the output of the following code? (array destructuring)
+154. What will be the output of the following code? (object spread)
+155. What will be the output of the following code? (NaN === NaN)
+156. What will be the output of the following code? (NaN == NaN)
+157. What will be the output of the following code? (null == undefined)
+158. What will be the output of the following code? (null === undefined)
+159. What will be the output of the following code? (0 == false)
+160. What will be the output of the following code? (0 === false)
+161. What will be the output of the following code? ('' == false)
+162. What will be the output of the following code? ('' === false)
+163. What will be the output of the following code? (this in function)
+164. What will be the output of the following code? (this in strict mode)
+165. What will be the output of the following code? (this in method)
+166. What will be the output of the following code? (this in setTimeout callback)
+167. What will be the output of the following code? (this in arrow function)
+168. What will be the output of the following code? (var in loop with setTimeout)
+169. What will be the output of the following code? (let in loop with setTimeout)
+170. What will be the output of the following code? (closure)
+171. What will be the output of the following code? (IIFE in loop)
+172. What will be the output of the following code? (typeof function)
+173. What will be the output of the following code? (typeof array)
+174. What will be the output of the following code? (Array.isArray)
+175. What will be the output of the following code? (instanceof Array)
+176. What will be the output of the following code? (array length)
+177. What will be the output of the following code? (sparse array)
+178. What will be the output of the following code? ([1,2,3] == [1,2,3])
+179. What will be the output of the following code? (array reference)
+180. What will be the output of the following code? (string split)
 
 ---
 
 ## 📖 Complete Answer Guide
 
-- [1) Core JavaScript Fundamentals](1%20Core%20JavaScript%20Fundamentals.md) - Q1-10
-- [2) Functions, Closures & Execution Context](2%20Functions%2C%20Closures%20%26%20Execution%20Context.md) - Q11-20
-- [3) Promises, Async/Await & Event Loop](3%20Promises%2C%20Async-Await%20%26%20Event%20Loop.md) - Q21-46
-- [4) Objects, Prototypes & Inheritance](4%20Objects%2C%20Prototypes%20%26%20Inheritance.md) - Q46-55
-- [5) Classes & Inheritance (ES6+)](5%20Classes%20%26%20Inheritance%20%28ES6%2B%29.md) - Q56-65
-- [6) ES6+ Features](6%20ES6%2B%20Features.md) - Q66-75
-- [7) V8 Engine Internals - Deep Dive](7%20V8%20Engine%20Internals%20-%20Deep%20Dive.md) - Q76-88
-- [8) Practical JavaScript Questions](8%20Practical%20JavaScript%20Questions.md) - Q78-109
-- [9) Web Workers & Service Workers](9%20Web%20Workers%20%26%20Service%20Workers.md) - Q120-129
-- [10) Real-World & Edge Topics](10%20Real-World%20%26%20Edge%20Topics.md) - Q130-139
+- [1) Core JavaScript Fundamentals](1%20Core%20JavaScript%20Fundamentals.md) - Q1-15
+- [2) Functions, Closures & Execution Context](2%20Functions%2C%20Closures%20%26%20Execution%20Context.md) - Q16-25
+- [3) Promises, Async/Await & Event Loop](3%20Promises%2C%20Async-Await%20%26%20Event%20Loop.md) - Q26-51
+- [4) Objects, Prototypes & Inheritance](4%20Objects%2C%20Prototypes%20%26%20Inheritance.md) - Q52-71
+- [6) ES6+ Features](6%20ES6%2B%20Features.md) - Q72-81
+- [8) Practical JavaScript Questions](8%20Practical%20JavaScript%20Questions.md) - Q82-110
+- [9) Web Workers & Service Workers](9%20Web%20Workers%20%26%20Service%20Workers.md) - Q111-120
+- [10) Real-World & Edge Topics](10%20Real-World%20%26%20Edge%20JavaScript%20Topics.md) - Q121-130
+- [11) JavaScript Output Questions](11%20JavaScript%20Output%20Questions.md) - Q131-180
 
 ## 📝 Cheatsheet
 

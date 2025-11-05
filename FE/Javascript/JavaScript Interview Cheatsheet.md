@@ -1,6 +1,31 @@
 # 🚀 JavaScript Interview Cheatsheet
 
-> **Quick Reference Guide** - Essential JavaScript concepts, syntax, and patterns for interviews
+> **⏱️ Review Time: 20-25 minutes** | **Priority: ⭐⭐⭐ Critical** | Essential JavaScript concepts for interviews
+> 
+> **Coverage: Q1-Q130** (130 questions across 10 topics)
+
+**Quick Review Checklist:**
+- [ ] Core Concepts (Hoisting, Closures, `this` Binding)
+- [ ] Data Types & Variables (Primitives vs Objects)
+- [ ] Functions & Scope (Function Types, Scope Chain)
+- [ ] Objects & Prototypes (Prototype Chain, Inheritance)
+- [ ] Promises & Async (Promises, Async/Await, Event Loop)
+- [ ] ES6+ Features (Destructuring, Spread, Modules)
+- [ ] Common Patterns (Debounce, Throttle, Memoization)
+- [ ] V8 Internals (Ignition, TurboFan, GC)
+
+---
+
+## 📋 **Question Coverage**
+
+- **Q1-Q15**: Core JavaScript Fundamentals
+- **Q16-Q25**: Functions, Closures & Execution Context
+- **Q26-Q51**: Promises, Async/Await & Event Loop
+- **Q52-Q71**: Objects, Prototypes & Inheritance
+- **Q72-Q81**: ES6+ Features
+- **Q82-Q110**: Practical JavaScript Questions
+- **Q111-Q120**: Web Workers & Service Workers
+- **Q121-Q130**: Real-World & Edge JavaScript Topics
 
 ---
 

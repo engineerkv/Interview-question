@@ -1,5 +1,4 @@
 # Heaps / Priority Queue
-
 ```javascript
 // Minimal binary heap utility
 class Heap {
@@ -67,628 +66,451 @@ class Heap {
 }
 ```
 
-## Q86. Kth Largest Element
+## Q124. Kth Largest Element in an Array
 
-Concept: Maintain a min- heap of size k; pop when heap grows, top is kth largest.
+**Problem:** Given an integer array `nums` and an integer `k`, return the `k`th largest element in the array. Note that it is the `k`th largest element in the sorted order, not the `k`th distinct element.
 
+**Approach:** Maintain a min-heap of size k. When heap size exceeds k, pop the smallest. Top of heap is kth largest.
+
+### Solution 1: Min-Heap of Size K (Optimal)
 ```javascript
 function findKthLargest(nums, k) {
-  const h = new Heap((x, y) => x < y);
-  for (const x of nums) {
-    h.push(x);
-    if (h.size() > k) {
-      h.pop();
+  const heap = new Heap((a, b) => a < b);  // Min-heap
+  
+  for (const num of nums) {
+    heap.push(num);
+    // Keep heap size at k
+    if (heap.size() > k) {
+      heap.pop();  // Remove smallest
     }
   }
-  return h.peek();
+  
+  return heap.peek();  // Kth largest is at top
 }
 
 // Test Cases:
-//
-// Example 1:
-//   Input: nums = [3, 2, 1, 5, 6, 4], k = 2
-//   Output: 5
-//
-// Example 2:
-//   Input: nums = [3, 2, 3, 1, 2, 4, 5, 5, 6], k = 4
-//   Output: 4
-//
-// Example 3:
-//   Input: nums = [1], k = 1
-//   Output: 1
-//
-// Example 4:
-//   Input: nums = [7, 10, 4, 3, 20, 15], k = 3
-//   Output: 10
+// Input: nums = [3, 2, 1, 5, 6, 4], k = 2
+// Output: 5
+
+// Input: nums = [3, 2, 3, 1, 2, 4, 5, 5, 6], k = 4
+// Output: 4
+
+// Input: nums = [1], k = 1
+// Output: 1
+
+// Input: nums = [7, 10, 4, 3, 20, 15], k = 3
+// Output: 10
 ```
 
-Deep Insights:
-  - Rule: Maintain a min-heap of size k; pop when heap grows, top is kth largest; O(n log k) time, O(k) space.
-  - Real-world: Kth largest queries, top-K selection, leaderboard systems, streaming algorithms.
-  - Common mistake: Stream-friendly: process on the fly; wrong heap size; not handling k > n correctly.
-  - Optimization: O(n log k) vs O(n log n) sort; space O(k) optimal; stream-friendly: process on the fly.
-  - Interview tip: Explain min-heap vs max-heap clearly; mention stream processing; ask about k vs n relationship.
-## Q87. Top K Frequent Elements
+**Time Complexity:** O(n log k) - n insertions, each O(log k)  
+**Space Complexity:** O(k) - Heap stores k elements
 
-Concept: Count with Map, push [freq,val] into min-heap of size k.
+**Deep Insights:**
+- **Optimal Approach:** Min-heap of size k achieves O(n log k) time—better than O(n log n) sorting
+- **Min-Heap Strategy:** Keep k largest elements—smallest of k is kth largest
+- **Key Insight:** When heap size > k, pop smallest—maintains k largest elements
+- **Space Efficiency:** O(k) space vs O(n) for sorting—better when k << n
+- **Stream Processing:** Works for streaming data—process elements one at a time
+- **Edge Cases:** k=1 returns maximum; k=n returns minimum; handles duplicates correctly
+- **Interview Tip:** Explain min-heap vs max-heap clearly; emphasize space efficiency; mention stream processing advantage
+## Q125. Top K Frequent Elements
 
+**Problem:** Given an integer array `nums` and an integer `k`, return the `k` most frequent elements. You may return the answer in any order.
+
+**Approach:** Count frequencies with map, then use min-heap of size k to track top k frequent elements.
+
+### Solution 1: Frequency Count + Min-Heap (Optimal)
 ```javascript
 function topKFrequent(nums, k) {
-  const cnt = new Map();
-  for (const x of nums) {
-    cnt.set(x, (cnt.get(x) || 0) + 1);
+  // Count frequencies
+  const frequency = new Map();
+  for (const num of nums) {
+    frequency.set(num, (frequency.get(num) || 0) + 1);
   }
-  const h = new Heap((a, b) => a[0] < b[0]);
-  for (const [v, f] of cnt) {
-    h.push([f, v]);
-    if (h.size() > k) {
-      h.pop();
+  
+  // Min-heap: [frequency, value]
+  const heap = new Heap((a, b) => a[0] < b[0]);
+  
+  for (const [value, freq] of frequency) {
+    heap.push([freq, value]);
+    // Keep heap size at k
+    if (heap.size() > k) {
+      heap.pop();  // Remove least frequent
     }
   }
-  const res = [];
-  while (h.size()) {
-    res.push(h.pop()[1]);
+  
+  // Extract results
+  const result = [];
+  while (heap.size()) {
+    result.push(heap.pop()[1]);
   }
-  return res.reverse();
+  
+  return result.reverse();  // Reverse to get descending order
 }
 
 // Test Cases:
-//
-// Example 1:
-//   Input: nums = [1, 1, 1, 2, 2, 3], k = 2
-//   Output: [1, 2]
-//
-// Example 2:
-//   Input: nums = [1], k = 1
-//   Output: [1]
-//
-// Example 3:
-//   Input: nums = [4, 1, -1, 2, -1, 2, 3], k = 2
-//   Output: [-1, 2]
-//
-// Example 4:
-//   Input: nums = [1, 1, 1, 2, 2, 3, 3, 3], k = 2
-//   Output: [1, 3]
+// Input: nums = [1, 1, 1, 2, 2, 3], k = 2
+// Output: [1, 2]
+
+// Input: nums = [1], k = 1
+// Output: [1]
+
+// Input: nums = [4, 1, -1, 2, -1, 2, 3], k = 2
+// Output: [-1, 2]
+
+// Input: nums = [1, 1, 1, 2, 2, 3, 3, 3], k = 2
+// Output: [1, 3]
 ```
 
-Deep Insights:
-  - Rule: Count with Map, push [freq,val] into min-heap of size k; O(n + u log k) time where u is unique elements.
-  - Real-world: Top-K frequent queries, frequency analysis, trending items, popularity ranking.
-  - Common mistake: Reverse to return highest first; memory bounded by unique values; wrong heap comparator.
-  - Optimization: O(n + u log k) time; space O(u) for map + O(k) for heap; memory bounded by unique values.
-  - Interview tip: Explain frequency counting clearly; mention heap size optimization; ask about k vs unique count.
-## Q88. Merge K Sorted Lists
+**Time Complexity:** O(n + u log k) - n for counting, u log k for heap operations (u is unique elements)  
+**Space Complexity:** O(u) - Map stores unique elements, heap stores k elements
 
-Concept: Push each list head into min-heap by value; pop smallest, push its next.
+**Deep Insights:**
+- **Optimal Approach:** Frequency count + min-heap achieves O(n + u log k) time—better than sorting all frequencies
+- **Min-Heap Strategy:** Keep k most frequent elements—least frequent of k is kth most frequent
+- **Key Insight:** Store [frequency, value] pairs—heap compares by frequency
+- **Result Extraction:** Pop and reverse to get descending order—most frequent first
+- **Space Efficiency:** O(u) space for map + O(k) for heap—better than storing all frequencies
+- **Edge Cases:** k=1 returns most frequent; all elements same frequency returns any k; handles duplicates
+- **Interview Tip:** Explain frequency counting clearly; emphasize heap size optimization; ask about k vs unique count relationship
+## Q126. Merge k Sorted Lists
 
+**Problem:** You are given an array of `k` linked-lists `lists`, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it.
+
+**Approach:** Push each list head into min-heap. Pop smallest, append to result, push its next node.
+
+### Solution 1: Min-Heap Merge (Optimal)
 ```javascript
 function mergeKLists(lists) {
-  const h = new Heap((a, b) => a.val < b.val);
-  for (const n of lists) {
-    if (n) {
-      h.push(n);
+  const heap = new Heap((a, b) => a.val < b.val);  // Min-heap by value
+  
+  // Push all list heads
+  for (const list of lists) {
+    if (list) {
+      heap.push(list);
     }
   }
-  const d = { next: null };
-  let t = d;
-  while (h.size()) {
-    const n = h.pop();
-    t.next = n;
-    t = t.next;
-    if (n.next) {
-      h.push(n.next);
+  
+  const dummy = { next: null };
+  let tail = dummy;
+  
+  while (heap.size()) {
+    const node = heap.pop();
+    tail.next = node;
+    tail = tail.next;
+    
+    // Push next node from same list
+    if (node.next) {
+      heap.push(node.next);
     }
   }
-  return d.next;
+  
+  return dummy.next;
 }
 
 // Test Cases:
-//
-// Example 1:
-//   Input: lists = [[1,4,5],[1,3,4],[2,6]]
-//   Output: [1,1,2,3,4,4,5,6]
-//
-// Example 2:
-//   Input: lists = []
-//   Output: []
-//
-// Example 3:
-//   Input: lists = [[]]
-//   Output: []
-//
-// Example 4:
-//   Input: lists = [[1],[2],[3]]
-//   Output: [1,2,3]
+// Input: lists = [[1,4,5],[1,3,4],[2,6]]
+// Output: [1,1,2,3,4,4,5,6]
+
+// Input: lists = []
+// Output: []
+
+// Input: lists = [[]]
+// Output: []
+
+// Input: lists = [[1],[2],[3]]
+// Output: [1,2,3]
 ```
 
-Deep Insights:
-  - Rule: Push each list head into min-heap by value; pop smallest, push its next; O(n log k) time where k is lists.
-  - Real-world: Merging sorted lists, external sorting, multi-way merge, sorted data combination.
-  - Common mistake: Avoids full array materialization; wrong heap comparator; not handling empty lists.
-  - Optimization: O(n log k) time optimal; space O(k) for heap; avoids full array materialization.
-  - Interview tip: Explain heap-based merge clearly; mention divide-and-conquer alternative; ask about empty lists.
-## Q89. Find Median from Stream
+**Time Complexity:** O(n log k) - n total nodes, k lists, each operation O(log k)  
+**Space Complexity:** O(k) - Heap stores at most k list heads
 
-Concept: Two heaps: max-heap for lower half, min-heap for upper; balance sizes.
+**Deep Insights:**
+- **Optimal Approach:** Min-heap merge achieves O(n log k) time—optimal for this problem
+- **Heap Strategy:** Always have smallest element from each list—enables sorted merge
+- **Key Insight:** Push next node after popping—maintains heap invariant
+- **Space Efficiency:** O(k) space vs O(n) for full materialization—better for large lists
+- **Dummy Node:** Use dummy to simplify linked list construction—handles edge cases
+- **Edge Cases:** Empty lists array returns null; empty lists handled; all lists merged correctly
+- **Interview Tip:** Explain heap-based merge clearly; mention divide-and-conquer alternative (O(n log k) merge); ask about empty lists
+## Q127. Find Median from Data Stream
 
+**Problem:** The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values. Implement the MedianFinder class:
+- `MedianFinder()` initializes the MedianFinder object.
+- `void addNum(int num)` adds the integer `num` from the data stream to the data structure.
+- `double findMedian()` returns the median of all elements so far.
+
+**Approach:** Use two heaps: max-heap for lower half, min-heap for upper half. Balance sizes to maintain median property.
+
+### Solution 1: Two Heaps (Optimal)
 ```javascript
 class MedianFinder {
   constructor() {
-    this.lo = new Heap((a, b) => a > b);
-    this.hi = new Heap((a, b) => a < b);
+    this.lower = new Heap((a, b) => a > b);  // Max-heap for lower half
+    this.upper = new Heap((a, b) => a < b);  // Min-heap for upper half
   }
 
   addNum(num) {
-    if (!this.lo.size() || num <= this.lo.peek()) {
-      this.lo.push(num);
+    // Add to appropriate heap
+    if (!this.lower.size() || num <= this.lower.peek()) {
+      this.lower.push(num);
     } else {
-      this.hi.push(num);
+      this.upper.push(num);
     }
-    if (this.lo.size() > this.hi.size() + 1) {
-      this.hi.push(this.lo.pop());
+    
+    // Balance heaps: lower can have at most 1 more element
+    if (this.lower.size() > this.upper.size() + 1) {
+      this.upper.push(this.lower.pop());
     }
-    if (this.hi.size() > this.lo.size()) {
-      this.lo.push(this.hi.pop());
+    if (this.upper.size() > this.lower.size()) {
+      this.lower.push(this.upper.pop());
     }
   }
 
   findMedian() {
-    if (this.lo.size() > this.hi.size()) {
-      return this.lo.peek();
+    if (this.lower.size() > this.upper.size()) {
+      // Odd count: median is top of lower heap
+      return this.lower.peek();
     }
-    return (this.lo.peek() + this.hi.peek()) / 2;
+    // Even count: median is average of both tops
+    return (this.lower.peek() + this.upper.peek()) / 2;
   }
 }
 
 // Test Cases:
-//
-// Example 1:
-//   Input:
-//     let mf = new MedianFinder();
-//     mf.addNum(1);
-//     mf.addNum(2);
-//     mf.findMedian(); // Output: 1.5
-//     mf.addNum(3);
-//     mf.findMedian(); // Output: 2
-//
-// Example 2:
-//   Input:
-//     let mf = new MedianFinder();
-//     mf.addNum(6);
-//     mf.addNum(10);
-//     mf.findMedian(); // Output: 8
-//     mf.addNum(2);
-//     mf.findMedian(); // Output: 6
-//     mf.addNum(6);
-//     mf.findMedian(); // Output: 6
+// Input:
+// let mf = new MedianFinder();
+// mf.addNum(1);
+// mf.addNum(2);
+// mf.findMedian(); // Output: 1.5
+// mf.addNum(3);
+// mf.findMedian(); // Output: 2
+
+// Input:
+// let mf = new MedianFinder();
+// mf.addNum(6);
+// mf.addNum(10);
+// mf.findMedian(); // Output: 8
+// mf.addNum(2);
+// mf.findMedian(); // Output: 6
+// mf.addNum(6);
+// mf.findMedian(); // Output: 6
 ```
 
-Deep Insights:
-  - Rule: Two heaps: max-heap for lower half, min-heap for upper; balance sizes; O(log n) add, O(1) findMedian.
-  - Real-world: Running median, streaming statistics, dynamic median queries, online algorithms.
-  - Common mistake: All integers supported; median can be float; robust to duplicates; wrong size balance.
-  - Optimization: O(log n) add operation; O(1) findMedian; space O(n); robust to duplicates.
-  - Interview tip: Explain two-heap approach clearly; mention size balancing; ask about even vs odd counts.
-## Q90. K Closest Points to Origin
+**Time Complexity:** O(log n) - addNum, O(1) - findMedian  
+**Space Complexity:** O(n) - Both heaps store elements
 
-Concept: Max-heap of size k keyed by distance squared; eject farther points.
+**Deep Insights:**
+- **Optimal Approach:** Two-heap approach achieves O(log n) add and O(1) findMedian—optimal for this problem
+- **Lower Half:** Max-heap stores smaller half—top is largest of smaller half
+- **Upper Half:** Min-heap stores larger half—top is smallest of larger half
+- **Size Balance:** Lower can have at most 1 more element—ensures correct median
+- **Key Insight:** Median is top of lower (odd) or average of both tops (even)
+- **Edge Cases:** Handles duplicates correctly; works for all integer values; median can be float
+- **Interview Tip:** Explain two-heap approach clearly; emphasize size balancing rules; ask about even vs odd counts
+## Q128. K Closest Points to Origin
 
+**Problem:** Given an array of `points` where `points[i] = [xi, yi]` represents a point on the X-Y plane and an integer `k`, return the `k` closest points to the origin `(0, 0)`. The distance between two points on the X-Y plane is the Euclidean distance.
+
+**Approach:** Use max-heap of size k keyed by distance squared. When heap size exceeds k, pop farthest point.
+
+### Solution 1: Max-Heap of Size K (Optimal)
 ```javascript
 function kClosest(points, k) {
-  const h = new Heap((a, b) => a[0] > b[0]);
+  const heap = new Heap((a, b) => a[0] > b[0]);  // Max-heap by distance
+  
   for (const [x, y] of points) {
-    const d = x * x + y * y;
-    h.push([d, [x, y]]);
-    if (h.size() > k) {
-      h.pop();
+    const distSq = x * x + y * y;  // Distance squared (avoid sqrt)
+    heap.push([distSq, [x, y]]);
+    
+    // Keep heap size at k
+    if (heap.size() > k) {
+      heap.pop();  // Remove farthest
     }
   }
-  const res = [];
-  while (h.size()) {
-    res.push(h.pop()[1]);
+  
+  // Extract results
+  const result = [];
+  while (heap.size()) {
+    result.push(heap.pop()[1]);
   }
-  return res;
+  
+  return result;
 }
 
 // Test Cases:
-//
-// Example 1:
-//   Input: points = [[1,3],[-2,2]], k = 1
-//   Output: [[-2,2]]
-//
-// Example 2:
-//   Input: points = [[3,3],[5,-1],[-2,4]], k = 2
-//   Output: [[3,3],[-2,4]]
-//
-// Example 3:
-//   Input: points = [[1,0],[0,1]], k = 2
-//   Output: [[1,0],[0,1]]
-//
-// Example 4:
-//   Input: points = [[0,1],[1,0]], k = 2
-//   Output: [[0,1],[1,0]]
+// Input: points = [[1,3],[-2,2]], k = 1
+// Output: [[-2,2]]
+
+// Input: points = [[3,3],[5,-1],[-2,4]], k = 2
+// Output: [[3,3],[-2,4]]
+
+// Input: points = [[1,0],[0,1]], k = 2
+// Output: [[1,0],[0,1]]
+
+// Input: points = [[0,1],[1,0]], k = 2
+// Output: [[0,1],[1,0]]
 ```
 
-Deep Insights:
-  - Rule: Max-heap of size k keyed by distance squared; eject farther points; O(n log k) time, O(k) space.
-  - Real-world: K closest queries, nearest neighbors, spatial queries, distance-based selection.
-  - Common mistake: For streaming points, same pattern; if need sorted by distance, sort result; wrong heap size.
-  - Optimization: O(n log k) vs O(n log n) sort; space O(k) optimal; distance squared avoids sqrt.
-  - Interview tip: Explain distance squared optimization; mention streaming variant; ask about sorted output.
-## Q91. Connect Ropes to Min Cost
+**Time Complexity:** O(n log k) - n insertions, each O(log k)  
+**Space Complexity:** O(k) - Heap stores k elements
 
-Concept: Always join two shortest first (Huffman-like) using min-heap.
+**Deep Insights:**
+- **Optimal Approach:** Max-heap of size k achieves O(n log k) time—better than O(n log n) sorting
+- **Distance Squared:** Use x² + y² instead of √(x² + y²)—avoids expensive sqrt calculation
+- **Max-Heap Strategy:** Keep k closest points—farthest of k is kth closest
+- **Key Insight:** When heap size > k, pop farthest—maintains k closest points
+- **Space Efficiency:** O(k) space vs O(n) for sorting—better when k << n
+- **Edge Cases:** k=1 returns closest point; k=n returns all points; handles duplicates correctly
+- **Interview Tip:** Explain distance squared optimization; mention streaming variant; ask about sorted output requirement
+## Q129. Minimum Cost to Connect Sticks
 
+**Problem:** You have some sticks with positive integer lengths. You can connect any two sticks of lengths `x` and `y` into one stick by paying a cost of `x + y`. You must connect all the sticks into one stick. Return the minimum cost of connecting all the given sticks into one stick in this way.
+
+**Approach:** Always join two shortest sticks first (Huffman-like greedy approach) using min-heap.
+
+### Solution 1: Greedy with Min-Heap (Optimal)
 ```javascript
 function connectSticks(sticks) {
-  const h = new Heap((a, b) => a < b);
-  for (const x of sticks) {
-    h.push(x);
+  const heap = new Heap((a, b) => a < b);  // Min-heap
+  
+  // Push all sticks
+  for (const stick of sticks) {
+    heap.push(stick);
   }
-  let cost = 0;
-  while (h.size() > 1) {
-    const a = h.pop();
-    const b = h.pop();
-    const c = a + b;
-    cost += c;
-    h.push(c);
+  
+  let totalCost = 0;
+  
+  // Connect until one stick remains
+  while (heap.size() > 1) {
+    const first = heap.pop();
+    const second = heap.pop();
+    const cost = first + second;
+    totalCost += cost;
+    heap.push(cost);  // Push combined stick back
   }
-  return cost;
+  
+  return totalCost;
 }
 
 // Test Cases:
-//
-// Example 1:
-//   Input: sticks = [2, 4, 3]
-//   Output: 14
-//   Explanation: Connect 2 and 3 (cost 5), then connect 5 and 4 (cost 9). Total = 5 + 9 = 14
-//
-// Example 2:
-//   Input: sticks = [1, 8, 3, 5]
-//   Output: 30
-//   Explanation: Connect 1 and 3 (cost 4), then 4 and 5 (cost 9), then 9 and 8 (cost 17). Total = 4 + 9 + 17 = 30
-//
-// Example 3:
-//   Input: sticks = [5]
-//   Output: 0
-//
-// Example 4:
-//   Input: sticks = [1, 2]
-//   Output: 3
+// Input: sticks = [2, 4, 3]
+// Output: 14
+// Explanation: Connect 2 and 3 (cost 5), then connect 5 and 4 (cost 9). Total = 5 + 9 = 14
+
+// Input: sticks = [1, 8, 3, 5]
+// Output: 30
+// Explanation: Connect 1 and 3 (cost 4), then 4 and 5 (cost 9), then 9 and 8 (cost 17). Total = 4 + 9 + 17 = 30
+
+// Input: sticks = [5]
+// Output: 0
+
+// Input: sticks = [1, 2]
+// Output: 3
 ```
 
-Deep Insights:
-  - Rule: Always join two shortest first (Huffman-like) using min-heap; O(n log n) time, O(n) space.
-  - Real-world: Minimum cost connection, Huffman coding, greedy optimization, cost minimization.
-  - Common mistake: Returns 0 for <=1 stick; wrong heap comparator; forgetting to add combined cost.
-  - Optimization: Greedy approach optimal; O(n log n) time; space O(n) for heap.
-  - Interview tip: Explain Huffman-like approach clearly; mention greedy optimality; ask about edge cases.
-## Q92. Reorganize String
+**Time Complexity:** O(n log n) - n operations on heap  
+**Space Complexity:** O(n) - Heap stores sticks
 
-Concept: Greedy pick two most frequent different chars from max-heap; push back with decremented counts.
+**Deep Insights:**
+- **Optimal Approach:** Greedy approach (always join shortest two) is optimal—same as Huffman coding
+- **Greedy Strategy:** Joining shortest two minimizes total cost—proven optimal by greedy choice property
+- **Key Insight:** Each combination creates new stick—push back into heap for next iteration
+- **Cost Accumulation:** Add cost of each combination to total—all costs contribute
+- **Huffman Similarity:** Same strategy as Huffman coding—optimal prefix-free code construction
+- **Edge Cases:** Single stick returns 0 (no connection needed); handles all cases correctly
+- **Interview Tip:** Explain Huffman-like approach clearly; emphasize greedy optimality proof; mention greedy choice property
+## Q130. Reorganize String
 
+**Problem:** Given a string `s`, rearrange the characters of `s` so that any two adjacent characters are not the same. Return any possible rearrangement of `s` or return `""` if it is not possible to rearrange the string.
+
+**Approach:** Greedy approach: pick two most frequent different characters from max-heap. Push back with decremented counts to avoid adjacent duplicates.
+
+### Solution 1: Greedy with Max-Heap (Optimal)
 ```javascript
 function reorganizeString(s) {
-  const cnt = new Map();
-  for (const c of s) {
-    cnt.set(c, (cnt.get(c) || 0) + 1);
+  // Count character frequencies
+  const frequency = new Map();
+  for (const char of s) {
+    frequency.set(char, (frequency.get(char) || 0) + 1);
   }
-  const h = new Heap((a, b) => a[0] > b[0]);
-  for (const [c, f] of cnt) {
-    h.push([f, c]);
+  
+  // Max-heap: [frequency, character]
+  const heap = new Heap((a, b) => a[0] > b[0]);
+  for (const [char, freq] of frequency) {
+    heap.push([freq, char]);
   }
-  let res = '';
-  let prev = [0, ''];
-  while (h.size()) {
-    let [f, c] = h.pop();
-    res += c;
-    f--;
+  
+  let result = '';
+  let prev = [0, ''];  // Previous character used
+  
+  while (heap.size()) {
+    let [freq, char] = heap.pop();
+    result += char;
+    freq--;
+    
+    // Push previous character back if still has count
     if (prev[0] > 0) {
-      h.push(prev);
+      heap.push(prev);
     }
-    prev = [f, c];
+    
+    // Store current character as previous (with decremented count)
+    prev = [freq, char];
   }
-  return res.length === s.length ? res : '';
+  
+  // Return result if valid, else empty string
+  return result.length === s.length ? result : '';
 }
 
 // Test Cases:
-//
-// Example 1:
-//   Input: s = "aab"
-//   Output: "aba"
-//
-// Example 2:
-//   Input: s = "aaab"
-//   Output: ""
-//
-// Example 3:
-//   Input: s = "aaabbc"
-//   Output: "abacab"
-//
-// Example 4:
-//   Input: s = "vvvlo"
-//   Output: "vlvov"
+// Input: s = "aab"
+// Output: "aba"
+
+// Input: s = "aaab"
+// Output: ""
+
+// Input: s = "aaabbc"
+// Output: "abacab"
+
+// Input: s = "vvvlo"
+// Output: "vlvov"
 ```
 
-Deep Insights:
-  - Rule: Greedy pick two most frequent different chars from max-heap; push back with decremented counts; O(n log u) time.
-  - Real-world: String reorganization, scheduling with constraints, task assignment, conflict resolution.
-  - Common mistake: Returns empty if impossible; wrong char selection; not handling prev char correctly.
-  - Optimization: Greedy approach; O(n log u) time where u is unique chars; space O(u) for heap.
-  - Interview tip: Explain greedy strategy clearly; mention impossibility condition; ask about alternative approaches.
-## Q93. Maximum Sliding Window (Heap variant)
+**Time Complexity:** O(n log u) - n characters, u unique chars, each heap operation O(log u)  
+**Space Complexity:** O(u) - Heap stores unique characters
 
-Concept: Max- heap with lazy deletion using indices; pop until top inside window.
+**Deep Insights:**
+- **Optimal Approach:** Greedy approach with max-heap achieves O(n log u) time—optimal for this problem
+- **Greedy Strategy:** Always pick two most frequent different characters—ensures no adjacent duplicates
+- **Key Insight:** Store previous character and push back after using current—prevents consecutive same characters
+- **Impossibility Condition:** If most frequent character > (n+1)/2, impossible to rearrange
+- **Character Selection:** Pick most frequent first, then next most frequent—greedy optimal
+- **Edge Cases:** Empty string returns empty; single character returns itself; impossible case returns empty
+- **Interview Tip:** Explain greedy strategy clearly; mention impossibility condition (frequency > (n+1)/2); ask about alternative approaches
+## Q131. Sliding Window Maximum (Heap Variant)
 
+**Problem:** You are given an array of integers `nums`, there is a sliding window of size `k` which is moving from the very left of the array to the very right. You can only see the `k` numbers in the window. Each time the sliding window moves right by one position. Return the maximum element in each sliding window.
+
+**Approach:** Use max-heap with lazy deletion using indices. When top element is outside window, pop until top is inside window.
+
+### Solution 1: Max-Heap with Lazy Deletion
 ```javascript
 function maxSlidingWindowHeap(nums, k) {
-  const h = new Heap((a, b) => a[0] > b[0]);
-  let res = [];
-  for (let i = 0; i < nums.length; i++) {
-    h.push([nums[i], i]);
-    while (h.peek() && h.peek()[1] <= i - k) {
-      h.pop();
-    }
-    if (i >= k - 1) {
-      res.push(h.peek()[0]);
-    }
-  }
-  return res;
-}
-
-// Test Cases:
-//
-// Example 1:
-//   Input: nums = [1, 3, -1, -3, 5, 3, 6, 7], k = 3
-//   Output: [3, 3, 5, 5, 6, 7]
-//
-// Example 2:
-//   Input: nums = [1], k = 1
-//   Output: [1]
-//
-// Example 3:
-//   Input: nums = [1, -1], k = 1
-//   Output: [1, -1]
-//
-// Example 4:
-//   Input: nums = [9, 11], k = 2
-//   Output: [11]
-```
-
-Deep Insights:
-  - Rule: Max-heap with lazy deletion using indices; pop until top inside window; O(n log n) time, O(n) space.
-  - Real-world: Sliding window maximum, range queries, window-based algorithms, stream processing.
-  - Common mistake: Use deque version for optimal; lazy deletion needed; not handling window boundaries correctly.
-  - Optimization: Deque version is O(n) optimal; heap version is simpler but slower; lazy deletion important.
-  - Interview tip: Mention deque alternative; explain lazy deletion; ask about time complexity trade-offs.
-## Q94. Smallest Range Covering Elements (k lists)
-
-Concept: Min- heap on current heads; track current max; update best range and advance the list of the min.
-
-```javascript
-function smallestRange(nums) {
-  const k = nums.length;
-  const h = new Heap((a, b) => a.val < b.val);
-  let curMax = -Infinity;
-  for (let i = 0; i < k; i++) {
-    h.push({ val: nums[i][0], i, idx: 0 });
-    curMax = Math.max(curMax, nums[i][0]);
-  }
-  let best = [-Infinity, Infinity];
-  while (h.size()) {
-    const { val, i, idx } = h.pop();
-    if (curMax - val < best[1] - best[0]) {
-      best = [val, curMax];
-    }
-    if (idx + 1 === nums[i].length) break;
-    const nv = nums[i][idx + 1];
-    h.push({ val: nv, i, idx: idx + 1 });
-    if (nv > curMax) {
-      curMax = nv;
-    }
-  }
-  return best;
-}
-
-// Test Cases:
-//
-// Example 1:
-//   Input: nums = [[4,10,15,24,26],[0,9,12,20],[5,18,22,30]]
-//   Output: [20, 24]
-//
-// Example 2:
-//   Input: nums = [[1,2,3],[1,2,3],[1,2,3]]
-//   Output: [1, 1]
-//
-// Example 3:
-//   Input: nums = [[10,10],[11,11]]
-//   Output: [10, 11]
-//
-// Example 4:
-//   Input: nums = [[1],[2],[3],[4],[5],[6],[7]]
-//   Output: [1, 7]
-```
-
-Deep Insights:
-  - Rule: Min-heap on current heads; track current max; update best range and advance list of min; O(n log k) time.
-  - Real-world: Smallest range covering, range queries across lists, multi-list range problems, covering algorithms.
-  - Common mistake: Stop when any list exhausted; wrong range update; not tracking current max correctly.
-  - Optimization: O(n log k) time where k is lists; space O(k) for heap; stop when any list exhausted.
-  - Interview tip: Explain range update logic clearly; mention stopping condition; ask about list sizes.
-## Q95. Heapsort
-
-Concept: Build max-heap, repeatedly extract max to the end; in-place O(n log n).
-
-```javascript
-function heapSort(arr) {
-  const n = arr.length;
-  const down = (i, sz) => {
-    while (true) {
-      let l = i * 2 + 1;
-      let r = l + 1;
-      let m = i;
-      if (l < sz && arr[l] > arr[m]) {
-        m = l;
-      }
-      if (r < sz && arr[r] > arr[m]) {
-        m = r;
-      }
-      if (m === i) break;
-      [arr[i], arr[m]] = [arr[m], arr[i]];
-      i = m;
-    }
-  };
-
-  for (let i = (n - 1) >> 1; i >= 0; i--) {
-    down(i, n);
-  }
-  for (let end = n - 1; end > 0; end--) {
-    [arr[0], arr[end]] = [arr[end], arr[0]];
-    down(0, end);
-  }
-  return arr;
-}
-
-// Test Cases:
-//
-// Example 1:
-//   Input: arr = [4, 10, 3, 5, 1]
-//   Output: [1, 3, 4, 5, 10]
-//
-// Example 2:
-//   Input: arr = [64, 34, 25, 12, 22, 11, 90]
-//   Output: [11, 12, 22, 25, 34, 64, 90]
-//
-// Example 3:
-//   Input: arr = [1]
-//   Output: [1]
-//
-// Example 4:
-//   Input: arr = [5, 2, 8, 1, 9]
-//   Output: [1, 2, 5, 8, 9]
-```
-
-Deep Insights:
-  - Rule: Build max-heap, repeatedly extract max to the end; in-place O(n log n) time, O(1) space.
-  - Real-world: In-place sorting, stable worst-case sorting, guaranteed O(n log n), array-based sorting.
-  - Common mistake: Often slower than quicksort in practice; good worst-case guarantees; array-based binary heap.
-  - Optimization: O(n log n) worst-case; O(1) extra space; often slower than quicksort in practice.
-  - Interview tip: Explain heapify process clearly; mention worst-case guarantee; ask about space optimization.
-
-## Q96. IPO
-
-Concept:
-Choose k projects with max profit; sort projects by capital; use max-heap for profits within capital budget.
-
-Example:
-```javascript
-function findMaximizedCapital(k, w, profits, capital) {
-  const n = profits.length;
-  const projects = [];
-  
-  for (let i = 0; i < n; i++) {
-    projects.push([capital[i], profits[i]]);
-  }
-  
-  projects.sort((a, b) => a[0] - b[0]);
-  
-  let availableProjects = [];
-  let projectIndex = 0;
-  let currentCapital = w;
-  
-  for (let i = 0; i < k; i++) {
-    // Add all projects we can afford
-    while (projectIndex < n && projects[projectIndex][0] <= currentCapital) {
-      availableProjects.push(projects[projectIndex][1]);
-      projectIndex++;
-    }
-    
-    if (availableProjects.length === 0) break;
-    
-    // Use max-heap to get highest profit
-    availableProjects.sort((a, b) => b - a);
-    const maxProfit = availableProjects.shift();
-    currentCapital += maxProfit;
-  }
-  
-  return currentCapital;
-}
-
-// Using proper max-heap implementation:
-function findMaximizedCapital(k, w, profits, capital) {
-  const n = profits.length;
-  const projects = [];
-  
-  for (let i = 0; i < n; i++) {
-    projects.push([capital[i], profits[i]]);
-  }
-  
-  projects.sort((a, b) => a[0] - b[0]);
-  
-  const maxHeap = new MaxHeap();
-  let projectIndex = 0;
-  let currentCapital = w;
-  
-  for (let i = 0; i < k; i++) {
-    while (projectIndex < n && projects[projectIndex][0] <= currentCapital) {
-      maxHeap.push(projects[projectIndex][1]);
-      projectIndex++;
-    }
-    
-    if (maxHeap.isEmpty()) break;
-    
-    currentCapital += maxHeap.pop();
-  }
-  
-  return currentCapital;
-}
-
-// Test Cases:
-//
-// Example 1:
-//   Input: k = 2, w = 0, profits = [1,2,3], capital = [0,1,1]
-//   Output: 4
-//   Explanation: Start with capital 0, choose project 0 (capital=0, profit=1), then project 2 (capital=1, profit=3)
-//
-// Example 2:
-//   Input: k = 3, w = 0, profits = [1,2,3], capital = [0,1,2]
-//   Output: 6
-//   Explanation: Choose all three projects
-```
-
-**Time Complexity:** O(n log n + k log n) - Sort projects + k heap operations  
-**Space Complexity:** O(n) - Heap storage
-
-Deep Insights:
-- Sort projects by capital; use max-heap for profits within budget; O(n log n + k log n) time.
-- Greedy: choose highest profit from affordable projects each step.
-- Sort once; maintain heap of affordable projects.
-- Edge case: No affordable projects returns current capital; k = 0 returns initial capital.
-- Interview tip: Explain greedy strategy; mention sorting + heap combination; ask about optimization.
-
-## Q97. Find K Pairs with Smallest Sums
-
-Concept:
-Generate pairs from two sorted arrays; use min-heap to find k smallest sums; track indices to avoid duplicates.
-
-Example:
-```javascript
-function kSmallestPairs(nums1, nums2, k) {
+  const heap = new Heap((a, b) => a[0] > b[0]);  // Max-heap: [value, index]
   const result = [];
-  const minHeap = new MinHeap();
   
-  // Initialize heap with first k pairs from nums1[0]
-  for (let i = 0; i < Math.min(nums1.length, k); i++) {
-    minHeap.push([nums1[i] + nums2[0], i, 0]);
-  }
-  
-  while (result.length < k && !minHeap.isEmpty()) {
-    const [sum, i, j] = minHeap.pop();
-    result.push([nums1[i], nums2[j]]);
+  for (let i = 0; i < nums.length; i++) {
+    // Add current element
+    heap.push([nums[i], i]);
     
-    // Add next pair from same nums1[i]
-    if (j + 1 < nums2.length) {
-      minHeap.push([nums1[i] + nums2[j + 1], i, j + 1]);
+    // Lazy deletion: remove elements outside window
+    while (heap.peek() && heap.peek()[1] <= i - k) {
+      heap.pop();
+    }
+    
+    // Add maximum when window is complete
+    if (i >= k - 1) {
+      result.push(heap.peek()[0]);
     }
   }
   
@@ -696,29 +518,287 @@ function kSmallestPairs(nums1, nums2, k) {
 }
 
 // Test Cases:
-//
-// Example 1:
-//   Input: nums1 = [1,7,11], nums2 = [2,4,6], k = 3
-//   Output: [[1,2],[1,4],[1,6]]
-//   Explanation: Smallest sums: 1+2=3, 1+4=5, 1+6=7
-//
-// Example 2:
-//   Input: nums1 = [1,1,2], nums2 = [1,2,3], k = 2
-//   Output: [[1,1],[1,1]]
-//   Explanation: Smallest sums: 1+1=2, 1+1=2
-//
-// Example 3:
-//   Input: nums1 = [1,2], nums2 = [3], k = 3
-//   Output: [[1,3],[2,3]]
-//   Explanation: Only 2 pairs possible
+// Input: nums = [1, 3, -1, -3, 5, 3, 6, 7], k = 3
+// Output: [3, 3, 5, 5, 6, 7]
+
+// Input: nums = [1], k = 1
+// Output: [1]
+
+// Input: nums = [1, -1], k = 1
+// Output: [1, -1]
+
+// Input: nums = [9, 11], k = 2
+// Output: [11]
 ```
 
-**Time Complexity:** O(k log k) - k heap operations  
-**Space Complexity:** O(k) - Heap storage
+**Time Complexity:** O(n log n) - Worst case when all elements popped  
+**Space Complexity:** O(n) - Heap stores elements
 
-Deep Insights:
-- Initialize heap with (nums1[i] + nums2[0]) for each i; extract min and add next from same i; O(k log k) time.
-- Track indices (i,j) to generate pairs systematically.
-- When extracting (i,j), add (i,j+1) if exists.
-- Edge case: k larger than total pairs; return all pairs.
-- Interview tip: Explain heap initialization; mention index tracking; ask about duplicate handling.
+**Deep Insights:**
+- **Heap Approach:** Simpler to implement but slower than deque—O(n log n) vs O(n)
+- **Lazy Deletion:** Don't remove elements immediately—pop when they reach top and are outside window
+- **Key Insight:** Track indices to identify elements outside window—enables lazy deletion
+- **Deque Alternative:** Monotonic deque achieves O(n) time—optimal for this problem
+- **Window Boundary:** Check if top index <= i - k—outside current window
+- **Edge Cases:** k=1 returns all elements; k=n returns single maximum; handles all cases
+- **Interview Tip:** Mention deque alternative (O(n) optimal); explain lazy deletion concept; ask about time complexity trade-offs
+## Q132. Smallest Range Covering Elements from K Lists
+
+**Problem:** You have `k` lists of sorted integers in non-decreasing order. Find the smallest range that includes at least one number from each of the `k` lists.
+
+**Approach:** Use min-heap on current heads of all lists. Track current maximum. Update best range and advance the list of the minimum element.
+
+### Solution 1: Min-Heap with Range Tracking (Optimal)
+```javascript
+function smallestRange(nums) {
+  const k = nums.length;
+  const heap = new Heap((a, b) => a.val < b.val);  // Min-heap
+  let currentMax = -Infinity;
+  
+  // Initialize heap with first element of each list
+  for (let i = 0; i < k; i++) {
+    heap.push({ val: nums[i][0], listIndex: i, elementIndex: 0 });
+    currentMax = Math.max(currentMax, nums[i][0]);
+  }
+  
+  let bestRange = [-Infinity, Infinity];
+  
+  while (heap.size()) {
+    const { val, listIndex, elementIndex } = heap.pop();
+    
+    // Update best range if current range is smaller
+    if (currentMax - val < bestRange[1] - bestRange[0]) {
+      bestRange = [val, currentMax];
+    }
+    
+    // Stop if any list is exhausted
+    if (elementIndex + 1 === nums[listIndex].length) break;
+    
+    // Advance to next element in same list
+    const nextVal = nums[listIndex][elementIndex + 1];
+    heap.push({ val: nextVal, listIndex, elementIndex: elementIndex + 1 });
+    
+    // Update current maximum
+    if (nextVal > currentMax) {
+      currentMax = nextVal;
+    }
+  }
+  
+  return bestRange;
+}
+
+// Test Cases:
+// Input: nums = [[4,10,15,24,26],[0,9,12,20],[5,18,22,30]]
+// Output: [20, 24]
+
+// Input: nums = [[1,2,3],[1,2,3],[1,2,3]]
+// Output: [1, 1]
+
+// Input: nums = [[10,10],[11,11]]
+// Output: [10, 11]
+
+// Input: nums = [[1],[2],[3],[4],[5],[6],[7]]
+// Output: [1, 7]
+```
+
+**Time Complexity:** O(n log k) - n total elements, k lists, each heap operation O(log k)  
+**Space Complexity:** O(k) - Heap stores k list heads
+
+**Deep Insights:**
+- **Optimal Approach:** Min-heap with range tracking achieves O(n log k) time—optimal for this problem
+- **Range Tracking:** Track current min (from heap) and max—update best range when smaller found
+- **Key Insight:** Always advance list with minimum element—ensures all lists covered
+- **Stopping Condition:** Stop when any list exhausted—cannot cover all lists after that
+- **Range Update:** Update best range when currentMax - currentMin < bestRange[1] - bestRange[0]
+- **Edge Cases:** Single element lists handled; all lists same value returns that value; handles all cases
+- **Interview Tip:** Explain range update logic clearly; emphasize stopping condition; ask about list size variations
+## Q133. Heapsort
+
+**Problem:** Implement heapsort algorithm to sort an array in ascending order. Heapsort is an in-place sorting algorithm with O(n log n) worst-case time complexity.
+
+**Approach:** Build max-heap from array, then repeatedly extract maximum to the end. Heapify down to maintain heap property.
+
+### Solution 1: In-Place Heapsort (Optimal)
+```javascript
+function heapSort(arr) {
+  const n = arr.length;
+  
+  // Heapify down function
+  function heapifyDown(i, size) {
+    while (true) {
+      let left = i * 2 + 1;
+      let right = left + 1;
+      let max = i;
+      
+      if (left < size && arr[left] > arr[max]) {
+        max = left;
+      }
+      if (right < size && arr[right] > arr[max]) {
+        max = right;
+      }
+      
+      if (max === i) break;
+      
+      [arr[i], arr[max]] = [arr[max], arr[i]];
+      i = max;
+    }
+  }
+  
+  // Build max-heap (heapify from bottom up)
+  for (let i = Math.floor((n - 1) / 2); i >= 0; i--) {
+    heapifyDown(i, n);
+  }
+  
+  // Extract max to end repeatedly
+  for (let end = n - 1; end > 0; end--) {
+    [arr[0], arr[end]] = [arr[end], arr[0]];  // Swap max to end
+    heapifyDown(0, end);  // Heapify down excluding sorted part
+  }
+  
+  return arr;
+}
+
+// Test Cases:
+// Input: arr = [4, 10, 3, 5, 1]
+// Output: [1, 3, 4, 5, 10]
+
+// Input: arr = [64, 34, 25, 12, 22, 11, 90]
+// Output: [11, 12, 22, 25, 34, 64, 90]
+
+// Input: arr = [1]
+// Output: [1]
+
+// Input: arr = [5, 2, 8, 1, 9]
+// Output: [1, 2, 5, 8, 9]
+```
+
+**Time Complexity:** O(n log n) - Build heap O(n), extract n times O(log n) each  
+**Space Complexity:** O(1) - In-place sorting, only swap operations
+
+**Deep Insights:**
+- **Optimal Approach:** Heapsort achieves O(n log n) worst-case time—guaranteed unlike quicksort
+- **In-Place Sorting:** Uses array as heap—no extra space needed
+- **Two Phases:** Build max-heap (bottom-up heapify), then extract max to end repeatedly
+- **Heapify Down:** Maintains heap property by swapping down—critical for correctness
+- **Key Insight:** After swap, sorted part grows from end—heap size decreases
+- **Performance:** Slower than quicksort in practice but guarantees O(n log n) worst-case
+- **Interview Tip:** Explain heapify process clearly; emphasize worst-case guarantee; mention in-place property
+
+## Q134. IPO (Initial Public Offering)
+
+**Problem:** You are given several projects with their capital requirements and profits. You can start with initial capital `w`. For each project, you need capital to start it, and you'll get profit. You can choose at most `k` projects. Return the maximum capital you can accumulate.
+
+**Approach:** Sort projects by capital. Use max-heap to track profits of affordable projects. Greedily choose highest profit project each step.
+
+### Solution 1: Greedy with Max-Heap (Optimal)
+```javascript
+function findMaximizedCapital(k, w, profits, capital) {
+  const n = profits.length;
+  const projects = [];
+  
+  // Create [capital, profit] pairs
+  for (let i = 0; i < n; i++) {
+    projects.push([capital[i], profits[i]]);
+  }
+  
+  // Sort by capital requirement
+  projects.sort((a, b) => a[0] - b[0]);
+  
+  const maxHeap = new Heap((a, b) => a > b);  // Max-heap for profits
+  let projectIndex = 0;
+  let currentCapital = w;
+  
+  for (let i = 0; i < k; i++) {
+    // Add all affordable projects to heap
+    while (projectIndex < n && projects[projectIndex][0] <= currentCapital) {
+      maxHeap.push(projects[projectIndex][1]);
+      projectIndex++;
+    }
+    
+    // No affordable projects
+    if (!maxHeap.size()) break;
+    
+    // Choose highest profit project
+    currentCapital += maxHeap.pop();
+  }
+  
+  return currentCapital;
+}
+
+// Test Cases:
+// Input: k = 2, w = 0, profits = [1,2,3], capital = [0,1,1]
+// Output: 4
+// Explanation: Start with capital 0, choose project 0 (capital=0, profit=1), then project 2 (capital=1, profit=3)
+
+// Input: k = 3, w = 0, profits = [1,2,3], capital = [0,1,2]
+// Output: 6
+// Explanation: Choose all three projects
+```
+
+**Time Complexity:** O(n log n + k log n) - Sort projects O(n log n) + k heap operations O(k log n)  
+**Space Complexity:** O(n) - Heap stores profits
+
+**Deep Insights:**
+- **Optimal Approach:** Greedy with sorting and max-heap achieves O(n log n + k log n) time—optimal for this problem
+- **Greedy Strategy:** Always choose highest profit from affordable projects—maximizes capital accumulation
+- **Sorting Benefit:** Sort once by capital—enables linear scan of affordable projects
+- **Key Insight:** Add affordable projects to heap as capital increases—enables optimal selection
+- **Heap Usage:** Max-heap tracks profits of affordable projects—enables O(log n) selection
+- **Edge Cases:** No affordable projects returns current capital; k=0 returns initial capital; handles all cases
+- **Interview Tip:** Explain greedy strategy clearly; emphasize sorting + heap combination; mention greedy optimality
+
+## Q135. Find K Pairs with Smallest Sums
+
+**Problem:** You are given two integer arrays `nums1` and `nums2` sorted in non-decreasing order and an integer `k`. Define a pair `(u, v)` which consists of one element from the first array and one element from the second array. Return the `k` pairs `(u1, v1), (u2, v2), ..., (uk, vk)` with the smallest sums.
+
+**Approach:** Use min-heap to track pairs with smallest sums. Initialize with first element of nums2 paired with each element of nums1. Then expand by moving forward in nums2.
+
+### Solution 1: Min-Heap with Index Tracking (Optimal)
+```javascript
+function kSmallestPairs(nums1, nums2, k) {
+  const heap = new Heap((a, b) => a[0] < b[0]);  // Min-heap: [sum, i, j]
+  const result = [];
+  
+  // Initialize heap with first element of nums2 paired with each element of nums1
+  for (let i = 0; i < Math.min(nums1.length, k); i++) {
+    heap.push([nums1[i] + nums2[0], i, 0]);
+  }
+  
+  while (result.length < k && heap.size()) {
+    const [sum, i, j] = heap.pop();
+    result.push([nums1[i], nums2[j]]);
+    
+    // Add next pair from same nums1[i] (move forward in nums2)
+    if (j + 1 < nums2.length) {
+      heap.push([nums1[i] + nums2[j + 1], i, j + 1]);
+    }
+  }
+  
+  return result;
+}
+
+// Test Cases:
+// Input: nums1 = [1,7,11], nums2 = [2,4,6], k = 3
+// Output: [[1,2],[1,4],[1,6]]
+// Explanation: Smallest sums: 1+2=3, 1+4=5, 1+6=7
+
+// Input: nums1 = [1,1,2], nums2 = [1,2,3], k = 2
+// Output: [[1,1],[1,1]]
+// Explanation: Smallest sums: 1+1=2, 1+1=2
+
+// Input: nums1 = [1,2], nums2 = [3], k = 3
+// Output: [[1,3],[2,3]]
+// Explanation: Only 2 pairs possible
+```
+
+**Time Complexity:** O(k log k) - k heap operations, each O(log k)  
+**Space Complexity:** O(k) - Heap stores k pairs
+
+**Deep Insights:**
+- **Optimal Approach:** Min-heap with index tracking achieves O(k log k) time—optimal for this problem
+- **Initialization Strategy:** Start with nums1[i] + nums2[0] for each i—ensures smallest pairs considered
+- **Expansion Strategy:** When extracting (i, j), add (i, j+1)—systematically explores all pairs
+- **Key Insight:** Track indices (i, j) to generate pairs systematically—avoids duplicates
+- **Heap Invariant:** Heap always contains next smallest pairs—maintains sorted order
+- **Edge Cases:** k larger than total pairs returns all pairs; handles empty arrays; all cases covered
+- **Interview Tip:** Explain initialization strategy clearly; emphasize index tracking; ask about duplicate handling

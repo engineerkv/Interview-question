@@ -4,82 +4,75 @@
 
 ## 49) How do you deploy a Next.js 14 app to Vercel and what automatic optimizations does it apply?
 
-Concept:
 Vercel automatically optimizes images, enables edge functions, and provides analytics.
 
-Example:
 ```javascript
 // vercel.json configuration
 {
   "framework": "nextjs",
   "buildCommand": "npm run build",
-  "outputDirectory": ".next",
-  "functions": {
+  "outputDirectory": ".next"
+}
 ```
 
-Deep Insight:
-- **Automatic Deployments**: Deploys on git push
-- **Image Optimization**: Automatic image optimization
-- **Edge Functions**: Runs at edge locations
-- **CDN**: Global content delivery
-- **Analytics**: Built-in performance monitoring
+- **Core Features**: Automatic deployments on git push, automatic image optimization
+- **Real-World Use**: Runs at edge locations (edge functions)
+- **Common Benefit**: Global content delivery (CDN)
+- **Advanced Feature**: Built-in performance monitoring (analytics)
+- **Interview Tip**: Explain that Vercel provides zero-config deployment
 
 ---
 
 ## 50) How do you set up a custom server for Next.js (Node.js or Express integration)? (**⚙️ legacy**)
 
-Concept:
 Create a custom server using `next()` function with Express or Node.js.
 
-Example:
 ```javascript
-// server.js - Custom Express server
 const express = require('express');
 const next = require('next');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
+const handle = app.getRequestHandler();
+
+app.prepare().then(() => {
+  const server = express();
+  server.get('*', (req, res) => handle(req, res));
+  server.listen(3000);
+});
 ```
 
-Deep Insight:
-- **Custom Server**: Only needed for specific requirements
-- **Express Integration**: Use Express for custom middleware
-- **Node.js**: Use Node.js for custom server logic
-- **Performance**: May impact performance optimizations
-- **Legacy**: Not recommended for new projects
+- **Core Purpose**: Only needed for specific requirements (custom server)
+- **Real-World Use**: Use Express for custom middleware (Express integration)
+- **Common Practice**: Use Node.js for custom server logic
+- **Important Note**: May impact performance optimizations (performance)
+- **Interview Tip**: Explain that not recommended for new projects (legacy)
 
 ---
 
 ## 51) What are build output types (`standalone`, `app-dir`, edge bundles) in Next.js 14? (**🚀**)
 
-Concept:
 Different build outputs for different deployment targets and optimization levels.
 
-Example:
 ```javascript
 // next.config.js
-/** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Standalone output for Docker
-  output: 'standalone',
-  
+  output: 'standalone', // Self-contained build for Docker
+};
 ```
 
-Deep Insight:
-- **Standalone**: Self-contained build for Docker
-- **Export**: Static files for static hosting
-- **Default**: Optimized for Vercel deployment
-- **Edge Bundles**: Optimized for edge runtime
-- **Docker**: Standalone output works well with containers
+- **Core Types**: Standalone (self-contained build for Docker), Export (static files for static hosting), Default (optimized for Vercel deployment)
+- **Real-World Use**: Edge bundles optimized for edge runtime
+- **Common Practice**: Standalone output works well with containers (Docker)
+- **Advanced Feature**: Different outputs for different deployment targets
+- **Interview Tip**: Explain that choose output type based on deployment target
 
 ---
 
 ## 52) How does the new `app/` directory change build and routing compared to `pages/`? (**🚀**)
 
-Concept:
 App directory enables Server Components, improved routing, and better performance.
 
-Example:
 ```javascript
 // pages/ directory (legacy)
 // pages/index.js
@@ -87,293 +80,202 @@ export default function Home() {
   return <h1>Home</h1>;
 }
 
+// app/ directory (modern)
+// app/page.js
+export default function Home() {
+  return <h1>Home</h1>;
+}
 ```
 
-Deep Insight:
-- **Server Components**: App directory supports RSC
-- **Layouts**: Better layout composition
-- **API Routes**: Different file structure
-- **Performance**: Better performance with App Router
-- **Migration**: Can migrate gradually from Pages Router
+- **Core Changes**: App directory supports RSC (Server Components), better layout composition (layouts)
+- **Real-World Impact**: Different file structure (API routes)
+- **Common Advantage**: Better performance with App Router (performance)
+- **Advanced Feature**: Can migrate gradually from Pages Router (migration)
+- **Interview Tip**: Explain that App Router is the modern approach
 
 ---
 
 ## 53) How do you configure environment-specific settings for staging vs production?
 
-Concept:
 Use different `.env` files and environment variables for different deployment stages.
 
-Example:
 ```javascript
 // .env.local (local development)
 NEXT_PUBLIC_API_URL=http://localhost:3000/api
 DATABASE_URL=postgresql://localhost:5432/dev_db
-SECRET_KEY=dev-secret-key
 
 // .env.staging (staging environment)
+NEXT_PUBLIC_API_URL=https://staging-api.example.com
+
+// .env.production (production)
+NEXT_PUBLIC_API_URL=https://api.example.com
 ```
 
-Deep Insight:
-- **Environment Files**: Use different `.env` files for different stages
-- **Validation**: Validate environment variables
-- **Configuration**: Different configs per environment
-- **Security**: Never commit secrets to version control
-- **CI/CD**: Set environment variables in deployment pipeline
+- **Core Practice**: Use different `.env` files for different stages (environment files)
+- **Real-World Use**: Validate environment variables
+- **Common Configuration**: Different configs per environment
+- **Important Security**: Never commit secrets to version control (security)
+- **Interview Tip**: Explain that set environment variables in deployment pipeline (CI/CD)
 
 ---
 
 ## 54) How do you add ESLint and TypeScript to an existing Next.js project?
 
-Concept:
 Install ESLint and TypeScript packages and configure them for Next.js.
 
-Example:
 ```bash
-# Install TypeScript
 npm install --save-dev typescript @types/react @types/node
-
-# Install ESLint
 npm install --save-dev eslint eslint-config-next
-
 ```
 
-```javascript
-// tsconfig.json
-{
-  "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "es6"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "paths": {
-      "@/*": ["./*"]
-    }
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
-}
-
-// .eslintrc.json
-{
-  "extends": [
-    "next/core-web-vitals",
-    "@typescript-eslint/recommended"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "rules": {
-    "@typescript-eslint/no-unused-vars": "error",
-    "@typescript-eslint/no-explicit-any": "warn"
-  }
-}
-
-// next.config.js
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  typescript: {
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    ignoreBuildErrors: false,
-  },
-  eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: false,
-  },
-};
-
-module.exports = nextConfig;
-```
-
-Deep Insight:
-- **TypeScript**: Provides type safety and better development experience
-- **ESLint**: Catches code quality issues and enforces best practices
-- **Configuration**: Proper configuration is important
-- **Build Integration**: Can fail builds on type/ESLint errors
-- **Development**: Better IDE support and error detection
+- **Core Benefits**: TypeScript provides type safety and better development experience
+- **Real-World Use**: ESLint catches code quality issues and enforces best practices
+- **Common Configuration**: Proper configuration is important
+- **Advanced Feature**: Can fail builds on type/ESLint errors (build integration)
+- **Interview Tip**: Explain that better IDE support and error detection (development)
 
 ---
 
 ## 55) How does Next.js integrate with CI/CD pipelines (Vercel, GitHub Actions, Docker)?
 
-Concept:
 Next.js works with various CI/CD platforms for automated deployment.
 
-Example:
 ```yaml
 # .github/workflows/deploy.yml
 name: Deploy to Vercel
-
 on:
   push:
     branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - run: npm run build
 ```
 
-```dockerfile
-# Dockerfile
-FROM node:18-alpine AS base
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
-
-FROM base AS deps
-RUN npm ci
-
-FROM base AS builder
-COPY . .
-COPY --from=deps /app/node_modules ./node_modules
-RUN npm run build
-
-FROM base AS runner
-ENV NODE_ENV production
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/public ./public
-
-EXPOSE 3000
-CMD ["node", "server.js"]
-```
-
-Deep Insight:
-- **GitHub Actions**: Popular CI/CD platform
-- **Vercel**: Automatic deployments from Git
-- **Docker**: Containerized deployment
-- **Testing**: Run tests in CI pipeline
-- **Quality Gates**: Fail builds on errors
+- **Core Platforms**: GitHub Actions (popular CI/CD platform), Vercel (automatic deployments from Git), Docker (containerized deployment)
+- **Real-World Use**: Run tests in CI pipeline (testing)
+- **Common Practice**: Fail builds on errors (quality gates)
+- **Advanced Feature**: Automated testing and deployment
+- **Interview Tip**: Explain that CI/CD improves development workflow
 
 ---
 
 ## 56) What are `exportPathMap` and static export (`next export`)? (**⚙️ old static export**)
 
-Concept:
 Static export generates static HTML files for deployment to any static hosting.
 
-Example:
 ```javascript
 // next.config.js
-/** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
   images: {
+    unoptimized: true
+  }
+};
 ```
 
-Deep Insight:
-- **Static Export**: Generates static HTML files
-- **No Server**: Can be hosted on any static hosting
-- **Limitations**: No server-side features
-- **Performance**: Very fast loading
-- **SEO**: Good for SEO-friendly sites
+- **Core Purpose**: Generates static HTML files (static export)
+- **Real-World Use**: Can be hosted on any static hosting (no server)
+- **Common Limitation**: No server-side features
+- **Advanced Feature**: Very fast loading (performance)
+- **Interview Tip**: Explain that good for SEO-friendly sites (SEO)
 
 ---
 
 ## 57) How do you debug and profile a Next.js app locally? (DevTools, React Profiler, Next Analyzer)
 
-Concept:
 Use browser DevTools, React Profiler, and Next.js built-in analyzers.
 
-Example:
 ```javascript
-// next.config.js - Enable debugging
-/** @type {import('next').NextConfig} */
+// next.config.js
 const nextConfig = {
-  // Enable source maps in development
   productionBrowserSourceMaps: true,
-  
+};
 ```
 
-Deep Insight:
-- **DevTools**: Use browser DevTools for debugging
-- **React Profiler**: Profile component performance
-- **Bundle Analyzer**: Analyze bundle size
-- **Source Maps**: Enable for better debugging
-- **Performance**: Monitor Core Web Vitals
+- **Core Tools**: Use browser DevTools for debugging, React Profiler for component performance, Bundle Analyzer for bundle size
+- **Real-World Use**: Enable source maps for better debugging
+- **Common Practice**: Monitor Core Web Vitals (performance)
+- **Advanced Feature**: Use Next.js built-in analyzers
+- **Interview Tip**: Explain that debugging tools improve development experience
 
 ---
 
 ## 58) What are the advantages of Next 14's partial prerendering and streaming? (**🚀**)
 
-Concept:
 Partial prerendering combines static and dynamic content for optimal performance.
 
-Example:
 ```javascript
-// Partial prerendering with streaming
+import { Suspense } from 'react';
+
 export default function Page() {
   return (
     <div>
-      {/* Static content - prerendered */}
       <header>
+        <h1>Static Header</h1>
+      </header>
+      <Suspense fallback={<p>Loading...</p>}>
+        <DynamicContent />
+      </Suspense>
+    </div>
+  );
+}
 ```
 
-Deep Insight:
-- **Partial Prerendering**: Combines static and dynamic content
-- **Streaming**: Sends HTML chunks as they're ready
-- **Performance**: Better perceived performance
-- **TTFB**: Improves Time to First Byte
-- **Progressive**: Page loads progressively
+- **Core Concept**: Combines static and dynamic content (partial prerendering)
+- **Real-World Benefit**: Sends HTML chunks as they're ready (streaming)
+- **Common Advantage**: Better perceived performance
+- **Advanced Feature**: Improves Time to First Byte (TTFB)
+- **Interview Tip**: Explain that page loads progressively
 
 ---
 
 ## 59) What is the new Turbopack bundler and how does it differ from Webpack? (**🚀 Next 14**)
 
-Concept:
 Turbopack is a faster bundler written in Rust, replacing Webpack for development.
 
-Example:
 ```javascript
-// next.config.js - Enable Turbopack
-/** @type {import('next').NextConfig} */
+// next.config.js
 const nextConfig = {
   experimental: {
-    // Enable Turbopack for development
     turbo: {
+      // Turbopack configuration
+    }
+  }
+};
 ```
 
-Deep Insight:
-- **Rust-based**: Much faster than Webpack
-- **Development**: Currently for development only
-- **Compatibility**: Compatible with most Webpack loaders
-- **Performance**: Significantly faster builds
-- **Future**: Will replace Webpack for production builds
+- **Core Technology**: Rust-based bundler, much faster than Webpack
+- **Real-World Status**: Currently for development only
+- **Common Compatibility**: Compatible with most Webpack loaders
+- **Advanced Feature**: Significantly faster builds (performance)
+- **Interview Tip**: Explain that will replace Webpack for production builds (future)
 
 ---
 
 ## 60) How do you migrate an older project from Next 12 (Pages Router) to Next 14 (App Router, RSC, Server Actions)? (**🧭 transitional 13 → 14**)
 
-Concept:
 Migrate gradually by moving pages to App Router and updating data fetching patterns.
 
-Example:
 ```javascript
 // Step 1: Update Next.js version
 // package.json
 {
   "dependencies": {
     "next": "14.0.0",
-    "react": "18.0.0",
+    "react": "18.0.0"
+  }
+}
 ```
 
-Deep Insight:
-- **Gradual Migration**: Migrate page by page
-- **App Router**: Modern routing with better performance
-- **Server Components**: Move data fetching to server
-- **API Routes**: Update to new route format
-- **Client Components**: Mark interactive components with 'use client'
+- **Core Strategy**: Migrate page by page (gradual migration)
+- **Real-World Approach**: Modern routing with better performance (App Router)
+- **Common Practice**: Move data fetching to server (Server Components)
+- **Advanced Feature**: Update to new route format (API routes)
+- **Interview Tip**: Explain that mark interactive components with 'use client' (client components)
 
 ---

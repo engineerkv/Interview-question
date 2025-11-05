@@ -4,12 +4,9 @@
 
 ## 1) What is React Native, and how is it different from React.js?
 
-Concept:
 React Native is a framework for building mobile applications using React, but instead of rendering to the web DOM, it renders to native mobile components.
 
-Example:
 ```jsx
-// React Native component
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
@@ -27,23 +24,19 @@ const styles = StyleSheet.create({
 });
 ```
 
-Deep Insight:
-- **Mobile Focus**: Designed specifically for iOS and Android development
-- **Native Components**: Renders to native UI components, not HTML elements
-- **Cross-Platform**: Write once, run on both iOS and Android
+- **Core Difference**: Designed specifically for iOS and Android development (mobile focus)
+- **Real-World Use**: Renders to native UI components, not HTML elements (native components)
+- **Common Advantage**: Write once, run on both iOS and Android (cross-platform)
 - **Performance**: Near-native performance through native rendering
-- **Platform Differences**: Handles platform-specific UI patterns and behaviors
+- **Interview Tip**: Explain that handles platform-specific UI patterns and behaviors
 
 ---
 
 ## 2) How does React Native render UI on mobile devices? Explain the bridge concept.
 
-Concept:
 React Native uses a bridge to communicate between JavaScript and native code, translating JavaScript calls into native platform APIs.
 
-Example:
 ```jsx
-// JavaScript side
 import { View, Text } from 'react-native';
 
 function MyComponent() {
@@ -59,21 +52,18 @@ function MyComponent() {
 // <Text> -> UILabel (iOS) / TextView (Android)
 ```
 
-Deep Insight:
-- **Bridge Communication**: Asynchronous communication between JS and native threads
-- **Serialization**: Data is serialized when crossing the bridge
-- **Thread Separation**: JavaScript runs on separate thread from native UI
+- **Core Concept**: Asynchronous communication between JS and native threads (bridge communication)
+- **Real-World Process**: Data is serialized when crossing the bridge
+- **Architecture**: JavaScript runs on separate thread from native UI (thread separation)
 - **Performance Impact**: Bridge communication can cause performance bottlenecks
-- **New Architecture**: JSI replaces bridge for better performance
+- **Interview Tip**: Explain that JSI replaces bridge for better performance (new architecture)
 
 ---
 
 ## 3) What is the **JavaScript Interface (JSI)**, and how does it improve performance?
 
-Concept:
 JSI is a new architecture that allows direct communication between JavaScript and native code, eliminating the need for the bridge and improving performance.
 
-Example:
 ```jsx
 // Old Bridge approach (serialized)
 const result = await NativeModules.MyModule.doSomething(data);
@@ -82,21 +72,18 @@ const result = await NativeModules.MyModule.doSomething(data);
 const result = MyModule.doSomething(data);
 ```
 
-Deep Insight:
-- **Direct Communication**: JavaScript can directly call native functions
-- **Synchronous Calls**: Enables synchronous communication when needed
-- **Better Performance**: Eliminates serialization overhead
-- **Type Safety**: Better type checking and error handling
-- **Future-Proof**: Foundation for new React Native architecture
+- **Core Advantage**: JavaScript can directly call native functions (direct communication)
+- **Real-World Benefit**: Enables synchronous communication when needed (synchronous calls)
+- **Performance**: Eliminates serialization overhead (better performance)
+- **Advanced Feature**: Better type checking and error handling (type safety)
+- **Interview Tip**: Explain that foundation for new React Native architecture (future-proof)
 
 ---
 
 ## 4) What are **Fabric** and **TurboModules**, and how do they improve React Native's new architecture?
 
-Concept:
 Fabric is the new rendering system, while TurboModules are the new native module system, both designed to improve performance and enable synchronous communication.
 
-Example:
 ```jsx
 // Fabric - New rendering system
 import { View, Text } from 'react-native';
@@ -114,54 +101,44 @@ import { TurboModuleRegistry } from 'react-native';
 const MyTurboModule = TurboModuleRegistry.get('MyTurboModule');
 ```
 
-Deep Insight:
-- **Fabric**: New rendering system with better performance and debugging
-- **TurboModules**: New native module system using JSI
-- **Synchronous Rendering**: Enables synchronous UI updates
-- **Better Debugging**: Improved debugging capabilities
-- **Backward Compatibility**: Works with existing code while providing new features
+- **Core Components**: Fabric (new rendering system with better performance and debugging), TurboModules (new native module system using JSI)
+- **Real-World Benefit**: Enables synchronous UI updates (synchronous rendering)
+- **Common Advantage**: Improved debugging capabilities (better debugging)
+- **Advanced Feature**: Works with existing code while providing new features (backward compatibility)
+- **Interview Tip**: Explain that new architecture significantly improves performance
 
 ---
 
 ## 5) How does React Native communicate between JavaScript and native code internally?
 
-Concept:
 React Native uses the bridge (or JSI in new architecture) to serialize data and pass it between JavaScript and native threads.
 
-Example:
 ```jsx
-// JavaScript calling native module
 import { NativeModules } from 'react-native';
 
 const { MyNativeModule } = NativeModules;
 
-// This call goes through the bridge
 MyNativeModule.doSomething('Hello from JS', (result) => {
   console.log('Native response:', result);
 });
 
-// Data is serialized when crossing the bridge
 const data = { name: 'John', age: 30 };
 MyNativeModule.processData(data);
 ```
 
-Deep Insight:
-- **Bridge Protocol**: Defines how data is serialized and passed
-- **Message Queue**: Uses message queue for asynchronous communication
-- **Data Types**: Supports specific data types (strings, numbers, objects, arrays)
+- **Core Mechanism**: Bridge protocol defines how data is serialized and passed
+- **Real-World Process**: Uses message queue for asynchronous communication
+- **Common Support**: Supports specific data types (strings, numbers, objects, arrays)
 - **Error Handling**: Handles errors and exceptions across the bridge
-- **Performance**: Bridge communication can be a bottleneck for high-frequency calls
+- **Interview Tip**: Explain that bridge communication can be a bottleneck for high-frequency calls (performance)
 
 ---
 
 ## 6) What are the key differences between React Native rendering on iOS vs Android?
 
-Concept:
 iOS uses UIKit components while Android uses Android Views, with different styling systems and platform-specific optimizations.
 
-Example:
 ```jsx
-// Same React Native code
 <View style={styles.container}>
   <Text style={styles.text}>Hello</Text>
 </View>
@@ -170,7 +147,6 @@ Example:
 // iOS: UIView with UILabel
 // Android: ViewGroup with TextView
 
-// Platform-specific styling
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -180,21 +156,18 @@ const styles = StyleSheet.create({
 });
 ```
 
-Deep Insight:
-- **iOS UIKit**: Uses UIKit components and Auto Layout
-- **Android Views**: Uses Android View system and ConstraintLayout
-- **Styling Differences**: Different default values and behaviors
-- **Performance**: Platform-specific optimizations
-- **Platform APIs**: Different native APIs and capabilities
+- **Core Platforms**: iOS UIKit uses UIKit components and Auto Layout, Android Views uses Android View system and ConstraintLayout
+- **Real-World Impact**: Different default values and behaviors (styling differences)
+- **Common Optimization**: Platform-specific optimizations (performance)
+- **Advanced Feature**: Different native APIs and capabilities (platform APIs)
+- **Interview Tip**: Explain that same code renders differently on each platform
 
 ---
 
 ## 7) What is the role of the **Metro bundler** in React Native?
 
-Concept:
 Metro is the JavaScript bundler that transforms, bundles, and serves React Native code, similar to Webpack for web applications.
 
-Example:
 ```jsx
 // metro.config.js
 module.exports = {
@@ -212,23 +185,19 @@ module.exports = {
 };
 ```
 
-Deep Insight:
-- **JavaScript Bundling**: Bundles JavaScript code for mobile
-- **Asset Handling**: Processes images, fonts, and other assets
-- **Hot Reloading**: Enables hot reloading and fast refresh
-- **Tree Shaking**: Removes unused code to reduce bundle size
-- **Platform Support**: Handles platform-specific code splitting
+- **Core Purpose**: Bundles JavaScript code for mobile (JavaScript bundling)
+- **Real-World Use**: Processes images, fonts, and other assets (asset handling)
+- **Common Benefit**: Enables hot reloading and fast refresh
+- **Advanced Feature**: Removes unused code to reduce bundle size (tree shaking)
+- **Interview Tip**: Explain that handles platform-specific code splitting
 
 ---
 
 ## 8) What is the difference between **Live Reload**, **Hot Reload**, and **Fast Refresh**?
 
-Concept:
 Live Reload reloads the entire app, Hot Reload updates components without losing state, and Fast Refresh is the improved version that combines both features.
 
-Example:
 ```jsx
-// Fast Refresh example
 function Counter() {
   const [count, setCount] = useState(0);
   
@@ -245,23 +214,19 @@ function Counter() {
 // Hot Reload would keep count value
 ```
 
-Deep Insight:
-- **Live Reload**: Reloads entire app, loses all state
-- **Hot Reload**: Updates components while preserving state
-- **Fast Refresh**: Combines both with better error recovery
-- **Development Experience**: Improves developer productivity
-- **State Preservation**: Maintains component state during updates
+- **Core Differences**: Live Reload reloads entire app, loses all state; Hot Reload updates components while preserving state; Fast Refresh combines both with better error recovery
+- **Real-World Benefit**: Improves developer productivity (development experience)
+- **Common Advantage**: Maintains component state during updates (state preservation)
+- **Advanced Feature**: Better error recovery than Hot Reload
+- **Interview Tip**: Explain that Fast Refresh is the recommended approach
 
 ---
 
 ## 9) What are the common built-in React Native components (View, Text, Image, FlatList, ScrollView)?
 
-Concept:
 React Native provides core components like View (container), Text (text display), Image (images), FlatList (efficient lists), and ScrollView (scrollable content).
 
-Example:
 ```jsx
-import React from 'react';
 import { View, Text, Image, FlatList, ScrollView } from 'react-native';
 
 function MyScreen() {
@@ -282,23 +247,19 @@ function MyScreen() {
 }
 ```
 
-Deep Insight:
-- **View**: Basic container component, equivalent to div
-- **Text**: Text display component, equivalent to span/p
-- **Image**: Image display component with optimization
-- **FlatList**: Efficient list component with virtualization
-- **ScrollView**: Scrollable container for content
+- **Core Components**: View (basic container component, equivalent to div), Text (text display component, equivalent to span/p), Image (image display component with optimization)
+- **Real-World Use**: FlatList (efficient list component with virtualization), ScrollView (scrollable container for content)
+- **Common Advantage**: All components are optimized for mobile
+- **Advanced Feature**: FlatList provides virtualization for large lists
+- **Interview Tip**: Explain that these are the building blocks of React Native apps
 
 ---
 
 ## 10) How does **Flexbox layout** in React Native differ from CSS on the web?
 
-Concept:
 React Native uses a subset of Flexbox with some differences in default values and behavior, optimized for mobile layouts.
 
-Example:
 ```jsx
-// React Native Flexbox
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -314,11 +275,10 @@ const styles = StyleSheet.create({
 });
 ```
 
-Deep Insight:
-- **Default Direction**: Column by default (row in CSS)
-- **Flex Property**: Different behavior and default values
-- **No Float**: No float property in React Native
-- **Position**: Simplified positioning system
-- **Mobile Optimized**: Designed for touch interfaces and mobile layouts
+- **Core Difference**: Column by default (row in CSS) (default direction)
+- **Real-World Impact**: Different behavior and default values (flex property)
+- **Common Limitation**: No float property in React Native (no float)
+- **Advanced Feature**: Simplified positioning system (position)
+- **Interview Tip**: Explain that designed for touch interfaces and mobile layouts (mobile optimized)
 
 ---

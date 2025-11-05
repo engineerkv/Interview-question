@@ -1,6 +1,15 @@
 # ⚛️ **React Interview Cheatsheet**
 
-*Quick reference guide for React interview preparation*
+> **⏱️ Review Time: 15-20 minutes** | **Priority: ⭐⭐⭐ High** | Quick reference for React interviews
+
+**Quick Review Checklist:**
+- [ ] React Basics (Components, JSX, Props, State, Virtual DOM)
+- [ ] Hooks (useState, useEffect, useRef, useMemo, useCallback)
+- [ ] State Management (Context API, Redux Toolkit)
+- [ ] Performance (React.memo, Code Splitting, Virtualization)
+- [ ] React 18+ Features (Concurrent, Suspense, Transitions)
+- [ ] Testing (React Testing Library, Custom Hooks)
+- [ ] React Internals (Fiber, Reconciliation, Commit Phase)
 
 ---
 
@@ -8,11 +17,11 @@
 
 | Concept | Description | Example |
 |---------|-------------|---------|
-| **Component** | Reusable UI piece | `function Button() { return <button>Click</button>; }` |
-| **JSX** | HTML-like syntax | `<h1>Hello {name}</h1>` |
-| **Props** | Data passed to components | `<Button text="Click me" />` |
-| **State** | Component's internal data | `const [count, setCount] = useState(0)` |
-| **Virtual DOM** | JavaScript representation of DOM | React's diffing algorithm |
+| **Component** | Reusable UI piece that can be composed together | `function Button() { return <button>Click</button>; }` |
+| **JSX** | HTML-like syntax compiled to React.createElement() calls | `<h1>Hello {name}</h1>` |
+| **Props** | Read-only data passed from parent to child components | `<Button text="Click me" />` |
+| **State** | Mutable data inside a component that triggers re-renders | `const [count, setCount] = useState(0)` |
+| **Virtual DOM** | JavaScript representation of DOM for efficient diffing | React's diffing algorithm |
 
 ---
 
@@ -598,5 +607,5 @@ const [count, setCount] = useState(0);
 - Fiber diffing, key-based list updates, batched updates, lazy initialization, concurrent rendering.
 
 ### 💡 Interview Tip
-“React builds a Virtual DOM, computes minimal changes via the Fiber reconciler, schedules work by priority, and commits synchronously to the browser DOM. Fiber enables concurrent, non-blocking rendering.”
+React builds a Virtual DOM, computes minimal changes via the Fiber reconciler, schedules work by priority, and commits synchronously to the browser DOM. Fiber enables concurrent, non-blocking rendering.
 

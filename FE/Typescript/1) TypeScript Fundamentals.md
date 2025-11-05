@@ -4,10 +4,8 @@
 
 ## 1) What is TypeScript, and how is it different from JavaScript?
 
-Concept:
 TypeScript is a statically typed superset of JavaScript that compiles to plain JavaScript, providing type safety and better tooling support.
 
-Example:
 ```typescript
 // JavaScript
 function greet(name) {
@@ -20,21 +18,18 @@ function greet(name: string): string {
 }
 ```
 
-Deep Insight:
-- **Static Typing**: TypeScript checks types at compile time, JavaScript at runtime
-- **Superset**: All valid JavaScript is valid TypeScript
-- **Compilation**: TypeScript compiles to JavaScript, not interpreted directly
-- **Tooling**: Better IDE support with autocomplete, refactoring, and error detection
-- **Optional**: You can gradually adopt TypeScript in existing JavaScript projects
+- **Core Difference**: Static typing checks types at compile time, JavaScript at runtime
+- **Real-World Use**: Superset means all valid JavaScript is valid TypeScript
+- **Common Mistake**: TypeScript compiles to JavaScript, not interpreted directly
+- **Advanced Feature**: Better IDE support with autocomplete, refactoring, and error detection
+- **Interview Tip**: Explain that you can gradually adopt TypeScript in existing JavaScript projects
 
 ---
 
 ## 2) What are the key benefits of using TypeScript in large-scale applications?
 
-Concept:
 TypeScript provides type safety, better IDE support, early error detection, improved refactoring, and better documentation through types.
 
-Example:
 ```typescript
 interface User {
   id: number;
@@ -51,23 +46,19 @@ function createUser(userData: User): User {
 }
 ```
 
-Deep Insight:
-- **Early Error Detection**: Catch errors during development, not production
-- **Better Refactoring**: Safe renaming and restructuring with confidence
-- **Self-Documenting**: Types serve as documentation for function signatures
-- **IDE Support**: Enhanced autocomplete, go-to-definition, and find references
-- **Team Collaboration**: Clear contracts between different parts of the application
+- **Core Benefits**: Early error detection catches errors during development, not production
+- **Real-World Impact**: Better refactoring enables safe renaming and restructuring with confidence
+- **Common Advantage**: Self-documenting types serve as documentation for function signatures
+- **Advanced Feature**: Enhanced IDE support with autocomplete, go-to-definition, and find references
+- **Interview Tip**: Explain that clear contracts between different parts improve team collaboration
 
 ---
 
 ## 3) What are TypeScript's primitive data types?
 
-Concept:
 TypeScript includes string, number, boolean, null, undefined, symbol, bigint, and void as primitive types.
 
-Example:
 ```typescript
-// Primitive types
 let name: string = "John";
 let age: number = 30;
 let isActive: boolean = true;
@@ -75,166 +66,130 @@ let data: null = null;
 let value: undefined = undefined;
 ```
 
-Deep Insight:
-- **String**: Text data with single or double quotes
-- **Number**: Both integers and floating-point numbers
-- **Boolean**: True or false values
-- **Null/Undefined**: Represent absence of value differently
-- **Symbol**: Unique identifiers, often used as object keys
-- **BigInt**: Arbitrary precision integers for large numbers
-- **Void**: Absence of any type, commonly used for functions
+- **Core Types**: String (text data), Number (both integers and floating-point), Boolean (true or false)
+- **Real-World Use**: Null/Undefined represent absence of value differently
+- **Advanced Types**: Symbol (unique identifiers, often used as object keys), BigInt (arbitrary precision integers)
+- **Special Type**: Void (absence of any type, commonly used for functions)
+- **Interview Tip**: Explain that TypeScript extends JavaScript's type system
 
 ---
 
 ## 4) What is type inference?
 
-Concept:
 Type inference is TypeScript's ability to automatically determine the type of a variable based on its initial value.
 
-Example:
 ```typescript
-// TypeScript infers types automatically
 let message = "Hello World"; // Inferred as 'string'
 let count = 42; // Inferred as 'number'
 let isReady = true; // Inferred as 'boolean'
-
-// Arrays are inferred based on content
 let numbers = [1, 2, 3]; // Inferred as 'number[]'
 let mixed = [1, "hello", true]; // Inferred as '(string | number | boolean)[]'
 ```
 
-Deep Insight:
-- **Automatic Detection**: TypeScript analyzes code to determine types
-- **Reduces Boilerplate**: Less need for explicit type annotations
-- **Context-Aware**: Inference considers surrounding code context
-- **Best Common Type**: For arrays, finds the most specific common type
-- **Function Returns**: Can infer return types from function body
+- **Core Concept**: TypeScript analyzes code to determine types automatically
+- **Real-World Benefit**: Reduces boilerplate, less need for explicit type annotations
+- **Advanced Feature**: Context-aware inference considers surrounding code context
+- **Optimization**: For arrays, finds the most specific common type
+- **Interview Tip**: Explain that function return types can be inferred from function body
 
 ---
 
 ## 5) What is the difference between `any`, `unknown`, and `never` types?
 
-Concept:
 `any` disables type checking, `unknown` is type-safe but requires type checking, and `never` represents values that never occur.
 
-Example:
 ```typescript
-// any - disables type checking
 let anything: any = 42;
-anything = "hello";
-anything = true;
-anything.foo.bar.baz; // No error, but will crash at runtime
+anything = "hello"; // No error, but will crash at runtime
 
-// unknown - type-safe but requires checking
 let userInput: unknown = getUserInput();
 if (typeof userInput === "string") {
   console.log(userInput.toUpperCase()); // Safe to use
 }
 
-// never - represents impossible states
 function throwError(message: string): never {
   throw new Error(message);
 }
 ```
 
-Deep Insight:
-- **Any**: Bypasses type system, use sparingly for migration or external libraries
-- **Unknown**: Type-safe alternative to any, requires type narrowing before use
-- **Never**: Represents impossible states, useful for exhaustive checking
+- **Core Difference**: Any bypasses type system, use sparingly for migration or external libraries
+- **Real-World Use**: Unknown is type-safe alternative to any, requires type narrowing before use
+- **Common Mistake**: Never represents impossible states, useful for exhaustive checking
 - **Type Safety**: Unknown is safer than any, never is for impossible cases
-- **Use Cases**: Any for quick fixes, unknown for user input, never for error handling
+- **Interview Tip**: Explain that use cases: any for quick fixes, unknown for user input, never for error handling
 
 ---
 
 ## 6) What is the `void` type and when is it used?
 
-Concept:
 `void` represents the absence of a value, commonly used for functions that don't return a value.
 
-Example:
 ```typescript
-// Functions that don't return a value
 function logMessage(message: string): void {
   console.log(message);
   // No return statement
 }
-
 ```
 
-Deep Insight:
-- **Absence of Value**: Represents functions that don't return anything
-- **Implicit Return**: Functions with void can have no return statement
-- **Different from Undefined**: Void means no return, undefined means returned undefined
-- **Common Use**: Event handlers, side effects, logging functions
-- **Type Safety**: Prevents accidental use of return value
+- **Core Purpose**: Represents functions that don't return anything
+- **Real-World Use**: Implicit return means functions with void can have no return statement
+- **Common Mistake**: Different from undefined - void means no return, undefined means returned undefined
+- **Advanced Feature**: Common use for event handlers, side effects, logging functions
+- **Interview Tip**: Explain that type safety prevents accidental use of return value
 
 ---
 
 ## 7) What are tuples, and how are they different from arrays?
 
-Concept:
 Tuples are arrays with fixed length and known types at each position, while arrays have variable length and same type elements.
 
-Example:
 ```typescript
-// Tuple - fixed length, specific types
 let person: [string, number] = ["John", 30];
 let coordinates: [number, number] = [10, 20];
-
-// Array - variable length, same type
 let names: string[] = ["John", "Jane", "Bob"];
 ```
 
-Deep Insight:
-- **Fixed Length**: Tuples have a specific number of elements
-- **Type Safety**: Each position has a specific type
-- **Use Cases**: Coordinates, key-value pairs, function returns
-- **Destructuring**: Can destructure tuples like arrays
-- **Optional Elements**: Tuples can have optional elements with ?
+- **Core Difference**: Tuples have fixed length, arrays have variable length
+- **Real-World Use**: Type safety means each position has a specific type
+- **Common Use Cases**: Coordinates, key-value pairs, function returns
+- **Advanced Feature**: Can destructure tuples like arrays, tuples can have optional elements with ?
+- **Interview Tip**: Explain that tuples provide stronger type safety than arrays
 
 ---
 
 ## 8) What are enums, and what is the difference between numeric and string enums?
 
-Concept:
 Enums define a set of named constants, with numeric enums having auto-incrementing values and string enums having explicit string values.
 
-Example:
 ```typescript
-// Numeric enum (default)
 enum Status {
   Pending,    // 0
   Approved,   // 1
   Rejected    // 2
 }
 
-// String enum
 enum Color {
   Red = "red",
   Green = "green",
   Blue = "blue"
 }
 
-// Usage
 let currentStatus: Status = Status.Pending;
 let favoriteColor: Color = Color.Blue;
 ```
 
-Deep Insight:
-- **Numeric Enums**: Auto-incrementing numbers starting from 0
-- **String Enums**: Explicit string values, no reverse mapping
-- **Type Safety**: Prevents invalid enum values
-- **Reverse Mapping**: Numeric enums create reverse lookup
-- **Use Cases**: Status codes, configuration options, constants
+- **Core Difference**: Numeric enums have auto-incrementing numbers starting from 0, string enums have explicit string values
+- **Real-World Use**: Type safety prevents invalid enum values
+- **Advanced Feature**: Numeric enums create reverse lookup, string enums have no reverse mapping
+- **Common Use Cases**: Status codes, configuration options, constants
+- **Interview Tip**: Explain that enums provide type-safe constants
 
 ---
 
 ## 9) What is the purpose of `tsconfig.json` and what are some key compiler options?
 
-Concept:
 `tsconfig.json` configures TypeScript compiler options, including target, module, strict mode, and file inclusion settings.
 
-Example:
 ```json
 {
   "compilerOptions": {
@@ -250,12 +205,10 @@ Example:
 }
 ```
 
-Deep Insight:
-- **Compiler Configuration**: Controls how TypeScript compiles code
-- **Target**: JavaScript version to compile to
-- **Module System**: How modules are handled (CommonJS, ES modules)
-- **Strict Mode**: Enables additional type checking options
-- **File Management**: Controls which files to include/exclude
-- **Development**: Different configs for development vs production
+- **Core Purpose**: Controls how TypeScript compiles code
+- **Real-World Settings**: Target (JavaScript version to compile to), Module system (CommonJS, ES modules)
+- **Common Configuration**: Strict mode enables additional type checking options
+- **Advanced Feature**: File management controls which files to include/exclude
+- **Interview Tip**: Explain that different configs for development vs production
 
 ---

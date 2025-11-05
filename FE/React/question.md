@@ -1,6 +1,6 @@
 # ⚛️ React Interview Questions
 
-102 carefully curated questions covering React fundamentals to advanced architecture and performance.
+100 carefully curated questions covering React fundamentals to advanced architecture and performance.
 
 ## 📋 Quick Navigation
 
@@ -12,10 +12,10 @@
 | [4️⃣](#4-state-management) | State Management | Q31–41 | ⭐⭐⭐ |
 | [5️⃣](#5-server-state--data-fetching) | Server State & Data Fetching | Q42–51 | ⭐⭐⭐ |
 | [6️⃣](#6-react-latest-features) | React Latest Features | Q52–58 | ⭐⭐⭐⭐ |
-| [7️⃣](#7-react-architecture--core-concepts) | React Architecture & Core Concepts | Q59–68 | ⭐⭐⭐⭐ |
-| [8️⃣](#8-performance-optimization) | Performance Optimization | Q69–82 | ⭐⭐⭐⭐⭐ |
-| [9️⃣](#9-testing--debugging) | Testing & Debugging | Q83–92 | ⭐⭐⭐⭐ |
-| [🔟](#10-architecture--best-practices) | Architecture & Best Practices | Q93–102 | ⭐⭐⭐⭐⭐ |
+| [7️⃣](#7-react-architecture--core-concepts) | React Architecture & Core Concepts | Q59–66 | ⭐⭐⭐⭐ |
+| [8️⃣](#8-performance-optimization) | Performance Optimization | Q67–80 | ⭐⭐⭐⭐⭐ |
+| [9️⃣](#9-testing--debugging) | Testing & Debugging | Q81–90 | ⭐⭐⭐⭐ |
+| [🔟](#10-architecture--best-practices) | Architecture & Best Practices | Q91–100 | ⭐⭐⭐⭐⭐ |
 
 ## ⚛️ 1. React Fundamentals
 
@@ -103,66 +103,64 @@
 64. What is the Render Props pattern?
 65. What is the difference between HOCs and Render Props?
 66. What are Refs and how do you use them?
-67. What is Ref Forwarding and when do you use it?
-68. What are the different types of refs in React?
 
 ## ⚡ 8. Performance Optimization
 
-69. What causes re-renders in React and how do you prevent them?
-70. What is memoization and how do you use `React.memo`?
-71. What is the difference between `useMemo` and `useCallback`?
-72. How do you implement code splitting with `React.lazy()`?
-73. What is tree shaking and how do you implement it?
-74. How do you use React Profiler to identify performance issues?
-75. What are Core Web Vitals and how do you optimize them?
-76. How do you implement virtualization for large lists?
-77. How do you optimize images in React applications?
-78. How do you implement bundle splitting?
-79. How do you optimize React applications for mobile?
-80. How do you implement lazy loading for components?
-81. How do you optimize React applications for SEO?
-82. What are the best practices for React performance?
+67. What causes re-renders in React and how do you prevent them?
+68. What is memoization and how do you use `React.memo`?
+69. What is the difference between `useMemo` and `useCallback`?
+70. How do you implement code splitting with `React.lazy()`?
+71. What is tree shaking and how do you implement it?
+72. How do you use React Profiler to identify performance issues?
+73. What are Core Web Vitals and how do you optimize them?
+74. How do you implement virtualization for large lists?
+75. How do you optimize images in React applications?
+76. How do you implement bundle splitting?
+77. How do you optimize React applications for mobile?
+78. How do you implement lazy loading for components?
+79. How do you optimize React applications for SEO?
+80. What are the best practices for React performance?
 
 ## 🧪 9. Testing & Debugging
 
-83. What are the different types of testing in React?
-84. How do you test React components with Jest?
-85. What is React Testing Library and how do you use it?
-86. How do you test custom hooks?
-87. How do you mock API calls in tests?
-88. How do you test form inputs and user interactions?
-89. How do you test asynchronous behavior in React?
-90. How do you write snapshot tests?
-91. How do you debug React applications?
-92. What are the best practices for React testing?
+81. What are the different types of testing in React?
+82. How do you test React components with Jest?
+83. What is React Testing Library and how do you use it?
+84. How do you test custom hooks?
+85. How do you mock API calls in tests?
+86. How do you test form inputs and user interactions?
+87. How do you test asynchronous behavior in React?
+88. How do you write snapshot tests?
+89. How do you debug React applications?
+90. What are the best practices for React testing?
 
 ## 🏛️ 10. Architecture & Best Practices
 
-93. How do you structure a scalable React project?
-94. What are the best practices for component composition?
-95. How do you implement global configuration in React?
-96. What is the difference between container and presentational components?
-97. How do you handle errors in React applications?
-98. How do you manage side effects in React?
-99. How do you implement authentication and authorization?
-100. How do you handle environment variables in React?
-101. What are common React anti-patterns to avoid?
-102. How do you profile and optimize React applications?
+91. How do you structure a scalable React project?
+92. What are the best practices for component composition?
+93. How do you implement global configuration in React?
+94. What is the difference between container and presentational components?
+95. How do you handle errors in React applications?
+96. How do you manage side effects in React?
+97. How do you implement authentication and authorization?
+98. How do you handle environment variables in React?
+99. What are common React anti-patterns to avoid?
+100. How do you profile and optimize React applications?
 
 ---
 
 ## 📖 Complete Answer Guide
 
-- [1) React Fundamentals](1%20React%20Fundamentals.md) - Q1-10
-- [2) React Hooks](2%20React%20Hooks.md) - Q11-27
-- [3) Class Components & Lifecycle](3%20Class%20Components%20%26%20Lifecycle.md) - Q28-29
-- [4) State Management](4%20State%20Management.md) - Q30-40
-- [5) Server State & Data Fetching](5%20Server%20State%20%26%20Data%20Fetching.md) - Q41-50
-- [6) React Latest Features](6%20React%20Latest%20Features.md) - Q51-58
-- [7) React Architecture & Core Concepts](7%20React%20Architecture%20%26%20Core%20Concepts.md) - Q59-68
-- [8) Performance Optimization](8%20Performance%20Optimization.md) - Q69-82
-- [9) Testing & Debugging](9%20Testing%20%26%20Debugging.md) - Q83-92
-- [10) Architecture & Best Practices](10%20Architecture%20%26%20Best%20Practices.md) - Q93-102
+- [1) React Fundamentals](1%20React%20Fundamentals.md) - Q1-11
+- [2) React Hooks](2%20React%20Hooks.md) - Q12-28
+- [3) Class Components & Lifecycle](3%20Class%20Components%20%26%20Lifecycle.md) - Q29-30
+- [4) State Management](4%20State%20Management.md) - Q31-41
+- [5) Server State & Data Fetching](5%20Server%20State%20%26%20Data%20Fetching.md) - Q42-51
+- [6) React Latest Features](6%20React%20Latest%20Features.md) - Q52-58
+- [7) React Architecture & Core Concepts](7%20React%20Architecture%20%26%20Core%20Concepts.md) - Q59-66
+- [8) Performance Optimization](8%20Performance%20Optimization.md) - Q67-80
+- [9) Testing & Debugging](9%20Testing%20%26%20Debugging.md) - Q81-90
+- [10) Architecture & Best Practices](10%20Architecture%20%26%20Best%20Practices.md) - Q91-100
 
 ## 📝 Cheatsheet
 

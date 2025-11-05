@@ -1,9 +1,15 @@
 # Matrix
 
-## Q151. Valid Sudoku
+## Q203. Valid Sudoku
 
-Concept: Check if 9x9 board follows Sudoku rules: no duplicates in rows, columns, or 3x3 boxes.
+**Problem:** Determine if a `9 x 9` Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
+1. Each row must contain the digits `1-9` without repetition.
+2. Each column must contain the digits `1-9` without repetition.
+3. Each of the nine `3 x 3` sub-boxes of the grid must contain the digits `1-9` without repetition.
 
+**Approach:** Use sets to track seen values in rows, columns, and boxes. For each cell, check if value already exists in corresponding row, column, or box.
+
+### Solution 1: Set-Based Validation (Optimal)
 ```javascript
 function isValidSudoku(board) {
   const rows = Array.from({ length: 9 }, () => new Set());
@@ -15,84 +21,75 @@ function isValidSudoku(board) {
       const val = board[i][j];
       if (val === '.') continue;
 
+      // Calculate box index
       const boxIndex = Math.floor(i / 3) * 3 + Math.floor(j / 3);
 
+      // Check if value already exists
       if (rows[i].has(val) || cols[j].has(val) || boxes[boxIndex].has(val)) {
         return false;
       }
 
+      // Add to sets
       rows[i].add(val);
       cols[j].add(val);
       boxes[boxIndex].add(val);
     }
   }
+  
   return true;
 }
-
-// Test Cases:
-//
-// Example 1:
-//   Input: board = [["5","3",".",".","7",".",".",".","."],
-//                   ["6",".",".","1","9","5",".",".","."],
-//                   [".","9","8",".",".",".",".","6","."],
-//                   ["8",".",".",".","6",".",".",".","3"],
-//                   ["4",".",".","8",".","3",".",".","1"],
-//                   ["7",".",".",".","2",".",".",".","6"],
-//                   [".","6",".",".",".",".","2","8","."],
-//                   [".",".",".","4","1","9",".",".","5"],
-//                   [".",".",".",".","8",".",".","7","9"]]
-//   Output: true
-//
-// Example 2:
-//   Input: board = [["8","3",".",".","7",".",".",".","."],
-//                   ["6",".",".","1","9","5",".",".","."],
-//                   [".","9","8",".",".",".",".","6","."],
-//                   ["8",".",".",".","6",".",".",".","3"],
-//                   ["4",".",".","8",".","3",".",".","1"],
-//                   ["7",".",".",".","2",".",".",".","6"],
-//                   [".","6",".",".",".",".","2","8","."],
-//                   [".",".",".","4","1","9",".",".","5"],
-//                   [".",".",".",".","8",".",".","7","9"]]
-//   Output: false
-//   Explanation: Duplicate 8 in first row and first 3x3 box
 ```
 
-Deep Insights:
-  - Rule: Track seen values in rows, columns, and boxes; O(1) per cell check; O(n²) time.
-  - Real-world: Sudoku validation, game validation, constraint checking, grid problems.
-  - Common mistake: Box index calculation; forgetting empty cells; wrong validation logic.
-  - Optimization: O(1) per cell with sets; box index = Math.floor(i/3)*3 + Math.floor(j/3); handle empty cells.
-  - Interview tip: Explain box index calculation clearly; mention three sets per constraint; ask about empty cells.
+// Test Cases:
+// Input: board = [["5","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]
+// Output: true
 
-Time Complexity: O(1) - Fixed 9x9 grid, 81 cells
-Space Complexity: O(1) - Fixed size sets for rows, cols, boxes
+// Input: board = [["8","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]
+// Output: false
+// Explanation: Duplicate 8 in first row and first 3x3 box
+```
 
-## Q152. Spiral Matrix
+**Time Complexity:** O(1) - Fixed 9×9 grid, 81 cells  
+**Space Complexity:** O(1) - Fixed size sets for rows, cols, boxes
 
-Concept: Traverse matrix in spiral order: right → down → left → up, adjust boundaries after each direction.
+**Deep Insights:**
+- **Optimal Approach:** Set-based validation achieves O(1) time per cell—optimal for Sudoku validation
+- **Box Index Calculation:** boxIndex = floor(i/3)*3 + floor(j/3)—maps cell to 3×3 box
+- **Three Constraints:** Track row, column, and box constraints—all must be satisfied
+- **Empty Cells:** Skip empty cells ('.')—only validate filled cells
+- **Key Insight:** Use sets for O(1) lookup—efficiently check duplicates
+- **Edge Cases:** Empty board returns true; handles all cases
+- **Interview Tip:** Explain box index calculation clearly; emphasize three constraint sets; mention empty cell handling
 
+## Q204. Spiral Matrix
+
+**Problem:** Given an `m x n` matrix, return all elements of the matrix in spiral order.
+
+**Approach:** Use boundary tracking. Traverse right → down → left → up, adjusting boundaries after each direction. Check boundaries before left and up traversals.
+
+### Solution 1: Boundary Tracking (Optimal)
 ```javascript
 function spiralOrder(matrix) {
-  if (!matrix.length) return [];
+  if (!matrix.length || !matrix[0].length) return [];
   
   const result = [];
   let top = 0, bottom = matrix.length - 1;
   let left = 0, right = matrix[0].length - 1;
 
   while (top <= bottom && left <= right) {
-    // Right
+    // Traverse right
     for (let i = left; i <= right; i++) {
       result.push(matrix[top][i]);
     }
     top++;
 
-    // Down
+    // Traverse down
     for (let i = top; i <= bottom; i++) {
       result.push(matrix[i][right]);
     }
     right--;
 
-    // Left (if still valid)
+    // Traverse left (if still valid)
     if (top <= bottom) {
       for (let i = right; i >= left; i--) {
         result.push(matrix[bottom][i]);
@@ -100,7 +97,7 @@ function spiralOrder(matrix) {
       bottom--;
     }
 
-    // Up (if still valid)
+    // Traverse up (if still valid)
     if (left <= right) {
       for (let i = bottom; i >= top; i--) {
         result.push(matrix[i][left]);
@@ -111,78 +108,84 @@ function spiralOrder(matrix) {
 
   return result;
 }
-
-// Test Cases:
-//
-// Example 1:
-//   Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
-//   Output: [1,2,3,6,9,8,7,4,5]
-//
-// Example 2:
-//   Input: matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
-//   Output: [1,2,3,4,8,12,11,10,9,5,6,7]
-//
-// Example 3:
-//   Input: matrix = [[1]]
-//   Output: [1]
 ```
 
-Deep Insights:
-  - Rule: Traverse right → down → left → up; adjust boundaries after each direction; O(mn) time.
-  - Real-world: Matrix traversal, spiral patterns, printing matrices, grid problems.
-  - Common mistake: Boundary checks after each direction; not checking if row/col exists before traversing.
-  - Optimization: O(mn) time optimal; boundary adjustments crucial; check bounds before left/up traversals.
-  - Interview tip: Explain boundary management clearly; mention four directions; ask about edge cases.
+// Test Cases:
+// Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+// Output: [1,2,3,6,9,8,7,4,5]
 
-Time Complexity: O(mn) - Visit each cell once
-Space Complexity: O(1) - Excluding output array
+// Input: matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+// Output: [1,2,3,4,8,12,11,10,9,5,6,7]
 
-## Q153. Rotate Image
+// Input: matrix = [[1]]
+// Output: [1]
+```
 
-Concept: Rotate matrix 90° clockwise: transpose then reverse each row (or reverse each column then transpose).
+**Time Complexity:** O(m × n) - Visit each cell once  
+**Space Complexity:** O(1) - Excluding output array
 
+**Deep Insights:**
+- **Optimal Approach:** Boundary tracking achieves O(m × n) time—optimal for spiral traversal
+- **Four Directions:** Traverse right → down → left → up—repeats until all cells visited
+- **Boundary Management:** Adjust boundaries after each direction—shrinks spiral inward
+- **Key Checks:** Check boundaries before left and up traversals—prevents duplicate traversal
+- **Key Insight:** Spiral pattern requires careful boundary management—handles rectangular matrices
+- **Edge Cases:** Single row/column handled correctly; empty matrix returns []; handles all cases
+- **Interview Tip:** Explain boundary management clearly; emphasize four directions; mention edge case handling
+
+## Q205. Rotate Image
+
+**Problem:** You are given an `n x n` 2D matrix representing an image, rotate the image by 90 degrees (clockwise). You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
+
+**Approach:** Two-step process: transpose the matrix, then reverse each row. This achieves 90° clockwise rotation.
+
+### Solution 1: Transpose + Reverse (Optimal)
 ```javascript
 function rotate(matrix) {
   const n = matrix.length;
   
-  // Transpose
+  // Step 1: Transpose (swap matrix[i][j] with matrix[j][i])
   for (let i = 0; i < n; i++) {
     for (let j = i; j < n; j++) {
       [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
     }
   }
   
-  // Reverse each row
+  // Step 2: Reverse each row
   for (let i = 0; i < n; i++) {
     matrix[i].reverse();
   }
 }
-
-// Test Cases:
-//
-// Example 1:
-//   Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
-//   Output: [[7,4,1],[8,5,2],[9,6,3]]
-//
-// Example 2:
-//   Input: matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]
-//   Output: [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]
 ```
 
-Deep Insights:
-  - Rule: Transpose then reverse rows; or reverse columns then transpose; O(n²) time.
-  - Real-world: Image rotation, matrix transformations, 2D array manipulation.
-  - Common mistake: Wrong transpose loop bounds (j starts at i); forgetting to reverse rows.
-  - Optimization: O(n²) time optimal; in-place modification; transpose loop: j starts at i.
-  - Interview tip: Explain transpose clearly; mention two-step process; ask about in-place requirement.
+// Test Cases:
+// Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+// Output: [[7,4,1],[8,5,2],[9,6,3]]
 
-Time Complexity: O(n²) - Transpose and reverse each row
-Space Complexity: O(1) - In-place modification
+// Input: matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]
+// Output: [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]
+```
 
-## Q154. Set Matrix Zeroes
+**Time Complexity:** O(n²) - Transpose and reverse each row  
+**Space Complexity:** O(1) - In-place modification
 
-Concept: Mark rows/cols to zero out; use first row/col as markers, handle (0,0) separately.
+**Deep Insights:**
+- **Optimal Approach:** Transpose + reverse achieves O(n²) time—optimal for 90° rotation
+- **Two-Step Process:** Transpose first, then reverse rows—simpler than direct rotation
+- **Transpose Loop:** j starts at i—prevents swapping twice (symmetric swap)
+- **In-Place:** Modify matrix directly—no extra space needed
+- **Key Insight:** 90° clockwise = transpose + reverse rows—mathematical transformation
+- **Alternative:** Can reverse columns then transpose—same result
+- **Edge Cases:** Single element returns unchanged; handles all cases
+- **Interview Tip:** Explain transpose clearly; emphasize two-step process; mention in-place requirement
 
+## Q206. Set Matrix Zeroes
+
+**Problem:** Given an `m x n` integer matrix `matrix`, if an element is `0`, set its entire row and column to `0`'s. You must do it in place.
+
+**Approach:** Use first row and first column as markers. Handle (0,0) separately to avoid overwriting markers. Mark zeros first, then set zeros based on markers.
+
+### Solution 1: Marker-Based (Space Optimized) (Optimal)
 ```javascript
 function setZeroes(matrix) {
   const m = matrix.length;
@@ -206,17 +209,17 @@ function setZeroes(matrix) {
     }
   }
 
-  // Mark zeros in first row/col
+  // Mark zeros in first row/col (skip first row/col)
   for (let i = 1; i < m; i++) {
     for (let j = 1; j < n; j++) {
       if (matrix[i][j] === 0) {
-        matrix[i][0] = 0;
-        matrix[0][j] = 0;
+        matrix[i][0] = 0;  // Mark row
+        matrix[0][j] = 0;  // Mark column
       }
     }
   }
 
-  // Set zeros based on markers
+  // Set zeros based on markers (skip first row/col)
   for (let i = 1; i < m; i++) {
     for (let j = 1; j < n; j++) {
       if (matrix[i][0] === 0 || matrix[0][j] === 0) {
@@ -225,57 +228,66 @@ function setZeroes(matrix) {
     }
   }
 
-  // Set first row
+  // Set first row if needed
   if (firstRowZero) {
     for (let j = 0; j < n; j++) {
       matrix[0][j] = 0;
     }
   }
 
-  // Set first col
+  // Set first col if needed
   if (firstColZero) {
     for (let i = 0; i < m; i++) {
       matrix[i][0] = 0;
     }
   }
 }
-
-// Test Cases:
-//
-// Example 1:
-//   Input: matrix = [[1,1,1],[1,0,1],[1,1,1]]
-//   Output: [[1,0,1],[0,0,0],[1,0,1]]
-//
-// Example 2:
-//   Input: matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]
-//   Output: [[0,0,0,0],[0,4,5,0],[0,3,1,0]]
 ```
 
-Deep Insights:
-  - Rule: Use first row/col as markers; handle (0,0) separately; O(mn) time, O(1) space.
-  - Real-world: Matrix manipulation, zero propagation, in-place algorithms.
-  - Common mistake: Overwriting markers before using them; not handling first row/col separately.
-  - Optimization: O(mn) time, O(1) space optimal; first row/col as markers; handle (0,0) separately.
-  - Interview tip: Explain marker strategy clearly; mention separate handling for first row/col; ask about space constraint.
+// Test Cases:
+// Input: matrix = [[1,1,1],[1,0,1],[1,1,1]]
+// Output: [[1,0,1],[0,0,0],[1,0,1]]
 
-Time Complexity: O(mn) - Three passes through matrix
-Space Complexity: O(1) - Using first row/col as markers
+// Input: matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]
+// Output: [[0,0,0,0],[0,4,5,0],[0,3,1,0]]
+```
 
-## Q155. Game of Life
+**Time Complexity:** O(m × n) - Three passes through matrix  
+**Space Complexity:** O(1) - Using first row/col as markers
 
-Concept: Apply Conway's rules with state encoding: 0→0=0, 0→1=2, 1→0=3, 1→1=1; decode after processing.
+**Deep Insights:**
+- **Optimal Approach:** Marker-based approach achieves O(m × n) time, O(1) space—optimal for in-place
+- **Marker Strategy:** Use first row/col as markers—eliminates need for extra space
+- **Separate Handling:** Handle first row/col separately—prevents overwriting markers
+- **Three Passes:** Check first row/col → mark zeros → set zeros—systematic approach
+- **Key Insight:** (0,0) cell is intersection—must be handled separately to avoid conflicts
+- **Edge Cases:** All zeros handled correctly; single zero propagates correctly; handles all cases
+- **Interview Tip:** Explain marker strategy clearly; emphasize separate handling for first row/col; mention O(1) space
 
+## Q207. Game of Life
+
+**Problem:** According to Wikipedia's article: "The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970." The board is made up of an `m x n` grid of cells, where each cell has an initial state: live (represented by a `1`) or dead (represented by a `0`). Each cell interacts with its eight neighbors (horizontal, vertical, diagonal) using the following four rules:
+1. Any live cell with fewer than two live neighbors dies (underpopulation).
+2. Any live cell with two or three live neighbors lives on (survival).
+3. Any live cell with more than three live neighbors dies (overpopulation).
+4. Any dead cell with exactly three live neighbors becomes a live cell (reproduction).
+
+The next state is created by applying the above rules simultaneously to every cell in the current state. You must solve it in-place.
+
+**Approach:** Use state encoding to handle simultaneous updates. Encode: 0→0=0, 0→1=2, 1→0=3, 1→1=1. After processing, decode: 2→1, 3→0.
+
+### Solution 1: State Encoding (Optimal)
 ```javascript
 function gameOfLife(board) {
   const m = board.length;
   const n = board[0].length;
-
   const directions = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
 
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < n; j++) {
       let liveNeighbors = 0;
 
+      // Count live neighbors (check for 1 or 3 - currently alive)
       for (const [di, dj] of directions) {
         const ni = i + di, nj = j + dj;
         if (ni >= 0 && ni < m && nj >= 0 && nj < n) {
@@ -285,14 +297,19 @@ function gameOfLife(board) {
         }
       }
 
+      // Apply rules with state encoding
       if (board[i][j] === 1) {
+        // Currently alive
         if (liveNeighbors < 2 || liveNeighbors > 3) {
-          board[i][j] = 3; // 1 → 0 (currently alive, will die)
+          board[i][j] = 3; // 1 → 0 (will die)
         }
+        // else stays 1 (1 → 1)
       } else {
+        // Currently dead
         if (liveNeighbors === 3) {
-          board[i][j] = 2; // 0 → 1 (currently dead, will live)
+          board[i][j] = 2; // 0 → 1 (will live)
         }
+        // else stays 0 (0 → 0)
       }
     }
   }
@@ -305,25 +322,26 @@ function gameOfLife(board) {
     }
   }
 }
-
-// Test Cases:
-//
-// Example 1:
-//   Input: board = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]
-//   Output: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]
-//
-// Example 2:
-//   Input: board = [[1,1],[1,0]]
-//   Output: [[1,1],[1,1]]
 ```
 
-Deep Insights:
-  - Rule: Encode state transitions: 0→0=0, 0→1=2, 1→0=3, 1→1=1; decode after; O(mn) time.
-  - Real-world: Cellular automata, Conway's Game of Life, simulation problems, state transitions.
-  - Common mistake: Simultaneous updates require encoding; not decoding final states; wrong neighbor counting.
-  - Optimization: O(mn) time, O(1) space; state encoding allows in-place; count neighbors from 8 directions.
-  - Interview tip: Explain state encoding clearly; mention simultaneous update constraint; ask about boundary handling.
+// Test Cases:
+// Input: board = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]
+// Output: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]
 
-Time Complexity: O(mn) - Visit each cell and check 8 neighbors
-Space Complexity: O(1) - In-place state encoding
+// Input: board = [[1,1],[1,0]]
+// Output: [[1,1],[1,1]]
+```
+
+**Time Complexity:** O(m × n) - Visit each cell and check 8 neighbors  
+**Space Complexity:** O(1) - In-place state encoding
+
+**Deep Insights:**
+- **Optimal Approach:** State encoding achieves O(m × n) time, O(1) space—optimal for Game of Life
+- **State Encoding:** Use 2 and 3 to encode transitions—preserves original state for neighbor counting
+- **Simultaneous Updates:** All cells update simultaneously—encoding allows in-place modification
+- **Eight Neighbors:** Check all 8 directions—horizontal, vertical, diagonal
+- **Key Insight:** Encode transitions (2, 3) while preserving original states (0, 1)—enables in-place update
+- **Decoding:** Final pass converts 2→1, 3→0—completes state transition
+- **Edge Cases:** Boundary cells handled correctly; all dead/all alive handled; handles all cases
+- **Interview Tip:** Explain state encoding clearly; emphasize simultaneous update constraint; mention 8-neighbor counting
 

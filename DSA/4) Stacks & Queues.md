@@ -1,9 +1,12 @@
 # Stacks & Queues
 
-## Q46. Implement Stack using Queues
+## Q75. Implement Stack using Queues
 
-Concept: Use one queue; push then rotate elements to bring last pushed to front for pop/top.
+**Problem:** Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (`push`, `top`, `pop`, and `empty`).
 
+**Approach:** Use one queue. After pushing, rotate elements to bring the newly pushed element to the front, making it available for `pop`/`top` operations.
+
+### Solution 1: Single Queue with Rotation (Optimal)
 ```javascript
 class MyStack {
   constructor() {
@@ -12,6 +15,7 @@ class MyStack {
 
   push(x) {
     this.q.push(x);
+    // Rotate to bring last pushed element to front
     for (let i = 0; i < this.q.length - 1; i++) {
       this.q.push(this.q.shift());
     }
@@ -44,24 +48,28 @@ class MyStack {
 // stack.empty(); // Output: true
 ```
 
-**Time Complexity:** O(1) amortized push, O(n) worst-case pop  
+**Time Complexity:** O(n) - Push rotates n-1 elements; O(1) for pop/top/empty  
 **Space Complexity:** O(n) - Queue stores all elements
 
-Deep Insights:
-  - Rule: One queue; push then rotate to bring last pushed to front; O(1) amortized push, O(n) worst-case pop.
-  - Real-world: Stack implementation using queues, data structure conversions, queue-based algorithms.
-  - Common mistake: Rotating too many times; not handling empty queue; forgetting to maintain order.
-  - Optimization: Amortized O(1) push with rotation; operations are integer-agnostic; space O(n).
-  - Interview tip: Explain rotation technique clearly; mention amortized vs worst-case; ask about two-queue variant.
-## Q47. Implement Queue using Stacks
+**Deep Insights:**
+- **Optimal Approach:** Single queue with rotation achieves required functionality—optimal for this constraint
+- **Rotation Technique:** After push, rotate queue to bring new element to front—simulates LIFO behavior
+- **Key Insight:** Rotation ensures last pushed element is always at front—ready for pop/top
+- **Trade-off:** O(n) push but O(1) pop/top—acceptable given constraint
+- **Edge Cases:** Empty stack returns true for empty(); pop on empty queue handled by implementation
+- **Interview Tip:** Explain rotation technique clearly; mention amortized complexity; ask about two-queue variant
+## Q76. Implement Queue using Stacks
 
-Concept: Two stacks: in for push, out for pop/peek. Move only when out is empty.
+**Problem:** Implement a first-in-first-out (FIFO) queue using only two stacks. The implemented queue should support all functions of a normal queue (`push`, `peek`, `pop`, and `empty`).
 
+**Approach:** Use two stacks: `s1` for push operations, `s2` for pop/peek operations. Move elements from `s1` to `s2` only when `s2` is empty (lazy movement).
+
+### Solution 1: Two Stacks with Lazy Movement (Optimal)
 ```javascript
 class MyQueue {
   constructor() {
-    this.s1 = [];
-    this.s2 = [];
+    this.s1 = [];  // Input stack
+    this.s2 = [];  // Output stack
   }
 
   push(x) {
@@ -69,6 +77,7 @@ class MyQueue {
   }
 
   pop() {
+    // Move elements from s1 to s2 if s2 is empty
     if (!this.s2.length) {
       while (this.s1.length) {
         this.s2.push(this.s1.pop());
@@ -78,6 +87,7 @@ class MyQueue {
   }
 
   peek() {
+    // Move elements from s1 to s2 if s2 is empty
     if (!this.s2.length) {
       while (this.s1.length) {
         this.s2.push(this.s1.pop());
@@ -92,56 +102,62 @@ class MyQueue {
 }
 
 // Test Cases:
-// Input:
-// let queue = new MyQueue();
-// queue.push(1);
-// queue.push(2);
-// queue.push(3);
-// queue.peek();  // Output: 1
-// queue.pop();   // Output: 1
-// queue.pop();   // Output: 2
-// queue.empty(); // Output: false
-// queue.pop();   // Output: 3
-// queue.empty(); // Output: true
+// Input: queue operations: push(1), push(2), push(3), peek(), pop(), pop(), empty(), pop(), empty()
+// Output: peek() returns 1, pop() returns 1, pop() returns 2, empty() returns false, pop() returns 3, empty() returns true
+// Explanation: Queue operations performed using two stacks
 ```
 
-**Time Complexity:** O(1) amortized all operations  
+**Time Complexity:** O(1) amortized - Each element moved at most once  
 **Space Complexity:** O(n) - Stacks store elements
 
-Deep Insights:
-  - Rule: Two stacks (in for push, out for pop/peek); move only when out is empty; O(1) amortized all operations.
-  - Real-world: Queue implementation using stacks, data structure conversions, stack-based algorithms.
-  - Common mistake: Moving elements too frequently; not checking if out is empty before moving; wrong move timing.
-  - Optimization: Amortized O(1) operations; space O(n) across stacks; order preserved FIFO.
-  - Interview tip: Explain lazy movement strategy; mention amortized complexity; ask about alternative approaches.
-## Q48. Min Stack
+**Deep Insights:**
+- **Optimal Approach:** Two stacks with lazy movement achieves O(1) amortized for all operations—optimal for this constraint
+- **Lazy Movement Strategy:** Move elements from `s1` to `s2` only when `s2` is empty—amortizes cost
+- **Key Insight:** Each element is moved at most once—ensures O(1) amortized complexity
+- **FIFO Order:** Elements in `s2` are in correct FIFO order (reversed from `s1`)
+- **Edge Cases:** Empty queue returns true for empty(); pop/peek on empty handled by implementation
+- **Interview Tip:** Explain lazy movement strategy clearly; mention amortized vs worst-case complexity; emphasize FIFO preservation
+## Q77. Min Stack
 
-Concept: Track current min alongside each push or via auxiliary stack.
+**Problem:** Design a stack that supports push, pop, top, and retrieving the minimum element in constant time. Implement the `MinStack` class:
+- `MinStack()` initializes the stack object.
+- `void push(int val)` pushes the element `val` onto the stack.
+- `void pop()` removes the element on the top of the stack.
+- `int top()` gets the top element of the stack.
+- `int getMin()` retrieves the minimum element in the stack.
 
+You must implement a solution with `O(1)` time complexity for each function.
+
+**Approach:** Use an auxiliary stack to track the minimum value at each level. Push the minimum of current min and new value to the auxiliary stack.
+
+### Solution 1: Auxiliary Stack (Optimal)
 ```javascript
 class MinStack {
   constructor() {
-    this.s = [];
-    this.m = [];
+    this.stack = [];      // Main stack
+    this.minStack = [];   // Auxiliary stack for minimums
   }
 
-  push(x) {
-    this.s.push(x);
-    const curMin = this.m.length ? Math.min(this.m[this.m.length - 1], x) : x;
-    this.m.push(curMin);
+  push(val) {
+    this.stack.push(val);
+    // Track minimum at each level
+    const curMin = this.minStack.length 
+      ? Math.min(this.minStack[this.minStack.length - 1], val) 
+      : val;
+    this.minStack.push(curMin);
   }
 
   pop() {
-    this.m.pop();
-    return this.s.pop();
+    this.minStack.pop();
+    return this.stack.pop();
   }
 
   top() {
-    return this.s[this.s.length - 1];
+    return this.stack[this.stack.length - 1];
   }
 
   getMin() {
-    return this.m[this.m.length - 1];
+    return this.minStack[this.minStack.length - 1];
   }
 }
 
@@ -157,31 +173,70 @@ class MinStack {
 // minStack.getMin(); // Output: -2
 ```
 
-**Time Complexity:** O(1) all operations  
+**Time Complexity:** O(1) - All operations are constant time  
 **Space Complexity:** O(n) - Both stacks store elements
 
-Deep Insights:
-  - Rule: Auxiliary stack tracks current min; push min(min, x) on each push; O(1) all operations, O(n) space.
-  - Real-world: Stack with minimum tracking, range queries, priority-based stack operations, min tracking systems.
-  - Common mistake: Not updating min on pop; wrong min calculation; forgetting to handle empty stack.
-  - Optimization: Variant stores pairs [val, min]; space-time tradeoff acceptable; O(1) getMin optimal.
-  - Interview tip: Explain auxiliary stack approach; mention pair variant; ask about space optimization.
-## Q49. Valid Parentheses
+### Solution 2: Pair Storage (Alternative)
+```javascript
+class MinStackPairs {
+  constructor() {
+    this.stack = [];  // Store [value, min] pairs
+  }
 
-Concept: Stack of openers; pop on matching closers and validate empty at end.
+  push(val) {
+    const curMin = this.stack.length 
+      ? Math.min(this.stack[this.stack.length - 1][1], val) 
+      : val;
+    this.stack.push([val, curMin]);
+  }
 
+  pop() {
+    return this.stack.pop()[0];
+  }
+
+  top() {
+    return this.stack[this.stack.length - 1][0];
+  }
+
+  getMin() {
+    return this.stack[this.stack.length - 1][1];
+  }
+}
+```
+
+**Deep Insights:**
+- **Optimal Approach:** Auxiliary stack achieves O(1) for all operations—optimal for this problem
+- **Key Insight:** Track minimum at each level—ensures correct minimum after any sequence of pops
+- **Two Approaches:** Auxiliary stack or pair storage—both achieve O(1) operations
+- **Space Trade-off:** O(n) space for O(1) time—acceptable trade-off
+- **Edge Cases:** Empty stack getMin() returns undefined; single element is its own minimum
+- **Interview Tip:** Explain auxiliary stack approach clearly; mention pair variant; emphasize O(1) requirement
+## Q78. Valid Parentheses
+
+**Problem:** Given a string `s` containing just the characters `'('`, `')'`, `'{'`, `'}'`, `'['` and `']'`, determine if the input string is valid. An input string is valid if:
+1. Open brackets must be closed by the same type of brackets.
+2. Open brackets must be closed in the correct order.
+3. Every close bracket has a corresponding open bracket of the same type.
+
+**Approach:** Use a stack to track opening brackets. Push openers, pop and match when encountering closers. Stack should be empty at the end.
+
+### Solution 1: Stack with Mapping (Optimal)
 ```javascript
 function isValid(s) {
-  const st = [];
+  const stack = [];
   const map = { ')': '(', ']': '[', '}': '{' };
+  
   for (const c of s) {
     if (map[c]) {
-      if (st.pop() !== map[c]) return false;
+      // Closing bracket - check if matches last opener
+      if (stack.pop() !== map[c]) return false;
     } else {
-      st.push(c);
+      // Opening bracket - push to stack
+      stack.push(c);
     }
   }
-  return st.length === 0;
+  
+  return stack.length === 0;  // All brackets matched
 }
 
 // Test Cases:
@@ -193,32 +248,38 @@ function isValid(s) {
 
 // Input: s = "(]"
 // Output: false
+// Explanation: ']' doesn't match '('
 
 // Input: s = "([)]"
 // Output: false
+// Explanation: Brackets not closed in correct order
 
 // Input: s = "{[]}"
 // Output: true
+// Explanation: All brackets properly matched
 
 // Input: s = ""
 // Output: true
+// Explanation: Empty string is valid
 ```
 
 **Time Complexity:** O(n) - Process each character once  
 **Space Complexity:** O(n) - Stack stores up to n/2 openers
 
-Deep Insights:
-  - Rule: Stack matches opening and closing brackets; push openers, pop and match closers; O(n) time, O(n) space.
-  - Real-world: Code syntax validation, expression parsing, bracket matching in editors, syntax checking systems.
-  - Common mistake: Not checking stack empty after processing; empty string valid; pushing non-closers only.
-  - Optimization: Early return on mismatch; stack stores up to n/2 elements; O(n) time optimal.
-  - Interview tip: Explain LIFO property clearly; mention empty string edge case; ask about additional bracket types.
-## Q50. Next Greater Element
+**Deep Insights:**
+- **Optimal Approach:** Stack with mapping achieves O(n) time—optimal for this problem
+- **LIFO Property:** Stack's LIFO naturally matches nested bracket structure
+- **Key Insight:** Push openers, pop and match closers—stack empty means all matched
+- **Early Exit:** Return false immediately on mismatch—no need to continue
+- **Edge Cases:** Empty string returns true; single bracket returns false; unmatched opener returns false
+- **Interview Tip:** Explain LIFO property clearly; mention empty string edge case; ask about additional bracket types
+## Q79. Next Greater Element
 
-Concept: Find next greater element for each position using monotonic stack. Two variants: linear (non-circular) and circular arrays.
+**Problem:** Given an array `nums`, return an array `answer` such that `answer[i]` is the next greater element to the right of `nums[i]` in the array. If no greater element exists, return `-1`.
 
-**Variant 1: Non-Circular (Linear Array)**
+**Approach:** Use a monotonic decreasing stack. Traverse right-to-left, maintaining elements in decreasing order. For each position, the stack top is the next greater element.
 
+### Solution 1: Monotonic Stack - Non-Circular (Optimal)
 ```javascript
 function nextGreaterElement(nums) {
   const array = new Array(nums.length).fill(-1);
@@ -254,8 +315,7 @@ function nextGreaterElement(nums) {
 // Output: [-1]
 ```
 
-**Variant 2: Circular Array**
-
+### Solution 2: Monotonic Stack - Circular Array
 ```javascript
 function nextGreaterElementsCircular(nums) {
   const array = new Array(nums.length).fill(-1);
@@ -295,26 +355,33 @@ function nextGreaterElementsCircular(nums) {
 **Time Complexity:** O(n) - Each element pushed and popped at most once  
 **Space Complexity:** O(n) - Stack stores values
 
-Deep Insights:
-  - Rule: Traverse right-to-left with monotonic decreasing stack storing values; pop elements <= current; circular variant processes array twice; O(n) time, O(n) space.
-  - Real-world: Next greater element queries, monotonic stack patterns, range query problems, element ordering in circular buffers.
-  - Common mistake: Not handling equal values correctly (using <= vs <); wrong stack ordering; circular variant needs modulo indexing and condition `i < n` for result assignment; forgetting to update result only in first pass for circular variant.
-  - Optimization: Each element pushed/popped once; O(n) time optimal; right-to-left traversal allows seeing future elements; circular variant processes 2n positions but each element handled once; equal values policy: use `<=` to pop equal or smaller values.
-  - Interview tip: Explain right-to-left traversal approach clearly; mention circular variant wraps around; ask about equal values handling (`<=` vs `<`); discuss why storing values vs indices works here.
-## Q51. Daily Temperatures
+**Deep Insights:**
+- **Optimal Approach:** Monotonic stack achieves O(n) time—optimal for this problem
+- **Right-to-Left Traversal:** Process from end to start—allows seeing future elements first
+- **Monotonic Decreasing Stack:** Maintains decreasing order—top is always next greater element
+- **Equal Values:** Use `<=` to pop equal or smaller values—ensures correct next greater
+- **Circular Variant:** Process array twice (2n positions) with modulo indexing—only update result in first pass
+- **Edge Cases:** Decreasing array returns all -1; increasing array returns next element; single element returns -1
+- **Interview Tip:** Explain right-to-left traversal clearly; mention circular variant wraps around; ask about equal values handling (`<=` vs `<`)
+## Q80. Daily Temperatures
 
-Concept: Find days until warmer temperature using monotonic stack. Use reverse loop to process from right to left.
+**Problem:** Given an array of integers `temperatures` representing the daily temperatures, return an array `answer` such that `answer[i]` is the number of days you have to wait after the `i`th day to get a warmer temperature. If there is no future day for which this is possible, keep `answer[i] == 0` instead.
 
+**Approach:** Use a monotonic decreasing stack storing indices. Traverse right-to-left, compute distance as stack top index - current index.
+
+### Solution 1: Monotonic Stack with Indices (Optimal)
 ```javascript
-function dailyTemperatures(T) {
-  const res = new Array(T.length).fill(0);
+function dailyTemperatures(temperatures) {
+  const res = new Array(temperatures.length).fill(0);
   const stack = [];
-  const n = T.length;
+  const n = temperatures.length;
 
   for (let i = n - 1; i >= 0; i--) {
-    while (stack.length && T[stack[stack.length - 1]] <= T[i]) {
+    // Pop indices with temperatures <= current
+    while (stack.length && temperatures[stack[stack.length - 1]] <= temperatures[i]) {
       stack.pop();
     }
+    // If stack has warmer day, compute distance
     if (stack.length) {
       res[i] = stack[stack.length - 1] - i;
     }
@@ -348,35 +415,42 @@ function dailyTemperatures(T) {
 **Time Complexity:** O(n) - Each element pushed and popped at most once  
 **Space Complexity:** O(n) - Stack stores indices
 
-Deep Insights:
-  - Rule: Reverse loop (right-to-left) with monotonic decreasing stack of indices; pop when current temperature is >= stack top; compute distance as stack top index - current index; O(n) time, O(n) space.
-  - Real-world: Temperature analysis, waiting time problems, next warmer day queries, distance calculations in time series data.
-  - Common mistake: Not storing indices to compute gaps; wrong distance calculation (stack index - current index); forgetting to check stack length before accessing; using `<=` vs `<` for comparison.
-  - Optimization: Store indices to compute gaps; reverse loop processes future elements first; each element pushed/popped once; O(n) time optimal; right-to-left approach naturally handles distance calculation.
-  - Interview tip: Explain reverse loop approach clearly; mention distance calculation formula; ask about equal temperatures handling; discuss why storing indices is necessary for distance.
-## Q52. Evaluate Reverse Polish Notation
+**Deep Insights:**
+- **Optimal Approach:** Monotonic stack with indices achieves O(n) time—optimal for this problem
+- **Store Indices:** Need indices to compute distance (days to wait)—not just values
+- **Right-to-Left Traversal:** Process from end to start—allows computing distances naturally
+- **Distance Formula:** `stack top index - current index` gives days to wait
+- **Equal Temperatures:** Use `<=` to pop equal or cooler temperatures—ensures warmer day found
+- **Edge Cases:** All temperatures increasing returns [1,1,1,...,0]; all decreasing returns all 0s
+- **Interview Tip:** Explain reverse loop approach clearly; emphasize storing indices for distance; ask about equal temperatures handling
+## Q81. Evaluate Reverse Polish Notation
 
-Concept: Stack numbers; on operator, pop two, apply, push back. Watch division truncation toward zero.
+**Problem:** You are given an array of strings `tokens` that represents an arithmetic expression in Reverse Polish Notation. Evaluate the expression and return an integer that represents the value of the expression. Valid operators are `+`, `-`, `*`, and `/`. Each operand may be an integer or another expression. Division should truncate toward zero.
 
+**Approach:** Use a stack to store operands. When encountering an operator, pop two operands, apply the operation, and push the result back.
+
+### Solution 1: Stack-Based Evaluation (Optimal)
 ```javascript
 function evalRPN(tokens) {
-  const st = [];
-  const op = {
+  const stack = [];
+  const operators = {
     '+': (a, b) => a + b,
     '-': (a, b) => a - b,
     '*': (a, b) => a * b,
-    '/': (a, b) => (a / b) | 0, // truncate toward zero
+    '/': (a, b) => Math.trunc(a / b),  // Truncate toward zero
   };
-  for (const t of tokens) {
-    if (t in op) {
-      const b = st.pop();
-      const a = st.pop();
-      st.push(op[t](a, b));
+  
+  for (const token of tokens) {
+    if (token in operators) {
+      const b = stack.pop();
+      const a = stack.pop();
+      stack.push(operators[token](a, b));
     } else {
-      st.push(Number(t));
+      stack.push(Number(token));
     }
   }
-  return st.pop();
+  
+  return stack.pop();
 }
 
 // Test Cases:
@@ -398,49 +472,55 @@ function evalRPN(tokens) {
 **Time Complexity:** O(n) - Process each token once  
 **Space Complexity:** O(n) - Stack stores operands
 
-Deep Insights:
-  - Rule: Stack numbers; on operator, pop two, apply, push back; division truncates toward zero; O(n) time.
-  - Real-world: Expression evaluation, calculator systems, postfix notation processing, arithmetic operations.
-  - Common mistake: Wrong operand order (a/b vs b/a); division truncation toward zero; not handling division by zero.
-  - Optimization: Extend with more operators if needed; stack stores intermediate results; O(n) time optimal.
-  - Interview tip: Ask about operator precedence; mention division truncation; clarify operand order.
-## Q53. Largest Rectangle in Histogram
+**Deep Insights:**
+- **Optimal Approach:** Stack-based evaluation achieves O(n) time—optimal for this problem
+- **RPN Order:** Operands come before operators—stack naturally handles evaluation
+- **Key Insight:** Pop two operands, apply operation, push result—stack maintains evaluation order
+- **Division Truncation:** Use `Math.trunc()` or `| 0` to truncate toward zero (not floor)
+- **Operand Order:** First popped is second operand, second popped is first operand—important for subtraction/division
+- **Edge Cases:** Single operand returns itself; division by zero not handled (assume valid input)
+- **Interview Tip:** Explain stack-based evaluation clearly; emphasize division truncation; clarify operand order for subtraction/division
+## Q82. Largest Rectangle in Histogram
 
-Concept: Two-pass approach: find next smaller element on right (reverse loop), then on left (forward loop), then calculate max area using boundaries.
+**Problem:** Given an array of integers `heights` representing the histogram's bar height where the width of each bar is `1`, return the area of the largest rectangle in the histogram.
 
+**Approach:** Two-pass approach: find next smaller element on right (reverse loop), then on left (forward loop), then calculate max area using boundaries.
+
+### Solution 1: Two-Pass with Monotonic Stack (Optimal)
 ```javascript
 function largestRectangleArea(heights) {
   const n = heights.length;
-  const left = new Array(n);
-  const right = new Array(n);
+  const left = new Array(n);   // Next smaller on left
+  const right = new Array(n);  // Next smaller on right
   const stack = [];
 
-  // 1) Next Smaller Right (reverse loop)
+  // Step 1: Find next smaller on right (reverse loop)
   for (let i = n - 1; i >= 0; i--) {
     while (stack.length && heights[stack[stack.length - 1]] >= heights[i]) {
       stack.pop();
     }
-    right[i] = stack.length ? stack[stack.length - 1] : n;
+    right[i] = stack.length ? stack[stack.length - 1] : n;  // n if no smaller
     stack.push(i);
   }
 
-  stack.length = 0; // reset stack
+  stack.length = 0;  // Reset stack
 
-  // 2) Next Smaller Left (forward loop)
+  // Step 2: Find next smaller on left (forward loop)
   for (let i = 0; i < n; i++) {
     while (stack.length && heights[stack[stack.length - 1]] >= heights[i]) {
       stack.pop();
     }
-    left[i] = stack.length ? stack[stack.length - 1] : -1;
+    left[i] = stack.length ? stack[stack.length - 1] : -1;  // -1 if no smaller
     stack.push(i);
   }
 
-  // 3) Calculate max area
+  // Step 3: Calculate max area for each bar
   let maxArea = 0;
   for (let i = 0; i < n; i++) {
     const width = right[i] - left[i] - 1;
     maxArea = Math.max(maxArea, heights[i] * width);
   }
+  
   return maxArea;
 }
 
@@ -463,32 +543,45 @@ function largestRectangleArea(heights) {
 **Time Complexity:** O(n) - Each bar pushed and popped at most once per pass (3 passes total)  
 **Space Complexity:** O(n) - Arrays `left` and `right` store boundaries, stack stores indices
 
-Deep Insights:
-  - Rule: Two-pass approach: find next smaller on right (reverse loop with >= condition), then on left (forward loop with >= condition), calculate area using width = right[i] - left[i] - 1; O(n) time, O(n) space.
-  - Real-world: Histogram analysis, rectangle area problems, bar chart calculations, geometric algorithms, building facade analysis, UI layout problems.
-  - Common mistake: Wrong comparison operator (>= vs >); not resetting stack between passes; off-by-one in width calculation (right - left - 1); forgetting to handle boundary cases (n and -1).
-  - Optimization: Two passes separate boundary finding from area calculation; each bar pushed/popped once per pass; O(n) time optimal; clearer logic than single-pass approach; reset stack between passes.
-  - Interview tip: Explain two-pass approach clearly; mention boundary calculation (right[i] - left[i] - 1); discuss why >= vs > matters; ask about edge cases (empty array, single bar, all equal bars).
-## Q54. Sliding Window Maximum
+**Deep Insights:**
+- **Optimal Approach:** Two-pass with monotonic stack achieves O(n) time—optimal for this problem
+- **Boundary Finding:** Find next smaller element on both sides—defines rectangle width
+- **Width Calculation:** `right[i] - left[i] - 1` gives width of rectangle with height `heights[i]`
+- **Comparison Operator:** Use `>=` to find next smaller (strictly smaller)—ensures correct boundaries
+- **Key Insight:** Rectangle extends until it hits a smaller bar on either side
+- **Edge Cases:** Empty array returns 0; single bar returns its height; all equal bars returns `n * height`
+- **Interview Tip:** Explain two-pass approach clearly; emphasize boundary calculation formula; discuss why `>=` vs `>` matters
+## Q83. Sliding Window Maximum
 
-Concept: Monotonic deque of indices (decreasing values). Front always max of window.
+**Problem:** You are given an array of integers `nums`, and there is a sliding window of size `k` which is moving from the very left of the array to the very right. You can only see the `k` numbers in the window. Each time the sliding window moves right by one position. Return the maximum sliding window.
 
+**Approach:** Use a monotonic deque storing indices with decreasing values. Front always contains the maximum of the current window.
+
+### Solution 1: Monotonic Deque (Optimal)
 ```javascript
 function maxSlidingWindow(nums, k) {
-  const dq = [];
+  const dq = [];  // Deque stores indices
   const res = [];
+  
   for (let i = 0; i < nums.length; i++) {
+    // Remove indices outside current window
     while (dq.length && dq[0] <= i - k) {
       dq.shift();
     }
+    
+    // Remove indices with values <= current (maintain decreasing order)
     while (dq.length && nums[dq[dq.length - 1]] <= nums[i]) {
       dq.pop();
     }
+    
     dq.push(i);
+    
+    // Add maximum when window is complete
     if (i >= k - 1) {
-      res.push(nums[dq[0]]);
+      res.push(nums[dq[0]]);  // Front is always max
     }
   }
+  
   return res;
 }
 
@@ -510,57 +603,66 @@ function maxSlidingWindow(nums, k) {
 ```
 
 **Time Complexity:** O(n) - Each element added and removed at most once  
-**Space Complexity:** O(n) - Deque stores indices
+**Space Complexity:** O(k) - Deque stores at most k indices
 
-Deep Insights:
-  - Rule: Monotonic deque of indices (decreasing values); front always max of window; O(n) time.
-  - Real-world: Sliding window maximum, range queries, window-based algorithms, stream processing.
-  - Common mistake: Not removing out-of-window elements; wrong deque ordering; k==1 returns original array.
-  - Optimization: Deque maintains decreasing order; each element added/removed once; O(n) time optimal.
-  - Interview tip: Explain deque ordering clearly; mention k==1 edge case; ask about min variant.
-## Q55. Circular Queue
+**Deep Insights:**
+- **Optimal Approach:** Monotonic deque achieves O(n) time—optimal for this problem
+- **Deque Structure:** Stores indices in decreasing value order—front always has maximum
+- **Two Cleanup Steps:** Remove out-of-window indices from front; remove smaller indices from back
+- **Key Insight:** Maintain decreasing order ensures front is always maximum of current window
+- **Window Completion:** Start adding results when `i >= k - 1` (window size reached)
+- **Edge Cases:** k=1 returns original array; k=n returns array with single maximum; decreasing array returns first k elements
+- **Interview Tip:** Explain deque ordering clearly; emphasize front maintenance; mention k=1 edge case
+## Q84. Design Circular Queue
 
-Concept: Fixed-size ring buffer with head/tail and size; modulo arithmetic for wrap.
+**Problem:** Design your implementation of the circular queue. The circular queue is a linear data structure in which the operations are performed based on FIFO (First In First Out) principle, and the last position is connected back to the first position to make a circle. It is also called "Ring Buffer". Implement the `MyCircularQueue` class.
 
+**Approach:** Use a fixed-size array with head and tail pointers. Use modulo arithmetic for wrapping around. Track size to distinguish full from empty.
+
+### Solution 1: Fixed-Size Ring Buffer (Optimal)
 ```javascript
 class MyCircularQueue {
   constructor(k) {
-    this.q = new Array(k);
-    this.k = k;
-    this.h = 0;
-    this.t = 0;
-    this.sz = 0;
+    this.queue = new Array(k);
+    this.capacity = k;
+    this.head = 0;
+    this.tail = 0;
+    this.size = 0;
   }
 
-  enQueue(x) {
+  enQueue(value) {
     if (this.isFull()) return false;
-    this.q[this.t] = x;
-    this.t = (this.t + 1) % this.k;
-    this.sz++;
+    
+    this.queue[this.tail] = value;
+    this.tail = (this.tail + 1) % this.capacity;
+    this.size++;
     return true;
   }
 
   deQueue() {
     if (this.isEmpty()) return false;
-    this.h = (this.h + 1) % this.k;
-    this.sz--;
+    
+    this.head = (this.head + 1) % this.capacity;
+    this.size--;
     return true;
   }
 
   Front() {
-    return this.isEmpty() ? -1 : this.q[this.h];
+    return this.isEmpty() ? -1 : this.queue[this.head];
   }
 
   Rear() {
-    return this.isEmpty() ? -1 : this.q[(this.t - 1 + this.k) % this.k];
+    if (this.isEmpty()) return -1;
+    const rearIndex = (this.tail - 1 + this.capacity) % this.capacity;
+    return this.queue[rearIndex];
   }
 
   isEmpty() {
-    return this.sz === 0;
+    return this.size === 0;
   }
 
   isFull() {
-    return this.sz === this.k;
+    return this.size === this.capacity;
   }
 }
 
@@ -578,22 +680,25 @@ class MyCircularQueue {
 // circularQueue.Rear();       // Output: 4
 ```
 
-**Time Complexity:** O(1) all operations  
+**Time Complexity:** O(1) - All operations are constant time  
 **Space Complexity:** O(k) - Fixed-size array of capacity k
 
-Deep Insights:
-  - Rule: Fixed-size ring buffer with head/tail and size; modulo arithmetic for wrap; O(1) all operations.
-  - Real-world: Circular buffers, ring buffers, fixed-size queues, streaming data structures.
-  - Common mistake: Wrong modulo arithmetic; rear index is (t-1+k)%k; not handling full/empty correctly.
-  - Optimization: O(1) all operations; backed by raw array; size tracking avoids confusion.
-  - Interview tip: Explain modulo arithmetic clearly; mention rear index calculation; ask about resize variant.
+**Deep Insights:**
+- **Optimal Approach:** Fixed-size ring buffer achieves O(1) for all operations—optimal for this problem
+- **Modulo Arithmetic:** Use `(index + 1) % capacity` for wrapping—enables circular behavior
+- **Size Tracking:** Track size separately to distinguish full from empty (head == tail could mean either)
+- **Rear Index:** Calculate as `(tail - 1 + capacity) % capacity`—handles wrap-around correctly
+- **Key Insight:** Size variable eliminates ambiguity when head == tail (full vs empty)
+- **Edge Cases:** Empty queue returns -1 for Front/Rear; full queue rejects enQueue; single element works correctly
+- **Interview Tip:** Explain modulo arithmetic clearly; emphasize size tracking benefits; mention rear index calculation
 
-## Q56. Simplify Path
+## Q85. Simplify Path
 
-Concept:
-Simplify Unix-style absolute path; use stack to track directories; handle "." (current), ".." (parent), multiple slashes.
+**Problem:** Given a string `path`, which is an absolute path (starting with a slash `'/'`) to a file or directory in a Unix-style file system, convert it to the simplified canonical path. In a Unix-style file system, a period `'.'` refers to the current directory, a double period `'..'` refers to the directory up a level, and any multiple consecutive slashes (i.e. `'//'`) are treated as a single slash `'/'`. For this problem, any other format of periods such as `'...'` are treated as file/directory names.
 
-Example:
+**Approach:** Split path by `/`, filter out empty strings and `.`. Use a stack to track directories. Pop on `..`, push otherwise.
+
+### Solution 1: Stack-Based Path Processing (Optimal)
 ```javascript
 function simplifyPath(path) {
   const stack = [];
@@ -601,10 +706,12 @@ function simplifyPath(path) {
   
   for (const part of parts) {
     if (part === '..') {
+      // Go up one directory (pop if not empty)
       if (stack.length > 0) {
         stack.pop();
       }
     } else {
+      // Add directory
       stack.push(part);
     }
   }
@@ -632,52 +739,62 @@ function simplifyPath(path) {
 **Time Complexity:** O(n) - Split and process path  
 **Space Complexity:** O(n) - Stack storage
 
-Deep Insights:
-- Split path by '/'; filter empty and '.'; use stack for '..'; join at end; O(n) time, O(n) space.
-- Stack simulates directory navigation; '..' pops parent; '..' from root stays at root.
-- Filter empty strings and '.' before processing.
-- Edge case: Root path returns '/'; all '..' returns '/'.
-- Interview tip: Explain stack usage; mention root handling; ask about relative paths.
+**Deep Insights:**
+- **Optimal Approach:** Stack-based processing achieves O(n) time—optimal for this problem
+- **Path Processing:** Split by `/`, filter empty and `.`—simplifies handling
+- **Stack Simulation:** Stack simulates directory navigation—`..` pops parent directory
+- **Root Handling:** `..` from root stays at root (don't pop if stack empty)
+- **Key Insight:** Multiple slashes become empty strings after split—filtered out automatically
+- **Edge Cases:** Root path returns `/`; all `..` returns `/`; multiple slashes handled correctly
+- **Interview Tip:** Explain stack usage clearly; emphasize root handling; mention filtering empty and `.`
 
-## Q57. Basic Calculator
+## Q86. Basic Calculator
 
-Concept:
-Evaluate arithmetic expression with +, -, parentheses; use stack for precedence and parentheses handling.
+**Problem:** Given a string `s` representing a valid expression, implement a basic calculator to evaluate it, and return the result of the evaluation. The expression may contain digits, `'+'`, `'-'`, `'('`, `')'`, and spaces.
 
-Example:
+**Approach:** Track result, current number, and sign. Use stack to handle parentheses—push result and sign when opening, pop and combine when closing.
+
+### Solution 1: Stack with Sign Tracking (Optimal)
 ```javascript
 function calculate(s) {
   let result = 0;
   let num = 0;
-  let sign = 1;
+  let sign = 1;  // 1 for +, -1 for -
   const stack = [];
   
   for (let i = 0; i < s.length; i++) {
     const char = s[i];
     
     if (char >= '0' && char <= '9') {
+      // Build number from digits
       num = num * 10 + (char.charCodeAt(0) - '0'.charCodeAt(0));
     } else if (char === '+') {
+      // Apply current number with sign, reset for next number
       result += sign * num;
       num = 0;
       sign = 1;
     } else if (char === '-') {
+      // Apply current number with sign, reset for next number
       result += sign * num;
       num = 0;
       sign = -1;
     } else if (char === '(') {
+      // Push current result and sign, start new expression
       stack.push(result);
       stack.push(sign);
       result = 0;
       sign = 1;
     } else if (char === ')') {
+      // Apply current number, then combine with parent expression
       result += sign * num;
       num = 0;
-      result *= stack.pop(); // sign
-      result += stack.pop(); // previous result
+      result *= stack.pop();  // Apply sign from stack
+      result += stack.pop();  // Add previous result
     }
+    // Skip spaces
   }
   
+  // Apply last number
   result += sign * num;
   return result;
 }
@@ -693,11 +810,13 @@ function calculate(s) {
 ```
 
 **Time Complexity:** O(n) - Single pass through string  
-**Space Complexity:** O(n) - Stack for parentheses
+**Space Complexity:** O(n) - Stack for parentheses (worst case: all parentheses)
 
-Deep Insights:
-- Track result, current number, sign; use stack for parentheses; O(n) time, O(n) space.
-- When '(': push result and sign; reset result and sign.
-- When ')': add current number; multiply by sign from stack; add previous result.
-- Edge case: Leading spaces; multiple consecutive operators; nested parentheses.
-- Interview tip: Explain sign handling; mention stack for parentheses; ask about multiplication/division.
+**Deep Insights:**
+- **Optimal Approach:** Stack with sign tracking achieves O(n) time—optimal for this problem
+- **Sign Tracking:** Track current sign (1 or -1)—applies to numbers until operator encountered
+- **Number Building:** Accumulate multi-digit numbers by multiplying by 10
+- **Parentheses Handling:** Push result and sign when opening `(`, pop and combine when closing `)`
+- **Key Insight:** Stack stores result and sign for each nested level—enables proper evaluation
+- **Edge Cases:** Leading/trailing spaces handled; multiple consecutive operators; nested parentheses; single number
+- **Interview Tip:** Explain sign handling clearly; emphasize stack usage for parentheses; ask about multiplication/division extension

@@ -1,6 +1,16 @@
 # ⚛️ **React Native Interview Cheatsheet**
 
-*Quick reference guide for React Native interview preparation*
+> **⏱️ Review Time: 15-20 minutes** | **Priority: ⭐⭐ Medium** | Quick reference for React Native interviews
+
+**Quick Review Checklist:**
+- [ ] React Native Basics (Components, JSX, Bridge)
+- [ ] Native Modules (Android, iOS, JSI)
+- [ ] Platform Configuration (AndroidManifest, Info.plist)
+- [ ] Navigation (React Navigation, Deep Linking)
+- [ ] Performance (FlatList Optimization, Memoization)
+- [ ] State Management (Redux, AsyncStorage)
+- [ ] Testing (Jest, Detox E2E)
+- [ ] Build & Deployment (Release Builds, CodePush)
 
 ---
 

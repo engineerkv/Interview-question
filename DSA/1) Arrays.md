@@ -2,21 +2,25 @@
 
 ## Q1. Two Sum
 
-Concept:
-Find two indices summing to target using hash map to track seen numbers and their indices.
+**Problem:** Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`. You may assume that each input would have exactly one solution, and you may not use the same element twice.
 
-Example:
+**Approach:** Use a hash map to store each number and its index as we traverse. For each number, check if the complement (target - current number) exists in the map.
+
+### Solution 1: Hash Map (Optimal)
 ```javascript
-// Return indices of two numbers adding up to target
 function twoSum(nums, target) {
   const seen = new Map();
   for (let i = 0; i < nums.length; i++) {
-    const x = nums[i];
-    if (seen.has(target - x)) return [seen.get(target - x), i];
-    seen.set(x, i);
+    const complement = target - nums[i];
+    if (seen.has(complement)) {
+      return [seen.get(complement), i];
+    }
+    seen.set(nums[i], i);
   }
+  return [];
 }
 
+// Test Cases:
 // Input: nums = [2, 7, 11, 15], target = 9
 // Output: [0, 1]
 // Explanation: nums[0] + nums[1] = 2 + 7 = 9
@@ -33,33 +37,55 @@ function twoSum(nums, target) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(n) - Hash map stores up to n elements
 
-Deep Insights:
-- Use single-pass hash map for O(n) time complexity instead of O(n²) brute force.
-- Handle duplicates carefully—store indices in map, not just presence.
-- Prefer indices over values when problem asks for positions.
-- Watch for negative numbers and zero—hash map handles them naturally.
-- Edge case: exactly one solution exists, assume valid input always.
+### Solution 2: Brute Force (Alternative)
+```javascript
+function twoSumBruteForce(nums, target) {
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[i] + nums[j] === target) {
+        return [i, j];
+      }
+    }
+  }
+  return [];
+}
+```
+
+**Time Complexity:** O(n²) - Nested loops check all pairs  
+**Space Complexity:** O(1) - Only using constant extra space
+
+**Deep Insights:**
+- **Optimal Approach:** Single-pass hash map achieves O(n) time complexity instead of O(n²) brute force
+- **Duplicate Handling:** Store indices in map, not just presence, to handle duplicate values correctly
+- **Index vs Value:** Prefer indices over values when problem asks for positions (as in this case)
+- **Negative Numbers:** Hash map handles negative numbers and zero naturally—no special cases needed
+- **Edge Cases:** Exactly one solution guaranteed; same element cannot be used twice
+- **Trade-offs:** Hash map solution trades O(n) space for O(n) time vs O(1) space for O(n²) time
 
 ## Q2. Best Time to Buy & Sell Stock
 
-Concept:
-Find maximum profit from buying and selling once by tracking minimum price and calculating profit for each day.
+**Problem:** You are given an array `prices` where `prices[i]` is the price of a given stock on the `i`th day. You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock. Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
 
-Example:
+**Approach:** Track the minimum price seen so far and calculate profit for each day. Keep the maximum profit found.
+
+### Solution 1: Single Pass (Optimal)
 ```javascript
 function maxProfit(prices) {
   let minPrice = Infinity;
-  let best = 0;
-  for (const p of prices) {
-    minPrice = Math.min(minPrice, p);
-    best = Math.max(best, p - minPrice);
+  let maxProfit = 0;
+  
+  for (const price of prices) {
+    minPrice = Math.min(minPrice, price);
+    maxProfit = Math.max(maxProfit, price - minPrice);
   }
-  return best;
+  
+  return maxProfit;
 }
 
+// Test Cases:
 // Input: prices = [7, 1, 5, 3, 6, 4]
 // Output: 5
-// Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5
+// Explanation: Buy on day 1 (price = 1) and sell on day 4 (price = 6), profit = 6-1 = 5
 
 // Input: prices = [7, 6, 4, 3, 1]
 // Output: 0
@@ -67,36 +93,64 @@ function maxProfit(prices) {
 
 // Input: prices = [2, 4, 1]
 // Output: 2
-// Explanation: Buy on day 1 (price = 2) and sell on day 2 (price = 4), profit = 4-2 = 2
+// Explanation: Buy on day 0 (price = 2) and sell on day 1 (price = 4), profit = 4-2 = 2
 ```
 
 **Time Complexity:** O(n) - Single pass through prices array  
 **Space Complexity:** O(1) - Only using constant extra variables
 
-Deep Insights:
-- Single pass, O(n) time complexity with O(1) space.
-- Profit calculation resets conceptually if price drops below current min.
-- Only one transaction allowed—buy once, sell once.
-- Edge case: monotonic decreasing arrays return 0 profit.
-- Keep global maximum profit, update min price as we iterate.
+### Solution 2: Two Pointers (Alternative)
+```javascript
+function maxProfitTwoPointers(prices) {
+  let buy = 0;
+  let sell = 1;
+  let maxProfit = 0;
+  
+  while (sell < prices.length) {
+    if (prices[buy] < prices[sell]) {
+      maxProfit = Math.max(maxProfit, prices[sell] - prices[buy]);
+    } else {
+      buy = sell;
+    }
+    sell++;
+  }
+  
+  return maxProfit;
+}
+```
 
-## Q3. Kadane's Algorithm (Max Subarray Sum)
+**Time Complexity:** O(n) - Single pass through array  
+**Space Complexity:** O(1) - Only using constant extra variables
 
-Concept:
-Find maximum subarray sum using Kadane's algorithm by maintaining running sum and resetting when negative.
+**Deep Insights:**
+- **Optimal Approach:** Single pass maintains minimum price and calculates profit in O(n) time with O(1) space
+- **Greedy Strategy:** Always track the lowest price seen so far; calculate profit for each day
+- **Transaction Limit:** Only one transaction allowed—buy once, sell once
+- **Edge Cases:** Monotonic decreasing arrays return 0; single element array returns 0
+- **Key Insight:** Profit calculation is conceptually reset if price drops below current minimum
+- **Interview Tip:** This is the foundation for multiple transaction variants (Stock II, III, IV)
 
-Example:
+## Q3. Kadane's Algorithm (Maximum Subarray Sum)
+
+**Problem:** Given an integer array `nums`, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum. A subarray is a contiguous part of an array.
+
+**Approach:** Use Kadane's algorithm—maintain a running sum and reset it when it becomes negative. Keep track of the maximum sum seen so far.
+
+### Solution 1: Kadane's Algorithm (Optimal)
 ```javascript
 function maxSubArray(nums) {
-  let cur = nums[0];
-  let best = nums[0];
+  let currentSum = nums[0];
+  let maxSum = nums[0];
+  
   for (let i = 1; i < nums.length; i++) {
-    cur = Math.max(nums[i], cur + nums[i]);
-    best = Math.max(best, cur);
+    currentSum = Math.max(nums[i], currentSum + nums[i]);
+    maxSum = Math.max(maxSum, currentSum);
   }
-  return best;
+  
+  return maxSum;
 }
 
+// Test Cases:
 // Input: nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
 // Output: 6
 // Explanation: Subarray [4, -1, 2, 1] has the largest sum = 6
@@ -108,42 +162,91 @@ function maxSubArray(nums) {
 // Input: nums = [-2, -1, -3]
 // Output: -1
 // Explanation: All negative, maximum is the least negative element (-1)
+
+// Input: nums = [5, 4, -1, 7, 8]
+// Output: 23
+// Explanation: Entire array [5, 4, -1, 7, 8] has the largest sum = 23
 ```
 
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - Only using constant extra variables
 
-Deep Insights:
-- O(n) time complexity, O(1) space—optimal solution.
-- Track both best global sum and current running sum.
-- For all-negative arrays, pick the maximum single element.
-- Variant: track start and end indices to return the actual subarray.
+### Solution 2: Divide and Conquer (Alternative)
+```javascript
+function maxSubArrayDivideConquer(nums) {
+  return maxSubArrayHelper(nums, 0, nums.length - 1);
+}
+
+function maxSubArrayHelper(nums, left, right) {
+  if (left === right) return nums[left];
+  
+  const mid = Math.floor((left + right) / 2);
+  const leftMax = maxSubArrayHelper(nums, left, mid);
+  const rightMax = maxSubArrayHelper(nums, mid + 1, right);
+  const crossMax = maxCrossingSubArray(nums, left, mid, right);
+  
+  return Math.max(leftMax, rightMax, crossMax);
+}
+
+function maxCrossingSubArray(nums, left, mid, right) {
+  let leftSum = -Infinity;
+  let sum = 0;
+  for (let i = mid; i >= left; i--) {
+    sum += nums[i];
+    leftSum = Math.max(leftSum, sum);
+  }
+  
+  let rightSum = -Infinity;
+  sum = 0;
+  for (let i = mid + 1; i <= right; i++) {
+    sum += nums[i];
+    rightSum = Math.max(rightSum, sum);
+  }
+  
+  return leftSum + rightSum;
+}
+```
+
+**Time Complexity:** O(n log n) - Divide and conquer approach  
+**Space Complexity:** O(log n) - Recursion stack depth
+
+**Deep Insights:**
+- **Optimal Approach:** Kadane's algorithm achieves O(n) time and O(1) space—optimal for this problem
+- **Key Insight:** Reset running sum when it becomes negative—negative prefix can never improve the sum
+- **Edge Cases:** For all-negative arrays, return the maximum single element (least negative)
+- **Variant:** Can track start and end indices to return the actual subarray instead of just the sum
+- **Divide & Conquer:** Alternative O(n log n) approach useful for learning but not optimal for interviews
+- **Interview Tip:** Explain the reset logic clearly—when current sum < 0, starting fresh is better
 
 ## Q4. Rotate Array
 
-Concept:
-Rotate array right by k using triple-reverse technique (reverse all, reverse first k, reverse remaining).
+**Problem:** Given an array `nums`, rotate the array to the right by `k` steps, where `k` is non-negative. You must do this in-place with O(1) extra space.
 
-Example:
+**Approach:** Use the triple-reverse technique: reverse the entire array, then reverse the first k elements, and finally reverse the remaining elements.
+
+### Solution 1: Triple Reverse (Optimal)
 ```javascript
-// Rotate right by k
 function rotate(nums, k) {
   const n = nums.length;
-  k %= n;
-
-  const reverse = (l, r) => {
-    while (l < r) {
-      [nums[l], nums[r]] = [nums[r], nums[l]];
-      l++;
-      r--;
+  k %= n; // Normalize k when it's larger than array length
+  
+  const reverse = (left, right) => {
+    while (left < right) {
+      [nums[left], nums[right]] = [nums[right], nums[left]];
+      left++;
+      right--;
     }
   };
-
-  reverse(0, n -1);
-  reverse(0, k -1);
-  reverse(k, n -1);
+  
+  // Reverse entire array
+  reverse(0, n - 1);
+  // Reverse first k elements
+  reverse(0, k - 1);
+  // Reverse remaining elements
+  reverse(k, n - 1);
 }
 
+// Test Cases:
 // Input: nums = [1, 2, 3, 4, 5, 6, 7], k = 3
 // Output: [5, 6, 7, 1, 2, 3, 4]
 // Explanation: Rotate right 3 steps: [5, 6, 7, 1, 2, 3, 4]
@@ -160,67 +263,116 @@ function rotate(nums, k) {
 **Time Complexity:** O(n) - Each element swapped once during reverse operations  
 **Space Complexity:** O(1) - In-place reversal, constant extra space
 
-Deep Insights:
-- Use triple-reverse for O(1) extra space complexity.
-- k %= n normalizes k when it's larger than array length.
-- Be careful with in-place cyclic replacements—triple-reverse is cleaner.
-- Left vs right rotation variants—right: k, left: n-k.
+### Solution 2: Cyclic Replacement (Alternative)
+```javascript
+function rotateCyclic(nums, k) {
+  const n = nums.length;
+  k %= n;
+  let count = 0;
+  
+  for (let start = 0; count < n; start++) {
+    let current = start;
+    let prev = nums[start];
+    
+    do {
+      const next = (current + k) % n;
+      const temp = nums[next];
+      nums[next] = prev;
+      prev = temp;
+      current = next;
+      count++;
+    } while (start !== current);
+  }
+}
+```
+
+**Time Complexity:** O(n) - Each element visited once  
+**Space Complexity:** O(1) - Constant extra space
+
+**Deep Insights:**
+- **Optimal Approach:** Triple-reverse achieves O(n) time and O(1) space—optimal for in-place rotation
+- **Key Normalization:** `k %= n` handles cases where k exceeds array length
+- **Rotation Direction:** Right rotation uses k, left rotation uses `n - k`
+- **In-Place Constraint:** Both solutions satisfy O(1) space requirement
+- **Cyclic Replacement:** Alternative approach moves elements in cycles, also O(n) time
+- **Interview Tip:** Triple-reverse is cleaner and easier to explain; cyclic replacement is more complex but demonstrates understanding of modular arithmetic
 
 ## Q5. Merge Intervals
 
-Concept:
-Merge overlapping intervals by sorting by start time and merging where start ≤ last interval's end.
+**Problem:** Given an array of `intervals` where `intervals[i] = [starti, endi]`, merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
 
-Example:
+**Approach:** Sort intervals by start time, then iterate through them. If the current interval overlaps with the last merged interval (start ≤ last end), merge by updating the end. Otherwise, add it as a new interval.
+
+### Solution 1: Sort and Merge (Optimal)
 ```javascript
 function merge(intervals) {
+  if (intervals.length === 0) return [];
+  
+  // Sort intervals by start time
   intervals.sort((a, b) => a[0] - b[0]);
-  const res = [];
-  for (const [s, e] of intervals) {
-    if (!res.length || s > res[res.length -1][1]) res.push([s, e]);
-    else res[res.length -1][1] = Math.max(res[res.length -1][1], e);
+  
+  const merged = [];
+  
+  for (const [start, end] of intervals) {
+    // If no merged intervals or current doesn't overlap with last
+    if (merged.length === 0 || start > merged[merged.length - 1][1]) {
+      merged.push([start, end]);
+    } else {
+      // Merge: update the end of last interval
+      merged[merged.length - 1][1] = Math.max(merged[merged.length - 1][1], end);
+    }
   }
-  return res;
+  
+  return merged;
 }
 
+// Test Cases:
 // Input: intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]
 // Output: [[1, 6], [8, 10], [15, 18]]
 // Explanation: [1, 3] and [2, 6] overlap, merge to [1, 6]
 
 // Input: intervals = [[1, 4], [4, 5]]
 // Output: [[1, 5]]
-// Explanation: [1, 4] and [4, 5] overlap, merge to [1, 5]
+// Explanation: [1, 4] and [4, 5] overlap (touching at 4), merge to [1, 5]
 
 // Input: intervals = [[1, 4], [0, 4]]
 // Output: [[0, 4]]
-// Explanation: [1, 4] and [0, 4] overlap, merge to [0, 4]
+// Explanation: [1, 4] and [0, 4] overlap completely, merge to [0, 4]
+
+// Input: intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]
+// Output: [[1, 6], [8, 10], [15, 18]]
 ```
 
 **Time Complexity:** O(n log n) - Sorting dominates, then O(n) merge pass  
-**Space Complexity:** O(1) or O(n) - O(1) if modifying input, O(n) for result array
+**Space Complexity:** O(n) - Result array stores merged intervals (worst case: no overlaps)
 
-Deep Insights:
-  - Rule: Sorting dominates at O(n log n); merge by comparing start with last interval's end.
-  - Real-world: Calendar scheduling, meeting room allocation, timeline visualization systems.
-  - Common mistake: Not sorting first causes incorrect merging; forgetting to merge overlapping intervals with same start.
-  - Optimization: In-place merge possible; sorting by start time only is sufficient (end time ordering not needed).
-  - Interview tip: Clarify inclusive vs exclusive endpoints; ask about edge cases like [1,2] and [2,3] merging.
+**Deep Insights:**
+- **Optimal Approach:** Sort-then-merge achieves O(n log n) time complexity—optimal for this problem
+- **Overlap Detection:** Two intervals overlap if `start ≤ lastEnd` (touching at endpoints counts as overlap)
+- **Merge Logic:** Update end to `Math.max(lastEnd, currentEnd)` to handle nested intervals
+- **Edge Cases:** Empty array returns empty array; single interval returns itself
+- **Sorting Importance:** Sorting ensures we process intervals in order, making overlap detection straightforward
+- **Interview Tip:** Clarify whether touching intervals (e.g., [1,4] and [4,5]) should merge—usually yes
 
 ## Q6. Largest Element in Array
 
-Concept:
-Find largest element by tracking maximum value in single pass through array.
+**Problem:** Given an array `nums`, find and return the largest element in the array.
 
-Example:
+**Approach:** Traverse the array once, keeping track of the maximum value seen so far.
+
+### Solution 1: Linear Scan (Optimal)
 ```javascript
-function arrayMax(nums) {
-  let m = nums[0];
+function findMax(nums) {
+  let max = nums[0];
   for (let i = 1; i < nums.length; i++) {
-    if (nums[i] > m) m = nums[i];
+    if (nums[i] > max) {
+      max = nums[i];
+    }
   }
-  return m;
+  return max;
 }
 
+// Test Cases:
 // Input: nums = [3, 5, 2, 8, 1]
 // Output: 8
 // Explanation: Maximum element in array is 8
@@ -237,39 +389,56 @@ function arrayMax(nums) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - Only using one extra variable
 
-Deep Insights:
-  - Rule: O(n) scan for single maximum element is optimal; quickselect for kth largest is O(n) average.
-  - Real-world: Leaderboard rankings, top-K queries, streaming analytics, real-time metrics tracking.
-  - Common mistake: Using sort for single max is O(n log n) waste; watch for duplicates in selection.
-  - Optimization: Maintain max in constant space for streaming; quickselect beats full sort for kth element.
-  - Interview tip: Ask about kth largest vs single max; streaming variant requires different approach.
+### Solution 2: Using Math.max (Alternative)
+```javascript
+function findMaxMath(nums) {
+  return Math.max(...nums);
+}
+```
 
-## Q7. Rearrange array by sign / Dutch Flag
+**Time Complexity:** O(n) - Math.max scans all elements  
+**Space Complexity:** O(1) - Constant space
 
-Concept:
-Sort array of 0s, 1s, and 2s using Dutch National Flag algorithm with three pointers.
+**Deep Insights:**
+- **Optimal Approach:** Linear scan achieves O(n) time and O(1) space—optimal for finding single maximum
+- **Avoid Sorting:** Using sort for single max is O(n log n) waste—always use linear scan
+- **Edge Cases:** Empty array should be handled; single element array returns that element
+- **Kth Largest:** For kth largest, use quickselect (O(n) average) or heap (O(n log k))
+- **Streaming Variant:** For streaming data, maintain running maximum with O(1) update per element
+- **Interview Tip:** Clarify if duplicates should be considered; ask about kth largest variant
 
-Example:
+## Q7. Sort Colors (Dutch National Flag)
+
+**Problem:** Given an array `nums` with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue. We use integers 0, 1, and 2 to represent red, white, and blue respectively.
+
+**Approach:** Use the Dutch National Flag algorithm with three pointers: `low` (0s), `mid` (1s), `high` (2s). Partition the array in a single pass.
+
+### Solution 1: Dutch National Flag (Optimal)
 ```javascript
 function sortColors(nums) {
-  let low = 0;
-  let mid = 0;
-  let high = nums.length -1;
-
+  let low = 0;        // Pointer for 0s (red)
+  let mid = 0;        // Pointer for 1s (white)
+  let high = nums.length - 1;  // Pointer for 2s (blue)
+  
   while (mid <= high) {
     if (nums[mid] === 0) {
+      // Swap with low, move both pointers
       [nums[low], nums[mid]] = [nums[mid], nums[low]];
       low++;
       mid++;
     } else if (nums[mid] === 1) {
+      // Already in correct position, just advance mid
       mid++;
     } else {
+      // nums[mid] === 2, swap with high
       [nums[mid], nums[high]] = [nums[high], nums[mid]];
       high--;
+      // Don't increment mid here, need to check swapped element
     }
   }
 }
 
+// Test Cases:
 // Input: nums = [2, 0, 2, 1, 1, 0]
 // Output: [0, 0, 1, 1, 2, 2]
 // Explanation: Sorted array with 0s, then 1s, then 2s
@@ -286,39 +455,68 @@ function sortColors(nums) {
 **Time Complexity:** O(n) - Single pass with three pointers  
 **Space Complexity:** O(1) - In-place partitioning, constant extra space
 
-Deep Insights:
-  - Rule: Dutch National Flag uses three pointers (low/mid/high) for O(n) time, O(1) space partitioning.
-  - Real-world: Sorting by priority levels, multi-way partitioning, color sorting algorithms.
-  - Common mistake: Moving mid pointer incorrectly; forgetting to increment mid after swapping with low.
-  - Optimization: In-place and unstable but efficient; generalize to k-buckets for k distinct values.
-  - Interview tip: Explain three-pointer logic clearly; mention stable vs unstable trade-offs.
+### Solution 2: Counting Sort (Alternative)
+```javascript
+function sortColorsCounting(nums) {
+  const count = [0, 0, 0];
+  
+  // Count occurrences
+  for (const num of nums) {
+    count[num]++;
+  }
+  
+  // Fill array based on counts
+  let idx = 0;
+  for (let i = 0; i < 3; i++) {
+    while (count[i] > 0) {
+      nums[idx++] = i;
+      count[i]--;
+    }
+  }
+}
+```
+
+**Time Complexity:** O(n) - Two passes through array  
+**Space Complexity:** O(1) - Count array of size 3 is constant
+
+**Deep Insights:**
+- **Optimal Approach:** Dutch National Flag achieves O(n) time and O(1) space—optimal for this problem
+- **Three-Pointer Logic:** `low` tracks boundary of 0s, `mid` processes current element, `high` tracks boundary of 2s
+- **Key Insight:** When swapping with `high`, don't increment `mid`—need to check the swapped element
+- **In-Place Constraint:** Both solutions satisfy O(1) space requirement
+- **Generalization:** Can extend to k distinct values with k pointers
+- **Interview Tip:** Explain why mid increments after swapping with low but not after swapping with high
 
 ## Q8. Product of Array Except Self
 
-Concept:
-Return array of products of all other elements using two passes (prefix then suffix products).
+**Problem:** Given an integer array `nums`, return an array `answer` such that `answer[i]` is equal to the product of all the elements of `nums` except `nums[i]`. The product of any prefix or suffix of `nums` is guaranteed to fit in a 32-bit integer. You must write an algorithm that runs in O(n) time and without using the division operator.
 
-Example:
+**Approach:** Use two passes: first pass computes prefix products (left to right), second pass multiplies by suffix products (right to left). This avoids division and handles zeros correctly.
+
+### Solution 1: Two Passes with Prefix/Suffix (Optimal)
 ```javascript
 function productExceptSelf(nums) {
   const n = nums.length;
-  const res = new Array(n).fill(1);
-
-  let pref = 1;
+  const result = new Array(n).fill(1);
+  
+  // First pass: compute prefix products (left to right)
+  let prefix = 1;
   for (let i = 0; i < n; i++) {
-    res[i] = pref;
-    pref *= nums[i];
+    result[i] = prefix;
+    prefix *= nums[i];
   }
-
-  let suf = 1;
-  for (let i = n -1; i >= 0; i--) {
-    res[i] *= suf;
-    suf *= nums[i];
+  
+  // Second pass: multiply by suffix products (right to left)
+  let suffix = 1;
+  for (let i = n - 1; i >= 0; i--) {
+    result[i] *= suffix;
+    suffix *= nums[i];
   }
-
-  return res;
+  
+  return result;
 }
 
+// Test Cases:
 // Input: nums = [1, 2, 3, 4]
 // Output: [24, 12, 8, 6]
 // Explanation: res[0] = 2*3*4 = 24, res[1] = 1*3*4 = 12, etc.
@@ -335,27 +533,46 @@ function productExceptSelf(nums) {
 **Time Complexity:** O(n) - Two passes through array  
 **Space Complexity:** O(1) - Excluding output array, only constant extra variables
 
-Deep Insights:
-  - Rule: Two passes—left (prefix) then right (suffix) products; O(n) time, O(1) extra space.
-  - Real-world: Element-wise calculations excluding self, normalization algorithms, matrix operations.
-  - Common mistake: Division by zero when using division approach; forgetting zeros make result zero.
-  - Optimization: Avoids division entirely; handles zeros correctly; can't use division with zeros present.
-  - Interview tip: Ask about zeros first; division approach fails with zeros; this method always works.
+### Solution 2: Using Division (Not Recommended - Fails with Zeros)
+```javascript
+function productExceptSelfDivision(nums) {
+  const product = nums.reduce((acc, val) => acc * val, 1);
+  return nums.map(num => product / num);
+}
+// Note: This fails when array contains zeros!
+```
+
+**Time Complexity:** O(n) - Two passes  
+**Space Complexity:** O(1) - Excluding output
+
+**Deep Insights:**
+- **Optimal Approach:** Two-pass prefix/suffix method achieves O(n) time and O(1) extra space
+- **Division Pitfall:** Division approach fails with zeros—cannot divide by zero
+- **Zero Handling:** If array has one zero, only that position has non-zero product; if multiple zeros, all products are zero
+- **Key Insight:** Prefix products store left-side products, suffix products (backwards pass) multiply right-side products
+- **Space Optimization:** Using output array to store prefix products saves space vs separate arrays
+- **Interview Tip:** Ask about zeros first; division approach is tempting but fails; this method always works
 
 ## Q9. Find Missing Number
 
-Concept:
-Find missing number in array using XOR to cancel pairs between indices 0..n and array elements.
+**Problem:** Given an array `nums` containing `n` distinct numbers in the range `[0, n]`, return the only number in the range that is missing from the array.
 
-Example:
+**Approach:** Use XOR to cancel pairs. XOR all numbers from 0 to n with all numbers in the array. The remaining value is the missing number.
+
+### Solution 1: XOR (Optimal)
 ```javascript
 function missingNumber(nums) {
   const n = nums.length;
-  let x = n;
-  for (let i = 0; i < n; i++) x ^= i ^ nums[i];
-  return x;
+  let missing = n; // Start with n (since range is [0, n])
+  
+  for (let i = 0; i < n; i++) {
+    missing ^= i ^ nums[i];
+  }
+  
+  return missing;
 }
 
+// Test Cases:
 // Input: nums = [3, 0, 1]
 // Output: 2
 // Explanation: n = 3, array contains 0, 1, 3. Missing number is 2
@@ -372,33 +589,64 @@ function missingNumber(nums) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - Only using constant extra variables
 
-Deep Insights:
-  - Rule: XOR cancels pairs between indices 0..n and array elements; avoids overflow without arithmetic.
-  - Real-world: Finding missing IDs in sequences, database record validation, completion tracking systems.
-  - Common mistake: Using sum-based approach can overflow; sort-based is O(n log n) waste; assumes distinct numbers.
-  - Optimization: XOR is O(n) vs O(n log n) sort; works for 0..n range with n distinct numbers and one missing.
-  - Interview tip: Ask about duplicates first; XOR only works if numbers are distinct; verify range assumptions.
+### Solution 2: Sum Formula (Alternative)
+```javascript
+function missingNumberSum(nums) {
+  const n = nums.length;
+  const expectedSum = (n * (n + 1)) / 2;
+  const actualSum = nums.reduce((sum, num) => sum + num, 0);
+  return expectedSum - actualSum;
+}
+```
+
+**Time Complexity:** O(n) - Single pass to compute sum  
+**Space Complexity:** O(1) - Constant space
+
+**Note:** Sum approach can overflow for large n; XOR avoids overflow.
+
+**Deep Insights:**
+- **Optimal Approach:** XOR achieves O(n) time and O(1) space—optimal and avoids overflow
+- **XOR Property:** `a ^ a = 0` and `a ^ 0 = a`, so pairs cancel out, leaving the missing number
+- **Overflow Safety:** XOR avoids arithmetic overflow that sum-based approach may encounter
+- **Range Assumption:** Array contains n distinct numbers in range [0, n], exactly one missing
+- **Alternative:** Sum formula works but can overflow; XOR is more robust
+- **Interview Tip:** Ask about range assumptions first; verify numbers are distinct; mention overflow concern with sum
 
 ## Q10. Majority Element (Boyer-Moore)
 
-Concept:
-Find majority element using Boyer-Moore voting algorithm by tracking candidate and count.
+**Problem:** Given an array `nums` of size `n`, return the majority element. The majority element is the element that appears more than `⌊n / 2⌋` times. You may assume that the majority element always exists in the array.
 
-Example:
+**Approach:** Use Boyer-Moore Voting Algorithm. Track a candidate and its count. When count reaches zero, pick a new candidate. The final candidate is the majority element.
+
+### Solution 1: Boyer-Moore Voting Algorithm (Optimal)
 ```javascript
 function majorityElement(nums) {
-  let cand = 0;
-  let cnt = 0;
-  for (const x of nums) {
-    if (cnt === 0) {
-      cand = x;
-      cnt = 1;
-    } else if (x === cand) cnt++;
-    else cnt--;
+  let candidate = null;
+  let count = 0;
+  
+  // Phase 1: Find candidate
+  for (const num of nums) {
+    if (count === 0) {
+      candidate = num;
+      count = 1;
+    } else if (num === candidate) {
+      count++;
+    } else {
+      count--;
+    }
   }
-  return cand;
+  
+  // Phase 2: Verify (if majority not guaranteed)
+  // count = 0;
+  // for (const num of nums) {
+  //   if (num === candidate) count++;
+  // }
+  // return count > nums.length / 2 ? candidate : null;
+  
+  return candidate; // Assuming majority always exists
 }
 
+// Test Cases:
 // Input: nums = [3, 2, 3]
 // Output: 3
 // Explanation: Element 3 appears 2 times (n/2 = 1.5, 2 > 1.5)
@@ -415,41 +663,72 @@ function majorityElement(nums) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - Only using constant extra variables
 
-Deep Insights:
-  - Rule: Boyer-Moore voting tracks candidate and count; O(n) time, O(1) space optimal solution.
-  - Real-world: Leader election in distributed systems, voting systems, finding dominant elements in datasets.
-  - Common mistake: Not verifying if majority exists; assuming guarantee; forgetting to handle edge cases.
-  - Optimization: Streaming friendly—processes elements one at a time; extend to n/3 with two candidates.
-  - Interview tip: Ask if majority guaranteed; if not, add verification pass; explain the voting cancellation logic.
+### Solution 2: Hash Map (Alternative)
+```javascript
+function majorityElementHashMap(nums) {
+  const count = new Map();
+  const n = nums.length;
+  
+  for (const num of nums) {
+    count.set(num, (count.get(num) || 0) + 1);
+    if (count.get(num) > n / 2) {
+      return num;
+    }
+  }
+}
+```
+
+**Time Complexity:** O(n) - Single pass through array  
+**Space Complexity:** O(n) - Hash map stores element counts
+
+**Deep Insights:**
+- **Optimal Approach:** Boyer-Moore achieves O(n) time and O(1) space—optimal for this problem
+- **Voting Logic:** Majority element survives because it appears more than half the time
+- **Key Insight:** When count reaches zero, we've canceled equal numbers of majority and non-majority elements
+- **Guarantee Assumption:** Problem guarantees majority exists; otherwise need verification phase
+- **Extension:** Can extend to find elements appearing more than n/3 times using two candidates
+- **Interview Tip:** Explain the voting analogy clearly; mention why O(1) space is important for streaming data
 
 ## Q11. Maximum Product Subarray
 
-Concept:
-Find maximum product subarray by tracking both max and min products (swap on negative numbers).
+**Problem:** Given an integer array `nums`, find the contiguous subarray within an array (containing at least one number) which has the largest product.
 
-Example:
+**Approach:** Track both maximum and minimum products at each position. When encountering a negative number, swap max and min (since negative × min = positive max). Keep updating the global maximum.
+
+### Solution 1: Dynamic Programming with Max/Min Tracking (Optimal)
 ```javascript
 function maxProduct(nums) {
-  let curMax = nums[0];
-  let curMin = nums[0];
-  let ans = nums[0];
+  let currentMax = nums[0];
+  let currentMin = nums[0];
+  let globalMax = nums[0];
+  
   for (let i = 1; i < nums.length; i++) {
-    const x = nums[i];
-    if (x < 0) [curMax, curMin] = [curMin, curMax];
-    curMax = Math.max(x, curMax * x);
-    curMin = Math.min(x, curMin * x);
-    ans = Math.max(ans, curMax);
+    const num = nums[i];
+    
+    // If current number is negative, swap max and min
+    if (num < 0) {
+      [currentMax, currentMin] = [currentMin, currentMax];
+    }
+    
+    // Update max and min
+    currentMax = Math.max(num, currentMax * num);
+    currentMin = Math.min(num, currentMin * num);
+    
+    // Update global maximum
+    globalMax = Math.max(globalMax, currentMax);
   }
-  return ans;
+  
+  return globalMax;
 }
 
+// Test Cases:
 // Input: nums = [2, 3, -2, 4]
 // Output: 6
 // Explanation: Subarray [2, 3] has maximum product = 6
 
 // Input: nums = [-2, 0, -1]
 // Output: 0
-// Explanation: Maximum product is 0 (from single element or empty subarray)
+// Explanation: Maximum product is 0 (from single element 0)
 
 // Input: nums = [-2, 3, -4]
 // Output: 24
@@ -459,41 +738,47 @@ function maxProduct(nums) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - Only using constant extra variables
 
-Deep Insights:
-  - Rule: Track both max and min products; swap on negative since negative × min = positive max.
-  - Real-world: Maximum profit calculations, signal amplitude detection, financial product analysis.
-  - Common mistake: Only tracking max misses cases where two negatives create positive; zero resets product.
-  - Optimization: O(n) time, O(1) space optimal; zero resets run; keep global best updated continuously.
-  - Interview tip: Ask about negatives and zeros first; explain why we need both max and min products.
+**Deep Insights:**
+- **Key Insight:** Track both max and min because negative numbers can flip the sign—two negatives make a positive
+- **Swap Logic:** When encountering negative, swap max/min because negative × min might become the new max
+- **Zero Handling:** Zero resets the product run, but we can start fresh from the next element
+- **Edge Cases:** Single element array returns that element; all negative numbers still need to find maximum product
+- **Why Both Max and Min:** Negative × negative = positive, so the minimum product can become maximum after multiplication
+- **Interview Tip:** Ask about negatives and zeros first; explain why we can't just track max like in Kadane's algorithm
 
 ## Q12. Trapping Rain Water
 
-Concept:
-Calculate trapped rainwater using two pointers tracking left and right max heights.
+**Problem:** Given `n` non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
 
-Example:
+**Approach:** Use two pointers from both ends. Track maximum heights on left and right. Move the pointer with smaller maximum height—water trapped at that position depends on the smaller of the two maxes.
+
+### Solution 1: Two Pointers (Optimal)
 ```javascript
 function trap(height) {
   let left = 0;
-  let right = height.length -1;
+  let right = height.length - 1;
   let leftMax = 0;
   let rightMax = 0;
-  let water = 0;
-
+  let waterTrapped = 0;
+  
   while (left < right) {
     if (height[left] < height[right]) {
+      // Process left side
       leftMax = Math.max(leftMax, height[left]);
-      water += leftMax - height[left];
+      waterTrapped += leftMax - height[left];
       left++;
     } else {
+      // Process right side
       rightMax = Math.max(rightMax, height[right]);
-      water += rightMax - height[right];
+      waterTrapped += rightMax - height[right];
       right--;
     }
   }
-  return water;
+  
+  return waterTrapped;
 }
 
+// Test Cases:
 // Input: height = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]
 // Output: 6
 // Explanation: Rainwater trapped is 6 units
@@ -510,36 +795,81 @@ function trap(height) {
 **Time Complexity:** O(n) - Single pass with two pointers  
 **Space Complexity:** O(1) - Only using constant extra variables
 
-Deep Insights:
-  - Rule: Two-pointer tracks leftMax/rightMax; move pointer with smaller max; O(n) time, O(1) space.
-  - Real-world: Water collection systems, bar chart analysis, elevation mapping, terrain analysis.
-  - Common mistake: Using stack adds complexity; DP precompute uses O(n) extra space unnecessarily.
-  - Optimization: Two-pointer beats stack for simplicity; cleaner code; DP variant exists but less efficient.
-  - Interview tip: Explain why moving smaller-height pointer is safe; ask about edge cases (empty array, all zeros).
+### Solution 2: Dynamic Programming (Alternative - Uses O(n) Space)
+```javascript
+function trapDP(height) {
+  const n = height.length;
+  if (n === 0) return 0;
+  
+  const leftMax = new Array(n);
+  const rightMax = new Array(n);
+  
+  // Compute left max for each position
+  leftMax[0] = height[0];
+  for (let i = 1; i < n; i++) {
+    leftMax[i] = Math.max(leftMax[i - 1], height[i]);
+  }
+  
+  // Compute right max for each position
+  rightMax[n - 1] = height[n - 1];
+  for (let i = n - 2; i >= 0; i--) {
+    rightMax[i] = Math.max(rightMax[i + 1], height[i]);
+  }
+  
+  // Calculate trapped water
+  let water = 0;
+  for (let i = 0; i < n; i++) {
+    water += Math.min(leftMax[i], rightMax[i]) - height[i];
+  }
+  
+  return water;
+}
+```
+
+**Time Complexity:** O(n) - Three passes through array  
+**Space Complexity:** O(n) - Two arrays for left and right maxes
+
+**Deep Insights:**
+- **Optimal Approach:** Two-pointer achieves O(n) time and O(1) space—optimal for this problem
+- **Key Insight:** Water at position i = min(leftMax, rightMax) - height[i]
+- **Why Move Smaller Pointer:** Moving the pointer with smaller max is safe because water depends on the minimum of the two maxes
+- **Edge Cases:** Empty array returns 0; all zeros returns 0; ascending/descending arrays trap no water
+- **DP Alternative:** Precomputes left/right maxes but uses O(n) space; two-pointer is preferred
+- **Interview Tip:** Explain why moving smaller-height pointer is safe; ask about edge cases (empty, all zeros, monotonic)
 
 ## Q13. Subarray Sum Equals K
 
-Concept:
-Count subarrays with sum k using prefix sums and hash map tracking running sum counts.
+**Problem:** Given an array of integers `nums` and an integer `k`, return the total number of subarrays whose sum equals `k`.
 
-Example:
+**Approach:** Use prefix sums with a hash map. For each prefix sum, check if `prefixSum - k` exists in the map. If it does, there are subarrays ending at current position with sum k.
+
+### Solution 1: Prefix Sum with Hash Map (Optimal)
 ```javascript
 function subarraySum(nums, k) {
-  const count = new Map();
-  count.set(0, 1);
-  let sum = 0;
-  let ans = 0;
-  for (const x of nums) {
-    sum += x;
-    if (count.has(sum - k)) ans += count.get(sum - k);
-    count.set(sum, (count.get(sum) || 0) + 1);
+  const prefixSumCount = new Map();
+  prefixSumCount.set(0, 1); // Initialize with {0:1} for subarrays starting at index 0
+  let runningSum = 0;
+  let count = 0;
+  
+  for (const num of nums) {
+    runningSum += num;
+    
+    // Check if prefixSum - k exists
+    if (prefixSumCount.has(runningSum - k)) {
+      count += prefixSumCount.get(runningSum - k);
+    }
+    
+    // Update prefix sum count
+    prefixSumCount.set(runningSum, (prefixSumCount.get(runningSum) || 0) + 1);
   }
-  return ans;
+  
+  return count;
 }
 
+// Test Cases:
 // Input: nums = [1, 1, 1], k = 2
 // Output: 2
-// Explanation: Subarrays [1,1] and [1,1] (overlapping) sum to 2
+// Explanation: Subarrays [1,1] (indices 0-1) and [1,1] (indices 1-2) sum to 2
 
 // Input: nums = [1, 2, 3], k = 3
 // Output: 2
@@ -551,35 +881,50 @@ function subarraySum(nums, k) {
 ```
 
 **Time Complexity:** O(n) - Single pass through array  
-**Space Complexity:** O(n) - Hash map stores up to n prefix sums
+**Space Complexity:** O(n) - Hash map stores up to n distinct prefix sums
 
-Deep Insights:
-  - Rule: Prefix sum + hash map; running sum - k matches count; initialize map with {0:1} for subarrays starting at 0.
-  - Real-world: Transaction balancing, subarray matching, payment tracking, target sum problems.
-  - Common mistake: Forgetting to initialize {0:1}; not handling negative numbers; missing overlapping subarrays.
-  - Optimization: O(n) time, O(n) space optimal; handles zeros and negatives; counts all subarrays correctly.
-  - Interview tip: Explain why {0:1} initialization is crucial; ask about overlapping subarrays if count is needed.
+**Deep Insights:**
+- **Key Insight:** If `prefixSum[i] - prefixSum[j] = k`, then subarray from j+1 to i has sum k
+- **Initialization:** `{0:1}` is crucial—it handles subarrays starting at index 0
+- **Negative Numbers:** Works correctly with negative numbers—no special handling needed
+- **Overlapping Subarrays:** Counts all overlapping subarrays correctly
+- **Pattern:** `prefixSum[i] - k = prefixSum[j]` means subarray from j+1 to i sums to k
+- **Interview Tip:** Explain why `{0:1}` initialization is crucial; ask about negative numbers and overlapping subarrays
 
 ## Q14. Longest Consecutive Sequence
 
-Concept:
-Find longest consecutive sequence using hash set, only expanding from sequence heads (when num-1 not in set).
+**Problem:** Given an unsorted array of integers `nums`, return the length of the longest consecutive elements sequence. You must write an algorithm that runs in O(n) time.
 
-Example:
+**Approach:** Use a hash set to store all numbers. Only expand sequences from sequence heads (numbers where `num - 1` is not in the set). This ensures each element is visited at most twice.
+
+### Solution 1: Hash Set with Sequence Head Detection (Optimal)
 ```javascript
 function longestConsecutive(nums) {
-  const set = new Set(nums);
-  let best = 0;
-  for (const x of set) {
-    if (!set.has(x -1)) {
-      let y = x;
-      while (set.has(y)) y++;
-      best = Math.max(best, y - x);
+  if (nums.length === 0) return 0;
+  
+  const numSet = new Set(nums);
+  let longest = 0;
+  
+  for (const num of numSet) {
+    // Only expand from sequence heads (num - 1 not in set)
+    if (!numSet.has(num - 1)) {
+      let currentNum = num;
+      let currentLength = 1;
+      
+      // Expand sequence forward
+      while (numSet.has(currentNum + 1)) {
+        currentNum++;
+        currentLength++;
+      }
+      
+      longest = Math.max(longest, currentLength);
     }
   }
-  return best;
+  
+  return longest;
 }
 
+// Test Cases:
 // Input: nums = [100, 4, 200, 1, 3, 2]
 // Output: 4
 // Explanation: Longest consecutive sequence is [1, 2, 3, 4] with length 4
@@ -596,78 +941,142 @@ function longestConsecutive(nums) {
 **Time Complexity:** O(n) - Each element visited at most twice  
 **Space Complexity:** O(n) - Hash set stores all elements
 
-Deep Insights:
-  - Rule: Hash set + expand only from sequence heads (when num-1 not in set); O(n) time expected.
-  - Real-world: Consecutive ID sequences, date ranges, ordered lists, continuous number tracking.
-  - Common mistake: Sorting leads to O(n log n); expanding from every number causes redundant work.
-  - Optimization: Each element visited at most twice; handles gaps efficiently; hash set beats sorting.
-  - Interview tip: Explain why we only expand from heads; ask about duplicates (handled by Set naturally).
+### Solution 2: Sorting (Alternative - O(n log n))
+```javascript
+function longestConsecutiveSorting(nums) {
+  if (nums.length === 0) return 0;
+  
+  nums.sort((a, b) => a - b);
+  let longest = 1;
+  let current = 1;
+  
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] === nums[i - 1]) continue; // Skip duplicates
+    if (nums[i] === nums[i - 1] + 1) {
+      current++;
+    } else {
+      longest = Math.max(longest, current);
+      current = 1;
+    }
+  }
+  
+  return Math.max(longest, current);
+}
+```
+
+**Time Complexity:** O(n log n) - Sorting dominates  
+**Space Complexity:** O(1) - If sorting is in-place
+
+**Deep Insights:**
+- **Optimal Approach:** Hash set achieves O(n) time—optimal for this problem
+- **Key Optimization:** Only expand from sequence heads avoids redundant work—each element visited at most twice
+- **Why Sequence Heads:** If `num - 1` exists, `num` is not a head, so expanding from it would be redundant
+- **Duplicate Handling:** Hash set naturally handles duplicates
+- **Edge Cases:** Empty array returns 0; single element returns 1
+- **Interview Tip:** Explain why we only expand from heads; mention sorting is O(n log n) and not optimal
 
 ## Q15. Merge Sorted Arrays
 
-Concept:
-Merge two sorted arrays in-place using two pointers from the end, filling from back to avoid shifts.
+**Problem:** You are given two integer arrays `nums1` and `nums2`, sorted in non-decreasing order, and two integers `m` and `n`, representing the number of elements in `nums1` and `nums2` respectively. Merge `nums2` into `nums1` as one sorted array. The final sorted array should not be returned by the function, but instead be stored inside the array `nums1`. `nums1` has a length of `m + n`, where the last `n` elements are set to 0 and should be ignored.
 
-Example:
+**Approach:** Use two pointers from the end of both arrays. Fill from the back of `nums1` to avoid overwriting unprocessed elements in `nums1`.
+
+### Solution 1: Two Pointers from End (Optimal)
 ```javascript
-// Merge array b (length n) into a (size m+n) sorted
-function mergeSorted(a, m, b, n) {
-  let i = m -1;
-  let j = n -1;
-  let k = m + n -1;
-
+function merge(nums1, m, nums2, n) {
+  let i = m - 1;      // Pointer for nums1
+  let j = n - 1;      // Pointer for nums2
+  let k = m + n - 1;  // Pointer for merged result
+  
+  // Merge from the end
   while (j >= 0) {
-    if (i >= 0 && a[i] > b[j]) {
-      a[k] = a[i];
+    if (i >= 0 && nums1[i] > nums2[j]) {
+      nums1[k] = nums1[i];
       i--;
     } else {
-      a[k] = b[j];
+      nums1[k] = nums2[j];
       j--;
     }
     k--;
   }
+  // Note: If i >= 0, remaining elements are already in correct position
 }
 
-// Input: a = [1, 2, 3, 0, 0, 0], m = 3, b = [2, 5, 6], n = 3
-// Output: a = [1, 2, 2, 3, 5, 6]
+// Test Cases:
+// Input: nums1 = [1, 2, 3, 0, 0, 0], m = 3, nums2 = [2, 5, 6], n = 3
+// Output: nums1 = [1, 2, 2, 3, 5, 6]
 // Explanation: Merge sorted arrays [1,2,3] and [2,5,6]
 
-// Input: a = [1], m = 1, b = [], n = 0
-// Output: a = [1]
-// Explanation: Array b is empty, a remains unchanged
+// Input: nums1 = [1], m = 1, nums2 = [], n = 0
+// Output: nums1 = [1]
+// Explanation: Array nums2 is empty, nums1 remains unchanged
 
-// Input: a = [0], m = 0, b = [1], n = 1
-// Output: a = [1]
-// Explanation: Array a is empty, merge b into a
+// Input: nums1 = [0], m = 0, nums2 = [1], n = 1
+// Output: nums1 = [1]
+// Explanation: Array nums1 is empty, merge nums2 into nums1
 ```
 
 **Time Complexity:** O(m + n) - Merge pass through both arrays  
 **Space Complexity:** O(1) - In-place merge, constant extra space
 
-Deep Insights:
-  - Rule: Two pointers from end, fill from back; prevents overwriting unprocessed elements; O(m+n) time, O(1) space.
-  - Real-world: Merging sorted databases, combining sorted lists, merge sort merge step, external sorting.
-  - Common mistake: Merging from front causes shifts and overwrites; not handling empty arrays correctly.
-  - Optimization: In-place merge optimal; leftovers handled automatically; stable with <= comparison.
-  - Interview tip: Always ask about array sizes and available space; explain why back-to-front is safe.
+### Solution 2: Using Extra Space (Alternative)
+```javascript
+function mergeWithExtraSpace(nums1, m, nums2, n) {
+  const result = [];
+  let i = 0, j = 0;
+  
+  while (i < m && j < n) {
+    if (nums1[i] <= nums2[j]) {
+      result.push(nums1[i++]);
+    } else {
+      result.push(nums2[j++]);
+    }
+  }
+  
+  // Add remaining elements
+  while (i < m) result.push(nums1[i++]);
+  while (j < n) result.push(nums2[j++]);
+  
+  // Copy back to nums1
+  for (let i = 0; i < result.length; i++) {
+    nums1[i] = result[i];
+  }
+}
+```
+
+**Time Complexity:** O(m + n) - Merge pass  
+**Space Complexity:** O(m + n) - Extra array for result
+
+**Deep Insights:**
+- **Optimal Approach:** Two pointers from end achieves O(m+n) time and O(1) space—optimal for in-place merge
+- **Why Back-to-Front:** Filling from the end prevents overwriting unprocessed elements in `nums1`
+- **Key Insight:** If `nums1` has remaining elements after `nums2` is exhausted, they're already in correct position
+- **Edge Cases:** Empty `nums2` leaves `nums1` unchanged; empty `nums1` copies all of `nums2`
+- **Comparison:** Front-to-front merge would require shifting elements, causing O(m²) worst case
+- **Interview Tip:** Always ask about array sizes and available space; explain why back-to-front is safe
 
 ## Q16. Remove Element
 
-Concept:
-Remove all instances of val from array in-place using two pointers; return new length.
+**Problem:** Given an integer array `nums` and an integer `val`, remove all occurrences of `val` in `nums` in-place. The relative order of the elements may be changed. Return `k` after placing the final result in the first `k` slots of `nums`.
 
-Example:
+**Approach:** Use two pointers: one for reading (i) and one for writing (writeIndex). Only write elements that are not equal to `val`.
+
+### Solution 1: Two Pointers (Optimal)
 ```javascript
 function removeElement(nums, val) {
   let writeIndex = 0;
+  
   for (let i = 0; i < nums.length; i++) {
     if (nums[i] !== val) {
-      nums[writeIndex++] = nums[i];
+      nums[writeIndex] = nums[i];
+      writeIndex++;
     }
   }
+  
   return writeIndex;
 }
 
+// Test Cases:
 // Input: nums = [3,2,2,3], val = 3
 // Output: 2, nums = [2,2,_,_]
 // Explanation: Remove all 3s, new length is 2
@@ -684,32 +1093,39 @@ function removeElement(nums, val) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - In-place modification, constant extra space
 
-Deep Insights:
-- Use write pointer to track position; overwrite only non-val elements; O(n) time, O(1) space.
-- In-place modification without shifting elements ahead of write pointer.
-- Return new length; elements after length may contain old values (acceptable).
-- Edge case: empty array returns 0; all elements removed returns 0.
-- Interview tip: Explain two-pointer approach; mention order preservation.
+**Deep Insights:**
+- **Optimal Approach:** Two-pointer technique achieves O(n) time and O(1) space—optimal for in-place removal
+- **Write Pointer:** Tracks the next position to write valid elements
+- **In-Place Constraint:** Elements after the new length may contain old values—this is acceptable
+- **Order Preservation:** Elements before `writeIndex` maintain relative order
+- **Edge Cases:** Empty array returns 0; all elements equal to `val` returns 0
+- **Interview Tip:** Explain the two-pointer approach; clarify that elements after length may contain old values
 
 ## Q17. Remove Duplicates from Sorted Array
 
-Concept:
-Remove duplicates in-place from sorted array; return new length using two pointers.
+**Problem:** Given an integer array `nums` sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Return `k` after placing the final result in the first `k` slots of `nums`.
 
-Example:
+**Approach:** Use two pointers. Since the array is sorted, duplicates appear consecutively. Compare current element with the last written unique element.
+
+### Solution 1: Two Pointers (Optimal)
 ```javascript
 function removeDuplicates(nums) {
   if (nums.length === 0) return 0;
   
-  let writeIndex = 1;
+  let writeIndex = 1; // First element is always unique
+  
   for (let i = 1; i < nums.length; i++) {
+    // Compare with last written unique element
     if (nums[i] !== nums[writeIndex - 1]) {
-      nums[writeIndex++] = nums[i];
+      nums[writeIndex] = nums[i];
+      writeIndex++;
     }
   }
+  
   return writeIndex;
 }
 
+// Test Cases:
 // Input: nums = [1,1,2]
 // Output: 2, nums = [1,2,_]
 // Explanation: Remove duplicates, new length is 2
@@ -720,37 +1136,45 @@ function removeDuplicates(nums) {
 
 // Input: nums = [1,1,1]
 // Output: 1, nums = [1,_,_]
+// Explanation: All duplicates removed, only one unique element
 ```
 
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - In-place modification
 
-Deep Insights:
-- Compare current element with last written element; write only when different; O(n) time, O(1) space.
-- Array must be sorted; duplicates appear consecutively.
-- Write pointer tracks next position for unique element.
-- Edge case: empty array returns 0; single element returns 1.
-- Interview tip: Explain sorted property usage; mention consecutive duplicates.
+**Deep Insights:**
+- **Optimal Approach:** Two-pointer technique achieves O(n) time and O(1) space—optimal for sorted arrays
+- **Sorted Property:** Array must be sorted—duplicates appear consecutively, making comparison simple
+- **Comparison Logic:** Compare `nums[i]` with `nums[writeIndex - 1]` (last written unique element)
+- **First Element:** First element is always unique, so start `writeIndex` at 1
+- **Edge Cases:** Empty array returns 0; single element returns 1; all duplicates returns 1
+- **Interview Tip:** Explain why sorted property is crucial; mention that this doesn't work for unsorted arrays
 
 ## Q18. Remove Duplicates from Sorted Array II
 
-Concept:
-Allow at most two occurrences of each element; remove extras in-place; return new length.
+**Problem:** Given an integer array `nums` sorted in non-decreasing order, remove some duplicates in-place such that each unique element appears at most twice. The relative order of the elements should be kept the same. Return `k` after placing the final result in the first `k` slots of `nums`.
 
-Example:
+**Approach:** Use two pointers. Compare current element with the element two positions back in the written array. This ensures at most two occurrences of each element.
+
+### Solution 1: Two Pointers with K=2 Check (Optimal)
 ```javascript
 function removeDuplicates(nums) {
   if (nums.length <= 2) return nums.length;
   
-  let writeIndex = 2;
+  let writeIndex = 2; // First two elements are always valid
+  
   for (let i = 2; i < nums.length; i++) {
+    // Compare with element two positions back
     if (nums[i] !== nums[writeIndex - 2]) {
-      nums[writeIndex++] = nums[i];
+      nums[writeIndex] = nums[i];
+      writeIndex++;
     }
   }
+  
   return writeIndex;
 }
 
+// Test Cases:
 // Input: nums = [1,1,1,2,2,3]
 // Output: 5, nums = [1,1,2,2,3,_]
 // Explanation: Keep at most 2 of each element
@@ -761,153 +1185,134 @@ function removeDuplicates(nums) {
 
 // Input: nums = [1,1,1,1]
 // Output: 2, nums = [1,1,_,_]
+// Explanation: Keep at most 2 occurrences
 ```
 
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - In-place modification
 
-Deep Insights:
-- Compare with element two positions back; write only when different; O(n) time, O(1) space.
-- Generalizes to "allow k duplicates" by comparing with nums[writeIndex - k].
-- Write pointer tracks next position; first k elements always written.
-- Edge case: length <= k returns length; all elements unique returns length.
-- Interview tip: Explain k-duplicate generalization; mention sorted property.
+**Deep Insights:**
+- **Optimal Approach:** Two-pointer technique achieves O(n) time and O(1) space—optimal for this problem
+- **Key Insight:** Compare with `nums[writeIndex - 2]` to ensure at most two occurrences
+- **Generalization:** Can extend to allow k duplicates by comparing with `nums[writeIndex - k]`
+- **First K Elements:** First k elements are always valid, so start `writeIndex` at k
+- **Sorted Property:** Requires sorted array—duplicates appear consecutively
+- **Interview Tip:** Explain the generalization to k duplicates; ask about the sorted property requirement
 
 ## Q19. Best Time to Buy and Sell Stock II
 
-Concept:
-Buy and sell multiple times; track profit from all increasing pairs.
+**Problem:** You are given an integer array `prices` where `prices[i]` is the price of a given stock on the `i`th day. On each day, you may decide to buy and/or sell the stock. You can only hold at most one share of the stock at any time. However, you can buy it then immediately sell it on the same day. Find and return the maximum profit you can achieve.
 
-Example:
+**Approach:** Use greedy strategy. Sum all positive price differences between consecutive days. This is equivalent to buying every dip and selling every peak.
+
+### Solution 1: Greedy - Sum All Positive Differences (Optimal)
 ```javascript
 function maxProfit(prices) {
   let profit = 0;
+  
   for (let i = 1; i < prices.length; i++) {
+    // Capture all positive price differences
     if (prices[i] > prices[i - 1]) {
       profit += prices[i] - prices[i - 1];
     }
   }
+  
   return profit;
 }
 
+// Test Cases:
 // Input: prices = [7,1,5,3,6,4]
 // Output: 7
-// Explanation: Buy on day 2 (1), sell on day 3 (5), buy on day 4 (3), sell on day 5 (6) = 4+3 = 7
+// Explanation: Buy on day 1 (1), sell on day 2 (5), buy on day 3 (3), sell on day 4 (6) = 4+3 = 7
 
 // Input: prices = [1,2,3,4,5]
 // Output: 4
-// Explanation: Buy on day 1, sell on day 5 = 4
+// Explanation: Buy on day 0, sell on day 4 = 4, or buy/sell each day = 1+1+1+1 = 4
 
 // Input: prices = [7,6,4,3,1]
 // Output: 0
-// Explanation: No profit possible
+// Explanation: No profit possible (monotonic decreasing)
 ```
 
 **Time Complexity:** O(n) - Single pass through prices  
 **Space Complexity:** O(1) - Constant extra space
 
-Deep Insights:
-- Sum all increasing pairs; no limit on transactions; O(n) time, O(1) space.
-- Equivalent to buying every dip and selling every peak.
-- Capture all positive price differences.
-- Edge case: Monotonic decreasing returns 0; monotonic increasing captures all.
-- Interview tip: Explain greedy approach; compare with single transaction variant.
-
-### Jump Game
-
-Concept:
-Check if can reach end using max jump from each position; track farthest reachable position.
-
-Example:
-```javascript
-function canJump(nums) {
-  let farthest = 0;
-  for (let i = 0; i < nums.length; i++) {
-    if (i > farthest) return false;
-    farthest = Math.max(farthest, i + nums[i]);
-    if (farthest >= nums.length - 1) return true;
-  }
-  return farthest >= nums.length - 1;
-}
-
-// Input: nums = [2,3,1,1,4]
-// Output: true
-// Explanation: Jump from index 0→1→4
-
-// Input: nums = [3,2,1,0,4]
-// Output: false
-// Explanation: Stuck at index 3
-
-// Input: nums = [0]
-// Output: true
-// Explanation: Already at end
-```
-
-**Time Complexity:** O(n) - Single pass through array  
-**Space Complexity:** O(1) - Constant extra space
-
-Deep Insights:
-- Track farthest reachable position; return false if current index exceeds farthest; O(n) time, O(1) space.
-- Greedy approach: maximize reach at each step.
-- If current index unreachable, end unreachable.
-- Edge case: Single element returns true; first element zero and length > 1 returns false.
-- Interview tip: Explain greedy strategy; mention early termination optimization.
+**Deep Insights:**
+- **Optimal Approach:** Greedy strategy achieves O(n) time and O(1) space—optimal for unlimited transactions
+- **Key Insight:** Summing all positive differences captures maximum profit—equivalent to buying every dip and selling every peak
+- **Unlimited Transactions:** Unlike Stock I, we can make multiple transactions to maximize profit
+- **Same Day Trading:** Can buy and sell on the same day, which simplifies the problem
+- **Edge Cases:** Monotonic decreasing returns 0; monotonic increasing captures all profit
+- **Interview Tip:** Explain why greedy works—any optimal strategy can be converted to this greedy approach
 
 ## Q20. Jump Game
 
-Concept:
-Check if can reach end using max jump from each position; track farthest reachable position.
+**Problem:** You are given an integer array `nums`. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position. Return `true` if you can reach the last index, or `false` otherwise.
 
-Example:
+**Approach:** Use greedy algorithm. Track the farthest reachable position. If we can't reach the current index, we can't reach the end. Update the farthest position at each step.
+
+### Solution 1: Greedy - Track Farthest Reachable (Optimal)
 ```javascript
 function canJump(nums) {
   let farthest = 0;
+  
   for (let i = 0; i < nums.length; i++) {
+    // If current index is unreachable, end is unreachable
     if (i > farthest) return false;
+    
+    // Update farthest reachable position
     farthest = Math.max(farthest, i + nums[i]);
+    
+    // Early termination: if we can reach end, return true
     if (farthest >= nums.length - 1) return true;
   }
+  
   return farthest >= nums.length - 1;
 }
 
+// Test Cases:
 // Input: nums = [2,3,1,1,4]
 // Output: true
-// Explanation: Jump from index 0→1→4
+// Explanation: Jump from index 0→1→4 (can reach end)
 
 // Input: nums = [3,2,1,0,4]
 // Output: false
-// Explanation: Stuck at index 3
+// Explanation: Stuck at index 3 (can't reach end)
 
 // Input: nums = [0]
 // Output: true
-// Explanation: Already at end
+// Explanation: Already at end (single element)
 ```
 
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - Constant extra space
 
-Deep Insights:
-- Track farthest reachable position; return false if current index exceeds farthest; O(n) time, O(1) space.
-- Greedy approach: maximize reach at each step.
-- If current index unreachable, end unreachable.
-- Edge case: Single element returns true; first element zero and length > 1 returns false.
-- Interview tip: Explain greedy strategy; mention early termination optimization.
+**Deep Insights:**
+- **Optimal Approach:** Greedy algorithm achieves O(n) time and O(1) space—optimal for this problem
+- **Key Insight:** Track farthest reachable position; if current index exceeds farthest, end is unreachable
+- **Greedy Strategy:** Maximize reach at each step—if we can reach position i, we can reach all positions up to i
+- **Early Termination:** If farthest reaches or exceeds last index, return true immediately
+- **Edge Cases:** Single element array returns true; first element zero with length > 1 returns false
+- **Interview Tip:** Explain the greedy strategy clearly; mention why we check `i > farthest` before updating
 
 ## Q21. Jump Game II
 
-Concept:
-Find minimum jumps to reach end; track current jump end and farthest reachable; increment jumps when crossing boundary.
+**Problem:** You are given a 0-indexed array of integers `nums` of length `n`. You are initially positioned at `nums[0]`. Each element `nums[i]` represents the maximum length of a forward jump from index `i`. Return the minimum number of jumps to reach `nums[n - 1]`. The test cases are generated such that you can reach `nums[n - 1]`.
 
-Example:
+**Approach:** Use greedy BFS-like approach. Track the current jump boundary (`currentEnd`) and farthest reachable position. Increment jumps when crossing the current boundary, then update the boundary to the farthest reachable.
+
+### Solution 1: Greedy BFS (Optimal)
 ```javascript
 function jump(nums) {
   let jumps = 0;
-  let currentEnd = 0;
-  let farthest = 0;
+  let currentEnd = 0;  // End of current jump level
+  let farthest = 0;    // Farthest reachable position
   
   for (let i = 0; i < nums.length - 1; i++) {
+    // Update farthest reachable position
     farthest = Math.max(farthest, i + nums[i]);
     
+    // When reaching current jump boundary, take a jump
     if (i === currentEnd) {
       jumps++;
       currentEnd = farthest;
@@ -917,6 +1322,7 @@ function jump(nums) {
   return jumps;
 }
 
+// Test Cases:
 // Input: nums = [2,3,1,1,4]
 // Output: 2
 // Explanation: Jump from index 0→1→4 (2 jumps)
@@ -927,40 +1333,46 @@ function jump(nums) {
 
 // Input: nums = [1,1,1,1]
 // Output: 3
+// Explanation: Jump from index 0→1→2→3 (3 jumps)
 ```
 
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - Constant extra space
 
-Deep Insights:
-- Track current jump boundary and farthest reachable; increment jumps when crossing boundary; O(n) time, O(1) space.
-- Greedy BFS approach: take maximum jump from each level.
-- Current jump ends when reaching currentEnd; update to farthest.
-- Edge case: Length 1 returns 0; cannot reach end returns -1 (handle in problem).
-- Interview tip: Explain BFS-level analogy; mention greedy choice.
+**Deep Insights:**
+- **Optimal Approach:** Greedy BFS achieves O(n) time and O(1) space—optimal for this problem
+- **BFS Analogy:** Think of it as BFS levels—each jump represents a level, `currentEnd` is the boundary of current level
+- **Greedy Choice:** At each level, take the maximum jump to reach the farthest position
+- **Key Insight:** When `i === currentEnd`, we've exhausted all positions in current level, so we must jump
+- **Edge Cases:** Single element array returns 0 (already at end); problem guarantees we can reach end
+- **Interview Tip:** Explain the BFS-level analogy; mention why greedy choice is optimal
 
 ## Q22. H-Index
 
-Concept:
-Find maximum h where h papers have at least h citations; sort and find first index where citations >= remaining papers.
+**Problem:** Given an array of integers `citations` where `citations[i]` is the number of citations a researcher received for their `i`th paper, return the researcher's h-index. The h-index is defined as the maximum value of `h` such that the given researcher has published at least `h` papers that have each been cited at least `h` times.
 
-Example:
+**Approach:** Sort citations in descending order. Find the first position where `citations[i] < i + 1`. The h-index is `i` at that point (or `n` if all papers qualify).
+
+### Solution 1: Sorting (Optimal)
 ```javascript
 function hIndex(citations) {
   citations.sort((a, b) => b - a);
   
   for (let i = 0; i < citations.length; i++) {
+    // If citations[i] < i+1, then h-index is i
     if (citations[i] < i + 1) {
       return i;
     }
   }
   
+  // All papers have enough citations
   return citations.length;
 }
 
+// Test Cases:
 // Input: citations = [3,0,6,1,5]
 // Output: 3
-// Explanation: 3 papers have at least 3 citations
+// Explanation: 3 papers have at least 3 citations (papers with 3, 5, 6 citations)
 
 // Input: citations = [1,3,1]
 // Output: 1
@@ -968,33 +1380,42 @@ function hIndex(citations) {
 
 // Input: citations = [100]
 // Output: 1
+// Explanation: 1 paper with 100 citations, h-index is 1
 ```
 
 **Time Complexity:** O(n log n) - Sorting dominates  
-**Space Complexity:** O(1) - In-place sort
+**Space Complexity:** O(1) - In-place sort (or O(n) if we need to preserve original)
 
-Deep Insights:
-- Sort descending; find first index where citations[i] < i+1; O(n log n) time.
-- H-index is maximum h where h papers have ≥h citations.
-- After sorting, check if citations[i] >= i+1 (i+1 papers with at least citations[i]).
-- Edge case: All zeros returns 0; all high citations returns n.
-- Interview tip: Explain h-index concept; mention sorting approach; ask about optimization.
+**Deep Insights:**
+- **Optimal Approach:** Sorting achieves O(n log n) time—optimal for comparison-based sorting
+- **H-Index Definition:** Maximum h where h papers have at least h citations each
+- **Key Insight:** After sorting descending, if `citations[i] >= i+1`, then `i+1` papers have at least `i+1` citations
+- **Edge Cases:** All zeros returns 0; all high citations returns n (number of papers)
+- **Alternative:** Counting sort can achieve O(n) time if citations are bounded
+- **Interview Tip:** Explain h-index concept clearly; mention sorting approach and potential optimization with counting sort
 
 ## Q23. Insert Delete GetRandom O(1)
 
-Concept:
-Design data structure with O(1) insert, delete, and getRandom; use array + hash map mapping values to indices.
+**Problem:** Implement the `RandomizedSet` class:
+- `RandomizedSet()` Initializes the `RandomizedSet` object.
+- `bool insert(int val)` Inserts an item `val` into the set if not present. Returns `true` if the item was not present, `false` otherwise.
+- `bool remove(int val)` Removes an item `val` from the set if present. Returns `true` if the item was present, `false` otherwise.
+- `int getRandom()` Returns a random element from the current set of elements. Each element must have the same probability of being returned.
 
-Example:
+**Approach:** Use an array for O(1) random access and a hash map to map values to their indices. For deletion, swap the element to delete with the last element, then pop.
+
+### Solution 1: Array + Hash Map (Optimal)
 ```javascript
 class RandomizedSet {
   constructor() {
-    this.arr = [];
-    this.map = new Map(); // value -> index
+    this.arr = [];                    // Store values for random access
+    this.map = new Map();             // Map value -> index in array
   }
 
   insert(val) {
     if (this.map.has(val)) return false;
+    
+    // Add to array and map
     this.map.set(val, this.arr.length);
     this.arr.push(val);
     return true;
@@ -1002,12 +1423,15 @@ class RandomizedSet {
 
   remove(val) {
     if (!this.map.has(val)) return false;
+    
     const index = this.map.get(val);
     const lastVal = this.arr[this.arr.length - 1];
     
+    // Swap with last element
     this.arr[index] = lastVal;
     this.map.set(lastVal, index);
     
+    // Remove last element
     this.arr.pop();
     this.map.delete(val);
     return true;
@@ -1020,90 +1444,99 @@ class RandomizedSet {
 }
 
 // Test Cases:
-//
-// Example 1:
-//   Input: ["RandomizedSet","insert","remove","insert","getRandom","remove","insert","getRandom"]
-//          [[],[1],[2],[2],[],[1],[2],[]]
-//   Output: [null,true,false,true,2,true,false,2]
+// Input: ["RandomizedSet","insert","remove","insert","getRandom","remove","insert","getRandom"], [[],[1],[2],[2],[],[1],[2],[]]
+// Output: [null,true,false,true,2,true,false,2]
 ```
 
 **Time Complexity:** O(1) - All operations average case  
 **Space Complexity:** O(n) - Array and map storage
 
-Deep Insights:
-- Use array for random access; map for O(1) lookup; swap with last element for O(1) delete; O(1) operations.
-- Key insight: swap element to delete with last element, then pop.
-- Update map when swapping; maintain value→index mapping.
-- Edge case: Empty set getRandom undefined; duplicate insert returns false.
-- Interview tip: Explain swap-with-last trick; mention map update requirement.
+**Deep Insights:**
+- **Optimal Approach:** Array + hash map achieves O(1) for all operations—optimal for this problem
+- **Key Trick:** Swap element to delete with last element, then pop—maintains O(1) deletion
+- **Map Maintenance:** Update map when swapping—map must always point to correct index
+- **Random Access:** Array enables O(1) random access with uniform distribution
+- **Edge Cases:** Empty set should handle getRandom (problem assumes non-empty); duplicate insert returns false
+- **Interview Tip:** Explain the swap-with-last trick clearly; emphasize importance of updating map during swap
 
 ## Q24. Gas Station
 
-Concept:
-Find starting gas station to complete circuit; track total gas and current tank; if tank negative, reset start.
+**Problem:** There are `n` gas stations along a circular route, where the amount of gas at the `i`th station is `gas[i]`. You have a car with an unlimited gas tank and it costs `cost[i]` of gas to travel from the `i`th station to its next `(i + 1)`th station. You begin the journey with an empty tank at one of the gas stations. Given two integer arrays `gas` and `cost`, return the starting gas station's index if you can travel around the circuit once in the clockwise direction, otherwise return `-1`. If there exists a solution, it is guaranteed to be unique.
 
-Example:
+**Approach:** Track total gas surplus and current tank. If total gas < total cost, return -1. Otherwise, use greedy: reset start when current tank goes negative—all previous stations cannot be valid starts.
+
+### Solution 1: Greedy with Total Surplus Check (Optimal)
 ```javascript
 function canCompleteCircuit(gas, cost) {
-  let totalGas = 0;
-  let currentTank = 0;
-  let start = 0;
+  let totalGas = 0;      // Total gas surplus
+  let currentTank = 0;   // Current tank level
+  let start = 0;         // Potential starting station
   
   for (let i = 0; i < gas.length; i++) {
     const diff = gas[i] - cost[i];
     totalGas += diff;
     currentTank += diff;
     
+    // If tank goes negative, reset start
     if (currentTank < 0) {
       start = i + 1;
       currentTank = 0;
     }
   }
   
+  // If total gas >= total cost, solution exists
   return totalGas >= 0 ? start : -1;
 }
 
+// Test Cases:
 // Input: gas = [1,2,3,4,5], cost = [3,4,5,1,2]
 // Output: 3
-// Explanation: Start at station 3, total gas: -2-2-2+3+3 = 0
+// Explanation: Start at station 3, total gas: -2-2-2+3+3 = 0 (can complete circuit)
 
 // Input: gas = [2,3,4], cost = [3,4,3]
 // Output: -1
-// Explanation: Cannot complete circuit
+// Explanation: Total gas (9) < total cost (10), cannot complete circuit
 
 // Input: gas = [5,1,2,3,4], cost = [4,4,1,5,1]
 // Output: 4
+// Explanation: Start at station 4, can complete circuit
 ```
 
 **Time Complexity:** O(n) - Single pass through stations  
 **Space Complexity:** O(1) - Constant extra space
 
-Deep Insights:
-- Track total gas surplus; reset start when tank goes negative; O(n) time, O(1) space.
-- If total gas < total cost, impossible; otherwise, start exists.
-- When tank goes negative, all previous stations cannot be start.
-- Edge case: All gas = all cost returns 0; impossible case returns -1.
-- Interview tip: Explain greedy reset strategy; mention total surplus check.
+**Deep Insights:**
+- **Optimal Approach:** Greedy algorithm achieves O(n) time and O(1) space—optimal for this problem
+- **Key Insight:** If total gas >= total cost, a solution exists; otherwise return -1
+- **Greedy Reset:** When tank goes negative, all previous stations cannot be valid starts—reset start and tank
+- **Why Greedy Works:** If we can't reach station j from station i, we can't reach j from any station between i and j
+- **Edge Cases:** All gas = all cost returns 0 (can start anywhere); impossible case returns -1
+- **Interview Tip:** Explain why greedy reset works; mention total surplus check as feasibility test
 
 ## Q25. Candy
 
-Concept:
-Distribute candy to children; each child gets at least 1; adjacent higher rating gets more candy; minimize total.
+**Problem:** There are `n` children standing in a line. Each child is assigned a rating value given in the integer array `ratings`. You are giving candies to these children subjected to the following requirements:
+- Each child must have at least one candy.
+- Children with a higher rating get more candies than their neighbors.
 
-Example:
+Return the minimum number of candies you need to have to distribute the candies to the children.
+
+**Approach:** Use two passes: left-to-right ensures left neighbor constraint, right-to-left ensures right neighbor constraint. Use `Math.max` in second pass to preserve first pass results.
+
+### Solution 1: Two-Pass Greedy (Optimal)
 ```javascript
 function candy(ratings) {
   const n = ratings.length;
   const candies = new Array(n).fill(1);
   
-  // Left to right: if rating higher, give more candy
+  // Pass 1: Left to right - satisfy left neighbor constraint
   for (let i = 1; i < n; i++) {
     if (ratings[i] > ratings[i - 1]) {
       candies[i] = candies[i - 1] + 1;
     }
   }
   
-  // Right to left: if rating higher, ensure more candy
+  // Pass 2: Right to left - satisfy right neighbor constraint
   for (let i = n - 2; i >= 0; i--) {
     if (ratings[i] > ratings[i + 1]) {
       candies[i] = Math.max(candies[i], candies[i + 1] + 1);
@@ -1113,13 +1546,14 @@ function candy(ratings) {
   return candies.reduce((sum, val) => sum + val, 0);
 }
 
+// Test Cases:
 // Input: ratings = [1,0,2]
 // Output: 5
-// Explanation: [2,1,2] = 5 candies
+// Explanation: [2,1,2] = 5 candies (child 0 needs 2, child 1 needs 1, child 2 needs 2)
 
 // Input: ratings = [1,2,2]
 // Output: 4
-// Explanation: [1,2,1] = 4 candies
+// Explanation: [1,2,1] = 4 candies (equal ratings don't require more candy)
 
 // Input: ratings = [1,3,4,5,2]
 // Output: 11
@@ -1129,19 +1563,21 @@ function candy(ratings) {
 **Time Complexity:** O(n) - Two passes through array  
 **Space Complexity:** O(n) - Candies array
 
-Deep Insights:
-- Two-pass greedy: left→right for left neighbor constraint; right→left for right neighbor; O(n) time, O(n) space.
-- First pass ensures left constraint; second pass ensures right constraint without breaking left.
-- Use Math.max to preserve first pass results.
-- Edge case: All same ratings returns n; decreasing ratings returns n*(n+1)/2.
-- Interview tip: Explain two-pass necessity; mention constraint satisfaction.
+**Deep Insights:**
+- **Optimal Approach:** Two-pass greedy achieves O(n) time and O(n) space—optimal for this problem
+- **Two Constraints:** Must satisfy both left and right neighbor constraints—two passes are necessary
+- **Math.max Usage:** In second pass, use `Math.max` to preserve first pass results while satisfying right constraint
+- **Equal Ratings:** Children with equal ratings don't require more candy than each other
+- **Edge Cases:** All same ratings returns n (minimum); strictly decreasing returns n*(n+1)/2 (maximum)
+- **Interview Tip:** Explain why two passes are needed; mention constraint satisfaction and Math.max preservation
 
 ## Q26. Two Sum II - Input Array Is Sorted
 
-Concept:
-Find two indices in sorted array summing to target using two pointers from both ends.
+**Problem:** Given a 1-indexed array of integers `numbers` that is already sorted in non-decreasing order, find two numbers such that they add up to a specific `target` number. Let these two numbers be `numbers[index1]` and `numbers[index2]` where `1 <= index1 < index2 <= numbers.length`. Return the indices of the two numbers, `index1` and `index2`, added by one as an integer array `[index1, index2]` of length 2.
 
-Example:
+**Approach:** Use two pointers from both ends. Since the array is sorted, we can move pointers based on the sum comparison with target.
+
+### Solution 1: Two Pointers (Optimal)
 ```javascript
 function twoSum(numbers, target) {
   let left = 0;
@@ -1149,18 +1585,20 @@ function twoSum(numbers, target) {
   
   while (left < right) {
     const sum = numbers[left] + numbers[right];
+    
     if (sum === target) {
       return [left + 1, right + 1]; // 1-indexed
     } else if (sum < target) {
-      left++;
+      left++; // Need larger sum
     } else {
-      right--;
+      right--; // Need smaller sum
     }
   }
   
-  return [];
+  return []; // No solution (problem guarantees solution exists)
 }
 
+// Test Cases:
 // Input: numbers = [2,7,11,15], target = 9
 // Output: [1,2]
 // Explanation: numbers[0] + numbers[1] = 2 + 7 = 9
@@ -1177,19 +1615,21 @@ function twoSum(numbers, target) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - Constant extra space
 
-Deep Insights:
-- Use two pointers from both ends; move left if sum too small, right if too large; O(n) time, O(1) space.
-- Array is sorted; exploit sorted property for optimal solution.
-- Return 1-indexed positions as specified.
-- Edge case: No solution returns empty array; exactly one solution exists.
-- Interview tip: Explain sorted property usage; mention 1-indexed requirement.
+**Deep Insights:**
+- **Optimal Approach:** Two pointers achieve O(n) time and O(1) space—optimal for sorted arrays
+- **Sorted Property:** Array is sorted, enabling two-pointer technique—if sum < target, move left; if sum > target, move right
+- **1-Indexed Requirement:** Return indices added by 1 (convert from 0-indexed to 1-indexed)
+- **Comparison with Two Sum I:** Sorted property allows O(1) space vs O(n) space in unsorted version
+- **Edge Cases:** Problem guarantees exactly one solution exists; works with negative numbers
+- **Interview Tip:** Explain sorted property advantage; mention 1-indexed requirement; compare with hash map approach
 
 ## Q27. Container With Most Water
 
-Concept:
-Find two lines that together with x-axis form container with most water; use two pointers from both ends.
+**Problem:** You are given an integer array `height` of length `n`. There are `n` vertical lines drawn such that the two endpoints of the `i`th line are `(i, 0)` and `(i, height[i])`. Find two lines that together with the x-axis form a container, such that the container contains the most water. Return the maximum amount of water a container can store.
 
-Example:
+**Approach:** Use two pointers from both ends. Move the pointer with smaller height—area is limited by the smaller height, and width decreases as pointers converge.
+
+### Solution 1: Two Pointers (Optimal)
 ```javascript
 function maxArea(height) {
   let left = 0;
@@ -1201,6 +1641,7 @@ function maxArea(height) {
     const area = Math.min(height[left], height[right]) * width;
     maxArea = Math.max(maxArea, area);
     
+    // Move pointer with smaller height
     if (height[left] < height[right]) {
       left++;
     } else {
@@ -1211,6 +1652,7 @@ function maxArea(height) {
   return maxArea;
 }
 
+// Test Cases:
 // Input: height = [1,8,6,2,5,4,8,3,7]
 // Output: 49
 // Explanation: Lines at index 1 and 8, area = min(8,7) × 7 = 49
@@ -1227,19 +1669,21 @@ function maxArea(height) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - Constant extra space
 
-Deep Insights:
-- Use two pointers from both ends; move pointer with smaller height; O(n) time, O(1) space.
-- Greedy approach: move smaller height pointer since area is limited by smaller height.
-- Width decreases as pointers move closer.
-- Edge case: Single element returns 0; all heights equal returns area.
-- Interview tip: Explain greedy choice; mention why move smaller height pointer.
+**Deep Insights:**
+- **Optimal Approach:** Two pointers achieve O(n) time and O(1) space—optimal for this problem
+- **Greedy Choice:** Move pointer with smaller height—area is limited by smaller height, so moving it might improve
+- **Why Move Smaller:** Width decreases, so moving smaller pointer might find larger height, offsetting width loss
+- **Area Calculation:** `area = min(height[left], height[right]) × width`
+- **Edge Cases:** Single element returns 0; all heights equal returns area based on width
+- **Interview Tip:** Explain greedy choice clearly; mention why we don't move the larger pointer
 
 ## Q28. 3Sum
 
-Concept:
-Find all unique triplets that sum to zero; sort array, fix one element, use two pointers for remaining.
+**Problem:** Given an integer array `nums`, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`. Notice that the solution set must not contain duplicate triplets.
 
-Example:
+**Approach:** Sort the array first. Fix the first element, then use two pointers for the remaining elements. Skip duplicates to avoid duplicate triplets.
+
+### Solution 1: Sort + Two Pointers (Optimal)
 ```javascript
 function threeSum(nums) {
   nums.sort((a, b) => a - b);
@@ -1258,16 +1702,16 @@ function threeSum(nums) {
       if (sum === 0) {
         result.push([nums[i], nums[left], nums[right]]);
         
-        // Skip duplicates
+        // Skip duplicates for left and right
         while (left < right && nums[left] === nums[left + 1]) left++;
         while (left < right && nums[right] === nums[right - 1]) right--;
         
         left++;
         right--;
       } else if (sum < 0) {
-        left++;
+        left++; // Need larger sum
       } else {
-        right--;
+        right--; // Need smaller sum
       }
     }
   }
@@ -1275,6 +1719,7 @@ function threeSum(nums) {
   return result;
 }
 
+// Test Cases:
 // Input: nums = [-1,0,1,2,-1,-4]
 // Output: [[-1,-1,2],[-1,0,1]]
 // Explanation: Triplets that sum to zero
@@ -1285,68 +1730,74 @@ function threeSum(nums) {
 
 // Input: nums = [0,0,0]
 // Output: [[0,0,0]]
+// Explanation: Single triplet with all zeros
 ```
 
 **Time Complexity:** O(n²) - Sort O(n log n) + nested loop O(n²)  
-**Space Complexity:** O(1) - Excluding result array
+**Space Complexity:** O(1) - Excluding result array (or O(n) for sorting if not in-place)
 
-Deep Insights:
-- Sort array first; fix first element, use two pointers for remaining; skip duplicates; O(n²) time.
-- Sort enables two-pointer technique; duplicates handled by skipping.
-- Skip duplicates for all three positions.
-- Edge case: Less than 3 elements returns empty; all zeros returns one triplet.
-- Interview tip: Explain sorting necessity; mention duplicate handling; ask about k-sum generalization.
+**Deep Insights:**
+- **Optimal Approach:** Sort + two pointers achieves O(n²) time—optimal for this problem
+- **Sorting Necessity:** Sorting enables two-pointer technique and makes duplicate skipping efficient
+- **Duplicate Handling:** Skip duplicates for all three positions (i, left, right) to avoid duplicate triplets
+- **Two-Pointer Logic:** After fixing first element, use two pointers—move left if sum < 0, move right if sum > 0
+- **Edge Cases:** Less than 3 elements returns empty array; all zeros returns one triplet `[0,0,0]`
+- **Interview Tip:** Explain sorting necessity; emphasize duplicate handling; mention k-sum generalization (recursive)
 
 ## Q29. Is Subsequence
 
-Concept:
-Check if string s is subsequence of string t using two pointers; greedy approach.
+**Problem:** Given two strings `s` and `t`, return `true` if `s` is a subsequence of `t`, or `false` otherwise. A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters.
 
-Example:
+**Approach:** Use two pointers—one for `s` and one for `t`. Greedily match characters in order. Move `s` pointer only when match is found.
+
+### Solution 1: Two Pointers (Optimal)
 ```javascript
 function isSubsequence(s, t) {
-  let i = 0;
-  let j = 0;
+  let i = 0; // Pointer for s
+  let j = 0; // Pointer for t
   
   while (i < s.length && j < t.length) {
     if (s[i] === t[j]) {
-      i++;
+      i++; // Match found, move s pointer
     }
-    j++;
+    j++; // Always move t pointer
   }
   
-  return i === s.length;
+  return i === s.length; // Check if all characters in s were matched
 }
 
+// Test Cases:
 // Input: s = "abc", t = "ahbgdc"
 // Output: true
-// Explanation: "abc" is subsequence of "ahbgdc"
+// Explanation: "abc" is subsequence of "ahbgdc" (can delete 'h', 'g', 'd')
 
 // Input: s = "axc", t = "ahbgdc"
 // Output: false
-// Explanation: "axc" is not subsequence of "ahbgdc"
+// Explanation: "axc" is not subsequence (can't find 'x' after 'a')
 
 // Input: s = "", t = "ahbgdc"
 // Output: true
 // Explanation: Empty string is subsequence of any string
 ```
 
-**Time Complexity:** O(n) - Single pass through t  
+**Time Complexity:** O(n) - Single pass through t (where n = t.length)  
 **Space Complexity:** O(1) - Constant extra space
 
-Deep Insights:
-- Use two pointers; match characters greedily; O(n) time, O(1) space.
-- Greedy: match earliest occurrence of each character.
-- Move pointer in t forward always; move pointer in s only when match found.
-- Edge case: Empty s returns true; s longer than t returns false.
-- Interview tip: Explain greedy approach; mention subsequence vs substring.
+**Deep Insights:**
+- **Optimal Approach:** Two pointers achieve O(n) time and O(1) space—optimal for this problem
+- **Greedy Strategy:** Match earliest occurrence of each character—this is optimal for subsequence checking
+- **Pointer Movement:** Always move `t` pointer forward; move `s` pointer only when match found
+- **Subsequence vs Substring:** Subsequence allows gaps, substring must be contiguous
+- **Edge Cases:** Empty `s` returns true (empty is subsequence of any string); `s` longer than `t` returns false
+- **Interview Tip:** Explain greedy approach; clarify difference between subsequence and substring
 
 ## Q30. Minimum Size Subarray Sum
 
-Concept:
-Find minimum length subarray with sum >= target; use sliding window technique.
+**Problem:** Given an array of positive integers `nums` and a positive integer `target`, return the minimal length of a subarray whose sum is greater than or equal to `target`. If there is no such subarray, return `0`.
 
-Example:
+**Approach:** Use sliding window technique. Expand window by moving right pointer, shrink by moving left pointer when sum >= target. Track minimum length.
+
+### Solution 1: Sliding Window (Optimal)
 ```javascript
 function minSubArrayLen(target, nums) {
   let left = 0;
@@ -1356,6 +1807,7 @@ function minSubArrayLen(target, nums) {
   for (let right = 0; right < nums.length; right++) {
     currentSum += nums[right];
     
+    // Shrink window while sum >= target
     while (currentSum >= target) {
       minLength = Math.min(minLength, right - left + 1);
       currentSum -= nums[left];
@@ -1366,35 +1818,40 @@ function minSubArrayLen(target, nums) {
   return minLength === Infinity ? 0 : minLength;
 }
 
+// Test Cases:
 // Input: target = 7, nums = [2,3,1,2,4,3]
 // Output: 2
-// Explanation: Subarray [4,3] has minimum length 2
+// Explanation: Subarray [4,3] has minimum length 2 (sum = 7)
 
 // Input: target = 4, nums = [1,4,4]
 // Output: 1
-// Explanation: Subarray [4] has minimum length 1
+// Explanation: Subarray [4] has minimum length 1 (sum = 4)
 
 // Input: target = 11, nums = [1,1,1,1,1,1,1,1]
 // Output: 0
-// Explanation: No subarray sums to >= 11
+// Explanation: No subarray sums to >= 11 (max sum = 8)
 ```
 
-**Time Complexity:** O(n) - Each element visited at most twice  
+**Time Complexity:** O(n) - Each element visited at most twice (once by right, once by left)  
 **Space Complexity:** O(1) - Constant extra space
 
-Deep Insights:
-- Use sliding window; expand window, shrink when sum >= target; O(n) time, O(1) space.
-- Expand window by moving right pointer; shrink by moving left pointer.
-- Track minimum length while window sum >= target.
-- Edge case: No valid subarray returns 0; sum of all elements < target returns 0.
-- Interview tip: Explain sliding window technique; mention two-pointer approach.
+**Deep Insights:**
+- **Optimal Approach:** Sliding window achieves O(n) time and O(1) space—optimal for this problem
+- **Window Technique:** Expand window by moving right pointer, shrink by moving left pointer when sum >= target
+- **Key Insight:** When sum >= target, try to shrink window to find minimum length
+- **Why O(n) Time:** Each element is added once by right pointer and removed at most once by left pointer
+- **Edge Cases:** No valid subarray returns 0; sum of all elements < target returns 0
+- **Interview Tip:** Explain sliding window technique; mention why each element is visited at most twice
 
 ## Q31. Summary Ranges
 
-Concept:
-Find smallest sorted list of ranges that cover all numbers in array; use two pointers to track ranges.
+**Problem:** You are given a sorted unique integer array `nums`. A range `[a,b]` is the set of all integers from `a` to `b` (inclusive). Return the smallest sorted list of ranges that cover all the numbers in the array exactly. Each range `[a,b]` in the list should be output as:
+- `"a->b"` if `a != b`
+- `"a"` if `a == b`
 
-Example:
+**Approach:** Track start and end of consecutive ranges. When a gap is found, add the current range and start a new one.
+
+### Solution 1: Range Tracking (Optimal)
 ```javascript
 function summaryRanges(nums) {
   if (nums.length === 0) return [];
@@ -1405,13 +1862,16 @@ function summaryRanges(nums) {
   
   for (let i = 1; i < nums.length; i++) {
     if (nums[i] === end + 1) {
+      // Continue current range
       end = nums[i];
     } else {
+      // Gap found, add current range
       if (start === end) {
         result.push(`${start}`);
       } else {
         result.push(`${start}->${end}`);
       }
+      // Start new range
       start = end = nums[i];
     }
   }
@@ -1426,6 +1886,7 @@ function summaryRanges(nums) {
   return result;
 }
 
+// Test Cases:
 // Input: nums = [0,1,2,4,5,7]
 // Output: ["0->2","4->5","7"]
 // Explanation: Ranges [0,1,2], [4,5], [7]
@@ -1436,45 +1897,49 @@ function summaryRanges(nums) {
 
 // Input: nums = []
 // Output: []
+// Explanation: Empty array returns empty array
 ```
 
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(n) - Result array storage
 
-Deep Insights:
-- Track start and end of consecutive ranges; format single number or range; O(n) time, O(n) space.
-- Check if current number continues range or starts new range.
-- Format single number as string; range as "start->end".
-- Edge case: Empty array returns empty array; single element returns array with that element.
-- Interview tip: Explain range tracking; mention format requirements.
+**Deep Insights:**
+- **Optimal Approach:** Range tracking achieves O(n) time and O(n) space—optimal for this problem
+- **Consecutive Check:** Check if `nums[i] === end + 1` to determine if number continues current range
+- **Format Rules:** Single number formatted as `"a"`, range formatted as `"a->b"`
+- **Sorted Property:** Array is sorted, so consecutive numbers appear together
+- **Edge Cases:** Empty array returns empty array; single element returns array with that element
+- **Interview Tip:** Explain range tracking logic; mention format requirements for single vs range
 
 ## Q32. Insert Interval
 
-Concept:
-Insert new interval into sorted non-overlapping intervals; merge overlapping intervals.
+**Problem:** You are given an array of non-overlapping intervals `intervals` where `intervals[i] = [starti, endi]` represent the start and the end of the `i`th interval and `intervals` is sorted in ascending order by `starti`. You are also given an interval `newInterval = [start, end]` that represents the start and end of another interval. Insert `newInterval` into `intervals` such that `intervals` is still sorted in ascending order by `starti` and `intervals` still does not have any overlapping intervals (merge overlapping intervals if necessary). Return `intervals` after the insertion.
 
-Example:
+**Approach:** Three phases: add intervals before newInterval, merge overlapping intervals with newInterval, add remaining intervals.
+
+### Solution 1: Three-Phase Approach (Optimal)
 ```javascript
 function insert(intervals, newInterval) {
   const result = [];
   let i = 0;
   
-  // Add all intervals before newInterval
+  // Phase 1: Add all intervals before newInterval
   while (i < intervals.length && intervals[i][1] < newInterval[0]) {
     result.push(intervals[i]);
     i++;
   }
   
-  // Merge overlapping intervals
+  // Phase 2: Merge overlapping intervals
   while (i < intervals.length && intervals[i][0] <= newInterval[1]) {
     newInterval[0] = Math.min(newInterval[0], intervals[i][0]);
     newInterval[1] = Math.max(newInterval[1], intervals[i][1]);
     i++;
   }
   
+  // Add merged newInterval
   result.push(newInterval);
   
-  // Add remaining intervals
+  // Phase 3: Add remaining intervals
   while (i < intervals.length) {
     result.push(intervals[i]);
     i++;
@@ -1483,6 +1948,7 @@ function insert(intervals, newInterval) {
   return result;
 }
 
+// Test Cases:
 // Input: intervals = [[1,3],[6,9]], newInterval = [2,5]
 // Output: [[1,5],[6,9]]
 // Explanation: Merge [1,3] and [2,5] into [1,5]
@@ -1493,63 +1959,284 @@ function insert(intervals, newInterval) {
 
 // Input: intervals = [], newInterval = [5,7]
 // Output: [[5,7]]
+// Explanation: Empty intervals, just add newInterval
 ```
 
 **Time Complexity:** O(n) - Single pass through intervals  
 **Space Complexity:** O(n) - Result array storage
 
-Deep Insights:
-- Three phases: before, merge overlapping, after; O(n) time, O(n) space.
-- Before: add intervals ending before newInterval starts.
-- Merge: extend newInterval with overlapping intervals.
-- After: add remaining intervals.
-- Edge case: Empty intervals returns newInterval; no overlap returns intervals with newInterval inserted.
-- Interview tip: Explain three-phase approach; mention merge logic.
+**Deep Insights:**
+- **Optimal Approach:** Three-phase approach achieves O(n) time and O(n) space—optimal for this problem
+- **Three Phases:** Before (no overlap), merge (overlapping), after (no overlap)
+- **Merge Logic:** Extend newInterval boundaries with overlapping intervals using `Math.min` and `Math.max`
+- **Overlap Detection:** Interval overlaps if `intervals[i][0] <= newInterval[1]` (touching counts as overlap)
+- **Edge Cases:** Empty intervals returns newInterval; no overlap inserts newInterval in correct position
+- **Interview Tip:** Explain three-phase approach clearly; mention merge logic with min/max
 
 ## Q33. Minimum Number of Arrows to Burst Balloons
 
-Concept:
-Find minimum arrows to burst all balloons; sort by end position, greedy approach.
+**Problem:** There are some spherical balloons taped onto a flat wall that represents the XY-plane. The balloons are represented as a 2D array `points` where `points[i] = [xstart, xend]` denotes a balloon whose horizontal diameter stretches between `xstart` and `xend`. You do not know the exact y-coordinates of the balloons. Arrows can be shot directly up (vertically) from different points along the x-axis. A balloon with `xstart` and `xend` is burst by an arrow shot at `x` if `xstart <= x <= xend`. There is no limit to the number of arrows that can be shot. A shot arrow keeps traveling up infinitely, bursting any balloons in its path. Given the array `points`, return the minimum number of arrows that must be shot to burst all balloons.
 
-Example:
+**Approach:** Sort balloons by end position. Use greedy strategy: shoot arrow at the end of first balloon, which will burst all overlapping balloons. Increment arrows when a balloon starts after current arrow position.
+
+### Solution 1: Greedy - Sort by End (Optimal)
 ```javascript
 function findMinArrowShots(points) {
   if (points.length === 0) return 0;
   
+  // Sort by end position
   points.sort((a, b) => a[1] - b[1]);
   
   let arrows = 1;
-  let end = points[0][1];
+  let arrowPos = points[0][1]; // Shoot arrow at end of first balloon
   
   for (let i = 1; i < points.length; i++) {
-    if (points[i][0] > end) {
+    // If balloon starts after arrow position, need new arrow
+    if (points[i][0] > arrowPos) {
       arrows++;
-      end = points[i][1];
+      arrowPos = points[i][1]; // Shoot new arrow at end of this balloon
     }
   }
   
   return arrows;
 }
 
+// Test Cases:
 // Input: points = [[10,16],[2,8],[1,6],[7,12]]
 // Output: 2
 // Explanation: Shoot arrows at x=6 and x=11 to burst all balloons
 
 // Input: points = [[1,2],[3,4],[5,6],[7,8]]
 // Output: 4
-// Explanation: Each balloon requires separate arrow
+// Explanation: Each balloon requires separate arrow (no overlap)
 
 // Input: points = [[1,2],[2,3],[3,4],[4,5]]
 // Output: 2
-// Explanation: Shoot arrows at x=2 and x=4
+// Explanation: Shoot arrows at x=2 and x=4 (some overlap)
 ```
 
 **Time Complexity:** O(n log n) - Sorting dominates  
-**Space Complexity:** O(1) - Constant extra space
+**Space Complexity:** O(1) - Constant extra space (or O(n) for sorting if not in-place)
 
-Deep Insights:
-- Sort by end position; greedy: shoot arrow at end of first balloon; O(n log n) time.
-- Greedy choice: shoot at rightmost end position to burst maximum balloons.
-- Increment arrows when balloon starts after current end.
-- Edge case: Empty array returns 0; single balloon returns 1.
-- Interview tip: Explain greedy strategy; mention sorting by end position.
+**Deep Insights:**
+- **Optimal Approach:** Greedy algorithm achieves O(n log n) time—optimal for this problem
+- **Greedy Choice:** Sort by end position, shoot arrow at end of first balloon—this maximizes balloons burst
+- **Key Insight:** Shooting at end position ensures we catch all balloons that start before or at that position
+- **Overlap Detection:** Balloon overlaps with arrow position if `points[i][0] <= arrowPos <= points[i][1]`
+- **Edge Cases:** Empty array returns 0; single balloon returns 1; all overlapping returns 1
+- **Interview Tip:** Explain greedy strategy clearly; mention why sorting by end (not start) is optimal
+
+---
+
+## Bonus: Important Array Techniques
+
+### Sliding Window
+
+**Concept:** Maintain a moving subarray/substring satisfying a property; grow right, shrink left to restore validity.
+
+```javascript
+// Longest substring with at most k distinct characters
+function lenAtMostK(s, k) {
+  const freq = new Map();
+  let left = 0;
+  let best = 0;
+
+  for (let right = 0; right < s.length; right++) {
+    const char = s[right];
+    freq.set(char, (freq.get(char) || 0) + 1);
+
+    while (freq.size > k) {
+      const drop = s[left++];
+      const next = freq.get(drop) - 1;
+      if (next === 0) {
+        freq.delete(drop);
+      } else {
+        freq.set(drop, next);
+      }
+    }
+
+    best = Math.max(best, right - left + 1);
+  }
+  return best;
+}
+
+// Test Cases:
+// Input: s = "eceba", k = 2
+// Output: 3
+// Explanation: Longest substring with at most 2 distinct characters is "ece" with length 3
+
+// Input: s = "aa", k = 1
+// Output: 2
+// Explanation: Longest substring with at most 1 distinct character is "aa" with length 2
+
+// Input: s = "abcabcbb", k = 3
+// Output: 6
+// Explanation: Longest substring with at most 3 distinct characters is "abcabc" with length 6
+
+// Input: s = "abacaba", k = 2
+// Output: 4
+```
+
+**Time Complexity:** O(n) - Single pass with sliding window  
+**Space Complexity:** O(k) - Hash map stores up to k distinct characters
+
+**Deep Insights:**
+- **Rule:** Maintain a moving subarray/substring satisfying a property; grow right, shrink left to restore validity; O(n) time
+- **Real-world:** Sliding window problems, substring problems, subarray problems, window-based algorithms
+- **Common Mistake:** For fixed-size windows, no inner while; maps/arrays store window state; not shrinking left correctly
+- **Optimization:** O(n) time optimal; for fixed-size windows, no inner while; maps/arrays store window state
+- **Interview Tip:** Explain sliding window clearly; mention fixed vs variable size; ask about state tracking
+
+### Two Pointer
+
+**Concept:** Use two indices to traverse from ends or sweep with relative motion to meet constraints.
+
+```javascript
+// Two-sum on a sorted array
+function twoSumSorted(arr, target) {
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left < right) {
+    const sum = arr[left] + arr[right];
+    if (sum === target) {
+      return [left, right];
+    }
+    if (sum < target) {
+      left++;
+    } else {
+      right--;
+    }
+  }
+  return [-1, -1];
+}
+
+// Test Cases:
+// Input: arr = [2, 7, 11, 15], target = 9
+// Output: [0, 1]
+
+// Input: arr = [2, 3, 4], target = 6
+// Output: [0, 2]
+
+// Input: arr = [-1, 0], target = -1
+// Output: [0, 1]
+
+// Input: arr = [1, 2, 3, 4], target = 10
+// Output: [-1, -1]
+
+// Input: arr = [1], target = 2
+// Output: [-1, -1]
+```
+
+**Time Complexity:** O(n) - Two pointers traverse from both ends  
+**Space Complexity:** O(1) - Only using constant extra variables
+
+**Deep Insights:**
+- **Rule:** Use two indices to traverse from ends or sweep with relative motion to meet constraints; O(n) time
+- **Real-world:** Two pointer problems, sorted array problems, collision detection, meeting problems
+- **Common Mistake:** Generalize to 3Sum with inner two-pointer; wrong pointer movement; not handling sorted array
+- **Optimization:** O(n) time optimal; two pointers from ends; generalize to 3Sum with inner two-pointer
+- **Interview Tip:** Explain two-pointer technique clearly; mention sorted array requirement; ask about generalizations
+
+### Prefix Sum
+
+**Concept:** Transform range queries to differences of cumulative sums; extend to 2D and counts maps.
+
+```javascript
+// Count subarrays with sum equal to k
+function subarraySum(nums, k) {
+  const count = new Map([[0, 1]]);
+  let sum = 0;
+  let ans = 0;
+
+  for (const x of nums) {
+    sum += x;
+    ans += count.get(sum - k) || 0;
+    count.set(sum, (count.get(sum) || 0) + 1);
+  }
+  return ans;
+}
+
+// Test Cases:
+// Input: nums = [1, 1, 1], k = 2
+// Output: 2
+// Explanation: Subarrays [1,1] and [1,1] (overlapping) sum to 2
+
+// Input: nums = [1, 2, 3], k = 3
+// Output: 2
+// Explanation: Subarrays [1,2] and [3] sum to 3
+
+// Input: nums = [1, -1, 0], k = 0
+// Output: 3
+// Explanation: Subarrays [1,-1], [-1,0], and [0] sum to 0
+
+// Input: nums = [1, 1, 1], k = 0
+// Output: 0
+
+// Input: nums = [1], k = 1
+// Output: 1
+```
+
+**Time Complexity:** O(n) - Single pass through array  
+**Space Complexity:** O(n) - Hash map stores prefix sum counts
+
+**Deep Insights:**
+- **Rule:** Transform range queries to differences of cumulative sums; extend to 2D and counts maps; O(n) time
+- **Real-world:** Prefix sum problems, range queries, subarray sum problems, cumulative problems
+- **Common Mistake:** 2D prefix for matrix ranges; works with XOR (replace + with ^); wrong prefix calculation
+- **Optimization:** O(n) time for preprocessing; O(1) for range queries; 2D prefix for matrix ranges; works with XOR
+- **Interview Tip:** Explain prefix sum clearly; mention 2D extension; ask about XOR variants
+
+### Divide & Conquer
+
+**Concept:** Build quad tree from 2D grid; recursively divide grid into 4 quadrants if values differ.
+
+```javascript
+function construct(grid) {
+  function build(rowStart, rowEnd, colStart, colEnd) {
+    if (rowStart === rowEnd) {
+      return new Node(grid[rowStart][colStart] === 1, true);
+    }
+    
+    const rowMid = Math.floor((rowStart + rowEnd) / 2);
+    const colMid = Math.floor((colStart + colEnd) / 2);
+    
+    const topLeft = build(rowStart, rowMid, colStart, colMid);
+    const topRight = build(rowStart, rowMid, colMid + 1, colEnd);
+    const bottomLeft = build(rowMid + 1, rowEnd, colStart, colMid);
+    const bottomRight = build(rowMid + 1, rowEnd, colMid + 1, colEnd);
+    
+    // If all children are leaves with same value, merge
+    if (topLeft.isLeaf && topRight.isLeaf && 
+        bottomLeft.isLeaf && bottomRight.isLeaf &&
+        topLeft.val === topRight.val &&
+        topRight.val === bottomLeft.val &&
+        bottomLeft.val === bottomRight.val) {
+      return new Node(topLeft.val, true);
+    }
+    
+    return new Node(false, false, topLeft, topRight, bottomLeft, bottomRight);
+  }
+  
+  return build(0, grid.length - 1, 0, grid[0].length - 1);
+}
+
+// Test Cases:
+// Input: grid = [[0,1],[1,0]]
+// Output: Quad tree with root and 4 children
+// Explanation: Root with 4 children (topLeft: 0, topRight: 1, bottomLeft: 1, bottomRight: 0)
+
+// Input: grid = [[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0]]
+// Output: Quad tree with merged nodes
+// Explanation: Regions with same values are merged into single nodes
+```
+
+**Time Complexity:** O(n²) - Visit each cell, but merge reduces nodes  
+**Space Complexity:** O(log n) - Recursion depth
+
+**Deep Insights:**
+- **Rule:** Divide and conquer: split grid into 4 quadrants; merge if all children are same; O(n²) time
+- **Real-world:** Image compression, spatial data structures, region representation, hierarchical data
+- **Common Mistake:** Wrong quadrant boundaries; not checking merge condition correctly; incorrect recursion base case
+- **Optimization:** Merge nodes with identical children reduces tree size; O(n²) time, O(log n) space
+- **Interview Tip:** Explain divide and conquer approach; mention merging optimization; ask about quad tree applications

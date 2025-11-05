@@ -1,6 +1,15 @@
 # 🧠 **TypeScript Interview Cheatsheet**
 
-*Quick reference guide for TypeScript interview preparation*
+> **⏱️ Review Time: 15-20 minutes** | **Priority: ⭐⭐ Medium** | Quick reference for TypeScript interviews
+
+**Quick Review Checklist:**
+- [ ] TypeScript Basics (Type Annotation, Inference, Union/Intersection)
+- [ ] Interfaces & Types (Interface vs Type, Extension)
+- [ ] Functions (Function Types, Overloading, Generics)
+- [ ] Advanced Types (Conditional, Mapped, Utility Types)
+- [ ] Classes & Inheritance (Access Modifiers, Abstract Classes)
+- [ ] Module Resolution (Classic vs Node, Declaration Files)
+- [ ] TypeScript Configuration (tsconfig.json, Compiler Flags)
 
 ---
 

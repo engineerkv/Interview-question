@@ -1,9 +1,16 @@
 # Trie
 
-## Q156. Implement Trie (Prefix Tree)
+## Q208. Implement Trie (Prefix Tree)
 
-Concept: Prefix tree storing words; each node has children map and isEnd flag; insert/search/startsWith operations.
+**Problem:** A trie (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker. Implement the Trie class:
+- `Trie()` Initializes the trie object.
+- `void insert(String word)` Inserts the string `word` into the trie.
+- `boolean search(String word)` Returns `true` if the string `word` is in the trie (i.e., was inserted before), and `false` otherwise.
+- `boolean startsWith(String prefix)` Returns `true` if there is a previously inserted string `word` that has the prefix `prefix`, and `false` otherwise.
 
+**Approach:** Each node stores children in a map/dict and has an `isEnd` flag. Traverse character by character, creating nodes as needed.
+
+### Solution 1: Trie Implementation (Optimal)
 ```javascript
 class Trie {
   constructor() {
@@ -18,7 +25,7 @@ class Trie {
       }
       node = node[char];
     }
-    node.isEnd = true;
+    node.isEnd = true;  // Mark end of word
   }
 
   search(word) {
@@ -29,7 +36,7 @@ class Trie {
       }
       node = node[char];
     }
-    return node.isEnd === true;
+    return node.isEnd === true;  // Check if word ends here
   }
 
   startsWith(prefix) {
@@ -40,40 +47,46 @@ class Trie {
       }
       node = node[char];
     }
-    return true;
+    return true;  // Prefix exists
   }
 }
-
-// Test Cases:
-//
-// Example 1:
-//   Input: ["Trie", "insert", "search", "search", "startsWith", "insert", "search"]
-//          [[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]]
-//   Output: [null, null, true, false, true, null, true]
-//   Explanation: 
-//     Trie trie = new Trie();
-//     trie.insert("apple");
-//     trie.search("apple");   // returns true
-//     trie.search("app");      // returns false
-//     trie.startsWith("app");  // returns true
-//     trie.insert("app");
-//     trie.search("app");      // returns true
 ```
 
-Deep Insights:
-  - Rule: Prefix tree with children map and isEnd flag; insert/search/startsWith in O(m) time per operation.
-  - Real-world: Autocomplete, spell checkers, prefix matching, word dictionaries.
-  - Common mistake: Forgetting isEnd flag for word completion; not handling empty strings correctly.
-  - Optimization: O(m) time per operation where m is word length; space O(n×m) for n words of avg length m.
-  - Interview tip: Explain prefix tree structure clearly; mention isEnd flag; ask about space optimization.
+// Test Cases:
+// Input: ["Trie", "insert", "search", "search", "startsWith", "insert", "search"], [[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]]
+// Output: [null, null, true, false, true, null, true]
+// Explanation: 
+//   Trie trie = new Trie();
+//   trie.insert("apple");
+//   trie.search("apple");   // returns true
+//   trie.search("app");      // returns false
+//   trie.startsWith("app");  // returns true
+//   trie.insert("app");
+//   trie.search("app");      // returns true
+```
 
-Time Complexity: O(m) - Per insert/search/startsWith where m is word length
-Space Complexity: O(n×m) - n words of average length m
+**Time Complexity:** O(m) - Per insert/search/startsWith where m is word length  
+**Space Complexity:** O(n × m) - n words of average length m
 
-## Q157. Design Add and Search Words Data Structure
+**Deep Insights:**
+- **Optimal Approach:** Trie achieves O(m) time per operation—optimal for prefix operations
+- **Node Structure:** Each node has children map and isEnd flag—efficient prefix storage
+- **isEnd Flag:** Critical for distinguishing complete words from prefixes—must check flag
+- **Key Insight:** Shared prefixes stored once—space-efficient for similar words
+- **Character-by-Character:** Traverse one character at a time—builds path incrementally
+- **Edge Cases:** Empty string handled correctly; prefix of longer word handled; handles all cases
+- **Interview Tip:** Explain prefix tree structure clearly; emphasize isEnd flag importance; mention space optimization (shared prefixes)
 
-Concept: Trie with wildcard '.' support; search recursively when encountering '.' by trying all children.
+## Q209. Design Add and Search Words Data Structure
 
+**Problem:** Design a data structure that supports adding new words and finding if a string matches any previously added string. Implement the `WordDictionary` class:
+- `WordDictionary()` Initializes the object.
+- `void addWord(word)` Adds `word` to the data structure, it can be matched later.
+- `bool search(word)` Returns `true` if there is any string in the data structure that matches `word` or `false` otherwise. `word` may contain dots `'.'` where dots can be matched with any letter.
+
+**Approach:** Use Trie structure. For wildcard `'.'`, recursively try all children. For regular characters, traverse normally.
+
+### Solution 1: Trie with DFS (Optimal)
 ```javascript
 class WordDictionary {
   constructor() {
@@ -96,6 +109,7 @@ class WordDictionary {
   }
 
   dfs(word, index, node) {
+    // Base case: reached end of word
     if (index === word.length) {
       return node.isEnd === true;
     }
@@ -103,7 +117,7 @@ class WordDictionary {
     const char = word[index];
     
     if (char === '.') {
-      // Try all children
+      // Wildcard: try all children (skip 'isEnd')
       for (const key in node) {
         if (key !== 'isEnd' && this.dfs(word, index + 1, node[key])) {
           return true;
@@ -111,6 +125,7 @@ class WordDictionary {
       }
       return false;
     } else {
+      // Regular character: traverse normally
       if (!node[char]) {
         return false;
       }
@@ -118,41 +133,45 @@ class WordDictionary {
     }
   }
 }
-
-// Test Cases:
-//
-// Example 1:
-//   Input: ["WordDictionary","addWord","addWord","addWord","search","search","search","search"]
-//          [[],["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]]
-//   Output: [null,null,null,null,false,true,true,true]
-//   Explanation: 
-//     WordDictionary wordDictionary = new WordDictionary();
-//     wordDictionary.addWord("bad");
-//     wordDictionary.addWord("dad");
-//     wordDictionary.addWord("mad");
-//     wordDictionary.search("pad");  // returns false
-//     wordDictionary.search("bad");  // returns true
-//     wordDictionary.search(".ad");  // returns true ('.' matches 'b' or 'd' or 'm')
-//     wordDictionary.search("b.."); // returns true ('.' matches any character)
 ```
 
-Deep Insights:
-  - Rule: Trie with wildcard '.' support; DFS search recursively when encountering '.'; O(26^m) worst case for m '.'.
-  - Real-world: Pattern matching with wildcards, search with partial information, autocomplete with typos.
-  - Common mistake: Not handling '.' correctly; wrong recursive search logic; not skipping 'isEnd' in children iteration.
-  - Optimization: O(m) for exact match, O(26^m) worst case for m wildcards; skip 'isEnd' when iterating children.
-  - Interview tip: Explain wildcard handling clearly; mention recursive DFS; ask about optimization.
+// Test Cases:
+// Input: ["WordDictionary","addWord","addWord","addWord","search","search","search","search"], [[],["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]]
+// Output: [null,null,null,null,false,true,true,true]
+// Explanation: 
+//   WordDictionary wordDictionary = new WordDictionary();
+//   wordDictionary.addWord("bad");
+//   wordDictionary.addWord("dad");
+//   wordDictionary.addWord("mad");
+//   wordDictionary.search("pad");  // returns false
+//   wordDictionary.search("bad");  // returns true
+//   wordDictionary.search(".ad");  // returns true ('.' matches 'b' or 'd' or 'm')
+//   wordDictionary.search("b.."); // returns true ('.' matches any character)
+```
 
-Time Complexity: O(m) exact match, O(26^m) worst case for m wildcards
-Space Complexity: O(n×m) - n words of average length m
+**Time Complexity:** O(m) for exact match, O(26^m) worst case for m wildcards  
+**Space Complexity:** O(n × m) - n words of average length m
 
-## Q158. Word Search II
+**Deep Insights:**
+- **Optimal Approach:** Trie with DFS achieves O(m) for exact, O(26^m) for wildcards—optimal for pattern matching
+- **Wildcard Handling:** `'.'` matches any character—try all children recursively
+- **DFS Recursion:** Recursively search when encountering wildcard—explores all possibilities
+- **Key Insight:** Skip 'isEnd' when iterating children—only process character nodes
+- **Exponential Complexity:** Multiple wildcards cause exponential search—worst case scenario
+- **Edge Cases:** Empty word handled correctly; all wildcards handled; handles all cases
+- **Interview Tip:** Explain wildcard handling clearly; emphasize recursive DFS; mention exponential worst case
 
-Concept: Build Trie from words; DFS on board with backtracking; mark visited cells; remove found words from Trie.
+## Q210. Word Search II
 
+**Problem:** Given an `m x n` board of characters and a list of strings `words`, return all words on the board. Each word must be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.
+
+**Approach:** Build Trie from words. Use DFS with backtracking on board. Mark visited cells and remove found words from Trie to avoid duplicates.
+
+### Solution 1: Trie + DFS (Optimal)
 ```javascript
 function findWords(board, words) {
   const trie = new Trie();
+  // Build Trie from words
   for (const word of words) {
     trie.insert(word);
   }
@@ -161,36 +180,40 @@ function findWords(board, words) {
   const m = board.length;
   const n = board[0].length;
 
-  const dfs = (i, j, node, path) => {
+  function dfs(i, j, node) {
     const char = board[i][j];
     const nextNode = node[char];
     
+    // No path in Trie
     if (!nextNode) return;
-
-    path += char;
     
+    // Word found
     if (nextNode.word) {
       result.push(nextNode.word);
-      delete nextNode.word; // Avoid duplicates
+      delete nextNode.word; // Remove to avoid duplicates
     }
 
+    // Mark visited
     const temp = board[i][j];
-    board[i][j] = '#'; // Mark visited
+    board[i][j] = '#';
 
+    // Explore 4 directions
     const directions = [[-1,0],[1,0],[0,-1],[0,1]];
     for (const [di, dj] of directions) {
       const ni = i + di, nj = j + dj;
       if (ni >= 0 && ni < m && nj >= 0 && nj < n && board[ni][nj] !== '#') {
-        dfs(ni, nj, nextNode, path);
+        dfs(ni, nj, nextNode);
       }
     }
 
-    board[i][j] = temp; // Backtrack
-  };
+    // Backtrack
+    board[i][j] = temp;
+  }
 
+  // Start DFS from each cell
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < n; j++) {
-      dfs(i, j, trie.root, '');
+      dfs(i, j, trie.root);
     }
   }
 
@@ -213,26 +236,102 @@ class Trie {
     node.word = word; // Store word at end node
   }
 }
-
-// Test Cases:
-//
-// Example 1:
-//   Input: board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]],
-//          words = ["oath","pea","eat","rain"]
-//   Output: ["eat","oath"]
-//
-// Example 2:
-//   Input: board = [["a","b"],["c","d"]], words = ["abcb"]
-//   Output: []
 ```
 
-Deep Insights:
-  - Rule: Build Trie from words; DFS with backtracking; mark visited cells; remove found words; O(mn×4^L) time.
-  - Real-world: Word search puzzles, pattern matching on grid, autocomplete suggestions.
-  - Common mistake: Not backtracking visited cells; not removing found words; wrong DFS logic.
-  - Optimization: O(mn×4^L) time where L is max word length; backtracking crucial; remove found words to avoid duplicates.
-  - Interview tip: Explain Trie + DFS strategy clearly; mention backtracking; ask about optimization.
+// Test Cases:
+// Input: board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]],
+// words = ["oath","pea","eat","rain"]
+// Output: ["eat","oath"]
 
-Time Complexity: O(mn×4^L) - L is max word length, 4 directions per cell
-Space Complexity: O(n×m) - Trie for n words, DFS recursion depth up to m
+// Input: board = [["a","b"],["c","d"]], words = ["abcb"]
+// Output: []
+```
+
+**Time Complexity:** O(mn × 4^L) - L is max word length, 4 directions per cell  
+**Space Complexity:** O(n × m) - Trie for n words, DFS recursion depth up to m
+
+**Deep Insights:**
+- **Optimal Approach:** Trie + DFS achieves O(mn × 4^L) time—optimal for word search II
+- **Trie Optimization:** Build Trie from words—prunes invalid paths early
+- **DFS Backtracking:** Mark visited cells, backtrack after exploration—prevents cycles
+- **Duplicate Removal:** Remove found words from Trie—prevents finding same word multiple times
+- **Key Insight:** Trie guides DFS—only explore paths that match word prefixes
+- **Pruning:** Trie prevents exploring invalid paths—faster than naive DFS
+- **Edge Cases:** No words found returns []; empty board returns []; handles all cases
+- **Interview Tip:** Explain Trie + DFS strategy clearly; emphasize pruning benefit; mention duplicate removal
+
+---
+
+## Bonus: Trie Fundamentals
+
+**Concept:** Prefix tree storing characters per edge; supports insert, search, prefix search in O(L).
+
+```javascript
+class Trie {
+  constructor() {
+    this.root = {};
+  }
+
+  insert(word) {
+    let node = this.root;
+    for (const ch of word) {
+      node[ch] = node[ch] || {};
+      node = node[ch];
+    }
+    node.$ = true; // end marker
+  }
+
+  search(word) {
+    let node = this.root;
+    for (const ch of word) {
+      if (!node[ch]) return false;
+      node = node[ch];
+    }
+    return !!node.$;
+  }
+
+  startsWith(prefix) {
+    let node = this.root;
+    for (const ch of prefix) {
+      if (!node[ch]) return false;
+      node = node[ch];
+    }
+    return true;
+  }
+}
+
+// Test Cases:
+// Input:
+// let trie = new Trie();
+// trie.insert("apple");
+// trie.search("apple");   // Output: true
+// trie.search("app");     // Output: false
+// trie.startsWith("app"); // Output: true
+// trie.insert("app");
+// trie.search("app");     // Output: true
+
+// Input:
+// let trie = new Trie();
+// trie.insert("hello");
+// trie.insert("world");
+// trie.search("hell");     // Output: false
+// trie.startsWith("hell"); // Output: true
+// trie.search("hello");    // Output: true
+
+// Input:
+// let trie = new Trie();
+// trie.insert("a");
+// trie.search("a");        // Output: true
+// trie.startsWith("a");    // Output: true
+```
+
+**Time Complexity:** O(L) - Each operation processes word length L  
+**Space Complexity:** O(AL) - Storage for all words where A is alphabet size
+
+**Deep Insights:**
+- **Rule:** Prefix tree storing characters per edge; supports insert, search, prefix search in O(L); O(AL) space
+- **Real-world:** Trie problems, autocomplete, word dictionary, prefix matching, string search
+- **Common Mistake:** Wildcards require backtracking; not handling end markers correctly; wrong node traversal
+- **Optimization:** O(L) time for each operation; O(AL) space; wildcards require backtracking
+- **Interview Tip:** Explain trie structure clearly; mention prefix search; ask about wildcard matching
 
