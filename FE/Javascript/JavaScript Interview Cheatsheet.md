@@ -2,7 +2,7 @@
 
 > **⏱️ Review Time: 20-25 minutes** | **Priority: ⭐⭐⭐ Critical** | Essential JavaScript concepts for interviews
 > 
-> **Coverage: Q1-Q130** (130 questions across 10 topics)
+> **Coverage: Q1-Q190** (190 questions across 7 topics)
 
 **Quick Review Checklist:**
 - [ ] Core Concepts (Hoisting, Closures, `this` Binding)
@@ -23,9 +23,8 @@
 - **Q26-Q51**: Promises, Async/Await & Event Loop
 - **Q52-Q71**: Objects, Prototypes & Inheritance
 - **Q72-Q81**: ES6+ Features
-- **Q82-Q110**: Practical JavaScript Questions
-- **Q111-Q120**: Web Workers & Service Workers
-- **Q121-Q130**: Real-World & Edge JavaScript Topics
+- **Q82-Q170**: Practical JavaScript Questions (includes output questions)
+- **Q171-Q190**: Web Workers, Service Workers & Real-World Topics
 
 ---
 
@@ -622,5 +621,37 @@ str.padEnd(len, pad)   // Pad end
 4. **Stay Current** - Keep up with ES2020+ features
 5. **Think Edge Cases** - Consider error scenarios
 6. **Performance Matters** - Know optimization techniques
+
+---
+
+## ⚡ **Last-Minute Review (5 minutes)**
+
+### **Must-Know Concepts**
+- **Hoisting**: `var` = undefined, `let/const` = TDZ
+- **Closure**: Function retains access to outer scope
+- **`this`**: Method call = object, arrow = lexical, bind/call/apply = explicit
+- **Event Loop**: Microtasks (Promises) run before macrotasks (setTimeout)
+- **Promise.all**: All succeed or first reject
+- **Promise.race**: First settled (success or failure)
+- **Promise.any**: First fulfilled or all reject
+- **Promise.allSettled**: All outcomes, never rejects
+
+### **Quick Code Snippets**
+```js
+// Closure
+const counter = () => { let count = 0; return () => ++count; };
+
+// Promise.all
+Promise.all([p1, p2]).then(([r1, r2]) => console.log(r1, r2));
+
+// Debounce
+const debounce = (fn, delay) => { let id; return (...args) => { clearTimeout(id); id = setTimeout(() => fn(...args), delay); }; };
+```
+
+### **Common Gotchas**
+- `typeof null === "object"` (bug)
+- `0.1 + 0.2 !== 0.3` (floating point)
+- `var` hoisted, `let/const` in TDZ
+- Arrow functions don't have `this`/`arguments`
 
 **Good luck with your interview! 🎉**

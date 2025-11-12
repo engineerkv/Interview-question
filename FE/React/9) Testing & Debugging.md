@@ -2,9 +2,15 @@
 
 ---
 
-## 81) What are the main testing types in React (unit, integration, end-to-end)?
+## 🧩 Q81. What are the different types of testing in React?
 
-Unit tests test individual components. Integration tests test component interactions. E2E tests test complete user workflows.
+### 🧠 Concept
+
+Unit tests test individual components. Integration tests test component interactions. E2E tests test complete user workflows. The testing pyramid balances speed, coverage, and confidence.
+
+---
+
+### 💡 Example
 
 ```jsx
 import { render, screen } from '@testing-library/react';
@@ -16,17 +22,32 @@ test('renders button with text', () => {
 });
 ```
 
-- **Unit Tests**: Test individual components in isolation, most common and fastest
-- **Integration Tests**: Test how components work together, fewer but more valuable
-- **E2E Tests**: Test complete user workflows, fewest but most realistic
-- **Testing Pyramid**: More unit tests, fewer integration tests, even fewer E2E tests
-- **Interview Tip**: Explain that the testing pyramid balances speed, coverage, and confidence
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Unit tests test individual components in isolation, most common and fastest.
+* **Use Case:** Integration tests test how components work together, fewer but more valuable.
+* **Common Mistake:** E2E tests test complete user workflows, fewest but most realistic.
+* **Pro Tip:** More unit tests, fewer integration tests, even fewer E2E tests.
 
 ---
 
-## 82) What is Jest and how is it used for React testing?
+### ⭐ Senior Takeaway
 
-Jest is a JavaScript testing framework. It provides test runners, assertions, mocking, and code coverage for React.
+The testing pyramid balances speed, coverage, and confidence.
+
+---
+
+## 🧩 Q82. How do you test React components with Jest?
+
+### 🧠 Concept
+
+Jest is a JavaScript testing framework providing test runners, assertions, mocking, and code coverage for React. It's the foundation, React Testing Library is the testing approach.
+
+---
+
+### 💡 Example
 
 ```jsx
 // Jest configuration
@@ -39,17 +60,32 @@ module.exports = {
 };
 ```
 
-- **Core Purpose**: Test runner with built-in assertions, mocking, and coverage
-- **Real-World Use**: Standard testing framework for React apps, works with React Testing Library
-- **Features**: Mock functions, modules, timers, and measure code coverage
-- **Configuration**: Highly configurable for different projects and environments
-- **Interview Tip**: Explain that Jest is the foundation, React Testing Library is the testing approach
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Test runner with built-in assertions, mocking, and coverage.
+* **Use Case:** Standard testing framework for React apps, works with React Testing Library.
+* **Common Mistake:** Features: mock functions, modules, timers, and measure code coverage.
+* **Pro Tip:** Highly configurable for different projects and environments.
 
 ---
 
-## 83) What is React Testing Library and what problem does it solve compared to Enzyme?
+### ⭐ Senior Takeaway
 
-React Testing Library tests user behavior, not implementation details. It's more maintainable than Enzyme.
+Jest is the foundation, React Testing Library is the testing approach.
+
+---
+
+## 🧩 Q83. What is React Testing Library and how do you use it?
+
+### 🧠 Concept
+
+React Testing Library tests user behavior, not implementation details. It's more maintainable than Enzyme and encourages accessible component design.
+
+---
+
+### 💡 Example
 
 ```jsx
 import { render, screen, fireEvent } from '@testing-library/react';
@@ -66,17 +102,32 @@ test('user can submit form', async () => {
 });
 ```
 
-- **Core Philosophy**: Test what users see and do, not how components work internally
-- **Real-World Benefit**: Tests don't break when refactoring, focus on user experience
-- **Accessibility**: Encourages accessible component design through accessible queries
-- **Modern React**: Built for hooks and functional components, Enzyme struggles with hooks
-- **Interview Tip**: Explain that Testing Library tests behavior, Enzyme tests implementation
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Test what users see and do, not how components work internally.
+* **Use Case:** Tests don't break when refactoring, focus on user experience.
+* **Common Mistake:** Encourages accessible component design through accessible queries.
+* **Pro Tip:** Built for hooks and functional components, Enzyme struggles with hooks.
 
 ---
 
-## 84) How do you test React Hooks using Jest and React Testing Library?
+### ⭐ Senior Takeaway
 
-Use renderHook to test custom hooks in isolation, or test hooks through components.
+Testing Library tests behavior, Enzyme tests implementation.
+
+---
+
+## 🧩 Q84. How do you test custom hooks?
+
+### 🧠 Concept
+
+Use renderHook to test custom hooks in isolation, or test hooks through components. renderHook is for unit testing hooks, component testing is for integration.
+
+---
+
+### 💡 Example
 
 ```jsx
 import { renderHook, act } from '@testing-library/react';
@@ -95,17 +146,32 @@ test('useCounter hook', () => {
 });
 ```
 
-- **renderHook**: Test custom hooks in isolation without components
-- **act**: Wrap state updates in act() for proper testing of state changes
-- **Component Testing**: Test hooks through components they're used in
-- **Mocking**: Mock dependencies and external functions for isolated testing
-- **Interview Tip**: Explain that renderHook is for unit testing hooks, component testing is for integration
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** renderHook tests custom hooks in isolation without components.
+* **Use Case:** Wrap state updates in act() for proper testing of state changes.
+* **Common Mistake:** Test hooks through components they're used in.
+* **Pro Tip:** Mock dependencies and external functions for isolated testing.
 
 ---
 
-## 85) How do you mock API calls in tests?
+### ⭐ Senior Takeaway
 
-Mock API calls using Jest mocks, MSW (Mock Service Worker), or mock implementations to isolate components.
+renderHook is for unit testing hooks, component testing is for integration.
+
+---
+
+## 🧩 Q85. How do you mock API calls in tests?
+
+### 🧠 Concept
+
+Mock API calls using Jest mocks, MSW (Mock Service Worker), or mock implementations to isolate components. MSW is better for integration tests, Jest mocks for unit tests.
+
+---
+
+### 💡 Example
 
 ```jsx
 global.fetch = jest.fn();
@@ -125,17 +191,32 @@ test('fetches user data on mount', async () => {
 });
 ```
 
-- **Jest Mocks**: Simple mocking for fetch and functions, good for basic cases
-- **MSW**: More realistic API mocking with actual HTTP requests, better for complex scenarios
-- **Real-World Use**: Isolate components from external dependencies for reliable tests
-- **Mock Data**: Use realistic mock data and responses to test edge cases
-- **Interview Tip**: Explain that MSW is better for integration tests, Jest mocks for unit tests
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Jest mocks are simple mocking for fetch and functions, good for basic cases.
+* **Use Case:** MSW is more realistic API mocking with actual HTTP requests, better for complex scenarios.
+* **Common Mistake:** Isolate components from external dependencies for reliable tests.
+* **Pro Tip:** Use realistic mock data and responses to test edge cases.
 
 ---
 
-## 86) How do you test form input changes and button clicks?
+### ⭐ Senior Takeaway
 
-Use userEvent from React Testing Library to simulate realistic user interactions.
+MSW is better for integration tests, Jest mocks for unit tests.
+
+---
+
+## 🧩 Q86. How do you test form inputs and user interactions?
+
+### 🧠 Concept
+
+Use userEvent from React Testing Library to simulate realistic user interactions. userEvent is preferred over fireEvent for realistic testing.
+
+---
+
+### 💡 Example
 
 ```jsx
 import { render, screen } from '@testing-library/react';
@@ -152,17 +233,32 @@ test('form input changes update state', async () => {
 });
 ```
 
-- **userEvent**: More realistic than fireEvent, simulates actual user interactions
-- **Real-World Use**: Test form validation, submission, and user flows
-- **Accessibility**: Use accessible queries like getByLabelText to encourage good practices
-- **Async Operations**: Handle async form submissions properly with waitFor
-- **Interview Tip**: Explain that userEvent is preferred over fireEvent for realistic testing
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** userEvent is more realistic than fireEvent, simulates actual user interactions.
+* **Use Case:** Test form validation, submission, and user flows.
+* **Common Mistake:** Use accessible queries like getByLabelText to encourage good practices.
+* **Pro Tip:** Handle async form submissions properly with waitFor.
 
 ---
 
-## 87) How do you test asynchronous behavior (Promises, React Query) in components?
+### ⭐ Senior Takeaway
 
-Use waitFor, findBy queries, or act() to handle async operations and test loading states.
+userEvent is preferred over fireEvent for realistic testing.
+
+---
+
+## 🧩 Q87. How do you test asynchronous behavior in React?
+
+### 🧠 Concept
+
+Use waitFor, findBy queries, or act() to handle async operations and test loading states. Async testing requires waiting for state updates and DOM changes.
+
+---
+
+### 💡 Example
 
 ```jsx
 import { render, screen, waitFor } from '@testing-library/react';
@@ -184,17 +280,32 @@ test('displays user data after loading', async () => {
 });
 ```
 
-- **waitFor**: Wait for async operations to complete with timeout
-- **findBy Queries**: Wait for elements to appear, automatically wait and retry
-- **act**: Wrap state updates in act() for proper async state testing
-- **Mocking**: Mock async functions and API calls to control timing
-- **Interview Tip**: Explain that async testing requires waiting for state updates and DOM changes
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** waitFor waits for async operations to complete with timeout.
+* **Use Case:** findBy queries wait for elements to appear, automatically wait and retry.
+* **Common Mistake:** Wrap state updates in act() for proper async state testing.
+* **Pro Tip:** Mock async functions and API calls to control timing.
 
 ---
 
-## 88) What are snapshot tests in Jest and how are they used?
+### ⭐ Senior Takeaway
 
-Snapshot tests capture component output and compare it to stored snapshots. Use them to detect unintended changes.
+Async testing requires waiting for state updates and DOM changes.
+
+---
+
+## 🧩 Q88. How do you write snapshot tests?
+
+### 🧠 Concept
+
+Snapshot tests capture component output and compare it to stored snapshots. Use them to detect unintended changes, but they shouldn't replace assertion-based tests.
+
+---
+
+### 💡 Example
 
 ```jsx
 import { render } from '@testing-library/react';
@@ -206,17 +317,32 @@ test('button renders correctly', () => {
 });
 ```
 
-- **Core Purpose**: Detect unintended changes in component output automatically
-- **Real-World Use**: Good for UI components with stable output, regression testing
-- **Maintenance**: Easy to update snapshots when changes are intentional
-- **Limitations**: Can be brittle and hard to maintain, not ideal for frequently changing UI
-- **Interview Tip**: Explain that snapshots are useful but shouldn't replace assertion-based tests
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Detect unintended changes in component output automatically.
+* **Use Case:** Good for UI components with stable output, regression testing.
+* **Common Mistake:** Easy to update snapshots when changes are intentional.
+* **Pro Tip:** Can be brittle and hard to maintain, not ideal for frequently changing UI.
 
 ---
 
-## 89) How do you debug React applications in VS Code and browser dev tools?
+### ⭐ Senior Takeaway
 
-Use React DevTools, VS Code debugger, console logging, and breakpoints to debug React apps.
+Snapshots are useful but shouldn't replace assertion-based tests.
+
+---
+
+## 🧩 Q89. How do you debug React applications?
+
+### 🧠 Concept
+
+Use React DevTools, VS Code debugger, console logging, and breakpoints to debug React apps. React DevTools is essential for debugging React component trees.
+
+---
+
+### 💡 Example
 
 ```jsx
 function UserProfile({ userId }) {
@@ -234,43 +360,58 @@ function UserProfile({ userId }) {
 }
 ```
 
-- **React DevTools**: Browser extension for inspecting components, state, and props
-- **VS Code Debugger**: Debug React apps directly in VS Code with breakpoints
-- **Console Logging**: Use console.log, console.error for quick debugging
-- **Breakpoints**: Set breakpoints in VS Code or browser dev tools for step-through debugging
-- **Interview Tip**: Explain that React DevTools is essential for debugging React component trees
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** React DevTools browser extension inspects components, state, and props.
+* **Use Case:** VS Code debugger debugs React apps directly in VS Code with breakpoints.
+* **Common Mistake:** Use console.log, console.error for quick debugging.
+* **Pro Tip:** Set breakpoints in VS Code or browser dev tools for step-through debugging.
 
 ---
 
-## 90) How do you use the React DevTools Profiler for debugging performance issues?
+### ⭐ Senior Takeaway
 
-Use the Profiler tab in React DevTools to record renders and analyze performance bottlenecks.
+React DevTools is essential for debugging React component trees.
+
+---
+
+## 🧩 Q90. What are the best practices for React testing?
+
+### 🧠 Concept
+
+Best practices include testing user behavior not implementation, using accessible queries, mocking external dependencies, handling async properly, and maintaining test readability.
+
+---
+
+### 💡 Example
 
 ```jsx
-import { Profiler } from 'react';
-
-function onRenderCallback(id, phase, actualDuration, baseDuration, startTime, commitTime) {
-  console.log('Profiler:', {
-    id,
-    phase,
-    actualDuration,
-    baseDuration
-  });
-}
-
-function App() {
-  return (
-    <Profiler id="App" onRender={onRenderCallback}>
-      <MyComponent />
-    </Profiler>
-  );
-}
+test('user can complete form flow', async () => {
+  const user = userEvent.setup();
+  render(<ContactForm />);
+  
+  await user.type(screen.getByLabelText(/name/i), 'John');
+  await user.click(screen.getByRole('button', { name: /submit/i }));
+  
+  expect(await screen.findByText('Success!')).toBeInTheDocument();
+});
 ```
 
-- **Profiler Tab**: Record and analyze component performance visually
-- **Real-World Use**: Identify slow components and unnecessary re-renders
-- **Render Times**: See how long components take to render and compare
-- **Optimization**: Find components that need memoization or optimization
-- **Interview Tip**: Explain that Profiler helps identify performance bottlenecks before optimizing
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Test what users see and do, not how components work internally.
+* **Use Case:** Use accessible queries to encourage good accessibility practices.
+* **Common Mistake:** Mock external dependencies to isolate components.
+* **Pro Tip:** Handle async operations properly with waitFor and findBy queries.
+
+---
+
+### ⭐ Senior Takeaway
+
+Test behavior, not implementation—focus on user experience.
 
 ---

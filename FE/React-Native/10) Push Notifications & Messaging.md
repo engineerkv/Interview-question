@@ -2,9 +2,15 @@
 
 ---
 
-## 91) What is the difference between **local** and **push** notifications in React Native?
+## 🧩 Q91. What is the difference between local and push notifications?
 
-Local notifications are scheduled by the app, while push notifications are sent from a server.
+### 🧠 Concept
+
+Local notifications are scheduled by the app, while push notifications are sent from a server. Choose based on use case.
+
+---
+
+### 💡 Example
 
 ```jsx
 import PushNotification from 'react-native-push-notification';
@@ -21,17 +27,32 @@ const scheduleLocalNotification = () => {
 // Push notification - handled by server
 ```
 
-- **Core Difference**: Local notifications (scheduled by the app, work offline), Push notifications (sent from server, require internet)
-- **Real-World Use Cases**: Local for reminders, push for real-time updates
-- **Common Advantage**: Both work on iOS and Android (platform support)
-- **Advanced Feature**: Users can disable both types (user control)
-- **Interview Tip**: Explain that choose based on use case
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Local notifications (scheduled by the app, work offline), Push notifications (sent from server, require internet).
+* **Use Case:** Local for reminders, push for real-time updates.
+* **Common Mistake:** Both work on iOS and Android (platform support).
+* **Pro Tip:** Users can disable both types (user control).
 
 ---
 
-## 92) How do you implement push notifications with **FCM (Android)** and **APNs (iOS)**?
+### ⭐ Senior Takeaway
 
-Configure FCM for Android and APNs for iOS, then handle notification registration and display.
+Choose based on use case.
+
+---
+
+## 🧩 Q92. How do you implement push notifications with FCM (Android) and APNs (iOS)?
+
+### 🧠 Concept
+
+Configure FCM for Android and APNs for iOS, then handle notification registration and display. Configure both services for cross-platform support.
+
+---
+
+### 💡 Example
 
 ```jsx
 import messaging from '@react-native-firebase/messaging';
@@ -55,17 +76,32 @@ const getToken = async () => {
 };
 ```
 
-- **Core Services**: FCM (Firebase Cloud Messaging for Android), APNs (Apple Push Notification service for iOS)
-- **Real-World Use**: Get and manage FCM tokens (token management)
-- **Common Practice**: Request notification permissions (permission handling)
-- **Advanced Feature**: Different setup for iOS and Android (platform differences)
-- **Interview Tip**: Explain that configure both services for cross-platform support
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** FCM (Firebase Cloud Messaging for Android), APNs (Apple Push Notification service for iOS).
+* **Use Case:** Get and manage FCM tokens (token management).
+* **Common Mistake:** Request notification permissions (permission handling).
+* **Pro Tip:** Different setup for iOS and Android (platform differences).
 
 ---
 
-## 93) How do you handle **background** and **foreground** notifications differently?
+### ⭐ Senior Takeaway
 
-Use different notification handlers and display methods based on app state.
+Configure both services for cross-platform support.
+
+---
+
+## 🧩 Q93. How do you handle background and foreground notifications differently?
+
+### 🧠 Concept
+
+Use different notification handlers and display methods based on app state. Handle both states for best UX.
+
+---
+
+### 💡 Example
 
 ```jsx
 import messaging from '@react-native-firebase/messaging';
@@ -98,17 +134,32 @@ function NotificationHandler() {
 }
 ```
 
-- **Core Difference**: Foreground (app is active, show custom UI), Background (app is not active, use system notifications)
-- **Real-World Use**: Different logic for each state (different handling)
-- **Common Practice**: Provide appropriate experience for each state (user experience)
-- **Advanced Feature**: Handle notification data differently (data processing)
-- **Interview Tip**: Explain that handle both states for best UX
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Foreground (app is active, show custom UI), Background (app is not active, use system notifications).
+* **Use Case:** Different logic for each state (different handling).
+* **Common Mistake:** Provide appropriate experience for each state (user experience).
+* **Pro Tip:** Handle notification data differently (data processing).
 
 ---
 
-## 94) How do you configure permissions and channels for notifications?
+### ⭐ Senior Takeaway
 
-Request notification permissions and configure notification channels for Android.
+Handle both states for best UX.
+
+---
+
+## 🧩 Q94. How do you configure permissions and channels for notifications?
+
+### 🧠 Concept
+
+Request notification permissions and configure notification channels for Android. Set appropriate importance levels (channel importance).
+
+---
+
+### 💡 Example
 
 ```jsx
 import { PermissionsAndroid, Platform } from 'react-native';
@@ -130,17 +181,32 @@ const configureNotificationChannels = () => {
 };
 ```
 
-- **Core Configuration**: Configure notification channels for Android (Android channels)
-- **Real-World Use**: Request notification permissions (permission requests)
-- **Common Practice**: Different approaches for iOS and Android (platform differences)
-- **Advanced Feature**: Users can control notification settings (user control)
-- **Interview Tip**: Explain that set appropriate importance levels (channel importance)
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Configure notification channels for Android (Android channels).
+* **Use Case:** Request notification permissions (permission requests).
+* **Common Mistake:** Different approaches for iOS and Android (platform differences).
+* **Pro Tip:** Users can control notification settings (user control).
 
 ---
 
-## 95) What are best practices for testing and securing push notification payloads?
+### ⭐ Senior Takeaway
 
-Use proper payload validation, testing strategies, and security measures for push notifications.
+Set appropriate importance levels (channel importance).
+
+---
+
+## 🧩 Q95. What are best practices for testing and securing push notification payloads?
+
+### 🧠 Concept
+
+Use proper payload validation, testing strategies, and security measures for push notifications. Sanitize notification data (data sanitization).
+
+---
+
+### 💡 Example
 
 ```jsx
 const validateNotificationPayload = (payload) => {
@@ -161,10 +227,19 @@ const validateNotificationPayload = (payload) => {
 };
 ```
 
-- **Core Practice**: Validate notification payloads (payload validation)
-- **Real-World Security**: Secure notification data and endpoints (security)
-- **Common Practice**: Test notification handling thoroughly (testing)
-- **Advanced Feature**: Handle invalid payloads gracefully (error handling)
-- **Interview Tip**: Explain that sanitize notification data (data sanitization)
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Validate notification payloads (payload validation).
+* **Use Case:** Secure notification data and endpoints (security).
+* **Common Mistake:** Test notification handling thoroughly (testing).
+* **Pro Tip:** Handle invalid payloads gracefully (error handling).
+
+---
+
+### ⭐ Senior Takeaway
+
+Sanitize notification data (data sanitization).
 
 ---

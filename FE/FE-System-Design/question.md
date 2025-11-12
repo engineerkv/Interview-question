@@ -1,6 +1,6 @@
 # 🎨 Frontend System Design Interview Questions
 
-138 carefully curated questions covering frontend system design architecture to real-world scenarios.
+139 carefully curated questions covering frontend system design architecture to real-world scenarios.
 
 ## 📋 Quick Navigation
 
@@ -11,10 +11,10 @@
 | [3️⃣](#3-micro-frontends-vs-monolithic-spas) | Micro-Frontends vs Monolithic SPAs | Q24–33 | ⭐⭐⭐ |
 | [4️⃣](#4-cross-platform-architecture) | Cross-Platform Architecture | Q34–43 | ⭐⭐⭐ |
 | [5️⃣](#5-accessibility--user-experience) | Accessibility & User Experience | Q44–53 | ⭐⭐⭐⭐ |
-| [6️⃣](#6-browser-internals--rendering) | Browser Internals & Rendering | Q54–64 | ⭐⭐⭐⭐ |
+| [6️⃣](#6-browser-internals--rendering) | Browser Internals & Rendering | Q54–65 | ⭐⭐⭐⭐ |
 | [7️⃣](#7-practical-front-end-system-design-scenarios) | Practical Front-End System Design Scenarios | Q65–84 | ⭐⭐⭐⭐⭐ |
 | [8️⃣](#8-networking--apis) | Networking & APIs | Q85–105 | ⭐⭐⭐ |
-| [9️⃣](#9-real-time-communication-protocols) | Real-time Communication Protocols | Q106–111 | ⭐⭐⭐ |
+| [9️⃣](#9-real-time-communication-protocols) | Real-time Communication Protocols | Q106–120 | ⭐⭐⭐ |
 | [🔟](#10-data--caching-architecture) | Data & Caching Architecture | Q121–138 | ⭐⭐⭐⭐ |
 
 ## 🎨 1. UI/UX Architecture & State Management
@@ -89,29 +89,30 @@
 53. How do you handle memory management and garbage collection?
 54. How do you optimize paint and layout performance?
 55. What are rendering patterns (CSR, SSR, SSG, ISR, Streaming SSR, Partial Hydration, Islands Architecture)?
+56. What are the main components of a browser architecture and how do they work together?
 
 ## 🎯 7. Practical Front-End System Design Scenarios
 
-56. Design a news feed UI like Facebook or Twitter
-57. Design an autocomplete search component
-58. Design a large data table with sorting and filtering
-59. Design a real-time chat interface
-60. Design a media gallery with lazy loading
-61. Design an e-commerce shopping cart
-62. Design a collaborative text editor
-63. Design a map-based interface with markers
-64. Design a PWA for offline functionality
-65. Design a dashboard with real-time data
-66. Design a dynamic micro-frontend architecture
-67. Design a high-performance image carousel
-68. Design an accessible UI component library
-69. Design a global theme switching system
-70. Design a routing architecture for a large SPA
-71. Design a file upload system with progress tracking
-72. Design a feature flag and A/B testing system
-73. Design a notification system for web apps
-74. Design a search results UI with faceted search
-75. Design a live streaming video interface
+57. Design a news feed UI like Facebook or Twitter
+58. Design an autocomplete search component
+59. Design a large data table with sorting and filtering
+60. Design a real-time chat interface
+61. Design a media gallery with lazy loading
+62. Design an e-commerce shopping cart
+63. Design a collaborative text editor
+64. Design a map-based interface with markers
+65. Design a PWA for offline functionality
+66. Design a dashboard with real-time data
+67. Design a dynamic micro-frontend architecture
+68. Design a high-performance image carousel
+69. Design an accessible UI component library
+70. Design a global theme switching system
+71. Design a routing architecture for a large SPA
+72. Design a file upload system with progress tracking
+73. Design a feature flag and A/B testing system
+74. Design a notification system for web apps
+75. Design a search results UI with faceted search
+76. Design a live streaming video interface
 
 ## 🌐 8. Networking & APIs
 
@@ -166,8 +167,8 @@
 - [3) Micro-Frontends vs Monolithic SPAs](3%20Micro-Frontends%20vs%20Monolithic%20SPAs.md) - Q24-33
 - [4) Cross-Platform Architecture](4%20Cross-Platform%20Architecture.md) - Q34-43
 - [5) Accessibility & User Experience](5%20Accessibility%20%26%20User%20Experience.md) - Q44-53
-- [6) Browser Internals & Rendering](6%20Browser%20Internals%20%26%20Rendering.md) - Q54-64
-- [7) Practical Front-End System Design Scenarios](7%20Practical%20Front-End%20System%20Design%20Scenarios.md) - Q65-84
+- [6) Browser Internals & Rendering](6%20Browser%20Internals%20%26%20Rendering.md) - Q54-65
+- [7) Practical Front-End System Design Scenarios](7%20Practical%20Front-End%20System%20Design%20Scenarios.md) - Q66-85
 - [8) Networking & APIs](8%20Networking%20%26%20APIs.md) - Q85-105
 - [9) Real-time Communication Protocols](9%20Real-time%20Communication%20Protocols.md) - Q106-111
 - [10) Data & Caching Architecture](10%20Data%20%26%20Caching%20Architecture.md) - Q121-138

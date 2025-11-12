@@ -306,6 +306,34 @@ filter: blur(5px) brightness(1.2);
 
 ---
 
+## ⚡ **Last-Minute Review (5 minutes)**
+
+### **Must-Know Concepts**
+- **Box Model**: Content → Padding → Border → Margin
+- **Specificity**: Inline (1000) > ID (100) > Class (10) > Element (1)
+- **Flexbox**: 1D layout (row OR column), use for components
+- **Grid**: 2D layout (rows AND columns), use for page structure
+- **Position**: static (default), relative, absolute, fixed, sticky
+- **Centering**: Flexbox (`justify-content: center; align-items: center`)
+
+### **Quick Code Snippets**
+```css
+/* Centering */
+.center { display: flex; justify-content: center; align-items: center; }
+
+/* Responsive Grid */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+/* Sticky Header */
+.header { position: sticky; top: 0; z-index: 100; }
+```
+
+### **Common Gotchas**
+- `box-sizing: border-box` includes padding+border in width
+- `z-index` only works on positioned elements
+- Vertical margins collapse (larger value wins)
+- `display: none` removes from flow, `visibility: hidden` keeps space
+
 **Review Time**: 10-15 minutes | **Focus**: Box Model, Flexbox, Grid, Positioning, Responsive
 
 **Good luck! 🎉**

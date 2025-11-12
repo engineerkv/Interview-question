@@ -2,9 +2,15 @@
 
 ---
 
-## 22) What is the difference between function overloading and overriding?
+## 🧩 Q22. What is function overloading?
 
-Overloading provides multiple function signatures for the same function, while overriding replaces a parent class method in a child class.
+### 🧠 Concept
+
+Function overloading provides multiple function signatures for the same function, enabling type safety for different parameter types. Overloading is compile-time, overriding is runtime.
+
+---
+
+### 💡 Example
 
 ```typescript
 function process(value: string): string;
@@ -12,27 +18,34 @@ function process(value: number): number;
 function process(value: string | number): string | number {
   return typeof value === "string" ? value.toUpperCase() : value * 2;
 }
-
-class Animal {
-  makeSound(): string { return "Some sound"; }
-}
-
-class Dog extends Animal {
-  makeSound(): string { return "Woof!"; }
-}
 ```
-
-- **Core Difference**: Overloading: same function name, different parameter types; Overriding: child class replaces parent class method
-- **Real-World Use**: Overloading needs one implementation, overriding needs new implementation
-- **Common Advantage**: Overloading provides type safety for different parameter types
-- **Advanced Feature**: Overriding enables runtime polymorphism
-- **Interview Tip**: Explain that overloading is compile-time, overriding is runtime
 
 ---
 
-## 23) What are default and rest parameters in functions?
+### 🔍 Deep Insights
 
-Default parameters provide fallback values, while rest parameters collect remaining arguments into an array.
+* **Rule:** Overloading: same function name, different parameter types; Overriding: child class replaces parent class method.
+* **Use Case:** Overloading needs one implementation, overriding needs new implementation.
+* **Common Mistake:** Overloading provides type safety for different parameter types.
+* **Pro Tip:** Overriding enables runtime polymorphism.
+
+---
+
+### ⭐ Senior Takeaway
+
+Overloading is compile-time, overriding is runtime.
+
+---
+
+## 🧩 Q23. What are default and rest parameters?
+
+### 🧠 Concept
+
+Default parameters provide fallback values, while rest parameters collect remaining arguments into an array. Default and rest parameters improve function flexibility.
+
+---
+
+### 💡 Example
 
 ```typescript
 function greet(name: string, greeting: string = "Hello"): string {
@@ -44,17 +57,32 @@ function sum(...numbers: number[]): number {
 }
 ```
 
-- **Core Features**: Default parameters provide fallback values when arguments are omitted
-- **Real-World Use**: Rest parameters collect variable number of arguments into array
-- **Common Advantage**: Rest parameters are typed as arrays, functions can handle variable number of arguments
-- **Important Rule**: Rest parameters must come last in parameter list
-- **Interview Tip**: Explain that default and rest parameters improve function flexibility
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Default parameters provide fallback values when arguments are omitted.
+* **Use Case:** Rest parameters collect variable number of arguments into array.
+* **Common Mistake:** Rest parameters are typed as arrays, functions can handle variable number of arguments.
+* **Pro Tip:** Rest parameters must come last in parameter list.
 
 ---
 
-## 24) What are generics and why are they important?
+### ⭐ Senior Takeaway
 
-Generics allow you to write code once and use it with different types, keeping everything type-safe.
+Default and rest parameters improve function flexibility.
+
+---
+
+## 🧩 Q24. What are generics and how do you use them?
+
+### 🧠 Concept
+
+Generics allow you to write code once and use it with different types, keeping everything type-safe. Generics provide better IDE support with IntelliSense.
+
+---
+
+### 💡 Example
 
 ```typescript
 function identity<T>(arg: T): T {
@@ -67,17 +95,32 @@ interface Container<T> {
 }
 ```
 
-- **Core Purpose**: Maintain type information throughout function execution
-- **Real-World Benefit**: Write once, use with multiple types (reusability)
-- **Common Advantage**: Work with any type while preserving type constraints
-- **Advanced Feature**: Reduce code duplication and improve maintainability
-- **Interview Tip**: Explain that generics provide better IDE support with IntelliSense
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Maintain type information throughout function execution.
+* **Use Case:** Write once, use with multiple types (reusability).
+* **Common Mistake:** Work with any type while preserving type constraints.
+* **Pro Tip:** Reduce code duplication and improve maintainability.
 
 ---
 
-## 25) How do you constrain generics using the `extends` keyword?
+### ⭐ Senior Takeaway
 
-The `extends` keyword constrains generic types to specific shapes or types, ensuring they have required properties.
+Generics provide better IDE support with IntelliSense.
+
+---
+
+## 🧩 Q25. What are generic constraints and how do you use them?
+
+### 🧠 Concept
+
+The `extends` keyword constrains generic types to specific shapes or types, ensuring they have required properties. Use with `keyof` operator to constrain to object keys.
+
+---
+
+### 💡 Example
 
 ```typescript
 function getLength<T extends { length: number }>(item: T): number {
@@ -89,17 +132,32 @@ function getKeys<T extends object>(obj: T): (keyof T)[] {
 }
 ```
 
-- **Core Purpose**: Limit generic types to specific shapes
-- **Real-World Use**: Ensure required properties exist on generic type
-- **Common Advantage**: Prevent errors from missing properties
-- **Advanced Feature**: Still allow different types that meet constraints
-- **Interview Tip**: Explain that use with `keyof` operator to constrain to object keys
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Limit generic types to specific shapes.
+* **Use Case:** Ensure required properties exist on generic type.
+* **Common Mistake:** Prevent errors from missing properties.
+* **Pro Tip:** Still allow different types that meet constraints.
 
 ---
 
-## 26) What are utility types (`Partial`, `Pick`, `Omit`, `Required`, `Readonly`)?
+### ⭐ Senior Takeaway
 
-Utility types are built-in type transformations that modify existing types for common use cases.
+Use with `keyof` operator to constrain to object keys.
+
+---
+
+## 🧩 Q26. What are utility types and how do you use them?
+
+### 🧠 Concept
+
+Utility types are built-in type transformations that modify existing types for common use cases. Utility types reduce boilerplate code.
+
+---
+
+### 💡 Example
 
 ```typescript
 interface User {
@@ -116,17 +174,32 @@ type RequiredUser = Required<PartialUser>; // All required
 type ReadonlyUser = Readonly<User>; // All readonly
 ```
 
-- **Core Utilities**: Partial (makes all properties optional), Pick (selects specific properties), Omit (excludes specific properties)
-- **Real-World Use**: Required (makes all properties required), Readonly (makes all properties immutable)
-- **Common Use Case**: Partial makes all properties optional for updates
-- **Advanced Feature**: These utility types are built on mapped types
-- **Interview Tip**: Explain that utility types reduce boilerplate code
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Partial (makes all properties optional), Pick (selects specific properties), Omit (excludes specific properties).
+* **Use Case:** Required (makes all properties required), Readonly (makes all properties immutable).
+* **Common Mistake:** Partial makes all properties optional for updates.
+* **Pro Tip:** These utility types are built on mapped types.
 
 ---
 
-## 27) What are mapped types and how do they work internally?
+### ⭐ Senior Takeaway
 
-Mapped types transform existing types by applying transformations to each property, creating new types based on existing ones.
+Utility types reduce boilerplate code.
+
+---
+
+## 🧩 Q27. What are mapped types and how do they work?
+
+### 🧠 Concept
+
+Mapped types transform existing types by applying transformations to each property, creating new types based on existing ones. Mapped types enable complex type transformations.
+
+---
+
+### 💡 Example
 
 ```typescript
 type Optional<T> = {
@@ -138,17 +211,32 @@ type Readonly<T> = {
 };
 ```
 
-- **Core Concept**: Iterate over all properties of a type
-- **Real-World Use**: Apply transformations to each property
-- **Advanced Feature**: Modify property names using template literals
-- **Advanced Feature**: Use conditional types within mapped types
-- **Interview Tip**: Explain that mapped types enable complex type transformations
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Iterate over all properties of a type.
+* **Use Case:** Apply transformations to each property.
+* **Common Mistake:** Modify property names using template literals.
+* **Pro Tip:** Use conditional types within mapped types.
 
 ---
 
-## 28) What are conditional types?
+### ⭐ Senior Takeaway
 
-Conditional types select one of two types based on a condition, enabling type-level programming and complex type transformations.
+Mapped types enable complex type transformations.
+
+---
+
+## 🧩 Q28. What are conditional types and how do you use them?
+
+### 🧠 Concept
+
+Conditional types select one of two types based on a condition, enabling type-level programming and complex type transformations. Conditional types enable complex type manipulations.
+
+---
+
+### 💡 Example
 
 ```typescript
 type IsString<T> = T extends string ? true : false;
@@ -158,17 +246,32 @@ type ApiResponse<T> = T extends string
   : { data: T };
 ```
 
-- **Core Concept**: Perform logic at the type level
-- **Real-World Use**: Choose between types based on conditions
-- **Advanced Feature**: Can be recursive for complex transformations
-- **Advanced Feature**: Use never to exclude types
-- **Interview Tip**: Explain that conditional types enable complex type manipulations
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Perform logic at the type level.
+* **Use Case:** Choose between types based on conditions.
+* **Common Mistake:** Can be recursive for complex transformations.
+* **Pro Tip:** Use never to exclude types.
 
 ---
 
-## 29) What does the `infer` keyword do in conditional types?
+### ⭐ Senior Takeaway
 
-`infer` extracts and infers types from other types within conditional types, enabling powerful type inference patterns.
+Conditional types enable complex type manipulations.
+
+---
+
+## 🧩 Q29. What is the `infer` keyword and how do you use it?
+
+### 🧠 Concept
+
+`infer` extracts and infers types from other types within conditional types, enabling powerful type inference patterns. Use cases include utility types, type extraction, pattern matching.
+
+---
+
+### 💡 Example
 
 ```typescript
 type ReturnType<T> = T extends (...args: any[]) => infer R ? R : never;
@@ -176,17 +279,32 @@ type ReturnType<T> = T extends (...args: any[]) => infer R ? R : never;
 type Parameters<T> = T extends (...args: infer P) => any ? P : never;
 ```
 
-- **Core Purpose**: Extract types from other types
-- **Real-World Use**: Match patterns and extract parts
-- **Advanced Feature**: Let TypeScript infer types automatically
-- **Advanced Feature**: Enable complex type transformations
-- **Interview Tip**: Explain that use cases include utility types, type extraction, pattern matching
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Extract types from other types.
+* **Use Case:** Match patterns and extract parts.
+* **Common Mistake:** Let TypeScript infer types automatically.
+* **Pro Tip:** Enable complex type transformations.
 
 ---
 
-## 30) What are keyof and typeof operators and how are they used?
+### ⭐ Senior Takeaway
 
-`keyof` extracts keys from object types, while `typeof` gets the type of a value, both enabling type-level operations.
+Use cases include utility types, type extraction, pattern matching.
+
+---
+
+## 🧩 Q30. What are `keyof` and `typeof` operators?
+
+### 🧠 Concept
+
+`keyof` extracts keys from object types, while `typeof` gets the type of a value, both enabling type-level operations. These operators enable type-level programming.
+
+---
+
+### 💡 Example
 
 ```typescript
 interface User {
@@ -202,17 +320,32 @@ const user = { id: 1, name: "John", age: 30 };
 type UserType = typeof user; // { id: number; name: string; age: number; }
 ```
 
-- **Core Operators**: `keyof` extracts all keys from object types, `typeof` gets type of a value or expression
-- **Real-World Use**: Enable type-safe property access
-- **Common Use**: Use keys to access property types (indexed access)
-- **Advanced Feature**: Use together for advanced type operations
-- **Interview Tip**: Explain that these operators enable type-level programming
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** `keyof` extracts all keys from object types, `typeof` gets type of a value or expression.
+* **Use Case:** Enable type-safe property access.
+* **Common Mistake:** Use keys to access property types (indexed access).
+* **Pro Tip:** Use together for advanced type operations.
 
 ---
 
-## 31) What are indexed access types and lookup types?
+### ⭐ Senior Takeaway
 
-Indexed access types access property types using bracket notation, enabling type lookups and property type extraction.
+These operators enable type-level programming.
+
+---
+
+## 🧩 Q31. What are indexed access types and lookup types?
+
+### 🧠 Concept
+
+Indexed access types access property types using bracket notation, enabling type lookups and property type extraction. Can create unions of property types.
+
+---
+
+### 💡 Example
 
 ```typescript
 interface User {
@@ -229,10 +362,19 @@ type UserId = User["id"]; // number
 type UserAddress = User["address"]; // { street: string; city: string; }
 ```
 
-- **Core Concept**: Access property types using bracket notation
-- **Real-World Use**: Can access nested property types
-- **Advanced Feature**: Use with generics for dynamic property access
-- **Advanced Feature**: Enable type lookups and transformations
-- **Interview Tip**: Explain that can create unions of property types
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Access property types using bracket notation.
+* **Use Case:** Can access nested property types.
+* **Common Mistake:** Use with generics for dynamic property access.
+* **Pro Tip:** Enable type lookups and transformations.
+
+---
+
+### ⭐ Senior Takeaway
+
+Can create unions of property types.
 
 ---

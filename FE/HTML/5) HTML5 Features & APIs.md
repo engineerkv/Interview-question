@@ -2,30 +2,65 @@
 
 ---
 
-## 61) What are the new semantic elements in HTML5?
+## 🧩 Q61. What are the new semantic elements in HTML5?
 
-HTML5 introduced semantic elements that provide meaning to document structure, improving accessibility and SEO.
+### 🧠 Concept
 
-```html
-<body>
-  <header><h1>Site Title</h1></header>
-  <nav><ul><li><a href="/">Home</a></li><li><a href="/about">About</a></li></ul></nav>
-  <main><article><h2>Article Title</h2><p>Content...</p></article></main>
-  <footer><p>Copyright 2024</p></footer>
-</body>
-```
-
-- **Core Elements**: header, nav, main, article, section, aside, footer provide semantic meaning
-- **Real-World Impact**: Better accessibility for screen readers, enhanced SEO through content hierarchy
-- **Landmark Regions**: Creates navigable regions for screen reader users
-- **Default Styling**: Provides default styling and behavior, works with CSS
-- **Interview Tip**: Explain that semantic HTML5 elements replace generic divs with meaningful structure
+HTML5 introduced semantic elements that provide meaning to document structure, improving accessibility and SEO. Semantic HTML5 elements replace generic divs with meaningful structure.
 
 ---
 
-## 62) What is the Canvas API and how do you use it?
+### 💡 Example
 
-Canvas API provides a 2D drawing surface for creating graphics, animations, and interactive content.
+```html
+<body>
+  <header>
+    <h1>Site Title</h1>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+  </nav>
+  <main>
+    <article>
+      <h2>Article Title</h2>
+      <p>Content...</p>
+    </article>
+  </main>
+  <footer>
+    <p>Copyright 2024</p>
+  </footer>
+</body>
+```
+
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** header, nav, main, article, section, aside, footer provide semantic meaning.
+* **Use Case:** Better accessibility for screen readers, enhanced SEO through content hierarchy.
+* **Common Mistake:** Creates navigable regions for screen reader users.
+* **Pro Tip:** Provides default styling and behavior, works with CSS.
+
+---
+
+### ⭐ Senior Takeaway
+
+Semantic HTML5 elements replace generic divs with meaningful structure.
+
+---
+
+## 🧩 Q62. What is the Canvas API and how do you use it?
+
+### 🧠 Concept
+
+Canvas API provides a 2D drawing surface for creating graphics, animations, and interactive content. Canvas is for pixel-based graphics, SVG is for vector graphics.
+
+---
+
+### 💡 Example
 
 ```html
 <canvas id="myCanvas" width="400" height="200"></canvas>
@@ -37,39 +72,76 @@ ctx.fillRect(10, 10, 100, 50);
 </script>
 ```
 
-- **Core Purpose**: 2D drawing surface for graphics, animations, games, or visualizations
-- **Real-World Use**: Games, charts, image editing, or any pixel-based graphics
-- **JavaScript Required**: Requires JavaScript for drawing, no direct HTML drawing
-- **Performance**: Performance depends on canvas size and complexity of drawings
-- **Interview Tip**: Explain that Canvas is for pixel-based graphics, SVG is for vector graphics
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** 2D drawing surface for graphics, animations, games, or visualizations.
+* **Use Case:** Games, charts, image editing, or any pixel-based graphics.
+* **Common Mistake:** Requires JavaScript for drawing, no direct HTML drawing.
+* **Pro Tip:** Performance depends on canvas size and complexity of drawings.
 
 ---
 
-## 63) How do you create drag and drop functionality?
+### ⭐ Senior Takeaway
 
-HTML5 Drag and Drop API allows elements to be draggable and provides events for drop handling.
+Canvas is for pixel-based graphics, SVG is for vector graphics.
+
+---
+
+## 🧩 Q63. What is the Drag and Drop API?
+
+### 🧠 Concept
+
+HTML5 Drag and Drop API allows elements to be draggable and provides events for drop handling. Drag and drop requires JavaScript event handling.
+
+---
+
+### 💡 Example
 
 ```html
 <div id="drag-source" draggable="true" ondragstart="dragStart(event)">Drag me!</div>
 <div id="drop-target" ondrop="drop(event)" ondragover="allowDrop(event)">Drop here</div>
 <script>
-function dragStart(e) { e.dataTransfer.setData('text', e.target.id); }
-function allowDrop(e) { e.preventDefault(); }
-function drop(e) { e.preventDefault(); var data = e.dataTransfer.getData('text'); }
+function dragStart(e) { 
+  e.dataTransfer.setData('text', e.target.id); 
+}
+function allowDrop(e) { 
+  e.preventDefault(); 
+}
+function drop(e) { 
+  e.preventDefault(); 
+  var data = e.dataTransfer.getData('text'); 
+}
 </script>
 ```
 
-- **Core Steps**: Set `draggable="true"`, handle `dragstart`, `dragover`, and `drop` events
-- **Real-World Use**: File uploads, drag-and-drop interfaces, or reorderable lists
-- **Data Transfer**: Use `dataTransfer` to pass data between drag source and drop target
-- **Best Practice**: Prevent default behavior for drop zones, provide visual feedback
-- **Interview Tip**: Explain that drag and drop requires JavaScript event handling
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Set `draggable="true"`, handle `dragstart`, `dragover`, and `drop` events.
+* **Use Case:** File uploads, drag-and-drop interfaces, or reorderable lists.
+* **Common Mistake:** Use `dataTransfer` to pass data between drag source and drop target.
+* **Pro Tip:** Prevent default behavior for drop zones, provide visual feedback.
 
 ---
 
-## 64) What is the Geolocation API?
+### ⭐ Senior Takeaway
 
-Geolocation API provides access to device location information with user permission.
+Drag and drop requires JavaScript event handling.
+
+---
+
+## 🧩 Q64. What is the Geolocation API?
+
+### 🧠 Concept
+
+Geolocation API provides access to device location information with user permission. Geolocation requires HTTPS in production, respects user privacy.
+
+---
+
+### 💡 Example
 
 ```html
 <button onclick="getLocation()">Get My Location</button>
@@ -78,46 +150,81 @@ Geolocation API provides access to device location information with user permiss
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((pos) => {
-      document.getElementById('location').textContent = `Lat: ${pos.coords.latitude}, Lon: ${pos.coords.longitude}`;
+      document.getElementById('location').textContent = 
+        `Lat: ${pos.coords.latitude}, Lon: ${pos.coords.longitude}`;
     });
   }
 }
 </script>
 ```
 
-- **Core Purpose**: Get user's geographic location with permission
-- **Real-World Use**: Location-based services, maps, weather apps, or nearby searches
-- **Privacy**: Requires user permission, important for privacy considerations
-- **Data Provided**: Provides latitude, longitude, accuracy, and optional altitude
-- **Interview Tip**: Explain that geolocation requires HTTPS in production, respects user privacy
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Get user's geographic location with permission.
+* **Use Case:** Location-based services, maps, weather apps, or nearby searches.
+* **Common Mistake:** Requires user permission, important for privacy considerations.
+* **Pro Tip:** Provides latitude, longitude, accuracy, and optional altitude.
 
 ---
 
-## 65) How do you use the Web Storage API?
+### ⭐ Senior Takeaway
 
-Web Storage API provides local storage (persistent) and session storage (temporary) for client-side data.
+Geolocation requires HTTPS in production, respects user privacy.
+
+---
+
+## 🧩 Q65. What is Web Storage (localStorage and sessionStorage)?
+
+### 🧠 Concept
+
+Web Storage API provides local storage (persistent) and session storage (temporary) for client-side data. localStorage is synchronous, sessionStorage is tab-specific.
+
+---
+
+### 💡 Example
 
 ```html
 <input type="text" id="username" placeholder="Enter username">
 <button onclick="saveData()">Save</button>
 <button onclick="loadData()">Load</button>
 <script>
-function saveData() { localStorage.setItem('username', document.getElementById('username').value); }
-function loadData() { document.getElementById('username').value = localStorage.getItem('username') || ''; }
+function saveData() { 
+  localStorage.setItem('username', document.getElementById('username').value); 
+}
+function loadData() { 
+  document.getElementById('username').value = localStorage.getItem('username') || ''; 
+}
 </script>
 ```
 
-- **Core Types**: `localStorage` persists across sessions, `sessionStorage` clears when tab closes
-- **Real-World Use**: User preferences, form data, or any client-side data storage
-- **Storage Limit**: 5-10MB per origin, data stored as strings (use JSON for objects)
-- **Synchronous API**: Blocks main thread, consider using IndexedDB for large data
-- **Interview Tip**: Explain that localStorage is synchronous, sessionStorage is tab-specific
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** `localStorage` persists across sessions, `sessionStorage` clears when tab closes.
+* **Use Case:** User preferences, form data, or any client-side data storage.
+* **Common Mistake:** 5-10MB per origin, data stored as strings (use JSON for objects).
+* **Pro Tip:** Blocks main thread, consider using IndexedDB for large data.
 
 ---
 
-## 66) What is the History API and how do you use it?
+### ⭐ Senior Takeaway
 
-History API allows manipulation of browser history for single-page applications and custom navigation.
+localStorage is synchronous, sessionStorage is tab-specific.
+
+---
+
+## 🧩 Q66. What is the History API?
+
+### 🧠 Concept
+
+History API allows manipulation of browser history for single-page applications and custom navigation. History API enables SPAs with proper browser navigation.
+
+---
+
+### 💡 Example
 
 ```html
 <button onclick="goToPage('/home')">Home</button>
@@ -128,24 +235,41 @@ function goToPage(page) {
   history.pushState({page}, '', page);
   document.getElementById('content').textContent = page + ' Page Content';
 }
-function goBack() { history.back(); }
+function goBack() { 
+  history.back(); 
+}
 window.addEventListener('popstate', (e) => {
   document.getElementById('content').textContent = e.state?.page + ' Page Content';
 });
 </script>
 ```
 
-- **Core Purpose**: Manipulate browser history without page reloads
-- **Real-World Use**: Single-page applications, custom navigation, or bookmarkable URLs
-- **Methods**: `pushState()` adds history entry, `replaceState()` modifies current entry
-- **Events**: `popstate` event handles back/forward button navigation
-- **Interview Tip**: Explain that History API enables SPAs with proper browser navigation
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Manipulate browser history without page reloads.
+* **Use Case:** Single-page applications, custom navigation, or bookmarkable URLs.
+* **Common Mistake:** `pushState()` adds history entry, `replaceState()` modifies current entry.
+* **Pro Tip:** `popstate` event handles back/forward button navigation.
 
 ---
 
-## 67) How do you create offline web applications?
+### ⭐ Senior Takeaway
 
-Use Service Workers and Cache API to create web applications that work offline by caching resources.
+History API enables SPAs with proper browser navigation.
+
+---
+
+## 🧩 Q67. What are Offline Web Apps?
+
+### 🧠 Concept
+
+Use Service Workers and Cache API to create web applications that work offline by caching resources. Service Workers require HTTPS, enable offline-first apps.
+
+---
+
+### 💡 Example
 
 ```html
 <script>
@@ -157,17 +281,32 @@ if ('serviceWorker' in navigator) {
 </script>
 ```
 
-- **Core Technologies**: Service Workers run in background, Cache API stores resources
-- **Real-World Use**: Offline functionality, faster loading, or reduced server load
-- **Lifecycle**: Install event caches resources, fetch event serves cached content
-- **Fallback Strategy**: Falls back to network when cache misses, improves reliability
-- **Interview Tip**: Explain that Service Workers require HTTPS, enable offline-first apps
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Service Workers run in background, Cache API stores resources.
+* **Use Case:** Offline functionality, faster loading, or reduced server load.
+* **Common Mistake:** Install event caches resources, fetch event serves cached content.
+* **Pro Tip:** Falls back to network when cache misses, improves reliability.
 
 ---
 
-## 68) What is the Web Workers API?
+### ⭐ Senior Takeaway
 
-Web Workers allow JavaScript to run in background threads, preventing UI blocking for heavy computations.
+Service Workers require HTTPS, enable offline-first apps.
+
+---
+
+## 🧩 Q68. What are Web Workers?
+
+### 🧠 Concept
+
+Web Workers allow JavaScript to run in background threads, preventing UI blocking for heavy computations. Web Workers are for CPU-intensive tasks, not DOM manipulation.
+
+---
+
+### 💡 Example
 
 ```html
 <button onclick="startWorker()">Start Heavy Task</button>
@@ -176,23 +315,39 @@ Web Workers allow JavaScript to run in background threads, preventing UI blockin
 let worker;
 function startWorker() {
   worker = new Worker('worker.js');
-  worker.onmessage = (e) => document.getElementById('result').textContent = e.data;
+  worker.onmessage = (e) => 
+    document.getElementById('result').textContent = e.data;
   worker.postMessage('start');
 }
 </script>
 ```
 
-- **Core Purpose**: Run JavaScript in background threads, keep UI responsive
-- **Real-World Use**: Heavy computations, image processing, or data parsing
-- **Limitations**: Can't access DOM or window object, communicate via postMessage
-- **Performance**: Prevents UI blocking, improves user experience
-- **Interview Tip**: Explain that Web Workers are for CPU-intensive tasks, not DOM manipulation
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Run JavaScript in background threads, keep UI responsive.
+* **Use Case:** Heavy computations, image processing, or data parsing.
+* **Common Mistake:** Can't access DOM or window object, communicate via postMessage.
+* **Pro Tip:** Prevents UI blocking, improves user experience.
 
 ---
 
-## 69) How do you use the Intersection Observer API?
+### ⭐ Senior Takeaway
 
-Intersection Observer API efficiently detects when elements enter or exit the viewport.
+Web Workers are for CPU-intensive tasks, not DOM manipulation.
+
+---
+
+## 🧩 Q69. What is the Intersection Observer API?
+
+### 🧠 Concept
+
+Intersection Observer API efficiently detects when elements enter or exit the viewport. Intersection Observer is better than scroll events for performance.
+
+---
+
+### 💡 Example
 
 ```html
 <div class="section">Section 1</div>
@@ -200,24 +355,42 @@ Intersection Observer API efficiently detects when elements enter or exit the vi
 <script>
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.style.backgroundColor = 'yellow';
+    if (entry.isIntersecting) 
+      entry.target.style.backgroundColor = 'yellow';
   });
 }, { threshold: 0.5 });
-document.querySelectorAll('.section').forEach(section => observer.observe(section));
+document.querySelectorAll('.section').forEach(section => 
+  observer.observe(section)
+);
 </script>
 ```
 
-- **Core Purpose**: Efficiently detect when elements enter or exit viewport
-- **Real-World Use**: Lazy loading images, infinite scrolling, or scroll animations
-- **Performance**: More efficient than scroll event listeners, better performance
-- **Configuration**: Configurable root margin and threshold for fine-tuned detection
-- **Interview Tip**: Explain that Intersection Observer is better than scroll events for performance
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Efficiently detect when elements enter or exit viewport.
+* **Use Case:** Lazy loading images, infinite scrolling, or scroll animations.
+* **Common Mistake:** More efficient than scroll event listeners, better performance.
+* **Pro Tip:** Configurable root margin and threshold for fine-tuned detection.
 
 ---
 
-## 70) What is the Web Components standard?
+### ⭐ Senior Takeaway
 
-Web Components are a set of web platform APIs that allow creating reusable custom elements.
+Intersection Observer is better than scroll events for performance.
+
+---
+
+## 🧩 Q70. What are Web Components?
+
+### 🧠 Concept
+
+Web Components are a set of web platform APIs that allow creating reusable custom elements. Web Components are the native browser standard for components.
+
+---
+
+### 💡 Example
 
 ```html
 <my-button text="Click me!" color="blue"></my-button>
@@ -225,24 +398,40 @@ Web Components are a set of web platform APIs that allow creating reusable custo
 class MyButton extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' }).innerHTML = `<button style="color: ${this.getAttribute('color')}">${this.getAttribute('text')}</button>`;
+    this.attachShadow({ mode: 'open' }).innerHTML = 
+      `<button style="color: ${this.getAttribute('color')}">${this.getAttribute('text')}</button>`;
   }
 }
 customElements.define('my-button', MyButton);
 </script>
 ```
 
-- **Core Technologies**: Custom Elements, Shadow DOM, HTML Templates
-- **Real-World Use**: Reusable components, component libraries, or framework-agnostic UI
-- **Encapsulation**: Encapsulated styling and behavior, prevents style conflicts
-- **Framework-Agnostic**: Native browser support, works with any framework or vanilla JS
-- **Interview Tip**: Explain that Web Components are the native browser standard for components
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Custom Elements, Shadow DOM, HTML Templates.
+* **Use Case:** Reusable components, component libraries, or framework-agnostic UI.
+* **Common Mistake:** Encapsulated styling and behavior, prevents style conflicts.
+* **Pro Tip:** Native browser support, works with any framework or vanilla JS.
 
 ---
 
-## 71) How do you create custom elements?
+### ⭐ Senior Takeaway
 
-Custom elements extend HTML with new tags that have their own behavior and styling.
+Web Components are the native browser standard for components.
+
+---
+
+## 🧩 Q71. What are Custom Elements?
+
+### 🧠 Concept
+
+Custom elements extend HTML with new tags that have their own behavior and styling. Custom elements are the foundation of Web Components.
+
+---
+
+### 💡 Example
 
 ```html
 <user-card name="John Doe" email="john@example.com"></user-card>
@@ -250,24 +439,43 @@ Custom elements extend HTML with new tags that have their own behavior and styli
 class UserCard extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' }).innerHTML = `<div><h3>${this.getAttribute('name')}</h3><p>${this.getAttribute('email')}</p></div>`;
+    this.attachShadow({ mode: 'open' }).innerHTML = 
+      `<div>
+        <h3>${this.getAttribute('name')}</h3>
+        <p>${this.getAttribute('email')}</p>
+      </div>`;
   }
 }
 customElements.define('user-card', UserCard);
 </script>
 ```
 
-- **Core Steps**: Extend HTMLElement class, use Shadow DOM, define with customElements.define()
-- **Real-World Use**: Reusable components, custom widgets, or framework-agnostic components
-- **Lifecycle Callbacks**: connectedCallback, disconnectedCallback, attributeChangedCallback
-- **Observed Attributes**: Watch attribute changes and react accordingly
-- **Interview Tip**: Explain that custom elements are the foundation of Web Components
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Extend HTMLElement class, use Shadow DOM, define with customElements.define().
+* **Use Case:** Reusable components, custom widgets, or framework-agnostic components.
+* **Common Mistake:** Lifecycle callbacks: connectedCallback, disconnectedCallback, attributeChangedCallback.
+* **Pro Tip:** Watch attribute changes and react accordingly.
 
 ---
 
-## 72) What is the Shadow DOM?
+### ⭐ Senior Takeaway
 
-Shadow DOM provides encapsulation for DOM and CSS, creating isolated components.
+Custom elements are the foundation of Web Components.
+
+---
+
+## 🧩 Q72. What is Shadow DOM?
+
+### 🧠 Concept
+
+Shadow DOM provides encapsulation for DOM and CSS, creating isolated components. Shadow DOM is essential for component encapsulation.
+
+---
+
+### 💡 Example
 
 ```html
 <my-widget></my-widget>
@@ -276,24 +484,41 @@ class MyWidget extends HTMLElement {
   constructor() {
     super();
     const shadow = this.attachShadow({ mode: 'open' });
-    shadow.innerHTML = `<style>div { color: blue; }</style><div>Widget Content</div>`;
+    shadow.innerHTML = 
+      `<style>div { color: blue; }</style>
+       <div>Widget Content</div>`;
   }
 }
 customElements.define('my-widget', MyWidget);
 </script>
 ```
 
-- **Core Purpose**: Encapsulate DOM and CSS, prevent style conflicts
-- **Real-World Use**: Component libraries, isolated widgets, or style encapsulation
-- **Modes**: `mode: 'open'` allows external access, `mode: 'closed'` prevents access
-- **Style Isolation**: Styles don't leak in or out, creates true component isolation
-- **Interview Tip**: Explain that Shadow DOM is essential for component encapsulation
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Encapsulate DOM and CSS, prevent style conflicts.
+* **Use Case:** Component libraries, isolated widgets, or style encapsulation.
+* **Common Mistake:** `mode: 'open'` allows external access, `mode: 'closed'` prevents access.
+* **Pro Tip:** Styles don't leak in or out, creates true component isolation.
 
 ---
 
-## 73) How do you use the WebRTC API?
+### ⭐ Senior Takeaway
 
-WebRTC enables real-time communication between browsers for video, audio, and data sharing.
+Shadow DOM is essential for component encapsulation.
+
+---
+
+## 🧩 Q73. What is WebRTC?
+
+### 🧠 Concept
+
+WebRTC enables real-time communication between browsers for video, audio, and data sharing. WebRTC is for peer-to-peer communication, not server-based.
+
+---
+
+### 💡 Example
 
 ```html
 <video id="localVideo" autoplay muted></video>
@@ -301,23 +526,41 @@ WebRTC enables real-time communication between browsers for video, audio, and da
 <button onclick="startCall()">Start Call</button>
 <script>
 async function startCall() {
-  const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+  const stream = await navigator.mediaDevices.getUserMedia({ 
+    video: true, 
+    audio: true 
+  });
   document.getElementById('localVideo').srcObject = stream;
 }
 </script>
 ```
 
-- **Core Purpose**: Peer-to-peer real-time communication for video, audio, and data
-- **Real-World Use**: Video calling, screen sharing, or real-time collaboration
-- **Requirements**: Requires HTTPS in production, complex setup with signaling server
-- **Capabilities**: Handles video, audio, and data channels between peers
-- **Interview Tip**: Explain that WebRTC is for peer-to-peer communication, not server-based
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Peer-to-peer real-time communication for video, audio, and data.
+* **Use Case:** Video calling, screen sharing, or real-time collaboration.
+* **Common Mistake:** Requires HTTPS in production, complex setup with signaling server.
+* **Pro Tip:** Handles video, audio, and data channels between peers.
 
 ---
 
-## 74) What is the Service Worker API?
+### ⭐ Senior Takeaway
 
-Service Workers are background scripts that act as network proxies, enabling offline functionality and push notifications.
+WebRTC is for peer-to-peer communication, not server-based.
+
+---
+
+## 🧩 Q74. What are Service Workers?
+
+### 🧠 Concept
+
+Service Workers are background scripts that act as network proxies, enabling offline functionality and push notifications. Service Workers require HTTPS, enable PWAs.
+
+---
+
+### 💡 Example
 
 ```html
 <script>
@@ -331,17 +574,32 @@ if ('serviceWorker' in navigator) {
 </script>
 ```
 
-- **Core Purpose**: Background scripts that act as network proxies
-- **Real-World Use**: Offline functionality, push notifications, or background sync
-- **Lifecycle**: Install, activate, fetch events control behavior
-- **Network Proxy**: Intercepts network requests, can serve cached content
-- **Interview Tip**: Explain that Service Workers require HTTPS, enable PWAs
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Background scripts that act as network proxies.
+* **Use Case:** Offline functionality, push notifications, or background sync.
+* **Common Mistake:** Install, activate, fetch events control behavior.
+* **Pro Tip:** Intercepts network requests, can serve cached content.
 
 ---
 
-## 75) How do you create progressive web applications?
+### ⭐ Senior Takeaway
 
-PWAs combine web technologies with native app features like offline functionality, push notifications, and app-like experience.
+Service Workers require HTTPS, enable PWAs.
+
+---
+
+## 🧩 Q75. What are Progressive Web Apps (PWAs)?
+
+### 🧠 Concept
+
+PWAs combine web technologies with native app features like offline functionality, push notifications, and app-like experience. PWAs bridge web and native apps, require Service Worker.
+
+---
+
+### 💡 Example
 
 ```html
 <link rel="manifest" href="/manifest.json">
@@ -349,10 +607,19 @@ PWAs combine web technologies with native app features like offline functionalit
 <meta name="apple-mobile-web-app-capable" content="yes">
 ```
 
-- **Core Requirements**: HTTPS, Service Worker, Web App Manifest
-- **Real-World Features**: Offline functionality, push notifications, installable on devices
-- **Web App Manifest**: Defines app metadata, icons, theme colors, display mode
-- **Native-Like Experience**: App-like experience, installable, works offline
-- **Interview Tip**: Explain that PWAs bridge web and native apps, require Service Worker
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** HTTPS, Service Worker, Web App Manifest.
+* **Use Case:** Offline functionality, push notifications, installable on devices.
+* **Common Mistake:** Web App Manifest defines app metadata, icons, theme colors, display mode.
+* **Pro Tip:** App-like experience, installable, works offline.
+
+---
+
+### ⭐ Senior Takeaway
+
+PWAs bridge web and native apps, require Service Worker.
 
 ---

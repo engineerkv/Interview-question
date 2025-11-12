@@ -1367,4 +1367,35 @@ const MemoryMonitor = () => {
 
 ---
 
+## ⚡ **Last-Minute Review (5 minutes)**
+
+### **Must-Know Concepts**
+- **Architecture**: Feature-based organization, component composition
+- **Performance**: Core Web Vitals (LCP < 2.5s, FID < 100ms, CLS < 0.1)
+- **State Management**: Context API (simple), Redux (complex), Zustand (modern)
+- **Caching**: HTTP cache, Service Worker, React Query, IndexedDB
+- **Real-time**: WebSockets (bidirectional), SSE (server→client), Long Polling
+
+### **Quick Code Snippets**
+```javascript
+// Feature-based structure
+src/features/auth/components, hooks, services
+
+// React Query caching
+const { data } = useQuery(['users', id], fetchUser, { staleTime: 60000 });
+
+// Service Worker cache
+event.respondWith(caches.match(request) || fetch(request));
+
+// WebSocket
+const ws = new WebSocket('wss://api.example.com');
+ws.onmessage = (e) => handleUpdate(JSON.parse(e.data));
+```
+
+### **Common Patterns**
+- **Micro-frontends**: Module Federation, event-based communication
+- **PWA**: Service Worker, Web App Manifest, offline support
+- **Performance**: Code splitting, lazy loading, virtualization
+- **Accessibility**: ARIA, keyboard navigation, focus management
+
 *This cheatsheet covers the most important concepts for front-end system design interviews. Practice implementing these patterns and understand the underlying principles!*

@@ -446,4 +446,36 @@ function App() {
 
 ---
 
+## ⚡ **Last-Minute Review (5 minutes)**
+
+### **Must-Know Concepts**
+- **Bridge**: JS ↔ Native communication layer
+- **Native Modules**: Access platform APIs (camera, GPS, etc.)
+- **Platform Differences**: Use `Platform.OS` for iOS/Android specific code
+- **FlatList**: Use for large lists (not ScrollView)
+- **Navigation**: React Navigation for routing
+
+### **Quick Code Snippets**
+```jsx
+// Platform Check
+if (Platform.OS === 'ios') { /* iOS code */ }
+
+// FlatList
+<FlatList
+  data={items}
+  renderItem={({ item }) => <Item data={item} />}
+  keyExtractor={item => item.id}
+/>
+
+// Native Module
+import { NativeModules } from 'react-native';
+NativeModules.MyModule.doSomething();
+```
+
+### **Common Gotchas**
+- Use `View` instead of `div`, `Text` instead of `span`
+- FlatList for performance, ScrollView for small lists
+- Handle platform differences (iOS vs Android)
+- Test on real devices, not just simulators
+
 *Remember: Practice with real devices, understand platform differences, and focus on performance optimization!*

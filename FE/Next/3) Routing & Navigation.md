@@ -2,9 +2,15 @@
 
 ---
 
-## 21) How does nested routing and layout composition work in the App Router? (**🚀 Next 14**)
+## 🧩 Q21. How does nested routing work in App Router?
 
-Nested routes create layouts that wrap child pages, with `layout.js` files defining shared UI.
+### 🧠 Concept
+
+Nested routes create layouts that wrap child pages, with `layout.js` files defining shared UI. Layouts compose together for complex UIs (composition).
+
+---
+
+### 💡 Example
 
 ```javascript
 // app/layout.js - root layout
@@ -20,17 +26,32 @@ export default function RootLayout({ children }) {
 }
 ```
 
-- **Core Concept**: Each folder can have its own layout (nested layouts)
-- **Real-World Benefit**: Layouts persist across route changes (layout persistence)
-- **Common Advantage**: Common elements like navigation stay in place (shared UI)
-- **Performance**: Layouts don't re-render on navigation
-- **Interview Tip**: Explain that layouts compose together for complex UIs (composition)
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Each folder can have its own layout (nested layouts).
+* **Use Case:** Layouts persist across route changes (layout persistence).
+* **Common Mistake:** Common elements like navigation stay in place (shared UI).
+* **Pro Tip:** Layouts don't re-render on navigation.
 
 ---
 
-## 22) What are **Parallel Routes** and **Intercepting Routes** and when would you use them? (**🚀**)
+### ⭐ Senior Takeaway
 
-Parallel routes render multiple pages simultaneously, while intercepting routes show pages in modals.
+Layouts compose together for complex UIs (composition).
+
+---
+
+## 🧩 Q22. What are Parallel Routes and how do you use them?
+
+### 🧠 Concept
+
+Parallel routes render multiple pages simultaneously, while intercepting routes show pages in modals. Parallel routes enable complex dashboard layouts.
+
+---
+
+### 💡 Example
 
 ```javascript
 // Parallel Routes
@@ -40,17 +61,67 @@ export default function Analytics() {
 }
 ```
 
-- **Core Features**: Parallel routes render multiple pages in same layout, intercepting routes show pages in modals or overlays
-- **Real-World Use**: Use `@` prefix for parallel route slots
-- **Common Use Case**: Great for modal dialogs and overlays (modals)
-- **Advanced Feature**: Better user experience with parallel content (UX)
-- **Interview Tip**: Explain that parallel routes enable complex dashboard layouts
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Parallel routes render multiple pages in same layout, intercepting routes show pages in modals or overlays.
+* **Use Case:** Use `@` prefix for parallel route slots.
+* **Common Mistake:** Great for modal dialogs and overlays (modals).
+* **Pro Tip:** Better user experience with parallel content (UX).
 
 ---
 
-## 23) What is the difference between `not-found.tsx`, `error.tsx`, and `loading.tsx` files? (**🚀**)
+### ⭐ Senior Takeaway
 
-These files handle 404 errors, runtime errors, and loading states respectively in the App Router.
+Parallel routes enable complex dashboard layouts.
+
+---
+
+## 🧩 Q23. What are Intercepting Routes and how do you use them?
+
+### 🧠 Concept
+
+Intercepting routes show pages in modals or overlays without changing the URL. Great for modal dialogs and overlays (modals).
+
+---
+
+### 💡 Example
+
+```javascript
+// Intercepting route
+// app/(.)photos/[id]/page.js
+export default function PhotoModal({ params }) {
+  return <div>Photo {params.id}</div>;
+}
+```
+
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Use `(.)` prefix for same-level intercepting, `(..)` for parent level.
+* **Use Case:** Shows content in modal without navigation.
+* **Common Mistake:** URL doesn't change, better UX.
+* **Pro Tip:** Works with parallel routes for complex layouts.
+
+---
+
+### ⭐ Senior Takeaway
+
+Intercepting routes provide better UX for modals.
+
+---
+
+## 🧩 Q24. How do you handle `not-found.tsx` and `error.tsx`?
+
+### 🧠 Concept
+
+These files handle 404 errors, runtime errors, and loading states respectively in the App Router. These files improve error handling and loading states.
+
+---
+
+### 💡 Example
 
 ```javascript
 // app/not-found.tsx - 404 page
@@ -62,19 +133,79 @@ export default function NotFound() {
     </div>
   );
 }
-```
 
-- **Core Files**: `not-found.tsx` handles 404 errors and missing pages, `error.tsx` handles runtime errors and exceptions, `loading.tsx` shows loading states during navigation
-- **Real-World Use**: Can have different error/loading states per route (nested)
-- **Important Rule**: Error boundaries must be client components
-- **Advanced Feature**: These special files provide better UX
-- **Interview Tip**: Explain that these files improve error handling and loading states
+// app/error.tsx - error boundary
+'use client';
+export default function Error({ error, reset }) {
+  return (
+    <div>
+      <h2>Something went wrong!</h2>
+      <button onClick={() => reset()}>Try again</button>
+    </div>
+  );
+}
+```
 
 ---
 
-## 24) How do you perform navigation using the `useRouter()` hook and `router.push()`?
+### 🔍 Deep Insights
 
-Use `useRouter()` to get the router object and call `push()` to navigate programmatically.
+* **Rule:** `not-found.tsx` handles 404 errors and missing pages, `error.tsx` handles runtime errors and exceptions, `loading.tsx` shows loading states during navigation.
+* **Use Case:** Can have different error/loading states per route (nested).
+* **Common Mistake:** Error boundaries must be client components.
+* **Pro Tip:** These special files provide better UX.
+
+---
+
+### ⭐ Senior Takeaway
+
+These files improve error handling and loading states.
+
+---
+
+## 🧩 Q25. How do you use `loading.tsx` for loading states?
+
+### 🧠 Concept
+
+`loading.tsx` shows loading states during navigation automatically. Provides better UX during route transitions.
+
+---
+
+### 💡 Example
+
+```javascript
+// app/loading.tsx
+export default function Loading() {
+  return <div>Loading...</div>;
+}
+```
+
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Automatically shows during route transitions.
+* **Use Case:** Can have different loading states per route (nested).
+* **Common Mistake:** Works with Suspense for progressive loading.
+* **Pro Tip:** Provides better perceived performance.
+
+---
+
+### ⭐ Senior Takeaway
+
+Loading states improve perceived performance.
+
+---
+
+## 🧩 Q26. How do you use `useRouter()` and `router.push()`?
+
+### 🧠 Concept
+
+Use `useRouter()` to get the router object and call `push()` to navigate programmatically. Use router for client-side navigation.
+
+---
+
+### 💡 Example
 
 ```javascript
 'use client';
@@ -91,67 +222,32 @@ export default function Navigation() {
 }
 ```
 
-- **Core Hook**: `useRouter` hook for programmatic navigation
-- **Real-World Methods**: `push()` navigates to new page, adds to history; `replace()` navigates without adding to history
-- **Common Navigation**: `back()/forward()` navigate through history, `refresh()` reloads current page
-- **Advanced Feature**: Router provides navigation control
-- **Interview Tip**: Explain that use router for client-side navigation
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** `useRouter` hook for programmatic navigation.
+* **Use Case:** `push()` navigates to new page, adds to history; `replace()` navigates without adding to history.
+* **Common Mistake:** `back()/forward()` navigate through history, `refresh()` reloads current page.
+* **Pro Tip:** Router provides navigation control.
 
 ---
 
-## 25) How do you implement route groups (`(marketing)`, `(auth)`) in App Router? (**🚀**)
+### ⭐ Senior Takeaway
 
-Route groups use parentheses to organize routes without affecting the URL structure.
-
-```javascript
-// app/(marketing)/about/page.js -> /about
-export default function About() {
-  return <h1>About Us</h1>;
-}
-
-// app/(marketing)/contact/page.js -> /contact
-```
-
-- **Core Syntax**: Use parentheses to organize routes (route groups)
-- **Real-World Benefit**: Groups don't affect the URL structure (no URL impact)
-- **Common Use**: Each group can have its own layout (layouts)
-- **Advanced Feature**: Better project structure and organization
-- **Interview Tip**: Explain that can have multiple groups in same app
+Use router for client-side navigation.
 
 ---
 
-## 26) What is the purpose of the `Link` and `usePathname()` hook in navigation? (**🚀**)
+## 🧩 Q27. How do you implement redirects and rewrites?
 
-`Link` provides client-side navigation, while `usePathname()` gets the current pathname.
+### 🧠 Concept
 
-```javascript
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-
-export default function Navigation() {
-  const pathname = usePathname();
-  
-  return (
-    <nav>
-      <Link href="/" className={pathname === '/' ? 'active' : ''}>
-        Home
-      </Link>
-    </nav>
-  );
-}
-```
-
-- **Core Components**: Link provides client-side navigation with prefetching, `usePathname` gets current pathname for active states
-- **Real-World Benefit**: Automatically prefetches linked pages (prefetching)
-- **Common Use**: Use `target="_blank"` for external links
-- **Performance**: Better than `window.location` for navigation
-- **Interview Tip**: Explain that Link improves performance with prefetching
+Configure redirects, rewrites, and headers in the `next.config.js` file for routing and security. These configs affect routing and security.
 
 ---
 
-## 27) How do you handle redirects, rewrites, and headers in `next.config.js`?
-
-Configure redirects, rewrites, and headers in the `next.config.js` file for routing and security.
+### 💡 Example
 
 ```javascript
 // next.config.js
@@ -179,10 +275,19 @@ const nextConfig = {
 };
 ```
 
-- **Core Features**: Redirects (permanent (301) or temporary (302) redirects), Rewrites (internal URL rewriting without changing browser URL), Headers (security headers and CORS configuration)
-- **Real-World Use**: Use path patterns for flexible matching
-- **Common Practice**: Important for security and SEO
-- **Advanced Feature**: Configure complex routing and security rules
-- **Interview Tip**: Explain that these configs affect routing and security
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Redirects (permanent (301) or temporary (302) redirects), Rewrites (internal URL rewriting without changing browser URL), Headers (security headers and CORS configuration).
+* **Use Case:** Use path patterns for flexible matching.
+* **Common Mistake:** Important for security and SEO.
+* **Pro Tip:** Configure complex routing and security rules.
+
+---
+
+### ⭐ Senior Takeaway
+
+These configs affect routing and security.
 
 ---

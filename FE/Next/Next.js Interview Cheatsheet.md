@@ -555,4 +555,38 @@ CMD ["node", "server.js"]
 
 ---
 
+## ⚡ **Last-Minute Review (5 minutes)**
+
+### **Must-Know Concepts**
+- **App Router**: Modern routing (Next 13+), file-based routing
+- **Server Components**: Run on server, no JavaScript sent (default)
+- **Client Components**: Use `'use client'` for hooks, interactivity
+- **Data Fetching**: Server Components can be async, fetch directly
+- **SSR/SSG/ISR**: Server-side rendering, static generation, incremental regeneration
+
+### **Quick Code Snippets**
+```javascript
+// Server Component (default)
+async function ServerComponent() {
+  const data = await fetch('https://api.example.com/data');
+  return <div>{data.title}</div>;
+}
+
+// Client Component
+'use client';
+function ClientComponent() {
+  const [state, setState] = useState(0);
+  return <button onClick={() => setState(s => s + 1)}>{state}</button>;
+}
+
+// Image Optimization
+<Image src="/hero.jpg" width={800} height={600} alt="Hero" priority />
+```
+
+### **Common Gotchas**
+- Server Components can't use hooks or browser APIs
+- Client Components must have `'use client'` directive
+- App Router uses `async` components for data fetching
+- Image component requires width/height (or fill with parent)
+
 *Remember: Focus on App Router (Next 13+), Server Components, and modern Next.js features for 2025 interviews!*

@@ -518,6 +518,38 @@ class ErrorBoundary extends React.Component {
 
 ---
 
+## ⚡ **Last-Minute Review (5 minutes)**
+
+### **Must-Know Concepts**
+- **Virtual DOM**: JS representation for efficient diffing
+- **Reconciliation**: React's diffing algorithm (Fiber in React 16+)
+- **Hooks Rules**: Only call at top level, only in React functions
+- **useState**: Returns [state, setState], triggers re-render
+- **useEffect**: Runs after render, cleanup on unmount/deps change
+- **useMemo/useCallback**: Memoize expensive calculations/functions
+- **React.memo**: Prevents re-render if props unchanged
+
+### **Quick Code Snippets**
+```jsx
+// useState
+const [count, setCount] = useState(0);
+
+// useEffect
+useEffect(() => { fetchData(); }, [id]);
+
+// useMemo
+const value = useMemo(() => expensive(), [dep]);
+
+// React.memo
+const Memoized = React.memo(Component);
+```
+
+### **Common Gotchas**
+- Don't mutate state directly (`state.push()` ❌)
+- useEffect dependencies must include all used values
+- Keys in lists must be stable and unique
+- Conditional hooks will break (hooks must be unconditional)
+
 *Remember: Practice with real projects, understand the concepts deeply, and always consider performance implications!*
 
 ---

@@ -2,9 +2,15 @@
 
 ---
 
-## 79) How do you create an Android release build using Gradle and keystore?
+## 🧩 Q79. How do you create an Android release build using Gradle and keystore?
 
-Configure signing in build.gradle, create a keystore, and build the release APK.
+### 🧠 Concept
+
+Configure signing in build.gradle, create a keystore, and build the release APK. Use gradlew assembleRelease to build (build process).
+
+---
+
+### 💡 Example
 
 ```gradle
 // android/app/build.gradle
@@ -29,17 +35,32 @@ android {
 }
 ```
 
-- **Core Steps**: Use keytool to create release keystore (keystore creation)
-- **Real-World Configuration**: Configure signing in build.gradle (signing configuration)
-- **Common Practice**: Enable code obfuscation for release builds (Proguard)
-- **Security**: Keep keystore and passwords secure
-- **Interview Tip**: Explain that use gradlew assembleRelease to build (build process)
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Use keytool to create release keystore (keystore creation).
+* **Use Case:** Configure signing in build.gradle (signing configuration).
+* **Common Mistake:** Enable code obfuscation for release builds (Proguard).
+* **Pro Tip:** Keep keystore and passwords secure.
 
 ---
 
-## 80) How do you create an iOS release build using Xcode and provisioning profiles?
+### ⭐ Senior Takeaway
 
-Configure code signing in Xcode, create provisioning profiles, and archive the app.
+Use gradlew assembleRelease to build (build process).
+
+---
+
+## 🧩 Q80. How do you create an iOS release build using Xcode and provisioning profiles?
+
+### 🧠 Concept
+
+Configure code signing in Xcode, create provisioning profiles, and archive the app. Manage development and distribution certificates (certificates).
+
+---
+
+### 💡 Example
 
 ```bash
 # iOS build process
@@ -50,17 +71,32 @@ Configure code signing in Xcode, create provisioning profiles, and archive the a
 # 5. Distribute to App Store
 ```
 
-- **Core Steps**: Configure code signing in Xcode (code signing)
-- **Real-World Setup**: Create and manage provisioning profiles (provisioning profiles)
-- **Common Process**: Archive app for distribution (archive process)
-- **Advanced Feature**: Upload to App Store Connect (App Store Connect)
-- **Interview Tip**: Explain that manage development and distribution certificates (certificates)
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Configure code signing in Xcode (code signing).
+* **Use Case:** Create and manage provisioning profiles (provisioning profiles).
+* **Common Mistake:** Archive app for distribution (archive process).
+* **Pro Tip:** Upload to App Store Connect (App Store Connect).
 
 ---
 
-## 81) How do you manage build numbers and versioning across both platforms?
+### ⭐ Senior Takeaway
 
-Use consistent versioning strategies and automate version management across platforms.
+Manage development and distribution certificates (certificates).
+
+---
+
+## 🧩 Q81. How do you manage build numbers and versioning across both platforms?
+
+### 🧠 Concept
+
+Use consistent versioning strategies and automate version management across platforms. Keep versions consistent across platforms (consistency).
+
+---
+
+### 💡 Example
 
 ```jsx
 // package.json
@@ -77,17 +113,32 @@ android {
 }
 ```
 
-- **Core Strategy**: Use semantic versioning (major.minor.patch) (semantic versioning)
-- **Real-World Use**: Android version code (integer) (version code)
-- **Common Practice**: iOS bundle version (string) (bundle version)
-- **Advanced Feature**: Automate version management (automation)
-- **Interview Tip**: Explain that keep versions consistent across platforms (consistency)
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Use semantic versioning (major.minor.patch) (semantic versioning).
+* **Use Case:** Android version code (integer) (version code).
+* **Common Mistake:** iOS bundle version (string) (bundle version).
+* **Pro Tip:** Automate version management (automation).
 
 ---
 
-## 82) What are the guidelines for Play Store submission (Android)?
+### ⭐ Senior Takeaway
 
-Follow Google Play Store guidelines for app quality, content, and technical requirements.
+Keep versions consistent across platforms (consistency).
+
+---
+
+## 🧩 Q82. What are the guidelines for Play Store submission?
+
+### 🧠 Concept
+
+Follow Google Play Store guidelines for app quality, content, and technical requirements. Target recent Android API levels (target API).
+
+---
+
+### 💡 Example
 
 ```xml
 <!-- AndroidManifest.xml requirements -->
@@ -101,17 +152,32 @@ Follow Google Play Store guidelines for app quality, content, and technical requ
 </manifest>
 ```
 
-- **Core Requirements**: Meet quality guidelines and standards (app quality)
-- **Real-World Compliance**: Follow content and policy guidelines (content policy)
-- **Common Requirements**: Meet technical requirements (technical requirements)
-- **Advanced Feature**: Include privacy policy (privacy policy)
-- **Interview Tip**: Explain that target recent Android API levels (target API)
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Meet quality guidelines and standards (app quality).
+* **Use Case:** Follow content and policy guidelines (content policy).
+* **Common Mistake:** Meet technical requirements (technical requirements).
+* **Pro Tip:** Include privacy policy (privacy policy).
 
 ---
 
-## 83) What are the guidelines for App Store submission (iOS)?
+### ⭐ Senior Takeaway
 
-Follow Apple App Store guidelines for app quality, content, and technical requirements.
+Target recent Android API levels (target API).
+
+---
+
+## 🧩 Q83. What are the guidelines for App Store submission?
+
+### 🧠 Concept
+
+Follow Apple App Store guidelines for app quality, content, and technical requirements. Use App Store Connect for submission (App Store Connect).
+
+---
+
+### 💡 Example
 
 ```xml
 <!-- Info.plist requirements -->
@@ -125,17 +191,32 @@ Follow Apple App Store guidelines for app quality, content, and technical requir
 </dict>
 ```
 
-- **Core Requirements**: Follow App Store review guidelines (app review)
-- **Real-World Compliance**: Follow iOS design guidelines (human interface guidelines)
-- **Common Requirements**: Meet technical requirements (technical requirements)
-- **Advanced Feature**: Include privacy policy (privacy policy)
-- **Interview Tip**: Explain that use App Store Connect for submission (App Store Connect)
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Follow App Store review guidelines (app review).
+* **Use Case:** Follow iOS design guidelines (human interface guidelines).
+* **Common Mistake:** Meet technical requirements (technical requirements).
+* **Pro Tip:** Include privacy policy (privacy policy).
 
 ---
 
-## 84) How do you handle **phased rollouts** or staged updates?
+### ⭐ Senior Takeaway
 
-Use store-specific rollout features to gradually release updates to users.
+Use App Store Connect for submission (App Store Connect).
+
+---
+
+## 🧩 Q84. How do you handle phased rollouts or staged updates?
+
+### 🧠 Concept
+
+Use store-specific rollout features to gradually release updates to users. Ability to pause or rollback if issues arise (rollback).
+
+---
+
+### 💡 Example
 
 ```jsx
 const rolloutConfig = {
@@ -150,17 +231,32 @@ const rolloutConfig = {
 };
 ```
 
-- **Core Strategy**: Release updates to subset of users first (gradual release)
-- **Real-World Benefit**: Reduce risk of widespread issues (risk mitigation)
-- **Common Practice**: Monitor metrics and user feedback (monitoring)
-- **Advanced Feature**: Automatically promote successful rollouts (auto-promotion)
-- **Interview Tip**: Explain that ability to pause or rollback if issues arise (rollback)
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Release updates to subset of users first (gradual release).
+* **Use Case:** Reduce risk of widespread issues (risk mitigation).
+* **Common Mistake:** Monitor metrics and user feedback (monitoring).
+* **Pro Tip:** Automatically promote successful rollouts (auto-promotion).
 
 ---
 
-## 85) How do you automate builds using **Fastlane**, **EAS**, or **Bitrise**?
+### ⭐ Senior Takeaway
 
-Use CI/CD tools to automate the build, test, and deployment process.
+Ability to pause or rollback if issues arise (rollback).
+
+---
+
+## 🧩 Q85. How do you automate builds using Fastlane, EAS, or Bitrise?
+
+### 🧠 Concept
+
+Use CI/CD tools to automate the build, test, and deployment process. Automation improves development workflow.
+
+---
+
+### 💡 Example
 
 ```ruby
 # Fastfile
@@ -176,17 +272,32 @@ platform :android do
 end
 ```
 
-- **Core Tools**: Fastlane (Ruby-based automation tool), EAS (Expo's build and deployment service), Bitrise (cloud-based CI/CD platform)
-- **Real-World Use**: Automate repetitive build tasks (automation)
-- **Common Integration**: Integrate with CI/CD pipelines (CI/CD integration)
-- **Advanced Feature**: Full automation of build and deployment
-- **Interview Tip**: Explain that automation improves development workflow
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Fastlane (Ruby-based automation tool), EAS (Expo's build and deployment service), Bitrise (cloud-based CI/CD platform).
+* **Use Case:** Automate repetitive build tasks (automation).
+* **Common Mistake:** Integrate with CI/CD pipelines (CI/CD integration).
+* **Pro Tip:** Full automation of build and deployment.
 
 ---
 
-## 86) What are common causes of store rejections and how to fix them?
+### ⭐ Senior Takeaway
 
-Common causes include policy violations, technical issues, and quality problems that need to be addressed.
+Automation improves development workflow.
+
+---
+
+## 🧩 Q86. What are common causes of store rejections and how to fix them?
+
+### 🧠 Concept
+
+Common causes include policy violations, technical issues, and quality problems that need to be addressed. Prevention is better than fixing rejections.
+
+---
+
+### 💡 Example
 
 ```jsx
 // Common rejection causes and fixes
@@ -201,17 +312,32 @@ Common causes include policy violations, technical issues, and quality problems 
 // Fix: Ensure accurate app descriptions
 ```
 
-- **Common Causes**: Follow store policies and guidelines (policy violations), Fix crashes and performance issues (technical issues)
-- **Real-World Problems**: Ensure appropriate content (content issues), Accurate app descriptions (metadata issues)
-- **Common Fix**: Meet quality standards (quality issues)
-- **Advanced Practice**: Address all rejection reasons systematically
-- **Interview Tip**: Explain that prevention is better than fixing rejections
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Follow store policies and guidelines (policy violations), Fix crashes and performance issues (technical issues).
+* **Use Case:** Ensure appropriate content (content issues), Accurate app descriptions (metadata issues).
+* **Common Mistake:** Meet quality standards (quality issues).
+* **Pro Tip:** Address all rejection reasons systematically.
 
 ---
 
-## 87) How do you reduce app size (Hermes, Proguard, asset optimization)?
+### ⭐ Senior Takeaway
 
-Use Hermes, code obfuscation, asset optimization, and other techniques to reduce app size.
+Prevention is better than fixing rejections.
+
+---
+
+## 🧩 Q87. How do you reduce app size?
+
+### 🧠 Concept
+
+Use Hermes, code obfuscation, asset optimization, and other techniques to reduce app size. Smaller apps improve download rates.
+
+---
+
+### 💡 Example
 
 ```gradle
 // android/app/build.gradle
@@ -226,17 +352,32 @@ android {
 }
 ```
 
-- **Core Techniques**: Use Hermes JavaScript engine, Enable code obfuscation and shrinking (Proguard)
-- **Real-World Practice**: Optimize images and assets (asset optimization)
-- **Common Analysis**: Analyze bundle size (bundle analysis)
-- **Advanced Feature**: Remove unused code (tree shaking)
-- **Interview Tip**: Explain that smaller apps improve download rates
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Use Hermes JavaScript engine, Enable code obfuscation and shrinking (Proguard).
+* **Use Case:** Optimize images and assets (asset optimization).
+* **Common Mistake:** Analyze bundle size (bundle analysis).
+* **Pro Tip:** Remove unused code (tree shaking).
 
 ---
 
-## 88) How do you handle app analytics and tracking (Firebase, Segment)?
+### ⭐ Senior Takeaway
 
-Integrate analytics tools to track user behavior and app performance.
+Smaller apps improve download rates.
+
+---
+
+## 🧩 Q88. How do you handle app analytics and tracking?
+
+### 🧠 Concept
+
+Integrate analytics tools to track user behavior and app performance. Analytics help improve app experience.
+
+---
+
+### 💡 Example
 
 ```jsx
 import analytics from '@react-native-firebase/analytics';
@@ -252,17 +393,32 @@ function App() {
 }
 ```
 
-- **Core Tools**: Firebase Analytics (Google's analytics platform), Segment (customer data platform)
-- **Real-World Use**: Track user interactions (event tracking)
-- **Common Practice**: Understand user behavior (user behavior)
-- **Advanced Feature**: Monitor app performance (performance monitoring)
-- **Interview Tip**: Explain that analytics help improve app experience
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Firebase Analytics (Google's analytics platform), Segment (customer data platform).
+* **Use Case:** Track user interactions (event tracking).
+* **Common Mistake:** Understand user behavior (user behavior).
+* **Pro Tip:** Monitor app performance (performance monitoring).
 
 ---
 
-## 89) What are best practices for signing, certificates, and release management?
+### ⭐ Senior Takeaway
 
-Use proper certificate management, secure signing practices, and automated release processes.
+Analytics help improve app experience.
+
+---
+
+## 🧩 Q89. What are best practices for signing, certificates, and release management?
+
+### 🧠 Concept
+
+Use proper certificate management, secure signing practices, and automated release processes. Secure signing is critical for production.
+
+---
+
+### 💡 Example
 
 ```bash
 # Android keystore management
@@ -273,17 +429,32 @@ keytool -genkey -v -keystore my-release-key.keystore \
 # iOS certificate management - Use Xcode
 ```
 
-- **Core Practices**: Keep Android keystore secure (keystore security), Manage iOS certificates properly (certificate management)
-- **Real-World Use**: Use automated signing when possible (automated signing)
-- **Common Practice**: Backup signing keys and certificates (backup)
-- **Advanced Feature**: Rotate certificates regularly (rotation)
-- **Interview Tip**: Explain that secure signing is critical for production
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Keep Android keystore secure (keystore security), Manage iOS certificates properly (certificate management).
+* **Use Case:** Use automated signing when possible (automated signing).
+* **Common Mistake:** Backup signing keys and certificates (backup).
+* **Pro Tip:** Rotate certificates regularly (rotation).
 
 ---
 
-## 90) How do you set up CI/CD pipelines for React Native apps?
+### ⭐ Senior Takeaway
 
-Configure automated pipelines for building, testing, and deploying React Native apps.
+Secure signing is critical for production.
+
+---
+
+## 🧩 Q90. How do you set up CI/CD pipelines for React Native apps?
+
+### 🧠 Concept
+
+Configure automated pipelines for building, testing, and deploying React Native apps. Implement quality gates in pipeline (quality gates).
+
+---
+
+### 💡 Example
 
 ```yaml
 # .github/workflows/deploy.yml
@@ -303,10 +474,19 @@ jobs:
       - run: npm run build:ios
 ```
 
-- **Core Tools**: Use GitHub Actions for CI/CD (GitHub Actions)
-- **Real-World Use**: Run tests automatically (automated testing)
-- **Common Practice**: Build apps automatically (automated building)
-- **Advanced Feature**: Deploy to stores automatically (automated deployment)
-- **Interview Tip**: Explain that implement quality gates in pipeline (quality gates)
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Use GitHub Actions for CI/CD (GitHub Actions).
+* **Use Case:** Run tests automatically (automated testing).
+* **Common Mistake:** Build apps automatically (automated building).
+* **Pro Tip:** Deploy to stores automatically (automated deployment).
+
+---
+
+### ⭐ Senior Takeaway
+
+Implement quality gates in pipeline (quality gates).
 
 ---

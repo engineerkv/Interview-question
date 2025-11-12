@@ -2,9 +2,15 @@
 
 ---
 
-## 10) What is a type?
+## 🧩 Q10. What is a type?
 
-A type is a way to define the shape, structure, and behavior of data, providing compile-time type checking and better developer experience.
+### 🧠 Concept
+
+A type is a way to define the shape, structure, and behavior of data, providing compile-time type checking and better developer experience. Types provide compile-time guarantees.
+
+---
+
+### 💡 Example
 
 ```typescript
 type User = {
@@ -19,17 +25,32 @@ type EventHandler = (event: Event) => void;
 type ID = string | number;
 ```
 
-- **Core Purpose**: Type safety prevents runtime errors by catching type mismatches at compile time
-- **Real-World Benefit**: Types serve as self-documenting code, provides better IDE support with autocomplete
-- **Common Advantage**: Can represent any data structure, function signature, or primitive
-- **Advanced Feature**: Types can be combined, extended, and reused throughout the codebase
-- **Interview Tip**: Explain that types provide compile-time guarantees
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Type safety prevents runtime errors by catching type mismatches at compile time.
+* **Use Case:** Types serve as self-documenting code, provides better IDE support with autocomplete.
+* **Common Mistake:** Can represent any data structure, function signature, or primitive.
+* **Pro Tip:** Types can be combined, extended, and reused throughout the codebase.
 
 ---
 
-## 11) What is an interface?
+### ⭐ Senior Takeaway
 
-An interface defines the contract or shape that an object must follow, specifying what properties and methods it should have.
+Types provide compile-time guarantees.
+
+---
+
+## 🧩 Q11. What is an interface?
+
+### 🧠 Concept
+
+An interface defines the contract or shape that an object must follow, specifying what properties and methods it should have. Interfaces ensure objects conform to the expected structure.
+
+---
+
+### 💡 Example
 
 ```typescript
 interface Person {
@@ -50,17 +71,32 @@ interface Config {
 }
 ```
 
-- **Core Concept**: Specifies what an object should look like
-- **Real-World Use**: Can be extended using inheritance or intersection
-- **Advanced Feature**: Declaration merging allows multiple interface declarations with the same name to be merged
-- **Common Use**: Classes can implement interfaces to ensure they follow the contract
-- **Interview Tip**: Explain that interfaces ensure objects conform to the expected structure
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Specifies what an object should look like.
+* **Use Case:** Can be extended using inheritance or intersection.
+* **Common Mistake:** Declaration merging allows multiple interface declarations with the same name to be merged.
+* **Pro Tip:** Classes can implement interfaces to ensure they follow the contract.
 
 ---
 
-## 12) What is the difference between `type` aliases and `interface`?
+### ⭐ Senior Takeaway
 
-`type` aliases can represent any type, while `interface` specifically defines object shapes and can be extended.
+Interfaces ensure objects conform to the expected structure.
+
+---
+
+## 🧩 Q12. What is the difference between `type` and `interface`?
+
+### 🧠 Concept
+
+`type` aliases can represent any type, while `interface` specifically defines object shapes and can be extended. Use types for unions/primitives, interfaces for object shapes.
+
+---
+
+### 💡 Example
 
 ```typescript
 type StringOrNumber = string | number;
@@ -68,38 +104,39 @@ type User = {
   id: number;
   name: string;
 };
-```
 
-- **Core Difference**: Type aliases can represent unions, primitives, and complex types
-- **Real-World Use**: Interfaces only for object shapes, can be extended and merged
-- **Common Mistake**: Declaration merging works with interfaces, not types
-- **Advanced Feature**: Interfaces support inheritance, types use intersection
-- **Interview Tip**: Explain that use types for unions/primitives, interfaces for object shapes
-
----
-
-## 13) When should you use `interface` vs `type`?
-
-Use `interface` for object shapes that might be extended, and `type` for unions, primitives, and complex type expressions.
-
-```typescript
 interface ApiResponse {
   data: any;
   status: number;
 }
 ```
 
-- **Core Rule**: Use interface for objects that might be extended
-- **Real-World Use**: Use type for non-object types (unions/primitives)
-- **Common Mistake**: Use type for mapped types and conditional types
-- **Advanced Feature**: Interface allows merging, type doesn't
-- **Interview Tip**: Explain that interface is slightly faster for object types
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Type aliases can represent unions, primitives, and complex types.
+* **Use Case:** Interfaces only for object shapes, can be extended and merged.
+* **Common Mistake:** Declaration merging works with interfaces, not types.
+* **Pro Tip:** Interfaces support inheritance, types use intersection.
 
 ---
 
-## 14) What are optional properties and readonly properties in interfaces?
+### ⭐ Senior Takeaway
 
-Optional properties can be undefined, while readonly properties cannot be modified after initialization.
+Use types for unions/primitives, interfaces for object shapes.
+
+---
+
+## 🧩 Q13. What are optional and readonly properties?
+
+### 🧠 Concept
+
+Optional properties can be undefined, while readonly properties cannot be modified after initialization. Readonly properties enable immutability.
+
+---
+
+### 💡 Example
 
 ```typescript
 interface User {
@@ -110,35 +147,71 @@ interface User {
 }
 ```
 
-- **Core Features**: Use `?` to make properties optional, use `readonly` to prevent modification
-- **Real-World Use**: Type safety prevents accidental modification of immutable data
-- **Common Use Case**: Optional properties for flexible object creation
-- **Advanced Feature**: Readonly properties ensure data integrity
-- **Interview Tip**: Explain that readonly properties enable immutability
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Use `?` to make properties optional, use `readonly` to prevent modification.
+* **Use Case:** Type safety prevents accidental modification of immutable data.
+* **Common Mistake:** Optional properties for flexible object creation.
+* **Pro Tip:** Readonly properties ensure data integrity.
 
 ---
 
-## 15) What are index signatures and when would you use them?
+### ⭐ Senior Takeaway
 
-Index signatures allow objects to have additional properties with dynamic keys, useful for dictionaries and dynamic objects.
+Readonly properties enable immutability.
+
+---
+
+## 🧩 Q14. What are index signatures and how do you use them?
+
+### 🧠 Concept
+
+Index signatures allow objects to have additional properties with dynamic keys, useful for dictionaries and dynamic objects. Use cases include configuration objects, API responses, dynamic data.
+
+---
+
+### 💡 Example
 
 ```typescript
 interface StringDictionary {
   [key: string]: string;
 }
-```
 
-- **Core Purpose**: Allow objects with unknown property names
-- **Real-World Use**: Common for key-value mappings (dictionary pattern)
-- **Common Advantage**: Still provides type checking for known properties
-- **Advanced Feature**: Balance between type safety and flexibility
-- **Interview Tip**: Explain that use cases include configuration objects, API responses, dynamic data
+interface FlexibleUser {
+  id: number;
+  name: string;
+  [key: string]: any;
+}
+```
 
 ---
 
-## 16) What is structural typing (duck typing)?
+### 🔍 Deep Insights
 
-Structural typing means types are compatible if they have the same structure, regardless of their names.
+* **Rule:** Allow objects with unknown property names.
+* **Use Case:** Common for key-value mappings (dictionary pattern).
+* **Common Mistake:** Still provides type checking for known properties.
+* **Pro Tip:** Balance between type safety and flexibility.
+
+---
+
+### ⭐ Senior Takeaway
+
+Use cases include configuration objects, API responses, dynamic data.
+
+---
+
+## 🧩 Q15. What is structural typing?
+
+### 🧠 Concept
+
+Structural typing means types are compatible if they have the same structure, regardless of their names. Structural typing maintains type checking while being flexible.
+
+---
+
+### 💡 Example
 
 ```typescript
 interface Point {
@@ -159,17 +232,32 @@ const vector: Vector = { x: 10, y: 20 };
 movePoint(vector); // Works! Vector has same structure as Point
 ```
 
-- **Core Concept**: Types are compatible based on shape, not name
-- **Real-World Impact**: "If it walks like a duck and quacks like a duck, it's a duck"
-- **Common Advantage**: Allows loose coupling between components
-- **Advanced Feature**: Objects don't need to explicitly implement interfaces
-- **Interview Tip**: Explain that structural typing maintains type checking while being flexible
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Types are compatible based on shape, not name.
+* **Use Case:** "If it walks like a duck and quacks like a duck, it's a duck".
+* **Common Mistake:** Allows loose coupling between components.
+* **Pro Tip:** Objects don't need to explicitly implement interfaces.
 
 ---
 
-## 17) What is excess property checking and how can you avoid it?
+### ⭐ Senior Takeaway
 
-Excess property checking prevents assigning objects with extra properties to variables, avoidable with type assertions or index signatures.
+Structural typing maintains type checking while being flexible.
+
+---
+
+## 🧩 Q16. What is excess property checking?
+
+### 🧠 Concept
+
+Excess property checking prevents assigning objects with extra properties to variables, avoidable with type assertions or index signatures. Helps maintain clear interfaces between components.
+
+---
+
+### 💡 Example
 
 ```typescript
 interface User {
@@ -190,17 +278,32 @@ interface FlexibleUser {
 }
 ```
 
-- **Core Purpose**: Prevents errors, catches typos and unexpected properties
-- **Real-World Impact**: Ensures objects match expected interface exactly
-- **Common Solutions**: Type assertions, index signatures, variable assignment
-- **Advanced Feature**: More aggressive checking in strict mode
-- **Interview Tip**: Explain that helps maintain clear interfaces between components
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Prevents errors, catches typos and unexpected properties.
+* **Use Case:** Ensures objects match expected interface exactly.
+* **Common Mistake:** Type assertions, index signatures, variable assignment.
+* **Pro Tip:** More aggressive checking in strict mode.
 
 ---
 
-## 18) What is type assertion and how is it different from type casting?
+### ⭐ Senior Takeaway
 
-Type assertion tells TypeScript the type of a value, while type casting is a runtime operation that TypeScript doesn't perform.
+Helps maintain clear interfaces between components.
+
+---
+
+## 🧩 Q17. What is type assertion and how do you use it?
+
+### 🧠 Concept
+
+Type assertion tells TypeScript the type of a value, while type casting is a runtime operation that TypeScript doesn't perform. Type assertion is compile-time only, not runtime.
+
+---
+
+### 💡 Example
 
 ```typescript
 let value: unknown = "Hello World";
@@ -208,17 +311,32 @@ let strLength: number = (value as string).length;
 let strLength2: number = (<string>value).length;
 ```
 
-- **Core Concept**: Type assertion only affects TypeScript compilation, no runtime cost
-- **Real-World Use**: Override TypeScript's type checking
-- **Common Use Cases**: Working with external libraries, DOM elements
-- **Common Risk**: Can lead to runtime errors if assertion is wrong
-- **Interview Tip**: Explain that type assertion is compile-time only, not runtime
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Type assertion only affects TypeScript compilation, no runtime cost.
+* **Use Case:** Override TypeScript's type checking.
+* **Common Mistake:** Working with external libraries, DOM elements.
+* **Pro Tip:** Can lead to runtime errors if assertion is wrong.
 
 ---
 
-## 19) What are literal types and template literal types?
+### ⭐ Senior Takeaway
 
-Literal types are exact values, while template literal types create string types from template expressions.
+Type assertion is compile-time only, not runtime.
+
+---
+
+## 🧩 Q18. What are literal types and how do you use them?
+
+### 🧠 Concept
+
+Literal types are exact values, while template literal types create string types from template expressions. Use cases include event names, CSS properties, API endpoints.
+
+---
+
+### 💡 Example
 
 ```typescript
 let direction: "up" | "down" | "left" | "right" = "up";
@@ -227,17 +345,64 @@ let status: 200 | 404 | 500 = 200;
 type EventName<T extends string> = `on${Capitalize<T>}`;
 ```
 
-- **Core Concept**: Literal types represent specific values
-- **Real-World Use**: Template literals create string types from expressions
-- **Advanced Feature**: Type manipulation with Capitalize, Uppercase, Lowercase utility types
-- **Advanced Feature**: Can combine with conditional types
-- **Interview Tip**: Explain that use cases include event names, CSS properties, API endpoints
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Literal types represent specific values.
+* **Use Case:** Template literals create string types from expressions.
+* **Common Mistake:** Type manipulation with Capitalize, Uppercase, Lowercase utility types.
+* **Pro Tip:** Can combine with conditional types.
 
 ---
 
-## 20) What is discriminated union (tagged union) and how is it used for type safety?
+### ⭐ Senior Takeaway
 
-Discriminated unions use a common property to distinguish between different union members, enabling type-safe pattern matching.
+Use cases include event names, CSS properties, API endpoints.
+
+---
+
+## 🧩 Q19. What are template literal types and how do you use them?
+
+### 🧠 Concept
+
+Template literal types create string types from template expressions, enabling type-safe string manipulation. Use cases include event names, CSS properties, API endpoints.
+
+---
+
+### 💡 Example
+
+```typescript
+type EventName<T extends string> = `on${Capitalize<T>}`;
+type CSSProperty = `margin-${'top' | 'bottom' | 'left' | 'right'}`;
+```
+
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Create string types from template expressions.
+* **Use Case:** Type manipulation with Capitalize, Uppercase, Lowercase utility types.
+* **Common Mistake:** Can combine with conditional types.
+* **Pro Tip:** Enable type-safe string manipulation.
+
+---
+
+### ⭐ Senior Takeaway
+
+Enable type-safe string manipulation.
+
+---
+
+## 🧩 Q20. What are discriminated unions and how do you use them?
+
+### 🧠 Concept
+
+Discriminated unions use a common property to distinguish between different union members, enabling type-safe pattern matching. Use cases include state management, API responses, event handling.
+
+---
+
+### 💡 Example
 
 ```typescript
 type LoadingState = { status: "loading"; };
@@ -260,17 +425,32 @@ function handleState(state: AppState) {
 }
 ```
 
-- **Core Concept**: Common property (discriminator) identifies the union member
-- **Real-World Impact**: TypeScript narrows types based on discriminator
-- **Common Use**: Switch statements work perfectly with discriminated unions
-- **Advanced Feature**: Type safety prevents accessing properties that don't exist
-- **Interview Tip**: Explain that use cases include state management, API responses, event handling
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Common property (discriminator) identifies the union member.
+* **Use Case:** TypeScript narrows types based on discriminator.
+* **Common Mistake:** Switch statements work perfectly with discriminated unions.
+* **Pro Tip:** Type safety prevents accessing properties that don't exist.
 
 ---
 
-## 21) What are intersection and union types, and how do they differ?
+### ⭐ Senior Takeaway
 
-Union types represent values that can be one of several types, while intersection types combine multiple types into one.
+Use cases include state management, API responses, event handling.
+
+---
+
+## 🧩 Q21. What are intersection and union types?
+
+### 🧠 Concept
+
+Union types represent values that can be one of several types, while intersection types combine multiple types into one. Choose based on need: alternatives vs combination.
+
+---
+
+### 💡 Example
 
 ```typescript
 type StringOrNumber = string | number;
@@ -289,10 +469,19 @@ interface Employee {
 type PersonEmployee = Person & Employee; // Must have all properties
 ```
 
-- **Core Difference**: Union types: values can be one of several types; Intersection types: values must satisfy all types simultaneously
-- **Real-World Use**: Union types require type guards, intersection types merge properties
-- **Common Use Cases**: Unions for alternatives, intersections for combining interfaces
-- **Advanced Feature**: Type narrowing works with union types
-- **Interview Tip**: Explain that choose based on need: alternatives vs combination
+---
+
+### 🔍 Deep Insights
+
+* **Rule:** Union types: values can be one of several types; Intersection types: values must satisfy all types simultaneously.
+* **Use Case:** Union types require type guards, intersection types merge properties.
+* **Common Mistake:** Unions for alternatives, intersections for combining interfaces.
+* **Pro Tip:** Type narrowing works with union types.
+
+---
+
+### ⭐ Senior Takeaway
+
+Choose based on need: alternatives vs combination.
 
 ---

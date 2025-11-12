@@ -354,6 +354,37 @@ email, url, tel, search, number, range, date, time, datetime-local, color
 
 ---
 
+## ⚡ **Last-Minute Review (5 minutes)**
+
+### **Must-Know Concepts**
+- **Semantic HTML**: Use `<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, `<footer>`
+- **Accessibility**: ARIA labels, keyboard navigation, alt text for images
+- **Forms**: Proper labels, validation attributes, fieldset/legend
+- **SEO**: Meta tags, semantic structure, structured data (JSON-LD)
+- **Performance**: Lazy loading, resource hints (preload, preconnect)
+
+### **Quick Code Snippets**
+```html
+<!-- Semantic Structure -->
+<header><nav></nav></header>
+<main><article><section></section></article></main>
+<footer></footer>
+
+<!-- Accessible Form -->
+<label for="email">Email:</label>
+<input type="email" id="email" required aria-describedby="email-help">
+<div id="email-help">Enter your email address</div>
+
+<!-- Lazy Loading -->
+<img src="image.jpg" loading="lazy" alt="Description">
+```
+
+### **Common Gotchas**
+- Only one `<h1>` per page
+- Don't skip heading levels (h1→h3 is wrong)
+- Always provide alt text for images (empty for decorative)
+- Use semantic elements over `<div>` when possible
+
 **Review Time**: 10-15 minutes | **Focus**: Semantic HTML, Accessibility, Forms, Performance
 
 **Good luck! 🎉**

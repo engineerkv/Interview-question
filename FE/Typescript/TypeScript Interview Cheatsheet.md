@@ -650,4 +650,35 @@ declare module "lodash" {
 
 ---
 
+## ⚡ **Last-Minute Review (5 minutes)**
+
+### **Must-Know Concepts**
+- **Type vs Interface**: Type for unions/intersections, Interface for object shapes
+- **Generics**: Reusable type parameters `<T>`
+- **Utility Types**: `Partial<T>`, `Pick<T, K>`, `Omit<T, K>`, `Required<T>`
+- **Type Guards**: Narrow types with `typeof`, `instanceof`, custom functions
+- **Strict Mode**: Enables all strict checks for better type safety
+
+### **Quick Code Snippets**
+```typescript
+// Generic
+function identity<T>(arg: T): T { return arg; }
+
+// Utility Types
+type PartialUser = Partial<User>;
+type UserName = Pick<User, "name">;
+type UserWithoutId = Omit<User, "id">;
+
+// Type Guard
+function isString(value: unknown): value is string {
+  return typeof value === "string";
+}
+```
+
+### **Common Gotchas**
+- `any` disables type checking (use `unknown` instead)
+- Interfaces can be extended, types use intersections
+- Generics enable reusable, type-safe code
+- Type guards narrow types for safe access
+
 *Remember: TypeScript is about type safety, not runtime behavior. Focus on compile-time benefits and type system features!*

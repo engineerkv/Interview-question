@@ -1,8 +1,59 @@
-Below is a curated **Top 200+ DSA Interview Questions** list, grouped by topic for easy preparation. This covers FAANG-level fundamentals + competitive coding patterns.
+# 🎯 DSA Interview Questions
+
+**229 carefully curated problems** covering Data Structures and Algorithms from fundamentals to advanced topics. Organized for systematic interview preparation.
+
+## 📋 Quick Navigation
+
+| Section | Topic | Problems | Range | Difficulty |
+|---------|-------|----------|-------|------------|
+| [1️⃣](#1-arrays) | Arrays | 33 | Q1-Q33 | ⭐⭐ - ⭐⭐⭐⭐ |
+| [2️⃣](#2-strings) | Strings | 22 | Q34-Q55 | ⭐⭐ - ⭐⭐⭐⭐ |
+| [3️⃣](#3-linked-list) | Linked List | 19 | Q56-Q74 | ⭐⭐ - ⭐⭐⭐⭐ |
+| [4️⃣](#4-stacks--queues) | Stacks & Queues | 12 | Q75-Q86 | ⭐⭐ - ⭐⭐⭐⭐ |
+| [5️⃣](#5-binary-trees) | Binary Trees | 27 | Q87-Q113 | ⭐⭐ - ⭐⭐⭐⭐⭐ |
+| [6️⃣](#6-binary-search-tree) | Binary Search Tree | 10 | Q114-Q123 | ⭐⭐ - ⭐⭐⭐⭐ |
+| [7️⃣](#7-heaps--priority-queue) | Heaps & Priority Queue | 12 | Q124-Q135 | ⭐⭐ - ⭐⭐⭐⭐ |
+| [8️⃣](#8-graphs) | Graphs | 24 | Q136-Q159 | ⭐⭐⭐ - ⭐⭐⭐⭐⭐ |
+| [9️⃣](#9-dynamic-programming) | Dynamic Programming | 33 | Q160-Q192 | ⭐⭐⭐ - ⭐⭐⭐⭐⭐ |
+| [🔟](#10-recursion--backtracking) | Recursion & Backtracking | 10 | Q193-Q202 | ⭐⭐⭐ - ⭐⭐⭐⭐⭐ |
+| [1️⃣1️⃣](#11-matrix) | Matrix | 5 | Q203-Q207 | ⭐⭐ - ⭐⭐⭐⭐ |
+| [1️⃣2️⃣](#12-trie) | Trie | 3 | Q208-Q210 | ⭐⭐⭐ - ⭐⭐⭐⭐ |
+| [1️⃣3️⃣](#13-binary-search) | Binary Search | 7 | Q211-Q217 | ⭐⭐ - ⭐⭐⭐⭐ |
+| [1️⃣4️⃣](#14-bit-manipulation) | Bit Manipulation | 6 | Q218-Q223 | ⭐⭐ - ⭐⭐⭐⭐ |
+| [1️⃣5️⃣](#15-math) | Math | 6 | Q224-Q229 | ⭐⭐ - ⭐⭐⭐⭐ |
 
 ---
 
-## ✅ **Arrays (33 problems)** - Q1-Q33
+## 📚 Preparation Order (Recommended)
+
+### **Phase 1: Foundation** (Start Here)
+1. Arrays (Q1-Q33) - Two Pointers, Sliding Window, Prefix Sum
+2. Strings (Q34-Q55) - String manipulation, pattern matching
+3. Linked List (Q56-Q74) - Pointer manipulation, cycle detection
+
+### **Phase 2: Linear Data Structures** (Intermediate)
+4. Stacks & Queues (Q75-Q86) - Stack/Queue patterns, monotonic stack
+5. Binary Trees (Q87-Q113) - Tree traversals, tree construction
+6. Binary Search Tree (Q114-Q123) - BST operations, validation
+7. Heaps & Priority Queue (Q124-Q135) - Heap operations, Top K
+
+### **Phase 3: Advanced Data Structures** (Advanced)
+8. Graphs (Q136-Q159) - DFS/BFS, shortest paths, MST
+9. Trie (Q208-Q210) - Prefix tree, word search
+
+### **Phase 4: Algorithmic Patterns** (Mastery)
+10. Dynamic Programming (Q160-Q192) - 1D/2D DP, knapsack, LIS/LCS
+11. Recursion & Backtracking (Q193-Q202) - N-Queens, permutations
+12. Binary Search (Q211-Q217) - Search in rotated arrays
+
+### **Phase 5: Specialized Topics** (Optimization)
+13. Matrix (Q203-Q207) - Matrix traversal, rotation
+14. Bit Manipulation (Q218-Q223) - Bitwise operations, XOR tricks
+15. Math (Q224-Q229) - Number theory, mathematical algorithms
+
+---
+
+## 1️⃣ Arrays (33 problems) - Q1-Q33
 
 1. Two Sum
 2. Best Time to Buy & Sell Stock
@@ -40,7 +91,7 @@ Below is a curated **Top 200+ DSA Interview Questions** list, grouped by topic f
 
 ---
 
-## ✅ **Strings (22 problems)** - Q34-Q55
+## 2️⃣ Strings (22 problems) - Q34-Q55
 
 34. Valid Anagram
 35. Longest Substring Without Repeating Characters
@@ -67,7 +118,7 @@ Below is a curated **Top 200+ DSA Interview Questions** list, grouped by topic f
 
 ---
 
-## ✅ **Linked List (19 problems)** - Q56-Q74
+## 3️⃣ Linked List (19 problems) - Q56-Q74
 
 56. Reverse Linked List
 57. Detect Cycle
@@ -91,7 +142,7 @@ Below is a curated **Top 200+ DSA Interview Questions** list, grouped by topic f
 
 ---
 
-## ✅ **Stacks & Queues (12 problems)** - Q75-Q86
+## 4️⃣ Stacks & Queues (12 problems) - Q75-Q86
 
 75. Implement Stack using Queues
 76. Implement Queue using Stacks
@@ -108,7 +159,7 @@ Below is a curated **Top 200+ DSA Interview Questions** list, grouped by topic f
 
 ---
 
-## ✅ **Binary Trees (27 problems)** - Q87-Q113
+## 5️⃣ Binary Trees (27 problems) - Q87-Q113
 
 87. Binary Tree Traversals (DFS/BFS)
 88. Max Depth of Binary Tree
@@ -140,7 +191,7 @@ Below is a curated **Top 200+ DSA Interview Questions** list, grouped by topic f
 
 ---
 
-## ✅ **Binary Search Tree (10 problems)** - Q114-Q123
+## 6️⃣ Binary Search Tree (10 problems) - Q114-Q123
 
 114. Insert/Delete/Search in BST
 115. Validate BST
@@ -155,7 +206,7 @@ Below is a curated **Top 200+ DSA Interview Questions** list, grouped by topic f
 
 ---
 
-## ✅ **Heaps & Priority Queue (12 problems)** - Q124-Q135
+## 7️⃣ Heaps & Priority Queue (12 problems) - Q124-Q135
 
 124. Kth Largest Element
 125. Top K Frequent Elements
@@ -172,7 +223,7 @@ Below is a curated **Top 200+ DSA Interview Questions** list, grouped by topic f
 
 ---
 
-## ✅ **Graphs (24 problems)** - Q136-Q159
+## 8️⃣ Graphs (24 problems) - Q136-Q159
 
 136. DFS / BFS
 137. Detect Cycle (Directed & Undirected)
@@ -201,7 +252,7 @@ Below is a curated **Top 200+ DSA Interview Questions** list, grouped by topic f
 
 ---
 
-## ✅ **Dynamic Programming (33 problems)** - Q160-Q192
+## 9️⃣ Dynamic Programming (33 problems) - Q160-Q192
 
 160. Fibonacci (Memo & Tabulation)
 161. Climbing Stairs
@@ -239,7 +290,7 @@ Below is a curated **Top 200+ DSA Interview Questions** list, grouped by topic f
 
 ---
 
-## ✅ **Recursion & Backtracking (10 problems)** - Q193-Q202
+## 🔟 Recursion & Backtracking (10 problems) - Q193-Q202
 
 193. N-Queens
 194. Sudoku Solver
@@ -254,7 +305,7 @@ Below is a curated **Top 200+ DSA Interview Questions** list, grouped by topic f
 
 ---
 
-## ✅ **Matrix (5 problems)** - Q203-Q207
+## 1️⃣1️⃣ Matrix (5 problems) - Q203-Q207
 
 203. Valid Sudoku
 204. Spiral Matrix
@@ -264,7 +315,7 @@ Below is a curated **Top 200+ DSA Interview Questions** list, grouped by topic f
 
 ---
 
-## ✅ **Trie (3 problems)** - Q208-Q210
+## 1️⃣2️⃣ Trie (3 problems) - Q208-Q210
 
 208. Implement Trie (Prefix Tree)
 209. Design Add and Search Words Data Structure
@@ -272,7 +323,7 @@ Below is a curated **Top 200+ DSA Interview Questions** list, grouped by topic f
 
 ---
 
-## ✅ **Binary Search (7 problems)** - Q211-Q217
+## 1️⃣3️⃣ Binary Search (7 problems) - Q211-Q217
 
 211. Search Insert Position
 212. Search a 2D Matrix
@@ -284,7 +335,7 @@ Below is a curated **Top 200+ DSA Interview Questions** list, grouped by topic f
 
 ---
 
-## ✅ **Bit Manipulation (6 problems)** - Q218-Q223
+## 1️⃣4️⃣ Bit Manipulation (6 problems) - Q218-Q223
 
 218. Add Binary
 219. Reverse Bits
@@ -295,7 +346,7 @@ Below is a curated **Top 200+ DSA Interview Questions** list, grouped by topic f
 
 ---
 
-## ✅ **Math (6 problems)** - Q224-Q229
+## 1️⃣5️⃣ Math (6 problems) - Q224-Q229
 
 224. Palindrome Number
 225. Plus One
@@ -306,66 +357,69 @@ Below is a curated **Top 200+ DSA Interview Questions** list, grouped by topic f
 
 ---
 
-## 📌 Bonus: Important Concepts
+## 🔑 Key Patterns to Master
 
-* Sliding Window
-* Two Pointers
-* Prefix Sum
-* Bit Manipulation
-* Trie (Autocomplete / Word Dictionary)
-* Divide & Conquer (Construct Quad Tree, Sort List)
+- **Two Pointers**: Arrays, Strings, Linked Lists
+- **Sliding Window**: Subarray/substring problems
+- **Hash Map/Set**: Lookup and frequency counting
+- **Tree Traversals**: DFS (Pre/In/Post) and BFS
+- **Graph Algorithms**: DFS, BFS, Dijkstra's, Topological Sort
+- **DP Patterns**: 1D/2D DP, Knapsack, LIS/LCS
+- **Backtracking**: Constraint satisfaction problems
+- **Binary Search**: Search in sorted/rotated arrays
 
 ---
 
-## 📊 Summary
+## 📊 Complete Problem List
 
-**Total Problems: 229 problems (Q1-Q229)**
+**Total: 229 problems (Q1-Q229)**
 
-| Category | Count | Range |
-|----------|-------|-------|
-| Arrays | 33 | Q1-Q33 |
-| Strings | 22 | Q34-Q55 |
-| Linked List | 19 | Q56-Q74 |
-| Stacks & Queues | 12 | Q75-Q86 |
-| Binary Trees | 27 | Q87-Q113 |
-| Binary Search Tree | 10 | Q114-Q123 |
-| Heaps & Priority Queue | 12 | Q124-Q135 |
-| Graphs | 24 | Q136-Q159 |
-| Dynamic Programming | 33 | Q160-Q192 |
-| Recursion & Backtracking | 10 | Q193-Q202 |
-| Matrix | 5 | Q203-Q207 |
-| Trie | 3 | Q208-Q210 |
-| Binary Search | 7 | Q211-Q217 |
-| Bit Manipulation | 6 | Q218-Q223 |
-| Math | 6 | Q224-Q229 |
+| Category | Count | Range | File |
+|----------|-------|-------|------|
+| Arrays | 33 | Q1-Q33 | [1) Arrays.md](1%20Arrays.md) |
+| Strings | 22 | Q34-Q55 | [2) Strings.md](2%20Strings.md) |
+| Linked List | 19 | Q56-Q74 | [3) Linked List.md](3%20Linked%20List.md) |
+| Stacks & Queues | 12 | Q75-Q86 | [4) Stacks & Queues.md](4%20Stacks%20&%20Queues.md) |
+| Binary Trees | 27 | Q87-Q113 | [5) Binary Trees.md](5%20Binary%20Trees.md) |
+| Binary Search Tree | 10 | Q114-Q123 | [6) Binary Search Tree.md](6%20Binary%20Search%20Tree.md) |
+| Heaps & Priority Queue | 12 | Q124-Q135 | [7) Heaps & Priority Queue.md](7%20Heaps%20&%20Priority%20Queue.md) |
+| Graphs | 24 | Q136-Q159 | [8) Graphs.md](8%20Graphs.md) |
+| Dynamic Programming | 33 | Q160-Q192 | [9) Dynamic Programming.md](9%20Dynamic%20Programming.md) |
+| Recursion & Backtracking | 10 | Q193-Q202 | [10) Recursion & Backtracking.md](10%20Recursion%20&%20Backtracking.md) |
+| Matrix | 5 | Q203-Q207 | [12) Matrix.md](12%20Matrix.md) |
+| Trie | 3 | Q208-Q210 | [13) Trie.md](13%20Trie.md) |
+| Binary Search | 7 | Q211-Q217 | [14) Binary Search.md](14%20Binary%20Search.md) |
+| Bit Manipulation | 6 | Q218-Q223 | [15) Bit Manipulation.md](15%20Bit%20Manipulation.md) |
+| Math | 6 | Q224-Q229 | [16) Math.md](16%20Math.md) |
 
 ---
 
 ## 🎯 Suggested Practice Platforms
 
-* LeetCode Top 150+
-* NeetCode Roadmap
-* Striver SDE Sheet
-* GFG SDE Sheet
-* CodeStudio
+- **LeetCode**: Top Interview 150, Daily Challenges
+- **NeetCode**: Roadmap and curated lists
+- **Striver SDE Sheet**: Comprehensive problem sets
+- **GFG SDE Sheet**: Company-specific problems
+- **CodeStudio**: Interactive coding practice
 
 ---
 
-## 📚 Study Order
+## 📖 How to Use This Repository
 
-Follow this sequence for optimal learning:
-1. Arrays (Foundation)
-2. Strings (Foundation)
-3. Linked List (Foundation)
-4. Stacks & Queues (Intermediate)
-5. Binary Trees (Intermediate)
-6. Binary Search Tree (Intermediate)
-7. Heaps & Priority Queue (Intermediate)
-8. Graphs (Advanced)
-9. Dynamic Programming (Advanced)
-10. Recursion & Backtracking (Advanced)
-11. Specialized Topics (Matrix, Trie, Binary Search, Bit Manipulation, Math)
+1. **Follow the Preparation Order**: Start with Phase 1 (Foundation) and progress systematically
+2. **Practice Daily**: Solve 2-3 problems per day consistently
+3. **Understand Patterns**: Focus on recognizing problem patterns, not memorizing solutions
+4. **Time Yourself**: Practice solving within 30-45 minutes (interview time limit)
+5. **Review Solutions**: Understand multiple approaches and optimizations
+6. **Use Cheatsheet**: Quick reference for common patterns and templates
+7. **Mock Interviews**: Practice explaining your approach clearly
 
 ---
 
-Happy coding! 🚀
+## 📝 Cheatsheet
+
+[DSA Interview Cheatsheet](DSA%20Interview%20Cheatsheet.md) - Quick reference guide for patterns and templates
+
+---
+
+**Happy coding! 🚀**
