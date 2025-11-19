@@ -1,6 +1,37 @@
 # 🚀 Node.js + Express.js Interview Cheatsheet
 
-> **Quick reference guide for Node.js and Express.js interviews**
+> **⏱️ Review Time: 20-25 minutes** | **Priority: ⭐⭐⭐ Critical** | Essential Node.js and Express.js concepts for interviews
+> 
+> **Coverage: Q1-Q100** (100 questions across 10 topics)
+
+**Quick Review Checklist:**
+- [ ] Node.js Fundamentals (Event Loop, V8, Non-blocking I/O)
+- [ ] Modules & Architecture (CommonJS vs ES Modules, Project Structure)
+- [ ] Asynchronous Patterns (Promises, Async/Await, Event Emitter)
+- [ ] Streams & Buffers (Types, Backpressure, Piping)
+- [ ] Express.js Core (Middleware, Routing, Error Handling)
+- [ ] REST APIs (Validation, Pagination, File Uploads)
+- [ ] Security & Authentication (JWT, OAuth, CORS, Helmet)
+- [ ] Performance & Optimization (Clustering, Caching, Monitoring)
+- [ ] Testing & Debugging (Jest, Supertest, Chrome DevTools)
+- [ ] Deployment (Docker, CI/CD, Cloud Deployment)
+
+---
+
+## 📋 **Question Coverage**
+
+- **Q1-Q10**: Node.js Fundamentals
+- **Q11-Q20**: Modules and Project Architecture
+- **Q21-Q30**: Asynchronous Patterns & Event Emitter
+- **Q31-Q40**: Streams & Buffers
+- **Q41-Q50**: Node.js Internals & Performance
+- **Q51-Q60**: Express.js Core Concepts
+- **Q61-Q70**: REST APIs & Practical Server Scenarios
+- **Q71-Q80**: Authentication, Security & Encryption
+- **Q81-Q90**: Performance, Optimization, Scaling & Monitoring
+- **Q91-Q100**: Testing, Debugging & Deployment
+
+---
 
 ## 📋 Table of Contents
 

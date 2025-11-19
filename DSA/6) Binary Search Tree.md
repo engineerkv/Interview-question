@@ -92,14 +92,6 @@ function deleteNode(root, key) {
 // Output: [5, 4, 6, 2, null, null, 7] or [5, 2, 6, null, 4, null, 7]
 ```
 
-**Deep Insights:**
-- **BST Invariant:** Maintain left < node < right property—critical for all operations
-- **Search Strategy:** Compare and traverse—O(h) time, O(1) space iterative
-- **Insert Strategy:** Recursive insertion—maintains BST property automatically
-- **Delete Strategy:** Three cases handled—0 children (remove), 1 child (replace), 2 children (use successor)
-- **Successor Finding:** Inorder successor is leftmost node in right subtree—used for two-child deletion
-- **Edge Cases:** Empty tree handled; duplicate values policy must be defined (typically go right)
-- **Interview Tip:** Explain BST invariant clearly; mention duplicate handling; ask about balanced vs unbalanced BST
 ## Q115. Validate Binary Search Tree
 
 **Problem:** Given the root of a binary tree, determine if it is a valid binary search tree (BST). A valid BST is defined as follows:
@@ -143,14 +135,6 @@ function isValidBST(root) {
 **Time Complexity:** O(n) - Visit each node once  
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
-**Deep Insights:**
-- **Optimal Approach:** Bounds propagation achieves O(n) time—optimal for this problem
-- **Bounds Update:** Left child gets (min, node.val), right child gets (node.val, max)
-- **Key Insight:** Each node must satisfy strict bounds—not just immediate parent comparison
-- **Duplicate Handling:** Use strict inequalities (<, >) to disallow duplicates—typical BST property
-- **Early Return:** Return false immediately on violation—avoids unnecessary computation
-- **Edge Cases:** Empty tree returns true; single node returns true; all nodes must satisfy bounds
-- **Interview Tip:** Explain bounds propagation clearly; emphasize strict inequalities for duplicates; mention inclusive vs exclusive bounds
 ## Q116. Lowest Common Ancestor of a Binary Search Tree
 
 **Problem:** Given a binary search tree (BST), find the lowest common ancestor (LCA) of two given nodes in the BST. The lowest common ancestor is defined between two nodes `p` and `q` as the lowest node in `T` that has both `p` and `q` as descendants (where we allow a node to be a descendant of itself).
@@ -198,13 +182,6 @@ function lowestCommonAncestor(root, p, q) {
 **Time Complexity:** O(h) - h is tree height  
 **Space Complexity:** O(1) - Iterative approach
 
-**Deep Insights:**
-- **Optimal Approach:** BST property achieves O(h) time—simpler than general binary tree LCA
-- **BST Property Usage:** Compare values with root—no need to search both subtrees
-- **LCA Detection:** When values split around root (one < root, one > root), root is LCA
-- **Key Insight:** BST property allows direct navigation—no need for post-order traversal
-- **Edge Cases:** One node is ancestor of other; both nodes exist in tree; handles all cases
-- **Interview Tip:** Explain BST property advantage clearly; compare with binary tree LCA; mention O(h) vs O(n) difference
 ## Q117. Kth Smallest Element in a BST
 
 **Problem:** Given the root of a binary search tree, and an integer `k`, return the `k`th smallest value (1-indexed) of all the values of the nodes in the tree.
@@ -252,14 +229,6 @@ function kthSmallest(root, k) {
 **Time Complexity:** O(h + k) - h for reaching leftmost, k for processing k nodes  
 **Space Complexity:** O(h) - Stack stores nodes along path
 
-**Deep Insights:**
-- **Optimal Approach:** Iterative inorder achieves O(h + k) time—optimal for this problem
-- **Inorder Property:** Inorder traversal yields sorted order—perfect for kth smallest
-- **K Decrementing:** Decrement k on each node visit—return when k reaches 0
-- **Key Insight:** 1-indexed (kth means k=1 is first smallest)—adjust if 0-indexed needed
-- **Early Exit:** Return immediately when kth element found—no need to process rest
-- **Edge Cases:** k within valid range (assumed); k=1 returns smallest; k=n returns largest
-- **Interview Tip:** Explain inorder clearly; emphasize 1-indexed convention; ask about kth largest variant
 ## Q118. Binary Search Tree Iterator
 
 **Problem:** Implement the `BSTIterator` class that represents an iterator over the in-order traversal of a binary search tree (BST):
@@ -315,14 +284,6 @@ class BSTIterator {
 **Time Complexity:** O(1) amortized - Each node pushed/popped once  
 **Space Complexity:** O(h) - Stack stores nodes along path, h is tree height
 
-**Deep Insights:**
-- **Optimal Approach:** Stack-based iterator achieves O(1) amortized next—optimal for this problem
-- **PushLeft Strategy:** Push all left nodes initially—ensures smallest elements ready
-- **Next Operation:** Pop and return, then push left subtree of right child—maintains inorder order
-- **Key Insight:** Amortized O(1) because each node visited once—cost distributed across calls
-- **Iterator Pattern:** Supports controlled traversal—useful for multiple queries
-- **Edge Cases:** Empty tree returns false for hasNext; all values returned in ascending order
-- **Interview Tip:** Explain pushLeft clearly; emphasize amortized complexity; mention iterator pattern benefits
 ## Q119. Recover Binary Search Tree
 
 **Problem:** You are given the root of a binary search tree (BST), where the values of exactly two nodes of the tree were swapped by mistake. Recover the tree without changing its structure.
@@ -375,14 +336,6 @@ function recoverTree(root) {
 **Time Complexity:** O(n) - Visit each node once  
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
-**Deep Insights:**
-- **Optimal Approach:** Inorder inversion detection achieves O(n) time—optimal for this problem
-- **Inversion Detection:** Find where prev.val > current.val—indicates swapped nodes
-- **Two Cases:** Adjacent swap (one inversion) or non-adjacent swap (two inversions)
-- **Key Insight:** First inversion gives first node, second inversion (or same) gives second node
-- **Value Swap Only:** Swap values, not structure—preserves tree structure
-- **Edge Cases:** Adjacent nodes swapped; non-adjacent nodes swapped; handles both correctly
-- **Interview Tip:** Explain inversion detection clearly; emphasize structure preservation; ask about multiple swaps handling
 ## Q120. Floor and Ceil in BST
 
 **Problem:** Find the floor (greatest value <= x) and ceil (smallest value >= x) of a given value `x` in a Binary Search Tree.
@@ -456,14 +409,6 @@ function ceilBST(root, x) {
 **Time Complexity:** O(h) - h is tree height  
 **Space Complexity:** O(1) - Iterative approach
 
-**Deep Insights:**
-- **Optimal Approach:** BST traversal with candidate tracking achieves O(h) time—optimal for this problem
-- **Floor Strategy:** Track greatest value <= x—update when going right (larger values)
-- **Ceil Strategy:** Track smallest value >= x—update when going left (smaller values)
-- **Key Insight:** Candidates updated during traversal—final candidate is answer
-- **Exact Match:** Return immediately on exact match—no need to continue
-- **Edge Cases:** No floor/ceil exists returns null; exact match returns value; all values handled
-- **Interview Tip:** Explain floor vs ceil clearly; emphasize candidate updating; mention duplicate handling
 ## Q121. Range Sum of BST
 
 **Problem:** Given the root node of a binary search tree and two integers `low` and `high`, return the sum of values of all nodes with a value in the inclusive range `[low, high]`.
@@ -514,14 +459,6 @@ function rangeSumBST(root, low, high) {
 **Time Complexity:** O(n) worst case, O(k) best case where k is nodes in range  
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
-**Deep Insights:**
-- **Optimal Approach:** Pruned DFS achieves better than O(n) when range is small—optimal for this problem
-- **Pruning Strategy:** Only traverse subtrees that can contain values in range—skips unnecessary branches
-- **Key Insight:** If root.val < low, skip left subtree; if root.val > high, skip right subtree
-- **Range Check:** Add node value if within [low, high]—inclusive range
-- **Efficiency:** O(k) time where k is nodes in range—better than full traversal
-- **Edge Cases:** Empty tree returns 0; all values in range sums all nodes; no values in range returns 0
-- **Interview Tip:** Explain pruning clearly; emphasize efficiency when range is small; mention iterative variant
 ## Q122. Predecessor and Successor in BST
 
 **Problem:** Find the predecessor (greatest value < key) and successor (smallest value > key) of a given key in a Binary Search Tree.
@@ -589,14 +526,6 @@ function successor(root, key) {
 **Time Complexity:** O(h) - h is tree height  
 **Space Complexity:** O(1) - Iterative approach
 
-**Deep Insights:**
-- **Optimal Approach:** BST traversal with candidate tracking achieves O(h) time—optimal for this problem
-- **Predecessor Logic:** Track last node when going right (node > key)—that node is predecessor
-- **Successor Logic:** Track last node when going left (node < key)—that node is successor
-- **Key Insight:** Candidates updated during traversal—final candidate is answer
-- **Empty Subtree:** If left subtree empty for predecessor, use ancestor; same for successor
-- **Edge Cases:** No predecessor/successor returns null; key exists or not handled; all cases covered
-- **Interview Tip:** Explain predecessor vs successor clearly; emphasize candidate tracking; mention null handling
 ## Q123. Convert Sorted Array to Binary Search Tree
 
 **Problem:** Given an integer array `nums` where the elements are sorted in ascending order, convert it to a height-balanced binary search tree. A height-balanced binary tree is a binary tree in which the depth of the two subtrees of every node never differs by more than 1.
@@ -641,11 +570,4 @@ function sortedArrayToBST(nums) {
 **Time Complexity:** O(n) - Visit each element once  
 **Space Complexity:** O(log n) - Recursion stack depth for balanced tree
 
-**Deep Insights:**
-- **Optimal Approach:** Divide and conquer achieves O(n) time and balanced tree—optimal for this problem
-- **Mid Selection:** Pick middle element as root—ensures balanced tree (left and right subtrees similar size)
-- **Divide and Conquer:** Recursively build left and right subtrees—naturally balanced
-- **Key Insight:** Sorted array property ensures BST property—middle element divides correctly
-- **Balance Guarantee:** Height difference <= 1 by design—middle element selection ensures balance
-- **Edge Cases:** Empty array returns null; single element returns single node; multiple valid trees possible
 - **Interview Tip:** Explain divide and conquer clearly; emphasize balanced tree guarantee; mention multiple valid trees

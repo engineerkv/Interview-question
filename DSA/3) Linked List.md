@@ -52,13 +52,6 @@ function reverseListRecursive(head) {
 **Time Complexity:** O(n) - Recursive calls for each node  
 **Space Complexity:** O(n) - Recursion stack
 
-**Deep Insights:**
-- **Optimal Approach:** Iterative achieves O(n) time and O(1) space—optimal for this problem
-- **Three-Pointer Technique:** `prev`, `cur`, `next` prevent lost references during reversal
-- **Key Insight:** Save `next` before modifying `cur.next` to avoid losing the reference
-- **In-Place Reversal:** No extra space needed for new list—just re-point pointers
-- **Edge Cases:** Empty list returns null; single node returns itself
-- **Interview Tip:** Explain three-pointer technique clearly; mention this is a building block for many problems; compare iterative vs recursive
 
 ## Q57. Linked List Cycle
 
@@ -124,13 +117,6 @@ function hasCycleHashSet(head) {
 **Time Complexity:** O(n) - Single pass  
 **Space Complexity:** O(n) - Hash set storage
 
-**Deep Insights:**
-- **Optimal Approach:** Floyd's algorithm achieves O(n) time and O(1) space—optimal for this problem
-- **Why 2x Speed Works:** If cycle exists, fast pointer will eventually catch up to slow pointer
-- **Mathematical Proof:** Distance between pointers decreases by 1 each iteration when both are in cycle
-- **Key Insight:** Fast pointer moves 2 steps, slow moves 1 step—ensures they meet if cycle exists
-- **Edge Cases:** Empty list returns false; single node with no cycle returns false
-- **Interview Tip:** Explain why 2x speed works; mention this extends to finding cycle start (Q70); ask about proof
 
 ## Q58. Remove Nth Node From End of List
 
@@ -183,13 +169,6 @@ function removeNthFromEnd(head, n) {
 **Time Complexity:** O(n) - Single pass with two pointers  
 **Space Complexity:** O(1) - Only using constant extra variables (dummy node)
 
-**Deep Insights:**
-- **Optimal Approach:** Two pointers with gap achieves O(n) time and O(1) space—optimal for this problem
-- **Gap Technique:** Maintain `n` node gap between fast and slow pointers—when fast reaches end, slow is at node before target
-- **Dummy Head:** Simplifies edge cases—handles removing head node without special cases
-- **Key Insight:** Fast pointer moves `n` steps ahead, then both move together—ensures correct position
-- **Edge Cases:** Removing head node (n = length); single node list; n = 1 (remove last node)
-- **Interview Tip:** Explain gap technique clearly; emphasize dummy head benefits; mention validation if n > length
 
 ## Q59. Merge Two Sorted Lists
 
@@ -256,13 +235,6 @@ function mergeTwoListsRecursive(list1, list2) {
 **Time Complexity:** O(m + n) - Recursive calls  
 **Space Complexity:** O(m + n) - Recursion stack
 
-**Deep Insights:**
-- **Optimal Approach:** Iterative merge achieves O(m+n) time and O(1) space—optimal for this problem
-- **Dummy Head Technique:** Simplifies edge cases—no need to check if result is empty
-- **Tail Pointer:** Maintains reference to end of merged list for O(1) appends
-- **In-Place Merge:** Reuses existing nodes—no new nodes created
-- **Remaining List:** After one list exhausted, append remaining nodes directly
-- **Interview Tip:** Explain dummy head and tail pointer clearly; mention this is building block for merge sort; handle remaining list
 
 ## Q60. Middle of the Linked List
 
@@ -305,13 +277,6 @@ function middleNode(head) {
 **Time Complexity:** O(n) - Single pass through list  
 **Space Complexity:** O(1) - Only using constant extra variables
 
-**Deep Insights:**
-- **Optimal Approach:** Fast/slow pointers achieve O(n) time and O(1) space—optimal for this problem
-- **Why It Works:** Fast pointer moves 2x speed—when it reaches end, slow is at middle
-- **Even Length Convention:** Returns second middle node when even length (standard convention)
-- **Key Insight:** Fast pointer checks `fast && fast.next` to handle both odd and even lengths
-- **Edge Cases:** Single node returns itself; empty list handled by while condition
-- **Interview Tip:** Explain two-pointer technique clearly; ask about even-length convention; mention list splitting applications
 
 ## Q61. Palindrome Linked List
 
@@ -382,13 +347,6 @@ function isPalindrome(head) {
 
 **Note:** If original list must be preserved, restore it by reversing the second half again after comparison.
 
-**Deep Insights:**
-- **Optimal Approach:** Three-step process achieves O(n) time and O(1) space—optimal for this problem
-- **Three Steps:** Find middle, reverse second half, compare halves
-- **Key Insight:** Only need to compare first half with reversed second half—no need to reverse entire list
-- **Space Optimization:** O(1) space if not restoring original list; O(1) to restore if needed
-- **Edge Cases:** Empty list returns true; single node returns true; odd length handled correctly
-- **Interview Tip:** Explain three-step process clearly; ask if original list should be restored; mention space optimization vs array conversion
 
 ## Q62. Flatten a Multilevel Doubly Linked List
 
@@ -445,13 +403,6 @@ function flatten(head) {
 **Time Complexity:** O(n) - Single pass through all nodes  
 **Space Complexity:** O(k) - Stack stores deferred nodes (k is number of child branches)
 
-**Deep Insights:**
-- **Optimal Approach:** Iterative DFS achieves O(n) time—optimal for this problem
-- **Stack Usage:** Stack stores deferred `next` nodes when processing `child` pointers
-- **Pre-Order Style:** Process child first, then continue with next—similar to pre-order traversal
-- **Key Insight:** When `child` exists, save `next` to stack, flatten child, then process deferred nodes
-- **In-Place Flattening:** Modifies list in-place—clear `child` pointers after flattening
-- **Interview Tip:** Explain stack usage clearly; mention pre-order traversal style; ask about restoring original structure
 
 ## Q63. Intersection of Two Linked Lists
 
@@ -495,13 +446,6 @@ function getIntersectionNode(headA, headB) {
 **Time Complexity:** O(m + n) - Both pointers traverse m + n nodes total  
 **Space Complexity:** O(1) - Only using constant extra variables
 
-**Deep Insights:**
-- **Optimal Approach:** Switch heads technique achieves O(m+n) time and O(1) space—optimal for this problem
-- **Why It Works:** Both pointers traverse same total distance (m + n)—ensures they meet at intersection if it exists
-- **Path Equalization:** Switching heads when reaching end equalizes path lengths without calculating lengths
-- **Key Insight:** If intersection exists, pointers meet at intersection; if not, both become null simultaneously
-- **Edge Cases:** Empty lists return null; no intersection returns null; single node intersection works
-- **Interview Tip:** Explain why switching works (total distance equality); mention this is more elegant than calculating lengths
 
 ## Q64. Add Two Numbers
 
@@ -548,13 +492,6 @@ function addTwoNumbers(l1, l2) {
 **Time Complexity:** O(max(m, n)) - Process all digits from longer list  
 **Space Complexity:** O(max(m, n)) - Result list storage (excluding input)
 
-**Deep Insights:**
-- **Optimal Approach:** Digit-wise addition achieves O(max(m,n)) time—optimal for this problem
-- **Carry Handling:** Add carry from previous digit, compute new digit and carry for next iteration
-- **Key Insight:** Loop continues while `l1`, `l2`, or `carry` exists—handles final carry automatically
-- **New Nodes:** Create new nodes for result—don't modify input lists
-- **Edge Cases:** Final carry creates new node; uneven lengths handled with null checks; zero sum returns [0]
-- **Interview Tip:** Explain carry handling clearly; mention school addition analogy; ask about negative numbers if needed
 
 ## Q65. Sort List
 
@@ -625,13 +562,6 @@ function merge(list1, list2) {
 **Time Complexity:** O(n log n) - Merge sort complexity  
 **Space Complexity:** O(log n) - Recursion stack space
 
-**Deep Insights:**
-- **Optimal Approach:** Merge sort achieves O(n log n) time—optimal for comparison-based sorting
-- **Why Merge Sort:** Natural for linked lists—no random access needed, efficient merging
-- **Three Steps:** Split at middle, recursively sort halves, merge sorted halves
-- **Stability:** Merge sort is stable—preserves relative order of equal elements
-- **Space Advantage:** O(log n) stack space vs O(n) array space for array merge sort
-- **Interview Tip:** Explain why merge sort is natural for linked lists; mention stability; compare with array sorting
 
 ## Q66. Copy List with Random Pointer
 
@@ -725,13 +655,6 @@ function copyRandomListHashMap(head) {
 **Time Complexity:** O(n) - Two passes  
 **Space Complexity:** O(n) - Hash map storage
 
-**Deep Insights:**
-- **Optimal Approach:** Three-pass interleaving achieves O(n) time and O(1) space—optimal for this problem
-- **Key Trick:** Interleave cloned nodes to maintain relationship between original and clone
-- **Random Pointer:** `curr.next.random = curr.random.next`—clone's random points to clone of original's random
-- **Separation:** Carefully restore original list and connect cloned nodes
-- **Edge Cases:** Null random pointers handled correctly; empty list returns null
-- **Interview Tip:** Explain three-pass approach clearly; mention hash map alternative (O(n) space); emphasize pointer manipulation
 
 ## Q67. Reverse Nodes in k-Group
 
@@ -796,13 +719,6 @@ function reverseKGroup(head, k) {
 **Time Complexity:** O(n) - Each node visited at most twice  
 **Space Complexity:** O(1) - Only using constant extra variables
 
-**Deep Insights:**
-- **Optimal Approach:** Group-by-group reversal achieves O(n) time and O(1) space—optimal for this problem
-- **Boundary Check:** Always check if `k` nodes exist before reversing—partial groups remain unchanged
-- **In-Place Reversal:** Reverse each group in-place using standard three-pointer technique
-- **Key Insight:** After reversing, `kth` becomes head of reversed group—connect previous group to it
-- **Edge Cases:** k=1 returns original list; k >= length reverses entire list; partial groups unchanged
-- **Interview Tip:** Explain boundary handling clearly; mention reverse process within k-length window; ask about partial groups
 
 ## Q68. Rotate List
 
@@ -863,13 +779,6 @@ function rotateRight(head, k) {
 **Time Complexity:** O(n) - Get length + find new tail  
 **Space Complexity:** O(1) - Only using constant extra variables
 
-**Deep Insights:**
-- **Optimal Approach:** Circle technique achieves O(n) time and O(1) space—optimal for this problem
-- **Circle Trick:** Temporarily connect tail to head—makes rotation straightforward
-- **Key Insight:** New tail is at position `len - k - 1` from head—new head is next node
-- **K Normalization:** Use `k %= len` to handle k >= length—avoid unnecessary rotations
-- **Edge Cases:** k=0 returns original list; k=length returns original list; single node returns itself
-- **Interview Tip:** Explain circle technique clearly; mention k normalization; ask about left vs right rotation
 
 ## Q69. Delete Node in a Linked List
 
@@ -906,13 +815,6 @@ function deleteNode(node) {
 **Time Complexity:** O(1) - Constant time operation  
 **Space Complexity:** O(1) - Only using constant extra variables
 
-**Deep Insights:**
-- **Optimal Approach:** Copy and bypass achieves O(1) time—optimal for this problem
-- **Key Trick:** Copy next node's value, then bypass next node—effectively deletes current node
-- **Limitation:** Only works for non-tail nodes—problem guarantees node is not tail
-- **Why It Works:** We can't delete the node itself (no access to previous), but we can make it "become" the next node
-- **Edge Cases:** Problem guarantees node is not tail; single node list not possible (node would be tail)
-- **Interview Tip:** Explain limitation clearly; mention this trick only works for non-tail nodes; ask about tail node handling
 
 ## Q70. Linked List Cycle II
 
@@ -966,13 +868,6 @@ function detectCycle(head) {
 **Time Complexity:** O(n) - Detect cycle + find start  
 **Space Complexity:** O(1) - Only using constant extra variables
 
-**Deep Insights:**
-- **Optimal Approach:** Floyd's algorithm extension achieves O(n) time and O(1) space—optimal for this problem
-- **Mathematical Proof:** When fast and slow meet, distance from head to cycle start equals distance from meet point to cycle start
-- **Two Steps:** First detect cycle, then find cycle start by moving one pointer to head
-- **Key Insight:** After meeting, moving slow to head and stepping both at same speed ensures they meet at cycle start
-- **Edge Cases:** No cycle returns null; cycle at head returns head; single node cycle works
-- **Interview Tip:** Explain mathematical proof clearly; mention distance equality; ask about correctness proof
 
 ## Q71. Reverse Linked List II
 
@@ -1020,13 +915,6 @@ function reverseBetween(head, left, right) {
 **Time Complexity:** O(n) - Traverse to right position  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Insert-at-front technique achieves O(n) time and O(1) space—optimal for this problem
-- **Key Technique:** Move `curr` forward while inserting `next` at the front of the reversed portion
-- **Four Pointers:** `prev` (before reversed), `curr` (last in reversed), `next` (to insert), `dummy` (handles edge cases)
-- **Dummy Node:** Simplifies edge cases—handles reversing from head (left = 1)
-- **Edge Cases:** left = 1 reverses from head; left = right returns unchanged; reversing entire list works
-- **Interview Tip:** Explain pointer manipulation clearly; mention dummy node benefits; emphasize insert-at-front technique
 
 ## Q72. Remove Duplicates from Sorted List II
 
@@ -1081,13 +969,6 @@ function deleteDuplicates(head) {
 **Time Complexity:** O(n) - Single pass through list  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Skip duplicates technique achieves O(n) time and O(1) space—optimal for this problem
-- **Key Strategy:** When duplicate found, skip all consecutive nodes with that value—don't move `prev` until unique node
-- **Dummy Head:** Simplifies edge cases—handles removing head node gracefully
-- **Comparison:** Compare `curr.val` with `curr.next.val`—if equal, all nodes with this value are duplicates
-- **Edge Cases:** All duplicates returns null; no duplicates returns original; single node returns itself
-- **Interview Tip:** Explain dummy node usage; emphasize skipping all duplicates (not just one); mention difference from Remove Duplicates I
 
 ## Q73. Partition List
 
@@ -1139,13 +1020,6 @@ function partition(head, x) {
 **Time Complexity:** O(n) - Single pass through list  
 **Space Complexity:** O(1) - Constant extra space (dummy nodes)
 
-**Deep Insights:**
-- **Optimal Approach:** Two-list approach achieves O(n) time and O(1) space—optimal for this problem
-- **Two Lists:** Maintain separate lists for nodes < x and nodes >= x—preserves relative order
-- **Key Insight:** Traverse once, append to appropriate list—no need to sort or rearrange
-- **Termination:** Set `after.next = null` to terminate the after list
-- **Edge Cases:** All nodes < x returns original; all nodes >= x returns original; empty list returns null
-- **Interview Tip:** Explain two-list approach clearly; emphasize order preservation within partitions
 
 ## Q74. LRU Cache
 
@@ -1245,11 +1119,3 @@ class Node {
 **Time Complexity:** O(1) - All operations average case  
 **Space Complexity:** O(capacity) - Map and doubly linked list storage
 
-**Deep Insights:**
-- **Optimal Approach:** Doubly linked list + hash map achieves O(1) for all operations—optimal for this problem
-- **Why Doubly Linked List:** Enables O(1) insertion and deletion at both ends (head and tail)
-- **Hash Map:** Provides O(1) lookup to find nodes quickly
-- **Order Maintenance:** Most recently used at head, least recently used at tail
-- **Key Operations:** Move to head on access, remove tail when capacity exceeded
-- **Edge Cases:** Capacity = 1 works; get non-existent key returns -1; update existing key moves to head
-- **Interview Tip:** Explain doubly linked list benefits; mention why singly linked list won't work (can't remove from tail in O(1)); emphasize O(1) requirement

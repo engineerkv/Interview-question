@@ -44,14 +44,6 @@ function isPalindrome(x) {
 **Time Complexity:** O(log n) - Number of digits  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Half reversal achieves O(log n) time, O(1) space—optimal for palindrome
-- **Half Reversal:** Reverse only half of number—avoids full reversal and overflow
-- **Key Insight:** Stop when reversed >= original—compares halves efficiently
-- **Edge Case Handling:** Negative numbers and multiples of 10 (except 0) are not palindromes
-- **Even/Odd Digits:** Handle both cases—x === reversed or x === reversed/10
-- **Edge Cases:** Single digit returns true; 0 returns true; handles all cases
-- **Interview Tip:** Explain half-reversal strategy clearly; emphasize edge cases; mention optimization
 
 ## Q225. Plus One
 
@@ -96,13 +88,6 @@ function plusOne(digits) {
 **Time Complexity:** O(n) - Worst case traverse all digits  
 **Space Complexity:** O(1) - Excluding result array
 
-**Deep Insights:**
-- **Optimal Approach:** Carry propagation achieves O(n) time—optimal for plus one
-- **Carry Handling:** Propagate carry from right to left—same as decimal addition
-- **All 9s Case:** If all digits are 9, add new digit at front—handles overflow
-- **Key Insight:** Early return when digit < 9—optimizes common case
-- **Edge Cases:** Single digit handled; all 9s handled correctly; handles all cases
-- **Interview Tip:** Explain carry propagation clearly; emphasize all 9s case; mention early return optimization
 
 ## Q226. Factorial Trailing Zeroes
 
@@ -144,13 +129,6 @@ function trailingZeroes(n) {
 **Time Complexity:** O(log n) - Base 5 logarithm  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Factor 5 counting achieves O(log n) time—optimal for trailing zeroes
-- **Factor 5:** Each 5 contributes a trailing zero—paired with abundant 2s
-- **Powers of 5:** Count 25, 125, etc. repeatedly—each contributes multiple zeroes
-- **Key Insight:** Count factors of 5 repeatedly—handles all powers of 5
-- **Edge Cases:** n=0 returns 0; n<5 returns 0; handles all cases
-- **Interview Tip:** Explain factor 5 counting clearly; emphasize pairing with 2s; mention powers of 5
 
 ## Q227. Sqrt(x)
 
@@ -199,13 +177,6 @@ function mySqrt(x) {
 **Time Complexity:** O(log x) - Binary search  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Binary search achieves O(log x) time—optimal for square root
-- **Binary Search:** Find largest number whose square <= x—efficient search
-- **Key Insight:** Search in range [2, x/2]—optimizes bounds
-- **Return Value:** Return right when not found—largest valid square root
-- **Edge Cases:** x=0 returns 0; x=1 returns 1; handles all cases
-- **Interview Tip:** Explain binary search strategy clearly; emphasize bounds optimization; mention precision
 
 ## Q228. Pow(x, n)
 
@@ -252,14 +223,6 @@ function myPow(x, n) {
 **Time Complexity:** O(log n) - Binary exponentiation  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Binary exponentiation achieves O(log n) time—optimal for pow
-- **Binary Exponentiation:** Square x and halve n—reduces operations exponentially
-- **Odd n Handling:** Multiply result by x when n is odd—accumulates result
-- **Key Insight:** x^n = (x^(n/2))^2 if n even, x * (x^((n-1)/2))^2 if n odd—divide and conquer
-- **Negative n:** Invert x and make n positive—handles negative exponents
-- **Edge Cases:** n=0 returns 1; x=0 returns 0; handles all cases
-- **Interview Tip:** Explain binary exponentiation clearly; emphasize negative exponent handling; mention optimization
 
 ## Q229. Max Points on a Line
 
@@ -324,12 +287,4 @@ function gcd(a, b) {
 **Time Complexity:** O(n²) - For each point, check all other points  
 **Space Complexity:** O(n) - Slope map per point
 
-**Deep Insights:**
-- **Optimal Approach:** Slope normalization achieves O(n²) time—optimal for max points on line
-- **Slope Normalization:** Use GCD to normalize slopes—reduces fractions to simplest form
-- **Duplicate Points:** Handle duplicate points separately—count them for all lines
-- **Key Insight:** Normalize slopes using GCD—ensures same slope representation
-- **Map Storage:** Use map to count points with same slope—efficient grouping
-- **Edge Cases:** ≤2 points returns length; all points same returns length; handles all cases
-- **Interview Tip:** Explain slope normalization clearly; emphasize GCD usage; mention duplicate point handling
 

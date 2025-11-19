@@ -68,14 +68,6 @@ class Trie {
 **Time Complexity:** O(m) - Per insert/search/startsWith where m is word length  
 **Space Complexity:** O(n × m) - n words of average length m
 
-**Deep Insights:**
-- **Optimal Approach:** Trie achieves O(m) time per operation—optimal for prefix operations
-- **Node Structure:** Each node has children map and isEnd flag—efficient prefix storage
-- **isEnd Flag:** Critical for distinguishing complete words from prefixes—must check flag
-- **Key Insight:** Shared prefixes stored once—space-efficient for similar words
-- **Character-by-Character:** Traverse one character at a time—builds path incrementally
-- **Edge Cases:** Empty string handled correctly; prefix of longer word handled; handles all cases
-- **Interview Tip:** Explain prefix tree structure clearly; emphasize isEnd flag importance; mention space optimization (shared prefixes)
 
 ## Q209. Design Add and Search Words Data Structure
 
@@ -152,14 +144,6 @@ class WordDictionary {
 **Time Complexity:** O(m) for exact match, O(26^m) worst case for m wildcards  
 **Space Complexity:** O(n × m) - n words of average length m
 
-**Deep Insights:**
-- **Optimal Approach:** Trie with DFS achieves O(m) for exact, O(26^m) for wildcards—optimal for pattern matching
-- **Wildcard Handling:** `'.'` matches any character—try all children recursively
-- **DFS Recursion:** Recursively search when encountering wildcard—explores all possibilities
-- **Key Insight:** Skip 'isEnd' when iterating children—only process character nodes
-- **Exponential Complexity:** Multiple wildcards cause exponential search—worst case scenario
-- **Edge Cases:** Empty word handled correctly; all wildcards handled; handles all cases
-- **Interview Tip:** Explain wildcard handling clearly; emphasize recursive DFS; mention exponential worst case
 
 ## Q210. Word Search II
 
@@ -250,15 +234,6 @@ class Trie {
 **Time Complexity:** O(mn × 4^L) - L is max word length, 4 directions per cell  
 **Space Complexity:** O(n × m) - Trie for n words, DFS recursion depth up to m
 
-**Deep Insights:**
-- **Optimal Approach:** Trie + DFS achieves O(mn × 4^L) time—optimal for word search II
-- **Trie Optimization:** Build Trie from words—prunes invalid paths early
-- **DFS Backtracking:** Mark visited cells, backtrack after exploration—prevents cycles
-- **Duplicate Removal:** Remove found words from Trie—prevents finding same word multiple times
-- **Key Insight:** Trie guides DFS—only explore paths that match word prefixes
-- **Pruning:** Trie prevents exploring invalid paths—faster than naive DFS
-- **Edge Cases:** No words found returns []; empty board returns []; handles all cases
-- **Interview Tip:** Explain Trie + DFS strategy clearly; emphasize pruning benefit; mention duplicate removal
 
 ---
 
@@ -328,10 +303,4 @@ class Trie {
 **Time Complexity:** O(L) - Each operation processes word length L  
 **Space Complexity:** O(AL) - Storage for all words where A is alphabet size
 
-**Deep Insights:**
-- **Rule:** Prefix tree storing characters per edge; supports insert, search, prefix search in O(L); O(AL) space
-- **Real-world:** Trie problems, autocomplete, word dictionary, prefix matching, string search
-- **Common Mistake:** Wildcards require backtracking; not handling end markers correctly; wrong node traversal
-- **Optimization:** O(L) time for each operation; O(AL) space; wildcards require backtracking
-- **Interview Tip:** Explain trie structure clearly; mention prefix search; ask about wildcard matching
 

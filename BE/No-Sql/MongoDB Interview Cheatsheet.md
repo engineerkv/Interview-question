@@ -1,6 +1,23 @@
-# 🍃 **MongoDB Interview Cheatsheet**
+# 🍃 MongoDB Interview Cheatsheet
 
-*Quick reference guide for MongoDB interview preparation*
+> **⏱️ Review Time: 15-20 minutes** | **Priority: ⭐⭐⭐ High** | Essential MongoDB concepts for interviews
+> 
+> **Coverage: Q1-Q40** (40 questions across 4 topics)
+
+**Quick Review Checklist:**
+- [ ] MongoDB Fundamentals (Documents, Collections, BSON, CRUD)
+- [ ] Indexing & Query Optimization (Single, Compound, Multikey, Text, Geospatial)
+- [ ] Aggregation Framework (Pipeline Stages, $match, $group, $lookup)
+- [ ] Data Modeling (Embedding vs Referencing, Sharding, Replication)
+
+---
+
+## 📋 **Question Coverage**
+
+- **Q1-Q10**: MongoDB Fundamentals
+- **Q11-Q20**: Indexing & Query Optimization
+- **Q21-Q30**: Aggregation Framework
+- **Q31-Q40**: Data Modeling & Schema Design
 
 ---
 

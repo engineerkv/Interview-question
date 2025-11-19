@@ -1,16 +1,14 @@
-# ⚡ 7. CodePush & OTA Updates (Q61–68)
+# 7. CodePush & OTA Updates (Q61–68)
 
 ---
 
-## 🧩 Q61. What is Microsoft CodePush and how does it work?
+## Q61. What is Microsoft CodePush and how does it work?
 
-### 🧠 Concept
+CodePush is a service that allows updating React Native apps over-the-air without going through app stores - built-in analytics and crash reporting. Update apps without app store approval (over-the-air updates).
 
-CodePush is a service that allows updating React Native apps over-the-air without going through app stores. Built-in analytics and crash reporting.
+- **Trade-offs**: The catch is automatic rollback on failed updates (rollback support) - different environments for testing and production (staging/production). Built-in analytics and crash reporting, but watch out - can only update JavaScript and assets (JavaScript only).
 
----
-
-### 💡 Example
+Example:
 
 ```jsx
 import codePush from 'react-native-code-push';
@@ -30,30 +28,13 @@ function App() {
 
 ---
 
-### 🔍 Deep Insights
+## Q62. How do you integrate CodePush into a React Native project?
 
-* **Rule:** Update apps without app store approval (over-the-air updates).
-* **Use Case:** Can only update JavaScript and assets (JavaScript only).
-* **Common Mistake:** Automatic rollback on failed updates (rollback support).
-* **Pro Tip:** Different environments for testing and production (staging/production).
+Install the CodePush SDK, configure it in the app, and set up deployment keys for different environments - choose appropriate update strategy. Install CodePush SDK and native dependencies (SDK installation).
 
----
+- **Trade-offs**: The catch is set up different keys for staging and production (deployment keys) - wrap app with CodePush HOC (app wrapping). Choose appropriate update strategy, but watch out - configure update behavior and frequency (configuration).
 
-### ⭐ Senior Takeaway
-
-Built-in analytics and crash reporting.
-
----
-
-## 🧩 Q62. How do you integrate CodePush into a React Native project?
-
-### 🧠 Concept
-
-Install the CodePush SDK, configure it in the app, and set up deployment keys for different environments. Choose appropriate update strategy.
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 import codePush from 'react-native-code-push';
@@ -68,30 +49,13 @@ export default codePush(codePushOptions)(App);
 
 ---
 
-### 🔍 Deep Insights
+## Q63. What are the limitations of CodePush under App Store policies?
 
-* **Rule:** Install CodePush SDK and native dependencies (SDK installation).
-* **Use Case:** Configure update behavior and frequency (configuration).
-* **Common Mistake:** Set up different keys for staging and production (deployment keys).
-* **Pro Tip:** Wrap app with CodePush HOC (app wrapping).
+CodePush cannot update native code, change app permissions, or modify core app functionality - limited to JavaScript and asset updates (JavaScript only). Cannot update native code or modules (native code).
 
----
+- **Trade-offs**: The catch is cannot modify core app functionality (core functionality) - must comply with app store policies (app store compliance). Limited to JavaScript and asset updates (JavaScript only), but watch out - cannot change app permissions (permissions).
 
-### ⭐ Senior Takeaway
-
-Choose appropriate update strategy.
-
----
-
-## 🧩 Q63. What are the limitations of CodePush under App Store policies?
-
-### 🧠 Concept
-
-CodePush cannot update native code, change app permissions, or modify core app functionality. Limited to JavaScript and asset updates (JavaScript only).
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 // ❌ Cannot do with CodePush
@@ -104,30 +68,13 @@ CodePush cannot update native code, change app permissions, or modify core app f
 
 ---
 
-### 🔍 Deep Insights
+## Q64. How do you handle rollbacks and version mismatches with CodePush?
 
-* **Rule:** Cannot update native code or modules (native code).
-* **Use Case:** Cannot change app permissions (permissions).
-* **Common Mistake:** Cannot modify core app functionality (core functionality).
-* **Pro Tip:** Must comply with app store policies (app store compliance).
+Use CodePush's rollback features and version checking to handle failed updates and version conflicts - monitor update success and failure rates (monitoring). CodePush automatically rolls back failed updates (automatic rollback).
 
----
+- **Trade-offs**: The catch is implement retry logic for failed updates (retry logic) - handle rollbacks gracefully (user experience). Monitor update success and failure rates (monitoring), but watch out - check for version compatibility (version checking).
 
-### ⭐ Senior Takeaway
-
-Limited to JavaScript and asset updates (JavaScript only).
-
----
-
-## 🧩 Q64. How do you handle rollbacks and version mismatches with CodePush?
-
-### 🧠 Concept
-
-Use CodePush's rollback features and version checking to handle failed updates and version conflicts. Monitor update success and failure rates (monitoring).
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 import codePush from 'react-native-code-push';
@@ -150,30 +97,13 @@ function App() {
 
 ---
 
-### 🔍 Deep Insights
+## Q65. How do you secure OTA updates and ensure stability?
 
-* **Rule:** CodePush automatically rolls back failed updates (automatic rollback).
-* **Use Case:** Check for version compatibility (version checking).
-* **Common Mistake:** Implement retry logic for failed updates (retry logic).
-* **Pro Tip:** Handle rollbacks gracefully (user experience).
+Use proper authentication, code signing, and testing strategies to ensure secure and stable updates - monitor update success and stability (monitoring). Use proper authentication for updates (authentication).
 
----
+- **Trade-offs**: The catch is thoroughly test updates before deployment (testing) - use staged rollouts for safer deployments (staged rollouts). Monitor update success and stability (monitoring), but watch out - sign updates to ensure integrity (code signing).
 
-### ⭐ Senior Takeaway
-
-Monitor update success and failure rates (monitoring).
-
----
-
-## 🧩 Q65. How do you secure OTA updates and ensure stability?
-
-### 🧠 Concept
-
-Use proper authentication, code signing, and testing strategies to ensure secure and stable updates. Monitor update success and stability (monitoring).
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 const secureCodePushOptions = {
@@ -188,30 +118,13 @@ const secureCodePushOptions = {
 
 ---
 
-### 🔍 Deep Insights
+## Q66. What's the difference between CodePush and Expo's EAS OTA?
 
-* **Rule:** Use proper authentication for updates (authentication).
-* **Use Case:** Sign updates to ensure integrity (code signing).
-* **Common Mistake:** Thoroughly test updates before deployment (testing).
-* **Pro Tip:** Use staged rollouts for safer deployments (staged rollouts).
+CodePush is for bare React Native apps, while EAS OTA is for Expo-managed apps with different deployment strategies - choose based on your React Native setup. CodePush for bare React Native apps, EAS OTA for Expo-managed apps.
 
----
+- **Trade-offs**: The catch is different configuration approaches (configuration) - different feature sets and capabilities (features). Choose based on your React Native setup, but watch out - different deployment strategies (deployment).
 
-### ⭐ Senior Takeaway
-
-Monitor update success and stability (monitoring).
-
----
-
-## 🧩 Q66. What's the difference between CodePush and Expo's EAS OTA?
-
-### 🧠 Concept
-
-CodePush is for bare React Native apps, while EAS OTA is for Expo-managed apps with different deployment strategies. Choose based on your React Native setup.
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 // CodePush (bare React Native)
@@ -223,30 +136,13 @@ import { Updates } from 'expo';
 
 ---
 
-### 🔍 Deep Insights
+## Q67. How do you monitor crash/error rates post-OTA?
 
-* **Rule:** CodePush for bare React Native apps, EAS OTA for Expo-managed apps.
-* **Use Case:** Different deployment strategies (deployment).
-* **Common Mistake:** Different configuration approaches (configuration).
-* **Pro Tip:** Different feature sets and capabilities (features).
+Integrate crash reporting tools to monitor app stability and error rates after OTA updates - use crash rates to trigger rollbacks (rollback triggers). Use Sentry or Firebase for crash reporting (crash reporting).
 
----
+- **Trade-offs**: The catch is track performance metrics (performance tracking) - collect user feedback on updates (user feedback). Use crash rates to trigger rollbacks (rollback triggers), but watch out - monitor error rates after updates (error monitoring).
 
-### ⭐ Senior Takeaway
-
-Choose based on your React Native setup.
-
----
-
-## 🧩 Q67. How do you monitor crash/error rates post-OTA?
-
-### 🧠 Concept
-
-Integrate crash reporting tools to monitor app stability and error rates after OTA updates. Use crash rates to trigger rollbacks (rollback triggers).
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 import Sentry from '@sentry/react-native';
@@ -268,30 +164,13 @@ codePush.sync({
 
 ---
 
-### 🔍 Deep Insights
+## Q68. What are best practices for OTA updates in React Native?
 
-* **Rule:** Use Sentry or Firebase for crash reporting (crash reporting).
-* **Use Case:** Monitor error rates after updates (error monitoring).
-* **Common Mistake:** Track performance metrics (performance tracking).
-* **Pro Tip:** Collect user feedback on updates (user feedback).
+Test thoroughly, use staged rollouts, monitor metrics, and have rollback strategies in place - communicate updates to users (user communication). Thoroughly test updates before deployment (testing).
 
----
+- **Trade-offs**: The catch is monitor update success and failure rates (monitoring) - have rollback strategies in place (rollback strategy). Communicate updates to users (user communication), but watch out - use staged rollouts for safer deployments (staged rollouts).
 
-### ⭐ Senior Takeaway
-
-Use crash rates to trigger rollbacks (rollback triggers).
-
----
-
-## 🧩 Q68. What are best practices for OTA updates in React Native?
-
-### 🧠 Concept
-
-Test thoroughly, use staged rollouts, monitor metrics, and have rollback strategies in place. Communicate updates to users (user communication).
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 const codePushOptions = {
@@ -305,20 +184,5 @@ const codePushOptions = {
   }
 };
 ```
-
----
-
-### 🔍 Deep Insights
-
-* **Rule:** Thoroughly test updates before deployment (testing).
-* **Use Case:** Use staged rollouts for safer deployments (staged rollouts).
-* **Common Mistake:** Monitor update success and failure rates (monitoring).
-* **Pro Tip:** Have rollback strategies in place (rollback strategy).
-
----
-
-### ⭐ Senior Takeaway
-
-Communicate updates to users (user communication).
 
 ---

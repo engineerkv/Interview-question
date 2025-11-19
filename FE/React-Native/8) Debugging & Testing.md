@@ -1,16 +1,14 @@
-# 🧰 8. Debugging & Testing (Q69–78)
+# 8. Debugging & Testing (Q69–78)
 
 ---
 
-## 🧩 Q69. How do you debug a React Native app using Flipper or Chrome DevTools?
+## Q69. How do you debug a React Native app using Flipper or Chrome DevTools?
 
-### 🧠 Concept
+Use Flipper for native debugging and Chrome DevTools for JavaScript debugging - use Flipper for native debugging, Chrome for JS. Flipper (comprehensive debugging platform for React Native), Chrome DevTools (JavaScript debugging and profiling).
 
-Use Flipper for native debugging and Chrome DevTools for JavaScript debugging. Use Flipper for native debugging, Chrome for JS.
+- **Trade-offs**: The catch is profile app performance and memory usage (performance) - works on both iOS and Android (platform support). Use Flipper for native debugging, Chrome for JS, but watch out - debug network requests and responses (network debugging).
 
----
-
-### 💡 Example
+Example:
 
 ```jsx
 import { Flipper } from 'react-native-flipper';
@@ -28,30 +26,13 @@ function App() {
 
 ---
 
-### 🔍 Deep Insights
+## Q70. What is remote debugging and when should you avoid it?
 
-* **Rule:** Flipper (comprehensive debugging platform for React Native), Chrome DevTools (JavaScript debugging and profiling).
-* **Use Case:** Debug network requests and responses (network debugging).
-* **Common Mistake:** Profile app performance and memory usage (performance).
-* **Pro Tip:** Works on both iOS and Android (platform support).
+Remote debugging runs JavaScript on Chrome, useful for debugging but can cause performance issues and should be avoided in production - never use in production. Use only in development (development only).
 
----
+- **Trade-offs**: The catch is may behave differently than production (different behavior) - can cause memory leaks (memory issues). Never use in production, but watch out - can cause performance issues (performance impact).
 
-### ⭐ Senior Takeaway
-
-Use Flipper for native debugging, Chrome for JS.
-
----
-
-## 🧩 Q70. What is remote debugging and when should you avoid it?
-
-### 🧠 Concept
-
-Remote debugging runs JavaScript on Chrome, useful for debugging but can cause performance issues and should be avoided in production. Never use in production.
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 // Remote debugging setup
@@ -65,30 +46,13 @@ if (__DEV__) {
 
 ---
 
-### 🔍 Deep Insights
+## Q71. What is Flipper and what plugins does it provide?
 
-* **Rule:** Use only in development (development only).
-* **Use Case:** Can cause performance issues (performance impact).
-* **Common Mistake:** May behave differently than production (different behavior).
-* **Pro Tip:** Can cause memory leaks (memory issues).
+Flipper is a debugging platform that provides plugins for network inspection, layout debugging, and performance monitoring - Flipper is essential for React Native debugging. Network plugin (debug network requests and responses), Layout plugin (debug UI layout and styling), Performance plugin (monitor app performance).
 
----
+- **Trade-offs**: The catch is create custom debugging plugins (custom plugins) - comprehensive debugging capabilities. Flipper is essential for React Native debugging, but watch out - crash plugin (debug crashes and errors).
 
-### ⭐ Senior Takeaway
-
-Never use in production.
-
----
-
-## 🧩 Q71. What is Flipper and what plugins does it provide?
-
-### 🧠 Concept
-
-Flipper is a debugging platform that provides plugins for network inspection, layout debugging, and performance monitoring. Flipper is essential for React Native debugging.
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 import { Flipper } from 'react-native-flipper';
@@ -101,30 +65,13 @@ Flipper.addPlugin({
 
 ---
 
-### 🔍 Deep Insights
+## Q72. How do you test React Native components using Jest?
 
-* **Rule:** Network plugin (debug network requests and responses), Layout plugin (debug UI layout and styling), Performance plugin (monitor app performance).
-* **Use Case:** Crash plugin (debug crashes and errors).
-* **Common Mistake:** Create custom debugging plugins (custom plugins).
-* **Pro Tip:** Comprehensive debugging capabilities.
+Use Jest with React Native Testing Library to test components, hooks, and user interactions - handle asynchronous operations in tests (async testing). Jest (JavaScript testing framework).
 
----
+- **Trade-offs**: The catch is test component rendering and behavior (component testing) - test user interactions and events (user interactions). Handle asynchronous operations in tests (async testing), but watch out - React Native Testing Library (testing utilities for React Native).
 
-### ⭐ Senior Takeaway
-
-Flipper is essential for React Native debugging.
-
----
-
-## 🧩 Q72. How do you test React Native components using Jest?
-
-### 🧠 Concept
-
-Use Jest with React Native Testing Library to test components, hooks, and user interactions. Handle asynchronous operations in tests (async testing).
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
@@ -140,30 +87,13 @@ describe('MyComponent', () => {
 
 ---
 
-### 🔍 Deep Insights
+## Q73. How do you perform end-to-end (E2E) tests using Detox?
 
-* **Rule:** Jest (JavaScript testing framework).
-* **Use Case:** React Native Testing Library (testing utilities for React Native).
-* **Common Mistake:** Test component rendering and behavior (component testing).
-* **Pro Tip:** Test user interactions and events (user interactions).
+Use Detox to write and run E2E tests that interact with the app like a real user - integrate with CI/CD pipelines. Test complete user workflows (E2E testing).
 
----
+- **Trade-offs**: The catch is simulate real user interactions (user interactions) - test on both iOS and Android (cross-platform). Integrate with CI/CD pipelines, but watch out - test on real devices (real device testing).
 
-### ⭐ Senior Takeaway
-
-Handle asynchronous operations in tests (async testing).
-
----
-
-## 🧩 Q73. How do you perform end-to-end (E2E) tests using Detox?
-
-### 🧠 Concept
-
-Use Detox to write and run E2E tests that interact with the app like a real user. Integrate with CI/CD pipelines.
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 describe('Login Flow', () => {
@@ -182,30 +112,13 @@ describe('Login Flow', () => {
 
 ---
 
-### 🔍 Deep Insights
+## Q74. How do you mock native modules in Jest?
 
-* **Rule:** Test complete user workflows (E2E testing).
-* **Use Case:** Test on real devices (real device testing).
-* **Common Mistake:** Simulate real user interactions (user interactions).
-* **Pro Tip:** Test on both iOS and Android (cross-platform).
+Use Jest's mocking capabilities to mock native modules and their methods - isolate tests from external dependencies (test isolation). Mock native modules for testing (module mocking).
 
----
+- **Trade-offs**: The catch is handle asynchronous operations in mocks (async mocking) - mock platform-specific functionality (platform mocking). Isolate tests from external dependencies (test isolation), but watch out - mock specific methods and return values (method mocking).
 
-### ⭐ Senior Takeaway
-
-Integrate with CI/CD pipelines.
-
----
-
-## 🧩 Q74. How do you mock native modules in Jest?
-
-### 🧠 Concept
-
-Use Jest's mocking capabilities to mock native modules and their methods. Isolate tests from external dependencies (test isolation).
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 jest.mock('react-native-camera', () => ({
@@ -222,30 +135,13 @@ jest.mock('react-native-camera', () => ({
 
 ---
 
-### 🔍 Deep Insights
+## Q75. How do you test asynchronous native functions or network requests?
 
-* **Rule:** Mock native modules for testing (module mocking).
-* **Use Case:** Mock specific methods and return values (method mocking).
-* **Common Mistake:** Handle asynchronous operations in mocks (async mocking).
-* **Pro Tip:** Mock platform-specific functionality (platform mocking).
+Use async/await, promises, and Jest's async testing utilities to test asynchronous code - test error cases in async code (error handling). Use async/await for asynchronous tests (async testing).
 
----
+- **Trade-offs**: The catch is mock async functions and network requests (mocking) - use waitFor for async operations (wait for). Test error cases in async code (error handling), but watch out - handle promises in tests (promise testing).
 
-### ⭐ Senior Takeaway
-
-Isolate tests from external dependencies (test isolation).
-
----
-
-## 🧩 Q75. How do you test asynchronous native functions or network requests?
-
-### 🧠 Concept
-
-Use async/await, promises, and Jest's async testing utilities to test asynchronous code. Test error cases in async code (error handling).
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 test('fetches user data', async () => {
@@ -263,30 +159,13 @@ test('fetches user data', async () => {
 
 ---
 
-### 🔍 Deep Insights
+## Q76. How do you simulate gestures in E2E tests?
 
-* **Rule:** Use async/await for asynchronous tests (async testing).
-* **Use Case:** Handle promises in tests (promise testing).
-* **Common Mistake:** Mock async functions and network requests (mocking).
-* **Pro Tip:** Use waitFor for async operations (wait for).
+Use gesture simulation methods provided by testing frameworks to test touch interactions - test multi-touch interactions (multi-touch). Simulate touch gestures in tests (gesture simulation).
 
----
+- **Trade-offs**: The catch is test long press interactions (long press) - test pinch and zoom interactions (pinch gestures). Test multi-touch interactions (multi-touch), but watch out - test swipe interactions (swipe gestures).
 
-### ⭐ Senior Takeaway
-
-Test error cases in async code (error handling).
-
----
-
-## 🧩 Q76. How do you simulate gestures in E2E tests?
-
-### 🧠 Concept
-
-Use gesture simulation methods provided by testing frameworks to test touch interactions. Test multi-touch interactions (multi-touch).
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 describe('Gesture Tests', () => {
@@ -299,30 +178,13 @@ describe('Gesture Tests', () => {
 
 ---
 
-### 🔍 Deep Insights
+## Q77. What are common test performance pitfalls to watch for?
 
-* **Rule:** Simulate touch gestures in tests (gesture simulation).
-* **Use Case:** Test swipe interactions (swipe gestures).
-* **Common Mistake:** Test long press interactions (long press).
-* **Pro Tip:** Test pinch and zoom interactions (pinch gestures).
+Avoid slow tests, memory leaks, and inefficient test setup that can impact test performance - keep tests isolated and independent (test isolation). Avoid unnecessary waits and timeouts (slow tests).
 
----
+- **Trade-offs**: The catch is mock heavy dependencies (heavy dependencies) - mock network requests (network requests). Keep tests isolated and independent (test isolation), but watch out - clean up resources in tests (memory leaks).
 
-### ⭐ Senior Takeaway
-
-Test multi-touch interactions (multi-touch).
-
----
-
-## 🧩 Q77. What are common test performance pitfalls to watch for?
-
-### 🧠 Concept
-
-Avoid slow tests, memory leaks, and inefficient test setup that can impact test performance. Keep tests isolated and independent (test isolation).
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 // ❌ Performance pitfalls
@@ -343,30 +205,13 @@ describe('Fast Tests', () => {
 
 ---
 
-### 🔍 Deep Insights
+## Q78. How do you monitor app crashes using Crashlytics or Sentry?
 
-* **Rule:** Avoid unnecessary waits and timeouts (slow tests).
-* **Use Case:** Clean up resources in tests (memory leaks).
-* **Common Mistake:** Mock heavy dependencies (heavy dependencies).
-* **Pro Tip:** Mock network requests (network requests).
+Integrate crash reporting tools to monitor and analyze app crashes in production - track crashes by app version (release tracking). Monitor app crashes and errors (crash reporting).
 
----
+- **Trade-offs**: The catch is monitor app performance (performance monitoring) - add user context to crash reports (user context). Track crashes by app version (release tracking), but watch out - track errors and exceptions (error tracking).
 
-### ⭐ Senior Takeaway
-
-Keep tests isolated and independent (test isolation).
-
----
-
-## 🧩 Q78. How do you monitor app crashes using Crashlytics or Sentry?
-
-### 🧠 Concept
-
-Integrate crash reporting tools to monitor and analyze app crashes in production. Track crashes by app version (release tracking).
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 import Sentry from '@sentry/react-native';
@@ -377,20 +222,5 @@ Sentry.init({
   tracesSampleRate: 1.0
 });
 ```
-
----
-
-### 🔍 Deep Insights
-
-* **Rule:** Monitor app crashes and errors (crash reporting).
-* **Use Case:** Track errors and exceptions (error tracking).
-* **Common Mistake:** Monitor app performance (performance monitoring).
-* **Pro Tip:** Add user context to crash reports (user context).
-
----
-
-### ⭐ Senior Takeaway
-
-Track crashes by app version (release tracking).
 
 ---

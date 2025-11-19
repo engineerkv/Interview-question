@@ -1,16 +1,14 @@
-# 🎯 7. Practical Front-End System Design Scenarios (Q65–84)
+# 7. Practical Front-End System Design Scenarios (Q70–89)
 
 ---
 
-## 🧩 Q65. How would you design a news feed UI with infinite scroll and real-time updates?
+## Q70. How would you design a news feed UI with infinite scroll and real-time updates?
 
-### 🧠 Concept
+A news feed requires efficient data management, virtual scrolling for performance, real-time updates via WebSockets, and proper state synchronization across components - consider pagination strategies and data freshness. Use virtual scrolling to handle thousands of posts efficiently.
 
-A news feed requires efficient data management, virtual scrolling for performance, real-time updates via WebSockets, and proper state synchronization across components. Consider pagination strategies and data freshness.
+- **Trade-offs**: The catch is implement optimistic updates for better user experience - use WebSocket connections for real-time updates. Consider pagination strategies and data freshness, but watch out - cache posts locally and implement offline support.
 
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const NewsFeed = () => {
@@ -39,30 +37,13 @@ const NewsFeed = () => {
 
 ---
 
-### 🔍 Deep Insights
+## Q71. How would you design an autocomplete / type-ahead search component?
 
-* **Rule:** Use virtual scrolling to handle thousands of posts efficiently.
-* **Use Case:** Implement optimistic updates for better user experience.
-* **Common Mistake:** Use WebSocket connections for real-time updates.
-* **Pro Tip:** Cache posts locally and implement offline support.
+Autocomplete requires debounced input handling, efficient search algorithms, caching of results, and proper keyboard navigation for accessibility - consider fuzzy matching and search suggestions. Implement debouncing to avoid excessive API calls.
 
----
+- **Trade-offs**: The catch is use keyboard navigation for accessibility - cache search results to improve performance. Consider fuzzy matching and search suggestions, but watch out - handle loading states and error scenarios.
 
-### ⭐ Senior Takeaway
-
-Consider pagination strategies and data freshness.
-
----
-
-## 🧩 Q66. How would you design an autocomplete / type-ahead search component?
-
-### 🧠 Concept
-
-Autocomplete requires debounced input handling, efficient search algorithms, caching of results, and proper keyboard navigation for accessibility. Consider fuzzy matching and search suggestions.
-
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const Autocomplete = ({ onSelect, searchFn }) => {
@@ -110,30 +91,13 @@ const Autocomplete = ({ onSelect, searchFn }) => {
 
 ---
 
-### 🔍 Deep Insights
+## Q72. How would you design a large data table with sorting, filtering, pagination, and virtualization?
 
-* **Rule:** Implement debouncing to avoid excessive API calls.
-* **Use Case:** Use keyboard navigation for accessibility.
-* **Common Mistake:** Cache search results to improve performance.
-* **Pro Tip:** Handle loading states and error scenarios.
+Large data tables require virtualization for performance, efficient sorting algorithms, client-side filtering, and proper state management for complex interactions - ensure accessibility with proper ARIA attributes. Use virtualization to handle large datasets efficiently.
 
----
+- **Trade-offs**: The catch is implement client-side sorting and filtering for better performance - provide clear visual feedback for sort and filter states. Ensure accessibility with proper ARIA attributes, but watch out - consider server-side pagination for very large datasets.
 
-### ⭐ Senior Takeaway
-
-Consider fuzzy matching and search suggestions.
-
----
-
-## 🧩 Q67. How would you design a large data table with sorting, filtering, pagination, and virtualization?
-
-### 🧠 Concept
-
-Large data tables require virtualization for performance, efficient sorting algorithms, client-side filtering, and proper state management for complex interactions. Ensure accessibility with proper ARIA attributes.
-
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const DataTable = ({ data, columns }) => {
@@ -173,30 +137,13 @@ const DataTable = ({ data, columns }) => {
 
 ---
 
-### 🔍 Deep Insights
+## Q73. How would you design a real-time chat interface?
 
-* **Rule:** Use virtualization to handle large datasets efficiently.
-* **Use Case:** Implement client-side sorting and filtering for better performance.
-* **Common Mistake:** Provide clear visual feedback for sort and filter states.
-* **Pro Tip:** Consider server-side pagination for very large datasets.
+Real-time chat requires WebSocket connections, message queuing, offline storage, delivery status tracking, and proper state synchronization - implement proper message delivery status tracking. Implement WebSocket connections for real-time communication.
 
----
+- **Trade-offs**: The catch is use optimistic updates for better user experience - store messages locally for offline access. Implement proper message delivery status tracking, but watch out - handle connection failures and reconnection logic.
 
-### ⭐ Senior Takeaway
-
-Ensure accessibility with proper ARIA attributes.
-
----
-
-## 🧩 Q68. How would you design a real-time chat interface?
-
-### 🧠 Concept
-
-Real-time chat requires WebSocket connections, message queuing, offline storage, delivery status tracking, and proper state synchronization. Implement proper message delivery status tracking.
-
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const ChatInterface = () => {
@@ -251,30 +198,13 @@ const ChatInterface = () => {
 
 ---
 
-### 🔍 Deep Insights
+## Q74. How would you design a media-rich gallery for images and videos?
 
-* **Rule:** Implement WebSocket connections for real-time communication.
-* **Use Case:** Use optimistic updates for better user experience.
-* **Common Mistake:** Store messages locally for offline access.
-* **Pro Tip:** Handle connection failures and reconnection logic.
+Media galleries require lazy loading, responsive image sizing, progressive loading, and efficient memory management for large collections - implement proper error handling and fallbacks. Use Intersection Observer for efficient lazy loading.
 
----
+- **Trade-offs**: The catch is implement responsive image sizing with srcset - consider progressive loading for better perceived performance. Implement proper error handling and fallbacks, but watch out - use virtual scrolling for very large galleries.
 
-### ⭐ Senior Takeaway
-
-Implement proper message delivery status tracking.
-
----
-
-## 🧩 Q69. How would you design a media-rich gallery for images and videos?
-
-### 🧠 Concept
-
-Media galleries require lazy loading, responsive image sizing, progressive loading, and efficient memory management for large collections. Implement proper error handling and fallbacks.
-
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const MediaGallery = ({ media }) => {
@@ -321,30 +251,13 @@ const MediaGallery = ({ media }) => {
 
 ---
 
-### 🔍 Deep Insights
+## Q75. How would you design an e-commerce shopping cart & checkout UI that works offline?
 
-* **Rule:** Use Intersection Observer for efficient lazy loading.
-* **Use Case:** Implement responsive image sizing with srcset.
-* **Common Mistake:** Consider progressive loading for better perceived performance.
-* **Pro Tip:** Use virtual scrolling for very large galleries.
+Shopping cart requires offline storage, cross-device synchronization, optimistic updates, and proper state management for complex business logic - consider inventory management and stock validation. Use localStorage for offline cart persistence.
 
----
+- **Trade-offs**: The catch is implement cross-device synchronization via user accounts - handle offline scenarios gracefully with proper messaging. Consider inventory management and stock validation, but watch out - use optimistic updates for better user experience.
 
-### ⭐ Senior Takeaway
-
-Implement proper error handling and fallbacks.
-
----
-
-## 🧩 Q70. How would you design an e-commerce shopping cart & checkout UI that works offline?
-
-### 🧠 Concept
-
-Shopping cart requires offline storage, cross-device synchronization, optimistic updates, and proper state management for complex business logic. Consider inventory management and stock validation.
-
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const ShoppingCart = () => {
@@ -395,30 +308,13 @@ const ShoppingCart = () => {
 
 ---
 
-### 🔍 Deep Insights
+## Q76. How would you design a collaborative editor from the front-end side?
 
-* **Rule:** Use localStorage for offline cart persistence.
-* **Use Case:** Implement cross-device synchronization via user accounts.
-* **Common Mistake:** Handle offline scenarios gracefully with proper messaging.
-* **Pro Tip:** Use optimistic updates for better user experience.
+Collaborative editing requires real-time synchronization, conflict resolution, operational transforms, and proper cursor/selection management - consider performance optimization for large documents. Implement operational transforms for conflict resolution.
 
----
+- **Trade-offs**: The catch is use WebSocket connections for real-time synchronization - handle cursor and selection management across users. Consider performance optimization for large documents, but watch out - implement proper undo/redo functionality.
 
-### ⭐ Senior Takeaway
-
-Consider inventory management and stock validation.
-
----
-
-## 🧩 Q71. How would you design a collaborative editor from the front-end side?
-
-### 🧠 Concept
-
-Collaborative editing requires real-time synchronization, conflict resolution, operational transforms, and proper cursor/selection management. Consider performance optimization for large documents.
-
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const CollaborativeEditor = () => {
@@ -467,30 +363,13 @@ const CollaborativeEditor = () => {
 
 ---
 
-### 🔍 Deep Insights
+## Q77. How would you design a map or geo-based UI?
 
-* **Rule:** Implement operational transforms for conflict resolution.
-* **Use Case:** Use WebSocket connections for real-time synchronization.
-* **Common Mistake:** Handle cursor and selection management across users.
-* **Pro Tip:** Implement proper undo/redo functionality.
+Map-based UIs require efficient rendering of large datasets, real-time location updates, smooth animations, and proper handling of map interactions - optimize rendering performance for mobile devices. Use efficient clustering for large numbers of markers.
 
----
+- **Trade-offs**: The catch is implement smooth animations for location updates - consider offline map functionality. Optimize rendering performance for mobile devices, but watch out - handle different map providers and APIs.
 
-### ⭐ Senior Takeaway
-
-Consider performance optimization for large documents.
-
----
-
-## 🧩 Q72. How would you design a map or geo-based UI?
-
-### 🧠 Concept
-
-Map-based UIs require efficient rendering of large datasets, real-time location updates, smooth animations, and proper handling of map interactions. Optimize rendering performance for mobile devices.
-
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const MapInterface = () => {
@@ -532,30 +411,13 @@ const MapInterface = () => {
 
 ---
 
-### 🔍 Deep Insights
+## Q78. How would you design a Progressive Web App (PWA)?
 
-* **Rule:** Use efficient clustering for large numbers of markers.
-* **Use Case:** Implement smooth animations for location updates.
-* **Common Mistake:** Consider offline map functionality.
-* **Pro Tip:** Handle different map providers and APIs.
+PWAs require service workers for offline functionality, web app manifests for installability, push notification APIs, and proper caching strategies - test across different browsers and devices. Implement service workers for offline functionality.
 
----
+- **Trade-offs**: The catch is use web app manifest for installability - handle push notifications with proper permissions. Test across different browsers and devices, but watch out - implement proper caching strategies.
 
-### ⭐ Senior Takeaway
-
-Optimize rendering performance for mobile devices.
-
----
-
-## 🧩 Q73. How would you design a Progressive Web App (PWA)?
-
-### 🧠 Concept
-
-PWAs require service workers for offline functionality, web app manifests for installability, push notification APIs, and proper caching strategies. Test across different browsers and devices.
-
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const PWAApp = () => {
@@ -601,30 +463,13 @@ const PWAApp = () => {
 
 ---
 
-### 🔍 Deep Insights
+## Q79. How would you design a dashboard UI with real-time charts and metrics?
 
-* **Rule:** Implement service workers for offline functionality.
-* **Use Case:** Use web app manifest for installability.
-* **Common Mistake:** Handle push notifications with proper permissions.
-* **Pro Tip:** Implement proper caching strategies.
+Real-time dashboards require efficient data visualization, WebSocket connections for live updates, responsive layouts, and proper state management for complex metrics - implement proper error handling and fallbacks. Use efficient charting libraries for real-time updates.
 
----
+- **Trade-offs**: The catch is implement proper data aggregation and sampling - handle connection failures and reconnection logic. Implement proper error handling and fallbacks, but watch out - consider performance optimization for large datasets.
 
-### ⭐ Senior Takeaway
-
-Test across different browsers and devices.
-
----
-
-## 🧩 Q74. How would you design a dashboard UI with real-time charts and metrics?
-
-### 🧠 Concept
-
-Real-time dashboards require efficient data visualization, WebSocket connections for live updates, responsive layouts, and proper state management for complex metrics. Implement proper error handling and fallbacks.
-
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const Dashboard = () => {
@@ -668,30 +513,13 @@ const Dashboard = () => {
 
 ---
 
-### 🔍 Deep Insights
+## Q80. How would you design a front-end that dynamically loads micro-frontends?
 
-* **Rule:** Use efficient charting libraries for real-time updates.
-* **Use Case:** Implement proper data aggregation and sampling.
-* **Common Mistake:** Handle connection failures and reconnection logic.
-* **Pro Tip:** Consider performance optimization for large datasets.
+Dynamic micro-frontend loading requires proper module federation, version management, fallback strategies, and independent deployment coordination - consider performance implications of dynamic loading. Implement proper version management and fallback strategies.
 
----
+- **Trade-offs**: The catch is use module federation for dynamic loading - handle independent deployment and version conflicts. Consider performance implications of dynamic loading, but watch out - implement proper error boundaries and fallbacks.
 
-### ⭐ Senior Takeaway
-
-Implement proper error handling and fallbacks.
-
----
-
-## 🧩 Q75. How would you design a front-end that dynamically loads micro-frontends?
-
-### 🧠 Concept
-
-Dynamic micro-frontend loading requires proper module federation, version management, fallback strategies, and independent deployment coordination. Consider performance implications of dynamic loading.
-
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const MicroFrontendLoader = ({ name, version, fallback }) => {
@@ -728,30 +556,13 @@ const MicroFrontendLoader = ({ name, version, fallback }) => {
 
 ---
 
-### 🔍 Deep Insights
+## Q81. How would you design a high-performance image carousel?
 
-* **Rule:** Implement proper version management and fallback strategies.
-* **Use Case:** Use module federation for dynamic loading.
-* **Common Mistake:** Handle independent deployment and version conflicts.
-* **Pro Tip:** Implement proper error boundaries and fallbacks.
+High-performance image carousels require lazy loading, memory management, smooth animations, and responsive design for optimal user experience - consider responsive design and touch gestures. Implement lazy loading for memory efficiency.
 
----
+- **Trade-offs**: The catch is use CSS transforms for smooth animations - manage visible range to optimize performance. Consider responsive design and touch gestures, but watch out - implement proper image preloading strategies.
 
-### ⭐ Senior Takeaway
-
-Consider performance implications of dynamic loading.
-
----
-
-## 🧩 Q76. How would you design a high-performance image carousel?
-
-### 🧠 Concept
-
-High-performance image carousels require lazy loading, memory management, smooth animations, and responsive design for optimal user experience. Consider responsive design and touch gestures.
-
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const ImageCarousel = ({ images }) => {
@@ -804,30 +615,13 @@ const ImageCarousel = ({ images }) => {
 
 ---
 
-### 🔍 Deep Insights
+## Q82. How would you design accessible UI components?
 
-* **Rule:** Implement lazy loading for memory efficiency.
-* **Use Case:** Use CSS transforms for smooth animations.
-* **Common Mistake:** Manage visible range to optimize performance.
-* **Pro Tip:** Implement proper image preloading strategies.
+Accessible UI components require proper ARIA attributes, keyboard navigation support, color contrast compliance, and screen reader compatibility - provide multiple ways to convey information. Implement proper ARIA attributes and roles.
 
----
+- **Trade-offs**: The catch is support keyboard navigation and focus management - ensure color contrast meets WCAG standards. Provide multiple ways to convey information, but watch out - test with screen readers and assistive technologies.
 
-### ⭐ Senior Takeaway
-
-Consider responsive design and touch gestures.
-
----
-
-## 🧩 Q77. How would you design accessible UI components?
-
-### 🧠 Concept
-
-Accessible UI components require proper ARIA attributes, keyboard navigation support, color contrast compliance, and screen reader compatibility. Provide multiple ways to convey information.
-
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const AccessibleButton = ({ children, onClick, disabled, ...props }) => {
@@ -868,30 +662,13 @@ const AccessibleButton = ({ children, onClick, disabled, ...props }) => {
 
 ---
 
-### 🔍 Deep Insights
+## Q83. How would you design a global theme switcher?
 
-* **Rule:** Implement proper ARIA attributes and roles.
-* **Use Case:** Support keyboard navigation and focus management.
-* **Common Mistake:** Ensure color contrast meets WCAG standards.
-* **Pro Tip:** Test with screen readers and assistive technologies.
+Global theme switching requires centralized theme management, persistent storage, smooth transitions, and proper CSS variable handling - test with different color schemes and contrast ratios. Use CSS custom properties for theme values.
 
----
+- **Trade-offs**: The catch is implement smooth transitions between themes - persist theme preferences across sessions. Test with different color schemes and contrast ratios, but watch out - consider system theme detection.
 
-### ⭐ Senior Takeaway
-
-Provide multiple ways to convey information.
-
----
-
-## 🧩 Q78. How would you design a global theme switcher?
-
-### 🧠 Concept
-
-Global theme switching requires centralized theme management, persistent storage, smooth transitions, and proper CSS variable handling. Test with different color schemes and contrast ratios.
-
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const ThemeProvider = ({ children }) => {
@@ -919,30 +696,13 @@ const ThemeProvider = ({ children }) => {
 
 ---
 
-### 🔍 Deep Insights
+## Q84. How would you design routing architecture for a SPA with SEO support?
 
-* **Rule:** Use CSS custom properties for theme values.
-* **Use Case:** Implement smooth transitions between themes.
-* **Common Mistake:** Persist theme preferences across sessions.
-* **Pro Tip:** Consider system theme detection.
+SPA routing requires client-side navigation, SEO optimization, fast transitions, and proper state management for complex applications - test navigation across different browsers and devices. Implement client-side routing with proper history management.
 
----
+- **Trade-offs**: The catch is use code splitting for better performance - consider SEO implications and meta tag management. Test navigation across different browsers and devices, but watch out - implement proper loading states and error handling.
 
-### ⭐ Senior Takeaway
-
-Test with different color schemes and contrast ratios.
-
----
-
-## 🧩 Q79. How would you design routing architecture for a SPA with SEO support?
-
-### 🧠 Concept
-
-SPA routing requires client-side navigation, SEO optimization, fast transitions, and proper state management for complex applications. Test navigation across different browsers and devices.
-
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const AppRouter = () => {
@@ -983,30 +743,13 @@ const AppRouter = () => {
 
 ---
 
-### 🔍 Deep Insights
+## Q85. How would you design a file upload system with progress tracking?
 
-* **Rule:** Implement client-side routing with proper history management.
-* **Use Case:** Use code splitting for better performance.
-* **Common Mistake:** Consider SEO implications and meta tag management.
-* **Pro Tip:** Implement proper loading states and error handling.
+File upload systems require progress tracking, chunked uploads for resumability, mobile optimization, and proper error handling for various scenarios - consider file validation and security measures. Implement chunked uploads for large files.
 
----
+- **Trade-offs**: The catch is use progress tracking for better user experience - handle network failures and resume functionality. Consider file validation and security measures, but watch out - optimize for mobile devices and touch interfaces.
 
-### ⭐ Senior Takeaway
-
-Test navigation across different browsers and devices.
-
----
-
-## 🧩 Q80. How would you design a file upload system with progress tracking?
-
-### 🧠 Concept
-
-File upload systems require progress tracking, chunked uploads for resumability, mobile optimization, and proper error handling for various scenarios. Consider file validation and security measures.
-
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const FileUpload = () => {
@@ -1064,30 +807,13 @@ const FileUpload = () => {
 
 ---
 
-### 🔍 Deep Insights
+## Q86. How would you design a feature flag / A/B testing framework?
 
-* **Rule:** Implement chunked uploads for large files.
-* **Use Case:** Use progress tracking for better user experience.
-* **Common Mistake:** Handle network failures and resume functionality.
-* **Pro Tip:** Optimize for mobile devices and touch interfaces.
+Feature flags require dynamic configuration, A/B testing capabilities, user segmentation, and proper analytics integration for data-driven decisions - implement proper fallback strategies. Implement dynamic feature flag configuration.
 
----
+- **Trade-offs**: The catch is use proper user segmentation for A/B testing - integrate with analytics for data collection. Implement proper fallback strategies, but watch out - consider performance implications of feature flags.
 
-### ⭐ Senior Takeaway
-
-Consider file validation and security measures.
-
----
-
-## 🧩 Q81. How would you design a feature flag / A/B testing framework?
-
-### 🧠 Concept
-
-Feature flags require dynamic configuration, A/B testing capabilities, user segmentation, and proper analytics integration for data-driven decisions. Implement proper fallback strategies.
-
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const FeatureFlagProvider = ({ children }) => {
@@ -1128,30 +854,13 @@ const FeatureFlagProvider = ({ children }) => {
 
 ---
 
-### 🔍 Deep Insights
+## Q87. How would you design a notification system?
 
-* **Rule:** Implement dynamic feature flag configuration.
-* **Use Case:** Use proper user segmentation for A/B testing.
-* **Common Mistake:** Integrate with analytics for data collection.
-* **Pro Tip:** Consider performance implications of feature flags.
+Notification systems require multiple delivery channels, user preferences, analytics tracking, and proper state management for complex notification flows - implement proper notification management and cleanup. Implement multiple notification channels.
 
----
+- **Trade-offs**: The catch is use user preferences for personalized delivery - track analytics for notification effectiveness. Implement proper notification management and cleanup, but watch out - consider notification frequency and timing.
 
-### ⭐ Senior Takeaway
-
-Implement proper fallback strategies.
-
----
-
-## 🧩 Q82. How would you design a notification system?
-
-### 🧠 Concept
-
-Notification systems require multiple delivery channels, user preferences, analytics tracking, and proper state management for complex notification flows. Implement proper notification management and cleanup.
-
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const NotificationSystem = () => {
@@ -1204,30 +913,13 @@ const NotificationSystem = () => {
 
 ---
 
-### 🔍 Deep Insights
+## Q88. How would you design a search results UI with infinite scrolling?
 
-* **Rule:** Implement multiple notification channels.
-* **Use Case:** Use user preferences for personalized delivery.
-* **Common Mistake:** Track analytics for notification effectiveness.
-* **Pro Tip:** Consider notification frequency and timing.
+Search results require efficient data management, client-side caching, infinite scrolling, and proper filter handling for optimal user experience - implement proper loading states and error handling. Implement client-side caching for better performance.
 
----
+- **Trade-offs**: The catch is use infinite scrolling for large result sets - handle filter combinations efficiently. Implement proper loading states and error handling, but watch out - consider search result ranking and relevance.
 
-### ⭐ Senior Takeaway
-
-Implement proper notification management and cleanup.
-
----
-
-## 🧩 Q83. How would you design a search results UI with infinite scrolling?
-
-### 🧠 Concept
-
-Search results require efficient data management, client-side caching, infinite scrolling, and proper filter handling for optimal user experience. Implement proper loading states and error handling.
-
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const SearchResults = () => {
@@ -1282,30 +974,13 @@ const SearchResults = () => {
 
 ---
 
-### 🔍 Deep Insights
+## Q89. How would you design a live streaming UI?
 
-* **Rule:** Implement client-side caching for better performance.
-* **Use Case:** Use infinite scrolling for large result sets.
-* **Common Mistake:** Handle filter combinations efficiently.
-* **Pro Tip:** Consider search result ranking and relevance.
+Live streaming UIs require real-time video/audio handling, low-latency optimization, proper buffering management, and intuitive streaming controls - implement proper error handling and reconnection logic. Implement low-latency streaming protocols.
 
----
+- **Trade-offs**: The catch is use proper buffering management for smooth playback - handle different quality levels and adaptive streaming. Implement proper error handling and reconnection logic, but watch out - consider mobile optimization and touch controls.
 
-### ⭐ Senior Takeaway
-
-Implement proper loading states and error handling.
-
----
-
-## 🧩 Q84. How would you design a live streaming UI?
-
-### 🧠 Concept
-
-Live streaming UIs require real-time video/audio handling, low-latency optimization, proper buffering management, and intuitive streaming controls. Implement proper error handling and reconnection logic.
-
----
-
-### 💡 Example
+Example:
 
 ```javascript
 const LiveStreamingUI = () => {
@@ -1376,20 +1051,5 @@ const LiveStreamingUI = () => {
   );
 };
 ```
-
----
-
-### 🔍 Deep Insights
-
-* **Rule:** Implement low-latency streaming protocols.
-* **Use Case:** Use proper buffering management for smooth playback.
-* **Common Mistake:** Handle different quality levels and adaptive streaming.
-* **Pro Tip:** Consider mobile optimization and touch controls.
-
----
-
-### ⭐ Senior Takeaway
-
-Implement proper error handling and reconnection logic.
 
 ---

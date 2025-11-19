@@ -1,6 +1,27 @@
 # 🧠 DSA Interview Cheatsheet
 
-Quick reference for common DSA patterns and templates. Follow the preparation order: Arrays → Strings → Linked Lists → Stacks → Trees → BST → Heaps → Graphs → DP → Backtracking → Specialized Topics.
+> **⏱️ Review Time: 30-40 minutes** | **Priority: ⭐⭐⭐ Critical** | Essential DSA patterns and templates for interviews
+> 
+> **Coverage: Q1-Q229** (229 problems across 13 categories)
+
+**Quick Review Checklist:**
+- [ ] Arrays & Two Pointers (Sliding Window, Prefix Sum)
+- [ ] Strings (Pattern Matching, String Manipulation)
+- [ ] Linked Lists (Fast/Slow Pointers, Reversal)
+- [ ] Stacks & Queues (Monotonic Stack, BFS)
+- [ ] Binary Trees (DFS, BFS, Traversal)
+- [ ] Binary Search Tree (BST Properties, Inorder)
+- [ ] Heaps & Priority Queue (Min/Max Heap, Top K)
+- [ ] Graphs (DFS, BFS, Shortest Path, Topological Sort)
+- [ ] Dynamic Programming (1D/2D DP, Memoization)
+- [ ] Recursion & Backtracking (Subsets, Permutations)
+- [ ] Matrix (2D Array Traversal, Spiral)
+- [ ] Trie (Prefix Tree, Word Search)
+- [ ] Binary Search (Search in Sorted Array, Rotated Array)
+- [ ] Bit Manipulation (XOR, AND, OR tricks)
+- [ ] Math (GCD, Prime, Number Theory)
+
+---
 
 ## 📚 Problem Ranges by Category
 

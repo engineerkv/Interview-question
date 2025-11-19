@@ -1,11 +1,15 @@
-# 1) SQL Fundamentals (Q1–10)
+# 1. SQL Fundamentals (Q1–10)
 
-## 1) What is SQL, and what are its main sublanguages (DDL, DML, DCL, TCL)?
+---
 
-Concept:
-SQL (Structured Query Language) is a standard language for managing relational databases with four main sublanguages that handle different aspects of database operations.
+## Q1. What is SQL, and what are its main sublanguages (DDL, DML, DCL, TCL)?
+
+SQL (Structured Query Language) is a standard language for managing relational databases with four main sublanguages: DDL creates and modifies database structure (CREATE, ALTER, DROP), DML manages data (SELECT, INSERT, UPDATE, DELETE), DCL controls access (GRANT, REVOKE), and TCL manages transactions (COMMIT, ROLLBACK, SAVEPOINT).
+
+- **Trade-offs**: SQL follows ANSI standards but each RDBMS adds proprietary extensions, so code isn't always portable—features like LIMIT vs TOP or window functions vary by database version.
 
 Example:
+
 ```sql
 -- DDL: Create table structure
 CREATE TABLE employees (
@@ -13,21 +17,26 @@ CREATE TABLE employees (
     name VARCHAR(100) NOT NULL,
     salary DECIMAL(10,2)
 );
+
+-- DML: Insert data
+INSERT INTO employees VALUES (1, 'John', 50000);
+
+-- TCL: Transaction control
+BEGIN TRANSACTION;
+UPDATE employees SET salary = 55000 WHERE id = 1;
+COMMIT;
 ```
 
-Deep Insight:
-- **DDL (Data Definition Language)**: Creates and modifies database structure (CREATE, ALTER, DROP, TRUNCATE)
-- **DML (Data Manipulation Language)**: Manages data within tables (SELECT, INSERT, UPDATE, DELETE)
-- **DCL (Data Control Language)**: Controls access and permissions (GRANT, REVOKE, DENY)
-- **TCL (Transaction Control Language)**: Manages transactions (COMMIT, ROLLBACK, SAVEPOINT)
-- **Standard Compliance**: SQL follows ANSI standards but each RDBMS has proprietary extensions
+---
 
-## 2) What is the difference between SQL and MySQL/PostgreSQL/SQL Server?
+## Q2. What is the difference between SQL and MySQL/PostgreSQL/SQL Server?
 
-Concept:
-SQL is the standard language specification, while MySQL, PostgreSQL, and SQL Server are specific database management systems (RDBMS) that implement SQL with their own extensions and features.
+SQL is the standard language specification, while MySQL, PostgreSQL, and SQL Server are specific database management systems (RDBMS) that implement SQL with their own extensions and features. Each RDBMS adds proprietary syntax, data types, and optimizations on top of the SQL standard.
+
+- **Trade-offs**: ANSI SQL provides common syntax across databases, but each RDBMS has different performance characteristics, feature sets, and syntax quirks—LIMIT vs TOP, different function names, and advanced features like window functions vary by database version.
 
 Example:
+
 ```sql
 -- Standard SQL (works across most databases)
 SELECT name, salary FROM employees WHERE salary > 50000;
@@ -35,21 +44,20 @@ SELECT name, salary FROM employees WHERE salary > 50000;
 -- MySQL specific
 SELECT name, salary FROM employees WHERE salary > 50000 LIMIT 10;
 
+-- SQL Server specific
+SELECT TOP 10 name, salary FROM employees WHERE salary > 50000;
 ```
 
-Deep Insight:
-- **SQL Standard**: ANSI SQL provides common syntax and features across databases
-- **RDBMS Implementations**: Each database system adds proprietary features and optimizations
-- **Syntax Differences**: LIMIT vs TOP, different data types, and function names
-- **Performance Variations**: Each RDBMS has different query optimization strategies
-- **Feature Sets**: Advanced features like window functions, CTEs vary by database version
+---
 
-## 3) What is a database schema?
+## Q3. What is a database schema?
 
-Concept:
-A database schema is the logical structure that defines how data is organized, including tables, views, indexes, constraints, and relationships between database objects.
+A database schema is the logical structure that defines how data is organized, including tables, views, indexes, constraints, and relationships between database objects. It provides namespace separation and logical grouping of related objects.
+
+- **Trade-offs**: Schemas provide security boundaries with different access permissions and make object management easier, but they can complicate naming and require schema.object_name references—they're great for multi-tenancy where multiple applications share the same database safely.
 
 Example:
+
 ```sql
 -- Create a database schema
 CREATE SCHEMA hr;
@@ -62,19 +70,16 @@ CREATE TABLE hr.employees (
 );
 ```
 
-Deep Insight:
-- **Logical Organization**: Schema provides namespace separation and logical grouping of related objects
-- **Security Boundary**: Schemas can have different access permissions and security policies
-- **Object Management**: Tables, views, functions, and procedures are organized within schemas
-- **Naming Convention**: Schema.object_name provides unique identification of database objects
-- **Multi-tenancy**: Schemas enable multiple applications to share the same database safely
+---
 
-## 4) What is the difference between a table and a view?
+## Q4. What is the difference between a table and a view?
 
-Concept:
-A table stores actual data physically, while a view is a virtual table based on the result of a SQL query that doesn't store data but provides a way to access and manipulate data from underlying tables.
+A table stores actual data physically, while a view is a virtual table based on the result of a SQL query that doesn't store data but provides a way to access and manipulate data from underlying tables. Views store only the query definition, not the data itself.
+
+- **Trade-offs**: Views simplify complex queries and provide security by restricting access to specific columns or rows, but they don't improve performance by themselves—they can be updated only if they meet specific criteria (single table, no aggregates), and complex views can actually slow down queries.
 
 Example:
+
 ```sql
 -- Create a table (stores actual data)
 CREATE TABLE employees (
@@ -89,19 +94,16 @@ CREATE VIEW high_earners AS
 SELECT id, name, salary FROM employees WHERE salary > 50000;
 ```
 
-Deep Insight:
-- **Data Storage**: Tables store physical data, views store only the query definition
-- **Performance**: Views don't improve performance by themselves, but can simplify complex queries
-- **Security**: Views can restrict access to specific columns or rows of underlying tables
-- **Maintainability**: Views provide abstraction layer, making schema changes easier to manage
-- **Updatability**: Views can be updated only if they meet specific criteria (single table, no aggregates, etc.)
+---
 
-## 5) What are constraints in SQL (NOT NULL, CHECK, DEFAULT, etc.)?
+## Q5. What are constraints in SQL (NOT NULL, CHECK, DEFAULT, etc.)?
 
-Concept:
-Constraints are rules applied to table columns to ensure data integrity, consistency, and validity by restricting the type of data that can be stored.
+Constraints are rules applied to table columns to ensure data integrity, consistency, and validity by restricting the type of data that can be stored. NOT NULL prevents NULL values, CHECK validates against conditions, DEFAULT provides fallback values, UNIQUE ensures uniqueness, and PRIMARY KEY combines NOT NULL and UNIQUE.
+
+- **Trade-offs**: Constraints enforce data quality at the database level and prevent invalid data, but they can slow down INSERT/UPDATE operations and make schema changes more complex—use them to catch errors early, but balance strictness with flexibility.
 
 Example:
+
 ```sql
 CREATE TABLE products (
     product_id INT PRIMARY KEY,
@@ -112,20 +114,16 @@ CREATE TABLE products (
 );
 ```
 
-Deep Insight:
-- **NOT NULL**: Prevents NULL values, ensures required data is always provided
-- **CHECK**: Validates data against specified conditions, maintains business rules
-- **DEFAULT**: Provides fallback values when no value is specified during insertion
-- **UNIQUE**: Ensures uniqueness of values, can allow one NULL value
-- **PRIMARY KEY**: Combines NOT NULL and UNIQUE, uniquely identifies each row
-- **FOREIGN KEY**: Maintains referential integrity between related tables
+---
 
-## 6) What is the difference between a **Primary Key**, **Foreign Key**, and **Unique Key**?
+## Q6. What is the difference between a Primary Key, Foreign Key, and Unique Key?
 
-Concept:
-Primary Key uniquely identifies each row and cannot be NULL, Foreign Key references another table's primary key, and Unique Key ensures uniqueness but allows NULL values.
+Primary Key uniquely identifies each row and cannot be NULL (only one per table), Foreign Key references another table's primary key to maintain referential integrity, and Unique Key ensures uniqueness but allows NULL values (multiple allowed per table). Primary and unique keys automatically create indexes for performance.
+
+- **Trade-offs**: Primary keys create clustered indexes automatically which speeds up lookups, but composite primary keys can affect join performance. Foreign keys maintain data consistency but can slow down inserts and require careful cascade rules. Unique keys provide flexibility but can allow one NULL value which might not be what you want.
 
 Example:
+
 ```sql
 CREATE TABLE departments (
     dept_id INT PRIMARY KEY,           -- Primary Key
@@ -133,21 +131,24 @@ CREATE TABLE departments (
     email VARCHAR(100) UNIQUE          -- Unique Key
 );
 
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    dept_id INT,
+    FOREIGN KEY (dept_id) REFERENCES departments(dept_id)  -- Foreign Key
+);
 ```
 
-Deep Insight:
-- **Primary Key**: Only one per table, cannot be NULL, creates clustered index automatically
-- **Foreign Key**: Maintains referential integrity, can be NULL, references primary key of another table
-- **Unique Key**: Multiple allowed per table, can have one NULL value, creates non-clustered index
-- **Referential Integrity**: Foreign keys ensure data consistency across related tables
-- **Indexing**: Primary and unique keys automatically create indexes for performance
+---
 
-## 7) What are **composite keys**, and when should you use them?
+## Q7. What are composite keys, and when should you use them?
 
-Concept:
-Composite keys are primary keys made up of multiple columns when no single column can uniquely identify a row, but a combination of columns can.
+Composite keys are primary keys made up of multiple columns when no single column can uniquely identify a row, but a combination of columns can. They often represent natural business relationships, but column order matters for query performance.
+
+- **Trade-offs**: Composite keys are natural for relationships like order_items (order_id + product_id), but they can affect join performance and make foreign key references more complex—sometimes artificial single-column surrogate keys are preferred for performance, even though they're less intuitive.
 
 Example:
+
 ```sql
 -- Order items table - no single column can uniquely identify a row
 CREATE TABLE order_items (
@@ -155,23 +156,20 @@ CREATE TABLE order_items (
     product_id INT,
     quantity INT NOT NULL,
     price DECIMAL(10,2),
-    PRIMARY KEY (order_id, product_id)
+    PRIMARY KEY (order_id, product_id)  -- Composite key
 );
 ```
 
-Deep Insight:
-- **Natural Keys**: Composite keys often represent natural business relationships
-- **Performance Impact**: Composite keys can affect join performance and index usage
-- **Order Matters**: Column order in composite keys affects query performance
-- **Surrogate Keys**: Sometimes artificial single-column keys are preferred for performance
-- **Referential Integrity**: Foreign keys referencing composite keys must include all columns
+---
 
-## 8) What is the difference between `DELETE`, `TRUNCATE`, and `DROP` commands?
+## Q8. What is the difference between DELETE, TRUNCATE, and DROP commands?
 
-Concept:
-DELETE removes specific rows and can be rolled back, TRUNCATE removes all rows quickly but cannot be rolled back, and DROP removes the entire table structure and data.
+DELETE removes specific rows and can be rolled back (triggers fire, can use WHERE clause), TRUNCATE removes all rows quickly but cannot be rolled back (no triggers, table-level operation), and DROP removes the entire table structure and data permanently. TRUNCATE is fastest for removing all data, DELETE is slowest for large datasets.
+
+- **Trade-offs**: DELETE gives you control with WHERE clauses and transaction support, but it's slow for large datasets because it's row-by-row. TRUNCATE is much faster and immediately frees space, but you can't roll it back and it doesn't fire triggers. DROP is irreversible—use it only when you're sure you want to remove everything.
 
 Example:
+
 ```sql
 -- DELETE - removes specific rows, can be rolled back
 DELETE FROM employees WHERE department_id = 5;
@@ -179,22 +177,21 @@ DELETE FROM employees WHERE salary < 30000;
 
 -- TRUNCATE - removes all rows, faster than DELETE
 TRUNCATE TABLE temp_data;
+
+-- DROP - removes entire table structure
+DROP TABLE old_table;
 ```
 
-Deep Insight:
-- **DELETE**: Row-by-row operation, triggers fire, can use WHERE clause, slower for large datasets
-- **TRUNCATE**: Table-level operation, no triggers, removes all rows, much faster
-- **DROP**: Removes table structure completely, all data and metadata lost
-- **Transaction Support**: DELETE can be rolled back, TRUNCATE cannot (in most databases)
-- **Performance**: TRUNCATE is fastest, DELETE is slowest for large datasets
-- **Space Recovery**: TRUNCATE immediately frees space, DELETE may not
+---
 
-## 9) What is the purpose of **aliases** in SQL?
+## Q9. What is the purpose of aliases in SQL?
 
-Concept:
-Aliases provide temporary names for tables or columns, making queries more readable, enabling shorter references, and allowing for self-joins and complex queries.
+Aliases provide temporary names for tables or columns, making queries more readable, enabling shorter references, and allowing for self-joins and complex queries. They're essential for joining a table with itself and preventing ambiguity when multiple tables have the same column names.
+
+- **Trade-offs**: Aliases make complex queries more readable and maintainable, and shorter aliases can slightly improve query performance, but use meaningful aliases that reflect table purpose (like 'e' for employees) rather than random letters—clarity matters more than saving a few characters.
 
 Example:
+
 ```sql
 -- Column aliases
 SELECT 
@@ -203,21 +200,25 @@ SELECT
     last_name AS lname,
     salary * 12 AS annual_salary
 FROM employees;
+
+-- Table aliases for self-join
+SELECT 
+    e1.employee_name AS employee,
+    e2.employee_name AS manager
+FROM employees e1
+LEFT JOIN employees e2 ON e1.manager_id = e2.employee_id;
 ```
 
-Deep Insight:
-- **Readability**: Aliases make complex queries more readable and maintainable
-- **Self-Joins**: Essential for joining a table with itself (e.g., employee-manager relationships)
-- **Column Clarity**: When multiple tables have same column names, aliases prevent ambiguity
-- **Query Optimization**: Shorter aliases can improve query performance slightly
-- **Best Practices**: Use meaningful aliases that reflect table purpose (e.g., 'e' for employees)
+---
 
-## 10) What are aggregate functions (COUNT, SUM, AVG, MIN, MAX)?
+## Q10. What are aggregate functions (COUNT, SUM, AVG, MIN, MAX)?
 
-Concept:
-Aggregate functions perform calculations on a set of values and return a single result, commonly used with GROUP BY to analyze data across groups.
+Aggregate functions perform calculations on a set of values and return a single result, commonly used with GROUP BY to analyze data across groups. COUNT counts rows or non-NULL values, SUM/AVG work with numeric data, and MIN/MAX work with any data type—most ignore NULL values except COUNT(*).
+
+- **Trade-offs**: Aggregates are powerful for analysis but can be expensive on large datasets, especially with GROUP BY. COUNT(*) counts all rows including NULLs, while COUNT(column) counts only non-NULL values—use HAVING to filter groups based on aggregate conditions, unlike WHERE which filters rows.
 
 Example:
+
 ```sql
 -- Basic aggregate functions
 SELECT 
@@ -228,12 +229,15 @@ SELECT
     MIN(salary) AS min_salary,
     MAX(salary) AS max_salary
 FROM employees;
+
+-- With GROUP BY
+SELECT 
+    department_id,
+    COUNT(*) AS emp_count,
+    AVG(salary) AS avg_salary
+FROM employees
+GROUP BY department_id
+HAVING COUNT(*) > 5;
 ```
 
-Deep Insight:
-- **COUNT**: Counts rows or non-NULL values, COUNT(*) counts all rows including NULLs
-- **SUM/AVG**: Work with numeric data, ignore NULL values in calculations
-- **MIN/MAX**: Work with any data type, ignore NULL values
-- **GROUP BY**: Aggregates are calculated for each group when using GROUP BY
-- **HAVING**: Filters groups based on aggregate conditions, unlike WHERE which filters rows
-- **NULL Handling**: Most aggregate functions ignore NULL values except COUNT(*)
+---

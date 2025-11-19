@@ -1,16 +1,14 @@
-# 🎯 2. Intermediate Level CSS (Q14–33)
+# 2. Intermediate Level CSS (Q14–33)
 
 ---
 
-## 🧩 Q14. What is the difference between `visibility: hidden` and `display: none`?
+## Q14. What is the difference between `visibility: hidden` and `display: none`?
 
-### 🧠 Concept
+`visibility: hidden` hides elements but preserves their space, while `display: none` removes elements completely from the layout - visibility preserves space, display removes from layout. `visibility: hidden` (element invisible but space preserved), `display: none` (element completely removed from layout).
 
-`visibility: hidden` hides elements but preserves their space. `display: none` removes elements completely from the layout. Visibility preserves space, display removes from layout.
+- **Trade-offs**: The catch is not understanding when to use each, causing layout shifts - use `visibility` for toggling without layout shift. Visibility preserves space, display removes from layout, but watch out - `visibility: hidden` can be animated, `display: none` cannot be animated.
 
----
-
-### 💡 Example
+Example:
 
 ```css
 .hidden-visibility { visibility: hidden; }
@@ -19,30 +17,13 @@
 
 ---
 
-### 🔍 Deep Insights
+## Q15. What is `z-index` and how does stacking context work?
 
-* **Rule:** `visibility: hidden` (element invisible but space preserved), `display: none` (element completely removed from layout).
-* **Use Case:** `visibility: hidden` can be animated, `display: none` cannot be animated.
-* **Common Mistake:** Not understanding when to use each, causing layout shifts.
-* **Pro Tip:** Use `visibility` for toggling without layout shift.
+`z-index` controls the stacking order of positioned elements, with higher values appearing on top - z-index only works on positioned elements. Only works on positioned elements (relative, absolute, fixed), higher z-index values appear on top.
 
----
+- **Trade-offs**: The catch is using z-index on non-positioned elements (doesn't work), z-index wars - use sparingly to avoid z-index wars, understand stacking contexts. z-index only works on positioned elements, but watch out - creates stacking contexts, negative z-index values are allowed.
 
-### ⭐ Senior Takeaway
-
-Visibility preserves space, display removes from layout.
-
----
-
-## 🧩 Q15. What is `z-index` and how does stacking context work?
-
-### 🧠 Concept
-
-`z-index` controls the stacking order of positioned elements, with higher values appearing on top. z-index only works on positioned elements.
-
----
-
-### 💡 Example
+Example:
 
 ```css
 .layer1 { 
@@ -59,30 +40,13 @@ Visibility preserves space, display removes from layout.
 
 ---
 
-### 🔍 Deep Insights
+## Q16. What is the default positioning value for HTML elements?
 
-* **Rule:** Only works on positioned elements (relative, absolute, fixed), higher z-index values appear on top.
-* **Use Case:** Creates stacking contexts, negative z-index values are allowed.
-* **Common Mistake:** Using z-index on non-positioned elements (doesn't work), z-index wars.
-* **Pro Tip:** Use sparingly to avoid z-index wars, understand stacking contexts.
+The default positioning value for HTML elements is `static`, which follows the normal document flow - static positioning is the default, follows normal flow. `static` is the default positioning, static elements follow normal document flow.
 
----
+- **Trade-offs**: The catch is not understanding that static is default, other positioning values create new stacking contexts - most elements use static positioning by default. Static positioning is the default, follows normal flow, but watch out - static elements ignore `top`, `right`, `bottom`, `left` properties.
 
-### ⭐ Senior Takeaway
-
-z-index only works on positioned elements.
-
----
-
-## 🧩 Q16. What is the default positioning value for HTML elements?
-
-### 🧠 Concept
-
-The default positioning value for HTML elements is `static`, which follows the normal document flow. Static positioning is the default, follows normal flow.
-
----
-
-### 💡 Example
+Example:
 
 ```css
 .element { position: static; }
@@ -95,30 +59,13 @@ The default positioning value for HTML elements is `static`, which follows the n
 
 ---
 
-### 🔍 Deep Insights
+## Q17. What is inheritance in CSS and which properties are inheritable?
 
-* **Rule:** `static` is the default positioning, static elements follow normal document flow.
-* **Use Case:** Static elements ignore `top`, `right`, `bottom`, `left` properties.
-* **Common Mistake:** Not understanding that static is default, other positioning values create new stacking contexts.
-* **Pro Tip:** Most elements use static positioning by default.
+Inheritance means child elements automatically get some properties from their parents, like font-family or color - inherited properties are more efficient than explicitly setting them on every element. Inherited properties include `font-family`, `font-size`, `color`, `line-height`, `text-align`, `visibility`.
 
----
+- **Trade-offs**: The catch is properties cascade down through the DOM tree from parent to child - child elements can override inherited properties with their own values. Inherited properties are more efficient than explicitly setting them on every element, but watch out - non-inherited properties include `width`, `height`, `margin`, `padding`, `border`, `background`.
 
-### ⭐ Senior Takeaway
-
-Static positioning is the default, follows normal flow.
-
----
-
-## 🧩 Q17. What is inheritance in CSS and which properties are inheritable?
-
-### 🧠 Concept
-
-Inheritance means child elements automatically get some properties from their parents, like font-family or color. Inherited properties are more efficient than explicitly setting them on every element.
-
----
-
-### 💡 Example
+Example:
 
 ```css
 body {
@@ -131,30 +78,13 @@ body {
 
 ---
 
-### 🔍 Deep Insights
+## Q18. What are vendor prefixes and why are they used?
 
-* **Rule:** Inherited properties include `font-family`, `font-size`, `color`, `line-height`, `text-align`, `visibility`.
-* **Use Case:** Non-inherited properties include `width`, `height`, `margin`, `padding`, `border`, `background`.
-* **Common Mistake:** Properties cascade down through the DOM tree from parent to child.
-* **Pro Tip:** Child elements can override inherited properties with their own values.
+Vendor prefixes are browser-specific prefixes added to CSS properties during experimental or early implementation phases - vendor prefixes are for experimental features, standard property comes last. `-webkit-` (Chrome, Safari, newer Edge), `-moz-` (Firefox), `-ms-` (Internet Explorer, older Edge), `-o-` (Opera, legacy).
 
----
+- **Trade-offs**: The catch is not including standard property, forgetting prefixes - use build tools like autoprefixer to handle prefixes automatically. Vendor prefixes are for experimental features, standard property comes last, but watch out - always include standard property last, use autoprefixer tools for automatic prefixing.
 
-### ⭐ Senior Takeaway
-
-Inherited properties are more efficient than explicitly setting them on every element.
-
----
-
-## 🧩 Q18. What are vendor prefixes and why are they used?
-
-### 🧠 Concept
-
-Vendor prefixes are browser-specific prefixes added to CSS properties during experimental or early implementation phases. Vendor prefixes are for experimental features, standard property comes last.
-
----
-
-### 💡 Example
+Example:
 
 ```css
 .animation {
@@ -166,30 +96,13 @@ Vendor prefixes are browser-specific prefixes added to CSS properties during exp
 
 ---
 
-### 🔍 Deep Insights
+## Q19. What are shorthand properties in CSS?
 
-* **Rule:** `-webkit-` (Chrome, Safari, newer Edge), `-moz-` (Firefox), `-ms-` (Internet Explorer, older Edge), `-o-` (Opera, legacy).
-* **Use Case:** Always include standard property last, use autoprefixer tools for automatic prefixing.
-* **Common Mistake:** Not including standard property, forgetting prefixes.
-* **Pro Tip:** Use build tools like autoprefixer to handle prefixes automatically.
+Shorthand properties allow setting multiple related CSS properties in a single declaration - shorthand properties are more efficient but order matters. Reduces code size and improves readability, common shorthands: `margin`, `padding`, `border`, `background`.
 
----
+- **Trade-offs**: The catch is not understanding shorthand order (top, right, bottom, left) - use shorthand for efficiency, longhand for clarity. Shorthand properties are more efficient but order matters, but watch out - order matters in shorthand properties, can mix shorthand and longhand properties.
 
-### ⭐ Senior Takeaway
-
-Vendor prefixes are for experimental features, standard property comes last.
-
----
-
-## 🧩 Q19. What are shorthand properties in CSS?
-
-### 🧠 Concept
-
-Shorthand properties allow setting multiple related CSS properties in a single declaration. Shorthand properties are more efficient but order matters.
-
----
-
-### 💡 Example
+Example:
 
 ```css
 .element { 
@@ -203,30 +116,13 @@ Shorthand properties allow setting multiple related CSS properties in a single d
 
 ---
 
-### 🔍 Deep Insights
+## Q20. How do you apply multiple classes to an element?
 
-* **Rule:** Reduces code size and improves readability, common shorthands: `margin`, `padding`, `border`, `background`.
-* **Use Case:** Order matters in shorthand properties, can mix shorthand and longhand properties.
-* **Common Mistake:** Not understanding shorthand order (top, right, bottom, left).
-* **Pro Tip:** Use shorthand for efficiency, longhand for clarity.
+Separate multiple class names with spaces in the HTML class attribute - each class applies its styles independently, and specificity combines. Multiple classes combine their styles, order in HTML doesn't affect CSS.
 
----
+- **Trade-offs**: The catch is CSS specificity is based on selector, not class order - combine utility classes for flexible, maintainable styling. Multiple classes enable modular, reusable styling patterns, but watch out - use multiple classes for modular, reusable styling patterns.
 
-### ⭐ Senior Takeaway
-
-Shorthand properties are more efficient but order matters.
-
----
-
-## 🧩 Q20. How do you apply multiple classes to an element?
-
-### 🧠 Concept
-
-Separate multiple class names with spaces in the HTML class attribute. Each class applies its styles independently, and specificity combines.
-
----
-
-### 💡 Example
+Example:
 
 ```html
 <div class="button primary large">Click me</div>
@@ -240,30 +136,13 @@ Separate multiple class names with spaces in the HTML class attribute. Each clas
 
 ---
 
-### 🔍 Deep Insights
+## Q21. What is CSS Flexbox and how does it work?
 
-* **Rule:** Multiple classes combine their styles, order in HTML doesn't affect CSS.
-* **Use Case:** Use multiple classes for modular, reusable styling patterns.
-* **Common Mistake:** CSS specificity is based on selector, not class order.
-* **Pro Tip:** Combine utility classes for flexible, maintainable styling.
+Flexbox helps you lay out items in one direction (row or column) with flexible sizing and easy alignment - use it when you need to distribute space or center content. Flexbox works on two axes—main (flex-direction) and cross (perpendicular).
 
----
+- **Trade-offs**: The catch is `justify-content` controls main axis, `align-items` controls cross axis - `order` property allows visual reordering without changing HTML structure. Flexbox simplifies one-dimensional layouts and alignment, but watch out - `flex` is shorthand for `flex-grow`, `flex-shrink`, and `flex-basis`.
 
-### ⭐ Senior Takeaway
-
-Multiple classes enable modular, reusable styling patterns.
-
----
-
-## 🧩 Q21. What is CSS Flexbox and how does it work?
-
-### 🧠 Concept
-
-Flexbox helps you lay out items in one direction (row or column) with flexible sizing and easy alignment. Use it when you need to distribute space or center content.
-
----
-
-### 💡 Example
+Example:
 
 ```css
 .container {
@@ -276,30 +155,13 @@ Flexbox helps you lay out items in one direction (row or column) with flexible s
 
 ---
 
-### 🔍 Deep Insights
+## Q22. Explain CSS Grid and its key features.
 
-* **Rule:** Flexbox works on two axes—main (flex-direction) and cross (perpendicular).
-* **Use Case:** `flex` is shorthand for `flex-grow`, `flex-shrink`, and `flex-basis`.
-* **Common Mistake:** `justify-content` controls main axis, `align-items` controls cross axis.
-* **Pro Tip:** `order` property allows visual reordering without changing HTML structure.
+Grid lets you create layouts with both rows and columns at once, giving you precise control over where items go - perfect for complex page layouts. Unlike Flexbox, Grid handles both rows and columns simultaneously.
 
----
+- **Trade-offs**: The catch is `fr` units distribute available space proportionally - Grid can create implicit rows/columns when content exceeds defined tracks. Grid is perfect for complex two-dimensional layouts, but watch out - named grid areas make complex layouts more readable and maintainable.
 
-### ⭐ Senior Takeaway
-
-Flexbox simplifies one-dimensional layouts and alignment.
-
----
-
-## 🧩 Q22. Explain CSS Grid and its key features.
-
-### 🧠 Concept
-
-Grid lets you create layouts with both rows and columns at once, giving you precise control over where items go. Perfect for complex page layouts.
-
----
-
-### 💡 Example
+Example:
 
 ```css
 .grid-container {
@@ -315,30 +177,13 @@ Grid lets you create layouts with both rows and columns at once, giving you prec
 
 ---
 
-### 🔍 Deep Insights
+## Q23. What is the difference between Flexbox and Grid?
 
-* **Rule:** Unlike Flexbox, Grid handles both rows and columns simultaneously.
-* **Use Case:** Named grid areas make complex layouts more readable and maintainable.
-* **Common Mistake:** `fr` units distribute available space proportionally.
-* **Pro Tip:** Grid can create implicit rows/columns when content exceeds defined tracks.
+Grid handles 2D layouts (both rows and columns), while Flexbox handles 1D (row OR column) - use Grid for page structure and Flexbox for components. Grid for page layouts and complex two-dimensional arrangements, Flexbox for component layouts and navigation bars.
 
----
+- **Trade-offs**: The catch is trying to use one for everything instead of combining both - both have excellent modern browser support, Grid is newer. Flexbox is simpler to learn, Grid is more powerful but complex, but watch out - use Grid for overall structure, Flexbox for component internals—they complement each other.
 
-### ⭐ Senior Takeaway
-
-Grid is perfect for complex two-dimensional layouts.
-
----
-
-## 🧩 Q23. What is the difference between Flexbox and Grid?
-
-### 🧠 Concept
-
-Grid handles 2D layouts (both rows and columns), while Flexbox handles 1D (row OR column). Use Grid for page structure and Flexbox for components.
-
----
-
-### 💡 Example
+Example:
 
 ```css
 .page-layout { 
@@ -355,30 +200,13 @@ Grid handles 2D layouts (both rows and columns), while Flexbox handles 1D (row O
 
 ---
 
-### 🔍 Deep Insights
+## Q24. What are CSS transitions and how do you use them?
 
-* **Rule:** Grid for page layouts and complex two-dimensional arrangements, Flexbox for component layouts and navigation bars.
-* **Use Case:** Use Grid for overall structure, Flexbox for component internals—they complement each other.
-* **Common Mistake:** Trying to use one for everything instead of combining both.
-* **Pro Tip:** Both have excellent modern browser support, Grid is newer.
+Transitions make property changes smooth over time instead of instant - great for hover effects and user feedback, different properties can have different durations and timing functions. Can target specific properties or use `all` for multiple properties.
 
----
+- **Trade-offs**: The catch is GPU-accelerated properties (transform, opacity) perform better than layout properties - JavaScript can listen to `transitionend` events for completion callbacks. Transitions provide smooth property changes over time, but watch out - timing functions (`ease`, `linear`, `ease-in-out`) control animation curve.
 
-### ⭐ Senior Takeaway
-
-Flexbox is simpler to learn, Grid is more powerful but complex.
-
----
-
-## 🧩 Q24. What are CSS transitions and how do you use them?
-
-### 🧠 Concept
-
-Transitions make property changes smooth over time instead of instant. Great for hover effects and user feedback. Different properties can have different durations and timing functions.
-
----
-
-### 💡 Example
+Example:
 
 ```css
 .button { 
@@ -393,30 +221,13 @@ Transitions make property changes smooth over time instead of instant. Great for
 
 ---
 
-### 🔍 Deep Insights
+## Q25. What are CSS animations and how do you create them?
 
-* **Rule:** Can target specific properties or use `all` for multiple properties.
-* **Use Case:** Timing functions (`ease`, `linear`, `ease-in-out`) control animation curve.
-* **Common Mistake:** GPU-accelerated properties (transform, opacity) perform better than layout properties.
-* **Pro Tip:** JavaScript can listen to `transitionend` events for completion callbacks.
+Animations let you create complex, multi-step effects using @keyframes to define what happens at different points - use them for loading spinners or page entrances. Multiple keyframes (0%, 25%, 50%, 100%) create complex animation sequences.
 
----
+- **Trade-offs**: The catch is `forwards` keeps final state, `backwards` applies initial state before delay - use `transform` and `opacity` for smooth 60fps animations. Animation events allow JavaScript control of animations, but watch out - animation properties include duration, timing-function, delay, iteration-count, direction, fill-mode.
 
-### ⭐ Senior Takeaway
-
-Transitions provide smooth property changes over time.
-
----
-
-## 🧩 Q25. What are CSS animations and how do you create them?
-
-### 🧠 Concept
-
-Animations let you create complex, multi-step effects using @keyframes to define what happens at different points. Use them for loading spinners or page entrances.
-
----
-
-### 💡 Example
+Example:
 
 ```css
 @keyframes slideIn {
@@ -428,30 +239,13 @@ Animations let you create complex, multi-step effects using @keyframes to define
 
 ---
 
-### 🔍 Deep Insights
+## Q26. What is the CSS cascade and how does it work?
 
-* **Rule:** Multiple keyframes (0%, 25%, 50%, 100%) create complex animation sequences.
-* **Use Case:** Animation properties include duration, timing-function, delay, iteration-count, direction, fill-mode.
-* **Common Mistake:** `forwards` keeps final state, `backwards` applies initial state before delay.
-* **Pro Tip:** Use `transform` and `opacity` for smooth 60fps animations.
+The cascade is CSS's priority system—it decides which styles win based on order, specificity, and !important - later styles override earlier ones when specificity is equal. Later styles override earlier ones when specificity is equal (source order).
 
----
+- **Trade-offs**: The catch is `!important` has highest priority but breaks cascade flow - some properties inherit from parent elements automatically. Modern CSS supports `@layer` for explicit cascade control, but watch out - higher specificity overrides lower specificity.
 
-### ⭐ Senior Takeaway
-
-Animation events allow JavaScript control of animations.
-
----
-
-## 🧩 Q26. What is the CSS cascade and how does it work?
-
-### 🧠 Concept
-
-The cascade is CSS's priority system—it decides which styles win based on order, specificity, and !important. Later styles override earlier ones when specificity is equal.
-
----
-
-### 💡 Example
+Example:
 
 ```css
 .button { color: red; }
@@ -461,30 +255,13 @@ The cascade is CSS's priority system—it decides which styles win based on orde
 
 ---
 
-### 🔍 Deep Insights
+## Q27. What are CSS combinators and how do you use them?
 
-* **Rule:** Later styles override earlier ones when specificity is equal (source order).
-* **Use Case:** Higher specificity overrides lower specificity.
-* **Common Mistake:** `!important` has highest priority but breaks cascade flow.
-* **Pro Tip:** Some properties inherit from parent elements automatically.
+Combinators let you target elements based on their relationship to other elements—like children, siblings, or descendants - useful for styling nested structures. Descendant (space) targets any descendant, child (>) targets only direct children.
 
----
+- **Trade-offs**: The catch is child combinators are generally faster than descendant combinators - use combinators to avoid adding unnecessary classes. Combinators help maintain clean HTML structure, but watch out - adjacent sibling (+) targets immediately following sibling, general sibling (~) targets all following siblings.
 
-### ⭐ Senior Takeaway
-
-Modern CSS supports `@layer` for explicit cascade control.
-
----
-
-## 🧩 Q27. What are CSS combinators and how do you use them?
-
-### 🧠 Concept
-
-Combinators let you target elements based on their relationship to other elements—like children, siblings, or descendants. Useful for styling nested structures.
-
----
-
-### 💡 Example
+Example:
 
 ```css
 .container p { color: blue; }
@@ -495,30 +272,13 @@ h2 ~ p { color: gray; }
 
 ---
 
-### 🔍 Deep Insights
+## Q28. What is the difference between `transition` and `animation`?
 
-* **Rule:** Descendant (space) targets any descendant, child (>) targets only direct children.
-* **Use Case:** Adjacent sibling (+) targets immediately following sibling, general sibling (~) targets all following siblings.
-* **Common Mistake:** Child combinators are generally faster than descendant combinators.
-* **Pro Tip:** Use combinators to avoid adding unnecessary classes.
+Transitions animate property changes between states, while animations create complex multi-step sequences with @keyframes - transitions are simpler, animations are more powerful. Transitions need a trigger (hover, focus), animations can run automatically.
 
----
+- **Trade-offs**: The catch is transitions are simpler, animations offer more control with keyframes - both can be paused, reversed, or controlled with JavaScript. Transitions are simpler, animations offer more control, but watch out - use transitions for simple state changes, animations for complex sequences.
 
-### ⭐ Senior Takeaway
-
-Combinators help maintain clean HTML structure.
-
----
-
-## 🧩 Q28. What is the difference between `transition` and `animation`?
-
-### 🧠 Concept
-
-Transitions animate property changes between states. Animations create complex multi-step sequences with @keyframes. Transitions are simpler, animations are more powerful.
-
----
-
-### 💡 Example
+Example:
 
 ```css
 /* Transition */
@@ -541,30 +301,13 @@ Transitions animate property changes between states. Animations create complex m
 
 ---
 
-### 🔍 Deep Insights
+## Q29. How do you create CSS animations using `@keyframes`?
 
-* **Rule:** Transitions need a trigger (hover, focus), animations can run automatically.
-* **Use Case:** Use transitions for simple state changes, animations for complex sequences.
-* **Common Mistake:** Transitions are simpler, animations offer more control with keyframes.
-* **Pro Tip:** Both can be paused, reversed, or controlled with JavaScript.
+Use `@keyframes` to define animation steps, then apply with the `animation` property - keyframes define what happens at different points in the animation. Define keyframes with percentages (0%, 50%, 100%) or keywords (from, to).
 
----
+- **Trade-offs**: The catch is `infinite` makes animation repeat, `alternate` reverses direction - use `fill-mode: forwards` to keep final state after animation ends. @keyframes enable complex, multi-step animations, but watch out - animation shorthand: name, duration, timing-function, delay, iteration-count, direction, fill-mode.
 
-### ⭐ Senior Takeaway
-
-Transitions are simpler, animations offer more control.
-
----
-
-## 🧩 Q29. How do you create CSS animations using `@keyframes`?
-
-### 🧠 Concept
-
-Use `@keyframes` to define animation steps, then apply with the `animation` property. Keyframes define what happens at different points in the animation.
-
----
-
-### 💡 Example
+Example:
 
 ```css
 @keyframes slideIn {
@@ -579,30 +322,13 @@ Use `@keyframes` to define animation steps, then apply with the `animation` prop
 
 ---
 
-### 🔍 Deep Insights
+## Q30. What are media queries and how do you use them?
 
-* **Rule:** Define keyframes with percentages (0%, 50%, 100%) or keywords (from, to).
-* **Use Case:** Animation shorthand: name, duration, timing-function, delay, iteration-count, direction, fill-mode.
-* **Common Mistake:** `infinite` makes animation repeat, `alternate` reverses direction.
-* **Pro Tip:** Use `fill-mode: forwards` to keep final state after animation ends.
+Media queries let you apply different styles based on device features like screen width - essential for making websites work on phones, tablets, and desktops. Common breakpoints are 768px (tablet), 1024px (desktop), 1200px (large desktop).
 
----
+- **Trade-offs**: The catch is logical operators (`and`, `or`, `not`) combine multiple media conditions - media queries don't affect performance, only load appropriate CSS. Media features include width, orientation, prefers-color-scheme, but watch out - start with mobile styles, then add larger screen styles with `min-width` (mobile-first).
 
-### ⭐ Senior Takeaway
-
-@keyframes enable complex, multi-step animations.
-
----
-
-## 🧩 Q30. What are media queries and how do you use them?
-
-### 🧠 Concept
-
-Media queries let you apply different styles based on device features like screen width. Essential for making websites work on phones, tablets, and desktops.
-
----
-
-### 💡 Example
+Example:
 
 ```css
 .container { width: 100%; padding: 10px; }
@@ -616,30 +342,13 @@ Media queries let you apply different styles based on device features like scree
 
 ---
 
-### 🔍 Deep Insights
+## Q31. How do you create responsive text with CSS?
 
-* **Rule:** Common breakpoints are 768px (tablet), 1024px (desktop), 1200px (large desktop).
-* **Use Case:** Start with mobile styles, then add larger screen styles with `min-width` (mobile-first).
-* **Common Mistake:** Logical operators (`and`, `or`, `not`) combine multiple media conditions.
-* **Pro Tip:** Media queries don't affect performance, only load appropriate CSS.
+Use relative units (rem, em), viewport units (vw, vh), or `clamp()` for responsive text that scales with screen size - responsive text improves readability across devices. `clamp()` sets min, preferred, and max values for fluid scaling.
 
----
+- **Trade-offs**: The catch is avoid fixed pixel sizes for text, use relative units - combine media queries with relative units for best results. Responsive text improves readability across devices, but watch out - use rem for consistent scaling, vw for viewport-based sizing.
 
-### ⭐ Senior Takeaway
-
-Media features include width, orientation, prefers-color-scheme.
-
----
-
-## 🧩 Q31. How do you create responsive text with CSS?
-
-### 🧠 Concept
-
-Use relative units (rem, em), viewport units (vw, vh), or `clamp()` for responsive text that scales with screen size. Responsive text improves readability across devices.
-
----
-
-### 💡 Example
+Example:
 
 ```css
 h1 { 
@@ -656,30 +365,13 @@ p {
 
 ---
 
-### 🔍 Deep Insights
+## Q32. What are CSS variables and how do you use them?
 
-* **Rule:** `clamp()` sets min, preferred, and max values for fluid scaling.
-* **Use Case:** Use rem for consistent scaling, vw for viewport-based sizing.
-* **Common Mistake:** Avoid fixed pixel sizes for text, use relative units.
-* **Pro Tip:** Combine media queries with relative units for best results.
+CSS variables let you store values like colors or spacing that you can reuse anywhere and even change with JavaScript - perfect for theming and maintaining consistent design tokens. Variables inherit and can be overridden at different levels (root, element, pseudo-class).
 
----
+- **Trade-offs**: The catch is JavaScript can change CSS variables: `element.style.setProperty('--color', 'red')` - variables are computed at runtime, use sparingly for performance-critical properties. CSS variables enable dynamic theming and design tokens, but watch out - `var(--color, #fallback)` provides fallback when variable is undefined.
 
-### ⭐ Senior Takeaway
-
-Responsive text improves readability across devices.
-
----
-
-## 🧩 Q32. What are CSS variables and how do you use them?
-
-### 🧠 Concept
-
-CSS variables let you store values like colors or spacing that you can reuse anywhere and even change with JavaScript. Perfect for theming and maintaining consistent design tokens.
-
----
-
-### 💡 Example
+Example:
 
 ```css
 :root {
@@ -697,30 +389,13 @@ CSS variables let you store values like colors or spacing that you can reuse any
 
 ---
 
-### 🔍 Deep Insights
+## Q33. What is the difference between SASS and LESS?
 
-* **Rule:** Variables inherit and can be overridden at different levels (root, element, pseudo-class).
-* **Use Case:** `var(--color, #fallback)` provides fallback when variable is undefined.
-* **Common Mistake:** JavaScript can change CSS variables: `element.style.setProperty('--color', 'red')`.
-* **Pro Tip:** Variables are computed at runtime, use sparingly for performance-critical properties.
+SASS and LESS are CSS preprocessors that add features like variables and mixins - SASS uses indentation or SCSS syntax, LESS uses CSS-like syntax, both compile to CSS. SASS has two syntaxes (indented SASS, SCSS), LESS uses CSS-like syntax.
 
----
+- **Trade-offs**: The catch is SASS is more popular, LESS is easier for CSS developers - choose based on team preference and tooling support. Both preprocessors add power to CSS, choose based on preference, but watch out - both support variables, mixins, nesting, and functions.
 
-### ⭐ Senior Takeaway
-
-CSS variables enable dynamic theming and design tokens.
-
----
-
-## 🧩 Q33. What is the difference between SASS and LESS?
-
-### 🧠 Concept
-
-SASS and LESS are CSS preprocessors that add features like variables and mixins. SASS uses indentation or SCSS syntax, LESS uses CSS-like syntax. Both compile to CSS.
-
----
-
-### 💡 Example
+Example:
 
 ```scss
 // SASS/SCSS
@@ -741,20 +416,3 @@ $primary-color: #007bff;
 ```
 
 ---
-
-### 🔍 Deep Insights
-
-* **Rule:** SASS has two syntaxes (indented SASS, SCSS), LESS uses CSS-like syntax.
-* **Use Case:** Both support variables, mixins, nesting, and functions.
-* **Common Mistake:** SASS is more popular, LESS is easier for CSS developers.
-* **Pro Tip:** Choose based on team preference and tooling support.
-
----
-
-### ⭐ Senior Takeaway
-
-Both preprocessors add power to CSS, choose based on preference.
-
----
-<｜tool▁calls▁begin｜><｜tool▁call▁begin｜>
-grep

@@ -43,14 +43,6 @@ function addBinary(a, b) {
 **Time Complexity:** O(max(m,n)) - Traverse both strings  
 **Space Complexity:** O(max(m,n)) - Result string
 
-**Deep Insights:**
-- **Optimal Approach:** String addition achieves O(max(m,n)) time—optimal for binary addition
-- **Carry Propagation:** Carry from right to left—same as decimal addition
-- **Different Lengths:** Handle different lengths by checking bounds—processes both strings
-- **Final Carry:** Continue loop until carry is 0—handles overflow (e.g., "1" + "1" = "10")
-- **Key Insight:** Binary addition: sum%2 for digit, sum/2 for carry—same pattern as decimal
-- **Edge Cases:** Empty strings handled; both strings handled correctly; handles all cases
-- **Interview Tip:** Explain carry propagation clearly; emphasize final carry handling; mention different length handling
 
 ## Q219. Reverse Bits
 
@@ -89,15 +81,6 @@ function reverseBits(n) {
 **Time Complexity:** O(32) - Fixed 32-bit integer  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Bit extraction achieves O(32) time—optimal for bit reversal
-- **Bit Extraction:** n & 1 extracts rightmost bit—gets one bit at a time
-- **Result Building:** result << 1 shifts left, then OR with extracted bit—builds reversed number
-- **Unsigned Shift:** Use >>> for unsigned right shift—preserves sign bit correctly
-- **Key Insight:** Extract bits from right, build result from left—reverses bit order
-- **Conversion:** result >>> 0 converts to unsigned 32-bit—handles JavaScript number type
-- **Edge Cases:** All zeros/all ones handled correctly; handles all cases
-- **Interview Tip:** Explain bit operations clearly; emphasize unsigned shift; mention conversion requirement
 
 ## Q220. Number of 1 Bits
 
@@ -146,14 +129,6 @@ function hammingWeight(n) {
 **Time Complexity:** O(k) - k is number of set bits (optimal), O(32) for shifting  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** n & (n-1) achieves O(k) time where k is set bits—faster than O(32)
-- **n & (n-1) Trick:** Removes rightmost set bit—more efficient than checking all bits
-- **Key Insight:** Number of iterations = number of set bits—optimal for sparse bit patterns
-- **Shifting Alternative:** Check each bit by shifting—O(32) always, simpler but slower
-- **Bit Manipulation:** Both approaches use bitwise operations—core bit manipulation pattern
-- **Edge Cases:** n=0 returns 0; all bits set returns 32; handles all cases
-- **Interview Tip:** Explain n&(n-1) trick clearly; compare with shifting approach; mention time complexity advantage
 
 ## Q221. Single Number
 
@@ -186,13 +161,6 @@ function singleNumber(nums) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** XOR achieves O(n) time, O(1) space—optimal for single number
-- **XOR Properties:** a^a=0, a^0=a—duplicates cancel out
-- **Key Insight:** XOR all numbers—duplicates cancel, single number remains
-- **Mathematical Property:** XOR is commutative and associative—order doesn't matter
-- **Edge Cases:** Single element returns that element; handles all cases
-- **Interview Tip:** Explain XOR properties clearly; emphasize duplicate cancellation; mention variants (Single Number II, III)
 
 ## Q222. Single Number II
 
@@ -239,13 +207,6 @@ function singleNumber(nums) {
 **Time Complexity:** O(32n) - 32 bits × n numbers  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Bit counting achieves O(32n) time, O(1) space—optimal for Single Number II
-- **Modulo 3 Logic:** Count set bits modulo 3—single number's bits appear once (not multiple of 3)
-- **Key Insight:** Reconstruct number from bit counts—bit is set if count % 3 ≠ 0
-- **Bit Masking:** Use 1 << i for bit mask—checks each bit position
-- **Edge Cases:** All numbers positive handled; negative numbers handled with unsigned conversion; handles all cases
-- **Interview Tip:** Explain bit counting strategy clearly; emphasize modulo 3 logic; mention time complexity
 
 ## Q223. Bitwise AND of Numbers Range
 
@@ -292,13 +253,6 @@ function rangeBitwiseAnd(m, n) {
 **Time Complexity:** O(log n) - Shifting until m equals n  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Common prefix finding achieves O(log n) time—optimal for range AND
-- **Common Prefix:** Result is common prefix of m and n in binary—AND of all numbers in range
-- **Key Insight:** Shift right until m equals n—finds common prefix length
-- **Shift Left:** Restore common prefix by shifting left—completes result
-- **Edge Cases:** m=n returns m; large range returns 0; handles all cases
-- **Interview Tip:** Explain common prefix strategy clearly; emphasize shifting approach; mention optimization
 
 ---
 
@@ -336,10 +290,4 @@ function singleNumber(arr) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - Only using constant extra variables
 
-**Deep Insights:**
-- **Rule:** Use bitwise ops to encode sets, parity, and arithmetic tricks efficiently; O(1) operations typically
-- **Real-world:** Bit manipulation problems, set operations, parity checks, arithmetic optimizations
-- **Common Mistake:** Check bit: (x >> i) & 1; set/clear: x |= 1 << i, x &= ~(1 << i); lowbit: x & -x (Fenwick/BIT); use masks for subsets DP
-- **Optimization:** O(1) bit operations; lowbit: x & -x (Fenwick/BIT); use masks for subsets DP
-- **Interview Tip:** Explain bit operations clearly; mention common tricks; ask about set encoding
 

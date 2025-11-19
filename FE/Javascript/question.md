@@ -1,6 +1,6 @@
 # ⚡️ JavaScript Interview Questions
 
-190 carefully curated questions covering JavaScript fundamentals to advanced topics, including 50 output-based questions.
+250 carefully curated questions covering JavaScript fundamentals to advanced topics, including 60 output-based questions.
 
 ## 📋 Quick Navigation
 
@@ -11,8 +11,8 @@
 | [3️⃣](#3-promises-asyncawait-and-event-loop) | Promises, Async/Await & Event Loop | Q26–51 | ⭐⭐⭐⭐ |
 | [4️⃣](#4-objects-prototypes--inheritance) | Objects, Prototypes & Inheritance | Q52–71 | ⭐⭐⭐ |
 | [5️⃣](#5-es6-features) | ES6+ Features | Q72–81 | ⭐⭐ |
-| [6️⃣](#6-practical-javascript-questions) | Practical JavaScript Questions | Q82–170 | ⭐⭐⭐⭐ |
-| [7️⃣](#7-web-workers-service-workers--real-world-topics) | Web Workers, Service Workers & Real-World Topics | Q171–190 | ⭐⭐⭐⭐ |
+| [6️⃣](#6-practical-javascript-questions) | Practical JavaScript Questions | Q82–190 | ⭐⭐⭐⭐ |
+| [7️⃣](#7-javascript-output-questions) | JavaScript Output Questions | Q191–250 | ⭐⭐⭐⭐ |
 
 ## 🧠 1. Core JavaScript Fundamentals
 
@@ -112,11 +112,11 @@
 
 ## 🛠️ 6. Practical JavaScript Questions
 
-82-170. Practical coding challenges and JavaScript output questions covering debounce, throttle, promises (all, race, any, allSettled), closures, event loop, prototypes, array chunking, worker pools, and advanced language features.
+82-190. Practical coding challenges covering debounce, throttle, promises (all, race, any, allSettled), closures, event loop, prototypes, array chunking, worker pools, and advanced language features.
 
-## 🔧 7. Web Workers, Service Workers & Real-World Topics
+## 🔧 7. JavaScript Output Questions
 
-171-190. Web Workers, Service Workers, event delegation, DOM manipulation, polyfills, memory leaks, and other real-world JavaScript topics.
+191-250. Tricky JavaScript output-based questions covering event loop, async/await, closures, prototypes, `this` binding, and other JavaScript traps commonly asked in interviews.
 
 ---
 
@@ -127,8 +127,8 @@
 - [3) Promises, Async/Await & Event Loop](3%20Promises%2C%20Async-Await%20%26%20Event%20Loop.md) - Q26-51
 - [4) Objects, Prototypes & Inheritance](4%20Objects%2C%20Prototypes%20%26%20Inheritance.md) - Q52-71
 - [5) ES6+ Features](6%20ES6%2B%20Features.md) - Q72-81
-- [6) Practical JavaScript Questions](8%20Practical%20JavaScript%20Questions.md) - Q82-170
-- [7) Web Workers, Service Workers & Real-World Topics](9%20Web%20Workers%2C%20Service%20Workers%20%26%20Real-World%20Topics.md) - Q171-190
+- [6) Practical JavaScript Questions](9%20Practical%20JavaScript%20Questions.md) - Q82-190
+- [7) JavaScript Output Questions](10%20JavaScript%20Output%20Questions.md) - Q191-250
 
 ## 📝 Cheatsheet
 

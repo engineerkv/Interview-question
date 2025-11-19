@@ -1,6 +1,8 @@
-# ⚛️ **Next.js Interview Cheatsheet**
+# ⚛️ Next.js Interview Cheatsheet
 
 > **⏱️ Review Time: 15-20 minutes** | **Priority: ⭐⭐ Medium** | Quick reference for Next.js interviews
+> 
+> **Coverage: Q1-Q60** (60 questions across 6 topics)
 
 **Quick Review Checklist:**
 - [ ] Next.js Basics (App Router, Server/Client Components)
@@ -10,6 +12,17 @@
 - [ ] API Routes & Server Actions
 - [ ] Authentication (NextAuth.js, Middleware)
 - [ ] Deployment (Vercel, Docker, Build Output)
+
+---
+
+## 📋 **Question Coverage**
+
+- **Q1-Q10**: Fundamentals
+- **Q11-Q20**: Data Fetching & Rendering
+- **Q21-Q27**: Routing & Navigation
+- **Q28-Q37**: Performance & Optimization
+- **Q38-Q48**: Architecture & Best Practices
+- **Q49-Q60**: Deployment & Tooling
 
 ---
 

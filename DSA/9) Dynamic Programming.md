@@ -83,14 +83,6 @@ function fib(n) {
 - Space-Optimized: O(1) - Only two variables
 - Memoization: O(n) - Recursion stack + memo map
 
-**Deep Insights:**
-- **Optimal Approach:** Tabulation achieves O(n) time, O(1) space with optimization—optimal for Fibonacci
-- **Overlapping Subproblems:** Same subproblems computed multiple times—DP avoids recomputation
-- **Key Insight:** Fibonacci has overlapping subproblems—classic DP example
-- **Space Optimization:** Only need last two values—reduces space from O(n) to O(1)
-- **Memoization vs Tabulation:** Memoization is recursive; tabulation is iterative—both solve same problem
-- **Edge Cases:** n=0 returns 0; n=1 returns 1; handles all cases
-- **Interview Tip:** Explain overlapping subproblems clearly; demonstrate space optimization; compare memoization vs tabulation
 ## Q161. Climbing Stairs
 
 **Problem:** You are climbing a staircase. It takes `n` steps to reach the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
@@ -150,14 +142,6 @@ function climbStairs(n) {
 **Time Complexity:** O(n) - Single pass through steps  
 **Space Complexity:** O(1) with optimization, O(n) with DP array
 
-**Deep Insights:**
-- **Optimal Approach:** Space-optimized tabulation achieves O(n) time, O(1) space—optimal for this problem
-- **Fibonacci Connection:** Identical to Fibonacci sequence—same recurrence relation
-- **Recurrence Relation:** Ways(n) = Ways(n-1) + Ways(n-2)—can reach step n from step (n-1) or (n-2)
-- **Key Insight:** Overlapping subproblems—DP avoids exponential recursive solution
-- **Base Cases:** n=1 returns 1; n=2 returns 2—initialize correctly
-- **Edge Cases:** n=1 handled; n=2 handled; handles all cases
-- **Interview Tip:** Explain recurrence relation clearly; emphasize Fibonacci similarity; demonstrate space optimization
 ## Q162. Coin Change
 
 **Problem:** You are given an integer array `coins` representing coins of different denominations and an integer `amount` representing a total amount of money. Return the minimum number of coins needed to make up that amount. If that amount of money cannot be made up by any combination of the coins, return `-1`.
@@ -202,14 +186,6 @@ function coinChange(coins, amount) {
 **Time Complexity:** O(n × amount) - n coins, amount values  
 **Space Complexity:** O(amount) - DP array
 
-**Deep Insights:**
-- **Optimal Approach:** Tabulation achieves O(n × amount) time—optimal for coin change
-- **DP Transition:** dp[amount] = min(dp[amount], dp[amount - coin] + 1)—try all coins, take minimum
-- **Key Insight:** Unbounded knapsack variant—can use each coin multiple times
-- **Base Case:** dp[0] = 0—no coins needed for amount 0
-- **Impossible Case:** Return -1 if dp[amount] remains Infinity—cannot make amount
-- **Edge Cases:** amount=0 returns 0; no valid combination returns -1; handles all cases
-- **Interview Tip:** Explain DP transition clearly; emphasize unbounded knapsack connection; mention coin order doesn't matter
 ## Q163. 0-1 Knapsack
 
 **Problem:** Given a knapsack with capacity `W` and `n` items, each with weight `wt[i]` and value `val[i]`, determine the maximum value that can be obtained by selecting items such that each item can be used at most once and the total weight doesn't exceed `W`.
@@ -276,14 +252,6 @@ function knap01(W, wt, val) {
 **Time Complexity:** O(n × W) - n items, W capacity  
 **Space Complexity:** O(W) with 1D, O(n × W) with 2D
 
-**Deep Insights:**
-- **Optimal Approach:** 1D DP with backward iteration achieves O(n × W) time, O(W) space—optimal for 0-1 knapsack
-- **Backward Iteration:** Iterate weight backwards—prevents using same item twice (critical for 0-1)
-- **DP Transition:** dp[w] = max(dp[w], dp[w - wt[i]] + val[i])—take max of not taking or taking item
-- **Key Insight:** Each item used at most once—backward iteration ensures this
-- **Space Optimization:** 1D array reduces space from O(n × W) to O(W)—only need current state
-- **Edge Cases:** W=0 returns 0; no items returns 0; handles all cases
-- **Interview Tip:** Explain backward iteration clearly; emphasize why backward is necessary; compare with unbounded knapsack
 ## Q164. Longest Increasing Subsequence
 
 **Problem:** Given an integer array `nums`, return the length of the longest strictly increasing subsequence. A subsequence is a sequence that can be derived from an array by deleting some or no elements without changing the order of the remaining elements.
@@ -361,14 +329,6 @@ function lengthOfLIS(nums) {
 
 **Space Complexity:** O(n) - tails/dp array
 
-**Deep Insights:**
-- **Optimal Approach:** Patience sorting with binary search achieves O(n log n) time—optimal for LIS
-- **Tails Array:** tails[i] = smallest tail of all LIS of length i+1—enables binary search
-- **Key Insight:** Binary search finds position to extend or replace—maintains smallest tails
-- **Strictly Increasing:** Current solution for strictly increasing—adjust comparison for non-decreasing
-- **DP Alternative:** O(n²) DP solution is simpler but slower—good for understanding
-- **Edge Cases:** Empty array returns 0; single element returns 1; handles all cases
-- **Interview Tip:** Explain patience sorting clearly; demonstrate binary search; compare with O(n²) solution
 ## Q165. Longest Common Subsequence
 
 **Problem:** Given two strings `text1` and `text2`, return the length of their longest common subsequence. A subsequence is a sequence that appears in the same relative order, but not necessarily contiguous.
@@ -445,14 +405,6 @@ function longestCommonSubsequence(text1, text2) {
 **Time Complexity:** O(m × n) - Fill DP table  
 **Space Complexity:** O(m × n) with 2D, O(min(m,n)) with optimization
 
-**Deep Insights:**
-- **Optimal Approach:** 2D DP achieves O(m × n) time—optimal for LCS
-- **DP Transition:** Match extends diagonal; mismatch takes max(top, left)—classic DP pattern
-- **Key Insight:** Subsequence doesn't require contiguous—can skip characters
-- **Space Optimization:** Only need previous row—reduces space to O(min(m,n))
-- **Backtracking:** Can reconstruct actual LCS by backtracking—useful for applications
-- **Edge Cases:** Empty strings return 0; no common subsequence returns 0; handles all cases
-- **Interview Tip:** Explain DP transition clearly; demonstrate space optimization; mention backtracking
 ## Q166. Edit Distance (Levenshtein Distance)
 
 **Problem:** Given two strings `word1` and `word2`, return the minimum number of operations required to convert `word1` to `word2`. You can perform the following three operations: insert a character, delete a character, or replace a character.
@@ -513,14 +465,6 @@ function minDistance(word1, word2) {
 **Time Complexity:** O(m × n) - Fill DP table  
 **Space Complexity:** O(m × n) - DP table (can optimize to O(min(m,n)))
 
-**Deep Insights:**
-- **Optimal Approach:** 2D DP achieves O(m × n) time—optimal for edit distance
-- **Three Operations:** Insert, delete, replace—each costs 1 operation
-- **DP Transition:** Match uses diagonal; mismatch takes min of three operations—classic DP pattern
-- **Base Cases:** Empty string to word requires insertions; word to empty requires deletions
-- **Key Insight:** Operations are symmetric—edit distance from word1 to word2 equals word2 to word1
-- **Edge Cases:** Empty strings return 0; identical strings return 0; handles all cases
-- **Interview Tip:** Explain three operations clearly; emphasize base cases; mention space optimization
 ## Q167. Rod Cutting
 
 **Problem:** Given a rod of length `n` and an array `price` where `price[i]` represents the price of a rod piece of length `i+1`, find the maximum value obtainable by cutting the rod and selling the pieces.
@@ -564,14 +508,6 @@ function rodCutting(price, rodLength) {
 **Time Complexity:** O(n²) - For each length, try all cuts  
 **Space Complexity:** O(n) - DP array
 
-**Deep Insights:**
-- **Optimal Approach:** Unbounded knapsack DP achieves O(n²) time—optimal for rod cutting
-- **Unbounded Knapsack:** Can use each length multiple times—unlike 0-1 knapsack
-- **DP Transition:** dp[i] = max(dp[i], price[len-1] + dp[i-len])—try all cuts, take maximum
-- **Key Insight:** Same as unbounded knapsack—can repeat cuts of same length
-- **Reconstruction:** Can track cuts to reconstruct optimal solution—useful for applications
-- **Edge Cases:** n=0 returns 0; n=1 returns price[0]; handles all cases
-- **Interview Tip:** Explain unbounded knapsack connection; emphasize repeatable cuts; mention reconstruction
 ## Q168. Partition Equal Subset Sum
 
 **Problem:** Given a non-empty array `nums` containing only positive integers, find if the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.
@@ -622,14 +558,6 @@ function canPartition(nums) {
 **Time Complexity:** O(n × sum) - n numbers, sum/2 target  
 **Space Complexity:** O(sum) - DP array
 
-**Deep Insights:**
-- **Optimal Approach:** Subset sum DP achieves O(n × sum) time—optimal for partition problem
-- **Reduction:** Partition problem reduces to subset sum—check if sum/2 is achievable
-- **Key Insight:** If sum is odd, impossible to partition equally—early return optimization
-- **Backward Iteration:** Iterate backwards to ensure 0-1 knapsack—each number used once
-- **DP Transition:** dp[j] = dp[j] || dp[j - num]—can reach j by including or excluding num
-- **Edge Cases:** Odd sum returns false; empty array handled; single element returns false; handles all cases
-- **Interview Tip:** Explain subset sum reduction clearly; emphasize backward iteration; mention odd sum check
 ## Q169. House Robber
 
 **Problem:** You are a robber planning to rob houses along a street. Each house has a certain amount of money stashed. The only constraint stopping you from robbing each of them is that adjacent houses have security systems connected, and they will automatically contact the police if two adjacent houses were broken into on the same night. Given an integer array `nums` representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
@@ -697,17 +625,13 @@ function rob(nums) {
 **Time Complexity:** O(n) - Single pass through houses  
 **Space Complexity:** O(n) with DP array, O(1) with optimization
 
-**Deep Insights:**
-- **Optimal Approach:** DP achieves O(n) time, O(1) space with optimization—optimal for house robber
-- **Include/Exclude Decision:** At each house, choose to rob (include) or skip (exclude)—maximize value
-- **Adjacent Constraint:** Cannot rob two adjacent houses—enforces gap between robbed houses
-- **DP Transition:** dp[i] = max(dp[i-1], dp[i-2] + nums[i])—skip current or rob current
-- **Key Insight:** Only need previous two values—space optimization reduces to O(1)
-- **Edge Cases:** Empty array returns 0; single house returns that value; handles all cases
-- **Interview Tip:** Explain include/exclude decision clearly; demonstrate space optimization; mention circular variant (House Robber II)
 ## Q170. House Robber II
 
-Concept: Circle → rob max of linear(0..n-2) or linear(1..n-1).
+**Problem:** You are a professional robber planning to rob houses arranged in a circle. Each house has a certain amount of money stashed. All houses at this place are arranged in a circle. That means the first house is the neighbor of the last one. You cannot rob two adjacent houses. Given an integer array `nums` representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
+
+**Approach:** Since houses are in a circle, the first and last houses are adjacent. Solve two linear subproblems: rob houses 0 to n-2, or rob houses 1 to n-1, and take the maximum.
+
+### Solution 1: Dynamic Programming (Optimal)
 ```javascript
 function rob2(nums) {
   if (nums.length === 1) return nums[0];
@@ -750,13 +674,6 @@ function rob2(nums) {
 **Time Complexity:** O(n) - Two linear robberies  
 **Space Complexity:** O(n) - DP array (can optimize to O(1))
 
-**Deep Insights:**
-- **Optimal Approach:** Two linear robberies achieve O(n) time—optimal for circular house robber
-- **Circular Constraint:** First and last houses are adjacent—can't rob both
-- **Key Insight:** Split into two cases—exclude first OR exclude last, take maximum
-- **Same Recurrence:** Uses same DP transition as House Robber I—just applied twice
-- **Edge Cases:** Single house returns that value; two houses returns max; handles all cases
-- **Interview Tip:** Explain circular handling clearly; emphasize two linear cases; mention same recurrence as Rob I
 ## Q171. Decode Ways
 
 **Problem:** A message containing letters from `A-Z` can be encoded into numbers using the following mapping: 'A' -> "1", 'B' -> "2", ..., 'Z' -> "26". Given a string `s` containing only digits, return the number of ways to decode it.
@@ -818,13 +735,6 @@ function numDecodings(s) {
 **Time Complexity:** O(n) - Single pass through string  
 **Space Complexity:** O(n) - DP array (can optimize to O(1))
 
-**Deep Insights:**
-- **Optimal Approach:** DP achieves O(n) time—optimal for decode ways
-- **Two Valid Decodes:** Check one-digit (1-9) and two-digit (10-26) decodes—add ways from both
-- **Key Insight:** Leading zeros invalid—early return if no valid decode possible
-- **DP Transition:** dp[i] = dp[i-1] (if valid one-digit) + dp[i-2] (if valid two-digit)
-- **Edge Cases:** Leading zero returns 0; empty string returns 1; invalid sequence returns 0
-- **Interview Tip:** Explain validity checks clearly; emphasize leading zero handling; mention early return optimization
 ## Q172. DP on Grid — Min Path Sum / Unique Paths
 
 **Problem:** 
@@ -901,13 +811,6 @@ function uniquePaths(m, n) {
 **Time Complexity:** O(m × n) - Visit each cell once  
 **Space Complexity:** O(n) - Space optimized DP array
 
-**Deep Insights:**
-- **Optimal Approach:** Grid DP achieves O(m × n) time, O(n) space—optimal for grid problems
-- **DP Transition:** Each cell depends on top and left—can optimize space from O(m×n) to O(n)
-- **Key Insight:** Only need previous row/column—space optimization reduces memory
-- **Blockers:** Can handle obstacles by skipping blocked cells—same DP pattern
-- **Edge Cases:** Single cell returns grid[0][0]; handles all cases
-- **Interview Tip:** Explain grid DP clearly; demonstrate space optimization; mention blocker handling
 ## Q173. Palindromic Substrings
 
 **Problem:** Given a string `s`, return the number of palindromic substrings in it. A string is a palindrome when it reads the same backward as forward. A substring is a contiguous sequence of characters within the string.
@@ -958,13 +861,6 @@ function countSubstrings(s) {
 **Time Complexity:** O(n²) - Expand around 2n-1 centers  
 **Space Complexity:** O(1) - Only counter variable
 
-**Deep Insights:**
-- **Optimal Approach:** Expand around centers achieves O(n²) time, O(1) space—optimal for palindrome counting
-- **Two Centers:** Check odd-length (center at i) and even-length (center between i and i+1)—covers all palindromes
-- **Key Insight:** 2n-1 possible centers—n for odd, n-1 for even
-- **Expansion:** Expand while characters match—count each valid palindrome
-- **Edge Cases:** Empty string returns 0; single character returns 1; handles all cases
-- **Interview Tip:** Explain expansion clearly; emphasize odd/even centers; mention longest palindromic substring variant
 ## Q174. Burst Balloons
 
 **Problem:** You are given `n` balloons, indexed from `0` to `n - 1`. Each balloon is painted with a number on it represented by an array `nums`. You are asked to burst all the balloons. If you burst the `i`th balloon, you will get `nums[i - 1] * nums[i] * nums[i + 1]` coins. If `i - 1` or `i + 1` goes out of bounds of the array, then treat it as if there is a balloon with a `1` painted on it. Return the maximum coins you can collect by bursting the balloons wisely.
@@ -1018,14 +914,6 @@ function maxCoins(nums) {
 **Time Complexity:** O(n³) - Three nested loops  
 **Space Complexity:** O(n²) - DP table
 
-**Deep Insights:**
-- **Optimal Approach:** Interval DP achieves O(n³) time—optimal for burst balloons
-- **Last Balloon Strategy:** Choose last balloon to burst—enables independent subproblems
-- **DP Transition:** dp[left][right] = max over k of coins + dp[left][k] + dp[k][right]
-- **Key Insight:** Bursting last balloon k gives arr[left] * arr[k] * arr[right] coins
-- **Boundary Padding:** Add 1s at boundaries—simplifies edge cases
-- **Edge Cases:** Single balloon returns that value; handles all cases
-- **Interview Tip:** Explain interval DP clearly; emphasize last balloon strategy; mention boundary padding
 ## Q175. Maximum Profit in Job Scheduling
 
 **Problem:** You're given `n` jobs, where each job has a start time `start[i]`, end time `end[i]`, and profit `profit[i]`. You want to maximize your profit by selecting non-overlapping jobs. Return the maximum profit you can achieve.
@@ -1091,14 +979,6 @@ function jobScheduling(startTime, endTime, profit) {
 **Time Complexity:** O(n log n) - Sorting + binary search per job  
 **Space Complexity:** O(n) - Jobs array and DP array
 
-**Deep Insights:**
-- **Optimal Approach:** DP with binary search achieves O(n log n) time—optimal for job scheduling
-- **Sorting Strategy:** Sort by end time—enables binary search for previous non-overlapping job
-- **DP Transition:** dp[i] = max(dp[i-1], profit[i] + dp[prevNonOverlap])—take or skip job
-- **Key Insight:** Binary search finds last job ending before current starts—enables O(log n) lookup
-- **Weighted Interval Scheduling:** Classic problem—same pattern applies to many scheduling problems
-- **Edge Cases:** No jobs returns 0; single job returns its profit; handles all cases
-- **Interview Tip:** Explain binary search clearly; emphasize sorting by end time; mention weighted interval scheduling
 ## Q176. Wildcard Matching
 
 **Problem:** Given an input string `s` and a pattern `p`, implement wildcard pattern matching with support for `'?'` and `'*'` where:
@@ -1160,13 +1040,6 @@ function isMatch(s, p) {
 **Time Complexity:** O(m × n) - Fill DP table  
 **Space Complexity:** O(m × n) - DP table (can optimize to O(min(m,n)))
 
-**Deep Insights:**
-- **Optimal Approach:** 2D DP achieves O(m × n) time—optimal for wildcard matching
-- **Star Matching:** `'*'` can match empty (dp[i][j-1]) or extend (dp[i-1][j])—covers all cases
-- **Question Mark:** `'?'` matches any single character—exact match logic
-- **Key Insight:** DP tracks if s[0..i) matches p[0..j)—builds solution incrementally
-- **Edge Cases:** Empty string with `'*'` pattern returns true; multiple `'*'` handled correctly
-- **Interview Tip:** Explain wildcard matching clearly; emphasize `'*'` handling; mention greedy alternative exists
 ## Q177. Subset Sum
 
 **Problem:** Given an array of non-negative integers `nums` and a target integer `target`, determine if there is a subset of `nums` that sums to exactly `target`. Each element can be used at most once.
@@ -1209,14 +1082,6 @@ function subsetSum(nums, target) {
 **Time Complexity:** O(n × target) - n numbers, target values  
 **Space Complexity:** O(target) - DP array
 
-**Deep Insights:**
-- **Optimal Approach:** Boolean DP achieves O(n × target) time—optimal for subset sum
-- **0-1 Knapsack Pattern:** Each number used at most once—backward iteration ensures this
-- **DP Transition:** dp[t] = dp[t] || dp[t - num]—can reach target by including or excluding num
-- **Key Insight:** Same as Partition Equal Subset Sum—subset sum is core problem
-- **Early Termination:** Can break early if dp[target] becomes true—optimization
-- **Edge Cases:** target=0 returns true; no valid subset returns false; handles all cases
-- **Interview Tip:** Explain subset sum clearly; emphasize backward iteration; mention 0-1 knapsack connection
 ## Q178. Unbounded Knapsack
 
 **Problem:** Given a knapsack with capacity `W` and `n` items, each with weight `wt[i]` and value `val[i]`, determine the maximum value that can be obtained. Unlike 0-1 knapsack, each item can be used unlimited times.
@@ -1257,14 +1122,6 @@ function unboundedKnapsack(W, wt, val) {
 **Time Complexity:** O(n × W) - n items, W capacity  
 **Space Complexity:** O(W) - DP array
 
-**Deep Insights:**
-- **Optimal Approach:** Forward iteration DP achieves O(n × W) time—optimal for unbounded knapsack
-- **Forward Iteration:** Iterate forward on weight—allows reusing same item multiple times
-- **Key Difference:** Unlike 0-1 knapsack (backward), unbounded uses forward—critical distinction
-- **DP Transition:** dp[w] = max(dp[w], dp[w - wt[i]] + val[i])—same as 0-1, different iteration
-- **Coin Change Connection:** Coin Change is unbounded knapsack variant—same pattern
-- **Edge Cases:** W=0 returns 0; no items returns 0; handles all cases
-- **Interview Tip:** Explain forward vs backward iteration clearly; emphasize unbounded vs 0-1; mention Coin Change connection
 ## Q179. Maximal Rectangle
 
 **Problem:** Given a rows x cols binary `matrix` filled with `0`'s and `1`'s, find the largest rectangle containing only `1`'s and return its area.
@@ -1329,14 +1186,6 @@ function maximalRectangle(matrix) {
 **Time Complexity:** O(m × n) - Build histogram for each row, stack operations O(n)  
 **Space Complexity:** O(n) - Heights array and stack
 
-**Deep Insights:**
-- **Optimal Approach:** Histogram + monotonic stack achieves O(m × n) time—optimal for maximal rectangle
-- **Histogram Building:** For each row, accumulate heights of consecutive `1`'s—creates histogram
-- **Monotonic Stack:** Find largest rectangle in histogram—classic stack-based algorithm
-- **Key Insight:** Maximal rectangle = maximum of all largest rectangles in row histograms
-- **Stack Pattern:** Monotonic stack tracks increasing heights—enables O(n) area calculation
-- **Edge Cases:** Empty matrix returns 0; all `0`'s returns 0; all `1`'s returns m×n; handles all cases
-- **Interview Tip:** Explain histogram approach clearly; emphasize monotonic stack pattern; mention largest rectangle in histogram
 ## Q180. Trapping Rain Water
 
 **Problem:** Given `n` non-negative integers representing an elevation map where the width of each bar is `1`, compute how much water it can trap after raining.
@@ -1421,13 +1270,6 @@ function trap(height) {
 **Time Complexity:** O(n) - Single pass for precompute, single pass for calculation  
 **Space Complexity:** O(n) with precompute, O(1) with two pointers
 
-**Deep Insights:**
-- **Optimal Approach:** Precompute arrays achieve O(n) time, O(1) space with two pointers—optimal for trapping water
-- **Water Formula:** Water at i = min(leftMax[i], rightMax[i]) - height[i]—limited by minimum boundary
-- **Key Insight:** Water trapped depends on minimum of left and right boundaries—not maximum
-- **Two Pointer Optimization:** Eliminates need for arrays—processes from both ends simultaneously
-- **Edge Cases:** Empty array returns 0; all increasing/decreasing returns 0; handles all cases
-- **Interview Tip:** Explain precompute approach clearly; demonstrate two-pointer optimization; mention formula derivation
 ## Q181. Super Egg Drop
 
 **Problem:** You are given `k` identical eggs and you have access to a building with `n` floors labeled from `1` to `n`. You know that there exists a floor `f` where `0 <= f <= n` such that any egg dropped at a floor higher than `f` will break, and any egg dropped at or below floor `f` will not break. Each move, you may take an unbroken egg and drop it from any floor `x` (where `1 <= x <= n`). If the egg breaks, you can no longer use it. However, if the egg does not break, you may reuse it in future moves. Return the minimum number of moves that you need to determine with certainty what the value of `f` is.
@@ -1472,13 +1314,6 @@ function superEggDrop(k, n) {
 **Time Complexity:** O(k × m) - m moves, k eggs (m << n typically)  
 **Space Complexity:** O(k) - DP array
 
-**Deep Insights:**
-- **Optimal Approach:** Optimized DP achieves O(k × m) time where m << n—much faster than O(k × n)
-- **DP Transition:** dp[eggs] = dp[eggs] + dp[eggs-1] + 1—floors if breaks + floors if doesn't + current
-- **Key Insight:** Reverse thinking: find moves needed instead of floors solvable—enables optimization
-- **Monotonic Moves:** Moves increase monotonically—can increment until dp[k] >= n
-- **Edge Cases:** k=1 returns n (linear search); n=1 returns 1; handles all cases
-- **Interview Tip:** Explain optimized approach clearly; emphasize reverse thinking; compare with O(k×n) DP
 ## Q182. Matrix Chain Multiplication
 
 **Problem:** Given an array `p` of `n` integers representing the dimensions of `n-1` matrices such that matrix `Ai` has dimensions `p[i-1] × p[i]`, find the minimum number of scalar multiplications needed to compute the product of all matrices.
@@ -1529,14 +1364,6 @@ function matrixChainMultiplication(p) {
 **Time Complexity:** O(n³) - Three nested loops  
 **Space Complexity:** O(n²) - DP table
 
-**Deep Insights:**
-- **Optimal Approach:** Interval DP achieves O(n³) time—optimal for matrix chain multiplication
-- **Parenthesization:** Problem finds optimal parenthesization—order matters for multiplication cost
-- **DP Transition:** dp[i][j] = min over k of dp[i][k] + dp[k+1][j] + cost—try all splits
-- **Cost Calculation:** Cost of multiplying (Ai...Ak) and (Ak+1...Aj) = p[i] × p[k+1] × p[j+1]
-- **Key Insight:** No actual multiplication performed—only computes minimum cost
-- **Edge Cases:** Single matrix returns 0; two matrices returns p[0]×p[1]×p[2]; handles all cases
-- **Interview Tip:** Explain interval DP clearly; emphasize parenthesization; mention cost formula derivation
 ## Q183. Min Cost Climbing Stairs
 
 **Problem:** You are given an integer array `cost` where `cost[i]` is the cost of `i`th step on a staircase. Once you pay the cost, you can either climb one or two steps. You can either start from the step with index `0`, or the step with index `1`. Return the minimum cost to reach the top of the floor (beyond the last index).
@@ -1597,14 +1424,6 @@ function minCostClimbingStairs(cost) {
 **Time Complexity:** O(n) - Single pass through steps  
 **Space Complexity:** O(n) with DP array, O(1) with optimization
 
-**Deep Insights:**
-- **Optimal Approach:** DP achieves O(n) time, O(1) space with optimization—optimal for min cost climbing
-- **Starting Options:** Can start from step 0 or 1 (both cost 0)—two base cases
-- **DP Transition:** dp[i] = min(dp[i-1] + cost[i-1], dp[i-2] + cost[i-2])—include step costs
-- **Key Insight:** Similar to Climbing Stairs but with costs—same structure, different calculation
-- **Space Optimization:** Only need previous two values—reduces space to O(1)
-- **Edge Cases:** n=0 returns 0; n=1 returns 0; handles all cases
-- **Interview Tip:** Explain cost handling clearly; emphasize starting options; compare with Climbing Stairs
 ## Q184. Best Time to Buy and Sell Stock with Cooldown
 
 **Problem:** You are given an array `prices` where `prices[i]` is the price of a given stock on the `i`th day. Find the maximum profit you can achieve. You may complete as many transactions as you like (buy one and sell one share of the stock multiple times) with the following constraints:
@@ -1655,14 +1474,6 @@ function maxProfit(prices) {
 **Time Complexity:** O(n) - Single pass through prices  
 **Space Complexity:** O(n) - DP arrays (can optimize to O(1))
 
-**Deep Insights:**
-- **Optimal Approach:** State DP achieves O(n) time—optimal for stock problems with constraints
-- **Two States:** Track `hold` (holding stock) and `cash` (not holding)—covers all states
-- **Cooldown Constraint:** After selling, use cash from 2 days ago—prevents immediate buy
-- **DP Transitions:** cash = max(keep cash, sell stock); hold = max(keep hold, buy with cooldown)
-- **Key Insight:** Cooldown requires looking back 2 days—different from simple buy/sell
-- **Edge Cases:** Empty prices returns 0; no profit returns 0; handles all cases
-- **Interview Tip:** Explain state transitions clearly; emphasize cooldown handling; mention other variants (fees, k transactions)
 
 ## Q185. Word Break
 
@@ -1707,13 +1518,6 @@ function wordBreak(s, wordDict) {
 **Time Complexity:** O(n² × m) - n string length, m average word length  
 **Space Complexity:** O(n) - DP array
 
-**Deep Insights:**
-- **Optimal Approach:** DP achieves O(n² × m) time—optimal for word break
-- **DP State:** dp[i] = true if s[0..i) can be segmented—check all prefixes
-- **Word Set:** Use Set for O(1) lookup—optimizes dictionary checking
-- **Early Break:** Break once valid segmentation found—optimization
-- **Edge Cases:** Empty string returns true; no valid segmentation returns false; handles all cases
-- **Interview Tip:** Explain DP state clearly; emphasize word set optimization; mention Word Break II variant (all solutions)
 
 ## Q186. Triangle
 
@@ -1754,14 +1558,6 @@ function minimumTotal(triangle) {
 **Time Complexity:** O(n²) - n rows, each row has n elements  
 **Space Complexity:** O(n) - DP array (reuses last row)
 
-**Deep Insights:**
-- **Optimal Approach:** Bottom-up DP achieves O(n²) time, O(n) space—optimal for triangle
-- **Bottom-Up Strategy:** Start from bottom row—avoids need for base cases
-- **DP Transition:** dp[j] = triangle[i][j] + min(dp[j], dp[j+1])—choose minimum below
-- **Space Optimization:** Reuse triangle's last row—no extra array needed
-- **Key Insight:** Working upward simplifies logic—no need to handle row boundaries
-- **Edge Cases:** Single row returns that value; single element returns its value; handles all cases
-- **Interview Tip:** Explain bottom-up approach clearly; emphasize space optimization; compare with top-down
 
 ## Q187. Unique Paths II
 
@@ -1809,14 +1605,6 @@ function uniquePathsWithObstacles(obstacleGrid) {
 **Time Complexity:** O(m × n) - Visit each cell once  
 **Space Complexity:** O(n) - Space optimized DP array
 
-**Deep Insights:**
-- **Optimal Approach:** Space-optimized DP achieves O(m × n) time, O(n) space—optimal for unique paths with obstacles
-- **Obstacle Handling:** Obstacles set paths to 0—cannot pass through obstacles
-- **DP Transition:** dp[j] = dp[j] + dp[j-1] if no obstacle—paths from top and left
-- **Key Insight:** Same as Unique Paths but with obstacle check—same DP pattern
-- **Early Return:** Obstacle at start or end returns 0 immediately—optimization
-- **Edge Cases:** Obstacle at start/end returns 0; single cell returns 1 if no obstacle; handles all cases
-- **Interview Tip:** Explain obstacle handling clearly; emphasize space optimization; compare with Unique Paths
 
 ## Q188. Interleaving String
 
@@ -1879,21 +1667,14 @@ function isInterleave(s1, s2, s3) {
 **Time Complexity:** O(m × n) - Fill DP table  
 **Space Complexity:** O(m × n) - DP table (can optimize to O(min(m,n)))
 
-**Deep Insights:**
-- **Optimal Approach:** 2D DP achieves O(m × n) time—optimal for interleaving string
-- **DP State:** dp[i][j] = true if s1[0..i) and s2[0..j) can form s3[0..i+j)—character by character
-- **Character Matching:** Check if s3[i+j-1] matches s1[i-1] or s2[j-1]—takes from either string
-- **Key Insight:** Character at position i+j-1 in s3 must come from either s1 or s2—two choices
-- **Base Cases:** Empty strings form empty interleaving; initialize first row and column
-- **Edge Cases:** Length mismatch returns false; all empty returns true; handles all cases
-- **Interview Tip:** Explain DP state clearly; emphasize character matching logic; mention space optimization
 
 ## Q189. Best Time to Buy and Sell Stock III
 
-Concept:
-Find maximum profit with at most two transactions using DP; track states for transactions.
+**Problem:** You are given an array `prices` where `prices[i]` is the price of a given stock on the `i`th day. Find the maximum profit you can achieve with at most two transactions. You may complete at most two transactions (buy one and sell one share of the stock).
 
-Example:
+**Approach:** Track four states: buy1, sell1, buy2, sell2 representing the maximum profit after first buy, first sell, second buy, and second sell. Update states greedily to maximize profit at each transaction.
+
+### Solution 1: State Tracking (Optimal)
 ```javascript
 function maxProfit(prices) {
   if (prices.length === 0) return 0;
@@ -1926,19 +1707,15 @@ function maxProfit(prices) {
 **Time Complexity:** O(n) - Single pass through prices  
 **Space Complexity:** O(1) - Constant extra space
 
-Deep Insights:
-- Track states for two transactions: buy1, sell1, buy2, sell2; O(n) time, O(1) space.
-- Update states greedily: maximize profit at each transaction.
-- buy2 uses profit from sell1; sell2 uses buy2.
-- Edge case: No profit returns 0; single transaction may be better.
-- Interview tip: Explain state tracking; mention k transactions generalization; ask about constraints.
+---
 
 ## Q190. Best Time to Buy and Sell Stock IV
 
-Concept:
-Find maximum profit with at most k transactions using DP; track states for k transactions.
+**Problem:** You are given an integer array `prices` where `prices[i]` is the price of a given stock on the `i`th day, and an integer `k`. Find the maximum profit you can achieve with at most `k` transactions. You may complete at most `k` transactions (buy one and sell one share of the stock).
 
-Example:
+**Approach:** Use dynamic programming to track states for k transactions. If k >= n/2, treat as unlimited transactions (greedy approach). Otherwise, use DP table to track maximum profit for each transaction.
+
+### Solution 1: Dynamic Programming (Optimal)
 ```javascript
 function maxProfit(k, prices) {
   if (prices.length === 0 || k === 0) return 0;
@@ -1982,19 +1759,15 @@ function maxProfit(k, prices) {
 **Time Complexity:** O(n×k) - Fill DP table  
 **Space Complexity:** O(n×k) - DP table, can optimize to O(n)
 
-Deep Insights:
-- DP tracks profit for k transactions; optimize if k >= n/2 (unlimited); O(n×k) time, O(n×k) space.
-- Track maxDiff to optimize: avoid recalculating max(dp[i-1][j] - prices[j]).
-- Special case: k >= n/2 allows unlimited transactions (greedy approach).
-- Edge case: k = 0 or empty prices returns 0; large k reduces to unlimited.
-- Interview tip: Explain DP state; mention optimization cases; ask about constraints.
+---
 
 ## Q191. Maximal Square
 
-Concept:
-Find largest square containing only 1s in binary matrix using DP; track maximum square side length.
+**Problem:** Given an `m x n` binary `matrix` filled with `0`'s and `1`'s, find the largest square containing only `1`'s and return its area.
 
-Example:
+**Approach:** Use dynamic programming where `dp[i][j]` represents the side length of the largest square ending at position (i,j). For each '1', take the minimum of three neighbors (top, left, top-left) plus 1 to ensure square shape.
+
+### Solution 1: Dynamic Programming (Optimal)
 ```javascript
 function maximalSquare(matrix) {
   if (matrix.length === 0) return 0;
@@ -2034,19 +1807,15 @@ function maximalSquare(matrix) {
 **Time Complexity:** O(m×n) - Visit each cell once  
 **Space Complexity:** O(m×n) - DP table, can optimize to O(n)
 
-Deep Insights:
-- DP tracks square side length ending at each cell; take minimum of three neighbors + 1; O(m×n) time, O(m×n) space.
-- dp[i][j] = side length of largest square ending at (i,j); minimum ensures square shape.
-- Base case: edge cells have side length 1 if '1'.
-- Edge case: No '1' returns 0; single '1' returns 1.
-- Interview tip: Explain minimum logic; mention square shape requirement; ask about rectangle variant.
+---
 
 ## Q192. Maximum Sum Circular Subarray
 
-Concept:
-Find maximum sum subarray in circular array using Kadane's algorithm; consider wrapped and unwrapped cases.
+**Problem:** Given a circular integer array `nums` of length `n`, return the maximum possible sum of a non-empty subarray of `nums`. A circular array means the end of the array connects to the beginning of the array.
 
-Example:
+**Approach:** Use Kadane's algorithm for both wrapped and unwrapped cases. The maximum can be either the maximum subarray sum (unwrapped) or total sum minus minimum subarray sum (wrapped). Handle the case where all numbers are negative.
+
+### Solution 1: Kadane's Algorithm (Optimal)
 ```javascript
 function maxSubarraySumCircular(nums) {
   let total = 0;
@@ -2080,11 +1849,4 @@ function maxSubarraySumCircular(nums) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Kadane's algorithm achieves O(n) time, O(1) space—optimal for circular subarray
-- **Two Cases:** Maximum sum can be in normal subarray OR circular (wraps around)—consider both
-- **Circular Case:** Maximum circular = total - minimum subarray—wraps around array
-- **Key Insight:** Circular sum = total - minimum subarray—finds maximum by wrapping
-- **All Negative:** If maxSum <= 0, return maxSum (all negative)—no positive sum exists
-- **Edge Cases:** All negative returns maximum element; all positive returns total; handles all cases
 - **Interview Tip:** Explain two cases clearly; emphasize circular wraparound; mention Kadane's algorithm

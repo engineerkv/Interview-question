@@ -105,14 +105,6 @@ function findKthLargest(nums, k) {
 **Time Complexity:** O(n log k) - n insertions, each O(log k)  
 **Space Complexity:** O(k) - Heap stores k elements
 
-**Deep Insights:**
-- **Optimal Approach:** Min-heap of size k achieves O(n log k) time—better than O(n log n) sorting
-- **Min-Heap Strategy:** Keep k largest elements—smallest of k is kth largest
-- **Key Insight:** When heap size > k, pop smallest—maintains k largest elements
-- **Space Efficiency:** O(k) space vs O(n) for sorting—better when k << n
-- **Stream Processing:** Works for streaming data—process elements one at a time
-- **Edge Cases:** k=1 returns maximum; k=n returns minimum; handles duplicates correctly
-- **Interview Tip:** Explain min-heap vs max-heap clearly; emphasize space efficiency; mention stream processing advantage
 ## Q125. Top K Frequent Elements
 
 **Problem:** Given an integer array `nums` and an integer `k`, return the `k` most frequent elements. You may return the answer in any order.
@@ -165,14 +157,6 @@ function topKFrequent(nums, k) {
 **Time Complexity:** O(n + u log k) - n for counting, u log k for heap operations (u is unique elements)  
 **Space Complexity:** O(u) - Map stores unique elements, heap stores k elements
 
-**Deep Insights:**
-- **Optimal Approach:** Frequency count + min-heap achieves O(n + u log k) time—better than sorting all frequencies
-- **Min-Heap Strategy:** Keep k most frequent elements—least frequent of k is kth most frequent
-- **Key Insight:** Store [frequency, value] pairs—heap compares by frequency
-- **Result Extraction:** Pop and reverse to get descending order—most frequent first
-- **Space Efficiency:** O(u) space for map + O(k) for heap—better than storing all frequencies
-- **Edge Cases:** k=1 returns most frequent; all elements same frequency returns any k; handles duplicates
-- **Interview Tip:** Explain frequency counting clearly; emphasize heap size optimization; ask about k vs unique count relationship
 ## Q126. Merge k Sorted Lists
 
 **Problem:** You are given an array of `k` linked-lists `lists`, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it.
@@ -225,14 +209,6 @@ function mergeKLists(lists) {
 **Time Complexity:** O(n log k) - n total nodes, k lists, each operation O(log k)  
 **Space Complexity:** O(k) - Heap stores at most k list heads
 
-**Deep Insights:**
-- **Optimal Approach:** Min-heap merge achieves O(n log k) time—optimal for this problem
-- **Heap Strategy:** Always have smallest element from each list—enables sorted merge
-- **Key Insight:** Push next node after popping—maintains heap invariant
-- **Space Efficiency:** O(k) space vs O(n) for full materialization—better for large lists
-- **Dummy Node:** Use dummy to simplify linked list construction—handles edge cases
-- **Edge Cases:** Empty lists array returns null; empty lists handled; all lists merged correctly
-- **Interview Tip:** Explain heap-based merge clearly; mention divide-and-conquer alternative (O(n log k) merge); ask about empty lists
 ## Q127. Find Median from Data Stream
 
 **Problem:** The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values. Implement the MedianFinder class:
@@ -300,14 +276,6 @@ class MedianFinder {
 **Time Complexity:** O(log n) - addNum, O(1) - findMedian  
 **Space Complexity:** O(n) - Both heaps store elements
 
-**Deep Insights:**
-- **Optimal Approach:** Two-heap approach achieves O(log n) add and O(1) findMedian—optimal for this problem
-- **Lower Half:** Max-heap stores smaller half—top is largest of smaller half
-- **Upper Half:** Min-heap stores larger half—top is smallest of larger half
-- **Size Balance:** Lower can have at most 1 more element—ensures correct median
-- **Key Insight:** Median is top of lower (odd) or average of both tops (even)
-- **Edge Cases:** Handles duplicates correctly; works for all integer values; median can be float
-- **Interview Tip:** Explain two-heap approach clearly; emphasize size balancing rules; ask about even vs odd counts
 ## Q128. K Closest Points to Origin
 
 **Problem:** Given an array of `points` where `points[i] = [xi, yi]` represents a point on the X-Y plane and an integer `k`, return the `k` closest points to the origin `(0, 0)`. The distance between two points on the X-Y plane is the Euclidean distance.
@@ -355,14 +323,6 @@ function kClosest(points, k) {
 **Time Complexity:** O(n log k) - n insertions, each O(log k)  
 **Space Complexity:** O(k) - Heap stores k elements
 
-**Deep Insights:**
-- **Optimal Approach:** Max-heap of size k achieves O(n log k) time—better than O(n log n) sorting
-- **Distance Squared:** Use x² + y² instead of √(x² + y²)—avoids expensive sqrt calculation
-- **Max-Heap Strategy:** Keep k closest points—farthest of k is kth closest
-- **Key Insight:** When heap size > k, pop farthest—maintains k closest points
-- **Space Efficiency:** O(k) space vs O(n) for sorting—better when k << n
-- **Edge Cases:** k=1 returns closest point; k=n returns all points; handles duplicates correctly
-- **Interview Tip:** Explain distance squared optimization; mention streaming variant; ask about sorted output requirement
 ## Q129. Minimum Cost to Connect Sticks
 
 **Problem:** You have some sticks with positive integer lengths. You can connect any two sticks of lengths `x` and `y` into one stick by paying a cost of `x + y`. You must connect all the sticks into one stick. Return the minimum cost of connecting all the given sticks into one stick in this way.
@@ -412,14 +372,6 @@ function connectSticks(sticks) {
 **Time Complexity:** O(n log n) - n operations on heap  
 **Space Complexity:** O(n) - Heap stores sticks
 
-**Deep Insights:**
-- **Optimal Approach:** Greedy approach (always join shortest two) is optimal—same as Huffman coding
-- **Greedy Strategy:** Joining shortest two minimizes total cost—proven optimal by greedy choice property
-- **Key Insight:** Each combination creates new stick—push back into heap for next iteration
-- **Cost Accumulation:** Add cost of each combination to total—all costs contribute
-- **Huffman Similarity:** Same strategy as Huffman coding—optimal prefix-free code construction
-- **Edge Cases:** Single stick returns 0 (no connection needed); handles all cases correctly
-- **Interview Tip:** Explain Huffman-like approach clearly; emphasize greedy optimality proof; mention greedy choice property
 ## Q130. Reorganize String
 
 **Problem:** Given a string `s`, rearrange the characters of `s` so that any two adjacent characters are not the same. Return any possible rearrangement of `s` or return `""` if it is not possible to rearrange the string.
@@ -479,14 +431,6 @@ function reorganizeString(s) {
 **Time Complexity:** O(n log u) - n characters, u unique chars, each heap operation O(log u)  
 **Space Complexity:** O(u) - Heap stores unique characters
 
-**Deep Insights:**
-- **Optimal Approach:** Greedy approach with max-heap achieves O(n log u) time—optimal for this problem
-- **Greedy Strategy:** Always pick two most frequent different characters—ensures no adjacent duplicates
-- **Key Insight:** Store previous character and push back after using current—prevents consecutive same characters
-- **Impossibility Condition:** If most frequent character > (n+1)/2, impossible to rearrange
-- **Character Selection:** Pick most frequent first, then next most frequent—greedy optimal
-- **Edge Cases:** Empty string returns empty; single character returns itself; impossible case returns empty
-- **Interview Tip:** Explain greedy strategy clearly; mention impossibility condition (frequency > (n+1)/2); ask about alternative approaches
 ## Q131. Sliding Window Maximum (Heap Variant)
 
 **Problem:** You are given an array of integers `nums`, there is a sliding window of size `k` which is moving from the very left of the array to the very right. You can only see the `k` numbers in the window. Each time the sliding window moves right by one position. Return the maximum element in each sliding window.
@@ -534,14 +478,6 @@ function maxSlidingWindowHeap(nums, k) {
 **Time Complexity:** O(n log n) - Worst case when all elements popped  
 **Space Complexity:** O(n) - Heap stores elements
 
-**Deep Insights:**
-- **Heap Approach:** Simpler to implement but slower than deque—O(n log n) vs O(n)
-- **Lazy Deletion:** Don't remove elements immediately—pop when they reach top and are outside window
-- **Key Insight:** Track indices to identify elements outside window—enables lazy deletion
-- **Deque Alternative:** Monotonic deque achieves O(n) time—optimal for this problem
-- **Window Boundary:** Check if top index <= i - k—outside current window
-- **Edge Cases:** k=1 returns all elements; k=n returns single maximum; handles all cases
-- **Interview Tip:** Mention deque alternative (O(n) optimal); explain lazy deletion concept; ask about time complexity trade-offs
 ## Q132. Smallest Range Covering Elements from K Lists
 
 **Problem:** You have `k` lists of sorted integers in non-decreasing order. Find the smallest range that includes at least one number from each of the `k` lists.
@@ -604,14 +540,6 @@ function smallestRange(nums) {
 **Time Complexity:** O(n log k) - n total elements, k lists, each heap operation O(log k)  
 **Space Complexity:** O(k) - Heap stores k list heads
 
-**Deep Insights:**
-- **Optimal Approach:** Min-heap with range tracking achieves O(n log k) time—optimal for this problem
-- **Range Tracking:** Track current min (from heap) and max—update best range when smaller found
-- **Key Insight:** Always advance list with minimum element—ensures all lists covered
-- **Stopping Condition:** Stop when any list exhausted—cannot cover all lists after that
-- **Range Update:** Update best range when currentMax - currentMin < bestRange[1] - bestRange[0]
-- **Edge Cases:** Single element lists handled; all lists same value returns that value; handles all cases
-- **Interview Tip:** Explain range update logic clearly; emphasize stopping condition; ask about list size variations
 ## Q133. Heapsort
 
 **Problem:** Implement heapsort algorithm to sort an array in ascending order. Heapsort is an in-place sorting algorithm with O(n log n) worst-case time complexity.
@@ -675,14 +603,6 @@ function heapSort(arr) {
 **Time Complexity:** O(n log n) - Build heap O(n), extract n times O(log n) each  
 **Space Complexity:** O(1) - In-place sorting, only swap operations
 
-**Deep Insights:**
-- **Optimal Approach:** Heapsort achieves O(n log n) worst-case time—guaranteed unlike quicksort
-- **In-Place Sorting:** Uses array as heap—no extra space needed
-- **Two Phases:** Build max-heap (bottom-up heapify), then extract max to end repeatedly
-- **Heapify Down:** Maintains heap property by swapping down—critical for correctness
-- **Key Insight:** After swap, sorted part grows from end—heap size decreases
-- **Performance:** Slower than quicksort in practice but guarantees O(n log n) worst-case
-- **Interview Tip:** Explain heapify process clearly; emphasize worst-case guarantee; mention in-place property
 
 ## Q134. IPO (Initial Public Offering)
 
@@ -738,14 +658,6 @@ function findMaximizedCapital(k, w, profits, capital) {
 **Time Complexity:** O(n log n + k log n) - Sort projects O(n log n) + k heap operations O(k log n)  
 **Space Complexity:** O(n) - Heap stores profits
 
-**Deep Insights:**
-- **Optimal Approach:** Greedy with sorting and max-heap achieves O(n log n + k log n) time—optimal for this problem
-- **Greedy Strategy:** Always choose highest profit from affordable projects—maximizes capital accumulation
-- **Sorting Benefit:** Sort once by capital—enables linear scan of affordable projects
-- **Key Insight:** Add affordable projects to heap as capital increases—enables optimal selection
-- **Heap Usage:** Max-heap tracks profits of affordable projects—enables O(log n) selection
-- **Edge Cases:** No affordable projects returns current capital; k=0 returns initial capital; handles all cases
-- **Interview Tip:** Explain greedy strategy clearly; emphasize sorting + heap combination; mention greedy optimality
 
 ## Q135. Find K Pairs with Smallest Sums
 
@@ -794,11 +706,4 @@ function kSmallestPairs(nums1, nums2, k) {
 **Time Complexity:** O(k log k) - k heap operations, each O(log k)  
 **Space Complexity:** O(k) - Heap stores k pairs
 
-**Deep Insights:**
-- **Optimal Approach:** Min-heap with index tracking achieves O(k log k) time—optimal for this problem
-- **Initialization Strategy:** Start with nums1[i] + nums2[0] for each i—ensures smallest pairs considered
-- **Expansion Strategy:** When extracting (i, j), add (i, j+1)—systematically explores all pairs
-- **Key Insight:** Track indices (i, j) to generate pairs systematically—avoids duplicates
-- **Heap Invariant:** Heap always contains next smallest pairs—maintains sorted order
-- **Edge Cases:** k larger than total pairs returns all pairs; handles empty arrays; all cases covered
 - **Interview Tip:** Explain initialization strategy clearly; emphasize index tracking; ask about duplicate handling

@@ -1,6 +1,8 @@
-# 🧠 **TypeScript Interview Cheatsheet**
+# 🧠 TypeScript Interview Cheatsheet
 
 > **⏱️ Review Time: 15-20 minutes** | **Priority: ⭐⭐ Medium** | Quick reference for TypeScript interviews
+> 
+> **Coverage: Q1-Q53** (53 questions across 5 topics)
 
 **Quick Review Checklist:**
 - [ ] TypeScript Basics (Type Annotation, Inference, Union/Intersection)
@@ -10,6 +12,16 @@
 - [ ] Classes & Inheritance (Access Modifiers, Abstract Classes)
 - [ ] Module Resolution (Classic vs Node, Declaration Files)
 - [ ] TypeScript Configuration (tsconfig.json, Compiler Flags)
+
+---
+
+## 📋 **Question Coverage**
+
+- **Q1-Q9**: TypeScript Fundamentals
+- **Q10-Q21**: Type System & Interfaces
+- **Q22-Q31**: Functions & Advanced Type Features
+- **Q32-Q39**: Classes & Object-Oriented Features
+- **Q40-Q53**: Advanced TypeScript Internals
 
 ---
 

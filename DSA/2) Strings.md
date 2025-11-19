@@ -60,13 +60,6 @@ function isAnagramSorting(s, t) {
 **Time Complexity:** O(n log n) - Sorting dominates  
 **Space Complexity:** O(n) - Creating sorted strings
 
-**Deep Insights:**
-- **Optimal Approach:** Hash map achieves O(n) time—optimal for this problem
-- **Early Exit:** Check length mismatch first—saves unnecessary computation
-- **Character Deletion:** Delete from map when count reaches zero—cleaner than keeping zero counts
-- **Character Set:** Use Map for Unicode support; fixed array of size 26 for lowercase-only is more efficient
-- **Edge Cases:** Empty strings are anagrams; strings of different lengths cannot be anagrams
-- **Interview Tip:** Ask about character set first (ASCII vs Unicode); explain why we delete from map when count reaches zero
 
 ## Q35. Longest Substring Without Repeating Characters
 
@@ -117,13 +110,6 @@ function lengthOfLongestSubstring(s) {
 **Time Complexity:** O(n) - Single pass with sliding window, each character visited at most twice  
 **Space Complexity:** O(min(n, m)) - Hash map stores unique characters (m is character set size)
 
-**Deep Insights:**
-- **Optimal Approach:** Sliding window achieves O(n) time—optimal for this problem
-- **Key Insight:** Use `Math.max(left, lastSeen.get(char) + 1)` to ensure left pointer never moves backward
-- **Why Math.max:** Prevents left pointer from moving backward when duplicate appears outside current window
-- **Character Tracking:** Map stores last-seen index for each character, enabling O(1) lookup
-- **Edge Cases:** Empty string returns 0; single character returns 1; all unique characters returns string length
-- **Interview Tip:** Explain why Math.max is crucial; ask about character set (ASCII vs Unicode); mention each character visited at most twice
 
 ## Q36. Valid Palindrome
 
@@ -173,13 +159,6 @@ function isPalindrome(s) {
 **Time Complexity:** O(n) - Two pointers traverse string once  
 **Space Complexity:** O(1) - Only using constant extra variables
 
-**Deep Insights:**
-- **Optimal Approach:** Two pointers achieve O(n) time and O(1) space—optimal for this problem
-- **Character Filtering:** Skip non-alphanumeric characters using regex or character code checks
-- **Case Insensitivity:** Convert to lowercase before comparison to handle case differences
-- **Edge Cases:** Empty string returns true; single character returns true; all non-alphanumeric returns true
-- **Character Checks:** Use `/[0-9a-z]/i.test(c)` for alphanumeric check; supports international characters
-- **Interview Tip:** Ask about case sensitivity and special characters first; clarify empty string handling
 
 ## Q37. Longest Palindromic Substring
 
@@ -244,13 +223,6 @@ function longestPalindrome(s) {
 
 **Note:** Manacher's algorithm achieves O(n) time but is more complex. The expand-around approach is preferred for interviews.
 
-**Deep Insights:**
-- **Optimal for Interviews:** Expand-around achieves O(n²) time—acceptable and easier to explain
-- **Two Types of Centers:** Odd-length palindromes have center at single character; even-length have center between two characters
-- **Key Insight:** Track start/end indices, not strings—avoid expensive string slicing during iteration
-- **Edge Cases:** Single character returns itself; all unique characters returns first character
-- **Alternative:** Manacher's algorithm gives O(n) time but is complex—mention it but use expand-around for interviews
-- **Interview Tip:** Explain odd vs even center expansion clearly; mention Manacher's exists but prefer simpler approach
 
 ## Q38. Group Anagrams
 
@@ -319,13 +291,6 @@ function groupAnagramsSorted(strs) {
 **Time Complexity:** O(nk log k) - Sorting each string takes O(k log k)  
 **Space Complexity:** O(nk) - Hash map storage
 
-**Deep Insights:**
-- **Optimal Approach:** Frequency count key achieves O(nk) time—optimal for this problem
-- **Key Generation:** Use frequency array joined with delimiter (e.g., '#') to avoid collisions like "1,2,3" vs "12,3"
-- **Delimiter Necessity:** Delimiter prevents key collisions when concatenating frequency counts
-- **Character Set:** Fixed array of size 26 for lowercase-only; use Map for Unicode support
-- **Edge Cases:** Empty strings grouped together; single string forms its own group
-- **Interview Tip:** Ask about character set first; explain why delimiter is necessary; mention sorted string as alternative
 
 ## Q39. Reverse Words in a String
 
@@ -356,13 +321,6 @@ function reverseWords(s) {
 **Time Complexity:** O(n) - String operations (split, reverse, join)  
 **Space Complexity:** O(n) - Additional space for split array
 
-**Deep Insights:**
-- **Optimal Approach:** Split/reverse/join achieves O(n) time—simple and efficient
-- **Whitespace Handling:** Use `/\s+/` regex to split on one or more whitespace characters
-- **Trim First:** Trim leading/trailing spaces before processing
-- **Edge Cases:** Multiple spaces between words handled correctly; empty string returns empty string
-- **Alternative:** Can process character-by-character for in-place reversal (more complex)
-- **Interview Tip:** Ask about whitespace handling first; explain split/reverse/join approach
 
 ## Q40. Longest Repeating Character Replacement
 
@@ -412,13 +370,6 @@ function characterReplacement(s, k) {
 **Time Complexity:** O(n) - Single pass with sliding window  
 **Space Complexity:** O(1) - Fixed array of size 26 for uppercase letters
 
-**Deep Insights:**
-- **Optimal Approach:** Sliding window achieves O(n) time—optimal for this problem
-- **Key Insight:** Window is valid when `(length - maxFreq) <= k`—this means we can replace other characters to make all same
-- **Stale MaxFreq:** `maxFreq` may be stale when window shrinks, but this doesn't affect correctness—we only care about maximum possible window
-- **Why It Works:** If current window is invalid, shrinking it won't help; we need to expand to find larger valid window
-- **Edge Cases:** Empty string returns 0; k=0 returns length of longest consecutive same character
-- **Interview Tip:** Explain why stale maxFreq is acceptable; ask about character set (uppercase vs lowercase)
 ## Q41. Minimum Window Substring
 
 **Problem:** Given two strings `s` and `t` of lengths `m` and `n` respectively, return the minimum window substring of `s` such that every character in `t` (including duplicates) is included in the window. If there is no such substring, return the empty string `""`.
@@ -493,13 +444,6 @@ function minWindow(s, t) {
 **Time Complexity:** O(n + m) - Each character in s visited at most twice, where n=s.length, m=t.length  
 **Space Complexity:** O(m) - Hash maps store characters from t and window
 
-**Deep Insights:**
-- **Optimal Approach:** Sliding window achieves O(n+m) time—optimal for this problem
-- **Coverage Tracking:** Use `have === needSize` to check if all unique characters are satisfied with correct counts
-- **Shrinking Strategy:** When all characters satisfied, shrink window to minimize while maintaining coverage
-- **Key Insight:** Track indices, not strings—avoid expensive string slicing during iteration
-- **Edge Cases:** Empty string when no valid window; s shorter than t returns empty string
-- **Interview Tip:** Explain `have === needSize` logic clearly; ask about multiple valid windows; mention each character visited at most twice
 
 ## Q42. Isomorphic Strings
 
@@ -548,13 +492,6 @@ function isIsomorphic(s, t) {
 **Time Complexity:** O(n) - Single pass through strings  
 **Space Complexity:** O(k) - Hash maps store unique characters from both strings (k is character set size)
 
-**Deep Insights:**
-- **Optimal Approach:** Two maps achieve O(n) time—optimal for this problem
-- **Bidirectional Requirement:** One-to-one mapping required both ways—each character in s maps to unique character in t, and vice versa
-- **Why Two Maps:** Single map allows false positives (e.g., "ab" and "aa" would incorrectly pass)
-- **Consistency Check:** Same character must always map to same character throughout the string
-- **Edge Cases:** Different lengths return false; empty strings return true
-- **Interview Tip:** Explain why two maps are necessary; ask about Unicode support; emphasize bidirectional requirement
 
 ## Q43. Count and Say
 
@@ -618,13 +555,6 @@ function countAndSay(n) {
 **Time Complexity:** O(2^n) - Exponential growth of string length  
 **Space Complexity:** O(2^n) - Space for storing current term
 
-**Deep Insights:**
-- **Sequence Generation:** Each term describes the previous term using run-length encoding
-- **Exponential Growth:** String length grows exponentially—each term can be roughly double the previous
-- **Run-Length Encoding:** Count consecutive same digits, then append count and digit
-- **Base Case:** First term is always "1" (no previous term to describe)
-- **Edge Cases:** n=1 returns "1"; larger n values produce very long strings
-- **Interview Tip:** Explain sequence clearly step by step; mention exponential growth is inherent; ask about n limits
 
 ## Q44. Implement strStr() (KMP Algorithm)
 
@@ -719,13 +649,6 @@ function strStrBruteForce(haystack, needle) {
 **Time Complexity:** O(m×n) - Worst case  
 **Space Complexity:** O(1)
 
-**Deep Insights:**
-- **Optimal Approach:** KMP achieves O(n+m) time—optimal for pattern matching
-- **LPS Array:** Stores longest proper prefix that is also a suffix—enables skipping comparisons
-- **Key Insight:** Haystack pointer never moves backward—only needle pointer moves using LPS
-- **Why KMP:** Avoids backtracking in haystack, making it more efficient than brute force
-- **Edge Cases:** Empty needle returns 0; needle longer than haystack returns -1
-- **Interview Tip:** Explain LPS array construction; mention why haystack pointer never moves back; compare with brute force
 
 ## Q45. Roman to Integer / Integer to Roman
 
@@ -817,13 +740,6 @@ function intToRoman(num) {
 
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Subtractive Notation:** IV = 4 (5-1), IX = 9 (10-1), etc.—only when smaller value appears before larger
-- **Greedy Approach:** Integer to Roman always uses largest possible value-symbol pair first
-- **Constraints:** Input guaranteed to be 1-3999 (largest Roman is MMMCMXCIX = 3999)
-- **Key Insight:** Lookahead in Roman to Integer—if current < next, subtract; otherwise add
-- **Edge Cases:** Single symbol returns its value; subtractive pairs handled correctly
-- **Interview Tip:** Explain subtractive notation clearly (IV vs VI); mention greedy approach for intToRoman
 
 ## Q46. Longest Common Prefix
 
@@ -884,13 +800,6 @@ function longestCommonPrefixCharByChar(strs) {
 }
 ```
 
-**Deep Insights:**
-- **Optimal Approach:** Trim prefix method achieves O(nk) time—efficient for this problem
-- **Key Insight:** Use `indexOf(prefix) === 0` to check if prefix matches start of string
-- **Trimming Strategy:** Remove last character from prefix until it matches
-- **Edge Cases:** Empty array returns empty string; single string returns itself; no common prefix returns empty string
-- **Alternative:** Character-by-character comparison works but may be less intuitive
-- **Interview Tip:** Ask about case sensitivity; mention trie alternative for multiple queries; explain trimming approach
 
 ## Q47. Length of Last Word
 
@@ -935,13 +844,6 @@ function lengthOfLastWord(s) {
 **Time Complexity:** O(n) - Single pass from end  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Traverse from end achieves O(n) time and O(1) space—optimal for this problem
-- **Two-Pass Strategy:** First pass skips trailing spaces; second pass counts word characters
-- **Key Insight:** Start from end to avoid processing unnecessary leading characters
-- **Edge Cases:** All spaces returns 0; single word returns word length; trailing spaces handled correctly
-- **Alternative:** Could use split/trim but less efficient (creates array)
-- **Interview Tip:** Explain two-pass from end; emphasize trailing space handling
 
 ## Q48. ZigZag Conversion
 
@@ -1005,13 +907,6 @@ function convert(s, numRows) {
 **Time Complexity:** O(n) - Single pass through string  
 **Space Complexity:** O(n) - Storage for all rows
 
-**Deep Insights:**
-- **Optimal Approach:** Simulate zigzag movement achieves O(n) time—optimal for this problem
-- **Direction Tracking:** Use boolean `goingDown` to track direction; flip at boundaries (row 0 and numRows-1)
-- **Row Assignment:** Append each character to appropriate row based on current position
-- **Edge Cases:** numRows = 1 returns original string; numRows >= length returns original
-- **Key Insight:** Pattern repeats every `2 * (numRows - 1)` characters
-- **Interview Tip:** Explain direction change logic clearly; mention row tracking strategy; visualize the pattern
 
 ## Q49. Find the Index of the First Occurrence in a String
 
@@ -1055,13 +950,6 @@ function strStr(haystack, needle) {
 
 **Note:** For optimal O(m+n) solution, see Q44 (KMP Algorithm).
 
-**Deep Insights:**
-- **Simple Approach:** Brute force checks each starting position—acceptable for interviews
-- **Optimization:** KMP algorithm (Q44) achieves O(m+n) time using LPS array
-- **Key Insight:** Only need to check positions where needle can fit: `i <= haystack.length - needle.length`
-- **Edge Cases:** Empty needle returns 0; needle longer than haystack returns -1
-- **Alternative:** Built-in `indexOf()` method, but understanding the algorithm is important
-- **Interview Tip:** Mention KMP optimization; explain brute force first; ask about performance requirements
 
 ## Q50. Text Justification
 
@@ -1134,13 +1022,6 @@ function fullJustify(words, maxWidth) {
 **Time Complexity:** O(n×maxWidth) - Process each word and format lines  
 **Space Complexity:** O(n×maxWidth) - Result array storage
 
-**Deep Insights:**
-- **Greedy Packing:** Pack as many words as possible in each line
-- **Space Distribution:** For multiple words, distribute spaces evenly; extra spaces go to left gaps
-- **Last Line:** Special handling—left-justify with single spaces, pad to maxWidth
-- **Single Word:** Left-justify single word lines (pad with spaces on right)
-- **Edge Cases:** Single word per line; last line formatting differs from middle lines
-- **Interview Tip:** Explain space distribution logic clearly; emphasize last line special handling; mention gap calculation
 
 ## Q51. Ransom Note
 
@@ -1185,13 +1066,6 @@ function canConstruct(ransomNote, magazine) {
 **Time Complexity:** O(m + n) - Pass through both strings, where m=magazine.length, n=ransomNote.length  
 **Space Complexity:** O(m) - Frequency map storage (k unique characters, typically k << m)
 
-**Deep Insights:**
-- **Optimal Approach:** Character frequency counting achieves O(m+n) time—optimal for this problem
-- **Hash Map Usage:** Use Map to count and track available characters from magazine
-- **Key Insight:** Decrement count when character is used—each character can only be used once
-- **Early Exit:** Return false immediately if required character is not available or count is zero
-- **Edge Cases:** Empty ransom note returns true; empty magazine with non-empty note returns false
-- **Interview Tip:** Explain frequency counting approach; mention hash map for O(1) lookup; emphasize one-time use constraint
 
 ## Q52. Word Pattern
 
@@ -1245,13 +1119,6 @@ function wordPattern(pattern, s) {
 **Time Complexity:** O(n) - Single pass through pattern and words  
 **Space Complexity:** O(n) - Map storage (k unique characters/words, typically k << n)
 
-**Deep Insights:**
-- **Optimal Approach:** Bidirectional mapping achieves O(n) time—optimal for this problem
-- **Bijection Requirement:** One-to-one mapping both ways—each pattern char maps to unique word, and vice versa
-- **Why Two Maps:** Single map allows false positives (e.g., pattern "ab", s "dog dog" would incorrectly pass)
-- **Consistency Check:** Same character must always map to same word throughout
-- **Edge Cases:** Different lengths return false; empty pattern and string return true
-- **Interview Tip:** Explain bidirectional mapping necessity; emphasize consistency check; compare with Q42 (Isomorphic Strings)
 
 ## Q53. Happy Number
 
@@ -1333,13 +1200,6 @@ function isHappyHashSet(n) {
 **Time Complexity:** O(log n) - Digits in number  
 **Space Complexity:** O(log n) - Hash set storage
 
-**Deep Insights:**
-- **Optimal Approach:** Floyd's cycle detection achieves O(log n) time and O(1) space—optimal for this problem
-- **Cycle Detection:** Fast/slow pointers detect cycles—if cycle contains 1, number is happy
-- **Key Insight:** All unhappy numbers eventually enter a cycle (proven mathematically)
-- **Digit Square Sum:** Calculate sum of squares of digits efficiently using modulo and division
-- **Edge Cases:** Number 1 is happy; numbers entering cycle without 1 are not happy
-- **Interview Tip:** Explain cycle detection clearly; mention Floyd's algorithm; compare with hash set approach
 
 ## Q54. Contains Duplicate II
 
@@ -1383,13 +1243,6 @@ function containsNearbyDuplicate(nums, k) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(min(n,k)) - Map storage (at most k distinct values if using sliding window)
 
-**Deep Insights:**
-- **Optimal Approach:** Hash map achieves O(n) time—optimal for this problem
-- **Distance Constraint:** Check if `abs(i - j) <= k` when duplicate found
-- **Last Index Tracking:** Update map with current index—only need to check most recent occurrence
-- **Key Insight:** If duplicate exists within k, we'll find it before moving beyond k distance
-- **Edge Cases:** k = 0 returns false (no duplicates possible); k >= n checks entire array
-- **Interview Tip:** Explain hash map approach; mention distance constraint; compare with sliding window approach
 
 ## Q55. Substring with Concatenation of All Words
 
@@ -1461,10 +1314,3 @@ function findSubstring(s, words) {
 **Time Complexity:** O(n×m×k) - n positions, m words, k word length, where n=s.length, m=words.length, k=words[0].length  
 **Space Complexity:** O(m) - Word count maps storage
 
-**Deep Insights:**
-- **Sliding Window Approach:** Check each starting position, extract words of fixed length
-- **Word Matching:** Use hash map to count words and verify they match input word count
-- **Key Insight:** All words have same length—simplifies extraction and matching
-- **Early Exit:** Break if word not found or count exceeds expected
-- **Edge Cases:** Empty string or words returns empty array; no match returns empty array
-- **Interview Tip:** Explain word extraction logic; mention sliding window approach; emphasize fixed word length assumption

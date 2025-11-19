@@ -45,13 +45,6 @@ function searchInsert(nums, target) {
 **Time Complexity:** O(log n) - Binary search  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Binary search achieves O(log n) time—optimal for insertion position
-- **Insertion Position:** `left` index is insertion position when target not found—after loop ends
-- **Key Insight:** Binary search finds exact match or insertion point—same algorithm
-- **Lower Bound:** This is essentially finding lower bound—first position >= target
-- **Edge Cases:** Target smaller than all returns 0; target larger than all returns n; handles all cases
-- **Interview Tip:** Explain binary search clearly; emphasize insertion position logic; mention lower bound connection
 
 ## Q212. Search a 2D Matrix
 
@@ -103,13 +96,6 @@ function searchMatrix(matrix, target) {
 **Time Complexity:** O(log(m × n)) - Binary search on flattened array  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Binary search on flattened array achieves O(log(mn)) time—optimal for 2D matrix
-- **Coordinate Conversion:** row = mid/n, col = mid%n—maps flat index to 2D coordinates
-- **Key Insight:** Matrix is sorted as 1D array—can use binary search directly
-- **Two Properties:** Row sorted + row boundaries—ensures global sorted order
-- **Edge Cases:** Empty matrix returns false; single cell handled correctly; handles all cases
-- **Interview Tip:** Explain 2D to 1D conversion clearly; emphasize coordinate formula; mention matrix properties
 
 ## Q213. Find Peak Element
 
@@ -151,14 +137,6 @@ function findPeakElement(nums) {
 **Time Complexity:** O(log n) - Binary search  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Binary search achieves O(log n) time—optimal for peak finding
-- **Comparison Strategy:** Compare mid with mid+1—determines which half contains peak
-- **Go Toward Larger:** Always move toward larger neighbor—guaranteed to find peak
-- **Key Insight:** Array boundaries are -∞—ensures peak exists
-- **Multiple Peaks:** Can return any peak—algorithm finds one efficiently
-- **Edge Cases:** Single element returns 0; strictly increasing returns last; handles all cases
-- **Interview Tip:** Explain peak finding logic clearly; emphasize comparison strategy; mention boundary conditions
 
 ## Q214. Search in Rotated Sorted Array
 
@@ -216,14 +194,6 @@ function search(nums, target) {
 **Time Complexity:** O(log n) - Binary search  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Binary search with rotation handling achieves O(log n) time—optimal for rotated arrays
-- **Sorted Half Detection:** Check if left half is sorted (nums[left] <= nums[mid])—determines search direction
-- **Target Range Check:** Check if target is in sorted half's range—narrows search space
-- **Key Insight:** At least one half is always sorted—can determine search direction
-- **Range Logic:** If target in sorted half range, search there; else search other half—narrows search
-- **Edge Cases:** Not rotated (fully sorted) handled correctly; single element handled; handles all cases
-- **Interview Tip:** Explain rotation handling clearly; emphasize sorted half detection; mention duplicate handling variant
 
 ## Q215. Find First and Last Position of Element in Sorted Array
 
@@ -295,14 +265,6 @@ function findLast(nums, target) {
 **Time Complexity:** O(log n) - Two binary searches  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Two binary searches achieve O(log n) time—optimal for range finding
-- **First Position:** Continue searching left when target found—finds leftmost occurrence
-- **Last Position:** Continue searching right when target found—finds rightmost occurrence
-- **Key Insight:** Don't stop at first match—continue searching to find boundary
-- **Early Exit:** If first not found, return [-1,-1] immediately—optimization
-- **Edge Cases:** Target not found returns [-1,-1]; single occurrence returns [i,i]; handles all cases
-- **Interview Tip:** Explain two-pass search clearly; emphasize continuing search strategy; mention early exit optimization
 
 ## Q216. Find Minimum in Rotated Sorted Array
 
@@ -352,14 +314,6 @@ function findMin(nums) {
 **Time Complexity:** O(log n) - Binary search  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Binary search achieves O(log n) time—optimal for finding minimum
-- **Comparison Strategy:** Compare mid with right—determines which half contains minimum
-- **Sorted Half:** If right half sorted (mid < right), minimum in left half—including mid
-- **Key Insight:** Minimum always in unsorted half—can eliminate sorted half
-- **Unrotated Array:** If not rotated, algorithm still works—returns first element
-- **Edge Cases:** Single element returns that element; unrotated returns first; handles all cases
-- **Interview Tip:** Explain minimum finding logic clearly; emphasize comparison with right; mention duplicate handling variant
 
 ## Q217. Median of Two Sorted Arrays
 
@@ -422,12 +376,4 @@ function findMedianSortedArrays(nums1, nums2) {
 **Time Complexity:** O(log(min(m,n))) - Binary search on smaller array  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Binary search on partitions achieves O(log(min(m,n))) time—optimal for median
-- **Partition Strategy:** Partition both arrays to balance left and right halves—ensures correct median
-- **Valid Partition:** maxLeft <= minRight for both arrays—ensures sorted order maintained
-- **Key Insight:** Binary search on smaller array—reduces search space
-- **Median Calculation:** Odd length: max of left; even length: average of max(left) and min(right)
-- **Edge Cases:** Handle empty arrays with -Infinity/Infinity; single element handled; handles all cases
-- **Interview Tip:** Explain partition strategy clearly; emphasize boundary checks; mention edge case handling
 

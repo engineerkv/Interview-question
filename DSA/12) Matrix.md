@@ -52,14 +52,6 @@ function isValidSudoku(board) {
 **Time Complexity:** O(1) - Fixed 9×9 grid, 81 cells  
 **Space Complexity:** O(1) - Fixed size sets for rows, cols, boxes
 
-**Deep Insights:**
-- **Optimal Approach:** Set-based validation achieves O(1) time per cell—optimal for Sudoku validation
-- **Box Index Calculation:** boxIndex = floor(i/3)*3 + floor(j/3)—maps cell to 3×3 box
-- **Three Constraints:** Track row, column, and box constraints—all must be satisfied
-- **Empty Cells:** Skip empty cells ('.')—only validate filled cells
-- **Key Insight:** Use sets for O(1) lookup—efficiently check duplicates
-- **Edge Cases:** Empty board returns true; handles all cases
-- **Interview Tip:** Explain box index calculation clearly; emphasize three constraint sets; mention empty cell handling
 
 ## Q204. Spiral Matrix
 
@@ -124,14 +116,6 @@ function spiralOrder(matrix) {
 **Time Complexity:** O(m × n) - Visit each cell once  
 **Space Complexity:** O(1) - Excluding output array
 
-**Deep Insights:**
-- **Optimal Approach:** Boundary tracking achieves O(m × n) time—optimal for spiral traversal
-- **Four Directions:** Traverse right → down → left → up—repeats until all cells visited
-- **Boundary Management:** Adjust boundaries after each direction—shrinks spiral inward
-- **Key Checks:** Check boundaries before left and up traversals—prevents duplicate traversal
-- **Key Insight:** Spiral pattern requires careful boundary management—handles rectangular matrices
-- **Edge Cases:** Single row/column handled correctly; empty matrix returns []; handles all cases
-- **Interview Tip:** Explain boundary management clearly; emphasize four directions; mention edge case handling
 
 ## Q205. Rotate Image
 
@@ -169,15 +153,6 @@ function rotate(matrix) {
 **Time Complexity:** O(n²) - Transpose and reverse each row  
 **Space Complexity:** O(1) - In-place modification
 
-**Deep Insights:**
-- **Optimal Approach:** Transpose + reverse achieves O(n²) time—optimal for 90° rotation
-- **Two-Step Process:** Transpose first, then reverse rows—simpler than direct rotation
-- **Transpose Loop:** j starts at i—prevents swapping twice (symmetric swap)
-- **In-Place:** Modify matrix directly—no extra space needed
-- **Key Insight:** 90° clockwise = transpose + reverse rows—mathematical transformation
-- **Alternative:** Can reverse columns then transpose—same result
-- **Edge Cases:** Single element returns unchanged; handles all cases
-- **Interview Tip:** Explain transpose clearly; emphasize two-step process; mention in-place requirement
 
 ## Q206. Set Matrix Zeroes
 
@@ -255,14 +230,6 @@ function setZeroes(matrix) {
 **Time Complexity:** O(m × n) - Three passes through matrix  
 **Space Complexity:** O(1) - Using first row/col as markers
 
-**Deep Insights:**
-- **Optimal Approach:** Marker-based approach achieves O(m × n) time, O(1) space—optimal for in-place
-- **Marker Strategy:** Use first row/col as markers—eliminates need for extra space
-- **Separate Handling:** Handle first row/col separately—prevents overwriting markers
-- **Three Passes:** Check first row/col → mark zeros → set zeros—systematic approach
-- **Key Insight:** (0,0) cell is intersection—must be handled separately to avoid conflicts
-- **Edge Cases:** All zeros handled correctly; single zero propagates correctly; handles all cases
-- **Interview Tip:** Explain marker strategy clearly; emphasize separate handling for first row/col; mention O(1) space
 
 ## Q207. Game of Life
 
@@ -335,13 +302,4 @@ function gameOfLife(board) {
 **Time Complexity:** O(m × n) - Visit each cell and check 8 neighbors  
 **Space Complexity:** O(1) - In-place state encoding
 
-**Deep Insights:**
-- **Optimal Approach:** State encoding achieves O(m × n) time, O(1) space—optimal for Game of Life
-- **State Encoding:** Use 2 and 3 to encode transitions—preserves original state for neighbor counting
-- **Simultaneous Updates:** All cells update simultaneously—encoding allows in-place modification
-- **Eight Neighbors:** Check all 8 directions—horizontal, vertical, diagonal
-- **Key Insight:** Encode transitions (2, 3) while preserving original states (0, 1)—enables in-place update
-- **Decoding:** Final pass converts 2→1, 3→0—completes state transition
-- **Edge Cases:** Boundary cells handled correctly; all dead/all alive handled; handles all cases
-- **Interview Tip:** Explain state encoding clearly; emphasize simultaneous update constraint; mention 8-neighbor counting
 

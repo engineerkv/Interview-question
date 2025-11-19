@@ -1,16 +1,14 @@
-# 🧱 4. Objects, Prototypes & Inheritance (Q52–71)
+# 4. Objects, Prototypes & Inheritance (Q52–71)
 
 ---
 
-## 🧩 Q52. What is an object in JavaScript?
+## Q52. What is an object in JavaScript?
 
-### 🧠 Concept
+An object is a container that holds data and behavior together - it stores information as key-value pairs and can include functions as methods. Objects are reference types, not copied when assigned, so modifying them affects all references. All objects inherit from `Object.prototype` by default, which provides common methods like `toString()` and `hasOwnProperty()`.
 
-An object is a container that holds data and behavior together. It stores information as key-value pairs and can include functions as methods.
+- **Trade-offs**: Objects can be modified after creation, making them flexible but requiring careful handling - modifying objects when you meant to copy them is a common mistake. They're perfect for storing user data, configuration, and API responses, but watch out for accidental mutations when passing objects around.
 
----
-
-### 💡 Example
+Example:
 
 ```js
 const person = {
@@ -23,30 +21,13 @@ console.log(person.greet()); // "Hi, I'm John"
 
 ---
 
-### 🔍 Deep Insights
+## Q53. What is the difference between object literal and object constructor?
 
-* **Rule:** Objects are reference types, not copied when assigned.
-* **Use Case:** Storing user data, configuration, API responses.
-* **Common Mistake:** Modifying objects when you meant to copy them.
-* **Pro Tip:** All objects inherit from `Object.prototype` by default.
+Object literals create objects with `{}` syntax, while constructors use `new` keyword with functions - literals are simpler, constructors allow custom setup. Both create objects with `Object.prototype` as prototype, but literals are more common for simple data structures.
 
----
+- **Trade-offs**: Literals are simpler and more readable for data, while constructors are better for reusable objects with initialization logic. The catch is using constructors when literals would work adds unnecessary complexity - choose based on your needs.
 
-### ⭐ Senior Takeaway
-
-Objects can be modified after creation, making them flexible but requiring careful handling.
-
----
-
-## 🧩 Q53. What is the difference between object literal and object constructor?
-
-### 🧠 Concept
-
-Object literals create objects with `{}` syntax, while constructors use `new` keyword with functions. Literals are simpler, constructors allow custom setup.
-
----
-
-### 💡 Example
+Example:
 
 ```js
 const obj1 = { x: 1 }; // Literal
@@ -56,30 +37,13 @@ const obj3 = new Date(); // Constructor
 
 ---
 
-### 🔍 Deep Insights
+## Q54. What is a prototype in JavaScript?
 
-* **Rule:** Literals are simpler, constructors allow custom setup.
-* **Use Case:** Literals for data, constructors for reusable objects.
-* **Common Mistake:** Using constructors when literals would work.
-* **Pro Tip:** Both create objects with `Object.prototype` as prototype.
+A prototype is an object that provides fallback properties and methods when they're not found on the current object - property lookup follows the prototype chain. Every object has a `[[Prototype]]` internal slot, and `Object.prototype` is the root of all chains.
 
----
+- **Trade-offs**: Prototypes enable inheritance in JavaScript through the prototype chain, but the tricky part is `__proto__` is deprecated - use `Object.getPrototypeOf` instead. Functions have a `prototype` property for `new` instances, which can be confusing if you're not careful.
 
-### ⭐ Senior Takeaway
-
-Show when to use each approach based on your needs.
-
----
-
-## 🧩 Q54. What is a prototype in JavaScript?
-
-### 🧠 Concept
-
-A prototype is an object that provides fallback properties and methods when they're not found on the current object. Property lookup follows the prototype chain.
-
----
-
-### 💡 Example
+Example:
 
 ```js
 const obj = { a: 1 };
@@ -90,30 +54,13 @@ console.log(obj.b); // 2 (from prototype)
 
 ---
 
-### 🔍 Deep Insights
+## Q55. What is __proto__ in JavaScript?
 
-* **Rule:** Every object has a `[[Prototype]]` internal slot, property lookup follows the prototype chain.
-* **Use Case:** `__proto__` is deprecated; use `Object.getPrototypeOf`.
-* **Common Mistake:** Functions have a `prototype` property for `new` instances.
-* **Pro Tip:** `Object.prototype` is the root of all chains.
+`__proto__` is a hidden link inside every object that points to another object—its prototype, but modern code should avoid it and use `Object.getPrototypeOf` instead. It exposes the internal [[Prototype]] slot and can be used to read or set prototype links.
 
----
+- **Trade-offs**: The catch is `__proto__` is deprecated for better compatibility - use `Object.getPrototypeOf`/`Object.setPrototypeOf` or `Object.create` instead. `Object.create` is the preferred way to set prototypes, and it's cleaner than using `__proto__`.
 
-### ⭐ Senior Takeaway
-
-Prototypes enable inheritance in JavaScript through the prototype chain.
-
----
-
-## 🧩 Q55. What is __proto__ in JavaScript?
-
-### 🧠 Concept
-
-`__proto__` is a hidden link inside every object that points to another object—its prototype. Modern code should avoid it and use `Object.getPrototypeOf` instead.
-
----
-
-### 💡 Example
+Example:
 
 ```js
 const proto = { greet() { return 'hi'; } };
@@ -124,30 +71,13 @@ console.log(Object.getPrototypeOf(obj) === proto); // true (preferred)
 
 ---
 
-### 🔍 Deep Insights
+## Q56. What is the prototype chain?
 
-* **Rule:** `__proto__` is deprecated; use `Object.getPrototypeOf`/`Object.setPrototypeOf`.
-* **Use Case:** It exposes the internal [[Prototype]] slot, can be used to read or set prototype links.
-* **Common Mistake:** Modern code should avoid `__proto__` for better compatibility.
-* **Pro Tip:** `Object.create` is the preferred way to set prototypes.
+The prototype chain is how JavaScript looks up properties by checking each object in a linked list until it finds what it needs or reaches `Object.prototype` - the chain ends at `Object.prototype` (whose prototype is `null`). Property lookup follows the chain until found, and own properties always override inherited ones.
 
----
+- **Trade-offs**: The prototype chain enables method inheritance and extending built-in objects, but the tricky part is not understanding that own properties override inherited ones. Tracing the prototype chain helps understand inheritance, but modifying prototypes affects all instances, which can cause surprise bugs.
 
-### ⭐ Senior Takeaway
-
-Use modern methods instead of `__proto__` for better compatibility.
-
----
-
-## 🧩 Q56. What is the prototype chain?
-
-### 🧠 Concept
-
-The prototype chain is how JavaScript looks up properties by checking each object in a linked list until it finds what it needs or reaches `Object.prototype`.
-
----
-
-### 💡 Example
+Example:
 
 ```js
 const arr = [];
@@ -157,30 +87,13 @@ console.log(arr.toString); // from Object.prototype
 
 ---
 
-### 🔍 Deep Insights
+## Q57. What is the difference between `__proto__` and `prototype`?
 
-* **Rule:** Property lookup follows the chain until found or reaches `Object.prototype`.
-* **Use Case:** Method inheritance, extending built-in objects.
-* **Common Mistake:** Not understanding that own properties override inherited ones.
-* **Pro Tip:** The chain ends at `Object.prototype` (whose prototype is `null`).
+`__proto__` is an object's link to its parent, while `prototype` is a function's blueprint for creating new objects - only functions have `prototype`. When you use `new` with a function, the instance's `__proto__` points to the function's `prototype`.
 
----
+- **Trade-offs**: The catch is confusing `__proto__` and `prototype` properties - `__proto__` is the actual link, `prototype` is only on functions. Arrow functions don't have `prototype` property, which is why they can't be used as constructors. Understanding this difference is key to understanding how inheritance works in JavaScript.
 
-### ⭐ Senior Takeaway
-
-Show how to trace the prototype chain to understand inheritance.
-
----
-
-## 🧩 Q57. What is the difference between `__proto__` and `prototype`?
-
-### 🧠 Concept
-
-`__proto__` is an object's link to its parent, while `prototype` is a function's blueprint for creating new objects. Only functions have `prototype`.
-
----
-
-### 💡 Example
+Example:
 
 ```js
 function Person() {}
@@ -191,137 +104,131 @@ console.log(p.__proto__ === Person.prototype); // true
 
 ---
 
-### 🔍 Deep Insights
+## Q58. What is the difference between `hasOwnProperty`, `in` operator, and `Object.hasOwn`?
 
-* **Rule:** `__proto__` is the actual link, `prototype` is only on functions.
-* **Use Case:** Understanding how inheritance works in JavaScript.
-* **Common Mistake:** Confusing `__proto__` and `prototype` properties.
-* **Pro Tip:** Arrow functions don't have `prototype` property.
+`hasOwnProperty` checks if a property exists on the object itself (not inherited), `in` operator checks the entire prototype chain including inherited properties, and `Object.hasOwn` is the modern safer way to check own properties - use `Object.hasOwn` instead of `hasOwnProperty` when possible. `hasOwnProperty` only checks the object itself, while `in` checks everywhere in the prototype chain.
 
----
+- **Trade-offs**: The catch is `hasOwnProperty` can fail if the object doesn't have this method (like objects created with `Object.create(null)`) - `Object.hasOwn` works everywhere and is the recommended approach. Use `in` when you need to check inherited properties, but use `Object.hasOwn` for own property checks since it's safer than `hasOwnProperty`.
 
-### ⭐ Senior Takeaway
-
-Show the difference with constructor functions to clarify the concept.
-
----
-
-## 🧩 Q58. How does prototypal inheritance work?
-
-### 🧠 Concept
-
-Prototypal inheritance means objects can use properties and methods from their parent objects through the prototype chain. Objects inherit from their prototype and can override inherited properties.
-
----
-
-### 💡 Example
+Example:
 
 ```js
-const animal = { speak: () => 'sound' };
-const dog = Object.create(animal);
-dog.speak = () => 'woof';
-console.log(dog.speak()); // 'woof' (own property wins)
+const obj = { a: 1 };
+Object.setPrototypeOf(obj, { b: 2 });
+
+console.log(obj.hasOwnProperty('a')); // true - own property
+console.log(obj.hasOwnProperty('b')); // false - inherited property
+console.log('a' in obj); // true - found in object
+console.log('b' in obj); // true - found in prototype chain
+console.log(Object.hasOwn(obj, 'a')); // true - own property
+console.log(Object.hasOwn(obj, 'b')); // false - inherited property
+
+// Object.hasOwn works even on objects without hasOwnProperty
+const nullObj = Object.create(null);
+nullObj.x = 1;
+console.log(nullObj.hasOwnProperty('x')); // Error: hasOwnProperty is not a function
+console.log(Object.hasOwn(nullObj, 'x')); // true - works perfectly
 ```
 
 ---
 
-### 🔍 Deep Insights
+## Q59. What is the difference between `Object.create()` and `new` operator?
 
-* **Rule:** Objects inherit from their prototype and can override inherited properties.
-* **Use Case:** Sharing methods between objects, extending functionality.
-* **Common Mistake:** Modifying prototypes affects all instances.
-* **Pro Tip:** Own properties always override inherited ones.
+`Object.create()` sets up prototype links directly, while `new` operator calls a constructor function and sets up the prototype automatically - `Object.create` is explicit, `new` is more convenient. `Object.create` is great for simple inheritance, while `new` is better for constructor-based object creation.
 
----
+- **Trade-offs**: The catch is using `new` when `Object.create` would be simpler - `Object.create` is explicit and gives you more control, while `new` is syntactic sugar that does constructor chaining automatically. `Object.create(null)` creates objects without a prototype, which is useful for pure data structures.
 
-### ⭐ Senior Takeaway
-
-Show how to check own vs inherited properties to understand inheritance.
-
----
-
-## 🧩 Q59. What is the difference between `Object.create()` and class inheritance?
-
-### 🧠 Concept
-
-`Object.create()` sets up prototype links directly, while classes use `extends` with constructor chaining and `super`. `Object.create` is explicit, classes are syntactic sugar.
-
----
-
-### 💡 Example
+Example:
 
 ```js
 const base = { x: 1 };
 const child = Object.create(base);
 child.y = 2;
 
-class Base { constructor() { this.x = 1; } }
-class Child extends Base {
-  constructor() { super(); this.y = 2; }
-}
+function Parent(x) { this.x = x; }
+const child2 = new Parent(1);
 ```
 
 ---
 
-### 🔍 Deep Insights
+## Q60. What is the difference between `Object.assign()` and spread operator?
 
-* **Rule:** `Object.create` is explicit, classes are syntactic sugar over prototypes.
-* **Use Case:** `Object.create` for simple inheritance, classes for complex hierarchies.
-* **Common Mistake:** Using classes when `Object.create` would be simpler.
-* **Pro Tip:** Classes provide constructor chaining and `super` calls.
+`Object.assign()` copies properties from source objects to a target object, while spread operator creates a new object with copied properties - both do shallow copies. `Object.assign` mutates the target, while spread creates a new object.
 
----
+- **Trade-offs**: The catch is both do shallow copies, so nested objects are still shared - use deep cloning if you need complete independence. Spread is more modern and readable, but `Object.assign` is useful when you need to mutate an existing object or copy to multiple targets.
 
-### ⭐ Senior Takeaway
-
-Show when to use each approach based on complexity and needs.
-
----
-
-## 🧩 Q60. How do you check if an object has a property (own vs inherited)?
-
-### 🧠 Concept
-
-Use `hasOwnProperty` for own properties, `in` operator for inherited properties, and `Object.hasOwn` for safer own checks. Each method checks different scopes.
-
----
-
-### 💡 Example
+Example:
 
 ```js
-const obj = { a: 1 };
-Object.setPrototypeOf(obj, { b: 2 });
-console.log(obj.hasOwnProperty('a')); // true
-console.log('b' in obj); // true
-console.log(Object.hasOwn(obj, 'b')); // false
+const obj1 = { a: 1, nested: { b: 2 } };
+const obj2 = Object.assign({}, obj1);
+const obj3 = { ...obj1 };
+// Both create shallow copies - nested objects are shared
 ```
 
 ---
 
-### 🔍 Deep Insights
+## Q61. What is the difference between `Object.freeze()` and `Object.seal()`?
 
-* **Rule:** `hasOwnProperty` checks own properties, `in` checks the entire chain.
-* **Use Case:** Validating object structure, checking for inherited methods.
-* **Common Mistake:** Using `hasOwnProperty` when you need inherited properties.
-* **Pro Tip:** `Object.hasOwn` is safer than `hasOwnProperty`.
+`Object.freeze()` makes an object completely immutable - you can't add, delete, or modify properties. `Object.seal()` prevents adding or deleting properties but allows modifying existing ones. Both prevent adding new properties, but `freeze` is stricter.
 
----
+- **Trade-offs**: The catch is both are shallow - nested objects aren't frozen or sealed, so you need to recursively freeze/seal if you want complete immutability. `freeze` is useful for constants, while `seal` is useful when you want to prevent property additions but allow modifications.
 
-### ⭐ Senior Takeaway
+Example:
 
-Show the difference between own and inherited properties with examples.
+```js
+const obj1 = { x: 1 };
+Object.freeze(obj1);
+obj1.x = 2; // silently fails in strict mode
 
----
-
-## 🧩 Q61. What are getters and setters?
-
-### 🧠 Concept
-
-Getters and setters are special methods that control property access, allowing custom logic on read/write. Getters run when reading, setters run when writing.
+const obj2 = { x: 1 };
+Object.seal(obj2);
+obj2.x = 2; // works
+obj2.y = 3; // fails
+```
 
 ---
 
-### 💡 Example
+## Q62. What is the difference between `Object.keys()` and `Object.getOwnPropertyNames()`?
+
+`Object.keys()` returns only enumerable own property names, while `Object.getOwnPropertyNames()` returns all own property names including non-enumerable ones. Both ignore inherited properties, but `getOwnPropertyNames` includes properties like `length` on arrays.
+
+- **Trade-offs**: The catch is `Object.keys` skips non-enumerable properties, which can be surprising if you've defined properties with `Object.defineProperty` with `enumerable: false`. Use `getOwnPropertyNames` when you need all properties, or `Object.keys` when you only need enumerable ones.
+
+Example:
+
+```js
+const obj = {};
+Object.defineProperty(obj, 'hidden', { value: 1, enumerable: false });
+console.log(Object.keys(obj)); // []
+console.log(Object.getOwnPropertyNames(obj)); // ['hidden']
+```
+
+---
+
+## Q63. What is the difference between `Object.entries()` and `Object.values()`?
+
+`Object.entries()` returns an array of `[key, value]` pairs, while `Object.values()` returns an array of just the values - both only include enumerable own properties. `entries` is useful when you need both keys and values, while `values` is simpler when you only need values.
+
+- **Trade-offs**: Both ignore inherited and non-enumerable properties, so they only work with own enumerable properties. `entries` is great for converting objects to maps or iterating with destructuring, while `values` is simpler when you just need the values.
+
+Example:
+
+```js
+const obj = { a: 1, b: 2 };
+console.log(Object.entries(obj)); // [['a', 1], ['b', 2]]
+console.log(Object.values(obj)); // [1, 2]
+```
+
+---
+
+## Q64. What are getters and setters in JavaScript?
+
+Getters and setters are special methods that control property access, allowing custom logic on read/write - getters run when reading, setters run when writing. They're useful for validation, computed properties, and data transformation.
+
+- **Trade-offs**: The catch is forgetting to handle edge cases in setters can cause bugs - always validate input in setters. Getters without setters create read-only properties, which is useful for computed values. You can add getters/setters with `Object.defineProperty` for more control.
+
+Example:
 
 ```js
 const obj = {
@@ -334,30 +241,13 @@ obj.count = -5; // becomes 0
 
 ---
 
-### 🔍 Deep Insights
+## Q65. What are classes in JavaScript?
 
-* **Rule:** Getters run when reading, setters run when writing properties.
-* **Use Case:** Validation, computed properties, data transformation.
-* **Common Mistake:** Forgetting to handle edge cases in setters.
-* **Pro Tip:** Getters without setters create read-only properties.
+Classes in JavaScript are syntactic sugar over prototype-based inheritance - they provide a cleaner way to create objects and handle inheritance, but work like constructor functions underneath. `typeof Person` is `'function'` because classes are just constructor functions with special syntax.
 
----
+- **Trade-offs**: The catch is thinking classes are completely different from functions - they're just constructor functions with better syntax. Methods go on `prototype`, not on instances, which is the same as constructor functions. Classes enforce `new` usage and have better tooling, but they work the same way under the hood.
 
-### ⭐ Senior Takeaway
-
-Show how to add getters/setters with `Object.defineProperty`.
-
----
-
-## 🧩 Q62. What is a class in JavaScript and how is it implemented internally?
-
-### 🧠 Concept
-
-A class in JavaScript is syntactic sugar over prototype-based inheritance. It provides a cleaner way to create objects and handle inheritance, but works like constructor functions underneath.
-
----
-
-### 💡 Example
+Example:
 
 ```js
 class Person {
@@ -369,30 +259,13 @@ const p = new Person('Alice');
 
 ---
 
-### 🔍 Deep Insights
+## Q66. What is the difference between class declaration and class expression?
 
-* **Rule:** Classes are just constructor functions with special syntax.
-* **Use Case:** Creating reusable objects with shared methods.
-* **Common Mistake:** Thinking classes are completely different from functions.
-* **Pro Tip:** Methods go on `prototype`, not on instances.
+Class declarations create classes with names, while class expressions create classes as values - both create constructor functions, but expressions are useful when you need classes as values. Named expressions help with debugging, and expressions are useful for conditional class creation.
 
----
+- **Trade-offs**: Both declarations and expressions create constructor functions, so they work the same way. The catch is not understanding that classes are functions - use expressions when you need classes as values, or declarations when you want hoisting (though class declarations aren't fully hoisted like function declarations).
 
-### ⭐ Senior Takeaway
-
-Explain that `typeof Person` is `'function'` to show classes are functions.
-
----
-
-## 🧩 Q63. What is the difference between class declaration and class expression?
-
-### 🧠 Concept
-
-Class declarations create classes with names, while class expressions create classes as values. Both create constructor functions, but expressions are useful when you need classes as values.
-
----
-
-### 💡 Example
+Example:
 
 ```js
 class MyClass {} // declaration
@@ -402,30 +275,13 @@ const Named = class Inner {}; // named expression
 
 ---
 
-### 🔍 Deep Insights
+## Q67. What is the `extends` keyword and how does it work?
 
-* **Rule:** Both declarations and expressions create constructor functions.
-* **Use Case:** Use expressions when you need classes as values.
-* **Common Mistake:** Not understanding that classes are functions.
-* **Pro Tip:** Named expressions help with debugging.
+`extends` lets one class inherit from another class, giving it access to all the parent's properties and methods - it creates a prototype chain between classes. `super` is lexically bound, not dynamic, which means it always refers to the parent class in the same lexical scope.
 
----
+- **Trade-offs**: The catch is forgetting to call `super()` in constructor - you must call it before using `this` in a child constructor. `extends` is great for building class hierarchies and reusing parent functionality, but watch out for deep inheritance chains which can make code harder to understand.
 
-### ⭐ Senior Takeaway
-
-Show when to use each approach based on your needs.
-
----
-
-## 🧩 Q64. How does inheritance work with the `extends` keyword?
-
-### 🧠 Concept
-
-`extends` lets one class inherit from another class, giving it access to all the parent's properties and methods. It creates a prototype chain between classes.
-
----
-
-### 💡 Example
+Example:
 
 ```js
 class Animal {
@@ -438,30 +294,13 @@ class Dog extends Animal {
 
 ---
 
-### 🔍 Deep Insights
+## Q68. What is `super()` and when do you use it?
 
-* **Rule:** `extends` creates a prototype chain between classes.
-* **Use Case:** Building class hierarchies, reusing parent functionality.
-* **Common Mistake:** Forgetting to call `super()` in constructor.
-* **Pro Tip:** `super` is lexically bound, not dynamic.
+`super()` calls the parent class constructor and must be called before using `this` in a child constructor - it initializes parent properties in child constructors. `super()` returns the current instance, not the parent, which can be confusing.
 
----
+- **Trade-offs**: The catch is trying to use `this` before calling `super()` - you'll get a reference error. `super()` must be called first in the constructor, and it's required when the parent has a constructor. You can also use `super.method()` to call parent methods, which is useful for method overriding.
 
-### ⭐ Senior Takeaway
-
-Show how to override methods with `super` to demonstrate inheritance.
-
----
-
-## 🧩 Q65. What does `super()` do in a subclass constructor?
-
-### 🧠 Concept
-
-`super()` calls the parent class constructor and must be called before using `this` in a child constructor. It initializes parent properties in child constructors.
-
----
-
-### 💡 Example
+Example:
 
 ```js
 class Parent { constructor(x) { this.x = x; } }
@@ -475,30 +314,13 @@ class Child extends Parent {
 
 ---
 
-### 🔍 Deep Insights
+## Q69. What are static members in classes?
 
-* **Rule:** `super()` must be called before accessing `this`.
-* **Use Case:** Initializing parent properties in child constructors.
-* **Common Mistake:** Trying to use `this` before calling `super()`.
-* **Pro Tip:** `super()` returns the current instance, not the parent.
+Static methods and properties belong to the class itself, not to individual instances, and are called directly on the class - they're useful for utility functions and constants. Static members are inherited by subclasses, so child classes can access parent static methods.
 
----
+- **Trade-offs**: The catch is trying to access `this` in static methods - `this` refers to the class, not an instance. Static members are great for utility functions, constants, and factory methods, but watch out - they can't access instance properties or methods.
 
-### ⭐ Senior Takeaway
-
-Show what happens if you forget `super()` to highlight the requirement.
-
----
-
-## 🧩 Q66. What are static methods and properties?
-
-### 🧠 Concept
-
-Static methods and properties belong to the class itself, not to individual instances, and are called directly on the class. They're useful for utility functions and constants.
-
----
-
-### 💡 Example
+Example:
 
 ```js
 class Math {
@@ -510,30 +332,13 @@ Math.add(1, 2); // 3
 
 ---
 
-### 🔍 Deep Insights
+## Q70. What are private class fields?
 
-* **Rule:** Static members are called on the class, not instances.
-* **Use Case:** Utility functions, constants, factory methods.
-* **Common Mistake:** Trying to access `this` in static methods.
-* **Pro Tip:** Static members are inherited by subclasses.
+Private fields use the `#` prefix and can only be accessed from within the same class, making them truly private - they're not just conventionally private like `_private`. Private fields are not accessible from subclasses, which is different from protected fields in other languages.
 
----
+- **Trade-offs**: The catch is forgetting the `#` prefix when accessing private fields - you'll get a syntax error. Private fields are great for hiding internal implementation details, but they're not accessible from subclasses, which can be limiting. Use `_private` for conventional privacy that subclasses can access, or `#private` for true privacy.
 
-### ⭐ Senior Takeaway
-
-Show when to use static vs instance methods based on context.
-
----
-
-## 🧩 Q67. How are private class fields (`#field`) implemented?
-
-### 🧠 Concept
-
-Private fields use the `#` prefix and can only be accessed from within the same class, making them truly private. They're not just conventionally private like `_private`.
-
----
-
-### 💡 Example
+Example:
 
 ```js
 class Counter {
@@ -548,66 +353,13 @@ console.log(counter.getCount()); // 1
 
 ---
 
-### 🔍 Deep Insights
+## Q71. What is the difference between ES6 classes and prototype-based inheritance?
 
-* **Rule:** Private fields with `#` are truly private, not just conventionally private.
-* **Use Case:** Hiding internal implementation details.
-* **Common Mistake:** Forgetting the `#` prefix when accessing private fields.
-* **Pro Tip:** Private fields are not accessible from subclasses.
+Classes provide cleaner syntax but work exactly like constructor functions and prototypes underneath - they're just syntactic sugar over prototype-based inheritance. Both approaches create the same result, so choose based on preference and tooling support.
 
----
+- **Trade-offs**: The catch is thinking classes are completely different from functions - they compile to the same prototype-based code. Classes enforce `new` usage and have better tooling, but they work the same way under the hood. Use classes for cleaner syntax, or constructor functions if you need more control or are targeting older environments.
 
-### ⭐ Senior Takeaway
-
-Show the difference between `_private` and `#private` to clarify true privacy.
-
----
-
-## 🧩 Q68. Can you use `super` in object literals?
-
-### 🧠 Concept
-
-No, `super` only works inside class methods and constructors, not in regular object literals. Use `this.__proto__` for similar functionality in objects.
-
----
-
-### 💡 Example
-
-```js
-const obj = {
-  method() {
-    // super.method(); // SyntaxError
-    return this.__proto__.method.call(this);
-  }
-};
-```
-
----
-
-### 🔍 Deep Insights
-
-* **Rule:** `super` only works in class context, not object literals.
-* **Use Case:** Understanding when you can and can't use `super`.
-* **Common Mistake:** Trying to use `super` in object literals.
-* **Pro Tip:** Use `this.__proto__` for similar functionality in objects.
-
----
-
-### ⭐ Senior Takeaway
-
-Show the difference between class and object contexts to clarify usage.
-
----
-
-## 🧩 Q69. What's the difference between ES6 classes and prototype-based inheritance?
-
-### 🧠 Concept
-
-Classes provide cleaner syntax but work exactly like constructor functions and prototypes underneath. They're just syntactic sugar over prototype-based inheritance.
-
----
-
-### 💡 Example
+Example:
 
 ```js
 class Person { constructor(name) { this.name = name; } }
@@ -616,97 +368,5 @@ const p1 = new Person('Alice');
 function Person(name) { this.name = name; }
 const p2 = new Person('Bob');
 ```
-
----
-
-### 🔍 Deep Insights
-
-* **Rule:** Classes are just syntactic sugar over constructor functions.
-* **Use Case:** Both approaches work the same, choose based on preference.
-* **Common Mistake:** Thinking classes are completely different from functions.
-* **Pro Tip:** Classes enforce `new` usage and have better tooling.
-
----
-
-### ⭐ Senior Takeaway
-
-Show that both approaches create the same result to demonstrate equivalence.
-
----
-
-## 🧩 Q70. What are mixins and how do they simulate multiple inheritance?
-
-### 🧠 Concept
-
-Mixins are objects with methods that get copied into classes to simulate multiple inheritance. They add functionality to classes without using inheritance.
-
----
-
-### 💡 Example
-
-```js
-const Flyable = {
-  fly() { return 'flying'; }
-};
-class Bird {
-  constructor(name) { this.name = name; }
-}
-Object.assign(Bird.prototype, Flyable);
-const bird = new Bird('Eagle');
-console.log(bird.fly()); // 'flying'
-```
-
----
-
-### 🔍 Deep Insights
-
-* **Rule:** Mixins copy methods from objects into class prototypes.
-* **Use Case:** Adding functionality to classes without inheritance.
-* **Common Mistake:** Creating naming conflicts between mixins.
-* **Pro Tip:** `Object.assign` is the common pattern for mixins.
-
----
-
-### ⭐ Senior Takeaway
-
-Show how to compose multiple mixins to demonstrate flexibility.
-
----
-
-## 🧩 Q71. How can you polyfill class inheritance in older JavaScript engines?
-
-### 🧠 Concept
-
-Use `Object.create` to set up prototype chains and manual constructor chaining for older browsers that don't support classes. This shows the manual steps that classes do automatically.
-
----
-
-### 💡 Example
-
-```js
-function Parent(x) { this.x = x; }
-function Child(x, y) {
-  Parent.call(this, x);
-  this.y = y;
-}
-Child.prototype = Object.create(Parent.prototype);
-Child.prototype.constructor = Child;
-const child = new Child(1, 2);
-```
-
----
-
-### 🔍 Deep Insights
-
-* **Rule:** `Object.create` sets up prototype chains, `Parent.call` chains constructors.
-* **Use Case:** Supporting older browsers that don't have classes.
-* **Common Mistake:** Forgetting to set the `constructor` property.
-* **Pro Tip:** Use transpilers like Babel for production code.
-
----
-
-### ⭐ Senior Takeaway
-
-Show the manual steps that classes do automatically to understand inheritance.
 
 ---

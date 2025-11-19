@@ -1,16 +1,14 @@
-# 🧩 4. Classes & Object-Oriented Features (Q32–39)
+# 4. Classes & Object-Oriented Features (Q32–39)
 
 ---
 
-## 🧩 Q32. What are access modifiers?
+## Q32. What are access modifiers?
 
-### 🧠 Concept
+Access modifiers control visibility of class members, with public being default, private only accessible within class, and protected accessible in subclasses - access modifiers enable proper object-oriented design. Public (default access, accessible from anywhere), Private (only accessible within the same class), Protected (accessible within class and subclasses).
 
-Access modifiers control visibility of class members, with public being default, private only accessible within class, and protected accessible in subclasses. Access modifiers enable proper object-oriented design.
+- **Trade-offs**: The catch is type safety prevents external access to sensitive data - encapsulation improves code maintainability. Access modifiers enable proper object-oriented design, but watch out - control access to internal implementation (encapsulation).
 
----
-
-### 💡 Example
+Example:
 
 ```typescript
 class BankAccount {
@@ -28,30 +26,13 @@ class BankAccount {
 
 ---
 
-### 🔍 Deep Insights
+## Q33. What is the difference between abstract classes and interfaces?
 
-* **Rule:** Public (default access, accessible from anywhere), Private (only accessible within the same class), Protected (accessible within class and subclasses).
-* **Use Case:** Control access to internal implementation (encapsulation).
-* **Common Mistake:** Type safety prevents external access to sensitive data.
-* **Pro Tip:** Encapsulation improves code maintainability.
+Abstract classes can have implementation and cannot be instantiated, while interfaces only define contracts and can be implemented by classes - abstract classes provide base implementation, interfaces provide contracts. Abstract classes can have implementation, interfaces only define contracts.
 
----
+- **Trade-offs**: The catch is abstract classes can have concrete methods - use cases: abstract classes for shared behavior, interfaces for contracts. Abstract classes provide base implementation, interfaces provide contracts, but watch out - classes can implement multiple interfaces.
 
-### ⭐ Senior Takeaway
-
-Access modifiers enable proper object-oriented design.
-
----
-
-## 🧩 Q33. What is the difference between abstract classes and interfaces?
-
-### 🧠 Concept
-
-Abstract classes can have implementation and cannot be instantiated, while interfaces only define contracts and can be implemented by classes. Abstract classes provide base implementation, interfaces provide contracts.
-
----
-
-### 💡 Example
+Example:
 
 ```typescript
 abstract class Animal {
@@ -67,30 +48,13 @@ interface Flyable {
 
 ---
 
-### 🔍 Deep Insights
+## Q34. What is inheritance?
 
-* **Rule:** Abstract classes can have implementation, interfaces only define contracts.
-* **Use Case:** Classes can implement multiple interfaces.
-* **Common Mistake:** Abstract classes can have concrete methods.
-* **Pro Tip:** Use cases: abstract classes for shared behavior, interfaces for contracts.
+Inheritance uses `extends` keyword, while polymorphism allows objects of different types to be treated uniformly through common interfaces - inheritance maintains type safety across hierarchy. Use `extends` to create class hierarchies.
 
----
+- **Trade-offs**: The catch is override parent methods in child classes - super keyword calls parent constructor and methods. Inheritance maintains type safety across hierarchy, but watch out - polymorphism means same interface, different implementations.
 
-### ⭐ Senior Takeaway
-
-Abstract classes provide base implementation, interfaces provide contracts.
-
----
-
-## 🧩 Q34. What is inheritance?
-
-### 🧠 Concept
-
-Inheritance uses `extends` keyword, while polymorphism allows objects of different types to be treated uniformly through common interfaces. Inheritance maintains type safety across hierarchy.
-
----
-
-### 💡 Example
+Example:
 
 ```typescript
 class Vehicle {
@@ -106,30 +70,13 @@ class Car extends Vehicle {
 
 ---
 
-### 🔍 Deep Insights
+## Q35. What is polymorphism?
 
-* **Rule:** Use `extends` to create class hierarchies.
-* **Use Case:** Polymorphism means same interface, different implementations.
-* **Common Mistake:** Override parent methods in child classes.
-* **Pro Tip:** Super keyword calls parent constructor and methods.
+Polymorphism allows objects of different types to be treated uniformly through common interfaces - same interface, different implementations. Same interface, different implementations.
 
----
+- **Trade-offs**: The catch is enables runtime polymorphism - maintains type safety while allowing flexibility. Same interface, different implementations, but watch out - objects can be treated uniformly through common interfaces.
 
-### ⭐ Senior Takeaway
-
-Inheritance maintains type safety across hierarchy.
-
----
-
-## 🧩 Q35. What is polymorphism?
-
-### 🧠 Concept
-
-Polymorphism allows objects of different types to be treated uniformly through common interfaces. Same interface, different implementations.
-
----
-
-### 💡 Example
+Example:
 
 ```typescript
 interface Shape {
@@ -149,30 +96,13 @@ class Rectangle implements Shape {
 
 ---
 
-### 🔍 Deep Insights
+## Q36. What are static properties and methods?
 
-* **Rule:** Same interface, different implementations.
-* **Use Case:** Objects can be treated uniformly through common interfaces.
-* **Common Mistake:** Enables runtime polymorphism.
-* **Pro Tip:** Maintains type safety while allowing flexibility.
+Static members belong to the class itself rather than instances, accessed through the class name without instantiation - static methods don't require instance creation (memory efficient). Static members belong to the class, not instances.
 
----
+- **Trade-offs**: The catch is static properties are shared across all instances - utility functions are common use case for static methods. Static methods don't require instance creation (memory efficient), but watch out - can access static members without creating instances.
 
-### ⭐ Senior Takeaway
-
-Same interface, different implementations.
-
----
-
-## 🧩 Q36. What are static properties and methods?
-
-### 🧠 Concept
-
-Static members belong to the class itself rather than instances, accessed through the class name without instantiation. Static methods don't require instance creation (memory efficient).
-
----
-
-### 💡 Example
+Example:
 
 ```typescript
 class MathUtils {
@@ -187,30 +117,13 @@ class MathUtils {
 
 ---
 
-### 🔍 Deep Insights
+## Q37. What are readonly properties?
 
-* **Rule:** Static members belong to the class, not instances.
-* **Use Case:** Can access static members without creating instances.
-* **Common Mistake:** Static properties are shared across all instances.
-* **Pro Tip:** Utility functions are common use case for static methods.
+`readonly` properties can only be assigned during initialization, preventing modification after object creation - use cases include IDs, timestamps, configuration values. Prevent modification after initialization (immutability).
 
----
+- **Trade-offs**: The catch is compile-time protection against modification - ensure critical data remains unchanged (data integrity). Use cases include IDs, timestamps, configuration values, but watch out - can assign values in constructor.
 
-### ⭐ Senior Takeaway
-
-Static methods don't require instance creation (memory efficient).
-
----
-
-## 🧩 Q37. What are readonly properties?
-
-### 🧠 Concept
-
-`readonly` properties can only be assigned during initialization, preventing modification after object creation. Use cases include IDs, timestamps, configuration values.
-
----
-
-### 💡 Example
+Example:
 
 ```typescript
 class User {
@@ -230,30 +143,13 @@ class User {
 
 ---
 
-### 🔍 Deep Insights
+## Q38. What are decorators and how do you use them?
 
-* **Rule:** Prevent modification after initialization (immutability).
-* **Use Case:** Can assign values in constructor.
-* **Common Mistake:** Compile-time protection against modification.
-* **Pro Tip:** Ensure critical data remains unchanged (data integrity).
+Decorators are functions that modify classes, methods, or properties, providing metadata and enabling aspect-oriented programming - use cases include logging, validation, dependency injection. Add cross-cutting concerns to classes (aspect-oriented).
 
----
+- **Trade-offs**: The catch is combine multiple decorators on same target - decorators execute at runtime. Use cases include logging, validation, dependency injection, but watch out - provide additional information about classes/methods (metadata).
 
-### ⭐ Senior Takeaway
-
-Use cases include IDs, timestamps, configuration values.
-
----
-
-## 🧩 Q38. What are decorators and how do you use them?
-
-### 🧠 Concept
-
-Decorators are functions that modify classes, methods, or properties, providing metadata and enabling aspect-oriented programming. Use cases include logging, validation, dependency injection.
-
----
-
-### 💡 Example
+Example:
 
 ```typescript
 function LogClass(target: any) {
@@ -277,30 +173,13 @@ class User {
 
 ---
 
-### 🔍 Deep Insights
+## Q39. What are mixins and how do you implement them?
 
-* **Rule:** Add cross-cutting concerns to classes (aspect-oriented).
-* **Use Case:** Provide additional information about classes/methods (metadata).
-* **Common Mistake:** Combine multiple decorators on same target.
-* **Pro Tip:** Decorators execute at runtime.
+Mixins are a way to combine multiple classes into one, enabling multiple inheritance-like behavior in TypeScript - mixins add functionality to existing classes (flexibility). Combine multiple classes into one (multiple inheritance).
 
----
+- **Trade-offs**: The catch is use interfaces to declare mixin types - mixins are applied at runtime. Mixins add functionality to existing classes (flexibility), but watch out - use functions to apply multiple classes (mixin pattern).
 
-### ⭐ Senior Takeaway
-
-Use cases include logging, validation, dependency injection.
-
----
-
-## 🧩 Q39. What are mixins and how do you implement them?
-
-### 🧠 Concept
-
-Mixins are a way to combine multiple classes into one, enabling multiple inheritance-like behavior in TypeScript. Mixins add functionality to existing classes (flexibility).
-
----
-
-### 💡 Example
+Example:
 
 ```typescript
 function Timestamped<T extends new (...args: any[]) => {}>(Base: T) {
@@ -314,20 +193,5 @@ class User { name: string = "John"; }
 const TimestampedUser = Timestamped(User);
 const user = new TimestampedUser();
 ```
-
----
-
-### 🔍 Deep Insights
-
-* **Rule:** Combine multiple classes into one (multiple inheritance).
-* **Use Case:** Use functions to apply multiple classes (mixin pattern).
-* **Common Mistake:** Use interfaces to declare mixin types.
-* **Pro Tip:** Mixins are applied at runtime.
-
----
-
-### ⭐ Senior Takeaway
-
-Mixins add functionality to existing classes (flexibility).
 
 ---

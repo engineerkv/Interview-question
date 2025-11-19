@@ -51,13 +51,6 @@ class MyStack {
 **Time Complexity:** O(n) - Push rotates n-1 elements; O(1) for pop/top/empty  
 **Space Complexity:** O(n) - Queue stores all elements
 
-**Deep Insights:**
-- **Optimal Approach:** Single queue with rotation achieves required functionality—optimal for this constraint
-- **Rotation Technique:** After push, rotate queue to bring new element to front—simulates LIFO behavior
-- **Key Insight:** Rotation ensures last pushed element is always at front—ready for pop/top
-- **Trade-off:** O(n) push but O(1) pop/top—acceptable given constraint
-- **Edge Cases:** Empty stack returns true for empty(); pop on empty queue handled by implementation
-- **Interview Tip:** Explain rotation technique clearly; mention amortized complexity; ask about two-queue variant
 ## Q76. Implement Queue using Stacks
 
 **Problem:** Implement a first-in-first-out (FIFO) queue using only two stacks. The implemented queue should support all functions of a normal queue (`push`, `peek`, `pop`, and `empty`).
@@ -110,13 +103,6 @@ class MyQueue {
 **Time Complexity:** O(1) amortized - Each element moved at most once  
 **Space Complexity:** O(n) - Stacks store elements
 
-**Deep Insights:**
-- **Optimal Approach:** Two stacks with lazy movement achieves O(1) amortized for all operations—optimal for this constraint
-- **Lazy Movement Strategy:** Move elements from `s1` to `s2` only when `s2` is empty—amortizes cost
-- **Key Insight:** Each element is moved at most once—ensures O(1) amortized complexity
-- **FIFO Order:** Elements in `s2` are in correct FIFO order (reversed from `s1`)
-- **Edge Cases:** Empty queue returns true for empty(); pop/peek on empty handled by implementation
-- **Interview Tip:** Explain lazy movement strategy clearly; mention amortized vs worst-case complexity; emphasize FIFO preservation
 ## Q77. Min Stack
 
 **Problem:** Design a stack that supports push, pop, top, and retrieving the minimum element in constant time. Implement the `MinStack` class:
@@ -204,13 +190,6 @@ class MinStackPairs {
 }
 ```
 
-**Deep Insights:**
-- **Optimal Approach:** Auxiliary stack achieves O(1) for all operations—optimal for this problem
-- **Key Insight:** Track minimum at each level—ensures correct minimum after any sequence of pops
-- **Two Approaches:** Auxiliary stack or pair storage—both achieve O(1) operations
-- **Space Trade-off:** O(n) space for O(1) time—acceptable trade-off
-- **Edge Cases:** Empty stack getMin() returns undefined; single element is its own minimum
-- **Interview Tip:** Explain auxiliary stack approach clearly; mention pair variant; emphasize O(1) requirement
 ## Q78. Valid Parentheses
 
 **Problem:** Given a string `s` containing just the characters `'('`, `')'`, `'{'`, `'}'`, `'['` and `']'`, determine if the input string is valid. An input string is valid if:
@@ -266,13 +245,6 @@ function isValid(s) {
 **Time Complexity:** O(n) - Process each character once  
 **Space Complexity:** O(n) - Stack stores up to n/2 openers
 
-**Deep Insights:**
-- **Optimal Approach:** Stack with mapping achieves O(n) time—optimal for this problem
-- **LIFO Property:** Stack's LIFO naturally matches nested bracket structure
-- **Key Insight:** Push openers, pop and match closers—stack empty means all matched
-- **Early Exit:** Return false immediately on mismatch—no need to continue
-- **Edge Cases:** Empty string returns true; single bracket returns false; unmatched opener returns false
-- **Interview Tip:** Explain LIFO property clearly; mention empty string edge case; ask about additional bracket types
 ## Q79. Next Greater Element
 
 **Problem:** Given an array `nums`, return an array `answer` such that `answer[i]` is the next greater element to the right of `nums[i]` in the array. If no greater element exists, return `-1`.
@@ -355,14 +327,6 @@ function nextGreaterElementsCircular(nums) {
 **Time Complexity:** O(n) - Each element pushed and popped at most once  
 **Space Complexity:** O(n) - Stack stores values
 
-**Deep Insights:**
-- **Optimal Approach:** Monotonic stack achieves O(n) time—optimal for this problem
-- **Right-to-Left Traversal:** Process from end to start—allows seeing future elements first
-- **Monotonic Decreasing Stack:** Maintains decreasing order—top is always next greater element
-- **Equal Values:** Use `<=` to pop equal or smaller values—ensures correct next greater
-- **Circular Variant:** Process array twice (2n positions) with modulo indexing—only update result in first pass
-- **Edge Cases:** Decreasing array returns all -1; increasing array returns next element; single element returns -1
-- **Interview Tip:** Explain right-to-left traversal clearly; mention circular variant wraps around; ask about equal values handling (`<=` vs `<`)
 ## Q80. Daily Temperatures
 
 **Problem:** Given an array of integers `temperatures` representing the daily temperatures, return an array `answer` such that `answer[i]` is the number of days you have to wait after the `i`th day to get a warmer temperature. If there is no future day for which this is possible, keep `answer[i] == 0` instead.
@@ -415,14 +379,6 @@ function dailyTemperatures(temperatures) {
 **Time Complexity:** O(n) - Each element pushed and popped at most once  
 **Space Complexity:** O(n) - Stack stores indices
 
-**Deep Insights:**
-- **Optimal Approach:** Monotonic stack with indices achieves O(n) time—optimal for this problem
-- **Store Indices:** Need indices to compute distance (days to wait)—not just values
-- **Right-to-Left Traversal:** Process from end to start—allows computing distances naturally
-- **Distance Formula:** `stack top index - current index` gives days to wait
-- **Equal Temperatures:** Use `<=` to pop equal or cooler temperatures—ensures warmer day found
-- **Edge Cases:** All temperatures increasing returns [1,1,1,...,0]; all decreasing returns all 0s
-- **Interview Tip:** Explain reverse loop approach clearly; emphasize storing indices for distance; ask about equal temperatures handling
 ## Q81. Evaluate Reverse Polish Notation
 
 **Problem:** You are given an array of strings `tokens` that represents an arithmetic expression in Reverse Polish Notation. Evaluate the expression and return an integer that represents the value of the expression. Valid operators are `+`, `-`, `*`, and `/`. Each operand may be an integer or another expression. Division should truncate toward zero.
@@ -472,14 +428,6 @@ function evalRPN(tokens) {
 **Time Complexity:** O(n) - Process each token once  
 **Space Complexity:** O(n) - Stack stores operands
 
-**Deep Insights:**
-- **Optimal Approach:** Stack-based evaluation achieves O(n) time—optimal for this problem
-- **RPN Order:** Operands come before operators—stack naturally handles evaluation
-- **Key Insight:** Pop two operands, apply operation, push result—stack maintains evaluation order
-- **Division Truncation:** Use `Math.trunc()` or `| 0` to truncate toward zero (not floor)
-- **Operand Order:** First popped is second operand, second popped is first operand—important for subtraction/division
-- **Edge Cases:** Single operand returns itself; division by zero not handled (assume valid input)
-- **Interview Tip:** Explain stack-based evaluation clearly; emphasize division truncation; clarify operand order for subtraction/division
 ## Q82. Largest Rectangle in Histogram
 
 **Problem:** Given an array of integers `heights` representing the histogram's bar height where the width of each bar is `1`, return the area of the largest rectangle in the histogram.
@@ -543,14 +491,6 @@ function largestRectangleArea(heights) {
 **Time Complexity:** O(n) - Each bar pushed and popped at most once per pass (3 passes total)  
 **Space Complexity:** O(n) - Arrays `left` and `right` store boundaries, stack stores indices
 
-**Deep Insights:**
-- **Optimal Approach:** Two-pass with monotonic stack achieves O(n) time—optimal for this problem
-- **Boundary Finding:** Find next smaller element on both sides—defines rectangle width
-- **Width Calculation:** `right[i] - left[i] - 1` gives width of rectangle with height `heights[i]`
-- **Comparison Operator:** Use `>=` to find next smaller (strictly smaller)—ensures correct boundaries
-- **Key Insight:** Rectangle extends until it hits a smaller bar on either side
-- **Edge Cases:** Empty array returns 0; single bar returns its height; all equal bars returns `n * height`
-- **Interview Tip:** Explain two-pass approach clearly; emphasize boundary calculation formula; discuss why `>=` vs `>` matters
 ## Q83. Sliding Window Maximum
 
 **Problem:** You are given an array of integers `nums`, and there is a sliding window of size `k` which is moving from the very left of the array to the very right. You can only see the `k` numbers in the window. Each time the sliding window moves right by one position. Return the maximum sliding window.
@@ -605,14 +545,6 @@ function maxSlidingWindow(nums, k) {
 **Time Complexity:** O(n) - Each element added and removed at most once  
 **Space Complexity:** O(k) - Deque stores at most k indices
 
-**Deep Insights:**
-- **Optimal Approach:** Monotonic deque achieves O(n) time—optimal for this problem
-- **Deque Structure:** Stores indices in decreasing value order—front always has maximum
-- **Two Cleanup Steps:** Remove out-of-window indices from front; remove smaller indices from back
-- **Key Insight:** Maintain decreasing order ensures front is always maximum of current window
-- **Window Completion:** Start adding results when `i >= k - 1` (window size reached)
-- **Edge Cases:** k=1 returns original array; k=n returns array with single maximum; decreasing array returns first k elements
-- **Interview Tip:** Explain deque ordering clearly; emphasize front maintenance; mention k=1 edge case
 ## Q84. Design Circular Queue
 
 **Problem:** Design your implementation of the circular queue. The circular queue is a linear data structure in which the operations are performed based on FIFO (First In First Out) principle, and the last position is connected back to the first position to make a circle. It is also called "Ring Buffer". Implement the `MyCircularQueue` class.
@@ -683,14 +615,6 @@ class MyCircularQueue {
 **Time Complexity:** O(1) - All operations are constant time  
 **Space Complexity:** O(k) - Fixed-size array of capacity k
 
-**Deep Insights:**
-- **Optimal Approach:** Fixed-size ring buffer achieves O(1) for all operations—optimal for this problem
-- **Modulo Arithmetic:** Use `(index + 1) % capacity` for wrapping—enables circular behavior
-- **Size Tracking:** Track size separately to distinguish full from empty (head == tail could mean either)
-- **Rear Index:** Calculate as `(tail - 1 + capacity) % capacity`—handles wrap-around correctly
-- **Key Insight:** Size variable eliminates ambiguity when head == tail (full vs empty)
-- **Edge Cases:** Empty queue returns -1 for Front/Rear; full queue rejects enQueue; single element works correctly
-- **Interview Tip:** Explain modulo arithmetic clearly; emphasize size tracking benefits; mention rear index calculation
 
 ## Q85. Simplify Path
 
@@ -739,14 +663,6 @@ function simplifyPath(path) {
 **Time Complexity:** O(n) - Split and process path  
 **Space Complexity:** O(n) - Stack storage
 
-**Deep Insights:**
-- **Optimal Approach:** Stack-based processing achieves O(n) time—optimal for this problem
-- **Path Processing:** Split by `/`, filter empty and `.`—simplifies handling
-- **Stack Simulation:** Stack simulates directory navigation—`..` pops parent directory
-- **Root Handling:** `..` from root stays at root (don't pop if stack empty)
-- **Key Insight:** Multiple slashes become empty strings after split—filtered out automatically
-- **Edge Cases:** Root path returns `/`; all `..` returns `/`; multiple slashes handled correctly
-- **Interview Tip:** Explain stack usage clearly; emphasize root handling; mention filtering empty and `.`
 
 ## Q86. Basic Calculator
 
@@ -812,11 +728,4 @@ function calculate(s) {
 **Time Complexity:** O(n) - Single pass through string  
 **Space Complexity:** O(n) - Stack for parentheses (worst case: all parentheses)
 
-**Deep Insights:**
-- **Optimal Approach:** Stack with sign tracking achieves O(n) time—optimal for this problem
-- **Sign Tracking:** Track current sign (1 or -1)—applies to numbers until operator encountered
-- **Number Building:** Accumulate multi-digit numbers by multiplying by 10
-- **Parentheses Handling:** Push result and sign when opening `(`, pop and combine when closing `)`
-- **Key Insight:** Stack stores result and sign for each nested level—enables proper evaluation
-- **Edge Cases:** Leading/trailing spaces handled; multiple consecutive operators; nested parentheses; single number
 - **Interview Tip:** Explain sign handling clearly; emphasize stack usage for parentheses; ask about multiplication/division extension

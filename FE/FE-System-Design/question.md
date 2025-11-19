@@ -170,7 +170,7 @@
 - [6) Browser Internals & Rendering](6%20Browser%20Internals%20%26%20Rendering.md) - Q54-65
 - [7) Practical Front-End System Design Scenarios](7%20Practical%20Front-End%20System%20Design%20Scenarios.md) - Q66-85
 - [8) Networking & APIs](8%20Networking%20%26%20APIs.md) - Q85-105
-- [9) Real-time Communication Protocols](9%20Real-time%20Communication%20Protocols.md) - Q106-111
+- [9) Real-time Communication Protocols](9%20Real-time%20Communication%20Protocols.md) - Q106-120
 - [10) Data & Caching Architecture](10%20Data%20%26%20Caching%20Architecture.md) - Q121-138
 
 ## 📝 Cheatsheet

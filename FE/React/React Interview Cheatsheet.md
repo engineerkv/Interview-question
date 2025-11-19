@@ -544,6 +544,16 @@ const value = useMemo(() => expensive(), [dep]);
 const Memoized = React.memo(Component);
 ```
 
+### **Common Anti-Patterns to Avoid**
+- ❌ **Prop drilling** - Pass props through many levels (use Context/state management)
+- ❌ **Mutating state** - `state.push()`, `state.x = y` (always return new objects/arrays)
+- ❌ **Creating objects in render** - `user={{ id }}` causes re-renders (use useMemo)
+- ❌ **Missing keys in lists** - Causes reconciliation issues (always provide stable keys)
+- ❌ **Conditional hooks** - Breaks React's rules (hooks must be unconditional)
+- ❌ **Unnecessary re-renders** - Creating functions in render (use useCallback)
+- ❌ **Direct DOM manipulation** - Defeats React's purpose (use state/refs)
+- ❌ **Large components** - Hard to maintain (split into smaller components)
+
 ### **Common Gotchas**
 - Don't mutate state directly (`state.push()` ❌)
 - useEffect dependencies must include all used values

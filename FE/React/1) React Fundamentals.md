@@ -1,16 +1,14 @@
-# ⚛️ 1. React Fundamentals (Q1–11)
+# 1. React Fundamentals (Q1–19)
 
 ---
 
-## 🧩 Q1. What is React and why is it used?
+## Q1. What is React and why is it used?
 
-### 🧠 Concept
+React is a JavaScript library for building user interfaces using reusable components and a virtual DOM - it simplifies UI development by letting you write declarative code instead of manually manipulating the browser's DOM. React uses a component-based architecture where UI is built by composing reusable pieces, and the virtual DOM compares trees in memory before touching the real DOM, making updates fast and predictable.
 
-React is a JavaScript library for building user interfaces using reusable components and a virtual DOM. It simplifies UI development by letting you write declarative code instead of manually manipulating the browser's DOM.
+- **Trade-offs**: The catch is trying to manipulate DOM directly defeats React's purpose - let React handle updates through state changes. React's declarative approach simplifies UI updates compared to imperative DOM manipulation, especially in complex apps, but it trades direct DOM control for predictable, maintainable UI development at scale.
 
----
-
-### 💡 Example
+Example:
 
 ```jsx
 function App() {
@@ -20,30 +18,13 @@ function App() {
 
 ---
 
-### 🔍 Deep Insights
+## Q2. What are React components? Explain functional vs class components.
 
-* **Rule:** React uses a component-based architecture where UI is built by composing reusable pieces, like LEGO blocks.
-* **Use Case:** Virtual DOM compares trees in memory before touching the real DOM, making updates fast and predictable.
-* **Common Mistake:** Trying to manipulate DOM directly defeats React's purpose—let React handle updates through state changes.
-* **Pro Tip:** React's declarative approach simplifies UI updates compared to imperative DOM manipulation, especially in complex apps.
+React components are reusable UI pieces that return JSX - functional components use functions and hooks, while class components use ES6 classes with lifecycle methods. Functional components with hooks are the recommended approach since React 16.8, and most new projects use them for cleaner, simpler code and better optimization.
 
----
+- **Trade-offs**: The catch is creating new class components when functional components with hooks would work better - use class components only when you need Error Boundaries, everything else works great with functional components. Functional components with hooks are simpler, more testable, and the future of React, but watch out - you'll still see class components in older codebases.
 
-### ⭐ Senior Takeaway
-
-React trades direct DOM control for predictable, maintainable UI development at scale.
-
----
-
-## 🧩 Q2. What are React components? Explain functional vs class components.
-
-### 🧠 Concept
-
-React components are reusable UI pieces that return JSX. Functional components use functions and hooks, while class components use ES6 classes with lifecycle methods. Functional components are the modern standard.
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 function Welcome({ name }) {
@@ -53,30 +34,13 @@ function Welcome({ name }) {
 
 ---
 
-### 🔍 Deep Insights
+## Q3. What is JSX and how does it differ from HTML?
 
-* **Rule:** Functional components with hooks are the recommended approach since React 16.8.
-* **Use Case:** Most new projects use functional components for cleaner, simpler code and better optimization.
-* **Common Mistake:** Creating new class components when functional components with hooks would work better.
-* **Pro Tip:** Use class components only when you need Error Boundaries—everything else works great with functional components.
+JSX allows you to write HTML-like syntax in JavaScript - it gets compiled to `React.createElement()` calls by Babel, making React code more readable than raw JavaScript. JSX must have one root element or use Fragments, and JavaScript expressions go inside curly braces.
 
----
+- **Trade-offs**: The catch is forgetting camelCase for attributes (className not class, onClick not onclick) - JSX is syntactic sugar that makes React code more maintainable than raw createElement calls, but watch out - it's not HTML, so some attributes and behaviors are different. JSX bridges HTML familiarity with JavaScript power, making React code intuitive, but you need to remember the differences.
 
-### ⭐ Senior Takeaway
-
-Functional components with hooks are simpler, more testable, and the future of React.
-
----
-
-## 🧩 Q3. What is JSX and how does it differ from HTML?
-
-### 🧠 Concept
-
-JSX lets you write HTML-like syntax in JavaScript. It gets compiled to `React.createElement()` calls by Babel, making React code more readable than raw JavaScript.
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 function UserProfile({ user, isLoggedIn }) {
@@ -91,30 +55,13 @@ function UserProfile({ user, isLoggedIn }) {
 
 ---
 
-### 🔍 Deep Insights
+## Q4. What is the Virtual DOM and how does it improve performance?
 
-* **Rule:** JSX must have one root element or use Fragments, and JavaScript expressions go inside curly braces.
-* **Use Case:** JSX makes templates readable while keeping JavaScript logic close to markup.
-* **Common Mistake:** Forgetting camelCase for attributes (className not class, onClick not onclick).
-* **Pro Tip:** JSX is syntactic sugar that makes React code more maintainable than raw createElement calls.
+Virtual DOM is React's JavaScript copy of the real DOM - React compares virtual trees to update only what changed, minimizing expensive browser operations. React creates virtual trees, compares them, and applies minimal real DOM changes, preventing layout thrashing by batching updates instead of updating DOM immediately.
 
----
+- **Trade-offs**: The catch is thinking virtual DOM is faster than direct DOM manipulation - it's not, but it's smarter and more predictable. React batches state updates and uses heuristics to minimize diff calculations, which trades memory for predictability and performance in complex apps, but watch out - for simple apps, the virtual DOM overhead might not be worth it.
 
-### ⭐ Senior Takeaway
-
-JSX bridges HTML familiarity with JavaScript power, making React code intuitive.
-
----
-
-## 🧩 Q4. What is the Virtual DOM and how does it improve performance?
-
-### 🧠 Concept
-
-Virtual DOM is React's JavaScript copy of the real DOM. React compares virtual trees to update only what changed, minimizing expensive browser operations.
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 function Counter({ count }) {
@@ -129,30 +76,13 @@ function Counter({ count }) {
 
 ---
 
-### 🔍 Deep Insights
+## Q5. What is the difference between real DOM and virtual DOM?
 
-* **Rule:** React creates virtual trees, compares them, and applies minimal real DOM changes.
-* **Use Case:** Prevents layout thrashing by batching updates instead of updating DOM immediately.
-* **Common Mistake:** Thinking virtual DOM is faster than direct DOM manipulation—it's not, but it's smarter and more predictable.
-* **Pro Tip:** React batches state updates and uses heuristics to minimize diff calculations.
+Real DOM is the browser's actual HTML structure that triggers expensive reflows when changed, while virtual DOM is React's lightweight JavaScript copy used for fast comparisons before updating the real DOM. Real DOM is slow to change, virtual DOM is fast to compare in JavaScript.
 
----
+- **Trade-offs**: The catch is assuming virtual DOM is always faster - it adds memory overhead for small apps. React uses virtual DOM to batch and minimize real DOM operations, making complex UIs performant, but watch out - virtual DOM is a performance optimization for complex UIs, not always needed for simple apps.
 
-### ⭐ Senior Takeaway
-
-Virtual DOM trades memory for predictability and performance in complex apps.
-
----
-
-## 🧩 Q5. What is the difference between real DOM and virtual DOM?
-
-### 🧠 Concept
-
-Real DOM is the browser's actual HTML structure that triggers expensive reflows when changed. Virtual DOM is React's lightweight JavaScript copy used for fast comparisons before updating the real DOM.
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 const virtualElement = {
@@ -163,30 +93,13 @@ const virtualElement = {
 
 ---
 
-### 🔍 Deep Insights
+## Q6. What is Real DOM and why is it expensive to manipulate?
 
-* **Rule:** Real DOM is slow to change, virtual DOM is fast to compare in JavaScript.
-* **Use Case:** Virtual DOM lets React update UI efficiently without expensive browser reflows.
-* **Common Mistake:** Assuming virtual DOM is always faster—it adds memory overhead for small apps.
-* **Pro Tip:** React uses virtual DOM to batch and minimize real DOM operations, making complex UIs performant.
+Real DOM is the browser's actual HTML structure - changing it triggers layout recalculation, repainting, and reflows that block the main thread, making frequent updates expensive. Each DOM change forces browser to recalculate layout and repaint, blocking the main thread.
 
----
+- **Trade-offs**: The catch is directly manipulating DOM in React defeats the purpose of React's virtual DOM system - virtual DOM batches changes and calculates minimal updates before touching real DOM. Real DOM manipulation is expensive because browsers optimize for rendering, not frequent updates, but watch out - sometimes you need direct DOM access for things like focus management or third-party libraries.
 
-### ⭐ Senior Takeaway
-
-Virtual DOM is a performance optimization for complex UIs, not always needed for simple apps.
-
----
-
-## 🧩 Q6. What is Real DOM and why is it expensive to manipulate?
-
-### 🧠 Concept
-
-Real DOM is the browser's actual HTML structure. Changing it triggers layout recalculation, repainting, and reflows that block the main thread, making frequent updates expensive.
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 const [count, setCount] = useState(0);
@@ -195,30 +108,13 @@ return <div style={{color: 'red'}}>{count}</div>;
 
 ---
 
-### 🔍 Deep Insights
+## Q7. What are props in React and how are they different from state?
 
-* **Rule:** Each DOM change forces browser to recalculate layout and repaint, blocking the main thread.
-* **Use Case:** Frequent DOM updates cause janky UIs and poor performance in complex apps.
-* **Common Mistake:** Directly manipulating DOM in React defeats the purpose of React's virtual DOM system.
-* **Pro Tip:** Virtual DOM batches changes and calculates minimal updates before touching real DOM.
+Props are read-only data passed from parent to child, while state is mutable data inside a component that triggers re-renders when changed - props flow down, events flow up. State belongs to the component that owns it, use props for configuration, state for interactivity and user input.
 
----
+- **Trade-offs**: The catch is trying to mutate props directly or lifting state too high in the component tree - memoize props with useMemo/useCallback to prevent unnecessary child re-renders. Unidirectional data flow (props down, callbacks up, state stays local) keeps React predictable, but watch out - prop drilling can get annoying in deep component trees, consider context or state management libraries.
 
-### ⭐ Senior Takeaway
-
-Real DOM manipulation is expensive because browsers optimize for rendering, not frequent updates.
-
----
-
-## 🧩 Q7. What are props in React and how are they different from state?
-
-### 🧠 Concept
-
-Props are read-only data passed from parent to child. State is mutable data inside a component that triggers re-renders when changed. Props flow down, events flow up.
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 function App() {
@@ -229,30 +125,13 @@ function App() {
 
 ---
 
-### 🔍 Deep Insights
+## Q8. What is the purpose of keys in React lists?
 
-* **Rule:** Props flow down, events flow up. State belongs to the component that owns it.
-* **Use Case:** Use props for configuration, state for interactivity and user input.
-* **Common Mistake:** Trying to mutate props directly or lifting state too high in the component tree.
-* **Pro Tip:** Memoize props with useMemo/useCallback to prevent unnecessary child re-renders.
+Keys help React track which list items changed, were added, or removed during reconciliation - they give React stable identity for efficient updates instead of re-rendering everything. Without keys, React re-renders all items when list changes, causing performance issues.
 
----
+- **Trade-offs**: The catch is using array index as key breaks when items are reordered, added, or removed - use unique, stable IDs from your data, never index for dynamic lists. Keys enable React to efficiently update only changed items instead of recreating the entire list, but watch out - missing or duplicate keys can cause bugs and performance issues.
 
-### ⭐ Senior Takeaway
-
-Unidirectional data flow—props down, callbacks up, state stays local—keeps React predictable.
-
----
-
-## 🧩 Q8. What is the purpose of keys in React lists?
-
-### 🧠 Concept
-
-Keys help React track which list items changed, were added, or removed during reconciliation. They give React stable identity for efficient updates instead of re-rendering everything.
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 function TodoList({ todos }) {
@@ -266,30 +145,13 @@ function TodoList({ todos }) {
 
 ---
 
-### 🔍 Deep Insights
+## Q9. What are controlled vs uncontrolled components in forms?
 
-* **Rule:** Keys give React stable identity for list items during reconciliation.
-* **Use Case:** Without keys, React re-renders all items when list changes, causing performance issues.
-* **Common Mistake:** Using array index as key breaks when items are reordered, added, or removed.
-* **Pro Tip:** Use unique, stable IDs from your data, never index for dynamic lists.
+Controlled components use React state for form values, giving React full control, while uncontrolled components use DOM refs to read values, letting the DOM own the state. Controlled means React owns the value, uncontrolled means DOM owns it.
 
----
+- **Trade-offs**: The catch is mixing controlled and uncontrolled patterns in the same form - prefer controlled components, they're easier to test, validate, and integrate with React's ecosystem. Controlled components give React full control, making forms predictable and testable, but watch out - they require more code and state management compared to uncontrolled components.
 
-### ⭐ Senior Takeaway
-
-Keys enable React to efficiently update only changed items instead of recreating the entire list.
-
----
-
-## 🧩 Q9. What are controlled vs uncontrolled components in forms?
-
-### 🧠 Concept
-
-Controlled components use React state for form values, giving React full control. Uncontrolled components use DOM refs to read values, letting the DOM own the state.
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 function ControlledForm() {
@@ -300,30 +162,13 @@ function ControlledForm() {
 
 ---
 
-### 🔍 Deep Insights
+## Q10. What are Fragments and why are they used?
 
-* **Rule:** Controlled means React owns the value, uncontrolled means DOM owns it.
-* **Use Case:** Controlled for validation and dynamic forms, uncontrolled for simple inputs.
-* **Common Mistake:** Mixing controlled and uncontrolled patterns in the same form.
-* **Pro Tip:** Prefer controlled components—they're easier to test, validate, and integrate with React's ecosystem.
+Fragments let you group multiple elements without adding extra DOM nodes - they solve React's "components must return one element" limitation without breaking CSS layouts. Fragments return multiple elements without wrapper divs that break CSS layouts.
 
----
+- **Trade-offs**: The catch is wrapping everything in divs when Fragments would preserve layout - use React.Fragment with key prop for lists, `<>` doesn't support keys. Fragments solve the "one element" limitation elegantly without polluting the DOM, but watch out - you can't style or add event handlers to Fragments since they don't render anything.
 
-### ⭐ Senior Takeaway
-
-Controlled components give React full control, making forms predictable and testable.
-
----
-
-## 🧩 Q10. What are Fragments and why are they used?
-
-### 🧠 Concept
-
-Fragments let you group multiple elements without adding extra DOM nodes. They solve React's "components must return one element" limitation without breaking CSS layouts.
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 function Component() {
@@ -338,46 +183,15 @@ function Component() {
 
 ---
 
-### 🔍 Deep Insights
+## Q11. What is reconciliation in React and how does React decide what to re-render?
 
-* **Rule:** Fragments return multiple elements without wrapper divs that break CSS layouts.
-* **Use Case:** Essential for table rows, flex layouts, and semantic HTML structures.
-* **Common Mistake:** Wrapping everything in divs when Fragments would preserve layout.
-* **Pro Tip:** Use React.Fragment with key prop for lists, <> doesn't support keys.
+Reconciliation is React's algorithm comparing virtual DOM trees to decide what DOM changes are needed - it uses heuristics and keys to efficiently find differences and update only changed nodes. It compares old and new virtual DOM trees to find differences, and only updates DOM nodes that actually changed.
 
----
+- **Trade-offs**: The catch is not understanding that reconciliation happens even when state doesn't change - React uses heuristics and keys to make diffing faster than O(n³) worst case. Reconciliation is React's "smart diffing" that makes virtual DOM practical and performant, but watch out - reconciliation still has overhead, so avoid unnecessary re-renders with memoization when needed.
 
-### ⭐ Senior Takeaway
-
-Fragments solve the "one element" limitation elegantly without polluting the DOM.
-
----
-
-## 🧩 Q11. What is reconciliation in React and how does React decide what to re-render?
-
-### 🧠 Concept
-
-Reconciliation is React's algorithm comparing virtual DOM trees to decide what DOM changes are needed. It uses heuristics and keys to efficiently find differences and update only changed nodes.
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
-// Virtual DOM comparison
-const oldVDOM = { 
-  type: 'div', 
-  props: { className: 'container' }, 
-  children: [{ type: 'h1', props: { children: 'Hello' } }] 
-};
-const newVDOM = { 
-  type: 'div', 
-  props: { className: 'container' }, 
-  children: [{ type: 'h1', props: { children: 'Hello World' } }] 
-};
-// React compares and updates only changed text
-
-// Component example
 function App() {
   const [count, setCount] = useState(0);
   return (
@@ -391,17 +205,271 @@ function App() {
 
 ---
 
-### 🔍 Deep Insights
+## Q12. What are the main lifecycle methods in class components?
 
-* **Rule:** Compares old and new virtual DOM trees to find differences, uses heuristics and keys to efficiently find changes.
-* **Use Case:** Only updates DOM nodes that actually changed, keys help React identify which items changed in lists.
-* **Common Mistake:** Not understanding that reconciliation happens even when state doesn't change.
-* **Pro Tip:** React uses heuristics and keys to make diffing faster than O(n³) worst case.
+Class components have lifecycle methods across three phases: mounting (constructor → getDerivedStateFromProps → render → componentDidMount), updating (getDerivedStateFromProps → shouldComponentUpdate → render → getSnapshotBeforeUpdate → componentDidUpdate), and unmounting (componentWillUnmount). Error boundaries use getDerivedStateFromError and componentDidCatch. Deprecated methods include componentWillMount, componentWillReceiveProps, and componentWillUpdate - avoid using them as they cause warnings and will be removed in future React versions.
+
+- **Trade-offs**: The catch is forgetting to clean up subscriptions or timers in componentWillUnmount, and using deprecated methods causes warnings. Use shouldComponentUpdate to prevent unnecessary re-renders, but lifecycle methods are being replaced by hooks in modern React - prefer functional components, but watch out - you'll still see class components in older codebases.
+
+Example:
+
+```jsx
+class UserProfile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { user: null, loading: true };
+  }
+  
+  static getDerivedStateFromProps(props, state) {
+    // Update state based on props
+    return null;
+  }
+  
+  shouldComponentUpdate(nextProps, nextState) {
+    // Return false to prevent re-render
+    return nextState.loading !== this.state.loading;
+  }
+  
+  componentDidMount() {
+    fetch('/api/user')
+      .then(r => r.json())
+      .then(user => this.setState({ user, loading: false }));
+  }
+  
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    // Capture info before DOM updates
+    return null;
+  }
+  
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    // Run after update completes
+  }
+  
+  componentWillUnmount() {
+    // Cleanup subscriptions, timers
+  }
+  
+  static getDerivedStateFromError(error) {
+    // Update state to show error UI
+    return { hasError: true };
+  }
+  
+  componentDidCatch(error, errorInfo) {
+    // Log error to error reporting service
+    console.error('Error caught:', error, errorInfo);
+  }
+  
+  render() {
+    if (this.state.hasError) {
+      return <div>Something went wrong</div>;
+    }
+    return this.state.loading ? null : <div>{this.state.user.name}</div>;
+  }
+}
+```
 
 ---
 
-### ⭐ Senior Takeaway
+## Q13. How do you convert class components to functional components with hooks?
 
-Reconciliation is React's "smart diffing" that makes virtual DOM practical and performant.
+useEffect replaces lifecycle methods: empty array equals componentDidMount, dependencies equal componentDidUpdate, cleanup return equals componentWillUnmount - one hook handles all lifecycle needs. useEffect([]) equals mount, useEffect([deps]) equals update, return function equals unmount.
+
+- **Trade-offs**: The catch is trying to replicate exact lifecycle behavior - hooks work differently, multiple useEffect hooks separate concerns better than one lifecycle method. Hooks unify lifecycle management, making code more maintainable and testable, but watch out - the mental model is different from class components, so don't try to map them 1:1.
+
+Example:
+
+```jsx
+function HookComponent() {
+  useEffect(() => {
+    console.log('Component mounted');
+    fetchData();
+    return () => console.log('Cleanup');
+  }, []);
+  return <div />;
+}
+```
+
+---
+
+## Q14. What is React Fiber and how does it improve reconciliation?
+
+React Fiber is a rewrite of React's reconciliation engine that enables interruptible, prioritized work for better performance - it introduces a virtual call stack that allows work to be split into small units, prioritized, paused, and resumed. Fiber improves reconciliation by enabling incremental rendering, allowing React to split work into chunks and prioritize updates (user input > background updates), which enables concurrent rendering, time-slicing, and keeps UI responsive during heavy operations.
+
+- **Trade-offs**: The catch is old reconciliation was synchronous and blocking, Fiber enables async rendering - existing code works without changes, new features are opt-in. Fiber enables React 18+ features like Suspense and Transitions, but watch out - use `startTransition` and `useDeferredValue` to leverage Fiber's capabilities, it uses browser idle time (requestIdleCallback) for better performance.
+
+Example:
+
+```jsx
+function App() {
+  const [isPending, startTransition] = useTransition();
+  const [input, setInput] = useState('');
+  const [list, setList] = useState([]);
+  
+  const handleChange = (e) => {
+    setInput(e.target.value); // Urgent update
+    startTransition(() => {
+      setList(expensiveFilter(e.target.value)); // Non-urgent update
+    });
+  };
+  
+  return (
+    <div>
+      <input value={input} onChange={handleChange} />
+      {isPending && <span>Updating...</span>}
+      <List items={list} />
+    </div>
+  );
+}
+```
+
+---
+
+## Q15. What are React Portals and when do you use them?
+
+React Portals render children into a DOM node outside the parent component - use them for modals, tooltips, and overlays that need to escape parent z-index constraints. Render children into different DOM node while keeping React tree structure.
+
+- **Trade-offs**: The catch is events still bubble through React component tree, not DOM tree - solves z-index stacking context issues with parent components. Portals solve the "modal needs to be at root level" problem elegantly, but watch out - good for modals, tooltips, overlays, or any UI that needs to escape parent z-index.
+
+Example:
+
+```jsx
+import { createPortal } from 'react-dom';
+
+function Modal({ isOpen, onClose, children }) {
+  if (!isOpen) return null;
+  return createPortal(
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={e => e.stopPropagation()}>
+        {children}
+      </div>
+    </div>,
+    document.body
+  );
+}
+```
+
+---
+
+## Q16. What are Error Boundaries and how do you implement them?
+
+Error Boundaries catch JavaScript errors in child components and display fallback UI - only class components can be Error Boundaries currently, though hooks support is coming. Catch errors in child component tree and prevent entire app from crashing.
+
+- **Trade-offs**: The catch is only catches errors in render, lifecycle, and constructors - not event handlers or async code, currently only class components can be Error Boundaries (hooks coming). Error Boundaries are React's try-catch for component trees, but watch out - wrap app sections to gracefully handle errors and show fallback UI.
+
+Example:
+
+```jsx
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error, errorInfo) {
+    console.error('Error caught:', error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return <div>Something went wrong.</div>;
+    }
+    return this.props.children;
+  }
+}
+```
+
+---
+
+## Q17. What are Higher-Order Components (HOCs) and Render Props?
+
+HOCs are functions that take a component and return an enhanced component, while Render Props use a function prop to share code - both are legacy patterns replaced by custom hooks. HOCs enhance components with additional functionality (legacy pattern).
+
+- **Trade-offs**: The catch is custom hooks replace both patterns for sharing logic - still see HOCs in older codebases, hooks are preferred now. Hooks are the modern way to share logic, replacing HOCs and Render Props, but watch out - Render Props use function props to share code between components (legacy pattern).
+
+Example:
+
+```jsx
+// Higher-Order Component
+function withLoading(WrappedComponent) {
+  return function WithLoadingComponent({ isLoading, ...props }) {
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
+    return <WrappedComponent {...props} />;
+  };
+}
+
+// Render Props
+function DataFetcher({ render }) {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    fetch('/api/data').then(r => r.json()).then(setData);
+  }, []);
+  return render(data);
+}
+```
+
+---
+
+## Q18. What are refs and how is ref forwarding implemented?
+
+Refs access DOM elements or component instances - ref forwarding allows parents to access child component refs using forwardRef, enabling imperative operations when declarative isn't enough. Refs access DOM elements directly or component instances (imperative API).
+
+- **Trade-offs**: The catch is use for focus management, animations, third-party libraries, or imperative operations - useImperativeHandle customizes what ref exposes to parent (advanced use). Refs are for imperative operations when declarative isn't enough, but watch out - ref forwarding allows parent components to access child component refs.
+
+Example:
+
+```jsx
+import { forwardRef, useRef } from 'react';
+
+const FancyInput = forwardRef((props, ref) => {
+  return <input ref={ref} {...props} />;
+});
+
+function App() {
+  const inputRef = useRef();
+  const focusInput = () => {
+    inputRef.current?.focus();
+  };
+  return (
+    <div>
+      <FancyInput ref={inputRef} placeholder="Type here..." />
+      <button onClick={focusInput}>Focus Input</button>
+    </div>
+  );
+}
+```
+
+---
+
+## Q19. What is the React Profiler API and when is it used?
+
+React Profiler API measures component rendering performance programmatically - use it to identify slow components and optimize rendering in development or production. Profiler API measures component render times programmatically.
+
+- **Trade-offs**: The catch is primarily used during development for optimization - can be used in production to track performance metrics. Profiler API is for programmatic performance measurement, while DevTools is for visual analysis, but watch out - identify performance bottlenecks in production or development.
+
+Example:
+
+```jsx
+import { Profiler } from 'react';
+
+function onRenderCallback(id, phase, actualDuration, baseDuration, startTime, commitTime) {
+  console.log('Profiler:', {
+    id,
+    phase,
+    actualDuration,
+    baseDuration
+  });
+}
+
+function App() {
+  return (
+    <Profiler id="App" onRender={onRenderCallback}>
+      <MyComponent />
+    </Profiler>
+  );
+}
+```
 
 ---

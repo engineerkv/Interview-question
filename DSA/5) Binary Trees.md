@@ -136,14 +136,6 @@ function levelOrder(root) {
 **Time Complexity:** O(n) - Visit each node once  
 **Space Complexity:** O(h) for recursive, O(n) worst-case for iterative - h is tree height, n is number of nodes
 
-**Deep Insights:**
-- **Recursive vs Iterative:** Recursive uses call stack (O(h) space), iterative uses explicit stack (O(n) worst-case)
-- **Preorder Iterative:** Push right then left to maintain root-left-right order
-- **Inorder Iterative:** Requires current pointer—go left until null, then process and go right
-- **Postorder Iterative:** Use two stacks or reverse preorder approach
-- **BFS Level-Order:** Queue-based—process level by level, useful for shortest path problems
-- **Use Cases:** Inorder on BST yields sorted values; preorder for copying trees; postorder for deletion; iterative preferred for deep trees
-- **Interview Tip:** Know both recursive and iterative versions; explain when to use iterative (deep trees, production); preorder iterative is easiest; inorder requires current pointer understanding
 ## Q88. Maximum Depth of Binary Tree
 
 **Problem:** Given the root of a binary tree, return its maximum depth. A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
@@ -200,13 +192,6 @@ function maxDepthBFS(root) {
 **Time Complexity:** O(n) - Visit each node once  
 **Space Complexity:** O(n) - Queue storage (worst case: last level)
 
-**Deep Insights:**
-- **Optimal Approach:** Recursive DFS achieves O(n) time and O(h) space—optimal for this problem
-- **Base Case:** Null node returns 0—handles empty tree and leaf nodes
-- **Height Formula:** 1 + max(left, right)—adds current node to maximum subtree height
-- **Key Insight:** Post-order processing ensures both subtree heights computed before current node
-- **Edge Cases:** Empty tree returns 0; single node returns 1; skewed tree has O(n) height
-- **Interview Tip:** Explain base case clearly; mention iterative BFS alternative; ask about skewed trees
 ## Q89. Diameter of Binary Tree
 
 **Problem:** Given the root of a binary tree, return the length of the diameter of the tree. The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root. The length of a path between two nodes is represented by the number of edges between them.
@@ -254,14 +239,6 @@ function diameterOfBinaryTree(root) {
 **Time Complexity:** O(n) - Visit each node once  
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
-**Deep Insights:**
-- **Optimal Approach:** Post-order traversal achieves O(n) time—optimal for this problem
-- **Key Insight:** Longest path through any node = leftHeight + rightHeight—track maximum during traversal
-- **Post-Order Processing:** Process children before parent—ensures both heights available when computing diameter
-- **Path Length in Edges:** Diameter counts edges, not nodes—empty tree and single node both return 0
-- **Global Tracking:** Use closure variable to track maximum diameter across all nodes
-- **Edge Cases:** Empty tree returns 0; single node returns 0; path may not pass through root
-- **Interview Tip:** Explain path length vs depth clearly; emphasize it's different from max depth; mention post-order necessity
 ## Q90. Balanced Binary Tree
 
 **Problem:** Given a binary tree, determine if it is height-balanced. A height-balanced binary tree is a binary tree in which the left and right subtrees of every node differ in height by no more than 1.
@@ -307,14 +284,6 @@ function isBalanced(root) {
 **Time Complexity:** O(n) - Visit each node once  
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
-**Deep Insights:**
-- **Optimal Approach:** Post-order with sentinel achieves O(n) time—optimal for this problem
-- **Sentinel Technique:** Use -1 to indicate unbalanced subtree—propagates early exit
-- **Balance Check:** Subtrees must differ by <= 1 AND both subtrees must be balanced
-- **Early Exit:** Return -1 immediately when imbalance detected—avoids unnecessary computation
-- **Key Insight:** Post-order ensures both subtree heights computed before checking balance
-- **Edge Cases:** Empty tree returns true; single node returns true; all nodes must be balanced
-- **Interview Tip:** Explain -1 sentinel technique clearly; mention AVL tree context; emphasize early exit benefit
 ## Q91. Invert Binary Tree
 
 **Problem:** Given the root of a binary tree, invert the tree, and return its root. Inverting a binary tree means swapping the left and right children of each node.
@@ -377,13 +346,6 @@ function invertTreeIterative(root) {
 }
 ```
 
-**Deep Insights:**
-- **Optimal Approach:** Recursive achieves O(n) time and O(h) space—optimal for this problem
-- **In-Place Modification:** Swap left and right children—modifies tree structure
-- **Key Insight:** Swap before or after recursion—both work, but swap before is clearer
-- **Idempotent:** Calling twice restores original tree—invert(invert(tree)) = tree
-- **Edge Cases:** Empty tree returns null; single node returns itself; structure preserved after inversion
-- **Interview Tip:** Explain swapping clearly; mention iterative BFS alternative; ask about in-place requirements
 ## Q92. Symmetric Tree
 
 **Problem:** Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
@@ -426,13 +388,6 @@ function isSymmetric(root) {
 **Time Complexity:** O(n) - Visit each node once  
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
-**Deep Insights:**
-- **Optimal Approach:** Recursive mirror comparison achieves O(n) time—optimal for this problem
-- **Mirror Comparison:** Compare `left.left` with `right.right` and `left.right` with `right.left`
-- **Key Insight:** Two nodes are symmetric if their values match and their subtrees are mirrors
-- **Base Cases:** Both null returns true; one null returns false; values must match
-- **Edge Cases:** Empty tree returns true; single node returns true; all nodes must be symmetric
-- **Interview Tip:** Explain mirror comparison clearly; mention it's different from identical tree check
 ## Q93. Path Sum
 
 **Problem:** Given the root of a binary tree and an integer `targetSum`, return `true` if the tree has a root-to-leaf path such that adding up all the values along the path equals `targetSum`. A leaf is a node with no children.
@@ -472,14 +427,6 @@ function hasPathSum(root, targetSum) {
 **Time Complexity:** O(n) - Visit each node once  
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
-**Deep Insights:**
-- **Optimal Approach:** Recursive DFS achieves O(n) time—optimal for this problem
-- **Leaf Requirement:** Path must end at a leaf node—not just any node with matching sum
-- **Backtracking Sum:** Subtract current value as we go—reduces state passing
-- **Key Insight:** Check leaf node when `!left && !right`—must have exact sum match
-- **Early Return:** Return true immediately when path found—no need to check other paths
-- **Edge Cases:** Empty tree returns false; single node is leaf; negative values allowed
-- **Interview Tip:** Explain leaf requirement clearly; mention negative values; ask about finding all paths vs any path
 ## Q94. Lowest Common Ancestor of a Binary Tree
 
 **Problem:** Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree. The lowest common ancestor is defined between two nodes `p` and `q` as the lowest node in `T` that has both `p` and `q` as descendants (where we allow a node to be a descendant of itself).
@@ -522,14 +469,6 @@ function lowestCommonAncestor(root, p, q) {
 **Time Complexity:** O(n) - Visit each node once in worst case  
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
-**Deep Insights:**
-- **Optimal Approach:** Post-order traversal achieves O(n) time—optimal for this problem
-- **Base Case:** Return node if it's `p` or `q`—handles case where one node is ancestor of other
-- **LCA Detection:** If both left and right return non-null, current node is LCA
-- **Key Insight:** Post-order ensures both subtrees processed before checking—enables LCA detection
-- **Propagation:** Pass up non-null result—indicates subtree contains target node
-- **Edge Cases:** One node is ancestor of other; both nodes in same subtree; nodes don't exist (assumed to exist)
-- **Interview Tip:** Explain post-order logic clearly; mention BST variant is simpler (can use value comparison); ask about node existence guarantee
 ## Q95. Serialize and Deserialize Binary Tree
 
 **Problem:** Design an algorithm to serialize and deserialize a binary tree. Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment. Design an algorithm to serialize and deserialize a binary tree.
@@ -598,14 +537,6 @@ function deserialize(data) {
 **Time Complexity:** O(n) - Visit each node once for both serialize and deserialize  
 **Space Complexity:** O(n) - Serialized string and recursion stack
 
-**Deep Insights:**
-- **Optimal Approach:** Preorder with null markers achieves O(n) time—optimal for this problem
-- **Preorder Choice:** Preorder naturally preserves tree structure—easy to reconstruct
-- **Null Markers:** Use sentinel (e.g., '#') to represent null nodes—enables accurate reconstruction
-- **Index Counter:** Use global index counter during deserialization—tracks current position
-- **Key Insight:** Preorder traversal order matches deserialization order—enables recursive rebuild
-- **Edge Cases:** Empty tree serializes to "#"; single node requires null markers for children
-- **Interview Tip:** Explain serialization format clearly; mention BFS alternative (level-order); ask about delimiter choice
 ## Q96. Binary Tree Level Order Traversal
 
 **Problem:** Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
@@ -656,14 +587,6 @@ function levelOrder(root) {
 **Time Complexity:** O(n) - Visit each node once  
 **Space Complexity:** O(w) - Queue stores nodes at widest level, w is maximum width
 
-**Deep Insights:**
-- **Optimal Approach:** BFS queue achieves O(n) time—optimal for this problem
-- **Level-by-Level Processing:** Process all nodes at current level before moving to next—ensures correct order
-- **Queue Management:** Use `queue.length` snapshot to process exact level size—avoids mixing levels
-- **Key Insight:** BFS naturally processes levels in order—no need for explicit level tracking
-- **Space Complexity:** O(w) where w is maximum width—stores nodes at widest level
-- **Edge Cases:** Empty tree returns empty array; single node returns single level; all levels collected
-- **Interview Tip:** Explain BFS clearly; mention space complexity O(w); ask about flat vs nested output format
 ## Q97. Binary Tree Zigzag Level Order Traversal
 
 **Problem:** Given the root of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to right, then right to left for the next level and alternate between).
@@ -721,13 +644,6 @@ function zigzagLevelOrder(root) {
 **Time Complexity:** O(n) - Visit each node once  
 **Space Complexity:** O(w) - Queue stores nodes at widest level, w is maximum width
 
-**Deep Insights:**
-- **Optimal Approach:** BFS with level reversal achieves O(n) time—optimal for this problem
-- **Zigzag Pattern:** Alternate direction per level—reverse array for odd levels (0-indexed)
-- **Key Insight:** Process level normally, then reverse if needed—simpler than changing insertion order
-- **Flag Toggle:** Use boolean flag to track direction—alternates each level
-- **Edge Cases:** Empty tree returns empty array; single level doesn't need reversal; all levels handled
-- **Interview Tip:** Explain BFS with reversal clearly; mention alternative (insert from front/back based on level)
 ## Q98. Binary Tree Right Side View
 
 **Problem:** Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
@@ -809,14 +725,6 @@ function leftSideView(root) {
 **Time Complexity:** O(n) - Visit each node once  
 **Space Complexity:** O(w) - Queue stores nodes at widest level, w is maximum width
 
-**Deep Insights:**
-- **Optimal Approach:** BFS level processing achieves O(n) time—optimal for this problem
-- **Right View:** Capture last node (i === levelSize - 1) at each level—rightmost visible node
-- **Left View:** Capture first node (i === 0) at each level—leftmost visible node
-- **Key Insight:** BFS naturally processes levels—easy to capture first/last node per level
-- **Alternative:** DFS variant tracks maximum depth seen—records first node at each depth
-- **Edge Cases:** Empty tree returns empty array; single node returns single value; all levels captured
-- **Interview Tip:** Explain left vs right view clearly; mention DFS alternative; ask about output format
 ## Q99. Boundary Traversal of Binary Tree
 
 **Problem:** Given a binary tree, return the boundary traversal. The boundary includes: root (if not leaf), left boundary (excluding leaves), all leaves, and right boundary (excluding leaves, in reverse order).
@@ -899,13 +807,6 @@ function boundaryOfBinaryTree(root) {
 **Time Complexity:** O(n) - Visit each node once  
 **Space Complexity:** O(h) - Recursion stack for leaves, h is tree height
 
-**Deep Insights:**
-- **Optimal Approach:** Four-part boundary processing achieves O(n) time—optimal for this problem
-- **Boundary Parts:** Root → left boundary → leaves → right boundary (reversed)
-- **Key Insight:** Exclude leaves from left/right boundaries—leaves added separately to avoid duplicates
-- **Right Boundary Reversal:** Use stack to reverse right boundary—bottom-to-top order
-- **Edge Cases:** Single node returns itself; root is leaf if single node; all parts handled correctly
-- **Interview Tip:** Explain four-part boundary clearly; emphasize duplicate avoidance; mention order matters
 ## Q100. Iterative DFS Traversals (Pre/In/Post Order)
 
 **Problem:** Implement iterative versions of preorder, inorder, and postorder traversals without using recursion.
@@ -1006,14 +907,6 @@ function postorderIterative(root) {
 **Time Complexity:** O(n) - Visit each node once  
 **Space Complexity:** O(h) - Stack stores nodes along path, h is tree height
 
-**Deep Insights:**
-- **Optimal Approach:** Iterative traversals achieve O(n) time—optimal for avoiding recursion
-- **Inorder Pattern:** Go left until null, process, then go right—requires current pointer
-- **Preorder Pattern:** Push right then left—stack's LIFO ensures left processed first
-- **Postorder Pattern:** Use two stacks—process in reverse order
-- **Key Insight:** Explicit stack avoids recursion stack overflow—safer for deep trees
-- **Edge Cases:** Empty tree returns empty array; all traversals handle null correctly
-- **Interview Tip:** Explain iterative approach clearly; emphasize when to use (deep trees, production); mention all three variants
 ## Q101. Construct Binary Tree from Preorder and Inorder Traversal
 
 **Problem:** Given two integer arrays `preorder` and `inorder` where `preorder` is the preorder traversal of a binary tree and `inorder` is the inorder traversal of the same tree, construct and return the binary tree.
@@ -1068,14 +961,6 @@ function buildTree(preorder, inorder) {
 **Time Complexity:** O(n) - Visit each node once during construction  
 **Space Complexity:** O(n) - Hash map stores inorder positions, recursion stack O(h)
 
-**Deep Insights:**
-- **Optimal Approach:** Recursive with index map achieves O(n) time—optimal for this problem
-- **Root Identification:** First element in preorder is always root—use to split inorder
-- **Index Map:** O(1) lookup for root position in inorder—avoids O(n) search
-- **Key Insight:** Inorder split by root gives left and right subtrees—enables recursive construction
-- **Preorder Index:** Increment preIndex for each recursive call—ensures correct root selection
-- **Edge Cases:** Empty arrays return null; single element returns single node; unique values assumed
-- **Interview Tip:** Explain index map clearly; mention uniqueness requirement; ask about inorder+postorder variant
 ## Q102. Morris Inorder Traversal
 
 **Problem:** Given the root of a binary tree, return the inorder traversal of its nodes' values using Morris traversal (O(1) space, no recursion or stack).
@@ -1135,14 +1020,6 @@ function morrisInorder(root) {
 **Time Complexity:** O(n) - Visit each node at most twice (once to create thread, once to remove)  
 **Space Complexity:** O(1) - Only uses existing tree pointers, no extra space
 
-**Deep Insights:**
-- **Optimal Space:** Morris traversal achieves O(1) space—optimal for space-constrained scenarios
-- **Threading Technique:** Temporarily link rightmost node in left subtree to current—enables backtracking
-- **Two Passes:** First pass creates thread, second pass removes thread and processes node
-- **Key Insight:** Tree structure is restored after traversal—no permanent modification
-- **Time Trade-off:** O(n) time (each node visited at most twice) for O(1) space
-- **Edge Cases:** Empty tree returns empty array; single node handled correctly; tree fully restored
-- **Interview Tip:** Explain threading technique clearly; emphasize tree restoration; mention this is advanced technique
 ## Q103. Binary Tree Maximum Path Sum
 
 **Problem:** A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them. A node can only appear in the sequence at most once. Note that the path does not need to pass through the root. The path sum of a path is the sum of the node values in the path. Given the root of a binary tree, return the maximum path sum of any non-empty path.
@@ -1194,14 +1071,6 @@ function maxPathSum(root) {
 **Time Complexity:** O(n) - Visit each node once  
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
-**Deep Insights:**
-- **Optimal Approach:** Post-order traversal achieves O(n) time—optimal for this problem
-- **Path Bending:** Path can bend at any node—combine left + node + right for maximum
-- **Positive Clamping:** Only take positive contributions from children—clamp negative paths to 0
-- **Key Insight:** Two calculations: path through node (for global max) and single branch upward (for parent)
-- **Global Tracking:** Use closure variable to track maximum across all nodes
-- **Edge Cases:** All negative values handled; single node returns its value; path doesn't need to pass through root
-- **Interview Tip:** Explain path bending clearly; emphasize negative handling with Math.max(0, ...); mention two calculations
 ## Q104. Vertical Order Traversal of a Binary Tree
 
 **Problem:** Given the root of a binary tree, calculate the vertical order traversal of the binary tree. For each node at position `(row, col)`, its left and right children will be at positions `(row + 1, col - 1)` and `(row + 1, col + 1)` respectively. The root of the tree is at `(0, 0)`. The vertical order traversal of a binary tree is a list of top-to-bottom orderings for each column index starting from the leftmost column and ending on the rightmost column. There may be multiple nodes in the same row and same column. In such a case, sort these nodes by their values.
@@ -1259,14 +1128,6 @@ function verticalTraversal(root) {
 **Time Complexity:** O(n log n) - Visit each node once, then sort n nodes  
 **Space Complexity:** O(n) - Store all nodes with positions, map stores column groups
 
-**Deep Insights:**
-- **Optimal Approach:** BFS with sorting achieves correct ordering—optimal for this problem
-- **Position Assignment:** BFS assigns row indices naturally—increment row for each level
-- **Sorting Requirement:** Sort by column → row → value—handles nodes at same position
-- **Key Insight:** Multiple nodes can share same (row, col)—must sort by value
-- **Grouping:** Group sorted nodes by column—creates final vertical order
-- **Edge Cases:** Empty tree returns empty array; single node returns single column; overlapping nodes handled
-- **Interview Tip:** Explain sorting requirement clearly; emphasize why sorting is needed (same position); mention ordering rules
 ## Q105. Count Complete Tree Nodes
 
 **Problem:** Given the root of a complete binary tree, return the number of the nodes in the tree. A complete binary tree has every level, except possibly the last, completely filled, and all nodes in the last level are as far left as possible.
@@ -1327,14 +1188,6 @@ function countNodes(root) {
 **Time Complexity:** O(log² n) - Average case for complete tree, O(n) worst case for skewed tree  
 **Space Complexity:** O(log n) - Recursion stack depth for complete tree
 
-**Deep Insights:**
-- **Optimal Approach:** Height-based optimization achieves O(log² n) average—optimal for complete trees
-- **Perfect Tree Detection:** If left and right heights equal, tree is perfect—use formula 2^h - 1
-- **Bit Shift Optimization:** Use `1 << h` for 2^h—faster than Math.pow(2, h)
-- **Key Insight:** Only recurse on incomplete side—most of tree uses O(1) formula
-- **Complete Tree Property:** Assumes complete binary tree—allows height-based optimization
-- **Edge Cases:** Empty tree returns 0; single node returns 1; skewed tree falls back to O(n)
-- **Interview Tip:** Explain perfect subtree detection clearly; emphasize bit shift optimization; mention complete vs full tree difference
 ## Q106. Convert Binary Search Tree to Sorted Doubly Linked List
 
 **Problem:** Convert a Binary Search Tree to a sorted Doubly Linked List in place. The left and right pointers in nodes are to be used as previous and next pointers respectively in converted DLL. The order of nodes in DLL must be same as Inorder of the given Binary Search Tree.
@@ -1400,14 +1253,6 @@ function treeToDoublyList(root) {
 **Time Complexity:** O(n) - Visit each node once during inorder traversal  
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
-**Deep Insights:**
-- **Optimal Approach:** Inorder traversal achieves sorted order—optimal for BST to DLL conversion
-- **In-Place Linking:** Use existing left/right pointers as prev/next—no extra nodes created
-- **Prev Pointer:** Maintain prev across recursion—enables linking current to previous node
-- **Head Tracking:** First node (leftmost) becomes head—preserves sorted order
-- **Circular Variant:** Link head and tail to make circular—optional based on requirements
-- **Edge Cases:** Empty tree returns null; single node returns itself; tree structure preserved conceptually
-- **Interview Tip:** Explain inorder linking clearly; emphasize in-place transformation; mention circular variant
 
 ## Q107. Same Tree
 
@@ -1447,13 +1292,6 @@ function isSameTree(p, q) {
 **Time Complexity:** O(min(m,n)) - Visit minimum nodes between two trees  
 **Space Complexity:** O(min(h1,h2)) - Recursion stack depth
 
-**Deep Insights:**
-- **Optimal Approach:** Recursive comparison achieves O(min(m,n)) time—optimal for this problem
-- **Base Cases:** Both null returns true; one null returns false; values different returns false
-- **Recursive Case:** Check both left and right subtrees—all must match
-- **Key Insight:** Early return on any mismatch—no need to check further
-- **Edge Cases:** Both empty trees return true; one empty returns false; structure and values must match
-- **Interview Tip:** Explain recursive structure clearly; emphasize base cases; mention early return optimization
 
 ## Q108. Construct Binary Tree from Inorder and Postorder Traversal
 
@@ -1504,14 +1342,6 @@ function buildTree(inorder, postorder) {
 **Time Complexity:** O(n) - Visit each node once during construction  
 **Space Complexity:** O(n) - Hash map stores inorder positions, recursion stack O(h)
 
-**Deep Insights:**
-- **Optimal Approach:** Recursive with index map achieves O(n) time—optimal for this problem
-- **Root Identification:** Last element in postorder is always root—use to split inorder
-- **Index Map:** O(1) lookup for root position in inorder—avoids O(n) search
-- **Build Order:** Build right subtree first—postorder processes right before left
-- **Key Insight:** Decrement postIndex for each recursive call—ensures correct root selection
-- **Edge Cases:** Empty arrays return null; single element returns single node; unique values assumed
-- **Interview Tip:** Explain index map optimization clearly; mention build order (right then left); ask about preorder variant
 
 ## Q109. Populating Next Right Pointers in Each Node II
 
@@ -1560,14 +1390,6 @@ function connect(root) {
 **Time Complexity:** O(n) - Visit each node once  
 **Space Complexity:** O(1) - Constant extra space (only dummy node)
 
-**Deep Insights:**
-- **Optimal Approach:** Level-by-level with dummy node achieves O(1) space—optimal for this problem
-- **Dummy Node Technique:** Use dummy to simplify connection logic—eliminates edge cases
-- **Level Traversal:** Use next pointers to traverse current level—no queue needed
-- **Key Insight:** Connect children of current level while traversing—builds next level structure
-- **Space Efficiency:** O(1) space by using existing next pointers—better than BFS queue
-- **Edge Cases:** Empty tree returns null; single node returns unchanged; all levels connected
-- **Interview Tip:** Explain dummy node technique clearly; emphasize O(1) space advantage; compare with BFS approach
 
 ## Q110. Flatten Binary Tree to Linked List
 
@@ -1609,14 +1431,6 @@ function flatten(root) {
 **Time Complexity:** O(n) - Visit each node once  
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
-**Deep Insights:**
-- **Optimal Approach:** Postorder traversal achieves O(n) time—optimal for this problem
-- **Reverse Processing:** Process right, then left, then root—builds list from end to start
-- **Prev Pointer:** Maintain prev across recursion—enables linking current to previous
-- **In-Place Transformation:** Use existing nodes—no extra space for new nodes
-- **Key Insight:** Postorder ensures children processed before parent—enables correct linking
-- **Edge Cases:** Empty tree does nothing; single node links correctly; all nodes flattened
-- **Interview Tip:** Explain postorder approach clearly; emphasize in-place transformation; mention reverse order processing
 
 ## Q111. Sum Root to Leaf Numbers
 
@@ -1665,14 +1479,6 @@ function sumNumbers(root) {
 **Time Complexity:** O(n) - Visit each node once  
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
-**Deep Insights:**
-- **Optimal Approach:** DFS with path sum tracking achieves O(n) time—optimal for this problem
-- **Number Building:** Multiply path sum by 10 and add current value—builds number digit by digit
-- **Leaf Accumulation:** Add path sum to total when reaching leaf—only leaves contribute to sum
-- **Key Insight:** Pass path sum down the tree—no need to store full paths
-- **Base-10 Arithmetic:** Each level multiplies by 10—standard decimal number construction
-- **Edge Cases:** Empty tree returns 0; single node returns its value; all paths contribute
-- **Interview Tip:** Explain path sum building clearly; emphasize multiplication by 10; mention base-10 arithmetic
 
 ## Q112. Binary Tree Right Side View
 
@@ -1722,13 +1528,6 @@ function rightSideView(root) {
 **Time Complexity:** O(n) - Visit each node once  
 **Space Complexity:** O(w) - Queue stores nodes at widest level, w is maximum width
 
-**Deep Insights:**
-- **Optimal Approach:** BFS level processing achieves O(n) time—optimal for this problem
-- **Rightmost Node:** Capture last node (i === levelSize - 1) at each level—rightmost visible node
-- **Level Processing:** Process all nodes at current level before moving to next—ensures correct order
-- **Alternative:** DFS variant tracks maximum depth seen—records rightmost node at each depth
-- **Edge Cases:** Empty tree returns empty array; single node returns single value; all levels captured
-- **Interview Tip:** Explain BFS approach clearly; mention DFS alternative; ask about left side view variant
 
 ## Q113. Average of Levels in Binary Tree
 
@@ -1778,11 +1577,4 @@ function averageOfLevels(root) {
 **Time Complexity:** O(n) - Visit each node once  
 **Space Complexity:** O(w) - Queue stores nodes at widest level, w is maximum width
 
-**Deep Insights:**
-- **Optimal Approach:** BFS level-order traversal achieves O(n) time—optimal for this problem
-- **Level Sum:** Sum all values at current level—then divide by level size for average
-- **Level Processing:** Process all nodes at current level before moving to next—ensures correct averaging
-- **Key Insight:** BFS naturally processes levels—easy to calculate per-level averages
-- **Average Calculation:** `sum / levelSize` gives average—handle floating point precision if needed
-- **Edge Cases:** Empty tree returns empty array; single node returns its value; all levels processed
 - **Interview Tip:** Explain BFS approach clearly; mention level tracking; ask about integer overflow for large sums

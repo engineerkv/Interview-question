@@ -1,16 +1,14 @@
-# 🔌 2. Native Modules & Platform Integrations (Q11–20)
+# 2. Native Modules & Platform Integrations (Q11–20)
 
 ---
 
-## 🧩 Q11. What are native modules in React Native?
+## Q11. What are native modules in React Native?
 
-### 🧠 Concept
+Native Modules are JavaScript interfaces to native platform APIs, needed to access device features not available through React Native's built-in components - different implementations for iOS and Android (platform specific). Access to device-specific functionality (platform APIs).
 
-Native Modules are JavaScript interfaces to native platform APIs, needed to access device features not available through React Native's built-in components. Different implementations for iOS and Android (platform specific).
+- **Trade-offs**: The catch is camera, sensors, file system, etc. (device features) - uses bridge to communicate with native code. Different implementations for iOS and Android (platform specific), but watch out - native code runs faster than JavaScript (performance).
 
----
-
-### 💡 Example
+Example:
 
 ```jsx
 import { NativeModules } from 'react-native';
@@ -22,30 +20,13 @@ MyNativeModule.doSomething().then(result => console.log(result));
 
 ---
 
-### 🔍 Deep Insights
+## Q12. How do you create custom native modules for Android?
 
-* **Rule:** Access to device-specific functionality (platform APIs).
-* **Use Case:** Native code runs faster than JavaScript (performance).
-* **Common Mistake:** Camera, sensors, file system, etc. (device features).
-* **Pro Tip:** Uses bridge to communicate with native code.
+Create a native module by extending ReactContextBaseJavaModule and registering it in the ReactPackage - must be registered in ReactPackage. Base class for native modules (ReactContextBaseJavaModule).
 
----
+- **Trade-offs**: The catch is `@ReactMethod` exposes methods to JavaScript - promise handles asynchronous results and errors. Must be registered in ReactPackage, but watch out - `getName()` returns module name used in JavaScript.
 
-### ⭐ Senior Takeaway
-
-Different implementations for iOS and Android (platform specific).
-
----
-
-## 🧩 Q12. How do you create custom native modules for Android?
-
-### 🧠 Concept
-
-Create a native module by extending ReactContextBaseJavaModule and registering it in the ReactPackage. Must be registered in ReactPackage.
-
----
-
-### 💡 Example
+Example:
 
 ```java
 package com.myapp;
@@ -63,30 +44,13 @@ public class MyNativeModule extends ReactContextBaseJavaModule {
 
 ---
 
-### 🔍 Deep Insights
+## Q13. How do you create custom native modules for iOS?
 
-* **Rule:** Base class for native modules (ReactContextBaseJavaModule).
-* **Use Case:** `getName()` returns module name used in JavaScript.
-* **Common Mistake:** `@ReactMethod` exposes methods to JavaScript.
-* **Pro Tip:** Promise handles asynchronous results and errors.
+Create a native module by implementing RCTBridgeModule protocol and using RCT_EXPORT_MODULE macro - Objective-C is primary language for iOS native modules. Protocol for native modules (RCTBridgeModule).
 
----
+- **Trade-offs**: The catch is `RCT_EXPORT_METHOD` exports methods to JavaScript - promise blocks handle resolve and reject callbacks. Objective-C is primary language for iOS native modules, but watch out - `RCT_EXPORT_MODULE` exports module to JavaScript.
 
-### ⭐ Senior Takeaway
-
-Must be registered in ReactPackage.
-
----
-
-## 🧩 Q13. How do you create custom native modules for iOS?
-
-### 🧠 Concept
-
-Create a native module by implementing RCTBridgeModule protocol and using RCT_EXPORT_MODULE macro. Objective-C is primary language for iOS native modules.
-
----
-
-### 💡 Example
+Example:
 
 ```objc
 // MyNativeModule.m
@@ -108,30 +72,13 @@ RCT_EXPORT_METHOD(doSomething:(RCTPromiseResolveBlock)resolve
 
 ---
 
-### 🔍 Deep Insights
+## Q14. What is the difference between JSI and the old bridge?
 
-* **Rule:** Protocol for native modules (RCTBridgeModule).
-* **Use Case:** `RCT_EXPORT_MODULE` exports module to JavaScript.
-* **Common Mistake:** `RCT_EXPORT_METHOD` exports methods to JavaScript.
-* **Pro Tip:** Promise blocks handle resolve and reject callbacks.
+JSI allows direct function calls between JavaScript and native code, eliminating serialization overhead and enabling synchronous communication - better type checking and error handling (type safety). JavaScript can directly call native functions (direct calls).
 
----
+- **Trade-offs**: The catch is eliminates data serialization overhead (no serialization) - faster communication between JS and native (better performance). Better type checking and error handling (type safety), but watch out - enables synchronous communication when needed (synchronous).
 
-### ⭐ Senior Takeaway
-
-Objective-C is primary language for iOS native modules.
-
----
-
-## 🧩 Q14. What is the difference between JSI and the old bridge?
-
-### 🧠 Concept
-
-JSI allows direct function calls between JavaScript and native code, eliminating serialization overhead and enabling synchronous communication. Better type checking and error handling (type safety).
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 // Old Bridge approach (asynchronous)
@@ -143,30 +90,13 @@ const result = MyModule.doSomething(data);
 
 ---
 
-### 🔍 Deep Insights
+## Q15. What are TurboModules and how do they work?
 
-* **Rule:** JavaScript can directly call native functions (direct calls).
-* **Use Case:** Enables synchronous communication when needed (synchronous).
-* **Common Mistake:** Eliminates data serialization overhead (no serialization).
-* **Pro Tip:** Faster communication between JS and native (better performance).
+TurboModules are the new native module system that uses JSI for direct communication, providing better performance and type safety - part of React Native's new architecture (future architecture). Uses JSI for direct communication (JSI integration).
 
----
+- **Trade-offs**: The catch is faster than bridge-based modules - can make synchronous calls when needed (synchronous). Part of React Native's new architecture (future architecture), but watch out - better type checking and validation (type safety).
 
-### ⭐ Senior Takeaway
-
-Better type checking and error handling (type safety).
-
----
-
-## 🧩 Q15. What are TurboModules and how do they work?
-
-### 🧠 Concept
-
-TurboModules are the new native module system that uses JSI for direct communication, providing better performance and type safety. Part of React Native's new architecture (future architecture).
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 import { NativeModules } from 'react-native';
@@ -177,30 +107,13 @@ const { MyTurboModule } = NativeModules;
 
 ---
 
-### 🔍 Deep Insights
+## Q16. How do you access native APIs like Camera, Location, and Sensors?
 
-* **Rule:** Uses JSI for direct communication (JSI integration).
-* **Use Case:** Better type checking and validation (type safety).
-* **Common Mistake:** Faster than bridge-based modules.
-* **Pro Tip:** Can make synchronous calls when needed (synchronous).
+Use third-party libraries or create custom native modules to access device APIs, with proper permissions and platform-specific implementations - consider performance implications of native APIs. Use existing libraries for common APIs (third-party libraries).
 
----
+- **Trade-offs**: The catch is handle iOS and Android differences (platform differences) - proper error handling for device APIs. Consider performance implications of native APIs, but watch out - request appropriate permissions at runtime (permissions).
 
-### ⭐ Senior Takeaway
-
-Part of React Native's new architecture (future architecture).
-
----
-
-## 🧩 Q16. How do you access native APIs like Camera, Location, and Sensors?
-
-### 🧠 Concept
-
-Use third-party libraries or create custom native modules to access device APIs, with proper permissions and platform-specific implementations. Consider performance implications of native APIs.
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 import { RNCamera } from 'react-native-camera';
@@ -218,30 +131,13 @@ function CameraScreen() {
 
 ---
 
-### 🔍 Deep Insights
+## Q17. What is Headless JS and when do you use it?
 
-* **Rule:** Use existing libraries for common APIs (third-party libraries).
-* **Use Case:** Request appropriate permissions at runtime (permissions).
-* **Common Mistake:** Handle iOS and Android differences (platform differences).
-* **Pro Tip:** Proper error handling for device APIs.
+Headless JS tasks run JavaScript code in the background on Android, useful for background processing and notifications - limited access to UI and some APIs (restrictions). Available only on Android platform (Android only).
 
----
+- **Trade-offs**: The catch is has time limits for execution (limited time) - data sync, notifications, background tasks. Limited access to UI and some APIs (restrictions), but watch out - runs when app is not active (background processing).
 
-### ⭐ Senior Takeaway
-
-Consider performance implications of native APIs.
-
----
-
-## 🧩 Q17. What is Headless JS and when do you use it?
-
-### 🧠 Concept
-
-Headless JS tasks run JavaScript code in the background on Android, useful for background processing and notifications. Limited access to UI and some APIs (restrictions).
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 import { AppRegistry } from 'react-native';
@@ -256,30 +152,13 @@ AppRegistry.registerHeadlessTask('BackgroundTask', () => HeadlessTask);
 
 ---
 
-### 🔍 Deep Insights
+## Q18. How does autolinking work in React Native?
 
-* **Rule:** Available only on Android platform (Android only).
-* **Use Case:** Runs when app is not active (background processing).
-* **Common Mistake:** Has time limits for execution (limited time).
-* **Pro Tip:** Data sync, notifications, background tasks.
+Autolinking automatically links native dependencies by scanning package.json and configuring native projects, eliminating manual linking steps - replaces manual linking process (migration). No manual linking required (automatic linking).
 
----
+- **Trade-offs**: The catch is automatically configures native projects (configuration) - works for both iOS and Android (platform support). Replaces manual linking process (migration), but watch out - scans package.json for native dependencies (package scanning).
 
-### ⭐ Senior Takeaway
-
-Limited access to UI and some APIs (restrictions).
-
----
-
-## 🧩 Q18. How does autolinking work in React Native?
-
-### 🧠 Concept
-
-Autolinking automatically links native dependencies by scanning package.json and configuring native projects, eliminating manual linking steps. Replaces manual linking process (migration).
-
----
-
-### 💡 Example
+Example:
 
 ```json
 {
@@ -292,30 +171,13 @@ Autolinking automatically links native dependencies by scanning package.json and
 
 ---
 
-### 🔍 Deep Insights
+## Q19. What is the difference between bridged and JSI-based modules?
 
-* **Rule:** No manual linking required (automatic linking).
-* **Use Case:** Scans package.json for native dependencies (package scanning).
-* **Common Mistake:** Automatically configures native projects (configuration).
-* **Pro Tip:** Works for both iOS and Android (platform support).
+Bridged modules use the old bridge system with serialization, while JSI-based modules use direct function calls for better performance - JSI is the future of React Native modules. Bridge system uses serialization and message passing; JSI system uses direct function calls without serialization.
 
----
+- **Trade-offs**: The catch is JSI enables synchronous calls (synchronous) - gradual migration from bridge to JSI. JSI is the future of React Native modules, but watch out - JSI is faster than bridge (performance).
 
-### ⭐ Senior Takeaway
-
-Replaces manual linking process (migration).
-
----
-
-## 🧩 Q19. What is the difference between bridged and JSI-based modules?
-
-### 🧠 Concept
-
-Bridged modules use the old bridge system with serialization, while JSI-based modules use direct function calls for better performance. JSI is the future of React Native modules.
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 // Bridged module (old)
@@ -327,30 +189,13 @@ const result = JSIModule.doSomething(data);
 
 ---
 
-### 🔍 Deep Insights
+## Q20. How do you handle permissions in React Native?
 
-* **Rule:** Bridge system uses serialization and message passing; JSI system uses direct function calls without serialization.
-* **Use Case:** JSI is faster than bridge (performance).
-* **Common Mistake:** JSI enables synchronous calls (synchronous).
-* **Pro Tip:** Gradual migration from bridge to JSI.
+Use platform-specific permission systems and libraries like react-native-permissions to request and check permissions at runtime - follow platform-specific permission guidelines (app store guidelines). Different permission systems for iOS and Android (platform differences).
 
----
+- **Trade-offs**: The catch is handle permission denials gracefully (user experience) - use libraries for consistent permission handling (permission libraries). Follow platform-specific permission guidelines (app store guidelines), but watch out - request permissions when needed (runtime requests).
 
-### ⭐ Senior Takeaway
-
-JSI is the future of React Native modules.
-
----
-
-## 🧩 Q20. How do you handle permissions in React Native?
-
-### 🧠 Concept
-
-Use platform-specific permission systems and libraries like react-native-permissions to request and check permissions at runtime. Follow platform-specific permission guidelines (app store guidelines).
-
----
-
-### 💡 Example
+Example:
 
 ```jsx
 import { Platform } from 'react-native';
@@ -364,20 +209,5 @@ const requestCameraPermission = async () => {
   return result === RESULTS.GRANTED;
 };
 ```
-
----
-
-### 🔍 Deep Insights
-
-* **Rule:** Different permission systems for iOS and Android (platform differences).
-* **Use Case:** Request permissions when needed (runtime requests).
-* **Common Mistake:** Handle permission denials gracefully (user experience).
-* **Pro Tip:** Use libraries for consistent permission handling (permission libraries).
-
----
-
-### ⭐ Senior Takeaway
-
-Follow platform-specific permission guidelines (app store guidelines).
 
 ---

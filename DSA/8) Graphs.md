@@ -89,14 +89,6 @@ function dfsIterative(graph, start) {
 **Time Complexity:** O(V + E) - Visit each vertex and edge once  
 **Space Complexity:** O(V) - Store visited set and queue/stack
 
-**Deep Insights:**
-- **Optimal Approach:** Both DFS and BFS achieve O(V + E) time—optimal for graph traversal
-- **BFS Property:** Explores level by level—finds shortest paths in unweighted graphs
-- **DFS Property:** Explores deeply before backtracking—uses less space (recursion stack)
-- **Key Insight:** Track visited nodes—prevents infinite loops in cyclic graphs
-- **When to Use BFS:** Shortest path problems, level-order processing, minimum steps
-- **When to Use DFS:** Component detection, topological sort, path existence, backtracking
-- **Interview Tip:** Explain DFS vs BFS clearly; mention shortest path property of BFS; ask about specific use cases
 ## Q137. Detect Cycle in Directed and Undirected Graph
 
 **Problem:** Detect if a cycle exists in a directed graph and an undirected graph.
@@ -185,14 +177,6 @@ function hasCycleUndirected(graph) {
 **Time Complexity:** O(V + E) - Visit each vertex and edge once  
 **Space Complexity:** O(V) - Store color/visited information
 
-**Deep Insights:**
-- **Optimal Approach:** DFS with color/parent tracking achieves O(V + E) time—optimal for cycle detection
-- **Directed Graph:** Three colors (0=white, 1=gray, 2=black)—back edge (gray→gray) indicates cycle
-- **Undirected Graph:** Track parent to avoid false positives—parent is not a back edge
-- **Key Insight:** In directed graph, back edge = cycle; in undirected, visited non-parent = cycle
-- **Component Handling:** Check each component separately—disconnected graphs handled correctly
-- **Edge Cases:** Empty graph returns false; single node returns false; self-loops are cycles
-- **Interview Tip:** Explain color system clearly; emphasize parent tracking for undirected; mention back edge concept
 ## Q138. Topological Sort
 
 **Problem:** Given a directed acyclic graph (DAG), return a topological ordering of its vertices. If the graph contains a cycle, return an empty array.
@@ -259,14 +243,6 @@ function topologicalSort(graph) {
 **Time Complexity:** O(V + E) - Visit each vertex and edge once  
 **Space Complexity:** O(V) - Store indegree and queue
 
-**Deep Insights:**
-- **Optimal Approach:** Kahn's algorithm achieves O(V + E) time—optimal for topological sort
-- **Indegree Tracking:** Count incoming edges for each node—nodes with 0 indegree can start
-- **Key Insight:** Process nodes with indegree 0 first—ensures dependencies resolved before dependents
-- **Cycle Detection:** If not all nodes processed, cycle exists—returns empty array
-- **Multiple Valid Orders:** Multiple topological orders possible—algorithm returns one valid order
-- **Edge Cases:** Empty graph returns empty array; single node returns that node; cycle returns empty
-- **Interview Tip:** Explain Kahn's algorithm clearly; emphasize cycle detection; mention DFS alternative approach
 ## Q139. Number of Islands
 
 **Problem:** Given an `m x n` 2D binary grid `grid` which represents a map of `'1'`s (land) and `'0'`s (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.
@@ -331,14 +307,6 @@ function numIslands(grid) {
 **Time Complexity:** O(m × n) - Visit each cell once  
 **Space Complexity:** O(m × n) - Visited array; O(m × n) recursion stack worst case
 
-**Deep Insights:**
-- **Optimal Approach:** DFS/BFS achieves O(m × n) time—optimal for this problem
-- **Connected Components:** Each island is a connected component—count by DFS/BFS traversal
-- **Key Insight:** Mark entire island as visited when found—avoids recounting same island
-- **In-Place Optimization:** Can mark visited by changing '1' to '0'—reduces space to O(1) extra
-- **Direction Handling:** Explore 4 directions (up, down, left, right)—handles all connections
-- **Edge Cases:** Empty grid returns 0; all water returns 0; all land returns 1; handles all cases
-- **Interview Tip:** Explain component counting clearly; mention in-place marking optimization; ask about diagonal connections
 ## Q140. Clone Graph
 
 **Problem:** Given a reference of a node in a connected undirected graph, return a deep copy (clone) of the graph.
@@ -389,14 +357,6 @@ function cloneGraph(node) {
 **Time Complexity:** O(V + E) - Visit each vertex and edge once  
 **Space Complexity:** O(V) - Map stores all nodes
 
-**Deep Insights:**
-- **Optimal Approach:** BFS/DFS with mapping achieves O(V + E) time—optimal for graph cloning
-- **Mapping Strategy:** Map old node → new node—enables edge wiring without duplication
-- **Key Insight:** Create nodes and wire edges during traversal—handles cycles correctly
-- **Edge Wiring:** Wire edges after neighbor nodes created—ensures all neighbors exist
-- **BFS vs DFS:** Both work equally well—BFS is iterative, DFS can be recursive
-- **Edge Cases:** Null node returns null; single node returns cloned node; handles all cases
-- **Interview Tip:** Explain mapping clearly; emphasize edge wiring during traversal; mention cycle handling
 ## Q141. Rotting Oranges
 
 **Problem:** You are given an `m x n` grid where each cell can have one of three values:
@@ -463,14 +423,6 @@ function orangesRotting(grid) {
 **Time Complexity:** O(m × n) - Visit each cell once  
 **Space Complexity:** O(m × n) - Queue stores cells
 
-**Deep Insights:**
-- **Optimal Approach:** Multi-source BFS achieves O(m × n) time—optimal for this problem
-- **Multi-Source Strategy:** Start BFS from all rotten oranges simultaneously—handles multiple sources
-- **Level Counting:** Each BFS level represents one minute—time equals number of levels processed
-- **Key Insight:** Track fresh count—return -1 if fresh oranges remain after BFS
-- **In-Place Updates:** Mark oranges as rotten in-place—reduces space complexity
-- **Edge Cases:** No fresh oranges returns 0; impossible case returns -1; all fresh returns -1
-- **Interview Tip:** Explain multi-source BFS clearly; emphasize level counting; ask about impossible cases handling
 ## Q142. Course Schedule
 
 **Problem:** There are a total of `numCourses` courses you have to take, labeled from `0` to `numCourses - 1`. You are given an array `prerequisites` where `prerequisites[i] = [ai, bi]` indicates that you must take course `bi` before course `ai`. Return `true` if you can finish all courses. Otherwise, return `false`.
@@ -538,14 +490,6 @@ function canFinish(numCourses, prerequisites) {
 **Time Complexity:** O(V + E) - V courses, E prerequisites  
 **Space Complexity:** O(V + E) - Graph and indegree arrays
 
-**Deep Insights:**
-- **Optimal Approach:** Kahn's algorithm achieves O(V + E) time—optimal for cycle detection
-- **Graph Construction:** Prerequisites form directed edges—course depends on prerequisite
-- **Cycle Detection:** If not all courses processed, cycle exists—impossible to finish
-- **Key Insight:** Process courses with no prerequisites first—enables dependent courses to be taken
-- **Topological Sort:** Same as topological sort—valid order exists if no cycle
-- **Edge Cases:** No prerequisites returns true; all courses form cycle returns false; handles all cases
-- **Interview Tip:** Explain Kahn's algorithm clearly; emphasize cycle detection; mention topological sort relationship
 ## Q143. Is Graph Bipartite?
 
 **Problem:** There is an undirected graph with `n` nodes, where each node is numbered between `0` and `n - 1`. You are given a 2D array `graph`, where `graph[u]` is an array of nodes that node `u` is adjacent to. A graph is bipartite if the nodes can be partitioned into two independent sets A and B such that every edge in the graph connects a node in set A and a node in set B. Return `true` if and only if it is bipartite.
@@ -601,14 +545,6 @@ function isBipartite(graph) {
 **Time Complexity:** O(V + E) - Visit each vertex and edge once  
 **Space Complexity:** O(V) - Color array and queue
 
-**Deep Insights:**
-- **Optimal Approach:** BFS with 2-coloring achieves O(V + E) time—optimal for bipartite detection
-- **2-Coloring Strategy:** Color nodes with 1/-1 alternately—adjacent nodes must have different colors
-- **Conflict Detection:** If adjacent nodes have same color, odd cycle exists—graph is not bipartite
-- **Key Insight:** Bipartite graph has no odd cycles—2-coloring possible if and only if no odd cycle
-- **Component Handling:** Check each component separately—disconnected graphs handled correctly
-- **Edge Cases:** Empty graph returns true; single node returns true; odd cycle returns false
-- **Interview Tip:** Explain 2-coloring clearly; emphasize odd cycle relationship; mention disconnected components
 ## Q144. Dijkstra's Algorithm
 
 **Problem:** Find the shortest paths from a source node to all other nodes in a weighted graph with non-negative edge weights.
@@ -655,14 +591,6 @@ function dijkstra(n, edges, src) {
 **Time Complexity:** O((V + E) log V) - Each vertex and edge processed, heap operations O(log V)  
 **Space Complexity:** O(V + E) - Graph and heap
 
-**Deep Insights:**
-- **Optimal Approach:** Min-heap achieves O((V + E) log V) time—optimal for non-negative weights
-- **Greedy Strategy:** Always process node with minimum distance—ensures shortest paths found
-- **Lazy Deletion:** Skip outdated entries in heap—handles multiple entries for same node
-- **Key Insight:** Works only with non-negative weights—negative weights require Bellman-Ford
-- **Early Termination:** Can stop early if target node found—optimization for single-target queries
-- **Edge Cases:** Unreachable nodes have Infinity distance; source node has distance 0; handles all cases
-- **Interview Tip:** Explain greedy strategy clearly; emphasize non-negative weight requirement; mention Bellman-Ford for negative weights
 ## Q145. Bellman-Ford Algorithm
 
 **Problem:** Find shortest paths from a source node to all other nodes in a weighted graph that may contain negative edge weights. Also detect if there are any negative cycles.
@@ -698,14 +626,6 @@ function bellmanFord(n, edges, src) {
 **Time Complexity:** O(V × E) - Relax edges V-1 times  
 **Space Complexity:** O(V) - Distance array
 
-**Deep Insights:**
-- **Optimal Approach:** Bellman-Ford achieves O(V × E) time—handles negative weights unlike Dijkstra
-- **Relaxation:** Update distances if shorter path found—V-1 iterations sufficient for shortest paths
-- **Negative Cycle Detection:** If distances improve in V-th pass, negative cycle exists
-- **Key Insight:** Works with negative weights—crucial difference from Dijkstra
-- **Path Length Limit:** V-1 iterations because shortest path has at most V-1 edges
-- **Edge Cases:** Unreachable nodes have Infinity; negative cycle returns null; handles all cases
-- **Interview Tip:** Explain relaxation clearly; emphasize negative cycle detection; compare with Dijkstra
 ## Q146. Floyd-Warshall Algorithm
 
 **Problem:** Find shortest paths between all pairs of vertices in a weighted graph. The graph may contain negative edge weights but no negative cycles.
@@ -738,14 +658,6 @@ function floydWarshall(dist) {
 **Time Complexity:** O(V³) - Three nested loops over V vertices  
 **Space Complexity:** O(V²) - Distance matrix
 
-**Deep Insights:**
-- **Optimal Approach:** Floyd-Warshall achieves O(V³) time—optimal for all-pairs shortest paths
-- **DP Strategy:** Consider all intermediate nodes—systematically finds shortest paths
-- **Key Insight:** dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])—DP recurrence relation
-- **In-Place Updates:** Update matrix in-place—saves space compared to separate arrays
-- **Negative Weights:** Works with negative weights (no negative cycles)—unlike Dijkstra
-- **Dense Graphs:** Efficient for dense graphs—better than V runs of Dijkstra
-- **Interview Tip:** Explain DP approach clearly; emphasize intermediate node concept; mention V³ complexity trade-off
 ## Q147. Minimum Spanning Tree (Kruskal's & Prim's)
 
 **Problem:** Find the minimum spanning tree (MST) of a connected, undirected, weighted graph. The MST is a subset of edges that connects all vertices with minimum total weight.
@@ -845,14 +757,6 @@ function primMST(n, edges) {
 **Time Complexity:** Kruskal: O(E log E), Prim: O(E log V)  
 **Space Complexity:** O(V + E) - Graph and union-find/heap
 
-**Deep Insights:**
-- **Optimal Approach:** Both algorithms achieve near-optimal time—Kruskal O(E log E), Prim O(E log V)
-- **Kruskal's Strategy:** Greedily add smallest safe edge—union-find prevents cycles
-- **Prim's Strategy:** Grow MST from single vertex—priority queue selects minimum-weight edge
-- **Key Insight:** MST unique if all edge weights distinct—multiple MSTs possible with equal weights
-- **When to Use:** Kruskal better for sparse graphs; Prim better for dense graphs
-- **Edge Cases:** Disconnected graph returns forest; single node returns empty MST; handles all cases
-- **Interview Tip:** Explain both algorithms clearly; compare time complexities; mention union-find optimization
 ## Q148. Bridges in Graph
 
 **Problem:** Find all bridges (critical edges) in an undirected graph. A bridge is an edge whose removal increases the number of connected components in the graph.
@@ -902,14 +806,6 @@ function findBridges(n, graph) {
 **Time Complexity:** O(V + E) - Visit each vertex and edge once  
 **Space Complexity:** O(V) - Arrays and recursion stack
 
-**Deep Insights:**
-- **Optimal Approach:** Tarjan's algorithm achieves O(V + E) time—optimal for bridge detection
-- **Bridge Condition:** Edge (u,v) is bridge if low[v] > tin[u]—no path from v to u without edge
-- **Low-Link Value:** Earliest discovery time reachable from node—tracks back edges
-- **Key Insight:** Tree edges can be bridges; back edges are never bridges—critical distinction
-- **Component Handling:** Check each component separately—disconnected graphs handled correctly
-- **Edge Cases:** Empty graph returns empty; single edge returns that edge; handles all cases
-- **Interview Tip:** Explain Tarjan's clearly; emphasize bridge condition; mention articulation points variant
 ## Q149. Articulation Points (Cut Vertices)
 
 **Problem:** Find all articulation points (cut vertices) in an undirected graph. An articulation point is a vertex whose removal increases the number of connected components.
@@ -966,14 +862,6 @@ function findArticulationPoints(n, graph) {
 **Time Complexity:** O(V + E) - Visit each vertex and edge once  
 **Space Complexity:** O(V) - Arrays and recursion stack
 
-**Deep Insights:**
-- **Optimal Approach:** Tarjan's algorithm achieves O(V + E) time—optimal for articulation point detection
-- **Root Special Case:** Root is articulation point if it has >1 DFS children—special handling needed
-- **Non-Root Condition:** Node u is articulation point if exists child v with low[v] >= tin[u]
-- **Key Insight:** Articulation point condition: low[v] >= tin[u]—no back edge from v to ancestor of u
-- **Component Handling:** Check each component separately—disconnected graphs handled correctly
-- **Edge Cases:** Empty graph returns empty; single node returns empty; handles all cases
-- **Interview Tip:** Explain cut-vertex clearly; emphasize root special case; mention network resilience applications
 ## Q150. Shortest Path in DAG
 
 **Problem:** Find shortest paths from a source node to all other nodes in a directed acyclic graph (DAG). The graph may contain negative edge weights.
@@ -1033,14 +921,6 @@ function dagShortestPath(n, edges, src) {
 **Time Complexity:** O(V + E) - Topological sort + edge relaxation  
 **Space Complexity:** O(V + E) - Graph and distance array
 
-**Deep Insights:**
-- **Optimal Approach:** Topological sort + relaxation achieves O(V + E) time—optimal for DAGs
-- **Topological Order:** Ensures correct processing order—relax edges only after source is processed
-- **Key Insight:** Single pass relaxation sufficient—topological order guarantees no cycles
-- **Negative Weights:** Works with negative weights—advantage over Dijkstra
-- **Efficiency:** Faster than Dijkstra for DAGs—O(V + E) vs O((V + E) log V)
-- **Edge Cases:** Unreachable nodes have Infinity; source node has distance 0; handles all cases
-- **Interview Tip:** Explain topological ordering clearly; emphasize single-pass relaxation; mention negative weight advantage
 ## Q151. Detect Cycle in Directed Graph (DAG Check)
 
 **Problem:** Determine if a directed graph is acyclic (DAG). Return `true` if no cycles exist, `false` otherwise.
@@ -1089,14 +969,6 @@ function isDAG(n, edges) {
 **Time Complexity:** O(V + E) - Visit each vertex and edge once  
 **Space Complexity:** O(V + E) - Graph and indegree arrays
 
-**Deep Insights:**
-- **Optimal Approach:** Kahn's algorithm achieves O(V + E) time—optimal for cycle detection
-- **Cycle Detection:** If not all nodes processed, cycle exists—some nodes stuck in cycle
-- **Key Insight:** DAG = all nodes can be topologically sorted—no cycles means valid ordering
-- **Alternative:** Can use DFS with color tracking—both approaches are O(V + E)
-- **Efficiency:** Kahn's is simpler for this problem—direct cycle detection
-- **Edge Cases:** Empty graph returns true; single node returns true; handles all cases
-- **Interview Tip:** Explain Kahn's algorithm clearly; mention cycle detection logic; compare with DFS approach
 ## Q152. Word Ladder
 
 **Problem:** A transformation sequence from word `beginWord` to word `endWord` using a dictionary `wordList` is a sequence of words such that:
@@ -1163,14 +1035,6 @@ function ladderLength(beginWord, endWord, wordList) {
 **Time Complexity:** O(N × L²) - N words, L length, pattern generation O(L)  
 **Space Complexity:** O(N × L) - Pattern map and queue
 
-**Deep Insights:**
-- **Optimal Approach:** BFS with pattern matching achieves O(N × L²) time—efficient for word ladder
-- **Pattern Strategy:** Use wildcard patterns to find neighbors—avoids checking all word pairs
-- **Key Insight:** BFS finds shortest path—level equals number of transformations
-- **Bidirectional BFS:** Can optimize with bidirectional BFS—starts from both ends
-- **Pattern Generation:** Generate L patterns per word—each position replaced with *
-- **Edge Cases:** End word not in list returns 0; start equals end returns 1; handles all cases
-- **Interview Tip:** Explain pattern approach clearly; mention bidirectional BFS optimization; ask about word length constraints
 ## Q153. Snakes and Ladders
 
 **Problem:** You are given an `n x n` board. You start at square `1` and move to square `n²` by rolling a die. On each square, if there's a snake or ladder, you move to the destination. Return the minimum number of moves required to reach square `n²`, or `-1` if it is not possible.
@@ -1226,14 +1090,6 @@ function snakesAndLadders(board) {
 **Time Complexity:** O(n²) - Visit each square at most once  
 **Space Complexity:** O(n²) - Queue and visited set
 
-**Deep Insights:**
-- **Optimal Approach:** BFS achieves O(n²) time—finds minimum moves (shortest path)
-- **Board Indexing:** Handle Boustrophedon style—rows alternate left-right direction
-- **Snake/Ladder Mapping:** Apply mapping immediately—no separate processing needed
-- **Key Insight:** BFS level equals number of moves—shortest path = minimum moves
-- **Dice Moves:** Try all 6 possible moves—maximize reachable squares
-- **Edge Cases:** Unreachable target returns -1; start equals target returns 0; handles all cases
-- **Interview Tip:** Explain board indexing clearly; emphasize BFS approach; mention coordinate conversion
 ## Q154. Disjoint Set Union (Union-Find)
 
 **Problem:** Implement a Disjoint Set Union (DSU) data structure that supports efficient union and find operations with path compression and union by rank optimizations.
@@ -1286,14 +1142,6 @@ class DSU {
 **Time Complexity:** O(α(n)) amortized - Inverse Ackermann function (nearly constant)  
 **Space Complexity:** O(n) - Parent and rank arrays
 
-**Deep Insights:**
-- **Optimal Approach:** Path compression + union by rank achieves O(α(n)) amortized time—nearly constant
-- **Path Compression:** Flatten tree during find—makes future finds faster
-- **Union by Rank:** Attach smaller tree to larger—keeps tree balanced
-- **Key Insight:** Both optimizations together achieve near-constant time—α(n) < 5 for practical n
-- **Applications:** Connectivity queries, MST (Kruskal's), cycle detection, dynamic connectivity
-- **Edge Cases:** Self-union handled; find root returns itself; handles all cases
-- **Interview Tip:** Explain both optimizations clearly; mention amortized complexity; ask about applications
 ## Q155. Tarjan's Algorithm for Strongly Connected Components
 
 **Problem:** Find all strongly connected components (SCCs) in a directed graph. A strongly connected component is a maximal set of vertices where every vertex can reach every other vertex.
@@ -1352,14 +1200,6 @@ function tarjansSCC(n, graph) {
 **Time Complexity:** O(V + E) - Visit each vertex and edge once  
 **Space Complexity:** O(V) - Arrays and stack
 
-**Deep Insights:**
-- **Optimal Approach:** Tarjan's algorithm achieves O(V + E) time—optimal for SCC detection
-- **SCC Root:** When low[u] === id[u], u is root of SCC—pop stack to form component
-- **Stack Usage:** Stack tracks current DFS path—enables SCC identification
-- **Low-Link Update:** Update low-link from back edges and children—tracks earliest reachable node
-- **Key Insight:** All nodes in same SCC have same low-link value—enables component identification
-- **Edge Cases:** Empty graph returns empty; single node returns single component; handles all cases
-- **Interview Tip:** Explain Tarjan's clearly; emphasize stack usage; mention SCC applications (condensation graph)
 
 ## Q156. Surrounded Regions
 
@@ -1424,14 +1264,6 @@ function solve(board) {
 **Time Complexity:** O(m × n) - Visit each cell once  
 **Space Complexity:** O(m × n) - DFS recursion depth (worst case)
 
-**Deep Insights:**
-- **Optimal Approach:** DFS from borders achieves O(m × n) time—optimal for this problem
-- **Border Strategy:** Mark border-connected 'O' first—identifies regions that should NOT be flipped
-- **Key Insight:** Only surrounded regions are flipped—border-connected regions remain 'O'
-- **Marking Technique:** Use temporary marker '#'—enables restoration after processing
-- **Two-Pass Process:** First mark border-connected, then flip remaining—clean separation
-- **Edge Cases:** Empty board handled; all 'X' returns unchanged; all 'O' on border remains; handles all cases
-- **Interview Tip:** Explain border DFS strategy clearly; emphasize marking technique; mention space optimization (iterative BFS)
 
 ## Q157. Evaluate Division
 
@@ -1507,14 +1339,6 @@ function calcEquation(equations, values, queries) {
 **Time Complexity:** O(n × q) - n equations, q queries, each query may visit all nodes  
 **Space Complexity:** O(n) - Graph storage
 
-**Deep Insights:**
-- **Optimal Approach:** Graph construction + DFS achieves O(n × q) time—efficient for division queries
-- **Bidirectional Graph:** Build both a->b and b->a edges—enables queries in both directions
-- **Path Multiplication:** Multiply values along path—computes division result
-- **Key Insight:** Division query = path finding with multiplication—graph naturally models equations
-- **Caching Optimization:** Can cache query results—reduces redundant computations
-- **Edge Cases:** Unknown nodes return -1.0; same node returns 1.0; disconnected nodes return -1.0
-- **Interview Tip:** Explain graph building clearly; emphasize bidirectional edges; mention caching optimization
 
 ## Q158. Course Schedule II
 
@@ -1576,14 +1400,6 @@ function findOrder(numCourses, prerequisites) {
 **Time Complexity:** O(V + E) - Build graph + Kahn's algorithm  
 **Space Complexity:** O(V + E) - Graph and indegree arrays
 
-**Deep Insights:**
-- **Optimal Approach:** Kahn's algorithm achieves O(V + E) time—optimal for topological sort
-- **Order Construction:** Process courses in topological order—ensures prerequisites before dependents
-- **Cycle Detection:** If not all courses processed, cycle exists—return empty array
-- **Key Insight:** Same as Course Schedule I but return order—adds result tracking
-- **Multiple Valid Orders:** Multiple topological orders possible—algorithm returns one valid order
-- **Edge Cases:** No prerequisites returns any order; cycle returns empty; handles all cases
-- **Interview Tip:** Explain topological sort clearly; emphasize cycle detection; compare with DFS approach
 
 ## Q159. Minimum Genetic Mutation
 
@@ -1640,10 +1456,3 @@ function minMutation(start, end, bank) {
 
 **Time Complexity:** O(bank.length × gene_length × 4) - BFS through valid mutations  
 **Space Complexity:** O(bank.length) - Queue and visited set
-
-Deep Insights:
-- BFS shortest path: generate all valid mutations; use bank as graph; O(bank.length × gene_length × 4) time.
-- Generate mutations by changing one character at a time; check if in bank.
-- Use BFS to find minimum mutations (shortest path).
-- Edge case: End not in bank returns -1; start equals end returns 0.
-- Interview tip: Explain BFS approach; mention graph construction; ask about optimization.

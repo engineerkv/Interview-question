@@ -71,14 +71,6 @@ function solveNQueens(n) {
 **Time Complexity:** O(n!) - Backtracking generates all valid queen placements  
 **Space Complexity:** O(n²) - Board storage plus O(n) recursion stack
 
-**Deep Insights:**
-- **Optimal Approach:** Backtracking achieves O(n!) time—optimal for n-queens problem
-- **Row-by-Row Placement:** Place one queen per row—simplifies constraint checking
-- **Diagonal Tracking:** Track two diagonals: r-c (main) and r+c (anti)—prevents diagonal attacks
-- **Constraint Sets:** Use sets for O(1) lookup—efficiently check column and diagonal constraints
-- **Key Insight:** Place queens row by row, prune invalid positions early—reduces search space
-- **Edge Cases:** n=1 returns one solution; n=2 and n=3 return empty; handles all cases
-- **Interview Tip:** Explain backtracking clearly; emphasize diagonal pruning; mention optimization techniques (symmetry)
 ## Q194. Sudoku Solver
 
 **Problem:** Write a program to solve a Sudoku puzzle by filling the empty cells. A sudoku solution must satisfy all of the following rules:
@@ -163,14 +155,6 @@ function solveSudoku(board) {
 **Time Complexity:** O(9^m) - Backtracking where m is number of empty cells  
 **Space Complexity:** O(1) - Reusing input board, O(81) sets for constraints
 
-**Deep Insights:**
-- **Optimal Approach:** Backtracking with constraint tracking achieves O(9^m) time—optimal for Sudoku
-- **Constraint Sets:** Track row, column, and box constraints—efficiently check valid digits
-- **Empty Cell Processing:** Process only empty cells—reduces search space
-- **Box Calculation:** box(r,c) = floor(r/3)*3 + floor(c/3)—maps cell to 3x3 box
-- **Key Insight:** Try digits 1-9 for each empty cell, backtrack when constraints violated—finds solution
-- **Edge Cases:** Valid puzzle assumed; no solution returns false; handles all cases
-- **Interview Tip:** Explain constraint checking clearly; emphasize box calculation; mention puzzle validity requirement
 ## Q195. Permutations / Combinations
 
 **Problem:**
@@ -261,14 +245,6 @@ function combine(n, k) {
 **Time Complexity:** O(n!) for permutations, O(C(n,k)) for combinations  
 **Space Complexity:** O(n) - Recursion stack plus result storage
 
-**Deep Insights:**
-- **Optimal Approach:** Backtracking achieves optimal time complexity for both problems
-- **Permutations:** Use `used` array to track selected elements—prevents reuse
-- **Combinations:** Control start index—ensures non-decreasing order, prevents duplicates
-- **Key Difference:** Permutations allow any order; combinations maintain order—critical distinction
-- **Start Index:** For combinations, start from `i+1` after choosing `i`—prevents duplicates
-- **Edge Cases:** Empty array returns [[]]; k=0 returns [[]]; handles all cases
-- **Interview Tip:** Explain permutations vs combinations clearly; emphasize start index for combinations; mention iterative variants
 ## Q196. Subsets / Power Set
 
 **Problem:** Given an integer array `nums` of unique elements, return all possible subsets (the power set). The solution set must not contain duplicate subsets. Return the solution in any order.
@@ -330,14 +306,6 @@ function subsets(nums) {
 **Time Complexity:** O(2^n) - Generating all 2^n subsets  
 **Space Complexity:** O(2^n) - Storage for all subsets
 
-**Deep Insights:**
-- **Optimal Approach:** Both iterative and backtracking achieve O(2^n) time—optimal for subsets
-- **Iterative Method:** Build subsets incrementally—add each element to all existing subsets
-- **Backtracking Method:** Include/exclude decision per element—more flexible for variations
-- **Key Insight:** Each element can be included or excluded—2^n total subsets
-- **Duplicate Handling:** For duplicates, sort first and skip same consecutive elements—prevents duplicate subsets
-- **Edge Cases:** Empty array returns [[]]; single element returns [[], [element]]; handles all cases
-- **Interview Tip:** Explain include/exclude decision clearly; compare iterative vs backtracking; mention duplicate handling
 ## Q197. Generate Parentheses
 
 **Problem:** Given `n` pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
@@ -389,14 +357,6 @@ function generateParenthesis(n) {
 **Time Complexity:** O(4^n / √n) - Catalan number C(n) ≈ 4^n / (n√(πn))  
 **Space Complexity:** O(n) - Recursion stack depth
 
-**Deep Insights:**
-- **Optimal Approach:** Backtracking achieves O(C(n)) time where C(n) is Catalan number—optimal for parentheses
-- **Constraint Checking:** open <= n and close <= open—ensures valid parentheses by construction
-- **Catalan Numbers:** Number of valid parentheses = C(n) = (2n)!/(n!(n+1)!)—exponential growth
-- **Key Insight:** Add '(' when open < n, add ')' when close < open—guarantees balance
-- **Balanced by Construction:** Constraints ensure valid parentheses—no need to validate
-- **Edge Cases:** n=0 returns [""]; n=1 returns ["()"]; handles all cases
-- **Interview Tip:** Explain constraint checking clearly; mention Catalan numbers; emphasize balanced by construction
 ## Q198. Word Search
 
 **Problem:** Given an `m x n` grid of characters `board` and a string `word`, return `true` if `word` exists in the grid. The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.
@@ -464,15 +424,6 @@ function exist(board, word) {
 **Time Complexity:** O(mn × 4^L) - DFS from each cell, 4 directions, L is word length  
 **Space Complexity:** O(L) - Recursion stack depth
 
-**Deep Insights:**
-- **Optimal Approach:** DFS with backtracking achieves O(mn × 4^L) time—optimal for word search
-- **Visited Tracking:** Mark cells as visited during DFS—prevents revisiting same cell in path
-- **Backtracking:** Unmark visited when backtracking—allows reuse in different paths
-- **Four Directions:** Explore up, down, left, right—covers all adjacent cells
-- **Key Insight:** Start from each cell, match characters sequentially—finds word if exists
-- **Pruning:** Can prune by counting first character—early termination optimization
-- **Edge Cases:** Empty word returns true; single character returns true if exists; handles all cases
-- **Interview Tip:** Explain DFS clearly; emphasize backtracking; mention pruning techniques
 ## Q199. Rat in a Maze
 
 **Problem:** Consider a rat placed at `(0, 0)` in a square maze of order `N * N`. The maze is represented as a 2D array where `1` represents a valid path and `0` represents a wall. The rat needs to reach the destination at `(N-1, N-1)`. Find all paths that the rat can take to reach the destination. The directions allowed are Up (U), Down (D), Left (L), Right (R).
@@ -543,15 +494,6 @@ function ratMaze(maze) {
 **Time Complexity:** O(4^(mn)) - Backtracking with 4 directions from each cell  
 **Space Complexity:** O(mn) - Visited array plus recursion stack
 
-**Deep Insights:**
-- **Optimal Approach:** Backtracking explores all paths—optimal for finding all solutions
-- **Path Tracking:** Track path as string (U/D/L/R)—builds path incrementally
-- **Visited Tracking:** Mark cells as visited during DFS—prevents cycles
-- **Backtracking:** Unmark visited when backtracking—allows reuse in different paths
-- **Key Insight:** Explore all 4 directions from each cell—finds all valid paths
-- **Multiple Paths:** Collect all paths to destination—not just one solution
-- **Edge Cases:** Start blocked returns []; no path returns []; handles all cases
-- **Interview Tip:** Explain backtracking clearly; emphasize path collection; mention shortest path variant (BFS)
 ## Q200. Combination Sum
 
 **Problem:** Given an array of distinct integers `candidates` and a target integer `target`, return a list of all unique combinations of `candidates` where the chosen numbers sum to `target`. You may return the combinations in any order. The same number may be chosen from `candidates` an unlimited number of times.
@@ -613,15 +555,6 @@ function combinationSum(candidates, target) {
 **Time Complexity:** O(2^target) - Exponential backtracking  
 **Space Complexity:** O(target) - Recursion stack depth
 
-**Deep Insights:**
-- **Optimal Approach:** Backtracking achieves exponential time—optimal for combination sum
-- **Start Index:** Use start index to avoid duplicates—ensures non-decreasing order
-- **Reuse Allowed:** Start from `i` (not `i+1`)—allows reusing same candidate multiple times
-- **Sorting:** Sort candidates first—enables pruning (break when sum > target)
-- **Pruning:** Break early when sum + num > target—reduces search space
-- **Key Insight:** Start index ensures unique combinations—prevents permutations
-- **Edge Cases:** No solution returns []; target=0 returns [[]] if 0 in candidates; handles all cases
-- **Interview Tip:** Explain start index clearly; emphasize reuse vs no-reuse; mention pruning optimization
 ## Q201. Letter Combinations of a Phone Number
 
 **Problem:** Given a string containing digits from `2-9` inclusive, return all possible letter combinations that the number could represent. Return the answer in any order. A mapping of digits to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
@@ -685,14 +618,6 @@ function letterCombinations(digits) {
 **Time Complexity:** O(4^n) - Each digit maps to 3-4 letters  
 **Space Complexity:** O(n) - Recursion stack depth
 
-**Deep Insights:**
-- **Optimal Approach:** Backtracking achieves O(4^n) time—optimal for phone combinations
-- **Digit Mapping:** Map digits 2-9 to letters—standard phone keypad mapping
-- **Cartesian Product:** Generate all combinations of letters—one letter per digit
-- **Key Insight:** For each digit, try all possible letters—builds combinations incrementally
-- **Iterative Alternative:** Can use iterative approach with queue—same time complexity
-- **Edge Cases:** Empty input returns []; single digit returns all its letters; handles all cases
-- **Interview Tip:** Explain digit mapping clearly; mention iterative variant; compare with cartesian product
 ## Q202. Palindrome Partitioning
 
 **Problem:** Given a string `s`, partition `s` such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of `s`.
@@ -755,12 +680,4 @@ function partition(s) {
 **Time Complexity:** O(n × 2^n) - Backtracking with palindrome checks  
 **Space Complexity:** O(n) - Recursion stack depth
 
-**Deep Insights:**
-- **Optimal Approach:** Backtracking achieves O(n × 2^n) time—optimal for palindrome partitioning
-- **Palindrome Check:** Check if substring is palindrome—O(n) per check
-- **Substring Generation:** Try all possible substrings starting at each position—builds partitions
-- **Key Insight:** Partition string into palindromic substrings—each substring must be palindrome
-- **DP Optimization:** Can precompute palindrome table—reduces palindrome check to O(1)
-- **Cut Problems:** Similar pattern applies to other cut problems—partition string optimally
-- **Edge Cases:** Empty string returns [[]]; single character returns [[char]]; handles all cases
 - **Interview Tip:** Explain palindrome checking clearly; mention DP optimization; compare with cut problems

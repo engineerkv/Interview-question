@@ -1,6 +1,25 @@
-# 🧠 **SQL Interview Cheatsheet**
+# 🧠 SQL Interview Cheatsheet
 
-*Quick reference guide for SQL interview preparation*
+> **⏱️ Review Time: 15-20 minutes** | **Priority: ⭐⭐⭐ Critical** | Essential SQL concepts for interviews
+> 
+> **Coverage: Q1-Q50** (50 questions across 5 topics)
+
+**Quick Review Checklist:**
+- [ ] SQL Fundamentals (DDL, DML, DCL, TCL, Constraints)
+- [ ] Querying & Joins (INNER, LEFT, RIGHT, FULL, CROSS, Subqueries, CTEs)
+- [ ] Filtering & Aggregation (WHERE, HAVING, GROUP BY, Window Functions)
+- [ ] Database Design (Normalization, Indexing, Query Optimization)
+- [ ] Transactions & Concurrency (ACID, Isolation Levels, Deadlocks, Stored Procedures)
+
+---
+
+## 📋 **Question Coverage**
+
+- **Q1-Q10**: SQL Fundamentals
+- **Q11-Q20**: Querying & Joins
+- **Q21-Q30**: Filtering, Grouping & Aggregation
+- **Q31-Q40**: Database Design, Indexing & Performance
+- **Q41-Q50**: Transactions, Concurrency & Stored Logic
 
 ---
 

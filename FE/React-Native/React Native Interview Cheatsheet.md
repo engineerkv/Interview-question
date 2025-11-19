@@ -1,6 +1,8 @@
-# ⚛️ **React Native Interview Cheatsheet**
+# ⚛️ React Native Interview Cheatsheet
 
 > **⏱️ Review Time: 15-20 minutes** | **Priority: ⭐⭐ Medium** | Quick reference for React Native interviews
+> 
+> **Coverage: Q1-Q95** (95 questions across 10 topics)
 
 **Quick Review Checklist:**
 - [ ] React Native Basics (Components, JSX, Bridge)
@@ -11,6 +13,21 @@
 - [ ] State Management (Redux, AsyncStorage)
 - [ ] Testing (Jest, Detox E2E)
 - [ ] Build & Deployment (Release Builds, CodePush)
+
+---
+
+## 📋 **Question Coverage**
+
+- **Q1-Q10**: React Native Fundamentals
+- **Q11-Q20**: Native Modules & Platform Integrations
+- **Q21-Q30**: Android & iOS Platform Internals
+- **Q31-Q40**: Navigation & Lifecycle
+- **Q41-Q50**: Performance Optimization & Measurement
+- **Q51-Q60**: State Management & Data Handling
+- **Q61-Q68**: CodePush & OTA Updates
+- **Q69-Q78**: Debugging & Testing
+- **Q79-Q90**: Build, Deployment & Stores
+- **Q91-Q95**: Push Notifications & Messaging
 
 ---
 

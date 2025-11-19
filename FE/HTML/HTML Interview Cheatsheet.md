@@ -1,6 +1,8 @@
 # 🌐 HTML Interview Cheatsheet
 
 > **⏱️ Review Time: 10-15 minutes** | **Priority: ⭐⭐⭐ High** | Essential HTML concepts for interviews
+> 
+> **Coverage: Q1-Q111** (111 questions across 8 topics)
 
 **Quick Review Checklist:**
 - [ ] Document Structure & Semantic HTML
@@ -10,6 +12,19 @@
 - [ ] Media Elements (Images, Video, Audio)
 - [ ] Performance & SEO (Meta Tags, Core Web Vitals)
 - [ ] Browser Rendering Pipeline
+
+---
+
+## 📋 **Question Coverage**
+
+- **Q1-Q15**: HTML Fundamentals
+- **Q16-Q30**: Semantic HTML & Structure
+- **Q31-Q45**: Forms & Input Elements
+- **Q46-Q60**: Accessibility (A11y)
+- **Q61-Q75**: HTML5 Features & APIs
+- **Q76-Q85**: Media Elements
+- **Q86-Q101**: Performance & SEO
+- **Q102-Q111**: Advanced HTML Concepts
 
 ---
 

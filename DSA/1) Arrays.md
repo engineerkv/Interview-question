@@ -54,13 +54,7 @@ function twoSumBruteForce(nums, target) {
 **Time Complexity:** O(n²) - Nested loops check all pairs  
 **Space Complexity:** O(1) - Only using constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Single-pass hash map achieves O(n) time complexity instead of O(n²) brute force
-- **Duplicate Handling:** Store indices in map, not just presence, to handle duplicate values correctly
-- **Index vs Value:** Prefer indices over values when problem asks for positions (as in this case)
-- **Negative Numbers:** Hash map handles negative numbers and zero naturally—no special cases needed
-- **Edge Cases:** Exactly one solution guaranteed; same element cannot be used twice
-- **Trade-offs:** Hash map solution trades O(n) space for O(n) time vs O(1) space for O(n²) time
+---
 
 ## Q2. Best Time to Buy & Sell Stock
 
@@ -122,13 +116,6 @@ function maxProfitTwoPointers(prices) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - Only using constant extra variables
 
-**Deep Insights:**
-- **Optimal Approach:** Single pass maintains minimum price and calculates profit in O(n) time with O(1) space
-- **Greedy Strategy:** Always track the lowest price seen so far; calculate profit for each day
-- **Transaction Limit:** Only one transaction allowed—buy once, sell once
-- **Edge Cases:** Monotonic decreasing arrays return 0; single element array returns 0
-- **Key Insight:** Profit calculation is conceptually reset if price drops below current minimum
-- **Interview Tip:** This is the foundation for multiple transaction variants (Stock II, III, IV)
 
 ## Q3. Kadane's Algorithm (Maximum Subarray Sum)
 
@@ -210,13 +197,6 @@ function maxCrossingSubArray(nums, left, mid, right) {
 **Time Complexity:** O(n log n) - Divide and conquer approach  
 **Space Complexity:** O(log n) - Recursion stack depth
 
-**Deep Insights:**
-- **Optimal Approach:** Kadane's algorithm achieves O(n) time and O(1) space—optimal for this problem
-- **Key Insight:** Reset running sum when it becomes negative—negative prefix can never improve the sum
-- **Edge Cases:** For all-negative arrays, return the maximum single element (least negative)
-- **Variant:** Can track start and end indices to return the actual subarray instead of just the sum
-- **Divide & Conquer:** Alternative O(n log n) approach useful for learning but not optimal for interviews
-- **Interview Tip:** Explain the reset logic clearly—when current sum < 0, starting fresh is better
 
 ## Q4. Rotate Array
 
@@ -289,13 +269,6 @@ function rotateCyclic(nums, k) {
 **Time Complexity:** O(n) - Each element visited once  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Triple-reverse achieves O(n) time and O(1) space—optimal for in-place rotation
-- **Key Normalization:** `k %= n` handles cases where k exceeds array length
-- **Rotation Direction:** Right rotation uses k, left rotation uses `n - k`
-- **In-Place Constraint:** Both solutions satisfy O(1) space requirement
-- **Cyclic Replacement:** Alternative approach moves elements in cycles, also O(n) time
-- **Interview Tip:** Triple-reverse is cleaner and easier to explain; cyclic replacement is more complex but demonstrates understanding of modular arithmetic
 
 ## Q5. Merge Intervals
 
@@ -346,13 +319,6 @@ function merge(intervals) {
 **Time Complexity:** O(n log n) - Sorting dominates, then O(n) merge pass  
 **Space Complexity:** O(n) - Result array stores merged intervals (worst case: no overlaps)
 
-**Deep Insights:**
-- **Optimal Approach:** Sort-then-merge achieves O(n log n) time complexity—optimal for this problem
-- **Overlap Detection:** Two intervals overlap if `start ≤ lastEnd` (touching at endpoints counts as overlap)
-- **Merge Logic:** Update end to `Math.max(lastEnd, currentEnd)` to handle nested intervals
-- **Edge Cases:** Empty array returns empty array; single interval returns itself
-- **Sorting Importance:** Sorting ensures we process intervals in order, making overlap detection straightforward
-- **Interview Tip:** Clarify whether touching intervals (e.g., [1,4] and [4,5]) should merge—usually yes
 
 ## Q6. Largest Element in Array
 
@@ -399,13 +365,6 @@ function findMaxMath(nums) {
 **Time Complexity:** O(n) - Math.max scans all elements  
 **Space Complexity:** O(1) - Constant space
 
-**Deep Insights:**
-- **Optimal Approach:** Linear scan achieves O(n) time and O(1) space—optimal for finding single maximum
-- **Avoid Sorting:** Using sort for single max is O(n log n) waste—always use linear scan
-- **Edge Cases:** Empty array should be handled; single element array returns that element
-- **Kth Largest:** For kth largest, use quickselect (O(n) average) or heap (O(n log k))
-- **Streaming Variant:** For streaming data, maintain running maximum with O(1) update per element
-- **Interview Tip:** Clarify if duplicates should be considered; ask about kth largest variant
 
 ## Q7. Sort Colors (Dutch National Flag)
 
@@ -479,13 +438,6 @@ function sortColorsCounting(nums) {
 **Time Complexity:** O(n) - Two passes through array  
 **Space Complexity:** O(1) - Count array of size 3 is constant
 
-**Deep Insights:**
-- **Optimal Approach:** Dutch National Flag achieves O(n) time and O(1) space—optimal for this problem
-- **Three-Pointer Logic:** `low` tracks boundary of 0s, `mid` processes current element, `high` tracks boundary of 2s
-- **Key Insight:** When swapping with `high`, don't increment `mid`—need to check the swapped element
-- **In-Place Constraint:** Both solutions satisfy O(1) space requirement
-- **Generalization:** Can extend to k distinct values with k pointers
-- **Interview Tip:** Explain why mid increments after swapping with low but not after swapping with high
 
 ## Q8. Product of Array Except Self
 
@@ -545,13 +497,6 @@ function productExceptSelfDivision(nums) {
 **Time Complexity:** O(n) - Two passes  
 **Space Complexity:** O(1) - Excluding output
 
-**Deep Insights:**
-- **Optimal Approach:** Two-pass prefix/suffix method achieves O(n) time and O(1) extra space
-- **Division Pitfall:** Division approach fails with zeros—cannot divide by zero
-- **Zero Handling:** If array has one zero, only that position has non-zero product; if multiple zeros, all products are zero
-- **Key Insight:** Prefix products store left-side products, suffix products (backwards pass) multiply right-side products
-- **Space Optimization:** Using output array to store prefix products saves space vs separate arrays
-- **Interview Tip:** Ask about zeros first; division approach is tempting but fails; this method always works
 
 ## Q9. Find Missing Number
 
@@ -604,13 +549,6 @@ function missingNumberSum(nums) {
 
 **Note:** Sum approach can overflow for large n; XOR avoids overflow.
 
-**Deep Insights:**
-- **Optimal Approach:** XOR achieves O(n) time and O(1) space—optimal and avoids overflow
-- **XOR Property:** `a ^ a = 0` and `a ^ 0 = a`, so pairs cancel out, leaving the missing number
-- **Overflow Safety:** XOR avoids arithmetic overflow that sum-based approach may encounter
-- **Range Assumption:** Array contains n distinct numbers in range [0, n], exactly one missing
-- **Alternative:** Sum formula works but can overflow; XOR is more robust
-- **Interview Tip:** Ask about range assumptions first; verify numbers are distinct; mention overflow concern with sum
 
 ## Q10. Majority Element (Boyer-Moore)
 
@@ -681,13 +619,6 @@ function majorityElementHashMap(nums) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(n) - Hash map stores element counts
 
-**Deep Insights:**
-- **Optimal Approach:** Boyer-Moore achieves O(n) time and O(1) space—optimal for this problem
-- **Voting Logic:** Majority element survives because it appears more than half the time
-- **Key Insight:** When count reaches zero, we've canceled equal numbers of majority and non-majority elements
-- **Guarantee Assumption:** Problem guarantees majority exists; otherwise need verification phase
-- **Extension:** Can extend to find elements appearing more than n/3 times using two candidates
-- **Interview Tip:** Explain the voting analogy clearly; mention why O(1) space is important for streaming data
 
 ## Q11. Maximum Product Subarray
 
@@ -738,13 +669,6 @@ function maxProduct(nums) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - Only using constant extra variables
 
-**Deep Insights:**
-- **Key Insight:** Track both max and min because negative numbers can flip the sign—two negatives make a positive
-- **Swap Logic:** When encountering negative, swap max/min because negative × min might become the new max
-- **Zero Handling:** Zero resets the product run, but we can start fresh from the next element
-- **Edge Cases:** Single element array returns that element; all negative numbers still need to find maximum product
-- **Why Both Max and Min:** Negative × negative = positive, so the minimum product can become maximum after multiplication
-- **Interview Tip:** Ask about negatives and zeros first; explain why we can't just track max like in Kadane's algorithm
 
 ## Q12. Trapping Rain Water
 
@@ -829,13 +753,6 @@ function trapDP(height) {
 **Time Complexity:** O(n) - Three passes through array  
 **Space Complexity:** O(n) - Two arrays for left and right maxes
 
-**Deep Insights:**
-- **Optimal Approach:** Two-pointer achieves O(n) time and O(1) space—optimal for this problem
-- **Key Insight:** Water at position i = min(leftMax, rightMax) - height[i]
-- **Why Move Smaller Pointer:** Moving the pointer with smaller max is safe because water depends on the minimum of the two maxes
-- **Edge Cases:** Empty array returns 0; all zeros returns 0; ascending/descending arrays trap no water
-- **DP Alternative:** Precomputes left/right maxes but uses O(n) space; two-pointer is preferred
-- **Interview Tip:** Explain why moving smaller-height pointer is safe; ask about edge cases (empty, all zeros, monotonic)
 
 ## Q13. Subarray Sum Equals K
 
@@ -883,13 +800,6 @@ function subarraySum(nums, k) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(n) - Hash map stores up to n distinct prefix sums
 
-**Deep Insights:**
-- **Key Insight:** If `prefixSum[i] - prefixSum[j] = k`, then subarray from j+1 to i has sum k
-- **Initialization:** `{0:1}` is crucial—it handles subarrays starting at index 0
-- **Negative Numbers:** Works correctly with negative numbers—no special handling needed
-- **Overlapping Subarrays:** Counts all overlapping subarrays correctly
-- **Pattern:** `prefixSum[i] - k = prefixSum[j]` means subarray from j+1 to i sums to k
-- **Interview Tip:** Explain why `{0:1}` initialization is crucial; ask about negative numbers and overlapping subarrays
 
 ## Q14. Longest Consecutive Sequence
 
@@ -967,13 +877,6 @@ function longestConsecutiveSorting(nums) {
 **Time Complexity:** O(n log n) - Sorting dominates  
 **Space Complexity:** O(1) - If sorting is in-place
 
-**Deep Insights:**
-- **Optimal Approach:** Hash set achieves O(n) time—optimal for this problem
-- **Key Optimization:** Only expand from sequence heads avoids redundant work—each element visited at most twice
-- **Why Sequence Heads:** If `num - 1` exists, `num` is not a head, so expanding from it would be redundant
-- **Duplicate Handling:** Hash set naturally handles duplicates
-- **Edge Cases:** Empty array returns 0; single element returns 1
-- **Interview Tip:** Explain why we only expand from heads; mention sorting is O(n log n) and not optimal
 
 ## Q15. Merge Sorted Arrays
 
@@ -1047,13 +950,6 @@ function mergeWithExtraSpace(nums1, m, nums2, n) {
 **Time Complexity:** O(m + n) - Merge pass  
 **Space Complexity:** O(m + n) - Extra array for result
 
-**Deep Insights:**
-- **Optimal Approach:** Two pointers from end achieves O(m+n) time and O(1) space—optimal for in-place merge
-- **Why Back-to-Front:** Filling from the end prevents overwriting unprocessed elements in `nums1`
-- **Key Insight:** If `nums1` has remaining elements after `nums2` is exhausted, they're already in correct position
-- **Edge Cases:** Empty `nums2` leaves `nums1` unchanged; empty `nums1` copies all of `nums2`
-- **Comparison:** Front-to-front merge would require shifting elements, causing O(m²) worst case
-- **Interview Tip:** Always ask about array sizes and available space; explain why back-to-front is safe
 
 ## Q16. Remove Element
 
@@ -1093,13 +989,6 @@ function removeElement(nums, val) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - In-place modification, constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Two-pointer technique achieves O(n) time and O(1) space—optimal for in-place removal
-- **Write Pointer:** Tracks the next position to write valid elements
-- **In-Place Constraint:** Elements after the new length may contain old values—this is acceptable
-- **Order Preservation:** Elements before `writeIndex` maintain relative order
-- **Edge Cases:** Empty array returns 0; all elements equal to `val` returns 0
-- **Interview Tip:** Explain the two-pointer approach; clarify that elements after length may contain old values
 
 ## Q17. Remove Duplicates from Sorted Array
 
@@ -1142,13 +1031,6 @@ function removeDuplicates(nums) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - In-place modification
 
-**Deep Insights:**
-- **Optimal Approach:** Two-pointer technique achieves O(n) time and O(1) space—optimal for sorted arrays
-- **Sorted Property:** Array must be sorted—duplicates appear consecutively, making comparison simple
-- **Comparison Logic:** Compare `nums[i]` with `nums[writeIndex - 1]` (last written unique element)
-- **First Element:** First element is always unique, so start `writeIndex` at 1
-- **Edge Cases:** Empty array returns 0; single element returns 1; all duplicates returns 1
-- **Interview Tip:** Explain why sorted property is crucial; mention that this doesn't work for unsorted arrays
 
 ## Q18. Remove Duplicates from Sorted Array II
 
@@ -1191,13 +1073,6 @@ function removeDuplicates(nums) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - In-place modification
 
-**Deep Insights:**
-- **Optimal Approach:** Two-pointer technique achieves O(n) time and O(1) space—optimal for this problem
-- **Key Insight:** Compare with `nums[writeIndex - 2]` to ensure at most two occurrences
-- **Generalization:** Can extend to allow k duplicates by comparing with `nums[writeIndex - k]`
-- **First K Elements:** First k elements are always valid, so start `writeIndex` at k
-- **Sorted Property:** Requires sorted array—duplicates appear consecutively
-- **Interview Tip:** Explain the generalization to k duplicates; ask about the sorted property requirement
 
 ## Q19. Best Time to Buy and Sell Stock II
 
@@ -1237,13 +1112,6 @@ function maxProfit(prices) {
 **Time Complexity:** O(n) - Single pass through prices  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Greedy strategy achieves O(n) time and O(1) space—optimal for unlimited transactions
-- **Key Insight:** Summing all positive differences captures maximum profit—equivalent to buying every dip and selling every peak
-- **Unlimited Transactions:** Unlike Stock I, we can make multiple transactions to maximize profit
-- **Same Day Trading:** Can buy and sell on the same day, which simplifies the problem
-- **Edge Cases:** Monotonic decreasing returns 0; monotonic increasing captures all profit
-- **Interview Tip:** Explain why greedy works—any optimal strategy can be converted to this greedy approach
 
 ## Q20. Jump Game
 
@@ -1287,13 +1155,6 @@ function canJump(nums) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Greedy algorithm achieves O(n) time and O(1) space—optimal for this problem
-- **Key Insight:** Track farthest reachable position; if current index exceeds farthest, end is unreachable
-- **Greedy Strategy:** Maximize reach at each step—if we can reach position i, we can reach all positions up to i
-- **Early Termination:** If farthest reaches or exceeds last index, return true immediately
-- **Edge Cases:** Single element array returns true; first element zero with length > 1 returns false
-- **Interview Tip:** Explain the greedy strategy clearly; mention why we check `i > farthest` before updating
 
 ## Q21. Jump Game II
 
@@ -1339,13 +1200,6 @@ function jump(nums) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Greedy BFS achieves O(n) time and O(1) space—optimal for this problem
-- **BFS Analogy:** Think of it as BFS levels—each jump represents a level, `currentEnd` is the boundary of current level
-- **Greedy Choice:** At each level, take the maximum jump to reach the farthest position
-- **Key Insight:** When `i === currentEnd`, we've exhausted all positions in current level, so we must jump
-- **Edge Cases:** Single element array returns 0 (already at end); problem guarantees we can reach end
-- **Interview Tip:** Explain the BFS-level analogy; mention why greedy choice is optimal
 
 ## Q22. H-Index
 
@@ -1386,13 +1240,6 @@ function hIndex(citations) {
 **Time Complexity:** O(n log n) - Sorting dominates  
 **Space Complexity:** O(1) - In-place sort (or O(n) if we need to preserve original)
 
-**Deep Insights:**
-- **Optimal Approach:** Sorting achieves O(n log n) time—optimal for comparison-based sorting
-- **H-Index Definition:** Maximum h where h papers have at least h citations each
-- **Key Insight:** After sorting descending, if `citations[i] >= i+1`, then `i+1` papers have at least `i+1` citations
-- **Edge Cases:** All zeros returns 0; all high citations returns n (number of papers)
-- **Alternative:** Counting sort can achieve O(n) time if citations are bounded
-- **Interview Tip:** Explain h-index concept clearly; mention sorting approach and potential optimization with counting sort
 
 ## Q23. Insert Delete GetRandom O(1)
 
@@ -1451,13 +1298,6 @@ class RandomizedSet {
 **Time Complexity:** O(1) - All operations average case  
 **Space Complexity:** O(n) - Array and map storage
 
-**Deep Insights:**
-- **Optimal Approach:** Array + hash map achieves O(1) for all operations—optimal for this problem
-- **Key Trick:** Swap element to delete with last element, then pop—maintains O(1) deletion
-- **Map Maintenance:** Update map when swapping—map must always point to correct index
-- **Random Access:** Array enables O(1) random access with uniform distribution
-- **Edge Cases:** Empty set should handle getRandom (problem assumes non-empty); duplicate insert returns false
-- **Interview Tip:** Explain the swap-with-last trick clearly; emphasize importance of updating map during swap
 
 ## Q24. Gas Station
 
@@ -1505,13 +1345,6 @@ function canCompleteCircuit(gas, cost) {
 **Time Complexity:** O(n) - Single pass through stations  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Greedy algorithm achieves O(n) time and O(1) space—optimal for this problem
-- **Key Insight:** If total gas >= total cost, a solution exists; otherwise return -1
-- **Greedy Reset:** When tank goes negative, all previous stations cannot be valid starts—reset start and tank
-- **Why Greedy Works:** If we can't reach station j from station i, we can't reach j from any station between i and j
-- **Edge Cases:** All gas = all cost returns 0 (can start anywhere); impossible case returns -1
-- **Interview Tip:** Explain why greedy reset works; mention total surplus check as feasibility test
 
 ## Q25. Candy
 
@@ -1563,13 +1396,6 @@ function candy(ratings) {
 **Time Complexity:** O(n) - Two passes through array  
 **Space Complexity:** O(n) - Candies array
 
-**Deep Insights:**
-- **Optimal Approach:** Two-pass greedy achieves O(n) time and O(n) space—optimal for this problem
-- **Two Constraints:** Must satisfy both left and right neighbor constraints—two passes are necessary
-- **Math.max Usage:** In second pass, use `Math.max` to preserve first pass results while satisfying right constraint
-- **Equal Ratings:** Children with equal ratings don't require more candy than each other
-- **Edge Cases:** All same ratings returns n (minimum); strictly decreasing returns n*(n+1)/2 (maximum)
-- **Interview Tip:** Explain why two passes are needed; mention constraint satisfaction and Math.max preservation
 
 ## Q26. Two Sum II - Input Array Is Sorted
 
@@ -1615,13 +1441,6 @@ function twoSum(numbers, target) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Two pointers achieve O(n) time and O(1) space—optimal for sorted arrays
-- **Sorted Property:** Array is sorted, enabling two-pointer technique—if sum < target, move left; if sum > target, move right
-- **1-Indexed Requirement:** Return indices added by 1 (convert from 0-indexed to 1-indexed)
-- **Comparison with Two Sum I:** Sorted property allows O(1) space vs O(n) space in unsorted version
-- **Edge Cases:** Problem guarantees exactly one solution exists; works with negative numbers
-- **Interview Tip:** Explain sorted property advantage; mention 1-indexed requirement; compare with hash map approach
 
 ## Q27. Container With Most Water
 
@@ -1669,13 +1488,6 @@ function maxArea(height) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Two pointers achieve O(n) time and O(1) space—optimal for this problem
-- **Greedy Choice:** Move pointer with smaller height—area is limited by smaller height, so moving it might improve
-- **Why Move Smaller:** Width decreases, so moving smaller pointer might find larger height, offsetting width loss
-- **Area Calculation:** `area = min(height[left], height[right]) × width`
-- **Edge Cases:** Single element returns 0; all heights equal returns area based on width
-- **Interview Tip:** Explain greedy choice clearly; mention why we don't move the larger pointer
 
 ## Q28. 3Sum
 
@@ -1736,13 +1548,6 @@ function threeSum(nums) {
 **Time Complexity:** O(n²) - Sort O(n log n) + nested loop O(n²)  
 **Space Complexity:** O(1) - Excluding result array (or O(n) for sorting if not in-place)
 
-**Deep Insights:**
-- **Optimal Approach:** Sort + two pointers achieves O(n²) time—optimal for this problem
-- **Sorting Necessity:** Sorting enables two-pointer technique and makes duplicate skipping efficient
-- **Duplicate Handling:** Skip duplicates for all three positions (i, left, right) to avoid duplicate triplets
-- **Two-Pointer Logic:** After fixing first element, use two pointers—move left if sum < 0, move right if sum > 0
-- **Edge Cases:** Less than 3 elements returns empty array; all zeros returns one triplet `[0,0,0]`
-- **Interview Tip:** Explain sorting necessity; emphasize duplicate handling; mention k-sum generalization (recursive)
 
 ## Q29. Is Subsequence
 
@@ -1783,13 +1588,6 @@ function isSubsequence(s, t) {
 **Time Complexity:** O(n) - Single pass through t (where n = t.length)  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Two pointers achieve O(n) time and O(1) space—optimal for this problem
-- **Greedy Strategy:** Match earliest occurrence of each character—this is optimal for subsequence checking
-- **Pointer Movement:** Always move `t` pointer forward; move `s` pointer only when match found
-- **Subsequence vs Substring:** Subsequence allows gaps, substring must be contiguous
-- **Edge Cases:** Empty `s` returns true (empty is subsequence of any string); `s` longer than `t` returns false
-- **Interview Tip:** Explain greedy approach; clarify difference between subsequence and substring
 
 ## Q30. Minimum Size Subarray Sum
 
@@ -1835,13 +1633,6 @@ function minSubArrayLen(target, nums) {
 **Time Complexity:** O(n) - Each element visited at most twice (once by right, once by left)  
 **Space Complexity:** O(1) - Constant extra space
 
-**Deep Insights:**
-- **Optimal Approach:** Sliding window achieves O(n) time and O(1) space—optimal for this problem
-- **Window Technique:** Expand window by moving right pointer, shrink by moving left pointer when sum >= target
-- **Key Insight:** When sum >= target, try to shrink window to find minimum length
-- **Why O(n) Time:** Each element is added once by right pointer and removed at most once by left pointer
-- **Edge Cases:** No valid subarray returns 0; sum of all elements < target returns 0
-- **Interview Tip:** Explain sliding window technique; mention why each element is visited at most twice
 
 ## Q31. Summary Ranges
 
@@ -1903,13 +1694,6 @@ function summaryRanges(nums) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(n) - Result array storage
 
-**Deep Insights:**
-- **Optimal Approach:** Range tracking achieves O(n) time and O(n) space—optimal for this problem
-- **Consecutive Check:** Check if `nums[i] === end + 1` to determine if number continues current range
-- **Format Rules:** Single number formatted as `"a"`, range formatted as `"a->b"`
-- **Sorted Property:** Array is sorted, so consecutive numbers appear together
-- **Edge Cases:** Empty array returns empty array; single element returns array with that element
-- **Interview Tip:** Explain range tracking logic; mention format requirements for single vs range
 
 ## Q32. Insert Interval
 
@@ -1965,13 +1749,6 @@ function insert(intervals, newInterval) {
 **Time Complexity:** O(n) - Single pass through intervals  
 **Space Complexity:** O(n) - Result array storage
 
-**Deep Insights:**
-- **Optimal Approach:** Three-phase approach achieves O(n) time and O(n) space—optimal for this problem
-- **Three Phases:** Before (no overlap), merge (overlapping), after (no overlap)
-- **Merge Logic:** Extend newInterval boundaries with overlapping intervals using `Math.min` and `Math.max`
-- **Overlap Detection:** Interval overlaps if `intervals[i][0] <= newInterval[1]` (touching counts as overlap)
-- **Edge Cases:** Empty intervals returns newInterval; no overlap inserts newInterval in correct position
-- **Interview Tip:** Explain three-phase approach clearly; mention merge logic with min/max
 
 ## Q33. Minimum Number of Arrows to Burst Balloons
 
@@ -2018,13 +1795,6 @@ function findMinArrowShots(points) {
 **Time Complexity:** O(n log n) - Sorting dominates  
 **Space Complexity:** O(1) - Constant extra space (or O(n) for sorting if not in-place)
 
-**Deep Insights:**
-- **Optimal Approach:** Greedy algorithm achieves O(n log n) time—optimal for this problem
-- **Greedy Choice:** Sort by end position, shoot arrow at end of first balloon—this maximizes balloons burst
-- **Key Insight:** Shooting at end position ensures we catch all balloons that start before or at that position
-- **Overlap Detection:** Balloon overlaps with arrow position if `points[i][0] <= arrowPos <= points[i][1]`
-- **Edge Cases:** Empty array returns 0; single balloon returns 1; all overlapping returns 1
-- **Interview Tip:** Explain greedy strategy clearly; mention why sorting by end (not start) is optimal
 
 ---
 
@@ -2080,12 +1850,6 @@ function lenAtMostK(s, k) {
 **Time Complexity:** O(n) - Single pass with sliding window  
 **Space Complexity:** O(k) - Hash map stores up to k distinct characters
 
-**Deep Insights:**
-- **Rule:** Maintain a moving subarray/substring satisfying a property; grow right, shrink left to restore validity; O(n) time
-- **Real-world:** Sliding window problems, substring problems, subarray problems, window-based algorithms
-- **Common Mistake:** For fixed-size windows, no inner while; maps/arrays store window state; not shrinking left correctly
-- **Optimization:** O(n) time optimal; for fixed-size windows, no inner while; maps/arrays store window state
-- **Interview Tip:** Explain sliding window clearly; mention fixed vs variable size; ask about state tracking
 
 ### Two Pointer
 
@@ -2131,12 +1895,6 @@ function twoSumSorted(arr, target) {
 **Time Complexity:** O(n) - Two pointers traverse from both ends  
 **Space Complexity:** O(1) - Only using constant extra variables
 
-**Deep Insights:**
-- **Rule:** Use two indices to traverse from ends or sweep with relative motion to meet constraints; O(n) time
-- **Real-world:** Two pointer problems, sorted array problems, collision detection, meeting problems
-- **Common Mistake:** Generalize to 3Sum with inner two-pointer; wrong pointer movement; not handling sorted array
-- **Optimization:** O(n) time optimal; two pointers from ends; generalize to 3Sum with inner two-pointer
-- **Interview Tip:** Explain two-pointer technique clearly; mention sorted array requirement; ask about generalizations
 
 ### Prefix Sum
 
@@ -2180,12 +1938,6 @@ function subarraySum(nums, k) {
 **Time Complexity:** O(n) - Single pass through array  
 **Space Complexity:** O(n) - Hash map stores prefix sum counts
 
-**Deep Insights:**
-- **Rule:** Transform range queries to differences of cumulative sums; extend to 2D and counts maps; O(n) time
-- **Real-world:** Prefix sum problems, range queries, subarray sum problems, cumulative problems
-- **Common Mistake:** 2D prefix for matrix ranges; works with XOR (replace + with ^); wrong prefix calculation
-- **Optimization:** O(n) time for preprocessing; O(1) for range queries; 2D prefix for matrix ranges; works with XOR
-- **Interview Tip:** Explain prefix sum clearly; mention 2D extension; ask about XOR variants
 
 ### Divide & Conquer
 
@@ -2234,9 +1986,3 @@ function construct(grid) {
 **Time Complexity:** O(n²) - Visit each cell, but merge reduces nodes  
 **Space Complexity:** O(log n) - Recursion depth
 
-**Deep Insights:**
-- **Rule:** Divide and conquer: split grid into 4 quadrants; merge if all children are same; O(n²) time
-- **Real-world:** Image compression, spatial data structures, region representation, hierarchical data
-- **Common Mistake:** Wrong quadrant boundaries; not checking merge condition correctly; incorrect recursion base case
-- **Optimization:** Merge nodes with identical children reduces tree size; O(n²) time, O(log n) space
-- **Interview Tip:** Explain divide and conquer approach; mention merging optimization; ask about quad tree applications

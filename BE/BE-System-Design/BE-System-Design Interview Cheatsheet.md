@@ -1,6 +1,29 @@
 # 🏗️ Backend System Design Interview Cheatsheet
 
-> **Quick reference guide for backend system design interviews**
+> **⏱️ Review Time: 30-35 minutes** | **Priority: ⭐⭐⭐ Critical** | Essential backend system design concepts for interviews
+> 
+> **Coverage: Q1-Q70** (70 questions across 6 topics)
+
+**Quick Review Checklist:**
+- [ ] System Design Fundamentals (Monolithic vs Microservices, Requirements)
+- [ ] Architecture Patterns (Load Balancing, Caching, Message Queues)
+- [ ] Database & Storage (SQL vs NoSQL, Sharding, Replication)
+- [ ] Performance & Scalability (Horizontal Scaling, CDN, Database Optimization)
+- [ ] Reliability & Monitoring (Fault Tolerance, Circuit Breakers, Observability)
+- [ ] Real-World Scenarios (Design URL Shortener, Chat System, etc.)
+
+---
+
+## 📋 **Question Coverage**
+
+- **Q1-Q10**: System Design Fundamentals
+- **Q11-Q20**: Core Components & Architecture Patterns
+- **Q21-Q30**: Database & Storage Design
+- **Q31-Q40**: Scalability, Performance & Optimization
+- **Q41-Q50**: Reliability, Fault Tolerance & Monitoring
+- **Q51-Q70**: Practical System Design Scenarios
+
+---
 
 ## 📋 Table of Contents
 

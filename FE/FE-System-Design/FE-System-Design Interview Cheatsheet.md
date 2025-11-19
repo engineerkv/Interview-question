@@ -1,6 +1,8 @@
 # 🎨 Front-End System Design Interview Cheatsheet
 
 > **⏱️ Review Time: 25-30 minutes** | **Priority: ⭐⭐⭐ Critical** | Quick reference for front-end system design interviews
+> 
+> **Coverage: Q1-Q138** (138 questions across 10 topics)
 
 **Quick Review Checklist:**
 - [ ] Architecture Patterns (Feature-based, Component Design)
@@ -13,6 +15,23 @@
 - [ ] Networking & APIs (REST, GraphQL, HTTP/2)
 - [ ] Real-time Communication (WebSockets, SSE, Long Polling)
 - [ ] Data & Caching Architecture (Normalization, HTTP Cache, Service Worker)
+
+---
+
+## 📋 **Question Coverage**
+
+- **Q1-Q10**: UI/UX Architecture & State Management
+- **Q11-Q27**: Performance & Caching Optimization
+- **Q24-Q33**: Micro-Frontends vs Monolithic SPAs
+- **Q34-Q43**: Cross-Platform Architecture
+- **Q44-Q53**: Accessibility & User Experience
+- **Q54-Q65**: Browser Internals & Rendering
+- **Q65-Q84**: Practical Front-End System Design Scenarios
+- **Q85-Q105**: Networking & APIs
+- **Q106-Q120**: Real-time Communication Protocols
+- **Q121-Q138**: Data & Caching Architecture
+
+---
 
 ## 📋 Table of Contents
 
