@@ -1,8 +1,14 @@
-# 6. Browser Internals & Rendering (Q58–69)
+# 6. Browser Internals & Rendering (Q53–64)
+
+<div align="center">
+
+**[← Previous: Accessibility & User Experience](5%29%20Accessibility%20%26%20User%20Experience.md)** | **[Next: Practical Front-End System Design Scenarios →](7%29%20Practical%20Front-End%20System%20Design%20Scenarios.md)**
+
+</div>
 
 ---
 
-## Q58. What happens in the browser when a user types a URL and presses Enter?
+## Q53. How the browser processes a URL to render a page
 
 When a user enters a URL, the browser performs DNS lookup, establishes TCP connection, sends HTTP request, receives response, parses HTML/CSS/JS, builds DOM tree, and renders the page - critical rendering path optimization is crucial. DNS lookup can be cached for faster subsequent requests.
 
@@ -35,7 +41,7 @@ const measureNavigationTime = () => {
 
 ---
 
-## Q59. Explain the Critical Rendering Path.
+## Q54. Critical Rendering Path and how to optimize it
 
 The Critical Rendering Path is the sequence of steps browsers take to convert HTML, CSS, and JavaScript into pixels, including DOM construction, CSSOM building, render tree creation, layout, and painting - optimize above-the-fold content first. Minimize render-blocking resources.
 
@@ -67,7 +73,7 @@ const optimizeCriticalPath = {
 
 ---
 
-## Q60. What is reflow vs repaint, and how can you minimize them?
+## Q55. Difference between reflow and repaint
 
 Reflow (layout) recalculates element positions and sizes, while repaint (paint) redraws pixels without changing layout - both are expensive operations that should be minimized. Avoid reading layout properties after writing. Reflow is more expensive than repaint.
 
@@ -102,7 +108,7 @@ const bestExample = () => {
 
 ---
 
-## Q61. What are compositing layers and how can GPU acceleration help?
+## Q56. Optimizing compositing layers for performance
 
 Compositing layers are separate layers that can be rendered independently and composited together, enabling GPU acceleration for better performance, especially for animations - monitor layer count and memory usage. Compositing layers enable GPU acceleration.
 
@@ -137,7 +143,7 @@ const gpuAcceleratedAnimation = () => {
 
 ---
 
-## Q62. How does the event loop work in browsers compared to Node.js?
+## Q57. How the browser event loop works with JavaScript
 
 Browser event loop handles DOM events, timers, and network requests, while Node.js event loop handles I/O operations, with both using similar phases but different implementations - browser has render phase, Node.js doesn't. Both use similar event loop concepts.
 
@@ -159,7 +165,7 @@ const browserEventLoop = () => {
 
 ---
 
-## Q63. How do browsers handle JavaScript parsing and main-thread blocking?
+## Q58. Preventing JavaScript from blocking the main thread
 
 JavaScript parsing and execution blocks the main thread, preventing rendering and user interactions, requiring optimization strategies like code splitting and async loading - monitor long tasks and optimize accordingly. JavaScript parsing blocks the main thread.
 
@@ -193,7 +199,7 @@ const asyncLoading = () => {
 
 ---
 
-## Q64. What is debouncing vs throttling, and when would you use them?
+## Q59. Difference between debouncing and throttling
 
 Debouncing delays execution until after a specified time has passed since the last invocation, while throttling limits execution to once per specified time period - debounce for user input, throttle for events. Debouncing (use for search inputs, resize events), Throttling (use for scroll events, mouse movements).
 
@@ -231,7 +237,7 @@ const throttledScroll = throttle(() => console.log('Scrolling'), 100);
 
 ---
 
-## Q65. How do web workers and service workers differ internally?
+## Q60. Using web workers and service workers effectively
 
 Web Workers run JavaScript in background threads for CPU-intensive tasks, while Service Workers act as proxy servers for network requests and enable offline functionality - web Workers for computation, Service Workers for caching. Web Workers (background threads, CPU-intensive tasks), Service Workers (network proxy, offline functionality).
 
@@ -259,7 +265,7 @@ self.addEventListener('fetch', (event) => {
 
 ---
 
-## Q66. How does the browser manage memory and garbage collection for JS-heavy apps?
+## Q61. Handling memory management and garbage collection
 
 Browser memory management involves heap allocation, garbage collection cycles, and memory optimization strategies to prevent memory leaks and improve performance - implement proper cleanup in component lifecycle. Browser uses generational garbage collection.
 
@@ -297,7 +303,7 @@ const monitorMemory = () => {
 
 ---
 
-## Q67. What optimizations can you make for paint and layout performance?
+## Q62. Optimizing paint and layout performance
 
 Paint and layout performance can be optimized by minimizing reflows, using CSS transforms, implementing virtual scrolling, and optimizing rendering strategies - use will-change property judiciously. Minimize reflows and repaints.
 
@@ -336,14 +342,13 @@ const VirtualList = ({ items, itemHeight, containerHeight }) => {
           </div>
         ))}
       </div>
-    </div>
   );
 };
 ```
 
 ---
 
-## Q68. What are rendering patterns (CSR, SSR, SSG, ISR, Streaming SSR, Partial Hydration, Islands Architecture)?
+## Q63. Rendering patterns (CSR, SSR, SSG, ISR, Streaming SSR, Partial Hydration, Islands Architecture)
 
 Rendering patterns determine when and where HTML is generated, affecting performance, SEO, and user experience - modern frameworks (Next.js, Remix, Astro) support multiple patterns. CSR (fast interactions, poor SEO, requires JavaScript), SSR (good SEO, slower initial load, requires server), SSG (fastest loading, excellent SEO, build-time generation), ISR (combines SSG speed with dynamic updates).
 
@@ -379,7 +384,7 @@ export async function getStaticProps() {
 
 ---
 
-## Q69. What are the main components of a browser architecture and how do they work together?
+## Q64. Main components of a browser architecture and how they work together
 
 Browser architecture consists of multiple components working together: user interface, browser engine, rendering engine, JavaScript engine, networking layer, and data persistence - each component handles specific responsibilities to render web pages efficiently. Browser engine coordinates between UI and rendering engine, managing high-level operations like navigation and rendering.
 
@@ -436,3 +441,9 @@ const browserWorkflow = () => {
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Accessibility & User Experience](5%29%20Accessibility%20%26%20User%20Experience.md)** | **[Next: Practical Front-End System Design Scenarios →](7%29%20Practical%20Front-End%20System%20Design%20Scenarios.md)**
+
+</div>

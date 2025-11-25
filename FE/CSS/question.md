@@ -1,116 +1,113 @@
 # 🎨 CSS Interview Questions
 
-70 carefully curated questions covering CSS fundamentals to advanced architecture and performance.
+68 carefully curated concepts covering CSS fundamentals to advanced architecture and performance.
 
 ## 📋 Quick Navigation
 
 | Section | Topic | Questions | Difficulty |
 |---------|-------|-----------|------------|
-| [1️⃣](#1-beginner-level-css) | Beginner Level CSS | Q1–13 | ⭐⭐ |
+| [1️⃣](#1-beginner-level-css) | Beginner Level CSS | Q1–12 | ⭐⭐ |
 | [2️⃣](#2-intermediate-level-css) | Intermediate Level CSS | Q14–33 | ⭐⭐⭐ |
-| [3️⃣](#3-advanced-css-concepts) | Advanced CSS Concepts | Q34–42 | ⭐⭐⭐⭐ |
-| [4️⃣](#4-css-architecture--design-systems) | CSS Architecture & Design Systems | Q43–50 | ⭐⭐⭐⭐ |
-| [5️⃣](#5-performance--optimization) | Performance & Optimization | Q51–60 | ⭐⭐⭐⭐ |
-| [7️⃣](#7-practical-hands-on-challenges) | Practical & Hands-On Challenges | Q61–70 | ⭐⭐⭐⭐ |
+| [3️⃣](#3-advanced-css-concepts) | Advanced CSS Concepts | Q34–41 | ⭐⭐⭐⭐ |
+| [4️⃣](#4-css-architecture--design-systems) | CSS Architecture & Design Systems | Q42–49 | ⭐⭐⭐⭐ |
+| [5️⃣](#5-performance--optimization) | Performance & Optimization | Q50–59 | ⭐⭐⭐⭐ |
+| [7️⃣](#7-practical-hands-on-challenges) | Practical & Hands-On Challenges | Q60–69 | ⭐⭐⭐⭐ |
 
 ## 🧒 1. Beginner Level CSS
 
-1. What is CSS and what does it stand for?
-2. What are the different ways to include CSS in a webpage?
-3. What are CSS selectors? Give examples.
-4. What is the difference between element, class, and ID selectors?
-5. What is the CSS Box Model and what are its components?
-6. What is the difference between margin and padding?
-7. What is the purpose of the `box-sizing` property?
-8. What is the difference between `display: block`, `inline`, and `inline-block`?
-9. What are pseudo-classes and pseudo-elements? Give examples.
-10. What is the difference between `:hover` and `::before`?
-11. What is CSS specificity and how is it calculated?
-12. What are relative and absolute CSS units?
-13. What is the difference between `position: relative`, `absolute`, `fixed`, and `sticky`?
+1. CSS and what it stands for
+2. Different ways to include CSS in a webpage
+3. CSS selectors and examples
+4. Element, class, and ID selectors: differences
+5. CSS Box Model and its components
+6. Margin vs padding
+7. Purpose of the `box-sizing` property
+8. `display: block`, `inline`, and `inline-block`: differences
+9. Pseudo-classes and pseudo-elements and examples
+10. CSS specificity and how it's calculated
+11. Relative vs absolute CSS units
+12. `position: relative`, `absolute`, `fixed`, and `sticky`: differences
 
 ## 🎯 2. Intermediate Level CSS
 
-14. What is the difference between `visibility: hidden` and `display: none`?
-15. What is `z-index` and how does stacking context work?
-16. What is the default positioning value for HTML elements?
-17. What is inheritance in CSS and which properties are inheritable?
-18. What are vendor prefixes and why are they used?
-19. What are shorthand properties in CSS?
-20. How do you apply multiple classes to an element?
-21. What is CSS Flexbox and how does it work?
-22. Explain CSS Grid and its key features.
-23. What is the difference between Flexbox and Grid?
-24. What are CSS transitions and how do you use them?
-25. What are CSS animations and how do you create them?
-26. What is the CSS cascade and how does it work?
-27. What are CSS combinators and how do you use them?
-28. What is the difference between `transition` and `animation`?
-29. How do you create CSS animations using `@keyframes`?
-30. What are media queries and how do you use them?
-31. How do you create responsive text with CSS?
-32. What are CSS variables and how do you use them?
-33. What is the difference between SASS and LESS?
+14. `visibility: hidden` vs `display: none`
+15. `z-index` and stacking context
+16. Default positioning value for HTML elements
+17. Inheritance in CSS and inheritable properties
+18. Vendor prefixes and why they're used
+19. Shorthand properties in CSS
+20. Applying multiple classes to an element
+21. CSS Flexbox and how it works
+22. CSS Grid and its key features
+23. Flexbox vs Grid
+24. CSS transitions and how to use them
+25. CSS animations and how to create them
+26. CSS cascade and how it works
+27. CSS combinators and their usage
+28. `transition` vs `animation`
+29. Creating CSS animations using `@keyframes`
+30. Media queries and their usage
+31. Creating responsive text with CSS
+32. CSS variables (custom properties), their usage, and role in design systems
+33. SASS vs LESS
 
 ## 🚀 3. Advanced CSS Concepts
 
-34. What is CSS containment and how does it improve performance?
-35. Explain CSS logical properties and their benefits.
-36. What are CSS container queries and how do they work?
-37. Explain CSS subgrid and its use cases.
-38. What is CSS Houdini and how does it work?
-39. Explain CSS scroll-driven animations.
-40. What are CSS layers and how do they work?
-41. Explain CSS anchor positioning.
-42. Explain CSS color-mix() function and its usage.
+34. CSS containment and how it improves performance
+35. CSS logical properties and their benefits
+36. CSS container queries and how they work
+37. CSS subgrid and its use cases
+38. CSS Houdini and how it works
+39. CSS layers and how they work
+40. CSS anchor positioning
+41. CSS `color-mix()` function and its usage
 
 ## 🏗️ 4. CSS Architecture & Design Systems
 
-43. What is BEM methodology and how does it work?
-44. Explain OOCSS (Object-Oriented CSS) principles.
-45. What is SMACSS (Scalable and Modular CSS) and its principles?
-46. Explain CSS-in-JS and its benefits.
-47. What is CSS Modules and how does it work?
-48. Explain CSS custom properties (variables) in design systems.
-49. What is CSS architecture and how to organize large stylesheets?
-50. Explain CSS preprocessors in large projects.
+42. BEM methodology and how it works
+43. OOCSS (Object-Oriented CSS) principles
+44. SMACSS (Scalable and Modular CSS) and its principles
+45. CSS-in-JS and its benefits
+46. CSS Modules and how it works
+47. CSS architecture and how to organize large stylesheets
+48. CSS preprocessors in large projects
 
 ## ⚡ 5. Performance & Optimization
 
-51. How do you optimize CSS for performance?
-52. What is CSS minification and how do you implement it?
-53. What is CSS purging and how do you implement it?
-54. What is critical CSS and how do you implement it?
-55. What is CSS splitting and how do you implement it?
-56. What is CSS lazy loading and how do you implement it?
-57. What is CSS preloading and how do you implement it?
-58. What is CSS prefetching and how do you implement it?
-59. What is CSS compression and how do you implement it?
-60. What is CSS optimization and how do you implement it?
+50. Optimizing CSS for performance
+51. CSS minification and how to implement it
+52. CSS purging and how to implement it
+53. Critical CSS and how to implement it
+54. CSS splitting and how to implement it
+55. CSS lazy loading and how to implement it
+56. CSS preloading and how to implement it
+57. CSS prefetching and how to implement it
+58. CSS compression and how to implement it
+59. CSS optimization and how to implement it
 
 ## 🛠️ 7. Practical & Hands-On Challenges
 
-61. How do you create a responsive navigation menu?
-62. How do you create a CSS-only carousel?
-63. How do you create a CSS-only modal?
-64. How do you create a CSS-only tooltip?
-65. How do you create a CSS-only accordion?
-66. How do you create a CSS-only tabs component?
-67. How do you create a CSS-only dropdown menu?
-68. How do you create a CSS-only loading spinner?
-69. How do you create a CSS-only progress bar?
-70. How do you create a CSS-only card component?
+60. Creating a responsive navigation menu
+61. Creating a CSS-only carousel
+62. Creating a CSS-only modal
+63. Creating a CSS-only tooltip
+64. Creating a CSS-only accordion
+65. Creating a CSS-only tabs component
+66. Creating a CSS-only dropdown menu
+67. Creating a CSS-only loading spinner
+68. Creating a CSS-only progress bar
+69. Creating a CSS-only card component
 
 ---
 
 ## 📖 Complete Answer Guide
 
-- [1) Beginner Level CSS](1%20Beginner%20Level%20CSS.md) - Q1-13
-- [2) Intermediate Level CSS](2%20Intermediate%20Level%20CSS.md) - Q21-40
-- [3) Advanced CSS Concepts](3%20Advanced%20CSS%20Concepts.md) - Q41-49
-- [4) CSS Architecture & Design Systems](4%20CSS%20Architecture%20%26%20Design%20Systems.md) - Q61-68
-- [5) Performance & Optimization](5%20Performance%20%26%20Optimization.md) - Q71-80
-- [7) Practical & Hands-On Challenges](7%20Practical%20%26%20Hands-On%20Challenges.md) - Q91-100
+- [1) Beginner Level CSS](1%29%20Beginner%20Level%20CSS.md) - Q1-12
+- [2) Intermediate Level CSS](2%29%20Intermediate%20Level%20CSS.md) - Q21-40
+- [3) Advanced CSS Concepts](3%29%20Advanced%20CSS%20Concepts.md) - Q34-41
+- [4) CSS Architecture & Design Systems](4%29%20CSS%20Architecture%20%26%20Design%20Systems.md) - Q42-49
+- [5) Performance & Optimization](5%29%20Performance%20%26%20Optimization.md) - Q50-59
+- [7) Practical & Hands-On Challenges](7%29%20Practical%20%26%20Hands-On%20Challenges.md) - Q60-69
 
 ## 📝 Cheatsheet
 

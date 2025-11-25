@@ -2,15 +2,21 @@
 
 ---
 
-## Q176. HTTP/1.1 vs HTTP/2 vs HTTP/3.
+## Q176. HTTP/1.1 vs HTTP/2 vs HTTP/3
 
 HTTP/1.1 sends one request per connection and requires multiple connections for parallelism, which causes head-of-line blocking. HTTP/2 multiplexes multiple requests over a single connection, uses header compression, and supports server push, which improves performance. HTTP/3 uses QUIC protocol over UDP instead of TCP, eliminating head-of-line blocking and improving performance on unreliable networks.
 
 - **Trade-offs**: HTTP/2 improves performance significantly over HTTP/1.1, but the catch is it still uses TCP which can cause head-of-line blocking. HTTP/3 eliminates TCP's head-of-line blocking and improves performance, but the tricky part is it's newer and has less tooling support. Choose HTTP/2 for most cases, HTTP/3 for better performance on unreliable networks.
 
+<div align="center">
+
+**[← Previous: REST vs GraphQL](8%29%20REST%20vs%20GraphQL.md)** | **[Next: Git, Docker, CI-CD, Tooling →](10%29%20Git%2C%20Docker%2C%20CI-CD%2C%20Tooling.md)**
+
+</div>
+
 ---
 
-## Q177. gRPC vs REST — when to use?
+## Q177. gRPC vs REST and when to use
 
 Use gRPC for service-to-service communication where you need high performance, low latency, and strong typing - like microservices talking to each other, or internal APIs. Use REST for client-server communication where you need HTTP caching, browser compatibility, or simple integration - like public APIs or web applications. gRPC uses Protocol Buffers and HTTP/2, REST uses JSON and HTTP/1.1 or HTTP/2.
 
@@ -18,7 +24,7 @@ Use gRPC for service-to-service communication where you need high performance, l
 
 ---
 
-## Q178. WebSockets vs SSE vs Long Polling.
+## Q178. WebSockets vs SSE vs Long Polling
 
 WebSockets provide full-duplex communication over a single persistent connection - both client and server can send messages anytime, perfect for real-time chat or gaming. SSE (Server-Sent Events) is one-way server-to-client streaming over HTTP - server pushes events to client, good for notifications or live updates. Long polling keeps HTTP requests open until the server has data - simpler than WebSockets but less efficient.
 
@@ -26,7 +32,7 @@ WebSockets provide full-duplex communication over a single persistent connection
 
 ---
 
-## Q179. TCP vs UDP — trade-offs.
+## Q179. TCP vs UDP trade-offs
 
 TCP provides reliable, ordered delivery with error correction and flow control - packets are guaranteed to arrive in order, and lost packets are retransmitted. UDP is connectionless and unreliable - packets might be lost, duplicated, or arrive out of order, but it's faster with lower overhead. Use TCP when you need reliability, use UDP when you need speed and can handle packet loss.
 
@@ -34,7 +40,7 @@ TCP provides reliable, ordered delivery with error correction and flow control -
 
 ---
 
-## Q180. What is QUIC and why is it fast?
+## Q180. QUIC and why it's fast
 
 QUIC is a transport protocol built on UDP that combines the best of TCP and TLS - it provides reliable, ordered delivery like TCP, but eliminates head-of-line blocking by using multiple streams, and includes encryption by default. QUIC is faster because it reduces connection establishment time (0-RTT for repeat connections), handles packet loss better, and doesn't have TCP's head-of-line blocking.
 
@@ -42,7 +48,7 @@ QUIC is a transport protocol built on UDP that combines the best of TCP and TLS 
 
 ---
 
-## Q181. Binary vs text protocols.
+## Q181. Binary vs text protocols
 
 Binary protocols encode data in binary format, which is more compact and faster to parse - like Protocol Buffers, MessagePack, or gRPC. Text protocols encode data as human-readable text, which is easier to debug and works with standard tools - like JSON, XML, or HTTP. Binary protocols are more efficient, text protocols are more developer-friendly.
 
@@ -50,7 +56,7 @@ Binary protocols encode data in binary format, which is more compact and faster 
 
 ---
 
-## Q182. MQTT — use cases.
+## Q182. MQTT use cases
 
 MQTT is a lightweight messaging protocol designed for IoT devices and unreliable networks - it uses a publish-subscribe model where devices publish messages to topics, and subscribers receive messages. Use MQTT for IoT sensors, mobile apps with unreliable connections, or any scenario where you need lightweight messaging with low bandwidth and battery usage.
 
@@ -58,7 +64,7 @@ MQTT is a lightweight messaging protocol designed for IoT devices and unreliable
 
 ---
 
-## Q183. Protocol overhead & latency.
+## Q183. Protocol overhead and latency
 
 Protocol overhead is the extra data and processing required by the protocol itself - like HTTP headers, TCP handshakes, or encryption overhead. Latency is the time it takes for a request to complete. Different protocols have different overhead - HTTP/1.1 has more overhead than HTTP/2, text protocols have more overhead than binary, and TCP handshakes add latency.
 
@@ -66,7 +72,7 @@ Protocol overhead is the extra data and processing required by the protocol itse
 
 ---
 
-## Q184. DNS resolution flow.
+## Q184. DNS resolution flow
 
 DNS resolution translates domain names to IP addresses - when you request example.com, your computer asks a DNS resolver, which queries root servers, then TLD servers (.com), then authoritative name servers for the domain, following a hierarchy until it gets the IP address. The resolver caches the result to avoid repeated lookups. This process typically takes milliseconds but can be slower if DNS servers are slow or unreachable.
 
@@ -74,7 +80,7 @@ DNS resolution translates domain names to IP addresses - when you request exampl
 
 ---
 
-## Q185. TLS handshake explained.
+## Q185. TLS handshake
 
 TLS handshake establishes an encrypted connection between client and server - the client sends a hello with supported cipher suites, the server responds with its certificate and chosen cipher, the client verifies the certificate and generates a shared secret, and both sides derive encryption keys. This happens before any data is sent, adding latency to the first request. The handshake ensures both parties can communicate securely.
 
@@ -82,7 +88,7 @@ TLS handshake establishes an encrypted connection between client and server - th
 
 ---
 
-## Q186. TLS session resumption.
+## Q186. TLS session resumption
 
 TLS session resumption allows clients to reuse previous TLS session parameters, skipping most of the handshake - the client sends a session ID or ticket from a previous connection, and if the server recognizes it, they can resume the session with just one round trip instead of a full handshake. This reduces latency for repeat connections from 2 round trips to 1 round trip.
 
@@ -90,7 +96,7 @@ TLS session resumption allows clients to reuse previous TLS session parameters, 
 
 ---
 
-## Q187. API communication patterns (request/response vs streaming).
+## Q187. API communication patterns (request/response vs streaming)
 
 Request/response pattern sends a request and waits for a response - like HTTP REST APIs where you make a request and get a response back. Streaming pattern sends data continuously as it becomes available - like WebSockets or gRPC streaming where data flows in real-time. Use request/response for traditional APIs, use streaming for real-time data, large file transfers, or when you need to send multiple messages.
 
@@ -98,7 +104,7 @@ Request/response pattern sends a request and waits for a response - like HTTP RE
 
 ---
 
-## Q188. MTLS — mutual TLS use cases.
+## Q188. MTLS mutual TLS use cases
 
 Mutual TLS (mTLS) requires both client and server to present certificates, authenticating both sides - unlike regular TLS where only the server has a certificate. Use mTLS for service-to-service authentication in microservices, API security where you need to verify clients, or zero-trust architectures where you don't trust the network. It provides strong authentication and prevents unauthorized access.
 
@@ -106,7 +112,7 @@ Mutual TLS (mTLS) requires both client and server to present certificates, authe
 
 ---
 
-## Q189. HTTP keep-alive.
+## Q189. HTTP keep-alive
 
 HTTP keep-alive reuses the same TCP connection for multiple HTTP requests instead of opening a new connection for each request - the connection stays open after a response, and subsequent requests use the same connection. This reduces connection establishment overhead and improves performance by avoiding TCP handshakes for each request.
 
@@ -114,7 +120,13 @@ HTTP keep-alive reuses the same TCP connection for multiple HTTP requests instea
 
 ---
 
-## Q190. Connection multiplexing in HTTP/2.
+<div align="center">
+
+**[← Previous: REST vs GraphQL](8%29%20REST%20vs%20GraphQL.md)** | **[Next: Git, Docker, CI-CD, Tooling →](10%29%20Git%2C%20Docker%2C%20CI-CD%2C%20Tooling.md)**
+
+</div>
+
+## Q190. Connection multiplexing in HTTP/2
 
 HTTP/2 connection multiplexing allows multiple requests and responses to be sent over a single TCP connection simultaneously - requests are broken into frames that can be interleaved, so one slow request doesn't block others. This eliminates head-of-line blocking where one slow request blocks all other requests on the same connection, which was a problem in HTTP/1.1.
 

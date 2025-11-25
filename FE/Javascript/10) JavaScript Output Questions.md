@@ -2,6 +2,12 @@
 
 # 10. JavaScript Output Questions (Q191–250)
 
+<div align="center">
+
+**[← Previous: Web Workers, Service Workers & Real-World Topics](8%29%20Web%20Workers%2C%20Service%20Workers%20%26%20Real-World%20Topics.md)**
+
+</div>
+
 ---
 
 ## Q191. Event loop ordering with timers, promises, and microtasks
@@ -250,7 +256,7 @@ Output:
 ```
 1
 2
-4
+3
 ```
 
 ---
@@ -276,6 +282,7 @@ for (let j = 0; j < 3; j++) {
 Output:
 
 ```
+3
 3
 3
 0
@@ -450,9 +457,9 @@ Output:
 
 ```
 1
+4
 2
-Error
-10
+3
 ```
 
 ---
@@ -515,20 +522,20 @@ Error
 
 ## Q206. WeakMap keys and garbage collection
 
-WeakMaps use weak references; `delete obj` only removes the local variable, and the WeakMap entry becomes unreachable only after garbage collection, per standard JS behaviors discussed online.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
+WeakMaps use weak references; setting `obj = null` removes the reference, making the WeakMap entry eligible for garbage collection, but the entry remains accessible until GC runs, per standard JS behaviors discussed online.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
-- **Trade-offs**: The catch is expecting immediate `undefined`—without GC, `map.get(obj)` (with the original reference) still works; after `delete obj`, you can’t reference it anymore.
+- **Trade-offs**: The catch is expecting immediate `undefined`—without GC, `map.get(obj)` (with the original reference) still works; after setting the reference to `null`, you can't access it via that variable anymore, but the WeakMap entry persists until GC.
 
 Example:
 
 ```js
 const map = new WeakMap();
-const obj = {};
+let obj = {};
 
 map.set(obj, 'value');
 console.log(map.get(obj));
 
-delete obj;
+obj = null;
 console.log(map.get(obj));
 ```
 
@@ -610,8 +617,6 @@ Output:
 10
 0
 1
-2
-1
 10
 ```
 
@@ -672,6 +677,7 @@ async function* asyncGenerator() {
   for await (const value of asyncGenerator()) {
     console.log(value);
   }
+  console.log('Done');
 })();
 ```
 
@@ -739,10 +745,10 @@ console.log(arr.length);
 Output:
 
 ```
+[ 1, 2, 3, <7 empty items> ]
+10
 [ 1, 2 ]
-[ 1, 2, 3, 4, 5, <5 empty items> ]
-[ 1, 2 ]
-[ 1, 2, 3 ]
+2
 ```
 
 ---
@@ -894,7 +900,7 @@ obj.a = 1;
 
 console.log(obj.a);
 console.log(obj.toString);
-console.log(obj.hasOwnProperty('a'));
+console.log(obj.hasOwnProperty);
 ```
 
 Output:
@@ -1241,8 +1247,7 @@ Output:
 
 ```
 undefined
-{ a: 1, b: 2, e: undefined }
-undefined
+{ test: [Function: test] }
 undefined
 ```
 
@@ -1324,7 +1329,7 @@ Output:
 ```
 { value: 1, done: false }
 { value: 2, done: false }
-{ value: 'Error', done: false }
+{ value: 4, done: false }
 { value: 5, done: false }
 { value: undefined, done: true }
 ```
@@ -1365,7 +1370,7 @@ Output:
 1
 undefined
 1
-undefined
+1
 ```
 
 ---
@@ -1657,7 +1662,7 @@ true
 
 ## Q239. Custom iterable object consumed via spread/Array.from
 
-Defining `[Symbol.iterator]` lets objects work with `...` and `Array.from`, per frequent interview fodder.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
+Defining `[Symbol.iterator]` allows objects to work with `...` and `Array.from`, per frequent interview fodder.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
 - **Trade-offs**: The catch is expecting iteration without defining `[Symbol.iterator]`—it’s required for custom iterables.
 
@@ -1714,6 +1719,15 @@ async function* asyncGen() {
   }
   console.log('Done');
 })();
+```
+
+Output:
+
+```
+0
+1
+2
+Done
 ```
 
 ---
@@ -1971,3 +1985,10 @@ Done scheduling
 ```
 
 ---
+<div align="center">
+
+**[← Previous: Web Workers, Service Workers & Real-World Topics](8%29%20Web%20Workers%2C%20Service%20Workers%20%26%20Real-World%20Topics.md)** | **[Next: Question List →](question.md)**
+
+</div>
+
+**[← Previous Section](8%29%20Web%20Workers%2C%20Service%20Workers%20%26%20Real-World%20Topics.md)** | **[Next Section →](question.md)**

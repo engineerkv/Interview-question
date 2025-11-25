@@ -1,166 +1,160 @@
 # 🚀 Node.js & Express Interview Questions
 
-100 carefully curated questions covering Node.js and Express.js fundamentals to advanced concepts.
+99 carefully curated questions covering Node.js and Express.js fundamentals to advanced concepts.
 
 ## 📋 Quick Navigation
 
 | Section | Topic | Questions | Difficulty |
 |---------|-------|-----------|------------|
-| [1️⃣](#1-nodejs-fundamentals) | Node.js Fundamentals | Q1–10 | ⭐⭐ |
-| [2️⃣](#2-modules-and-project-architecture) | Modules and Project Architecture | Q11–20 | ⭐⭐ |
-| [3️⃣](#3-asynchronous-patterns--event-emitter) | Asynchronous Patterns & Event Emitter | Q21–30 | ⭐⭐⭐ |
-| [4️⃣](#4-streams--buffers) | Streams & Buffers | Q31–40 | ⭐⭐⭐ |
-| [5️⃣](#5-nodejs-internals--performance) | Node.js Internals & Performance | Q41–50 | ⭐⭐⭐⭐ |
-| [6️⃣](#6-expressjs-core-concepts) | Express.js Core Concepts | Q51–60 | ⭐⭐⭐ |
-| [7️⃣](#7-rest-apis--practical-server-scenarios) | REST APIs & Practical Server Scenarios | Q61–70 | ⭐⭐⭐ |
-| [8️⃣](#8-authentication-security--encryption) | Authentication, Security & Encryption | Q71–80 | ⭐⭐⭐⭐ |
-| [9️⃣](#9-performance-optimization-scaling--monitoring) | Performance, Optimization, Scaling & Monitoring | Q81–90 | ⭐⭐⭐⭐ |
-| [🔟](#10-testing-debugging--deployment) | Testing, Debugging & Deployment | Q91–100 | ⭐⭐⭐⭐ |
+| [1️⃣](#1-nodejs-fundamentals--modules) | Node.js Fundamentals & Modules | Q1–19 | ⭐⭐ |
+| [2️⃣](#2-asynchronous-patterns--event-emitter) | Asynchronous Patterns & Event Emitter | Q20–29 | ⭐⭐⭐ |
+| [3️⃣](#3-streams--buffers) | Streams & Buffers | Q30–39 | ⭐⭐⭐ |
+| [4️⃣](#4-nodejs-internals--performance) | Node.js Internals & Performance | Q40–50 | ⭐⭐⭐⭐ |
+| [5️⃣](#5-expressjs-core-concepts) | Express.js Core Concepts | Q51–60 | ⭐⭐⭐ |
+| [6️⃣](#6-rest-apis--practical-server-scenarios) | REST APIs & Practical Server Scenarios | Q61–70 | ⭐⭐⭐ |
+| [7️⃣](#7-authentication-security--encryption) | Authentication, Security & Encryption | Q71–80 | ⭐⭐⭐⭐ |
+| [8️⃣](#8-performance-optimization-scaling--monitoring) | Performance, Optimization, Scaling & Monitoring | Q81–89 | ⭐⭐⭐⭐ |
+| [9️⃣](#9-testing-debugging--deployment) | Testing, Debugging & Deployment | Q90–99 | ⭐⭐⭐⭐ |
 
-## 🚀 1. Node.js Fundamentals
+## 🚀 1. Node.js Fundamentals & Modules
 
-1. What is Node.js, and what problem does it solve?
-2. Why is Node.js single-threaded, and how does it handle concurrency?
-3. What is the role of the Event Loop, and how does it process asynchronous tasks?
-4. What is the V8 engine, and how does it work with Node.js?
-5. What is non-blocking I/O, and how does it work in Node.js?
-6. What is the difference between `process.nextTick()` and `setImmediate()`?
-7. What is the difference between `setTimeout()` and `setImmediate()`?
-8. What is the difference between CommonJS and ES Modules?
-9. How do you handle errors in Node.js applications?
-10. What is the difference between `process.exit()` and `process.kill()`?
+1. Node.js and what problem it solves
+2. Why Node.js is single-threaded and how it handles concurrency
+3. Event Loop: its role and how it processes asynchronous tasks
+4. V8 engine and how it works with Node.js
+5. Non-blocking I/O and how it works in Node.js
+6. Process object: what it is in Node.js
+7. `process.exit()` vs `process.kill()`
+8. `process.nextTick()`, `setImmediate()`, and `setTimeout()`: differences
+9. CommonJS vs ES Modules
+10. Handling errors in Node.js applications
+11. How `require()` works in Node.js
+12. `import` vs `require()`
+13. `exports` vs `module.exports`
+14. Handling circular dependencies in Node.js
+15. Structuring a Node.js project and best practices
+16. Handling environment variables in Node.js
+17. Managing secrets and configuration in Node.js
+18. Implementing logging in Node.js applications
+19. Handling graceful shutdown in Node.js
 
-## 📦 2. Modules and Project Architecture
+## ⚡ 2. Asynchronous Patterns & Event Emitter
 
-11. How does `require()` work in Node.js?
-12. What is the difference between `import` and `require()`?
-13. What is the difference between `exports` and `module.exports`?
-14. How do you handle circular dependencies in Node.js?
-15. How do you structure a Node.js project?
-16. How do you handle environment variables in Node.js?
-17. How do you manage secrets and configuration in Node.js?
-18. How do you implement logging in Node.js applications?
-19. How do you handle graceful shutdown in Node.js?
-20. What are the best practices for Node.js project structure?
+20. Callback hell and how to avoid it
+21. Promises and how to use them in Node.js
+22. Async/await and how it works
+23. Handling errors in async/await
+24. Event Emitter pattern and how to use it
+25. Creating custom event emitters
+26. Handling concurrent I/O operations
+27. Async iterators and generators
+28. Implementing retry logic with async/await
+29. Handling timeouts in async operations
 
-## ⚡ 3. Asynchronous Patterns & Event Emitter
+## 🌊 3. Streams & Buffers
 
-21. What is callback hell, and how do you avoid it?
-22. What are Promises, and how do you use them in Node.js?
-23. What is async/await, and how does it work?
-24. How do you handle errors in async/await?
-25. What is the Event Emitter pattern, and how do you use it?
-26. How do you create custom event emitters?
-27. How do you handle concurrent I/O operations?
-28. What are async iterators and generators?
-29. How do you implement retry logic with async/await?
-30. How do you handle timeouts in async operations?
+30. Streams in Node.js and why they're useful
+31. Different types of streams
+32. Backpressure and how to handle it
+33. Buffers and how to use them
+34. Piping streams together
+35. Handling file operations with streams
+36. Implementing compression with streams
+37. Handling encoding and decoding with streams
+38. `highWaterMark` option in streams
+39. Creating custom streams
 
-## 🌊 4. Streams & Buffers
+## ⚙️ 4. Node.js Internals & Performance
 
-31. What are streams in Node.js, and why are they useful?
-32. What are the different types of streams?
-33. What is backpressure, and how do you handle it?
-34. What are Buffers, and how do you use them?
-35. How do you pipe streams together?
-36. How do you handle file operations with streams?
-37. How do you implement compression with streams?
-38. How do you handle encoding and decoding with streams?
-39. What is the `highWaterMark` option in streams?
-40. How do you create custom streams?
+40. Libuv and how it works with Node.js
+41. Thread Pool: what it is and how it works in Node.js
+42. Clustering in Node.js and how to implement it
+43. Worker Threads and when to use them
+44. Implementing IPC (Inter-Process Communication)
+45. Identifying and fixing memory leaks in Node.js
+46. Using Node.js Inspector for debugging
+47. Profiling Node.js applications
+48. Generating diagnostic reports in Node.js
+49. Optimizing Node.js for latency vs throughput
+50. Performance characteristics of Node.js
 
-## ⚙️ 5. Node.js Internals & Performance
+## 🌐 5. Express.js Core Concepts
 
-41. What is Libuv, and how does it work with Node.js?
-42. What is clustering in Node.js, and how do you implement it?
-43. What are Worker Threads, and when do you use them?
-44. How do you implement IPC (Inter-Process Communication)?
-45. How do you identify and fix memory leaks in Node.js?
-46. How do you use Node.js Inspector for debugging?
-47. How do you profile Node.js applications?
-48. How do you generate diagnostic reports in Node.js?
-49. How do you optimize Node.js for latency vs throughput?
-50. What are the performance characteristics of Node.js?
+51. Express.js and how it works
+52. Middleware and how to use it
+53. `next()` function in middleware
+54. `app.use()` vs `app.METHOD()`
+55. Implementing routing in Express.js
+56. Serving static files with Express.js
+57. Parsing JSON and form data in Express.js
+58. Handling errors in Express.js
+59. Application-level vs router-level middleware
+60. Integrating Express.js with the HTTP module
 
-## 🌐 6. Express.js Core Concepts
+## 🔌 6. REST APIs & Practical Server Scenarios
 
-51. What is Express.js, and how does it work?
-52. What is middleware, and how do you use it?
-53. What is the `next()` function in middleware?
-54. How do you use `app.use()` vs `app.METHOD()`?
-55. How do you implement routing in Express.js?
-56. How do you serve static files with Express.js?
-57. How do you parse JSON and form data in Express.js?
-58. How do you handle errors in Express.js?
-59. What is the difference between application-level and router-level middleware?
-60. How do you integrate Express.js with the HTTP module?
+61. RESTful APIs and how to design them
+62. Implementing input validation and sanitization
+63. Implementing pagination in REST APIs
+64. PUT vs PATCH vs POST
+65. Implementing proper HTTP status codes
+66. Handling file uploads with multer
+67. Implementing streamed downloads
+68. Implementing rate limiting in Express.js
+69. Implementing logging with morgan or pino
+70. Implementing API versioning and documentation
 
-## 🔌 7. REST APIs & Practical Server Scenarios
+## 🔐 7. Authentication, Security & Encryption
 
-61. What are RESTful APIs, and how do you design them?
-62. How do you implement input validation and sanitization?
-63. How do you implement pagination in REST APIs?
-64. What is the difference between PUT, PATCH, and POST?
-65. How do you implement proper HTTP status codes?
-66. How do you handle file uploads with multer?
-67. How do you implement streamed downloads?
-68. How do you implement rate limiting in Express.js?
-69. How do you implement logging with morgan or pino?
-70. How do you implement API versioning and documentation?
+71. Session-based vs token-based authentication
+72. Implementing JWT authentication in Express.js
+73. Implementing route guards and middleware
+74. Implementing HTTP-only cookies for security
+75. Implementing OAuth 2.0 in Express.js
+76. Implementing CORS in Express.js
+77. Implementing security headers with Helmet
+78. Preventing SQL injection, XSS, and CSRF attacks
+79. Implementing password hashing with bcrypt or argon2
+80. Managing secrets and API keys securely
 
-## 🔐 8. Authentication, Security & Encryption
+## ⚡ 8. Performance, Optimization, Scaling & Monitoring
 
-71. What is the difference between session-based and token-based authentication?
-72. How do you implement JWT authentication in Express.js?
-73. How do you implement route guards and middleware?
-74. How do you implement HTTP-only cookies for security?
-75. How do you implement OAuth 2.0 in Express.js?
-76. How do you implement CORS in Express.js?
-77. How do you implement security headers with Helmet?
-78. How do you prevent SQL injection, XSS, and CSRF attacks?
-79. How do you implement password hashing with bcrypt or argon2?
-80. How do you manage secrets and API keys securely?
+81. Identifying performance bottlenecks in Node.js applications
+82. Optimizing middleware for performance
+83. Optimizing database queries in Node.js
+84. Implementing clustering with PM2
+85. Implementing horizontal scaling in Node.js
+86. Implementing caching with Redis or LRU
+87. Optimizing API response times
+88. Implementing monitoring and alerting
+89. Implementing connection pooling and batching
 
-## ⚡ 9. Performance, Optimization, Scaling & Monitoring
+## 🧪 9. Testing, Debugging & Deployment
 
-81. How do you identify performance bottlenecks in Node.js applications?
-82. How do you optimize middleware for performance?
-83. How do you optimize database queries in Node.js?
-84. How do you implement clustering with PM2?
-85. How do you implement horizontal scaling in Node.js?
-86. How do you implement caching with Redis or LRU?
-87. How do you optimize API response times?
-88. How do you implement monitoring and alerting?
-89. How do you detect and fix memory leaks?
-90. How do you implement connection pooling and batching?
-
-## 🧪 10. Testing, Debugging & Deployment
-
-91. How do you write unit tests with Jest or Mocha?
-92. How do you test API endpoints with Supertest?
-93. How do you mock API calls in tests?
-94. How do you debug Node.js applications with VS Code?
-95. How do you debug with Chrome DevTools?
-96. How do you implement CI/CD for Node.js applications?
-97. How do you containerize Node.js applications with Docker?
-98. How do you implement graceful shutdowns in production?
-99. How do you handle environment configurations?
-100. How do you deploy Node.js applications to the cloud?
+90. Writing unit tests with Jest or Mocha
+91. Testing API endpoints with Supertest
+92. Mocking API calls in tests
+93. Debugging Node.js applications with VS Code
+94. Debugging with Chrome DevTools
+95. Implementing CI/CD for Node.js applications
+96. Containerizing Node.js applications with Docker
+97. Implementing graceful shutdowns in production
+98. Handling environment configurations
+99. Deploying Node.js applications to the cloud
 
 ---
 
 ## 📖 Complete Answer Guide
 
-- [1) Node.js Fundamentals](1%20Node.js%20Fundamentals.md) - Q1-10
-- [2) Modules and Project Architecture](2%20Modules%20and%20Project%20Architecture.md) - Q11-20
-- [3) Asynchronous Patterns & Event Emitter](3%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md) - Q21-30
-- [4) Streams & Buffers](4%20Streams%20%26%20Buffers.md) - Q31-40
-- [5) Node.js Internals & Performance](5%20Node.js%20Internals%20%26%20Performance.md) - Q41-50
-- [6) Express.js Core Concepts](6%20Express.js%20Core%20Concepts.md) - Q51-60
-- [7) REST APIs & Practical Server Scenarios](7%20REST%20APIs%20%26%20Practical%20Server%20Scenarios.md) - Q61-70
-- [8) Authentication, Security & Encryption](8%20Authentication%20Security%20%26%20Encryption.md) - Q71-80
-- [9) Performance, Optimization, Scaling & Monitoring](9%20Performance%20Optimization%20Scaling%20%26%20Monitoring.md) - Q81-90
-- [10) Testing, Debugging & Deployment](10%20Testing%20Debugging%20%26%20Deployment.md) - Q91-100
+- [1) Node.js Fundamentals & Modules](1%20Node.js%20Fundamentals.md) - Q1-19
+- [2) Asynchronous Patterns & Event Emitter](2%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md) - Q20-29
+- [3) Streams & Buffers](3%20Streams%20%26%20Buffers.md) - Q30-39
+- [4) Node.js Internals & Performance](4%20Node.js%20Internals%20%26%20Performance.md) - Q40-50
+- [5) Express.js Core Concepts](5%20Express.js%20Core%20Concepts.md) - Q51-60
+- [6) REST APIs & Practical Server Scenarios](6%20REST%20APIs%20%26%20Practical%20Server%20Scenarios.md) - Q61-70
+- [7) Authentication, Security & Encryption](7%20Authentication%20Security%20%26%20Encryption.md) - Q71-80
+- [8) Performance, Optimization, Scaling & Monitoring](8%20Performance%20Optimization%20Scaling%20%26%20Monitoring.md) - Q81-89
+- [9) Testing, Debugging & Deployment](9%20Testing%20Debugging%20%26%20Deployment.md) - Q90-99
 
 ## 📝 Cheatsheet
 

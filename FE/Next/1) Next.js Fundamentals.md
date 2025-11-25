@@ -2,7 +2,7 @@
 
 ---
 
-## Q1. What is Next.js and how does it differ from React?
+## Q1. Next.js and how it differs from React
 
 Next.js is a React framework that provides server-side rendering, static site generation, and other production-ready features out of the box - React is just a UI library, while Next.js is a full framework with routing, SSR, API routes, and optimizations. React is just a UI library for building components, Next.js is a full framework with routing, SSR, API routes, optimization.
 
@@ -22,9 +22,15 @@ export default function Home() {
 }
 ```
 
+<div align="center">
+
+**[← Previous: README](../README.md)** | **[Next: Data Fetching & Rendering →](2%29%20Data%20Fetching%20%26%20Rendering.md)**
+
+</div>
+
 ---
 
-## Q2. What are the core features of Next.js (SSR, SSG, ISR, App Router, Edge)?
+## Q2. Core features of Next.js (SSR, SSG, ISR, App Router, Edge)
 
 Next.js provides SSR, SSG, ISR, App Router, Edge Rendering, API routes, and automatic code splitting - choose rendering strategy based on use case. SSR (renders pages on server for each request), SSG (pre-renders pages at build time for better performance).
 
@@ -47,7 +53,7 @@ export async function getStaticProps() {
 
 ---
 
-## Q3. How do you create a new Next.js project?
+## Q3. Creating a new Next.js project
 
 Use `npx create-next-app@latest` to create a new Next.js project with the latest features - interactive setup prompts for TypeScript, ESLint, Tailwind, etc. Always use `@latest` for newest features.
 
@@ -62,7 +68,7 @@ npx create-next-app@latest my-app --typescript
 
 ---
 
-## Q4. What is the difference between Pages Router and App Router?
+## Q4. Difference between Pages Router and App Router
 
 Pages Router uses `pages/` directory, while App Router uses `app/` directory with improved routing and Server Components - App Router is the recommended approach for new projects. Pages Router is legacy routing system, still supported; App Router is modern routing with Server Components and layouts.
 
@@ -95,7 +101,7 @@ export default function RootLayout({ children }) {
 
 ---
 
-## Q5. How does file-based routing work in Next.js?
+## Q5. File-based routing in Next.js
 
 App Router uses `page.js` files and nested folders, while Pages Router uses `index.js` files and direct file mapping - App Router provides more routing flexibility. App Router uses `page.js`, Pages Router uses `index.js`.
 
@@ -118,7 +124,7 @@ Example:
 
 ---
 
-## Q6. What are dynamic and catch-all routes?
+## Q6. Dynamic and catch-all routes
 
 Dynamic routes use `[id]` for single parameters, while catch-all routes use `[...slug]` for multiple path segments - catch-all routes are useful for documentation sites. Dynamic routes use `[param]` for single dynamic segments, catch-all use `[...slug]` for multiple segments.
 
@@ -148,7 +154,7 @@ export default function Shop({ params }) {
 
 ---
 
-## Q7. What is the purpose of `_app.tsx`, `_document.tsx`, and `layout.tsx`?
+## Q7. Purpose of `_app.tsx`, `_document.tsx`, and `layout.tsx`
 
 `_app.tsx` wraps all pages, `_document.tsx` customizes HTML structure, and `layout.tsx` provides shared UI in App Router - layouts are more powerful in App Router. `_app.tsx` is global wrapper for all pages in Pages Router, `_document.tsx` customizes HTML document structure.
 
@@ -184,7 +190,7 @@ export default function RootLayout({ children }) {
 
 ---
 
-## Q8. What is the `public/` folder used for?
+## Q8. `public/` folder and its usage
 
 The `public/` folder contains static assets that are served directly from the root URL without processing - be careful with sensitive files in public folder (security). Files in `public/` are served from root URL (direct access).
 
@@ -204,7 +210,7 @@ Example:
 
 ---
 
-## Q9. How does `next/link` prefetching work?
+## Q9. `next/link` prefetching
 
 `next/link` automatically prefetches linked pages in the background when they come into view - improves perceived performance by loading pages early. Prefetching happens automatically for visible links.
 
@@ -228,7 +234,7 @@ export default function Navigation() {
 
 ---
 
-## Q10. How do you handle environment variables in Next.js?
+## Q10. Handling environment variables in Next.js
 
 Environment variables are loaded from `.env.local` files, with `NEXT_PUBLIC_` prefix making them available in the browser - never expose secrets with `NEXT_PUBLIC_` prefix (security). File priority: `.env.local` > `.env.development` > `.env.production`.
 
@@ -248,3 +254,9 @@ const dbUrl = process.env.DATABASE_URL; // Server-side only
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: README](../README.md)** | **[Next: Data Fetching & Rendering →](2%29%20Data%20Fetching%20%26%20Rendering.md)**
+
+</div>

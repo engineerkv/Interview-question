@@ -19,128 +19,128 @@
 
 ## ⚛️ 1. React Native Fundamentals
 
-1. What is React Native, and how is it different from React.js?
-2. How does React Native render UI on mobile devices? Explain the bridge concept.
-3. What is the JavaScript Interface (JSI) and how does it work?
-4. What are Fabric and TurboModules in React Native?
-5. How does JavaScript communicate with native code?
-6. What are the differences between iOS and Android rendering in React Native?
-7. What is Metro bundler and how does it work?
-8. What is the difference between Live Reload, Hot Reload, and Fast Refresh?
-9. What are the built-in components in React Native?
-10. How does Flexbox work in React Native compared to CSS?
+1. React Native and how it differs from React.js
+2. How React Native renders UI on mobile devices and the bridge concept
+3. JavaScript Interface (JSI) and how it works
+4. Fabric and TurboModules in React Native
+5. How JavaScript communicates with native code
+6. Differences between iOS and Android rendering in React Native
+7. Metro bundler and how it works
+8. Difference between Live Reload, Hot Reload, and Fast Refresh
+9. Built-in components in React Native
+10. How Flexbox works in React Native compared to CSS
 
 ## 🔧 2. Native Modules & Platform Integrations
 
-11. What are native modules in React Native?
-12. How do you create custom native modules for Android?
-13. How do you create custom native modules for iOS?
-14. What is the difference between JSI and the old bridge?
-15. What are TurboModules and how do they work?
-16. How do you access native APIs like Camera, Location, and Sensors?
-17. What is Headless JS and when do you use it?
-18. How does autolinking work in React Native?
-19. What is the difference between bridged and JSI-based modules?
-20. How do you handle permissions in React Native?
+11. Native modules in React Native
+12. Creating custom native modules for Android
+13. Creating custom native modules for iOS
+14. Difference between JSI and the old bridge
+15. TurboModules and how they work
+16. Accessing native APIs like Camera, Location, and Sensors
+17. Headless JS and when to use it
+18. How autolinking works in React Native
+19. Difference between bridged and JSI-based modules
+20. Handling permissions in React Native
 
 ## 📱 3. Android & iOS Platform Internals
 
-21. What is AndroidManifest.xml and how do you configure it?
-22. What is Info.plist and how do you configure it?
-23. What is the difference between MainActivity.java and MainApplication.java?
-24. How does the Android lifecycle work in React Native?
-25. What are App Delegates in iOS and how do they work?
-26. How do you configure app permissions for both platforms?
-27. How do you set up app icons and splash screens?
-28. What is the difference between Gradle and Xcode build systems?
-29. How do you create debug vs release builds?
-30. How do you handle app signing and provisioning?
+21. AndroidManifest.xml and how to configure it
+22. Info.plist and how to configure it
+23. Difference between MainActivity.java and MainApplication.java
+24. How the Android lifecycle works in React Native
+25. App Delegates in iOS and how they work
+26. Configuring app permissions for both platforms
+27. Setting up app icons and splash screens
+28. Difference between Gradle and Xcode build systems
+29. Creating debug vs release builds
+30. Handling app signing and provisioning
 
 ## 🧭 4. Navigation & Lifecycle
 
-31. What are the different navigation solutions available for React Native?
-32. How do you implement stack navigation?
-33. How do you implement tab navigation?
-34. How do you implement drawer navigation?
-35. How do you handle deep linking in React Native?
-36. How do you implement universal links for iOS?
-37. How do you handle app lifecycle changes with AppState API?
-38. How do you use `useFocusEffect` for screen focus handling?
-39. How do you handle the hardware back button on Android?
-40. How do you persist navigation state?
+31. Different navigation solutions available for React Native
+32. implement stack navigation
+33. implement tab navigation
+34. implement drawer navigation
+35. handle deep linking in React Native
+36. implement universal links for iOS
+37. handle app lifecycle changes with AppState API
+38. use `useFocusEffect` for screen focus handling
+39. handle the hardware back button on Android
+40. persist navigation state
 
 ## ⚡ 5. Performance Optimization & Measurement
 
-41. What are the common performance issues in React Native?
-42. What is Hermes engine and how does it improve performance?
-43. How do you measure performance in React Native apps?
-44. How do you use Flipper for debugging React Native apps?
-45. How do you optimize FlatList for large datasets?
-46. What is the difference between FlatList and ScrollView?
-47. How do you implement virtualization in React Native?
-48. How do you optimize `renderItem` functions?
-49. How do you implement pagination with `onEndReached`?
-50. How do you use `removeClippedSubviews` for performance?
+41. Common performance issues in React Native
+42. Hermes engine and how it improves performance
+43. Measuring performance in React Native apps
+44. Using Flipper for debugging React Native apps
+45. Optimizing FlatList for large datasets
+46. Difference between FlatList and ScrollView
+47. Implementing virtualization in React Native
+48. Optimizing `renderItem` functions
+49. Implementing pagination with `onEndReached`
+50. Using `removeClippedSubviews` for performance
 
 ## 🗃️ 6. State Management & Data Handling
 
-51. What state management tools are available for React Native?
-52. How do you implement Redux in React Native?
-53. How do you use Recoil for state management?
-54. How do you implement Zustand for state management?
-55. How do you use Context API for state management?
-56. How do you persist data locally with AsyncStorage?
-57. What is MMKV and how does it compare to AsyncStorage?
-58. How do you implement offline-first apps?
-59. How do you handle background data synchronization?
-60. How do you implement data batching for performance?
+51. State management tools available for React Native
+52. Implementing Redux in React Native
+53. Using Recoil for state management
+54. Implementing Zustand for state management
+55. Using Context API for state management
+56. Persisting data locally with AsyncStorage
+57. MMKV and how it compares to AsyncStorage
+58. Implementing offline-first apps
+59. Handling background data synchronization
+60. Implementing data batching for performance
 
 ## 🔄 7. CodePush & OTA Updates
 
-61. What is Microsoft CodePush and how does it work?
-62. How do you integrate CodePush in React Native?
-63. What are the limitations of CodePush?
-64. How do you implement rollbacks with CodePush?
-65. How do you handle version mismatches with CodePush?
-66. How do you secure CodePush deployments?
-67. What is the difference between CodePush and Expo EAS OTA?
-68. How do you monitor crashes and errors with CodePush?
+61. Microsoft CodePush and how it works
+62. Integrating CodePush in React Native
+63. Limitations of CodePush
+64. Implementing rollbacks with CodePush
+65. Handling version mismatches with CodePush
+66. Securing CodePush deployments
+67. Difference between CodePush and Expo EAS OTA
+68. Monitoring crashes and errors with CodePush
 
 ## 🐛 8. Debugging & Testing
 
-69. How do you debug React Native apps?
-70. How do you use Flipper for React Native debugging?
-71. How do you debug with Chrome DevTools?
-72. How do you create custom Flipper plugins?
-73. How do you write unit tests with Jest?
-74. How do you implement end-to-end testing with Detox?
-75. How do you mock native modules in tests?
-76. How do you test asynchronous behavior in React Native?
-77. How do you simulate gestures in tests?
-78. How do you monitor app performance and crashes?
+69. Debugging React Native apps
+70. Using Flipper for React Native debugging
+71. Debugging with Chrome DevTools
+72. Creating custom Flipper plugins
+73. Writing unit tests with Jest
+74. Implementing end-to-end testing with Detox
+75. Mocking native modules in tests
+76. Testing asynchronous behavior in React Native
+77. Simulating gestures in tests
+78. Monitoring app performance and crashes
 
 ## 🚀 9. Build, Deployment & Stores
 
-79. How do you create Android release builds?
-80. How do you create iOS release builds?
-81. How do you handle build numbers and versioning?
-82. How do you submit apps to Google Play Store?
-83. How do you submit apps to Apple App Store?
-84. How do you implement phased rollouts?
-85. How do you automate builds with Fastlane?
-86. How do you handle store rejections and resubmissions?
-87. How do you reduce app size for store submission?
-88. How do you implement analytics in React Native apps?
-89. How do you handle app signing and certificates?
-90. How do you set up CI/CD pipelines for React Native?
+79. Creating Android release builds
+80. Creating iOS release builds
+81. Handling build numbers and versioning
+82. Submitting apps to Google Play Store
+83. Submitting apps to Apple App Store
+84. Implementing phased rollouts
+85. Automating builds with Fastlane
+86. Handling store rejections and resubmissions
+87. Reducing app size for store submission
+88. Implementing analytics in React Native apps
+89. Handling app signing and certificates
+90. Setting up CI/CD pipelines for React Native
 
 ## 📱 10. Push Notifications & Messaging
 
-91. What is the difference between local and push notifications?
-92. How do you implement Firebase Cloud Messaging (FCM) for Android?
-93. How do you implement Apple Push Notification service (APNs) for iOS?
-94. How do you handle background and foreground notifications?
-95. How do you manage notification permissions and channels?
+91. Difference between local and push notifications
+92. Implementing Firebase Cloud Messaging (FCM) for Android
+93. Implementing Apple Push Notification service (APNs) for iOS
+94. Handling background and foreground notifications
+95. Managing notification permissions and channels
 
 ---
 

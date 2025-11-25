@@ -1,5 +1,11 @@
 # 9. Practical JavaScript Questions (Q82–170)
 
+<div align="center">
+
+**[← Previous: Promises, Async-Await & Event Loop](3%29%20Promises%2C%20Async-Await%20%26%20Event%20Loop.md)** | **[Next: Web Workers, Service Workers & Real-World Topics →](8%29%20Web%20Workers%2C%20Service%20Workers%20%26%20Real-World%20Topics.md)**
+
+</div>
+
 ---
 
 ## Q82. Write a debounce function.
@@ -470,7 +476,7 @@ const debounceImmediate = (fn, delay, immediate = false) => {
 
 ---
 
-## Q148. How do you implement `useMemo` in vanilla JavaScript?
+## Q148. Implementing `useMemo` in vanilla JavaScript
 
 `useMemo`-style helpers cache the result of a computation and only recompute when the dependency list changes. Track the last dependencies and value in a closure so future calls can reuse the cached result if every dependency matches.
 
@@ -497,7 +503,7 @@ const heavyValue = useMemo(() => expensiveFn(data), [data.id, data.count]);
 
 ---
 
-## Q149. How do you implement `useCallback` in vanilla JavaScript?
+## Q149. Implementing `useCallback` in vanilla JavaScript
 
 `useCallback` memoizes a function reference so the same function instance is returned until dependencies change. Reuse the `useMemo` helper to store the callback itself instead of a computed value.
 
@@ -531,7 +537,7 @@ button.addEventListener('click', stableHandler);
 
 ---
 
-## Q150. What is Compact Number (Intl.NumberFormat)?
+## Q150. Compact Number (Intl.NumberFormat)
 
 Compact Number formatting displays large numbers in a shortened, human-readable format using locale-specific abbreviations. Uses `Intl.NumberFormat` with `notation: 'compact'` option.
 
@@ -547,7 +553,7 @@ console.log(formatter.format(1000000)); // "1M"
 
 ---
 
-## Q151. What are JavaScript object property flags and descriptors?
+## Q151. JavaScript object property flags and descriptors
 
 Property descriptors define the characteristics of object properties, including configurability, enumerability, writability, and value. Use `Object.defineProperty` to set custom descriptors.
 
@@ -568,7 +574,7 @@ console.log(Object.getOwnPropertyDescriptor(obj, 'name'));
 
 ---
 
-## Q152. What are server-sent events?
+## Q152. Server-sent events
 
 Server-Sent Events (SSE) enable servers to push data to web pages in real-time using a unidirectional connection. Unidirectional: Server to client only, built on HTTP, simpler than WebSockets.
 
@@ -583,7 +589,7 @@ eventSource.onmessage = event => console.log('Received:', event.data);
 
 ---
 
-## Q153. What are proxies in JavaScript used for?
+## Q153. Proxies in JavaScript and their use cases
 
 Proxies allow you to intercept and customize operations performed on objects, enabling meta-programming capabilities. Intercept fundamental operations (get, set, has, delete).
 
@@ -602,7 +608,7 @@ proxy.name = 'John'; console.log(proxy.name); // Logs then "John"
 
 ---
 
-## Q154. What are some tools that can be used to measure and analyze JavaScript performance?
+## Q154. Tools for measuring and analyzing JavaScript performance
 
 Various tools help measure and analyze JavaScript performance, from browser dev tools to specialized profiling tools. Chrome DevTools, Performance API, and third-party tools provide comprehensive analysis.
 
@@ -639,7 +645,7 @@ console.log('5');
 
 ---
 
-## Q156. How do you check HTTP status codes in axios and fetch API?
+## Q156. Checking HTTP status codes in axios and fetch API
 
 Fetch requires manual status checking with `response.ok`, while axios automatically rejects on 4xx/5xx status codes. Fetch only rejects on network errors, not HTTP errors.
 
@@ -659,7 +665,7 @@ axios.get('/api/data').then(res => res.data)
 
 ---
 
-## Q157. How can you optimize DOM manipulation for better performance?
+## Q157. Optimizing DOM manipulation for better performance
 
 Optimize DOM manipulation by minimizing reflows, using efficient selectors, and leveraging modern APIs for better performance. Minimize reflows and repaints, use `DocumentFragment` for multiple insertions.
 
@@ -1188,7 +1194,7 @@ module.exports = deepOmit;
 
 ---
 
-## Q168. What are common JavaScript anti-patterns to avoid?
+## Q168. Common JavaScript anti-patterns to avoid
 
 Common anti-patterns include modifying prototypes, using `var` instead of `let/const`, relying on type coercion with `==`, creating global variables, using `eval()`, callback hell, and mutating function parameters - these lead to bugs, security issues, and hard-to-maintain code. Avoid modifying built-in prototypes, always use strict mode, and prefer explicit over implicit behavior.
 
@@ -1310,7 +1316,7 @@ module.exports = reverseWords;
 
 ---
 
-## Q169. What are common JavaScript anti-patterns to avoid?
+## Q169. Common JavaScript anti-patterns to avoid
 
 Common anti-patterns include modifying prototypes, using `var` instead of `let/const`, relying on type coercion with `==`, creating global variables, using `eval()`, callback hell, and mutating function parameters - these lead to bugs, security issues, and hard-to-maintain code. Avoid modifying built-in prototypes, always use strict mode, and prefer explicit over implicit behavior.
 
@@ -1427,4 +1433,11 @@ module.exports = customAssign;
 ```
 
 ---
+<div align="center">
+
+**[← Previous: Promises, Async-Await & Event Loop](3%29%20Promises%2C%20Async-Await%20%26%20Event%20Loop.md)** | **[Next: Web Workers, Service Workers & Real-World Topics →](8%29%20Web%20Workers%2C%20Service%20Workers%20%26%20Real-World%20Topics.md)**
+
+</div>
+
+**[← Previous Section](3%29%20Promises%2C%20Async-Await%20%26%20Event%20Loop.md)** | **[Next Section →](8%29%20Web%20Workers%2C%20Service%20Workers%20%26%20Real-World%20Topics.md)**
 

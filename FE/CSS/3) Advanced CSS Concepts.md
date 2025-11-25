@@ -1,8 +1,14 @@
-# 3. Advanced CSS Concepts (Q34–42)
+# 3. Advanced CSS Concepts (Q34–41)
+
+<div align="center">
+
+**[← Previous: Intermediate Level CSS](2%29%20Intermediate%20Level%20CSS.md)** | **[Next: CSS Architecture & Design Systems →](4%29%20CSS%20Architecture%20%26%20Design%20Systems.md)**
+
+</div>
 
 ---
 
-## Q34. What is CSS containment and how does it improve performance?
+## Q34. CSS containment: what it is and how it improves performance
 
 CSS containment is a performance optimization that isolates parts of the DOM tree, preventing layout and style recalculations from affecting other parts of the page - containment is essential for performance optimization in complex UIs. Layout containment prevents layout changes from affecting elements outside the container.
 
@@ -21,7 +27,7 @@ Example:
 
 ---
 
-## Q35. Explain CSS logical properties and their benefits.
+## Q35. CSS logical properties: what they are and their benefits
 
 CSS logical properties provide direction-agnostic styling that automatically adapts to different writing modes and text directions (LTR/RTL) - logical properties are future-proof for internationalization. Automatically adapts to LTR, RTL, and vertical writing modes.
 
@@ -40,7 +46,7 @@ Example:
 
 ---
 
-## Q36. What are CSS container queries and how do they work?
+## Q36. CSS container queries: what they are and how they work
 
 CSS container queries allow elements to respond to their container's size rather than the viewport size, enabling component-based responsive design - container queries are modern feature with growing support, requires fallbacks. Enables responsive design at the component level, not just page level.
 
@@ -64,7 +70,7 @@ Example:
 
 ---
 
-## Q37. Explain CSS subgrid and its use cases.
+## Q37. CSS subgrid: what it is and its use cases
 
 CSS subgrid allows grid items to participate in their parent's grid layout, enabling complex nested grid structures with consistent alignment - subgrid has limited support, requires fallbacks for older browsers. Allows child grids to inherit parent grid structure and alignment.
 
@@ -87,7 +93,7 @@ Example:
 
 ---
 
-## Q38. What is CSS Houdini and how does it work?
+## Q38. CSS Houdini: what it is and how it works
 
 CSS Houdini is a collection of APIs that expose parts of the CSS engine, allowing developers to extend CSS with custom properties, functions, and layout algorithms - Houdini is experimental but powerful for extending CSS. Custom Properties (type-safe with syntax validation), Paint Worklets (custom painting functions).
 
@@ -113,31 +119,7 @@ CSS.registerProperty({
 
 ---
 
-## Q39. What is the Intersection Observer API?
-
-Intersection Observer API efficiently detects when elements enter or exit the viewport - it's better than scroll events for performance and enables lazy loading and scroll animations. Efficiently detect when elements enter or exit viewport.
-
-- **Trade-offs**: The catch is more efficient than scroll event listeners, better performance - configurable root margin and threshold for fine-tuned detection. Intersection Observer is better than scroll events for performance, but watch out - good for lazy loading images, infinite scrolling, or scroll animations.
-
-Example:
-
-```css
-/* Note: Intersection Observer is JavaScript, but used with CSS for lazy loading */
-```
-
-```javascript
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-});
-```
-
----
-
-## Q40. What are CSS layers and how do they work?
+## Q39. CSS layers: what they are and how they work
 
 CSS layers provide explicit control over the cascade order, allowing developers to organize styles into logical layers with predictable precedence - layers are modern feature with good support, requires fallbacks. Layers provide predictable cascade order regardless of source order.
 
@@ -157,7 +139,7 @@ Example:
 
 ---
 
-## Q41. Explain CSS anchor positioning.
+## Q40. CSS anchor positioning
 
 CSS anchor positioning allows elements to be positioned relative to other elements (anchors) without JavaScript, enabling tooltips, popovers, and floating elements - anchor positioning is experimental feature with limited support, requires fallbacks. Use `anchor-name` to create named anchor points, `anchor` property references the anchor.
 
@@ -179,9 +161,9 @@ Example:
 
 ---
 
-## Q42. Explain CSS color-mix() function and its usage.
+## Q41. CSS `color-mix()` function: what it is and its usage
 
-The `color-mix()` function lets you blend two colors in a specified color space, giving you more control than traditional CSS - perfect for creating color variations and theming, color-mix() is modern feature for advanced color manipulation. Blends two colors in specified color space (srgb, display-p3, etc.).
+The `color-mix()` function allows you to blend two colors in a specified color space, giving you more control than traditional CSS - perfect for creating color variations and theming, color-mix() is modern feature for advanced color manipulation. Blends two colors in specified color space (srgb, display-p3, etc.).
 
 - **Trade-offs**: The catch is supports percentage mixing, different color spaces - works with CSS custom properties for dynamic theming. color-mix() is modern feature for advanced color manipulation, but watch out - perfect for creating color variations, theming, and dynamic color schemes.
 
@@ -202,3 +184,10 @@ Example:
 ```
 
 ---
+<div align="center">
+
+**[← Previous: Intermediate Level CSS](2%29%20Intermediate%20Level%20CSS.md)** | **[Next: CSS Architecture & Design Systems →](4%29%20CSS%20Architecture%20%26%20Design%20Systems.md)**
+
+</div>
+
+**[← Previous Section](2%29%20Intermediate%20Level%20CSS.md)** | **[Next Section →](4%29%20CSS%20Architecture%20%26%20Design%20Systems.md)**

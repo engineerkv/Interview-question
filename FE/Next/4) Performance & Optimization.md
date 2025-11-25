@@ -2,7 +2,7 @@
 
 ---
 
-## Q28. How do you optimize images with `next/image`?
+## Q28. Optimizing images with `next/image`
 
 `next/image` provides automatic optimization, lazy loading, and responsive images - next/image significantly improves performance. Automatic optimization converts images to modern formats, lazy loading loads images only when in viewport.
 
@@ -27,9 +27,15 @@ export default function OptimizedImage() {
 }
 ```
 
+<div align="center">
+
+**[← Previous: Routing & Navigation](3%29%20Routing%20%26%20Navigation.md)** | **[Next: Architecture & Best Practices →](5%29%20Architecture%20%26%20Best%20Practices.md)**
+
+</div>
+
 ---
 
-## Q29. How do you implement code splitting and lazy loading?
+## Q29. Implementing code splitting and lazy loading
 
 `next/dynamic` enables code splitting and lazy loading of components - reduces initial bundle size (performance). Automatically splits code into chunks (code splitting).
 
@@ -48,7 +54,7 @@ const LazyComponent = dynamic(() => import('./HeavyComponent'), {
 
 ---
 
-## Q30. How do you use `next/script` for third-party scripts?
+## Q30. Using `next/script` for third-party scripts
 
 `next/script` optimizes third-party script loading with different strategies - choose strategy based on script importance. `afterInteractive` (loads after page becomes interactive), `beforeInteractive` (loads before page becomes interactive), `lazyOnload` (loads when browser is idle).
 
@@ -73,7 +79,7 @@ export default function Page() {
 
 ---
 
-## Q31. What are Core Web Vitals and how do you optimize them?
+## Q31. Core Web Vitals and how to optimize them
 
 Optimize LCP with images and fonts, FID with code splitting, and CLS with proper sizing - Core Web Vitals affect SEO and user experience. LCP (optimize largest content element, usually images), FID (reduce JavaScript execution time), CLS (prevent layout shifts with proper sizing).
 
@@ -101,7 +107,7 @@ export default function Hero() {
 
 ---
 
-## Q32. How does SWC improve build performance?
+## Q32. How SWC improves build performance
 
 SWC is a fast Rust-based compiler that replaces Babel for faster builds - significantly faster builds (performance). Rust-based compiler, much faster than Babel.
 
@@ -118,7 +124,7 @@ const nextConfig = {
 
 ---
 
-## Q33. How do you implement streaming in SSR?
+## Q33. Implementing streaming in SSR
 
 Streaming sends HTML chunks as they're ready, improving Time to First Byte - better perceived performance. Sends HTML chunks as they're ready (streaming).
 
@@ -143,7 +149,7 @@ export default async function Page() {
 
 ---
 
-## Q34. What are the different caching strategies in Next.js?
+## Q34. Different caching strategies in Next.js
 
 Use ISR for static content with revalidation and edge caching for global performance - caching improves performance significantly. ISR (Incremental Static Regeneration for static content), Edge caching (cache at edge locations for global performance).
 
@@ -166,7 +172,7 @@ export async function getStaticProps() {
 
 ---
 
-## Q35. How do you optimize fonts and CSS in Next.js?
+## Q35. Optimizing fonts and CSS in Next.js
 
 Use `next/font` for font optimization and critical CSS for faster rendering - reduces layout shifts and improves loading (performance). `next/font` optimizes Google Fonts automatically.
 
@@ -193,7 +199,7 @@ export default function RootLayout({ children }) {
 
 ---
 
-## Q36. How do you monitor performance in Next.js applications?
+## Q36. Monitoring performance in Next.js applications
 
 Use Vercel Analytics for Core Web Vitals and Sentry for error monitoring - performance monitoring is essential for optimization. Vercel Analytics (built-in Core Web Vitals monitoring), Google Analytics (comprehensive web analytics), Sentry (error tracking and performance monitoring).
 
@@ -218,7 +224,7 @@ export default function RootLayout({ children }) {
 
 ---
 
-## Q37. What are common performance anti-patterns to avoid?
+## Q37. Common performance anti-patterns to avoid
 
 Avoid blocking SSR calls, large bundles, and unnecessary client-side JavaScript - avoid these patterns for better performance. Blocking SSR (avoid slow server-side operations), large bundles (use code splitting for heavy libraries).
 
@@ -238,3 +244,9 @@ export async function getServerSideProps() {
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Routing & Navigation](3%29%20Routing%20%26%20Navigation.md)** | **[Next: Architecture & Best Practices →](5%29%20Architecture%20%26%20Best%20Practices.md)**
+
+</div>

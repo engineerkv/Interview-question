@@ -1,8 +1,14 @@
-# 3. Micro-Frontends vs Monolithic SPAs (Q28–37)
+# 3. Micro-Frontends vs Monolithic SPAs (Q24–33)
+
+<div align="center">
+
+**[← Previous: Performance & Caching Optimization](2%29%20Performance%20%26%20Caching%20Optimization.md)** | **[Next: Cross-Platform Architecture & Offline Support →](4%29%20Cross-Platform%20Architecture%20%26%20Offline%20Support.md)**
+
+</div>
 
 ---
 
-## Q28. What is a micro-frontend and what problems does it solve?
+## Q24. Micro-frontends and when to use them
 
 Micro-frontends are an architectural approach where frontend applications are composed of independent, loosely coupled modules that can be developed, deployed, and scaled independently - enables gradual migration from monolithic applications. Enables independent team development and deployment.
 
@@ -33,7 +39,7 @@ const MicroFrontend = ({ name, host, history }) => {
 
 ---
 
-## Q29. What are the trade-offs between monolithic SPAs and micro-frontends?
+## Q25. Trade-offs between micro-frontends and monolithic SPAs
 
 Monolithic SPAs offer simplicity and consistency but can become unwieldy, while micro-frontends provide flexibility and independence at the cost of complexity and potential inconsistency - choose based on organizational needs. Monolithic (simpler deployment, consistent UX, shared dependencies), Micro-frontends (independent deployment, technology diversity, team autonomy).
 
@@ -68,7 +74,7 @@ const MicroFrontendApp = () => (
 
 ---
 
-## Q30. How do you manage shared dependencies across multiple front-end apps?
+## Q26. Implementing shared dependencies in micro-frontends
 
 Shared dependency management in micro-frontends requires careful coordination to avoid version conflicts while maintaining consistency and reducing bundle size - monitor bundle size and dependency conflicts. Use Module Federation for shared dependency management.
 
@@ -98,7 +104,7 @@ module.exports = {
 
 ---
 
-## Q31. How do you ensure seamless navigation across micro-frontends?
+## Q27. Achieving seamless navigation between micro-frontends
 
 Seamless navigation requires shared routing state, consistent navigation patterns, and proper handling of deep linking and browser history across micro-frontend boundaries - ensure proper state management across boundaries. Implement shared routing state and navigation context.
 
@@ -126,7 +132,7 @@ export const RoutingProvider = ({ children }) => {
 
 ---
 
-## Q32. How do you deploy and version micro-frontends independently?
+## Q28. Implementing independent deployment of micro-frontends
 
 Independent deployment requires proper versioning strategies, backward compatibility, and coordination mechanisms to ensure smooth updates without breaking the overall application - consider blue-green deployment strategies. Implement semantic versioning for micro-frontends.
 
@@ -156,7 +162,7 @@ const loadMicroFrontend = async (name, version) => {
 
 ---
 
-## Q33. What are tools and strategies for building micro-frontends?
+## Q29. Tools and frameworks that support micro-frontend architecture
 
 Different tools provide various approaches to micro-frontend architecture, each with specific strengths for different use cases and organizational needs - each tool has different strengths. Module Federation (best for webpack-based applications), Single-SPA (framework-agnostic, good for mixed technology stacks), NX (excellent for monorepo management and code sharing).
 
@@ -188,7 +194,7 @@ registerApplication({
 
 ---
 
-## Q34. How do you handle authentication and routing in a micro-frontend setup?
+## Q30. Handling authentication and routing in micro-frontends
 
 Authentication and routing in micro-frontends require shared state management, consistent security policies, and proper token handling across different modules - consider single sign-on (SSO) integration. Implement shared authentication state and context.
 
@@ -222,7 +228,7 @@ export const AuthProvider = ({ children }) => {
 
 ---
 
-## Q35. How would you migrate a large monolithic React app to micro-frontends?
+## Q31. Migrating from a monolithic SPA to micro-frontends
 
 Migration to micro-frontends should be gradual, starting with identifying boundaries, extracting modules, and implementing shared infrastructure while maintaining system stability - consider team structure and ownership, plan for rollback strategies. Start with identifying clear module boundaries.
 
@@ -252,7 +258,7 @@ const MonolithicApp = () => {
 
 ---
 
-## Q36. How do you enforce consistent UI/UX across multiple micro-frontends?
+## Q32. Ensuring consistent UI/UX across micro-frontends
 
 Consistent UI/UX requires shared design systems, component libraries, and design tokens that can be consumed across different micro-frontends - regular design reviews and audits. Create shared design system and component library.
 
@@ -282,7 +288,7 @@ const Button = ({ variant = 'primary', size = 'md', children }) => (
 
 ---
 
-## Q37. How do you debug and monitor performance across micro-frontends?
+## Q33. Debugging and monitoring micro-frontend applications
 
 Debugging and monitoring micro-frontends requires distributed tracing, centralized logging, and performance monitoring across the entire application ecosystem - consider observability tools and dashboards. Implement distributed tracing for request flow.
 
@@ -316,3 +322,9 @@ const PerformanceMonitor = {
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Performance & Caching Optimization](2%29%20Performance%20%26%20Caching%20Optimization.md)** | **[Next: Cross-Platform Architecture & Offline Support →](4%29%20Cross-Platform%20Architecture%20%26%20Offline%20Support.md)**
+
+</div>

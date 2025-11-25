@@ -2,7 +2,7 @@
 
 ---
 
-## Q11. What are the different rendering strategies in Next.js?
+## Q11. Different rendering strategies in Next.js
 
 SSR renders on server, SSG pre-renders at build time, ISR updates static content, and CSR renders in browser - choose strategy based on data freshness and performance needs. SSR (good for dynamic content, SEO, but slower than SSG), SSG (fastest, good for static content, but data can be stale).
 
@@ -19,9 +19,15 @@ export async function getServerSideProps() {
 }
 ```
 
+<div align="center">
+
+**[← Previous: Next.js Fundamentals](1%29%20Next.js%20Fundamentals.md)** | **[Next: Routing & Navigation →](3%29%20Routing%20%26%20Navigation.md)**
+
+</div>
+
 ---
 
-## Q12. What is the difference between `getStaticProps` and `getServerSideProps`?
+## Q12. Difference between `getStaticProps` and `getServerSideProps`
 
 These functions fetch data at build time (SSG) or request time (SSR) in the Pages Router - these are Pages Router specific, App Router uses different patterns. getStaticProps (runs at build time, good for static content), getServerSideProps (runs on every request, good for dynamic content).
 
@@ -40,7 +46,7 @@ export async function getStaticProps() {
 
 ---
 
-## Q13. What is `getStaticPaths` and when do you use it?
+## Q13. `getStaticPaths` and when to use it
 
 `getStaticPaths` defines which dynamic routes to pre-render at build time - use it with `getStaticProps` for static generation of dynamic pages. Defines which dynamic routes to pre-render at build time.
 
@@ -62,7 +68,7 @@ export async function getStaticPaths() {
 
 ---
 
-## Q14. How do you implement data fetching in App Router?
+## Q14. Implementing data fetching in App Router
 
 Server components can use async functions and `fetch` directly, while client components use `useEffect` and state - server components reduce JavaScript bundle size (performance). Server components run on server, can use async/await.
 
@@ -81,7 +87,7 @@ async function ServerComponent() {
 
 ---
 
-## Q15. What are React Server Components (RSC)?
+## Q15. React Server Components (RSC)
 
 RSC run on the server, can't use browser APIs, and don't re-render, while client components run in the browser - only client components can handle user interactions (interactivity). Server components run on server, no JavaScript sent to client.
 
@@ -100,7 +106,7 @@ async function ServerComponent() {
 
 ---
 
-## Q16. How does caching and revalidation work with `fetch()`?
+## Q16. Caching and revalidation with `fetch()`
 
 The `revalidate` option caches data for the specified seconds before revalidating - reduces database and API calls (performance). Revalidate time in seconds before cache expires.
 
@@ -120,7 +126,7 @@ async function getData() {
 
 ---
 
-## Q17. What are revalidation tags and how do you use them?
+## Q17. Revalidation tags and how to use them
 
 Revalidation tags allow targeted cache invalidation, while `revalidatePath` invalidates specific routes - only revalidates what's necessary (performance). Tags group related data for targeted invalidation.
 
@@ -143,7 +149,7 @@ async function getPosts() {
 
 ---
 
-## Q18. How do you implement on-demand revalidation?
+## Q18. Implementing on-demand revalidation
 
 On-demand revalidation allows you to manually invalidate cached data using `revalidateTag` or `revalidatePath` - use it when data changes outside of the normal revalidation cycle. `revalidateTag` invalidates all data with specific tag.
 
@@ -163,7 +169,7 @@ export async function POST() {
 
 ---
 
-## Q19. What is the fallback mechanism in ISR?
+## Q19. Fallback mechanism in ISR
 
 Fallback controls how Next.js handles pages not generated at build time - choose based on build time vs runtime needs. False (only pre-rendered paths work, 404 for others), True (show loading for non-pre-rendered paths), Blocking (wait for generation, then render).
 
@@ -186,7 +192,7 @@ export async function getStaticPaths() {
 
 ---
 
-## Q20. What is the difference between API routes and Server Actions?
+## Q20. Difference between API routes and Server Actions
 
 API routes are REST endpoints, while Server Actions are functions that run on the server - server actions provide better TypeScript support (type safety). API routes are traditional REST endpoints, good for external APIs.
 
@@ -213,3 +219,9 @@ export async function createUser(formData) {
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Next.js Fundamentals](1%29%20Next.js%20Fundamentals.md)** | **[Next: Routing & Navigation →](3%29%20Routing%20%26%20Navigation.md)**
+
+</div>

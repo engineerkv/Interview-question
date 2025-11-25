@@ -1,8 +1,14 @@
-# 8. Networking & APIs (Q85–105)
+# 8. Networking & APIs (Q84–101)
+
+<div align="center">
+
+**[← Previous: Practical Front-End System Design Scenarios](7%29%20Practical%20Front-End%20System%20Design%20Scenarios.md)** | **[Next: Real-time Communication Protocols →](9%29%20Real-time%20Communication%20Protocols.md)**
+
+</div>
 
 ---
 
-## Q85. How does the internet work, and how do DNS and IP addresses work together?
+## Q84. How the internet works and how DNS and IP addresses work together
 
 The internet is a global network of interconnected devices communicating via standardized protocols. DNS (Domain Name System) translates human-readable domain names like example.com into IP addresses like 192.0.2.1, which routers use to route data packets across networks to their destination - IP routing is stateless, so each packet is routed independently toward its destination.
 
@@ -21,7 +27,7 @@ async function resolveDNS(hostname) {
 
 ---
 
-## Q86. What are internet protocols, and what is the difference between HTTP and HTTPS?
+## Q85. HTTP and how it works
 
 Protocols are standardized rules for communication between devices. HTTP (Hypertext Transfer Protocol) is the foundation of web communication, while HTTPS adds encryption via TLS/SSL, ensuring data confidentiality and integrity between client and server - always use HTTPS for authentication, payments, and sensitive data.
 
@@ -36,32 +42,48 @@ fetch('https://example.com/api/data').then(res => res.json());
 
 ---
 
-## Q87. What is REST, and what are the key principles of RESTful API design?
+## Q86. HTTP methods and when to use each
 
-REST (Representational State Transfer) is an architectural style for designing web services - RESTful APIs use standard HTTP methods, stateless requests, resource-oriented URLs, and support caching to create scalable, maintainable APIs. REST works best with standard HTTP caching mechanisms.
+HTTP methods define operations on resources: GET retrieves data (idempotent, cacheable), POST creates resources or submits data (not idempotent), PUT updates entire resources (idempotent), PATCH partially updates resources (idempotent), DELETE removes resources (idempotent). Use GET for reading, POST for creating, PUT/PATCH for updating, DELETE for removing.
 
-- **Trade-offs**: Statelessness enables horizontal scaling and better caching - resource-oriented design (nouns in URLs, verbs in HTTP methods) improves clarity, but watch out - GET requests should be cacheable while POST/PUT/DELETE typically aren't. HATEOAS (Hypermedia as the Engine of Application State) is optional but powerful.
+- **Trade-offs**: Idempotent methods (GET, PUT, DELETE, PATCH) can be safely retried without side effects, but POST is not idempotent - multiple identical requests may create multiple resources. GET requests should be cacheable while POST/PUT/DELETE typically aren't - use appropriate methods for semantic correctness and HTTP caching benefits.
 
 Example:
 
 ```javascript
+// GET - retrieve data (idempotent, cacheable)
 fetch('/api/users/123', { method: 'GET' });
+
+// POST - create new resource (not idempotent)
 fetch('/api/users', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ name: 'John', email: 'john@example.com' })
 });
-fetch('/api/users/123', { method: 'PUT', body: JSON.stringify({ name: 'John Doe' }) });
+
+// PUT - update entire resource (idempotent)
+fetch('/api/users/123', { 
+  method: 'PUT', 
+  body: JSON.stringify({ name: 'John Doe', email: 'john@example.com' }) 
+});
+
+// PATCH - partial update (idempotent)
+fetch('/api/users/123', { 
+  method: 'PATCH', 
+  body: JSON.stringify({ name: 'John Doe' }) 
+});
+
+// DELETE - remove resource (idempotent)
 fetch('/api/users/123', { method: 'DELETE' });
 ```
 
 ---
 
-## Q88. What are HTTP methods, status codes, and headers?
+## Q87. HTTP status codes and what they mean
 
-HTTP methods define operations on resources, status codes communicate request outcomes, and headers provide metadata about requests/responses - together they form the foundation of RESTful API communication. Cache-Control header is crucial for browser and CDN caching strategies.
+HTTP status codes communicate request outcomes: 2xx (success - 200 OK, 201 Created, 204 No Content), 3xx (redirection - 301 Moved Permanently, 304 Not Modified), 4xx (client errors - 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found), 5xx (server errors - 500 Internal Server Error, 502 Bad Gateway, 503 Service Unavailable). Use appropriate status codes to accurately reflect request outcome.
 
-- **Trade-offs**: Idempotent methods (GET, PUT, DELETE, PATCH) can be safely retried without side effects, but POST is not idempotent - multiple identical requests may create multiple resources. Status codes should accurately reflect request outcome - don't use 200 for errors. Headers provide rich metadata for content negotiation, caching, authentication, and CORS.
+- **Trade-offs**: Status codes should accurately reflect request outcome - don't use 200 for errors or 404 for authentication failures. 4xx indicates client errors (fix the request), 5xx indicates server errors (server needs fixing) - proper status codes help with debugging, caching, and error handling.
 
 Example:
 
@@ -71,45 +93,64 @@ async function fetchUser(id) {
     method: 'GET',
     headers: { 'Accept': 'application/json', 'Authorization': `Bearer ${token}` }
   });
+  
   if (response.status === 200) return await response.json();
+  if (response.status === 201) return await response.json(); // Created
+  if (response.status === 204) return null; // No Content
+  if (response.status === 304) return cachedData; // Not Modified
+  if (response.status === 400) throw new Error('Bad Request');
+  if (response.status === 401) throw new Error('Unauthorized');
+  if (response.status === 403) throw new Error('Forbidden');
   if (response.status === 404) throw new Error('User not found');
-  if (response.status === 401) throw new Error('Authentication required');
+  if (response.status === 500) throw new Error('Internal Server Error');
+  if (response.status === 503) throw new Error('Service Unavailable');
 }
 ```
 
 ---
 
-## Q89. What is GraphQL, and how does it solve over-fetching and under-fetching issues?
+## Q88. HTTP headers and how to use them
 
-GraphQL is a query language and runtime for APIs that allows clients to request exactly the data they need - unlike REST which returns fixed data structures, GraphQL lets clients specify field selection, solving over-fetching (getting unnecessary data) and under-fetching (needing multiple requests) problems. Best for complex UIs with varying data needs and mobile apps with bandwidth constraints.
+HTTP headers provide metadata about requests and responses, controlling caching, authentication, content negotiation, CORS, and security. Common headers: Content-Type (MIME type), Authorization (credentials), Cache-Control (caching directives), Accept (content negotiation), CORS headers (Access-Control-Allow-Origin), security headers (X-Frame-Options, CSP). Headers enable fine-grained control over HTTP communication.
 
-- **Trade-offs**: GraphQL schema serves as contract between client and server, enabling strong typing - field resolvers allow combining data from multiple sources (databases, APIs, services), but watch out - batching with DataLoader prevents N+1 query problems. GraphQL can fetch related data in single request, reducing round trips.
+- **Trade-offs**: Headers provide rich metadata for content negotiation, caching, authentication, and CORS, but the catch is too many headers increase request size and complexity. Cache-Control header is crucial for browser and CDN caching strategies - use appropriate headers for security, performance, and functionality.
 
 Example:
 
 ```javascript
-const query = `
-  query GetUser($id: ID!) {
-    user(id: $id) {
-      id
-      name
-      email
-      posts { title, createdAt }
-    }
-  }
-`;
-const response = await fetch('/graphql', {
+// Request headers
+fetch('/api/users', {
   method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ query, variables: { id: '123' } })
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer token123',
+    'Accept': 'application/json',
+    'Accept-Language': 'en-US,en;q=0.9',
+    'Cache-Control': 'no-cache'
+  },
+  body: JSON.stringify({ name: 'John' })
 });
+
+// Response headers (server sets)
+// Content-Type: application/json
+// Cache-Control: public, max-age=3600
+// Access-Control-Allow-Origin: https://example.com
+// X-Frame-Options: DENY
+// Content-Security-Policy: default-src 'self'
+
+// Reading response headers
+const response = await fetch('/api/users');
+const contentType = response.headers.get('Content-Type');
+const cacheControl = response.headers.get('Cache-Control');
 ```
 
 ---
 
-## Q90. How do you choose between REST and GraphQL?
+## Q89. Difference between HTTP/1.1 and HTTP/2
 
-Choose REST for simple CRUD operations, when HTTP caching is critical, or when working with public APIs. Choose GraphQL when you need flexible data fetching, have complex relationships, or want to reduce over-fetching/under-fetching - API versioning differs: REST uses URL versioning while GraphQL uses schema evolution.
+HTTP/1.1 sends one request per connection and requires multiple connections for parallelism, which causes head-of-line blocking. HTTP/2 multiplexes multiple requests over a single connection, uses header compression (HPACK), and supports server push, which improves performance significantly. HTTP/2 maintains backward compatibility with HTTP/1.1 semantics while improving efficiency.
+
+- **Trade-offs**: HTTP/2 improves performance significantly over HTTP/1.1, but the catch is it still uses TCP which can cause head-of-line blocking. HTTP/3 uses QUIC over UDP to eliminate TCP's head-of-line blocking. HTTP/2's server push can waste bandwidth if resources are already cached - use HTTP/2 for better performance, HTTP/3 for even better performance on unreliable networks.
 
 - **Trade-offs**: REST advantages include simplicity, HTTP caching, wide tooling support, and easier debugging - GraphQL advantages include flexible queries, reduced round trips, strong typing, and better for complex UIs. Consider team expertise, infrastructure, and long-term maintenance - many companies use hybrid: REST for simple operations, GraphQL for complex queries. REST caching leverages CDN and browser caching while GraphQL caching requires application-level strategies.
 
@@ -129,41 +170,72 @@ const query = `
 
 ---
 
-## Q91. What is gRPC, and how does it differ from REST APIs?
+## Q90. REST and how to design RESTful APIs
 
-gRPC (gRPC Remote Procedure Calls) is a high-performance RPC framework using Protocol Buffers for serialization and HTTP/2 for transport - it differs from REST by using binary protocols, code generation, streaming, and strong typing. Better for microservices communication, high-performance APIs, and real-time systems.
+REST (Representational State Transfer) is an architectural style for designing web services - RESTful APIs use standard HTTP methods, stateless requests, resource-oriented URLs, and support caching to create scalable, maintainable APIs. Design RESTful APIs with resource-based URLs (nouns, not verbs), use HTTP methods for actions, return appropriate status codes, and support content negotiation.
 
-- **Trade-offs**: gRPC uses Protocol Buffers (protobuf) - binary format that's 3-10x smaller than JSON - code generation from .proto files ensures type safety and reduces boilerplate. HTTP/2 support enables multiplexing, header compression, and server push - streaming support includes unary (request-response), server streaming, client streaming, and bidirectional.
+- **Trade-offs**: Statelessness enables horizontal scaling and better caching - resource-oriented design (nouns in URLs, verbs in HTTP methods) improves clarity, but watch out - GET requests should be cacheable while POST/PUT/DELETE typically aren't. REST works best with standard HTTP caching mechanisms - HATEOAS (Hypermedia as the Engine of Application State) is optional but powerful.
 
 Example:
 
 ```javascript
-syntax = "proto3";
-message User {
-  int32 id = 1;
-  string name = 2;
-  string email = 3;
-}
-service UserService {
-  rpc CreateUser(CreateUserRequest) returns (User);
-}
+// RESTful API design
+// GET /api/users - list users
+// GET /api/users/123 - get user
+// POST /api/users - create user
+// PUT /api/users/123 - update user
+// DELETE /api/users/123 - delete user
+
+// Resource-based URLs (nouns)
+fetch('/api/users', { method: 'GET' });
+fetch('/api/users/123', { method: 'GET' });
+fetch('/api/users', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: 'John', email: 'john@example.com' })
+});
+fetch('/api/users/123', { 
+  method: 'PUT', 
+  body: JSON.stringify({ name: 'John Doe' }) 
+});
+fetch('/api/users/123', { method: 'DELETE' });
 ```
 
 ---
 
-## Q92. What are Protocol Buffers (protobuf), and what are their benefits?
+## Q91. GraphQL and how it differs from REST
 
-Protocol Buffers are a language-neutral, platform-neutral serialization format developed by Google - they define data structures in .proto files, which are compiled to generate code in various languages, providing efficient binary serialization for gRPC. Faster serialization/deserialization compared to JSON parsing.
+GraphQL is a query language and runtime for APIs that allows clients to request exactly the data they need - unlike REST which returns fixed data structures, GraphQL allows clients to specify field selection, solving over-fetching (getting unnecessary data) and under-fetching (needing multiple requests) problems. Best for complex UIs with varying data needs and mobile apps with bandwidth constraints.
 
-- **Trade-offs**: Binary format is 3-10x smaller than JSON, reducing network bandwidth - strong typing catches errors at compile time, not runtime. Schema evolution allows adding fields without breaking existing clients - code generation reduces boilerplate and ensures consistency across languages.
+- **Trade-offs**: GraphQL schema serves as contract between client and server, enabling strong typing - field resolvers allow combining data from multiple sources (databases, APIs, services), but watch out - batching with DataLoader prevents N+1 query problems. GraphQL can fetch related data in single request, reducing round trips - REST caching leverages CDN and browser caching while GraphQL caching requires application-level strategies.
 
 Example:
 
 ```javascript
-syntax = "proto3";
-message Person {
-  int32 id = 1;
-  string name = 2;
+// GraphQL query - client specifies exact fields needed
+const query = `
+  query GetUser($id: ID!) {
+    user(id: $id) {
+      id
+      name
+      email
+      posts { 
+        title
+        createdAt
+      }
+    }
+  }
+`;
+
+const response = await fetch('/graphql', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ query, variables: { id: '123' } })
+});
+
+// REST equivalent would require multiple requests:
+// GET /api/users/123
+// GET /api/users/123/posts
   string email = 3;
 }
 const Person = require('./generated/Person_pb');
@@ -174,11 +246,11 @@ const bytes = person.serializeBinary();
 
 ---
 
-## Q93. How does gRPC leverage HTTP/2, and what advantages does this bring?
+## Q92. gRPC and when to use it
 
-gRPC uses HTTP/2 as its transport protocol, which provides multiplexing, header compression, server push, and binary framing - these features enable multiple simultaneous requests over a single connection, reducing latency and improving efficiency compared to HTTP/1.1. Server push enables proactive data delivery, reducing round trips.
+gRPC (gRPC Remote Procedure Calls) is a high-performance RPC framework using Protocol Buffers for serialization and HTTP/2 for transport - it differs from REST by using binary protocols, code generation, streaming, and strong typing. Better for microservices communication, high-performance APIs, and real-time systems where low latency and efficiency matter.
 
-- **Trade-offs**: HTTP/2 multiplexing allows multiple requests/responses simultaneously without blocking - HPACK header compression reduces overhead, especially important for small requests. Single persistent connection reduces TCP handshake overhead - binary framing enables faster parsing and more efficient processing.
+- **Trade-offs**: gRPC uses Protocol Buffers (protobuf) - binary format that's 3-10x smaller than JSON - code generation from .proto files ensures type safety and reduces boilerplate. HTTP/2 support enables multiplexing, header compression, and server push - streaming support includes unary (request-response), server streaming, client streaming, and bidirectional. Use gRPC for internal microservices, high-performance APIs, or when you need streaming - use REST for public APIs or when HTTP caching is critical.
 
 Example:
 
@@ -193,67 +265,48 @@ Promise.all([
 
 ---
 
-## Q94. Compare RESTful APIs and gRPC: strengths, weaknesses, and when to use each.
+## Q93. Handling API authentication and authorization
 
-REST uses HTTP with JSON, is simple and widely compatible - gRPC uses HTTP/2 with Protocol Buffers, offering high performance and strong typing. Choose based on use case: REST for public APIs and simplicity, gRPC for performance-critical internal services - consider team expertise and learning curve when choosing.
+API authentication verifies user identity (who you are), while authorization determines what actions you can perform (what you can do). Common authentication methods include API keys, OAuth 2.0, JWT tokens, and session-based auth. Authorization uses role-based access control (RBAC) or permission-based systems to enforce access rules.
 
-- **Trade-offs**: REST is universal (works with any HTTP client, easy to test) while gRPC is performant (binary format and HTTP/2 provide significant performance benefits). Choose REST for public APIs, browser clients, when simplicity and caching matter - many organizations use both: REST for public APIs, gRPC for internal services. Can evolve REST APIs to gRPC gradually for specific services.
-
-Example:
-
-```javascript
-fetch('https://api.example.com/users/123', {
-  method: 'GET',
-  headers: { 'Accept': 'application/json' }
-}).then(res => res.json());
-
-const client = new UserServiceClient('https://api.example.com');
-const user = await client.getUser({ id: 123 });
-```
-
----
-
-## Q95. What is API versioning, and what are the different strategies?
-
-API versioning allows you to evolve APIs without breaking existing clients - common strategies include URL versioning, header versioning, and query parameter versioning, each with different trade-offs. Choose based on caching needs, URL cleanliness, and team preferences.
-
-- **Trade-offs**: URL versioning is most explicit and cacheable, but requires URL changes - header versioning maintains clean URLs but requires custom headers. Query parameter versioning is simple but less cacheable - media type versioning follows content negotiation principles.
+- **Trade-offs**: JWT tokens are stateless and scalable but can't be revoked easily - session-based auth is easier to revoke but requires server-side storage. OAuth 2.0 is complex but provides secure third-party access - API keys are simple but less secure. Always use HTTPS for authentication, implement token expiration and refresh, and validate permissions on every request.
 
 Example:
 
 ```javascript
-fetch('/api/v1/users/123');
-fetch('/api/users/123', {
-  headers: { 'Accept': 'application/vnd.api.v1+json' }
+// JWT Authentication
+const token = localStorage.getItem('token');
+fetch('/api/users', {
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  }
 });
-fetch('/api/users/123?version=1');
+
+// OAuth 2.0 flow
+const authUrl = `https://oauth.provider.com/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code`;
+window.location.href = authUrl;
+
+// API Key authentication
+fetch('/api/data', {
+  headers: {
+    'X-API-Key': apiKey
+  }
+});
+
+// Role-based authorization check
+function canAccess(user, resource, action) {
+  return user.roles.some(role => 
+    role.permissions.some(p => 
+      p.resource === resource && p.actions.includes(action)
+    )
+  );
+}
 ```
 
 ---
 
-## Q96. What is CORS, and how do you handle cross-origin requests securely?
-
-CORS (Cross-Origin Resource Sharing) is a security mechanism that allows web pages to make requests to a different domain than the one serving the web page - it requires proper configuration on the server to allow specific origins, methods, and headers. Configure CORS properly to prevent security vulnerabilities.
-
-- **Trade-offs**: CORS prevents unauthorized cross-origin requests while allowing legitimate ones - preflight requests check permissions before actual requests. Use specific origins instead of wildcard (*) for security - Access-Control-Allow-Credentials allows cookies and auth headers.
-
-Example:
-
-```javascript
-fetch('https://api.example.com/users', {
-  method: 'GET',
-  headers: { 'Accept': 'application/json' }
-});
-fetch('https://api.example.com/users', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer token123' },
-  body: JSON.stringify({ name: 'John' })
-});
-```
-
----
-
-## Q97. What is API rate limiting, and how do you implement it on the front-end?
+## Q94. Implementing API rate limiting
 
 API rate limiting restricts the number of requests a client can make within a time period - front-end implementation involves tracking request counts, handling rate limit responses, and providing user feedback. Provide clear user feedback when rate limits are hit.
 
@@ -292,7 +345,7 @@ async function fetchWithRateLimit(url) {
 
 ---
 
-## Q98. What is API authentication, and what are common authentication methods?
+## Q95. API documentation and how to create it
 
 API authentication verifies the identity of clients making requests - common methods include JWT tokens, OAuth 2.0, and API keys, each with different security levels and use cases. Choose authentication method based on security requirements and use case.
 
@@ -316,7 +369,7 @@ const { access_token } = await response.json();
 
 ---
 
-## Q99. What are request/response interceptors, and how do you use them?
+## Q96. Handling API errors and retries
 
 Request/response interceptors allow you to modify requests before they're sent and responses before they're processed - they're useful for adding authentication headers, handling errors globally, and logging. Interceptors reduce boilerplate and provide consistent error handling.
 
@@ -349,7 +402,7 @@ axios.interceptors.response.use(
 
 ---
 
-## Q100. What is API error handling, and how do you handle different types of errors gracefully?
+## Q97. API pagination and how to implement it
 
 API error handling involves detecting, categorizing, and responding to different error types (network errors, HTTP errors, validation errors) with appropriate user feedback and recovery strategies. Provide clear, actionable error messages to users.
 
@@ -390,7 +443,7 @@ async function fetchWithErrorHandling(url, options = {}) {
 
 ---
 
-## Q101. What is API pagination, and what are different pagination strategies?
+## Q98. Optimizing API performance
 
 API pagination breaks large result sets into smaller chunks - common strategies include offset-based (page numbers), cursor-based (after/before tokens), and keyset-based (last seen ID) pagination, each with different trade-offs. Choose pagination strategy based on data characteristics and use case.
 
@@ -414,7 +467,7 @@ async function fetchUsersWithCursor(cursor = null, limit = 20) {
 
 ---
 
-## Q102. What is API request batching, and how do you implement it?
+## Q99. API caching and how to implement it
 
 API request batching combines multiple requests into a single request to reduce round trips and improve performance - it's useful when you need to fetch multiple resources simultaneously. Balance batch size with latency - larger batches reduce requests but increase delay.
 
@@ -462,7 +515,7 @@ class RequestBatcher {
 
 ---
 
-## Q103. What is API request deduplication, and how do you prevent duplicate requests?
+## Q100. Monitoring and debugging API calls
 
 API request deduplication prevents multiple identical requests from being sent simultaneously - it's useful when the same request is triggered multiple times (e.g., rapid button clicks, multiple component renders). Combine with debouncing/throttling for user interactions.
 
@@ -498,7 +551,7 @@ async function fetchUser(id) {
 
 ---
 
-## Q104. What is API response caching, and how do you implement client-side caching?
+## Q101. Best practices for API design
 
 API response caching stores responses locally to serve subsequent requests faster - client-side caching can be implemented using memory cache, localStorage, IndexedDB, or service workers, depending on data size and persistence needs. Consider cache invalidation strategies when data changes.
 
@@ -539,39 +592,10 @@ async function fetchWithCache(url, options = {}) {
 
 ---
 
-## Q105. What is API request retry logic, and how do you implement exponential backoff?
-
-API request retry logic automatically retries failed requests with increasing delays between attempts - exponential backoff doubles the delay after each retry, preventing server overload and improving success rates for transient failures. Set maximum retry attempts and maximum delay to prevent infinite retries.
-
-- **Trade-offs**: Exponential backoff doubles delay after each retry, preventing server overload - retry transient failures (network errors, 5xx server errors) with exponential backoff. Add jitter (random variation) to prevent multiple clients retrying simultaneously - use different retry strategies for different error types (network, server, timeout).
-
-Example:
-
-```javascript
-async function fetchWithRetry(url, options = {}, maxRetries = 3) {
-  let lastError;
-  for (let attempt = 0; attempt <= maxRetries; attempt++) {
-    try {
-      const response = await fetch(url, options);
-      if (!response.ok && response.status >= 500) {
-        throw new Error(`Server error: ${response.status}`);
-      }
-      return await response.json();
-    } catch (error) {
-      lastError = error;
-      if (attempt < maxRetries) {
-        const delay = Math.min(1000 * Math.pow(2, attempt), 30000);
-        await new Promise(resolve => setTimeout(resolve, delay));
-      }
-    }
-  }
-  throw lastError;
-}
-function calculateBackoff(attempt, baseDelay = 1000, maxDelay = 30000) {
-  const exponentialDelay = Math.min(baseDelay * Math.pow(2, attempt), maxDelay);
-  const jitter = Math.random() * 0.3 * exponentialDelay;
-  return exponentialDelay + jitter;
-}
-```
-
 ---
+
+<div align="center">
+
+**[← Previous: Practical Front-End System Design Scenarios](7%29%20Practical%20Front-End%20System%20Design%20Scenarios.md)** | **[Next: Real-time Communication Protocols →](9%29%20Real-time%20Communication%20Protocols.md)**
+
+</div>

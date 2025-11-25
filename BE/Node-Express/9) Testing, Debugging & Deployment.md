@@ -1,6 +1,11 @@
-# 10) Testing, Debugging & Deployment (Q91–100)
+# 9) Testing, Debugging & Deployment (Q90–99)
 
-## Q91. What are the most common testing frameworks (Jest, Mocha, Supertest)?
+<div align="center">
+
+**[← Previous: Performance, Optimization, Scaling & Monitoring](8%29%20Performance%2C%20Optimization%2C%20Scaling%20%26%20Monitoring.md)** | **[Next: Question List →](question.md)**
+
+</div>
+## Q90. Writing unit tests with Jest or Mocha
 
 Testing frameworks provide tools for writing and running tests - Jest is popular for React/Node.js with built-in mocking, Mocha is flexible with many plugins, and Supertest is specialized for HTTP API testing. Choose based on project requirements and team preferences, and consider testing pyramid: unit > integration > e2e.
 
@@ -35,7 +40,7 @@ describe('User API', () => {
 });
 ```
 
-## Q92. How do you test Express routes and middleware using Supertest?
+## Q91. Testing API endpoints with Supertest
 
 Supertest allows testing Express applications by making HTTP requests and asserting responses - test middleware in isolation, test both success and error cases, use proper HTTP status code assertions, test request/response modifications, and consider edge cases and error scenarios. Tests both routes and middleware behavior.
 
@@ -84,7 +89,7 @@ describe('Auth Middleware', () => {
 });
 ```
 
-## Q93. How do you mock external API calls in unit tests?
+## Q92. Mocking API calls in tests
 
 Mocking external API calls prevents tests from making real network requests - mock external dependencies to isolate units under test, use jest.mock() for automatic mocking, test both success and error scenarios, verify mock calls with correct parameters, and consider using MSW for more realistic API mocking. Makes tests faster, more reliable, and independent of external services.
 
@@ -131,7 +136,7 @@ describe('Weather Service', () => {
 });
 ```
 
-## Q94. How do you debug Node.js applications using VS Code or Chrome DevTools?
+## Q93. Debugging Node.js applications with VS Code
 
 Debugging Node.js applications involves setting breakpoints, inspecting variables, and stepping through code - use --inspect flag to enable debugging, set breakpoints in VS Code or Chrome DevTools, use debugger statement for programmatic breakpoints, inspect variables and call stack, and debug async code and promises. Use integrated debuggers in VS Code or Chrome DevTools.
 
@@ -165,7 +170,7 @@ function getUserById(id) {
 }
 ```
 
-## Q95. How do you set up CI/CD pipelines for Node.js (GitHub Actions, Jenkins)?
+## Q94. Debugging with Chrome DevTools
 
 CI/CD pipelines automate testing, building, and deploying Node.js applications - automate testing on every commit, test against multiple Node.js versions, run linting and security checks, deploy only after successful tests, and use environment-specific configurations. Ensures code quality and consistent deployments.
 
@@ -215,7 +220,7 @@ jobs:
         echo "Deploying to production..."
 ```
 
-## Q96. How do you containerize Node.js apps using Docker?
+## Q95. Implementing CI/CD for Node.js applications
 
 Docker containers package Node.js applications with their dependencies - use multi-stage builds for smaller images, use .dockerignore to exclude unnecessary files, run as non-root user for security, implement health checks, and use specific Node.js versions for consistency. Ensures consistent deployment across different environments.
 
@@ -246,7 +251,78 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 CMD ["npm", "start"]
 ```
 
-## Q97. How do you handle graceful shutdowns (SIGTERM, SIGINT)?
+## Q96. Containerizing Node.js applications with Docker
+
+Docker containerization packages Node.js applications with all dependencies into portable containers - create Dockerfile with Node.js base image, copy application files, install dependencies, expose ports, and set startup command. Enables consistent deployments across environments and simplifies deployment process.
+
+- **Trade-offs**: Packages app with all dependencies - enables consistent deployments across environments. Simplifies deployment process - containers are portable and isolated. Easy to scale and manage - great for CI/CD pipelines, but watch out - Docker images can be large, so use multi-stage builds and .dockerignore to optimize size.
+
+Example:
+
+```dockerfile
+# Dockerfile
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --only=production
+
+# Copy application files
+COPY . .
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+USER nodejs
+
+# Expose port
+EXPOSE 3000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD node healthcheck.js
+
+# Start application
+CMD ["node", "app.js"]
+```
+
+```dockerfile
+# .dockerignore
+node_modules
+npm-debug.log
+.git
+.env
+coverage
+```
+
+```bash
+# Build image
+docker build -t myapp:latest .
+
+# Run container
+docker run -p 3000:3000 --env-file .env myapp:latest
+
+# Multi-stage build for smaller images
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM node:18-alpine
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY package*.json ./
+RUN npm ci --only=production
+CMD ["node", "dist/app.js"]
+```
+
+## Q97. Implementing graceful shutdowns in production
 
 Graceful shutdowns ensure applications close properly by handling termination signals, cleaning up resources, and finishing ongoing requests - handle SIGTERM and SIGINT signals, close HTTP server and database connections, set timeout for forced shutdown, log shutdown process for debugging, and test graceful shutdown in production.
 
@@ -276,6 +352,7 @@ function gracefulShutdown(signal) {
     }
   });
   
+  // Force shutdown after timeout
   setTimeout(() => {
     console.error('Could not close connections in time, forcefully shutting down');
     process.exit(1);
@@ -290,7 +367,7 @@ server = app.listen(3000, () => {
 });
 ```
 
-## Q98. How do you manage different environment configurations (dev, staging, prod)?
+## Q98. Handling environment configurations
 
 Environment-specific configurations ensure applications behave correctly across different environments - use environment variables for sensitive data, provide default values for development, validate required environment variables, use different configurations per environment, and never commit secrets to version control. Use environment variables and configuration files.
 
@@ -299,6 +376,8 @@ Environment-specific configurations ensure applications behave correctly across 
 Example:
 
 ```javascript
+require('dotenv').config();
+
 const config = {
   development: {
     port: process.env.PORT || 3000,
@@ -314,7 +393,7 @@ const config = {
   },
   
   production: {
-    port: process.env.PORT || 3000,
+    port: process.env.PORT,
     db: {
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
@@ -327,11 +406,19 @@ const config = {
   }
 };
 
+// Validate required environment variables
+const requiredEnvVars = ['DB_HOST', 'DB_PORT', 'JWT_SECRET'];
+requiredEnvVars.forEach(varName => {
+  if (!process.env[varName] && process.env.NODE_ENV === 'production') {
+    throw new Error(`Missing required environment variable: ${varName}`);
+  }
+});
+
 const env = process.env.NODE_ENV || 'development';
 module.exports = config[env];
 ```
 
-## Q99. How do you deploy Node + Express apps to cloud providers (AWS, Render, Vercel)?
+## Q99. Deploying Node.js applications to the cloud
 
 Cloud deployment involves packaging applications, configuring infrastructure, and using platform-specific services - choose platform based on requirements, configure environment variables, set up proper build and start commands, consider serverless vs traditional hosting, and implement health checks and monitoring. For hosting Node.js applications.
 
@@ -340,6 +427,7 @@ Cloud deployment involves packaging applications, configuring infrastructure, an
 Example:
 
 ```javascript
+// AWS Lambda (Serverless)
 const serverless = require('serverless-http');
 const express = require('express');
 const app = express();
@@ -350,6 +438,7 @@ app.get('/api/users', (req, res) => {
 
 module.exports.handler = serverless(app);
 
+// Heroku (package.json)
 {
   "scripts": {
     "start": "node app.js",
@@ -360,6 +449,7 @@ module.exports.handler = serverless(app);
   }
 }
 
+// Vercel (vercel.json)
 {
   "version": 2,
   "builds": [
@@ -375,20 +465,8 @@ module.exports.handler = serverless(app);
     }
   ]
 }
-```
 
-## Q100. What are best practices for monitoring, maintaining, and optimizing production servers (logs, restarts, health checks, alerts)?
-
-Production server management involves comprehensive monitoring, logging, health checks, and alerting - implement comprehensive health checks, use structured logging with timestamps, monitor memory usage and performance, set up alerts for critical issues, and implement proper error handling and reporting. Ensures reliability and performance.
-
-- **Trade-offs**: Implement comprehensive health checks - use structured logging with timestamps. Monitor memory usage and performance - set up alerts for critical issues. Implement proper error handling and reporting - essential for production, but watch out - too many alerts can cause alert fatigue, so set appropriate thresholds.
-
-Example:
-
-```javascript
-const express = require('express');
-const app = express();
-
+// Health check endpoint
 app.get('/health', (req, res) => {
   const health = {
     status: 'OK',

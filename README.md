@@ -9,21 +9,21 @@ Comprehensive interview materials for modern web development technologies with d
 | Tech Stack | Questions | Sections | Status |
 |------------|-----------|----------|--------|
 | **JavaScript** | 250 | 7 | ✅ |
-| **HTML** | 111 | 8 | ✅ |
+| **HTML** | 110 | 8 | ✅ |
 | **CSS** | 70 | 6 | ✅ |
 | **SQL** | 50 | 5 | ✅ |
-| **NoSQL (MongoDB)** | 40 | 4 | ✅ |
+| **NoSQL (MongoDB)** | 57 | 4 | ✅ |
 | **React** | 97 | 8 | ✅ |
 | **React Native** | 95 | 10 | ✅ |
 | **TypeScript** | 53 | 5 | ✅ |
 | **Next.js** | 60 | 6 | ✅ |
 | **Node.js & Express** | 100 | 10 | ✅ |
-| **Backend System Design** | 70 | 6 | ✅ |
-| **Frontend System Design** | 138 | 10 | ✅ |
+| **Backend System Design** | 240 | 13 | ✅ |
+| **Frontend System Design** | 151 | 12 | ✅ |
 | **DSA (Top Interview 150+)** | 229 | 15 | ✅ |
 | **Project Discussion** | 20 | 2 Projects | ✅ |
 
-Total: **1,365+ Questions**
+Total: **1,583+ Questions**
 
 ---
 
@@ -63,19 +63,19 @@ Total: **1,365+ Questions**
 ```text
 Interview-question/
 ├── FE/                    # Frontend technologies
-│   ├── HTML/             # 111 questions, 8 sections
+│   ├── HTML/             # 110 questions, 8 sections
 │   ├── CSS/              # 70 questions, 6 sections
 │   ├── Javascript/       # 250 questions, 7 sections
 │   ├── Typescript/       # 53 questions, 5 sections
 │   ├── React/            # 100 questions, 10 sections
 │   ├── Next/             # 60 questions, 6 sections
 │   ├── React-Native/     # 95 questions, 10 sections
-│   └── FE-System-Design/ # 138 questions, 10 sections
+│   └── FE-System-Design/ # 151 questions, 12 sections
 ├── BE/                    # Backend technologies
 │   ├── Node-Express/     # 100 questions, 10 sections
 │   ├── Sql/              # 50 questions, 5 sections
-│   ├── No-Sql/           # 40 questions, 4 sections
-│   └── BE-System-Design/ # 70 questions, 6 sections
+│   ├── No-Sql/           # 57 questions, 4 sections
+│   └── BE-System-Design/ # 240 questions, 13 sections
 ├── DSA/                   # Data Structures & Algorithms
 │   └── [15 files]        # 229 problems, 15 sections
 ├── Projects/              # Project discussions
@@ -266,7 +266,7 @@ Each tech stack includes a comprehensive cheatsheet for quick review before inte
 
 ## Stats
 
-- **1,365+ Questions** across 13 tech stacks
+- **1,583+ Questions** across 13 tech stacks
 - **229 DSA Problems** with complete solutions
 - **2 Project Discussions** with comprehensive documentation:
   - HLD (High Level Design) documents

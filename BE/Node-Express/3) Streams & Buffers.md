@@ -1,6 +1,11 @@
-# 4) Streams & Buffers (Q31–40)
+# 3) Streams & Buffers (Q30–39)
 
-## Q31. What are Streams in Node.js, and why are they useful for large data processing?
+<div align="center">
+
+**[← Previous: Asynchronous Patterns & Event Emitter](2%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md)** | **[Next: Node.js Internals & Performance →](4%29%20Node.js%20Internals%20%26%20Performance.md)**
+
+</div>
+## Q30. Streams in Node.js and why they're useful
 
 Streams are objects that allow you to read data from a source or write data to a destination in a continuous fashion, enabling efficient processing of large datasets without loading everything into memory - they process data in chunks instead of loading entire file, are memory efficient for large files or datasets, and can process data as it arrives (real-time). Foundation for many Node.js APIs (HTTP, file system).
 
@@ -15,7 +20,7 @@ const writeStream = fs.createWriteStream('output.txt');
 readStream.pipe(writeStream);
 ```
 
-## Q32. What are the four types of Streams (Readable, Writable, Duplex, Transform)?
+## Q31. Different types of streams
 
 Node.js has four stream types: Readable (data source like files, HTTP requests), Writable (data destination like files, HTTP responses), Duplex (both readable and writable like TCP sockets), and Transform (duplex that modifies data as it flows through like compression, encryption). Each type has specific methods and events.
 
@@ -38,7 +43,7 @@ const writable = new Writable({
 });
 ```
 
-## Q33. How does backpressure occur in Streams, and how can it be handled?
+## Q32. Backpressure and how to handle it
 
 Backpressure occurs when data is produced faster than it can be consumed, causing memory issues - it's handled by pausing the readable stream when the writable stream is overwhelmed. Node.js automatically handles backpressure with .pipe(), but you can use .pause() and .resume() for manual control, and monitor 'drain' event to know when to resume.
 
@@ -67,11 +72,11 @@ const writable = new Writable({
 readable.pipe(writable);
 ```
 
-## Q34. What is a Buffer, and how is it different from a Stream?
+## Q33. Buffers and how to use them
 
-A Buffer is a fixed-size memory allocation for handling binary data (fixed-size binary data container), while a Stream is an interface for continuous data flow - buffers are the chunks that flow through streams, buffers are immutable once created, and streams can process data of any size.
+A Buffer is a fixed-size memory allocation for handling binary data in Node.js - it's a fixed-size binary data container that represents raw binary data, similar to arrays but for bytes. Buffers are immutable once created, can be created from strings, arrays, or other buffers, and are used when working with binary data like file operations, network protocols, or image processing.
 
-- **Trade-offs**: Buffer: fixed-size binary data container - Stream: interface for continuous data flow. Buffers are the chunks that flow through streams - buffers are immutable once created. Streams can process data of any size - buffers are good for small fixed data, streams are better for large or continuous data.
+- **Trade-offs**: Fixed-size binary data container - represents raw binary data like arrays but for bytes. Buffers are immutable once created - can be created from strings, arrays, or other buffers. Used for binary data operations - essential for file operations and network protocols, but watch out - buffers are fixed size, so you need to know the size beforehand or use streams for variable-size data.
 
 Example:
 
@@ -86,7 +91,7 @@ stream.on('data', (chunk) => {
 });
 ```
 
-## Q35. How do you pipe Streams together?
+## Q34. Piping streams together
 
 Piping connects streams together so data flows from a readable stream to a writable stream - .pipe() connects readable to writable streams, returns the destination stream for chaining, handles backpressure automatically, and propagates errors from source to destination. Can chain multiple transform streams.
 
@@ -103,7 +108,7 @@ fs.createReadStream('input.txt')
   .pipe(fs.createWriteStream('output.txt.gz'));
 ```
 
-## Q36. How do you use Streams to copy large files efficiently?
+## Q35. Handling file operations with streams
 
 Use readable and writable streams with piping to copy large files efficiently, processing data in chunks rather than loading the entire file into memory - it's memory efficient for files larger than available RAM, processes data in chunks (default 64KB), and has automatic backpressure handling. Much faster than readFile/writeFile for large files.
 
@@ -126,7 +131,7 @@ function copyFile(source, destination) {
 copyFile('large-file.txt', 'copy.txt');
 ```
 
-## Q37. How do you implement compression and decompression using Streams?
+## Q36. Implementing compression with streams
 
 Use transform streams like zlib to compress or decompress data as it flows through the stream pipeline - zlib provides compression/decompression streams, can compress any data stream (not just files), has different compression levels available, and is useful for reducing bandwidth and storage. Can be chained with other transform streams.
 
@@ -147,7 +152,7 @@ fs.createReadStream('input.txt.gz')
   .pipe(fs.createWriteStream('decompressed.txt'));
 ```
 
-## Q38. How do you handle encoding when working with Buffers and Streams?
+## Q37. Handling encoding and decoding with streams
 
 Buffers store binary data and need encoding specification when converting to/from strings, while streams can specify encoding in their options - common encodings are utf8, ascii, base64, hex, default encoding is utf8 for strings. Buffers are always binary, strings need encoding, and wrong encoding can corrupt data.
 
@@ -163,34 +168,7 @@ const readStream = fs.createReadStream('file.txt', { encoding: 'utf8' });
 const writeStream = fs.createWriteStream('output.txt', { encoding: 'utf8' });
 ```
 
-## Q39. How do you monitor stream performance or memory usage?
-
-Monitor stream performance using events, timers, and memory usage tracking - monitor 'data' events for throughput, use process.memoryUsage() for memory tracking, time operations to measure performance, and watch for memory leaks in long-running streams. Consider using stream.pipeline() for better error handling.
-
-- **Trade-offs**: Monitor 'data' events for throughput - use process.memoryUsage() for memory tracking. Time operations to measure performance - watch for memory leaks in long-running streams. Consider using stream.pipeline() for better error handling - monitoring helps identify bottlenecks, but watch out - too much logging can impact performance.
-
-Example:
-
-```javascript
-const fs = require('fs');
-const readStream = fs.createReadStream('large-file.txt');
-
-let bytesProcessed = 0;
-const startTime = Date.now();
-
-readStream.on('data', (chunk) => {
-  bytesProcessed += chunk.length;
-  const memoryUsage = process.memoryUsage();
-  console.log(`Processed: ${bytesProcessed} bytes, Memory: ${memoryUsage.heapUsed} bytes`);
-});
-
-readStream.on('end', () => {
-  const duration = Date.now() - startTime;
-  console.log(`Completed in ${duration}ms`);
-});
-```
-
-## Q40. What is highWaterMark, and how does it affect Streams?
+## Q38. `highWaterMark` option in streams
 
 highWaterMark is a threshold that controls when streams pause/resume, affecting memory usage and performance by determining how much data can be buffered - it controls internal buffer size for streams, default is 64KB for most streams. Higher values use more memory but may improve performance, lower values use less memory but may reduce performance.
 
@@ -204,6 +182,46 @@ const fs = require('fs');
 const defaultStream = fs.createReadStream('file.txt');
 
 const customStream = fs.createReadStream('file.txt', {
-  highWaterMark: 1024 * 1024
+  highWaterMark: 1024 * 1024 // 1MB buffer instead of default 64KB
 });
+```
+
+## Q39. Creating custom streams
+
+Custom streams are created by extending the base stream classes (Readable, Writable, Duplex, or Transform) and implementing their required methods - you extend the appropriate stream class, implement methods like _read() for Readable or _write() for Writable, and can add custom logic for data transformation or processing. Useful for creating reusable stream components with specific behavior.
+
+- **Trade-offs**: Extend base stream classes (Readable, Writable, Duplex, Transform) - implement required methods like _read() or _write(). Can add custom logic for data transformation - useful for creating reusable stream components. Great for building data pipelines with custom processing, but watch out - need to handle errors properly and respect backpressure mechanisms.
+
+Example:
+
+```javascript
+const { Readable, Transform } = require('stream');
+
+class UppercaseTransform extends Transform {
+  _transform(chunk, encoding, callback) {
+    this.push(chunk.toString().toUpperCase());
+    callback();
+  }
+}
+
+class NumberGenerator extends Readable {
+  constructor(options) {
+    super(options);
+    this.max = 10;
+    this.index = 1;
+  }
+
+  _read() {
+    if (this.index > this.max) {
+      this.push(null); // End stream
+    } else {
+      this.push(String(this.index++));
+    }
+  }
+}
+
+const generator = new NumberGenerator();
+const uppercase = new UppercaseTransform();
+
+generator.pipe(uppercase).pipe(process.stdout);
 ```

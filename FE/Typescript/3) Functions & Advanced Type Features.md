@@ -2,25 +2,45 @@
 
 ---
 
-## Q22. What is function overloading?
+## Q22. Function overloading and overriding
 
-Function overloading provides multiple function signatures for the same function, enabling type safety for different parameter types - overloading is compile-time, overriding is runtime. Overloading: same function name, different parameter types; Overriding: child class replaces parent class method.
+Function overloading allows you to define multiple signatures for the same function with different parameter types - TypeScript picks the right one based on what you pass, and you write one implementation that handles all cases. Overriding happens when a child class replaces a parent class method with its own implementation - the child's version runs at runtime instead of the parent's.
 
-- **Trade-offs**: The catch is overloading provides type safety for different parameter types - overriding enables runtime polymorphism. Overloading is compile-time, overriding is runtime, but watch out - overloading needs one implementation, overriding needs new implementation.
+- **Trade-offs**: The catch is overloading is compile-time only - TypeScript uses it for type checking, but at runtime there's just one function that needs to handle all cases. Overriding enables runtime polymorphism where the actual method called depends on the object type, but you need to make sure the child method matches the parent's signature or TypeScript will complain.
 
 Example:
 
 ```typescript
+// Overloading - multiple signatures, one implementation
 function process(value: string): string;
 function process(value: number): number;
 function process(value: string | number): string | number {
   return typeof value === "string" ? value.toUpperCase() : value * 2;
 }
+
+// Overriding - child class replaces parent method
+class Animal {
+  makeSound(): void {
+    console.log("Some sound");
+  }
+}
+
+class Dog extends Animal {
+  makeSound(): void {
+    console.log("Woof!");
+  }
+}
 ```
+
+<div align="center">
+
+**[← Previous: Type System & Interfaces](2%29%20Type%20System%20%26%20Interfaces.md)** | **[Next: Classes & Object-Oriented Features →](4%29%20Classes%20%26%20Object-Oriented%20Features.md)**
+
+</div>
 
 ---
 
-## Q23. What are default and rest parameters?
+## Q23. Default and rest parameters
 
 Default parameters provide fallback values, while rest parameters collect remaining arguments into an array - default and rest parameters improve function flexibility. Default parameters provide fallback values when arguments are omitted.
 
@@ -40,7 +60,7 @@ function sum(...numbers: number[]): number {
 
 ---
 
-## Q24. What are generics and how do you use them?
+## Q24. Generics and how to use them
 
 Generics allow you to write code once and use it with different types, keeping everything type-safe - generics provide better IDE support with IntelliSense. Maintain type information throughout function execution.
 
@@ -61,7 +81,7 @@ interface Container<T> {
 
 ---
 
-## Q25. What are generic constraints and how do you use them?
+## Q25. Generic constraints and how to use them
 
 The `extends` keyword constrains generic types to specific shapes or types, ensuring they have required properties - use with `keyof` operator to constrain to object keys. Limit generic types to specific shapes.
 
@@ -81,7 +101,7 @@ function getKeys<T extends object>(obj: T): (keyof T)[] {
 
 ---
 
-## Q26. What are utility types and how do you use them?
+## Q26. Utility types and how to use them
 
 Utility types are built-in type transformations that modify existing types for common use cases - utility types reduce boilerplate code. Partial (makes all properties optional), Pick (selects specific properties), Omit (excludes specific properties).
 
@@ -106,7 +126,7 @@ type ReadonlyUser = Readonly<User>; // All readonly
 
 ---
 
-## Q27. What are mapped types and how do they work?
+## Q27. Mapped types and how to use them
 
 Mapped types transform existing types by applying transformations to each property, creating new types based on existing ones - mapped types enable complex type transformations. Iterate over all properties of a type.
 
@@ -126,7 +146,7 @@ type Readonly<T> = {
 
 ---
 
-## Q28. What are conditional types and how do you use them?
+## Q28. Conditional types and how to use them
 
 Conditional types select one of two types based on a condition, enabling type-level programming and complex type transformations - conditional types enable complex type manipulations. Perform logic at the type level.
 
@@ -144,7 +164,7 @@ type ApiResponse<T> = T extends string
 
 ---
 
-## Q29. What is the `infer` keyword and how do you use it?
+## Q29. `infer` keyword and how to use it
 
 `infer` extracts and infers types from other types within conditional types, enabling powerful type inference patterns - use cases include utility types, type extraction, pattern matching. Extract types from other types.
 
@@ -160,7 +180,7 @@ type Parameters<T> = T extends (...args: infer P) => any ? P : never;
 
 ---
 
-## Q30. What are `keyof` and `typeof` operators?
+## Q30. `keyof` and `typeof` operators
 
 `keyof` extracts keys from object types, while `typeof` gets the type of a value, both enabling type-level operations - these operators enable type-level programming. `keyof` extracts all keys from object types, `typeof` gets type of a value or expression.
 
@@ -184,7 +204,7 @@ type UserType = typeof user; // { id: number; name: string; age: number; }
 
 ---
 
-## Q31. What are indexed access types and lookup types?
+## Q31. Indexed access types and lookup types
 
 Indexed access types access property types using bracket notation, enabling type lookups and property type extraction - can create unions of property types. Access property types using bracket notation.
 
@@ -208,3 +228,9 @@ type UserAddress = User["address"]; // { street: string; city: string; }
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Type System & Interfaces](2%29%20Type%20System%20%26%20Interfaces.md)** | **[Next: Classes & Object-Oriented Features →](4%29%20Classes%20%26%20Object-Oriented%20Features.md)**
+
+</div>

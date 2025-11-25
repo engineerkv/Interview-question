@@ -1,8 +1,14 @@
-# 1. UI/UX Architecture & State Management (Q1–10)
+# 1. UI/UX Architecture & State Management (Q1–9)
+
+<div align="center">
+
+**[← Previous: README](../README.md)** | **[Next: Performance & Caching Optimization →](2%29%20Performance%20%26%20Caching%20Optimization.md)**
+
+</div>
 
 ---
 
-## Q1. What are the main principles of scalable front-end architecture?
+## Q1. Main principles of scalable front-end architecture
 
 Scalable front-end architecture follows principles of modularity, separation of concerns, reusability, and maintainability to support growth and team collaboration - feature-based organization scales with team size. Modular design enables independent development and testing.
 
@@ -32,7 +38,7 @@ src/
 
 ---
 
-## Q2. How do you design a large React/Vue/Angular app to remain modular over time?
+## Q2. Designing a large React/Vue/Angular app to remain modular over time
 
 Design large applications with clear boundaries, consistent patterns, and proper dependency management to maintain modularity as the codebase grows - use consistent naming conventions and folder structure. Use barrel exports for clean import statements.
 
@@ -61,7 +67,7 @@ export const AuthProvider = ({ children }) => {
 
 ---
 
-## Q3. What is atomic design and how does it help build design systems?
+## Q3. Atomic design and how to implement it
 
 Atomic design is a methodology that breaks UI components into atoms, molecules, organisms, templates, and pages, creating a systematic approach to building design systems - scales from simple atoms to complex page layouts. Creates consistent and reusable component hierarchy.
 
@@ -97,40 +103,7 @@ const Header = () => (
 
 ---
 
-## Q4. What are container vs presentational components?
-
-Container components handle data and logic, while presentational components focus on UI rendering, creating clear separation of concerns and improved testability - facilitates team collaboration between developers and designers. Separates business logic from presentation logic.
-
-- **Trade-offs**: The catch is makes components more reusable and testable - enables easier refactoring and maintenance. Facilitates team collaboration between developers and designers, but watch out - improves code organization and readability.
-
-Example:
-
-```javascript
-// Presentational component (pure UI)
-const UserList = ({ users, onUserSelect, loading }) => (
-  <div className="user-list">
-    {loading ? <Spinner /> : users.map(user => (
-      <UserCard key={user.id} user={user} onClick={() => onUserSelect(user)} />
-    ))}
-  </div>
-);
-
-// Container component (data and logic)
-const UserListContainer = () => {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  
-  useEffect(() => {
-    fetchUsers().then(setUsers).finally(() => setLoading(false));
-  }, []);
-  
-  return <UserList users={users} onUserSelect={handleUserSelect} loading={loading} />;
-};
-```
-
----
-
-## Q5. How do you design a reusable component library or design system?
+## Q4. Creating and maintaining a design system
 
 Design systems provide consistent, reusable components with clear APIs, comprehensive documentation, and proper theming support for scalable front-end development - version components and maintain backward compatibility. Provide clear, consistent APIs for all components.
 
@@ -164,9 +137,9 @@ const Button = forwardRef(({
 
 ---
 
-## Q6. How do you manage global state across micro-frontends or large SPAs?
+## Q5. Different approaches to global state management
 
-Global state management in large applications requires centralized state, event-driven communication, and proper state synchronization across different parts of the application - use event-driven communication for micro-frontends. Use context API for simple global state.
+Global state management in large applications requires centralized state, event-driven communication, and proper state synchronization across different parts of the application - use event-driven communication for micro-frontends. Use context API for simple global state, Redux or Zustand for complex state management.
 
 - **Trade-offs**: The catch is implement Redux or Zustand for complex state management - consider state normalization for large datasets. Use event-driven communication for micro-frontends, but watch out - implement proper state persistence and hydration.
 
@@ -201,48 +174,41 @@ export const AppStateProvider = ({ children }) => {
 
 ---
 
-## Q7. What is the difference between CSR, SSR, SSG, and ISR?
+## Q6. Implementing multi-theme support and dark mode
 
-These are different rendering strategies: CSR (Client-Side Rendering), SSR (Server-Side Rendering), SSG (Static Site Generation), and ISR (Incremental Static Regeneration) each with different performance and SEO characteristics - each strategy has trade-offs between build time, runtime, server load, and SEO. CSR (fast interactions, poor SEO, requires JavaScript), SSR (good SEO, slower initial load, requires server).
+Multi-theme support and dark mode enable applications to switch between different visual themes, improving user experience and accessibility - implement theme switching using CSS variables, context API, or state management libraries. Store theme preference in localStorage, detect system preference, and apply theme dynamically.
 
-- **Trade-offs**: The catch is SSG (fastest loading, excellent SEO, build-time generation), ISR (combines SSG benefits with dynamic updates) - choose based on content type and performance requirements. Each strategy has trade-offs, but watch out - mix strategies for different parts of the app.
+- **Trade-offs**: The catch is theme switching should be instant and preserve user preference - use CSS variables for efficient theme updates. Dark mode reduces eye strain and saves battery on OLED screens, but watch out - ensure sufficient color contrast in both themes for accessibility.
 
 Example:
 
 ```javascript
-// CSR - Client-side rendering
-const App = () => {
-  const [data, setData] = useState(null);
+const ThemeContext = createContext();
+
+export const ThemeProvider = ({ children }) => {
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem('theme');
+    return saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  });
+
   useEffect(() => {
-    fetch('/api/data').then(res => res.json()).then(setData);
-  }, []);
-  return <div>{data ? data.title : 'Loading...'}</div>;
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
 };
-
-// SSR - Server-side rendering (Next.js)
-export async function getServerSideProps() {
-  const data = await fetch('https://api.example.com/data');
-  return { props: { data: await data.json() } };
-}
-
-// SSG - Static Site Generation
-export async function getStaticProps() {
-  const posts = await fetch('https://api.example.com/posts');
-  return { props: { posts: await posts.json() } };
-}
-
-// ISR - Incremental Static Regeneration
-export async function getStaticProps() {
-  return {
-    props: { data },
-    revalidate: 3600 // Revalidate every hour
-  };
-}
 ```
 
 ---
 
-## Q8. How do you implement feature-based modularity in frontend apps?
+## Q7. Implementing feature-based modularity in frontend apps
 
 Feature-based modularity organizes code by business features rather than technical layers, improving maintainability and enabling independent development - group related functionality together, keep features independent and loosely coupled. Group related functionality together, use barrel exports for clean imports.
 
@@ -275,7 +241,7 @@ src/
 
 ---
 
-## Q9. What are the best practices for component composition?
+## Q8. Best practices for component composition
 
 Component composition builds complex UIs from smaller, reusable components using patterns like children props, render props, and compound components - prefer composition over inheritance for flexible and maintainable code. Use children props for flexible content injection, render props for data sharing.
 
@@ -310,7 +276,7 @@ const Tabs = ({ children }) => {
 
 ---
 
-## Q10. How do you handle internationalization (i18n) in large applications?
+## Q9. Handling internationalization (i18n) in large applications
 
 Internationalization (i18n) enables applications to support multiple languages and locales through translation management, locale detection, and formatting utilities - use libraries like react-i18next or react-intl for comprehensive i18n support. Store translations in JSON files, detect user locale from browser or preferences.
 
@@ -340,3 +306,9 @@ const Welcome = () => {
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: README](../README.md)** | **[Next: Performance & Caching Optimization →](2%29%20Performance%20%26%20Caching%20Optimization.md)**
+
+</div>

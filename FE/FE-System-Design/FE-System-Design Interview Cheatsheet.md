@@ -2,34 +2,39 @@
 
 > **⏱️ Review Time: 25-30 minutes** | **Priority: ⭐⭐⭐ Critical** | Quick reference for front-end system design interviews
 > 
-> **Coverage: Q1-Q138** (138 questions across 10 topics)
+> **Coverage: Q1-Q150** (150 questions across 12 topics)
 
 **Quick Review Checklist:**
 - [ ] Architecture Patterns (Feature-based, Component Design)
 - [ ] Performance Optimization (Core Web Vitals, Code Splitting, Caching)
 - [ ] State Management (Context API, Redux, Custom Hooks)
 - [ ] Micro-Frontends (Module Federation, Communication)
-- [ ] Cross-Platform (Responsive Design, PWA)
+- [ ] Cross-Platform & Offline Support (Responsive Design, PWA, Service Workers)
 - [ ] Accessibility & UX (ARIA, Focus Management)
 - [ ] Browser Internals (Critical Rendering Path, Event Loop)
+- [ ] Practical Scenarios (News Feed, Chat, E-commerce, etc.)
 - [ ] Networking & APIs (REST, GraphQL, HTTP/2)
 - [ ] Real-time Communication (WebSockets, SSE, Long Polling)
 - [ ] Data & Caching Architecture (Normalization, HTTP Cache, Service Worker)
+- [ ] Security (XSS, CSRF, CORS, Security Headers)
+- [ ] Logging & Monitoring (Telemetry, Alerting, Error Tracking)
 
 ---
 
 ## 📋 **Question Coverage**
 
-- **Q1-Q10**: UI/UX Architecture & State Management
-- **Q11-Q27**: Performance & Caching Optimization
+- **Q1-Q9**: UI/UX Architecture & State Management
+- **Q10-Q23**: Performance & Caching Optimization
 - **Q24-Q33**: Micro-Frontends vs Monolithic SPAs
-- **Q34-Q43**: Cross-Platform Architecture
-- **Q44-Q53**: Accessibility & User Experience
-- **Q54-Q65**: Browser Internals & Rendering
-- **Q65-Q84**: Practical Front-End System Design Scenarios
-- **Q85-Q105**: Networking & APIs
-- **Q106-Q120**: Real-time Communication Protocols
-- **Q121-Q138**: Data & Caching Architecture
+- **Q34-Q43**: Cross-Platform Architecture & Offline Support
+- **Q44-Q52**: Accessibility & User Experience
+- **Q53-Q64**: Browser Internals & Rendering
+- **Q65-Q83**: Practical Front-End System Design Scenarios
+- **Q84-Q101**: Networking & APIs
+- **Q102-Q116**: Real-time Communication Protocols
+- **Q117-Q130**: Data & Caching Architecture
+- **Q131-Q145**: Security
+- **Q146-Q150**: Logging & Monitoring
 
 ---
 
@@ -39,12 +44,14 @@
 - [Performance Optimization](#performance-optimization)
 - [State Management](#state-management)
 - [Micro-Frontends](#micro-frontends)
-- [Cross-Platform Development](#cross-platform-development)
+- [Cross-Platform Development & Offline Support](#cross-platform-development--offline-support)
 - [Accessibility & UX](#accessibility--ux)
 - [Browser Internals](#browser-internals)
 - [Networking & APIs](#networking--apis)
 - [Real-time Communication](#real-time-communication)
 - [Data & Caching Architecture](#data--caching-architecture)
+- [Security](#security)
+- [Logging & Monitoring](#logging--monitoring)
 - [Real-World Scenarios](#real-world-scenarios)
 - [Common Patterns](#common-patterns)
 
@@ -1133,6 +1140,197 @@ const queryClient = new QueryClient({
 
 ---
 
+## Security
+
+### XSS Prevention
+```javascript
+// ❌ Vulnerable - direct innerHTML
+element.innerHTML = userInput; // XSS if userInput = "<img src=x onerror='steal()'>"
+
+// ✅ Safe - textContent or React's automatic escaping
+element.textContent = userInput;
+// React: <div>{userInput}</div> // Automatically escaped
+
+// ✅ Safe - sanitize HTML if you must render it
+import DOMPurify from 'dompurify';
+element.innerHTML = DOMPurify.sanitize(userInput);
+
+// Content Security Policy
+// Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'
+```
+
+### CSRF Protection
+```javascript
+// CSRF Token
+const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+fetch('/api/users', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-CSRF-Token': csrfToken
+  },
+  body: JSON.stringify({ name: 'John' })
+});
+
+// SameSite Cookie
+// Set-Cookie: session=abc123; SameSite=Strict; Secure; HttpOnly
+```
+
+### CORS Configuration
+```javascript
+// Server CORS configuration
+app.use(cors({
+  origin: 'https://myapp.com', // Specific origin
+  credentials: true, // Allow cookies
+  methods: ['GET', 'POST', 'PUT'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// Client request with credentials
+fetch('https://api.example.com/data', {
+  credentials: 'include', // Send cookies
+  headers: { 'Content-Type': 'application/json' }
+});
+```
+
+### Security Headers
+```javascript
+// Security headers
+const securityHeaders = {
+  'Content-Security-Policy': "default-src 'self'; script-src 'self'",
+  'X-Frame-Options': 'DENY', // Prevent clickjacking
+  'X-Content-Type-Options': 'nosniff',
+  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Permissions-Policy': 'geolocation=(), microphone=()'
+};
+```
+
+### JWT Security
+```javascript
+// Secure token storage
+// ❌ Don't store in localStorage (XSS vulnerable)
+// ✅ Use httpOnly cookies for refresh tokens
+// ✅ Use memory for access tokens (short-lived)
+
+// Token refresh
+const refreshToken = async () => {
+  const response = await fetch('/api/refresh', {
+    method: 'POST',
+    credentials: 'include' // Send httpOnly cookie
+  });
+  const { accessToken } = await response.json();
+  // Store in memory, not localStorage
+  return accessToken;
+};
+```
+
+---
+
+## Logging & Monitoring
+
+### Error Tracking
+```javascript
+// Error boundary
+class ErrorBoundary extends React.Component {
+  componentDidCatch(error, errorInfo) {
+    errorTracker.capture({
+      message: error.message,
+      stack: error.stack,
+      componentStack: errorInfo.componentStack,
+      userId: getUserId()
+    });
+  }
+}
+
+// Global error handler
+window.addEventListener('error', (event) => {
+  errorTracker.capture({
+    message: event.message,
+    filename: event.filename,
+    lineno: event.lineno,
+    colno: event.colno
+  });
+});
+
+// Unhandled promise rejection
+window.addEventListener('unhandledrejection', (event) => {
+  errorTracker.capture({
+    message: event.reason?.message || 'Unhandled promise rejection',
+    stack: event.reason?.stack
+  });
+});
+```
+
+### Performance Monitoring
+```javascript
+// Core Web Vitals
+import { getCLS, getFID, getLCP } from 'web-vitals';
+
+function sendToAnalytics(metric) {
+  analytics.track({
+    name: metric.name,
+    value: metric.value,
+    id: metric.id,
+    delta: metric.delta,
+    rating: metric.rating
+  });
+}
+
+getCLS(sendToAnalytics);
+getFID(sendToAnalytics);
+getLCP(sendToAnalytics);
+
+// Custom performance marks
+performance.mark('app-start');
+performance.mark('data-loaded');
+performance.measure('data-load-time', 'app-start', 'data-loaded');
+```
+
+### Telemetry
+```javascript
+// Telemetry collection
+class Telemetry {
+  constructor() {
+    this.events = [];
+    this.batchSize = 10;
+    this.flushInterval = 5000;
+  }
+  
+  track(event, properties) {
+    this.events.push({
+      event,
+      properties,
+      timestamp: Date.now(),
+      userId: getUserId(),
+      sessionId: getSessionId()
+    });
+    
+    if (this.events.length >= this.batchSize) {
+      this.flush();
+    }
+  }
+  
+  flush() {
+    if (this.events.length === 0) return;
+    
+    fetch('/api/telemetry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ events: this.events })
+    });
+    
+    this.events = [];
+  }
+}
+
+// Auto-flush periodically
+setInterval(() => telemetry.flush(), telemetry.flushInterval);
+```
+
+---
+
 ## Real-World Scenarios
 
 ### News Feed with Infinite Scroll
@@ -1383,6 +1581,8 @@ const MemoryMonitor = () => {
 | **Real-time** | WebSockets, SSE, Long Polling | Live updates |
 | **Caching** | HTTP Cache, SW Cache, React Query | Performance |
 | **Storage** | LocalStorage, IndexedDB, Cookies | Client-side data |
+| **Security** | CSP, CORS, XSS/CSRF Protection, JWT | Security |
+| **Monitoring** | Sentry, LogRocket, Web Vitals, Telemetry | Observability |
 
 ---
 
@@ -1394,6 +1594,8 @@ const MemoryMonitor = () => {
 - **State Management**: Context API (simple), Redux (complex), Zustand (modern)
 - **Caching**: HTTP cache, Service Worker, React Query, IndexedDB
 - **Real-time**: WebSockets (bidirectional), SSE (server→client), Long Polling
+- **Security**: XSS prevention, CSRF tokens, CORS, Security headers
+- **Monitoring**: Error tracking, Performance monitoring, Telemetry
 
 ### **Quick Code Snippets**
 ```javascript
@@ -1416,5 +1618,7 @@ ws.onmessage = (e) => handleUpdate(JSON.parse(e.data));
 - **PWA**: Service Worker, Web App Manifest, offline support
 - **Performance**: Code splitting, lazy loading, virtualization
 - **Accessibility**: ARIA, keyboard navigation, focus management
+- **Security**: Input sanitization, CSP headers, secure token storage
+- **Monitoring**: Error boundaries, performance tracking, telemetry batching
 
 *This cheatsheet covers the most important concepts for front-end system design interviews. Practice implementing these patterns and understand the underlying principles!*

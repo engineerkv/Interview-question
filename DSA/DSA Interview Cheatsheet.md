@@ -531,15 +531,15 @@ return right;
 
 ## Common Pitfalls
 
-- ⚠️ Off-by-one in windows and indices
-- ⚠️ Overflow/precision (use `BigInt` when needed)
-- ⚠️ Mutating inputs unintentionally
-- ⚠️ Missing base/null checks
-- ⚠️ Forgetting to backtrack in recursive solutions
-- ⚠️ Not handling edge cases (empty arrays, single element, etc.)
-- ⚠️ Wrong loop bounds in matrix operations
-- ⚠️ Forgetting unsigned conversion in bit manipulation (>>>)
-- ⚠️ Not normalizing slopes in geometry problems
+- Off-by-one in windows and indices
+- Overflow/precision (use `BigInt` when needed)
+- Mutating inputs unintentionally
+- Missing base/null checks
+- Forgetting to backtrack in recursive solutions
+- Not handling edge cases (empty arrays, single element, etc.)
+- Wrong loop bounds in matrix operations
+- Forgetting unsigned conversion in bit manipulation (>>>)
+- Not normalizing slopes in geometry problems
 
 ## Quick Pattern Checklist
 
@@ -582,4 +582,4 @@ return right;
 - [ ] n & (n-1) for rightmost set bit
 - [ ] Use >>> for unsigned shift
 
-Happy practicing! 🚀
+Happy practicing!

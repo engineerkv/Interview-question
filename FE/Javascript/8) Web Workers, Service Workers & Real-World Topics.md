@@ -1,8 +1,14 @@
 # 8. Web Workers, Service Workers & Real-World Topics (Q171–190)
 
+<div align="center">
+
+**[← Previous: Practical JavaScript Questions](9%29%20Practical%20JavaScript%20Questions.md)** | **[Next: JavaScript Output Questions →](10%29%20JavaScript%20Output%20Questions.md)**
+
+</div>
+
 ---
 
-## Q171. What are Web Workers and how do they work?
+## Q171. Web Workers and how they work
 
 Web Workers run JavaScript in background threads, enabling CPU-intensive tasks without blocking the main thread - they run in separate thread with own global scope and communicate via `postMessage` and `onmessage`. Great for heavy computations and data processing where you need to keep the UI responsive.
 
@@ -18,7 +24,7 @@ worker.onmessage = e => console.log(e.data);
 
 ---
 
-## Q172. What can't you access inside a Web Worker?
+## Q172. What can't be accessed inside a Web Worker
 
 Web Workers can't access DOM, `window` object, or parent page's variables due to security and threading constraints - they run in isolated context for security. You can't modify UI directly and are limited to `self` global scope.
 
@@ -35,7 +41,7 @@ Example:
 
 ---
 
-## Q173. How do you communicate between the main thread and a Web Worker?
+## Q173. Communicating between the main thread and a Web Worker
 
 Use `postMessage()` to send data and `onmessage` to receive responses between threads - data is copied, not shared (structured cloning), ensuring data safety across threads. Use message types for different operations and handle errors with `onerror` event.
 
@@ -53,7 +59,7 @@ worker.onerror = e => console.error('Worker error:', e);
 
 ---
 
-## Q174. What are Shared Workers?
+## Q174. Shared Workers
 
 Shared Workers can be accessed by multiple browser contexts (tabs, windows) and persist across page loads - they use `MessagePort` for communication and can coordinate state across multiple tabs. They persist until all connections close, great for shared state and coordination.
 
@@ -69,7 +75,7 @@ sharedWorker.port.postMessage({ message: 'hello' });
 
 ---
 
-## Q175. What are Service Workers?
+## Q175. Service Workers
 
 Service Workers are background scripts that act as network proxies, enabling offline functionality and push notifications - they act as network proxy between app and network, enabling offline functionality with caching. They support push notifications and background sync, with lifecycle: install → activate → fetch.
 
@@ -86,7 +92,7 @@ self.addEventListener('install', e => {
 
 ---
 
-## Q176. What are the lifecycle events of a Service Worker (install, activate, fetch)?
+## Q176. Lifecycle events of a Service Worker (install, activate, fetch)
 
 Service Workers have three main lifecycle events: install (setup), activate (cleanup), and fetch (handle requests) - install runs once when SW is first registered, activate runs when SW takes control, fetch runs for every network request. Use `waitUntil()` for async operations in these events.
 
@@ -112,7 +118,7 @@ self.addEventListener('fetch', e => {
 
 ---
 
-## Q177. How do Service Workers enable offline caching?
+## Q177. How Service Workers enable offline caching
 
 Service Workers intercept network requests and serve cached responses when offline - intercept all network requests, check cache first, fallback to network. Cache responses for future use and use cache strategies (cache-first, network-first) to optimize performance.
 
@@ -133,7 +139,7 @@ self.addEventListener('fetch', e => {
 
 ---
 
-## Q178. What is the difference between Web Workers and Service Workers?
+## Q178. Difference between Web Workers and Service Workers
 
 Web Workers run background tasks for CPU-intensive work, while Service Workers act as network proxies for offline functionality - Web Workers handle CPU tasks with one-to-one communication, Service Workers handle network proxy with one-to-many communication. Web Workers can be dedicated or shared, Service Workers are persistent and event-driven.
 
@@ -152,7 +158,7 @@ navigator.serviceWorker.register('sw.js');
 
 ---
 
-## Q179. How do you handle background sync or push notifications?
+## Q179. Handling background sync or push notifications
 
 Use Service Worker events for background sync and push notifications when the app isn't active - background sync runs when connection restored, push events trigger when server sends notification. Use `waitUntil()` for async operations and handle user interactions with notification clicks.
 
@@ -172,7 +178,7 @@ self.addEventListener('push', e => {
 
 ---
 
-## Q180. How do you unregister a Service Worker?
+## Q180. Unregistering a Service Worker
 
 Use `navigator.serviceWorker.getRegistrations()` to find and unregister Service Workers - `unregister()` returns a promise and removes SW from browser's registry. It may take time to fully remove, so consider user confirmation before unregistering.
 
@@ -187,7 +193,7 @@ navigator.serviceWorker.getRegistrations().then(regs =>
 
 ---
 
-## Q181. What is event delegation?
+## Q181. Event delegation
 
 Event delegation attaches a single event listener to a parent element to handle events from child elements - it reduces memory usage and improves performance, working with dynamically added elements. Use `e.target` to identify the actual clicked element, great for lists and tables with many interactive elements.
 
@@ -205,7 +211,7 @@ document.addEventListener('click', e => {
 
 ---
 
-## Q182. What are event bubbling and capturing?
+## Q182. Event bubbling and capturing
 
 Event bubbling propagates from child to parent, while capturing propagates from parent to child - there are three phases: capture → target → bubble. Use `e.stopPropagation()` to stop propagation, or `e.stopImmediatePropagation()` to stop all handlers.
 
@@ -223,7 +229,7 @@ element.addEventListener('click', handler, false);
 
 ---
 
-## Q183. What is a shadow DOM?
+## Q183. Shadow DOM
 
 Shadow DOM encapsulates DOM and CSS, creating isolated components that don't interfere with the main document - it creates encapsulated DOM subtree where styles don't leak out or in. Used by Web Components, and `mode: 'open'` allows external access.
 
@@ -242,7 +248,7 @@ shadow.innerHTML = `
 
 ---
 
-## Q184. What is the difference between `innerHTML`, `textContent`, and `innerText`?
+## Q184. Difference between `innerHTML`, `textContent`, and `innerText`
 
 `innerHTML` includes HTML tags, `textContent` gets all text, and `innerText` gets visible text respecting CSS - choose based on need: HTML vs text vs visible text. `innerHTML` includes HTML markup and can execute scripts, `textContent` gets all text content and is safer and faster, `innerText` gets visible text only and respects CSS but is slower.
 
@@ -260,7 +266,7 @@ div.innerText; // 'Hello World'
 
 ---
 
-## Q185. What is the difference between `for...in` and `for...of`?
+## Q185. Difference between `for...in` and `for...of`
 
 `for...in` iterates over enumerable property names, while `for...of` iterates over iterable values - `for...in` gives property names and includes inherited properties, `for...of` gives values and works with iterables (arrays, strings, maps). Use `for...of` for arrays and iterables, use `for...in` with `hasOwnProperty` for object properties.
 
@@ -278,7 +284,7 @@ for (let value of arr) console.log(value); // 1, 2, 3
 
 ---
 
-## Q186. What is a polyfill and when would you use one?
+## Q186. Polyfill and when to use one
 
 A polyfill is code that implements a feature in older browsers that don't natively support it - it provides missing functionality in older browsers. Use feature detection before adding polyfills and consider bundle size impact.
 
@@ -297,7 +303,7 @@ if (!Array.prototype.includes) {
 
 ---
 
-## Q187. What are data attributes and how do you access them in JavaScript?
+## Q187. Data attributes and how to access them in JavaScript
 
 Data attributes store custom data on HTML elements using `data-*` attributes - use `dataset` property to access data attributes, where kebab-case becomes camelCase (`data-user-id` → `userId`). Values are always strings, great for storing component state and configuration.
 
@@ -315,7 +321,7 @@ element.dataset.status = 'active'; // Sets data-status="active"
 
 ---
 
-## Q188. What are pure functions and side effects?
+## Q188. Pure functions and side effects
 
 Pure functions always return the same output for the same input and have no side effects - they're predictable and testable, making code easier to reason about. Side effects include DOM manipulation, API calls, and console.log.
 
@@ -334,7 +340,7 @@ const increment = () => ++counter;
 
 ---
 
-## Q189. What is a memory leak and how can you detect it?
+## Q189. Memory leak and how to detect it
 
 Memory leaks occur when objects remain in memory but are no longer needed, preventing garbage collection - use browser dev tools Memory tab to detect leaks, look for growing heap size over time. Common causes include event listeners, closures, and timers that aren't cleaned up.
 
@@ -352,7 +358,7 @@ setInterval(() => {
 
 ---
 
-## Q190. How does JavaScript handle tail call optimization (TCO)?
+## Q190. How JavaScript handles tail call optimization (TCO)
 
 TCO optimizes recursive function calls by reusing the current stack frame instead of creating new ones - it only works with tail calls where the last operation is the recursive call. It prevents stack overflow for deep recursion, but it's not widely implemented in JavaScript engines.
 
@@ -371,3 +377,10 @@ const factorialBad = n =>
 ```
 
 ---
+<div align="center">
+
+**[← Previous: Practical JavaScript Questions](9%29%20Practical%20JavaScript%20Questions.md)** | **[Next: JavaScript Output Questions →](10%29%20JavaScript%20Output%20Questions.md)**
+
+</div>
+
+**[← Previous Section](9%29%20Practical%20JavaScript%20Questions.md)** | **[Next Section →](10%29%20JavaScript%20Output%20Questions.md)**

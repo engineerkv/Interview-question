@@ -1,6 +1,11 @@
-# 8) Authentication, Security & Encryption (Q71–80)
+# 7) Authentication, Security & Encryption (Q71–80)
 
-## Q71. What is the difference between session-based and token-based authentication?
+<div align="center">
+
+**[← Previous: REST APIs & Practical Server Scenarios](6%29%20REST%20APIs%20%26%20Practical%20Server%20Scenarios.md)** | **[Next: Performance, Optimization, Scaling & Monitoring →](8%29%20Performance%2C%20Optimization%2C%20Scaling%20%26%20Monitoring.md)**
+
+</div>
+## Q71. Session-based vs token-based authentication
 
 Session-based authentication stores user state on the server (more secure, harder to scale), while token-based authentication stores user information in a client-side token (stateless, easier to scale) - sessions are vulnerable to CSRF attacks, tokens are vulnerable to XSS attacks. Choose based on security requirements and scalability needs.
 
@@ -28,7 +33,7 @@ app.post('/login', (req, res) => {
 });
 ```
 
-## Q72. How do you implement JWT authentication in Node + Express?
+## Q72. Implementing JWT authentication in Express.js
 
 JWT (JSON Web Token) authentication uses signed tokens containing user information, verified on each request without server-side session storage - use environment variables for JWT secrets, set appropriate token expiration times, include minimal necessary information in tokens, implement token refresh for long-lived sessions, and consider token blacklisting for logout.
 
@@ -69,7 +74,7 @@ app.get('/protected', authenticateToken, (req, res) => {
 });
 ```
 
-## Q73. How do you secure routes using middleware guards?
+## Q73. Implementing route guards and middleware
 
 Route guards are middleware functions that check authentication and authorization before allowing access to protected routes - separate authentication and authorization concerns, use middleware for reusable route protection, implement role-based access control, return appropriate HTTP status codes, and consider permission-based authorization for fine-grained control.
 
@@ -103,7 +108,7 @@ app.get('/profile', requireAuth, (req, res) => {
 });
 ```
 
-## Q74. What are HTTP-only cookies, and how do they enhance security?
+## Q74. Implementing HTTP-only cookies for security
 
 HTTP-only cookies cannot be accessed by JavaScript, preventing XSS attacks from stealing authentication tokens, while SameSite attributes prevent CSRF attacks - HTTP-only prevents XSS token theft, secure flag ensures HTTPS-only transmission, SameSite prevents CSRF attacks, maxAge controls cookie expiration, and consider token refresh with HTTP-only cookies.
 
@@ -132,7 +137,7 @@ app.get('/protected', (req, res) => {
 });
 ```
 
-## Q75. How do you implement OAuth 2.0 or social login in Node.js?
+## Q75. Implementing OAuth 2.0 in Express.js
 
 OAuth 2.0 allows users to authenticate with third-party providers (Google, Facebook) by redirecting to the provider and handling the callback with authorization codes - use Passport.js for OAuth implementation, store provider-specific user IDs, handle user creation and linking, implement proper error handling, and consider multiple OAuth providers.
 
@@ -166,7 +171,7 @@ app.get('/auth/google/callback',
 );
 ```
 
-## Q76. How do you enable and configure CORS correctly in Express?
+## Q76. Implementing CORS in Express.js
 
 CORS (Cross-Origin Resource Sharing) allows web pages to make requests to different domains, configured with specific origins, methods, and headers - configure specific origins instead of wildcard, set appropriate methods and headers, enable credentials for authenticated requests, use dynamic CORS for complex scenarios, and consider preflight request handling.
 
@@ -198,7 +203,7 @@ app.use(cors((req, callback) => {
 }));
 ```
 
-## Q77. How does the Helmet middleware improve security?
+## Q77. Implementing security headers with Helmet
 
 Helmet sets various HTTP headers to improve security by preventing common attacks like XSS, clickjacking, and MIME type sniffing - it sets security-related HTTP headers, prevents XSS, clickjacking, and MIME sniffing, configures Content Security Policy, enables HTTPS Strict Transport Security, and is essential for production applications.
 
@@ -226,7 +231,7 @@ app.use(helmet({
 }));
 ```
 
-## Q78. How do you prevent SQL Injection, XSS, and CSRF attacks?
+## Q78. Preventing SQL injection, XSS, and CSRF attacks
 
 Prevent common web attacks by using parameterized queries, input validation, output encoding, and CSRF tokens - use parameterized queries to prevent SQL injection, validate and sanitize all input data, encode output to prevent XSS, use CSRF tokens for state-changing operations, and implement Content Security Policy headers.
 
@@ -260,7 +265,7 @@ app.post('/users', validateInput, (req, res) => {
 });
 ```
 
-## Q79. How do you store and hash passwords securely (bcrypt, argon2)?
+## Q79. Implementing password hashing with bcrypt or argon2
 
 Passwords should never be stored in plain text, using strong hashing algorithms like bcrypt or argon2 with salt to prevent rainbow table attacks - never store passwords in plain text, use strong hashing algorithms (bcrypt, argon2), use appropriate salt rounds (12+ for bcrypt), consider argon2 for new applications, and implement password strength requirements.
 
@@ -297,7 +302,7 @@ app.post('/register', async (req, res) => {
 });
 ```
 
-## Q80. How do you manage secrets, tokens, and environment variables safely?
+## Q80. Managing secrets and API keys securely
 
 Secrets should be stored in environment variables, never in code, with proper access controls, encryption, and secure key management practices - store secrets in environment variables, use .env files for local development, never commit .env files to version control, use different secrets for different environments, and consider secret management services for production.
 

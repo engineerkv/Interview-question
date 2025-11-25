@@ -1,8 +1,14 @@
-# 9. Real-time Communication Protocols (Q106–120)
+# 9. Real-time Communication Protocols (Q102–116)
+
+<div align="center">
+
+**[← Previous: Networking & APIs](8%29%20Networking%20%26%20APIs.md)** | **[Next: Data & Caching Architecture →](10%29%20Data%20%26%20Caching%20Architecture.md)**
+
+</div>
 
 ---
 
-## Q106. What is short polling, and what are its advantages and disadvantages?
+## Q102. Short polling and its advantages and disadvantages
 
 Short polling is a client-server communication technique where the client repeatedly sends HTTP requests at fixed intervals to check for updates - the server responds immediately with current data, whether or not there are updates. Use for low-frequency updates, simple implementations, when WebSockets unavailable.
 
@@ -27,7 +33,7 @@ shortPoll('/api/notifications', 5000);
 
 ---
 
-## Q107. What is long polling, and how does it differ from short polling?
+## Q103. Long polling and how it works
 
 Long polling is a technique where the client sends a request, and the server holds it open until new data is available or a timeout occurs - this reduces empty responses compared to short polling, but requires more server resources to maintain open connections. Better than short polling for moderate update frequency, when WebSockets unavailable.
 
@@ -57,7 +63,7 @@ async function longPoll(endpoint) {
 
 ---
 
-## Q108. What are WebSockets, and how do they enable real-time bidirectional communication?
+## Q104. WebSockets and how they work
 
 WebSockets provide a full-duplex communication channel over a single TCP connection, allowing both client and server to send messages at any time without the overhead of HTTP request/response cycles - this enables low-latency, efficient real-time communication. Use for real-time chat, live updates, gaming, collaborative editing, trading platforms.
 
@@ -88,7 +94,7 @@ socket.onclose = () => {
 
 ---
 
-## Q109. What are Server-Sent Events (SSE), and how do they differ from WebSockets?
+## Q105. Server-Sent Events (SSE) and how they work
 
 Server-Sent Events (SSE) enable unidirectional real-time communication from server to client over a standard HTTP connection - unlike WebSockets, SSE only allows server-to-client messages, but is simpler to implement and works well with HTTP infrastructure. Use for live feeds, notifications, dashboards, progress updates, one-way data streams.
 
@@ -114,7 +120,7 @@ eventSource.close();
 
 ---
 
-## Q110. What are webhooks, and how do they facilitate communication between applications?
+## Q106. Webhooks and how to use them
 
 Webhooks are HTTP callbacks that allow one application to notify another about events - instead of polling, the provider sends HTTP POST requests to a subscriber's URL when events occur, enabling event-driven architecture and real-time updates without persistent connections. Use for payment processing, CI/CD notifications, third-party integrations, event-driven workflows.
 
@@ -138,7 +144,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
 
 ---
 
-## Q111. How do you choose between short polling, long polling, WebSockets, SSE, and webhooks?
+## Q107. Choosing between different real-time communication methods
 
 Choose based on update frequency, directionality, infrastructure constraints, and use case requirements - short/long polling for simple cases, WebSockets for bidirectional real-time, SSE for server-to-client streaming, and webhooks for cross-system event notifications. Use WebSockets for chat, gaming, collaborative editing; SSE for notifications, live feeds; Webhooks for cross-service events.
 
@@ -164,7 +170,7 @@ const useWebhooks = {
 
 ---
 
-## Q112. How do you implement WebSocket reconnection logic?
+## Q108. Implementing WebSocket reconnection logic
 
 WebSocket reconnection logic handles connection failures, network issues, and server restarts by automatically attempting to reconnect with exponential backoff. Implement proper reconnection logic for reliable real-time communication.
 
@@ -207,7 +213,7 @@ class WebSocketManager {
 
 ---
 
-## Q113. How do you handle WebSocket message queuing?
+## Q109. Handling WebSocket message queuing
 
 WebSocket message queuing stores messages when the connection is closed and sends them when the connection is re-established, ensuring no messages are lost during disconnections. Implement message queuing for reliable message delivery.
 
@@ -243,7 +249,7 @@ class MessageQueue {
 
 ---
 
-## Q114. How do you implement WebSocket heartbeat/ping-pong?
+## Q110. Implementing WebSocket heartbeat/ping-pong
 
 WebSocket heartbeat (ping-pong) keeps the connection alive and detects dead connections by sending periodic ping messages and expecting pong responses. Implement heartbeat to detect and handle dead connections.
 
@@ -284,7 +290,7 @@ class WebSocketWithHeartbeat {
 
 ---
 
-## Q115. How do you handle WebSocket authentication and authorization?
+## Q111. Handling WebSocket authentication and authorization
 
 WebSocket authentication verifies client identity when establishing the connection, while authorization controls what data clients can access. Implement proper authentication and authorization for secure WebSocket connections.
 
@@ -310,7 +316,7 @@ socket.onmessage = (event) => {
 
 ---
 
-## Q116. How do you implement WebSocket room/channel subscriptions?
+## Q112. Implementing WebSocket room/channel subscriptions
 
 WebSocket room/channel subscriptions allow clients to join specific channels and receive messages only for those channels, enabling efficient message routing and filtering. Implement room subscriptions for scalable real-time communication.
 
@@ -341,7 +347,7 @@ class WebSocketChannelManager {
 
 ---
 
-## Q117. How do you handle WebSocket message ordering and delivery guarantees?
+## Q113. Handling WebSocket message ordering and delivery guarantees
 
 WebSocket message ordering ensures messages are processed in the correct order, while delivery guarantees ensure messages are received reliably. Implement message ordering and delivery guarantees for critical real-time features.
 
@@ -377,7 +383,7 @@ class OrderedMessageHandler {
 
 ---
 
-## Q118. How do you implement WebSocket compression?
+## Q114. Implementing WebSocket compression
 
 WebSocket compression reduces message size by compressing data before sending, reducing bandwidth usage and improving performance. Implement compression for large messages or bandwidth-constrained environments.
 
@@ -395,7 +401,7 @@ function sendCompressedMessage(data) {
 
 ---
 
-## Q119. How do you handle WebSocket scaling and load balancing?
+## Q115. Handling WebSocket scaling and load balancing
 
 WebSocket scaling requires sticky sessions, proper load balancing, and state management across multiple servers. Implement proper scaling strategies for high-traffic WebSocket applications.
 
@@ -414,7 +420,7 @@ const socket = new WebSocket(`wss://server-${getServerId()}.example.com/ws`);
 
 ---
 
-## Q120. How do you implement WebSocket fallback strategies?
+## Q116. Implementing WebSocket fallback strategies
 
 WebSocket fallback strategies provide alternative communication methods when WebSockets are unavailable, such as long polling or SSE. Implement fallback strategies for maximum compatibility.
 
@@ -447,3 +453,9 @@ class RealTimeConnection {
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Networking & APIs](8%29%20Networking%20%26%20APIs.md)** | **[Next: Data & Caching Architecture →](10%29%20Data%20%26%20Caching%20Architecture.md)**
+
+</div>

@@ -2,15 +2,21 @@
 
 ---
 
-## Q46. SQL vs NoSQL – when to choose which?
+## Q46. SQL vs NoSQL and when to choose which
 
 Choose SQL when you need structured data with relationships, ACID transactions, and complex queries with joins - like banking systems or e-commerce where data integrity is critical. Choose NoSQL when you need flexible schemas, horizontal scaling, and high write throughput - like social media feeds, IoT data, or content management where data structure changes frequently.
 
 - **Trade-offs**: SQL gives you strong consistency and powerful querying but is harder to scale horizontally and requires schema migrations. NoSQL scales easily and handles unstructured data well, but the catch is you lose joins, complex transactions, and have to manage consistency yourself - hybrid approaches are common where you use SQL for transactional data and NoSQL for analytics or caching.
 
+<div align="center">
+
+**[← Previous: Node.js System Design](2%29%20Node.js%20System%20Design.md)** | **[Next: AWS Cloud Architecture →](4%29%20AWS%20Cloud%20Architecture.md)**
+
+</div>
+
 ---
 
-## Q47. ACID properties with examples.
+## Q47. ACID properties with examples
 
 ACID stands for Atomicity (all operations succeed or all fail), Consistency (data stays valid), Isolation (concurrent transactions don't interfere), and Durability (committed data survives crashes). Like when you transfer money - both accounts update together or neither does, balances stay correct, other transactions see consistent state, and once committed, the transfer survives a server crash.
 
@@ -31,7 +37,7 @@ COMMIT;
 
 ---
 
-## Q48. How do SQL transactions work?
+## Q48. How SQL transactions work
 
 SQL transactions group multiple operations into a single unit that either all succeed or all fail - you start with BEGIN, execute your queries, then COMMIT to save changes or ROLLBACK to undo everything. The database locks affected rows to prevent other transactions from seeing partial changes, ensuring data stays consistent.
 
@@ -49,7 +55,7 @@ COMMIT;
 
 ---
 
-## Q49. Deadlock avoidance strategies.
+## Q49. Deadlock avoidance strategies
 
 Avoid deadlocks by always acquiring locks in the same order across transactions, using timeouts so transactions don't wait forever, keeping transactions short to reduce lock time, and using lower isolation levels when possible. Deadlocks happen when two transactions each hold a lock the other needs - like transaction A locks row 1 and waits for row 2, while transaction B locks row 2 and waits for row 1.
 
@@ -57,7 +63,7 @@ Avoid deadlocks by always acquiring locks in the same order across transactions,
 
 ---
 
-## Q50. What is a connection pool?
+## Q50. Connection pool
 
 A connection pool maintains a set of reusable database connections instead of creating a new one for each query - like keeping 10 connections open and reusing them, only creating new ones when all are busy. This avoids the overhead of establishing connections which involves network handshakes and authentication.
 
@@ -83,7 +89,7 @@ pool.query('SELECT * FROM users', (err, results) => {
 
 ---
 
-## Q51. Using read replicas for scaling read-heavy workloads.
+## Q51. Using read replicas for scaling read-heavy workloads
 
 Read replicas are copies of your database that handle read queries while the primary handles writes - you send SELECT queries to replicas and INSERT/UPDATE/DELETE to the primary, which distributes load and allows you to scale reads horizontally. The primary replicates changes to replicas asynchronously, so there's a small delay before reads see the latest data.
 
@@ -91,7 +97,7 @@ Read replicas are copies of your database that handle read queries while the pri
 
 ---
 
-## Q52. SQL sharding patterns.
+## Q52. SQL sharding patterns
 
 SQL sharding splits your database across multiple servers by a shard key - like sharding users by user_id so users 1-1000 go to server A, 1001-2000 to server B. Common patterns include range-based (split by ID ranges), hash-based (hash the key to determine shard), or directory-based (lookup table maps keys to shards).
 
@@ -111,7 +117,7 @@ Example:
 
 ---
 
-## Q53. Indexing strategy for large databases.
+## Q53. Indexing strategy for large databases
 
 Index strategically by creating indexes on columns used in WHERE clauses, JOIN conditions, and ORDER BY - but only where queries actually benefit, since indexes slow down writes and use storage. For large databases, use composite indexes that match common query patterns, monitor index usage to remove unused ones, and consider partial indexes for filtered queries.
 
@@ -133,7 +139,7 @@ ORDER BY created_at DESC;
 
 ---
 
-## Q54. What is a covering index?
+## Q54. Covering index
 
 A covering index contains all the columns needed for a query, so the database never needs to read the actual table - it gets everything from the index. Like if you query user_id and email, and you have an index on (user_id, email), the database can return results directly from the index without touching the table.
 
@@ -154,7 +160,7 @@ SELECT user_id, email, name FROM users WHERE user_id = 123;
 
 ---
 
-## Q55. ---
+## Q55. Query optimization best practices
 
 ## Query optimization best practices.
 
@@ -166,7 +172,7 @@ Optimize queries by using indexes on filtered columns, avoiding SELECT * to redu
 
 ---
 
-## Q56. Table partitioning – where to use?
+## Q56. Table partitioning and where to use it
 
 Use table partitioning when you have very large tables that can be split logically - like partitioning orders by date so each month is a separate partition, or by region so each region is separate. Partitioning allows you to query only relevant partitions, drop old partitions easily, and can improve maintenance operations.
 
@@ -195,7 +201,7 @@ SELECT * FROM orders WHERE created_at BETWEEN '2024-01-01' AND '2024-01-31';
 
 ---
 
-## Q57. Write-ahead log internals.
+## Q57. Write-ahead log internals
 
 Write-ahead log (WAL) records all changes to a log file before applying them to the database - when you update a row, the change is written to the WAL first, then to the actual data file. This ensures durability - if the server crashes, the database can replay the WAL to recover all committed transactions.
 
@@ -203,7 +209,7 @@ Write-ahead log (WAL) records all changes to a log file before applying them to 
 
 ---
 
-## Q58. Schema federation vs centralized DB.
+## Q58. Schema federation vs centralized DB
 
 Schema federation splits your database into multiple databases by domain or service - like having separate databases for users, orders, and products, each managed by different teams. Centralized DB keeps everything in one database with shared schemas. Choose federation when teams need independence and different scaling needs, choose centralized when you need strong consistency and complex joins.
 
@@ -211,7 +217,7 @@ Schema federation splits your database into multiple databases by domain or serv
 
 ---
 
-## Q59. Designing relational schema for e-commerce.
+## Q59. Designing relational schema for e-commerce
 
 Design e-commerce schema with separate tables for users, products, orders, order_items, payments, and inventory - use foreign keys to maintain relationships, normalize to reduce redundancy, but denormalize where reads are frequent. Include indexes on foreign keys and commonly queried fields, and consider separate tables for product variants, reviews, and shipping addresses.
 
@@ -240,7 +246,7 @@ CREATE TABLE order_items (
 
 ---
 
-## Q60. Archival strategies for SQL databases.
+## Q60. Archival strategies for SQL databases
 
 Archive old data by moving it to separate archive tables or databases, using partitioning to isolate old partitions, or exporting to cold storage like S3. Keep recent data in the main database for fast queries, and archive data older than a threshold - like moving orders older than 2 years to an archive database.
 
@@ -248,7 +254,7 @@ Archive old data by moving it to separate archive tables or databases, using par
 
 ---
 
-## Q61. Embed vs reference – decision rules.
+## Q61. Embed vs reference decision rules
 
 Embed related data in the same document when the relationship is one-to-few, data is accessed together, and child data doesn't grow independently - like embedding addresses in a user document. Reference with ObjectIds when relationships are one-to-many, child data is large or accessed separately, or when the same child is referenced by multiple parents - like referencing products in order items.
 
@@ -280,7 +286,7 @@ Example:
 
 ---
 
-## Q62. MongoDB replica set – architecture.
+## Q62. MongoDB replica set architecture
 
 A MongoDB replica set has one primary node that handles all writes and multiple secondary nodes that replicate data from the primary - clients read from primary by default but can read from secondaries for read scaling. If the primary fails, secondaries automatically elect a new primary through consensus, providing high availability.
 
@@ -288,7 +294,7 @@ A MongoDB replica set has one primary node that handles all writes and multiple 
 
 ---
 
-## Q63. Choosing the right shard key.
+## Q63. Choosing the right shard key
 
 Choose a shard key that distributes data evenly across shards, matches your query patterns, and avoids hotspots - like sharding users by user_id hash for even distribution, or by region if queries are region-specific. Avoid shard keys with low cardinality or that create hotspots - like sharding by boolean fields or timestamps that cluster writes.
 
@@ -310,7 +316,7 @@ sh.shardCollection("mydb.orders", { region: 1, user_id: 1 });
 
 ---
 
-## Q64. Aggregation pipeline performance rules.
+## Q64. Aggregation pipeline performance rules
 
 Optimize aggregation pipelines by putting $match early to filter data, using $project to reduce data size, creating indexes on $match fields, using $limit to restrict results, and avoiding $unwind on large arrays. Use $lookup sparingly since it's expensive, and consider allowingDiskUse for large result sets.
 
@@ -318,7 +324,7 @@ Optimize aggregation pipelines by putting $match early to filter data, using $pr
 
 ---
 
-## Q65. Designing high-write workloads.
+## Q65. Designing high-write workloads
 
 Design for high writes by using write concerns that don't wait for replication, batching writes together, using unordered bulk operations, avoiding indexes on frequently updated fields, and sharding to distribute writes. Consider using change streams or TTL indexes to automatically clean up old data.
 
@@ -326,7 +332,7 @@ Design for high writes by using write concerns that don't wait for replication, 
 
 ---
 
-## Q66. MongoDB multi-document transactions.
+## Q66. MongoDB multi-document transactions
 
 Multi-document transactions allow you to perform multiple operations across documents atomically - like updating an order and inventory in the same transaction, ensuring both succeed or both fail. They use snapshot isolation and require replica sets with WiredTiger storage engine.
 
@@ -354,7 +360,7 @@ try {
 
 ---
 
-## Q67. Indexing best practices in Mongo.
+## Q67. Indexing best practices in Mongo
 
 Create indexes on fields used in queries, use compound indexes that match query patterns, create indexes in the order of equality, sort, then range, and monitor index usage to remove unused ones. Use partial indexes for filtered queries, sparse indexes for optional fields, and TTL indexes for expiring data.
 
@@ -362,7 +368,7 @@ Create indexes on fields used in queries, use compound indexes that match query 
 
 ---
 
-## Q68. TTL index use cases.
+## Q68. TTL index use cases
 
 Use TTL indexes to automatically delete documents after a time period - like expiring sessions after 24 hours, or cleaning up temporary data. MongoDB automatically deletes documents when the indexed date field is older than the TTL value, running a background task every 60 seconds.
 
@@ -383,7 +389,7 @@ db.sessions.insertOne({
 
 ---
 
-## Q69. Time-series schema design.
+## Q69. Time-series schema design
 
 Design time-series data with a document per time point, using compound indexes on time and tags, and bucketing multiple measurements into single documents when possible. Store metadata separately from measurements, use appropriate data types, and consider pre-aggregation for common queries.
 
@@ -391,7 +397,7 @@ Design time-series data with a document per time point, using compound indexes o
 
 ---
 
-## Q70. Mongo high-throughput strategies.
+## Q70. Mongo high-throughput strategies
 
 Achieve high throughput by sharding to distribute load, using write concerns that don't wait for acknowledgment, batching operations, avoiding unnecessary indexes, and using connection pooling. Consider using change streams for real-time processing instead of polling, and use bulk operations for batch inserts.
 
@@ -399,7 +405,7 @@ Achieve high throughput by sharding to distribute load, using write concerns tha
 
 ---
 
-## Q71. Change streams use cases.
+## Q71. Change streams use cases
 
 Use change streams to react to database changes in real-time - like updating a search index when documents change, sending notifications when orders are created, or syncing data to a cache. Change streams provide a stream of change events that your application can process as they happen.
 
@@ -421,7 +427,7 @@ changeStream.on('change', (change) => {
 
 ---
 
-## Q72. MongoDB anti-patterns.
+## Q72. MongoDB anti-patterns
 
 Common anti-patterns include creating indexes on every field, using $lookup excessively, storing large arrays that grow unbounded, embedding when you should reference, using _id for business logic, and not using connection pooling. Avoid these by understanding your access patterns and MongoDB's strengths.
 
@@ -429,7 +435,7 @@ Common anti-patterns include creating indexes on every field, using $lookup exce
 
 ---
 
-## Q73. Redis architecture.
+## Q73. Redis architecture
 
 Redis is an in-memory data store that keeps all data in RAM for fast access, with optional persistence to disk using RDB snapshots or AOF logs. It supports various data structures like strings, hashes, lists, sets, and sorted sets, and can be deployed as a single instance, master-replica for read scaling, or clustered for horizontal scaling.
 
@@ -437,7 +443,7 @@ Redis is an in-memory data store that keeps all data in RAM for fast access, wit
 
 ---
 
-## Q74. Redis AOF vs RDB persistence.
+## Q74. Redis AOF vs RDB persistence
 
 RDB creates point-in-time snapshots of your dataset at intervals, which is fast and compact but might lose data since the last snapshot. AOF logs every write operation and replays them on startup, which is more durable but larger and slower. Use RDB for backups and fast restarts, use AOF when you need maximum durability.
 
@@ -456,7 +462,7 @@ appendfsync everysec  # Balance between performance and durability
 
 ---
 
-## Q75. Redis pub/sub – pros & cons.
+## Q75. Redis pub/sub pros and cons
 
 Redis pub/sub allows publishers to send messages to channels and subscribers receive them in real-time - like broadcasting notifications or coordinating between services. It's simple and fast, but messages are fire-and-forget with no persistence, so subscribers miss messages if they're not connected.
 
@@ -478,7 +484,7 @@ redis.on('message', (channel, message) => {
 
 ---
 
-## Q76. Redis clustering — how it works.
+## Q76. Redis clustering and how it works
 
 Redis clustering distributes data across multiple nodes using hash slots - the key space is divided into 16384 slots, each assigned to a node, and keys are mapped to slots using CRC16 hash. Clients connect to any node, which redirects to the correct node if needed, and nodes monitor each other for failover.
 
@@ -486,7 +492,7 @@ Redis clustering distributes data across multiple nodes using hash slots - the k
 
 ---
 
-## Q77. Distributed locking with Redis.
+## Q77. Distributed locking with Redis
 
 Use Redis for distributed locking by having clients try to set a key with a unique value and expiration - if the key doesn't exist, the client acquires the lock, otherwise it's held by another client. Use SET with NX and EX options atomically, and always release locks using the value to ensure you only release your own lock.
 
@@ -520,7 +526,7 @@ if (acquired) {
 
 ---
 
-## Q78. Cache invalidation best practices.
+## Q78. Cache invalidation best practices
 
 Invalidate cache by deleting keys when underlying data changes, using TTLs for time-based expiration, using cache tags to invalidate related keys together, or using versioned keys that change when data updates. Choose invalidation strategy based on how often data changes and how critical freshness is.
 
@@ -545,7 +551,7 @@ await redis.set(`user:${userId}:v${version}`, userData);
 
 ---
 
-## Q79. Avoiding memory eviction issues.
+## Q79. Avoiding memory eviction issues
 
 Avoid eviction by monitoring memory usage, setting appropriate maxmemory policy (like allkeys-lru for cache, noeviction for critical data), using TTLs to expire old data automatically, and sizing your Redis instance correctly. Monitor eviction metrics to catch issues early, and consider using Redis Cluster to distribute memory across nodes.
 
@@ -553,7 +559,13 @@ Avoid eviction by monitoring memory usage, setting appropriate maxmemory policy 
 
 ---
 
-## Q80. Redis vs Memcached differences.
+<div align="center">
+
+**[← Previous: Node.js System Design](2%29%20Node.js%20System%20Design.md)** | **[Next: AWS Cloud Architecture →](4%29%20AWS%20Cloud%20Architecture.md)**
+
+</div>
+
+## Q80. Redis vs Memcached differences
 
 Redis is a data structure server with persistence, replication, and complex data types like sorted sets and pub/sub, while Memcached is a simple key-value cache with no persistence or replication. Choose Redis when you need advanced features, persistence, or complex data structures. Choose Memcached when you need a simple, high-performance cache and don't need persistence.
 

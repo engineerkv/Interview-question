@@ -2,7 +2,7 @@
 
 ---
 
-## Q21. What's the difference between WHERE and HAVING clauses?
+## Q21. Difference between WHERE and HAVING clauses
 
 WHERE filters rows before grouping, while HAVING filters groups after GROUP BY. WHERE cannot use aggregate functions, HAVING can. WHERE executes before GROUP BY and is more efficient because it filters data before grouping, while HAVING executes after GROUP BY for group-level filtering.
 
@@ -30,9 +30,15 @@ GROUP BY department_id
 HAVING AVG(salary) > 50000;  -- Then filter groups
 ```
 
+<div align="center">
+
+**[← Previous: Querying & Joins](2%29%20Querying%20%26%20Joins.md)** | **[Next: Database Design, Indexing & Performance →](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md)**
+
+</div>
+
 ---
 
-## Q22. How do you handle NULL values in SQL (e.g., IS NULL, COALESCE, NULLIF)?
+## Q22. Handling NULL values in SQL
 
 NULL values require special handling in SQL using IS NULL for checking (not = or !=), COALESCE for providing defaults (returns first non-NULL value), and NULLIF for conditional NULL conversion. Most aggregate functions ignore NULL values automatically, and NULL comparisons return UNKNOWN, not TRUE or FALSE.
 
@@ -57,7 +63,7 @@ FROM employees;
 
 ---
 
-## Q23. What's the difference between IN, EXISTS, and ANY operators?
+## Q23. Difference between IN, EXISTS, and ANY operators
 
 IN checks if value exists in a list, EXISTS checks if subquery returns any rows (stops at first match), and ANY checks if any value in subquery meets a condition. IN is best for fixed lists, EXISTS is best for correlated subqueries, and ANY is more flexible with comparison operators.
 
@@ -84,7 +90,7 @@ WHERE salary > ANY (SELECT salary FROM employees WHERE department_id = 1);
 
 ---
 
-## Q24. How do you calculate department-wise total salary using GROUP BY?
+## Q24. GROUP BY and how to use it
 
 Use GROUP BY with department column and SUM() aggregate function to calculate total salary per department. GROUP BY groups rows with the same values in specified columns, and all non-aggregate columns in SELECT must be in GROUP BY.
 
@@ -107,7 +113,7 @@ GROUP BY d.department_name;
 
 ---
 
-## Q25. How do you filter groups based on aggregate conditions (HAVING COUNT(*) > 1)?
+## Q25. Aggregate functions in SQL
 
 Use HAVING clause after GROUP BY to filter groups based on aggregate function results, unlike WHERE which filters individual rows. HAVING executes after GROUP BY and aggregate calculations, and you can combine multiple conditions with AND/OR.
 
@@ -131,7 +137,7 @@ HAVING AVG(salary) > 60000;
 
 ---
 
-## Q26. How do you use CASE expressions for conditional logic?
+## Q26. Difference between COUNT(*) and COUNT(column_name)
 
 CASE expressions provide conditional logic similar to if-else statements, useful for data transformation and conditional aggregation. Simple CASE compares an expression to multiple values (like a switch statement), while searched CASE evaluates multiple conditions (like an if-else chain).
 
@@ -160,7 +166,7 @@ GROUP BY department_id;
 
 ---
 
-## Q27. What are window functions, and how do they differ from aggregate functions?
+## Q27. Using conditional aggregation with CASE statements
 
 Window functions perform calculations across a set of rows related to the current row, while aggregate functions collapse rows into a single result. Window functions keep all rows and require an OVER clause that defines the window frame, while aggregate functions reduce rows to one per group.
 
@@ -179,7 +185,7 @@ FROM employees;
 
 ---
 
-## Q28. Explain practical use cases of ROW_NUMBER, RANK, and DENSE_RANK.
+## Q28. Window functions and how to use them
 
 ROW_NUMBER assigns unique sequential numbers (always unique, no ties), RANK assigns ranks with gaps for ties (skips next ranks), and DENSE_RANK assigns ranks without gaps for ties. ROW_NUMBER is useful for pagination and top-N queries, RANK for competition rankings, and DENSE_RANK for percentile calculations.
 
@@ -215,7 +221,7 @@ WHERE row_num <= 3;
 
 ---
 
-## Q29. What's the difference between LEAD() and LAG() functions?
+## Q29. Difference between ROW_NUMBER, RANK, and DENSE_RANK
 
 LEAD() accesses data from following rows (looks forward), while LAG() accesses data from preceding rows (looks backward), both useful for comparing current row with adjacent rows. You can specify an offset parameter to look multiple rows ahead/behind, and provide a default value when no previous/next row exists.
 
@@ -241,7 +247,7 @@ ORDER BY salary;
 
 ---
 
-## Q30. What's a pivot table, and how can you create one in SQL?
+## Q30. Creating pivot tables in SQL
 
 A pivot table transforms rows into columns, converting data from long format to wide format, useful for creating cross-tabulations and summary reports. You can use CASE statements with GROUP BY (universal approach) or the PIVOT operator (SQL Server, Oracle) for cleaner code.
 
@@ -271,3 +277,9 @@ PIVOT (
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Querying & Joins](2%29%20Querying%20%26%20Joins.md)** | **[Next: Database Design, Indexing & Performance →](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md)**
+
+</div>

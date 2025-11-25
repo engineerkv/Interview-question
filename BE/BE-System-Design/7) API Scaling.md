@@ -2,15 +2,21 @@
 
 ---
 
-## Q151. Vertical vs horizontal API scaling.
+## Q151. Vertical vs horizontal API scaling
 
 Vertical API scaling means adding more resources to your existing servers - like upgrading from 2 CPU cores to 8 cores or increasing memory. Horizontal API scaling means adding more servers to handle more requests - like going from 2 API servers to 10 servers behind a load balancer. Choose vertical when you have a single server bottleneck and it's cheaper to upgrade, choose horizontal when you need to scale beyond one server's limits or want better fault tolerance.
 
 - **Trade-offs**: Vertical scaling is simpler because you don't need to change your architecture, but there's a hard limit - you can only make a server so powerful and it's expensive. Horizontal scaling can scale almost infinitely and is more fault-tolerant, but the catch is you need stateless APIs and proper load balancing, which requires architectural changes.
 
+<div align="center">
+
+**[← Previous: Messaging Systems](6%29%20Messaging%20Systems.md)** | **[Next: REST vs GraphQL →](8%29%20REST%20vs%20GraphQL.md)**
+
+</div>
+
 ---
 
-## Q152. Stateless API design for scaling.
+## Q152. Stateless API design for scaling
 
 Stateless APIs don't store session data on the server - each request contains all the information needed to process it, like authentication tokens or request context. This enables horizontal scaling because any server can handle any request, and you can add or remove servers without worrying about where previous requests went. Store session data in shared storage like Redis or databases, not in server memory.
 
@@ -18,7 +24,7 @@ Stateless APIs don't store session data on the server - each request contains al
 
 ---
 
-## Q153. Scaling APIs using ALB/NLB.
+## Q153. Scaling APIs using ALB/NLB
 
 Application Load Balancer (ALB) distributes HTTP/HTTPS traffic across multiple API servers using health checks and routing rules - it supports path-based and host-based routing, SSL termination, and integrates with AWS services. Network Load Balancer (NLB) operates at layer 4 and handles TCP/UDP traffic with lower latency - use it for high-performance scenarios. Both enable horizontal scaling by distributing load across multiple instances.
 
@@ -26,7 +32,7 @@ Application Load Balancer (ALB) distributes HTTP/HTTPS traffic across multiple A
 
 ---
 
-## Q154. Scaling API Gateway.
+## Q154. Scaling API Gateway
 
 API Gateway scales automatically to handle traffic spikes, but you can optimize scaling by using caching to reduce backend load, enabling throttling to protect backends, using regional endpoints for lower latency, and configuring proper stage variables. For very high traffic, use multiple API Gateway instances in different regions, or use CloudFront in front of API Gateway for global distribution.
 
@@ -34,7 +40,7 @@ API Gateway scales automatically to handle traffic spikes, but you can optimize 
 
 ---
 
-## Q155. How CDNs reduce API load.
+## Q155. How CDNs reduce API load
 
 CDNs cache API responses at edge locations close to users, so requests are served from the CDN instead of your origin server - this reduces load on your API servers, improves response times, and handles traffic spikes better. Use CDNs for GET requests with cacheable responses, and configure cache headers to control how long responses are cached.
 
@@ -42,7 +48,7 @@ CDNs cache API responses at edge locations close to users, so requests are serve
 
 ---
 
-## Q156. Token Bucket vs Leaky Bucket algorithms.
+## Q156. Token Bucket vs Leaky Bucket algorithms
 
 Token Bucket allows bursts by accumulating tokens over time - you have a bucket that fills with tokens at a steady rate, and each request consumes a token. If tokens are available, requests are allowed immediately, enabling bursts. Leaky Bucket processes requests at a constant rate like a leaky bucket - requests are queued and processed at a fixed rate, smoothing out bursts.
 
@@ -50,7 +56,7 @@ Token Bucket allows bursts by accumulating tokens over time - you have a bucket 
 
 ---
 
-## Q157. Multi-region API scaling strategies.
+## Q157. Multi-region API scaling strategies
 
 Scale APIs across multiple regions by deploying API servers in each region, using Route53 latency-based routing to send users to the nearest region, and replicating data across regions. Use global load balancers or DNS-based routing to distribute traffic, and design stateless APIs so any region can handle any request. Consider data consistency - use eventual consistency for better performance, or strong consistency if needed.
 
@@ -58,7 +64,7 @@ Scale APIs across multiple regions by deploying API servers in each region, usin
 
 ---
 
-## Q158. High-throughput API design patterns.
+## Q158. High-throughput API design patterns
 
 Design high-throughput APIs by using async processing for long-running tasks, batching multiple operations into single requests, using connection pooling, implementing efficient caching, and optimizing database queries. Use message queues for background processing, return job IDs for async operations, and design APIs to minimize round trips.
 
@@ -66,7 +72,7 @@ Design high-throughput APIs by using async processing for long-running tasks, ba
 
 ---
 
-## Q159. Avoiding API hotspots.
+## Q159. Avoiding API hotspots
 
 Avoid API hotspots by using consistent hashing for load distribution, avoiding sequential IDs that create hot partitions, using random or UUID-based identifiers, and distributing load evenly across shards or partitions. Monitor API usage patterns to identify hotspots, and use rate limiting or throttling to prevent single users or endpoints from overwhelming the system.
 
@@ -74,7 +80,7 @@ Avoid API hotspots by using consistent hashing for load distribution, avoiding s
 
 ---
 
-## Q160. API throttling vs rate limiting.
+## Q160. API throttling vs rate limiting
 
 Rate limiting restricts how many requests a user or IP can make in a time window - like 100 requests per minute per user. Throttling slows down requests when limits are exceeded instead of rejecting them - like allowing requests but processing them at a reduced rate. Both protect your API from overload, but rate limiting is simpler while throttling provides better user experience.
 
@@ -82,7 +88,7 @@ Rate limiting restricts how many requests a user or IP can make in a time window
 
 ---
 
-## Q161. Scaling APIs with caching layers.
+## Q161. Scaling APIs with caching layers
 
 Add caching layers at multiple levels - use CDN caching for static responses, API Gateway caching for frequently accessed data, application-level caching with Redis for dynamic data, and database query caching. Cache at the edge for global distribution, cache at the API layer for frequently accessed endpoints, and cache database queries to reduce database load.
 
@@ -90,7 +96,7 @@ Add caching layers at multiple levels - use CDN caching for static responses, AP
 
 ---
 
-## Q162. Efficient pagination strategies for large APIs.
+## Q162. Efficient pagination strategies for large APIs
 
 Use cursor-based pagination for large datasets - instead of offset/limit which gets slower as offset increases, use a cursor (like last item ID) to fetch the next page. For smaller datasets, offset/limit is fine. Use keyset pagination for databases by using indexed columns, and avoid total count queries which are expensive for large tables.
 
@@ -109,7 +115,7 @@ GET /api/users?offset=0&limit=20
 
 ---
 
-## Q163. Reducing DB load via query batching.
+## Q163. Reducing DB load via query batching
 
 Reduce database load by batching multiple queries into single requests - instead of making 100 separate queries, combine them into one query or use batch operations. Use database connection pooling to reuse connections, implement query result caching, and use bulk operations for inserts and updates. Design APIs to accept batch requests when possible.
 
@@ -117,7 +123,7 @@ Reduce database load by batching multiple queries into single requests - instead
 
 ---
 
-## Q164. Hypermedia-driven API design.
+## Q164. Hypermedia-driven API design
 
 Hypermedia APIs include links in responses that tell clients what actions are available - like including a "next" link for pagination or "update" link for editing. This enables clients to discover available actions dynamically instead of hardcoding URLs, making APIs more flexible and easier to evolve. Use formats like HAL or JSON-LD to include links in responses.
 
@@ -125,7 +131,13 @@ Hypermedia APIs include links in responses that tell clients what actions are av
 
 ---
 
-## Q165. Scaling webhooks API endpoints.
+<div align="center">
+
+**[← Previous: Messaging Systems](6%29%20Messaging%20Systems.md)** | **[Next: REST vs GraphQL →](8%29%20REST%20vs%20GraphQL.md)**
+
+</div>
+
+## Q165. Scaling webhooks API endpoints
 
 Scale webhook endpoints by using message queues to decouple webhook delivery from processing - when a webhook event occurs, publish it to a queue, and workers process webhooks asynchronously. Use exponential backoff for retries, implement idempotency to handle duplicate deliveries, and use webhook signatures to verify authenticity. Scale workers horizontally to handle webhook volume.
 

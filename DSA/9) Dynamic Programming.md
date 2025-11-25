@@ -57,7 +57,6 @@ function fib(n) {
   
   return helper(n);
 }
-```
 
 // Test Cases:
 // Input: n = 2

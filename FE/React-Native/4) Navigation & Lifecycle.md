@@ -2,7 +2,7 @@
 
 ---
 
-## Q31. What are the different navigation solutions available for React Native?
+## Q31. Different navigation solutions available for React Native
 
 Popular navigation libraries include React Navigation, React Native Navigation, and Wix Navigator - choose based on performance needs and complexity. React Navigation (most popular, JavaScript-based), React Native Navigation (native navigation, better performance).
 
@@ -17,9 +17,15 @@ import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 ```
 
+<div align="center">
+
+**[← Previous: Android & iOS Platform Internals](3%29%20Android%20%26%20iOS%20Platform%20Internals.md)** | **[Next: Performance Optimization & Measurement →](5%29%20Performance%20Optimization%20%26%20Measurement.md)**
+
+</div>
+
 ---
 
-## Q32. How do you implement stack navigation?
+## Q32. Implementing stack navigation
 
 Stack navigation uses a stack-based approach for hierarchical navigation, good for hierarchical content - choose pattern based on app structure. Stack navigation (push/pop navigation, good for hierarchical content).
 
@@ -37,7 +43,7 @@ const Stack = createStackNavigator();
 
 ---
 
-## Q33. How do you implement tab navigation?
+## Q33. Implementing tab navigation
 
 Tab navigation uses bottom/top tabs, good for main app sections - good for main app sections. Tab navigation (bottom/top tabs, good for main app sections).
 
@@ -58,7 +64,7 @@ const Tab = createBottomTabNavigator();
 
 ---
 
-## Q34. How do you implement drawer navigation?
+## Q34. Implementing drawer navigation
 
 Drawer navigation uses a side drawer, good for app menu and settings - good for app menu and settings. Drawer navigation (side drawer, good for app menu and settings).
 
@@ -79,7 +85,7 @@ const Drawer = createDrawerNavigator();
 
 ---
 
-## Q35. How do you handle deep linking in React Native?
+## Q35. Handling deep linking in React Native
 
 Configure URL schemes and universal links in platform-specific files and handle navigation in the app - deep linking improves user experience. URL schemes (custom URL schemes for deep linking), Universal links (iOS-specific deep linking), App links (Android-specific deep linking).
 
@@ -103,7 +109,7 @@ function App() {
 
 ---
 
-## Q36. How do you implement universal links for iOS?
+## Q36. Implementing universal links for iOS
 
 Universal links are iOS-specific deep linking that work seamlessly with web URLs - configure in Info.plist and handle in app. Configure in Info.plist with associated domains.
 
@@ -126,7 +132,7 @@ useEffect(() => {
 
 ---
 
-## Q37. How do you handle app lifecycle changes with AppState API?
+## Q37. Handling app lifecycle changes with AppState API
 
 Use the AppState API to listen for app state changes and handle appropriate actions - works on both iOS and Android (cross-platform). AppState API provides app state information.
 
@@ -151,7 +157,7 @@ function App() {
 
 ---
 
-## Q38. How do you use `useFocusEffect` for screen focus handling?
+## Q38. Using `useFocusEffect` for screen focus handling
 
 useFocusEffect runs effects when a screen comes into focus, useful for data fetching and cleanup - works with React Navigation (navigation integration). Runs when screen comes into focus (focus events).
 
@@ -178,7 +184,7 @@ function ProfileScreen() {
 
 ---
 
-## Q39. How do you handle the hardware back button on Android?
+## Q39. Handling the hardware back button on Android
 
 Use BackHandler API to customize back button behavior and prevent default actions when needed - works with navigation libraries (navigation integration). BackHandler API handles hardware back button.
 
@@ -203,7 +209,7 @@ function MyScreen() {
 
 ---
 
-## Q40. How do you persist navigation state?
+## Q40. Persisting navigation state
 
 Use navigation state persistence features or custom storage solutions to save and restore navigation state - different libraries have different persistence features. Save navigation state between sessions (state persistence).
 
@@ -241,3 +247,9 @@ function App() {
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Android & iOS Platform Internals](3%29%20Android%20%26%20iOS%20Platform%20Internals.md)** | **[Next: Performance Optimization & Measurement →](5%29%20Performance%20Optimization%20%26%20Measurement.md)**
+
+</div>

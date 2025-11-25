@@ -2,7 +2,7 @@
 
 ---
 
-## Q1. What is TypeScript, and how is it different from JavaScript?
+## Q1. TypeScript and how it differs from JavaScript
 
 TypeScript is a statically typed superset of JavaScript that compiles to plain JavaScript, providing type safety and better tooling support - you can gradually adopt TypeScript in existing JavaScript projects. Static typing checks types at compile time, JavaScript at runtime.
 
@@ -22,9 +22,15 @@ function greet(name: string): string {
 }
 ```
 
+<div align="center">
+
+**[← Previous: README](../README.md)** | **[Next: Type System & Interfaces →](2%29%20Type%20System%20%26%20Interfaces.md)**
+
+</div>
+
 ---
 
-## Q2. What are the key benefits of using TypeScript in large-scale applications?
+## Q2. Key benefits of using TypeScript in large-scale applications
 
 TypeScript provides type safety, better IDE support, early error detection, improved refactoring, and better documentation through types - clear contracts between different parts improve team collaboration. Early error detection catches errors during development, not production.
 
@@ -50,7 +56,7 @@ function createUser(userData: User): User {
 
 ---
 
-## Q3. How do you install and set up TypeScript?
+## Q3. Installing and setting up TypeScript
 
 Install TypeScript globally or locally, then create a `tsconfig.json` file to configure the compiler - different configs for development vs production. Install TypeScript as a dev dependency for projects.
 
@@ -66,7 +72,7 @@ npx tsc --init
 
 ---
 
-## Q4. What is type inference?
+## Q4. Type inference
 
 Type inference is TypeScript's ability to automatically determine the type of a variable based on its initial value - function return types can be inferred from function body. TypeScript analyzes code to determine types automatically.
 
@@ -84,7 +90,7 @@ let mixed = [1, "hello", true]; // Inferred as '(string | number | boolean)[]'
 
 ---
 
-## Q5. What are the primitive types?
+## Q5. Primitive types
 
 TypeScript includes string, number, boolean, null, undefined, symbol, bigint, and void as primitive types - TypeScript extends JavaScript's type system. String (text data), Number (both integers and floating-point), Boolean (true or false).
 
@@ -102,7 +108,7 @@ let value: undefined = undefined;
 
 ---
 
-## Q6. What is the difference between `any`, `unknown`, and `never`?
+## Q6. Differences between `any`, `unknown`, and `never`
 
 `any` disables type checking, `unknown` is type-safe but requires type checking, and `never` represents values that never occur - use cases: any for quick fixes, unknown for user input, never for error handling. Any bypasses type system, use sparingly for migration or external libraries.
 
@@ -126,7 +132,7 @@ function throwError(message: string): never {
 
 ---
 
-## Q7. What are tuples and how do you use them?
+## Q7. Tuples and how to use them
 
 Tuples are arrays with fixed length and known types at each position, while arrays have variable length and same type elements - tuples provide stronger type safety than arrays. Tuples have fixed length, arrays have variable length.
 
@@ -142,7 +148,7 @@ let names: string[] = ["John", "Jane", "Bob"];
 
 ---
 
-## Q8. What are enums and how do you use them?
+## Q8. Enums and how to use them
 
 Enums define a set of named constants, with numeric enums having auto-incrementing values and string enums having explicit string values - enums provide type-safe constants. Numeric enums have auto-incrementing numbers starting from 0, string enums have explicit string values.
 
@@ -169,7 +175,7 @@ let favoriteColor: Color = Color.Blue;
 
 ---
 
-## Q9. What is the purpose of `tsconfig.json` and what are some key compiler options?
+## Q9. Purpose of `tsconfig.json` and key compiler options
 
 `tsconfig.json` configures TypeScript compiler options, including target, module, strict mode, and file inclusion settings - different configs for development vs production. Controls how TypeScript compiles code.
 
@@ -193,3 +199,9 @@ Example:
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: README](../README.md)** | **[Next: Type System & Interfaces →](2%29%20Type%20System%20%26%20Interfaces.md)**
+
+</div>

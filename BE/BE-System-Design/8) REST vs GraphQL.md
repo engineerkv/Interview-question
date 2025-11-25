@@ -2,15 +2,21 @@
 
 ---
 
-## Q166. REST vs GraphQL — when to choose which?
+## Q166. REST vs GraphQL and when to choose which
 
 Choose REST when you need simple CRUD operations, want HTTP caching, need multiple endpoints for different resources, or want a well-established standard with lots of tooling. Choose GraphQL when you need flexible queries where clients request exactly the data they need, want to reduce overfetching and underfetching, or need to aggregate data from multiple sources. REST is better for simple APIs, GraphQL is better for complex data requirements.
 
 - **Trade-offs**: REST is simpler and has better HTTP caching support, but the catch is clients often overfetch or underfetch data, requiring multiple requests. GraphQL gives clients control over what data they get, which reduces overfetching, but the tricky part is it's more complex to implement, caching is harder, and you need to handle the N+1 query problem.
 
+<div align="center">
+
+**[← Previous: API Scaling](7%29%20API%20Scaling.md)** | **[Next: Communication Protocols →](9%29%20Communication%20Protocols.md)**
+
+</div>
+
 ---
 
-## Q167. Overfetching vs underfetching in REST vs GraphQL.
+## Q167. Overfetching vs underfetching in REST vs GraphQL
 
 Overfetching happens when you get more data than you need - like fetching a user object with 20 fields when you only need the name. Underfetching happens when you need multiple requests to get all the data you need - like fetching a user, then their orders, then order items in separate requests. REST often causes both - you get full objects (overfetching) but need multiple requests for related data (underfetching). GraphQL allows clients to request exactly the fields they need in one query, reducing both problems.
 
@@ -18,7 +24,7 @@ Overfetching happens when you get more data than you need - like fetching a user
 
 ---
 
-## Q168. N+1 problem in GraphQL.
+## Q168. N+1 problem in GraphQL
 
 N+1 problem occurs when a GraphQL query triggers multiple database queries - like querying a list of users and their orders, which causes one query for users and N queries for each user's orders. This happens because GraphQL resolvers execute independently, and if you're not careful, each resolver makes a separate database query. Solve it by using DataLoader to batch and cache queries, or by fetching related data in a single query.
 
@@ -43,7 +49,7 @@ users.forEach(user => {
 
 ---
 
-## Q169. GraphQL caching challenges.
+## Q169. GraphQL caching challenges
 
 GraphQL caching is harder than REST because each query is unique - REST URLs are cacheable (GET /users/123), but GraphQL queries are POST requests with different query structures, so standard HTTP caching doesn't work well. Use query result caching based on query and variables, field-level caching, or persist queries where you store queries server-side and reference them by ID. Consider using CDNs with GraphQL-specific caching or Apollo Server's caching features.
 
@@ -51,7 +57,7 @@ GraphQL caching is harder than REST because each query is unique - REST URLs are
 
 ---
 
-## Q170. GraphQL schema design best practices.
+## Q170. GraphQL schema design best practices
 
 Design GraphQL schemas by using clear type names, avoiding deep nesting (keep it to 3-4 levels), using pagination for lists, implementing proper error handling with union types, and versioning carefully. Use input types for mutations, make fields nullable when appropriate, and design for the client's needs rather than your database structure. Keep schemas simple and focused, and use schema stitching or federation for large systems.
 
@@ -59,7 +65,7 @@ Design GraphQL schemas by using clear type names, avoiding deep nesting (keep it
 
 ---
 
-## Q171. GraphQL vs gRPC for backend services.
+## Q171. GraphQL vs gRPC for backend services
 
 GraphQL is a query language and runtime for APIs, best for client-server communication where clients need flexible data fetching - like web or mobile apps querying a backend. gRPC is a high-performance RPC framework using Protocol Buffers, best for service-to-service communication where you need low latency and high throughput - like microservices talking to each other. Use GraphQL for external APIs, use gRPC for internal services.
 
@@ -67,7 +73,7 @@ GraphQL is a query language and runtime for APIs, best for client-server communi
 
 ---
 
-## Q172. Error handling differences (REST vs GraphQL).
+## Q172. Error handling differences between REST and GraphQL
 
 REST uses HTTP status codes to indicate errors - like 400 for bad requests, 404 for not found, 500 for server errors. GraphQL always returns 200 OK, even for errors, and includes errors in the response body - errors are returned alongside data, so you can have partial success. Use GraphQL's error format with message, path, and extensions to provide detailed error information.
 
@@ -75,7 +81,7 @@ REST uses HTTP status codes to indicate errors - like 400 for bad requests, 404 
 
 ---
 
-## Q173. Versioning in REST vs GraphQL.
+## Q173. Versioning in REST vs GraphQL
 
 REST versions APIs by including version in the URL (like /v1/users) or headers, which allows multiple versions to coexist. GraphQL avoids versioning by evolving the schema - add new fields (backward compatible), deprecate old fields, and remove them later. GraphQL's type system enables schema evolution without breaking changes, so you can add fields without versioning.
 
@@ -83,7 +89,7 @@ REST versions APIs by including version in the URL (like /v1/users) or headers, 
 
 ---
 
-## Q174. Authentication differences (REST vs GraphQL).
+## Q174. Authentication differences between REST and GraphQL
 
 REST typically uses HTTP headers for authentication - like Authorization header with Bearer tokens, or API keys in headers. GraphQL can use the same approaches, but since all requests go to a single endpoint, you authenticate at the resolver level or use middleware. Both can use JWT tokens, OAuth, or API keys, but GraphQL's single endpoint means you need to handle authentication in the GraphQL layer rather than at the route level.
 
@@ -91,7 +97,13 @@ REST typically uses HTTP headers for authentication - like Authorization header 
 
 ---
 
-## Q175. Performance differences at scale.
+<div align="center">
+
+**[← Previous: API Scaling](7%29%20API%20Scaling.md)** | **[Next: Communication Protocols →](9%29%20Communication%20Protocols.md)**
+
+</div>
+
+## Q175. Performance differences at scale
 
 At scale, REST can be faster because HTTP caching works well, requests are simpler, and you can optimize individual endpoints. GraphQL can be slower due to N+1 queries, complex query execution, and lack of HTTP caching, but it reduces overfetching which saves bandwidth. Performance depends on implementation - well-optimized GraphQL with batching can match REST, but poorly optimized GraphQL with N+1 queries can be much slower.
 

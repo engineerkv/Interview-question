@@ -20,9 +20,9 @@
 
 - **Q1-Q15**: Core JavaScript Fundamentals
 - **Q16-Q25**: Functions, Closures & Execution Context
-- **Q26-Q51**: Promises, Async/Await & Event Loop
-- **Q52-Q71**: Objects, Prototypes & Inheritance
-- **Q72-Q81**: ES6+ Features
+- **Q26-Q45**: Objects, Prototypes & Inheritance
+- **Q46-Q55**: ES6+ Features
+- **Q56-Q81**: Promises, Async/Await & Event Loop
 - **Q82-Q190**: Practical JavaScript Questions
 - **Q191-Q250**: JavaScript Output Questions (tricky output-based questions)
 

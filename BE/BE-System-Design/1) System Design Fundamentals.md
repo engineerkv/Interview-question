@@ -2,15 +2,21 @@
 
 ---
 
-## Q1. What are functional vs non-functional requirements?
+## Q1. Functional vs non-functional requirements
 
 Functional requirements describe what the system should do - like "users can create accounts" or "the system processes payments". Non-functional requirements describe how well the system should perform - like "response time under 200ms" or "99.9% uptime". Functional tells you the features, non-functional tells you the quality standards.
 
 - **Trade-offs**: Functional requirements are easier to test, but non-functional requirements are trickier because you can only measure performance and reliability under real load. The catch is non-functional requirements cost more but they're what separates a working system from a production-ready one.
 
+<div align="center">
+
+**[← Previous: README](../README.md)** | **[Next: Node.js System Design →](2%29%20Node.js%20System%20Design.md)**
+
+</div>
+
 ---
 
-## Q2. What is a distributed system?
+## Q2. Distributed system
 
 A distributed system is a collection of independent computers that work together and appear as a single system to users - like when your app runs on multiple servers across different data centers but users just see one service. The computers communicate over a network and coordinate to achieve a common goal, which allows you to scale beyond what a single machine can handle.
 
@@ -18,7 +24,7 @@ A distributed system is a collection of independent computers that work together
 
 ---
 
-## Q3. Vertical vs horizontal scaling – which to choose?
+## Q3. Vertical vs horizontal scaling
 
 Vertical scaling means adding more power to your existing server - like upgrading from 4GB to 16GB RAM. Horizontal scaling means adding more servers - like going from 1 server to 10 servers. Choose vertical when you have a single machine bottleneck and it's cheaper to upgrade, choose horizontal when you need to scale beyond one machine's limits or want better fault tolerance.
 
@@ -26,7 +32,7 @@ Vertical scaling means adding more power to your existing server - like upgradin
 
 ---
 
-## Q4. What is latency vs throughput?
+## Q4. Latency vs throughput
 
 Latency is how long it takes for one request to complete - like 50ms for a single API call. Throughput is how many requests you can handle per second - like 1000 requests per second. Latency is about speed of individual operations, throughput is about total capacity.
 
@@ -34,7 +40,7 @@ Latency is how long it takes for one request to complete - like 50ms for a singl
 
 ---
 
-## Q5. What is high availability?
+## Q5. High availability
 
 High availability means your system stays up and running even when things break - like when a server crashes or a database goes down, users don't notice because other servers take over. It's usually measured as uptime percentage - like 99.9% means your system is down less than 9 hours per year.
 
@@ -42,7 +48,7 @@ High availability means your system stays up and running even when things break 
 
 ---
 
-## Q6. What is fault tolerance?
+## Q6. Fault tolerance
 
 Fault tolerance is your system's ability to keep working when components fail - like if a database server crashes, the system automatically switches to a backup without users noticing. It's about designing your system to expect failures and handle them gracefully instead of crashing.
 
@@ -50,7 +56,7 @@ Fault tolerance is your system's ability to keep working when components fail - 
 
 ---
 
-## Q7. Explain CAP theorem with real-world examples.
+## Q7. CAP theorem with real-world examples
 
 CAP theorem says you can only guarantee two out of three: Consistency (all nodes see the same data), Availability (every request gets a response), or Partition tolerance (system works even if nodes can't communicate). Most distributed systems choose AP or CP - like DynamoDB chooses AP (available and partition-tolerant but eventually consistent), while traditional databases choose CP (consistent and partition-tolerant but might reject requests if nodes are down).
 
@@ -58,7 +64,7 @@ CAP theorem says you can only guarantee two out of three: Consistency (all nodes
 
 ---
 
-## Q8. Difference between consistency, availability, and durability.
+## Q8. Difference between consistency, availability, and durability
 
 Consistency means all users see the same data at the same time - like when you update a profile, everyone immediately sees the change. Availability means your system responds to every request even if some parts are down - like if one server crashes, others still handle requests. Durability means once data is written, it survives crashes - like your database writes to disk so you don't lose data if the server restarts.
 
@@ -66,7 +72,7 @@ Consistency means all users see the same data at the same time - like when you u
 
 ---
 
-## Q9. What is sharding and when do you apply it?
+## Q9. Sharding and when to apply it
 
 Sharding splits your database into smaller pieces called shards, each stored on different servers - like splitting user data by user ID so users 1-1000 go to server A, 1001-2000 go to server B. You apply it when your database is too big for one machine or when queries are too slow because there's too much data in one place.
 
@@ -74,7 +80,7 @@ Sharding splits your database into smaller pieces called shards, each stored on 
 
 ---
 
-## Q10. What is replication and why is it important?
+## Q10. Replication and why it's important
 
 Replication means keeping copies of your data on multiple servers - like having your database on three servers where writes go to one and get copied to the others. It's important because it gives you redundancy if one server crashes, allows you to scale reads by sending queries to different servers, and can improve performance by keeping data closer to users.
 
@@ -82,7 +88,7 @@ Replication means keeping copies of your data on multiple servers - like having 
 
 ---
 
-## Q11. How does caching improve system performance?
+## Q11. How caching improves system performance
 
 Caching stores frequently accessed data in fast memory so you don't have to fetch it from slow databases or compute it every time - like storing user profiles in Redis so you can return them in 1ms instead of querying the database which takes 50ms. It reduces database load, speeds up responses, and can handle way more requests per second.
 
@@ -90,7 +96,7 @@ Caching stores frequently accessed data in fast memory so you don't have to fetc
 
 ---
 
-## Q12. CDN vs reverse proxy.
+## Q12. CDN vs reverse proxy
 
 A CDN is a network of servers around the world that cache static content close to users - like images and CSS files stored in data centers near each user so they load faster. A reverse proxy sits in front of your servers and handles requests - like routing traffic, load balancing, or adding SSL termination before requests hit your app servers.
 
@@ -98,7 +104,7 @@ A CDN is a network of servers around the world that cache static content close t
 
 ---
 
-## Q13. What is a circuit breaker pattern?
+## Q13. Circuit breaker pattern
 
 A circuit breaker stops calling a failing service after too many failures - like if your payment service is down, instead of waiting 30 seconds for each request to timeout, the circuit breaker "opens" and immediately returns an error. After a timeout, it tries again to see if the service recovered, and if it works, it "closes" and starts sending requests again.
 
@@ -106,7 +112,7 @@ A circuit breaker stops calling a failing service after too many failures - like
 
 ---
 
-## Q14. What is a bulkhead pattern?
+## Q14. Bulkhead pattern
 
 A bulkhead pattern isolates resources so failures in one part don't bring down everything - like having separate thread pools for different services so if one service is slow, it doesn't block requests to other services. It's named after ship bulkheads that prevent water from flooding the entire ship if one compartment leaks.
 
@@ -114,7 +120,7 @@ A bulkhead pattern isolates resources so failures in one part don't bring down e
 
 ---
 
-## Q15. What is rate limiting?
+## Q15. Rate limiting
 
 Rate limiting restricts how many requests a user or IP can make in a time window - like allowing 100 requests per minute per user, and blocking or throttling requests after that. It protects your system from abuse, prevents one user from hogging resources, and helps you handle traffic spikes gracefully.
 
@@ -122,7 +128,7 @@ Rate limiting restricts how many requests a user or IP can make in a time window
 
 ---
 
-## Q16. What is eventual consistency?
+## Q16. Eventual consistency
 
 Eventual consistency means data will become consistent across all nodes eventually, but not immediately - like when you update your profile, it might take a few seconds for all servers to show the change. It's a trade-off that prioritizes availability and performance over immediate consistency.
 
@@ -130,7 +136,7 @@ Eventual consistency means data will become consistent across all nodes eventual
 
 ---
 
-## Q17. What is strong consistency?
+## Q17. Strong consistency
 
 Strong consistency means all nodes see the same data at the same time - like when you update a value, every server immediately reflects that change before any read can happen. It guarantees that reads always return the most recent write, which is important for things like account balances or inventory counts.
 
@@ -138,7 +144,7 @@ Strong consistency means all nodes see the same data at the same time - like whe
 
 ---
 
-## Q18. How do you identify bottlenecks in distributed systems?
+## Q18. Identifying bottlenecks in distributed systems
 
 You identify bottlenecks by monitoring metrics like response times, throughput, CPU usage, memory, disk I/O, and network latency - when one metric spikes while others are normal, that's usually your bottleneck. Use distributed tracing to follow requests across services and see where they slow down, and look for patterns like one service taking way longer than others or one database shard getting all the traffic.
 
@@ -146,7 +152,7 @@ You identify bottlenecks by monitoring metrics like response times, throughput, 
 
 ---
 
-## Q19. What is backpressure and how to handle it?
+## Q19. Backpressure and how to handle it
 
 Backpressure is when a fast producer overwhelms a slow consumer - like a service sending 1000 messages per second to a database that can only process 100 per second, causing messages to queue up and memory to fill. You handle it by slowing down the producer, buffering with limits, dropping messages, or using flow control mechanisms that tell the producer to slow down.
 
@@ -154,7 +160,7 @@ Backpressure is when a fast producer overwhelms a slow consumer - like a service
 
 ---
 
-## Q20. What is a distributed transaction?
+## Q20. Distributed transaction
 
 A distributed transaction updates data across multiple databases or services atomically - like transferring money from one bank account to another where both updates must succeed or both must fail. It's tricky because you need to coordinate commits across different systems, which is why two-phase commit exists but it's slow and can block if one system is down.
 
@@ -162,7 +168,7 @@ A distributed transaction updates data across multiple databases or services ato
 
 ---
 
-## Q21. What is the Saga pattern?
+## Q21. Saga pattern
 
 The Saga pattern breaks a distributed transaction into a series of local transactions with compensating actions - like booking a flight, then a hotel, then a car, and if the car booking fails, you cancel the hotel and flight. Each step commits immediately, and if something fails later, you run compensating transactions to undo previous steps.
 
@@ -170,7 +176,7 @@ The Saga pattern breaks a distributed transaction into a series of local transac
 
 ---
 
-## Q22. What is graceful degradation?
+## Q22. Graceful degradation
 
 Graceful degradation means your system keeps working with reduced functionality when parts fail - like if your recommendation service is down, the product page still loads but without personalized recommendations, or if images fail to load, the page still shows text. It's about prioritizing core features and having fallbacks so users can still accomplish their main goals.
 
@@ -178,7 +184,7 @@ Graceful degradation means your system keeps working with reduced functionality 
 
 ---
 
-## Q23. Failover vs fallback.
+## Q23. Failover vs fallback
 
 Failover automatically switches to a backup system when the primary fails - like if your main database server crashes, traffic automatically routes to a replica. Fallback provides an alternative way to accomplish the same goal when the primary method fails - like if your payment gateway is down, you show users an option to pay later or use a different payment method.
 
@@ -186,7 +192,7 @@ Failover automatically switches to a backup system when the primary fails - like
 
 ---
 
-## Q24. Stateless vs stateful design.
+## Q24. Stateless vs stateful design
 
 Stateless design means each request contains all the information needed to process it - like REST APIs where the server doesn't remember previous requests. Stateful design means the server remembers information between requests - like a shopping cart stored in server memory that you add items to across multiple requests.
 
@@ -194,7 +200,13 @@ Stateless design means each request contains all the information needed to proce
 
 ---
 
-## Q25. What is P99 latency?
+<div align="center">
+
+**[← Previous: README](../README.md)** | **[Next: Node.js System Design →](2%29%20Node.js%20System%20Design.md)**
+
+</div>
+
+## Q25. P99 latency
 
 P99 latency is the response time that 99% of requests are faster than - like if P99 is 200ms, that means 99 out of 100 requests complete in under 200ms, and 1 request takes longer. It's more useful than average latency because it shows you the worst-case experience for most users, ignoring outliers that might skew the average.
 

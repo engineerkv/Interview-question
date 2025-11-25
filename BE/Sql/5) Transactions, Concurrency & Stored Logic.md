@@ -2,7 +2,7 @@
 
 ---
 
-## Q41. What is a transaction in SQL, and what are the ACID properties?
+## Q41. Transaction in SQL
 
 A transaction is a sequence of operations treated as a single unit that ensures data consistency and reliability through ACID properties. Atomicity means all operations succeed or all fail (all-or-nothing), Consistency ensures the database remains in a valid state, Isolation prevents concurrent transactions from interfering, and Durability ensures committed changes persist even after system failure.
 
@@ -19,9 +19,15 @@ COMMIT;
 -- If any operation fails, ROLLBACK is automatic
 ```
 
+<div align="center">
+
+**[← Previous: Database Design, Indexing & Performance](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md)** | **[Next: Question List →](question.md)**
+
+</div>
+
 ---
 
-## Q42. What's the difference between COMMIT, ROLLBACK, and SAVEPOINT?
+## Q42. ACID properties of transactions
 
 COMMIT saves all changes permanently and makes them visible to other transactions, ROLLBACK undoes all changes since the last COMMIT, and SAVEPOINT creates a named point to rollback to within a transaction. You can rollback to specific savepoints without ending the transaction, which is useful for partial error recovery.
 
@@ -47,7 +53,7 @@ COMMIT;
 
 ---
 
-## Q43. What are isolation levels (READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ, SERIALIZABLE)?
+## Q43. Difference between COMMIT and ROLLBACK
 
 Isolation levels control how transactions interact with each other, balancing data consistency with performance by controlling what data changes are visible to concurrent transactions. READ UNCOMMITTED is lowest (allows dirty reads, fastest), READ COMMITTED prevents dirty reads, REPEATABLE READ prevents dirty and non-repeatable reads, and SERIALIZABLE is highest (prevents all anomalies, slowest).
 
@@ -69,7 +75,7 @@ COMMIT;
 
 ---
 
-## Q44. What is a deadlock, and how can you detect and resolve it?
+## Q44. Isolation levels in SQL
 
 A deadlock occurs when two or more transactions wait indefinitely for each other to release locks, creating a circular dependency that prevents any transaction from completing. The database automatically detects and resolves deadlocks by choosing one transaction as a victim and rolling it back.
 
@@ -96,7 +102,7 @@ COMMIT;
 
 ---
 
-## Q45. What are phantom reads and dirty reads, and how do isolation levels prevent them?
+## Q45. Deadlock and how to prevent it
 
 Phantom reads occur when a transaction sees different sets of rows in repeated queries, while dirty reads occur when a transaction reads uncommitted data from another transaction. Non-repeatable reads happen when the same row has different values in repeated reads. Higher isolation levels prevent these anomalies but require more locking and reduce concurrency.
 
@@ -121,7 +127,7 @@ SELECT balance FROM accounts WHERE account_id = 1; -- Reads 1000 (dirty read)
 
 ---
 
-## Q46. What's the difference between optimistic and pessimistic locking?
+## Q46. Difference between optimistic and pessimistic locking
 
 Optimistic locking assumes no conflicts and checks at commit time (using version/timestamp), while pessimistic locking acquires locks immediately to prevent conflicts during transaction execution. Optimistic is better for read-heavy workloads with low conflict probability, while pessimistic is better for write-heavy workloads.
 
@@ -145,7 +151,7 @@ COMMIT;
 
 ---
 
-## Q47. What is a trigger, and when should you use one?
+## Q47. Stored procedures and how to create them
 
 A trigger is a stored procedure that automatically executes in response to specific database events (INSERT, UPDATE, DELETE) on a table, useful for audit trails and business logic. Triggers fire automatically on specified events and are perfect for tracking data changes and maintaining history.
 
@@ -177,7 +183,7 @@ END;
 
 ---
 
-## Q48. What is a stored procedure, and how does it differ from a function?
+## Q48. Triggers and when to use them
 
 A stored procedure is a precompiled collection of SQL statements that can accept parameters and return result sets (can return multiple result sets, support output parameters), while a function returns a single value and can be used in SELECT statements. Stored procedures are precompiled and cached for better performance.
 
@@ -212,7 +218,7 @@ END;
 
 ---
 
-## Q49. What are the benefits and drawbacks of stored procedures for business logic?
+## Q49. User-defined functions in SQL
 
 Stored procedures centralize business logic in the database, providing better performance (precompiled and cached), security, and reduced network traffic, but they create database dependency and can complicate application maintenance. Changes require database deployment and are harder to version control and test.
 
@@ -242,7 +248,7 @@ END;
 
 ---
 
-## Q50. What are best practices for query optimization in SQL (indexes, caching, query plans, avoiding subqueries, using CTEs)?
+## Q50. Best practices for writing efficient SQL queries
 
 Query optimization involves using proper indexing, efficient query structure, avoiding performance anti-patterns, and leveraging database features. Create indexes on frequently queried columns and join conditions, use INNER JOIN instead of WHERE clauses, avoid SELECT *, use CTEs or JOINs instead of correlated subqueries, and use EXPLAIN/EXECUTION PLAN to identify bottlenecks.
 
@@ -272,3 +278,9 @@ ORDER BY e.name;
 ---
 
 ---
+
+<div align="center">
+
+**[← Previous: Database Design, Indexing & Performance](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md)** | **[Next: Question List →](question.md)**
+
+</div>

@@ -2,7 +2,7 @@
 
 ---
 
-## Q32. What are access modifiers?
+## Q32. Access modifiers
 
 Access modifiers control visibility of class members, with public being default, private only accessible within class, and protected accessible in subclasses - access modifiers enable proper object-oriented design. Public (default access, accessible from anywhere), Private (only accessible within the same class), Protected (accessible within class and subclasses).
 
@@ -24,9 +24,15 @@ class BankAccount {
 }
 ```
 
+<div align="center">
+
+**[← Previous: Functions & Advanced Type Features](3%29%20Functions%20%26%20Advanced%20Type%20Features.md)** | **[Next: Advanced TypeScript Internals →](5%29%20Advanced%20TypeScript%20Internals.md)**
+
+</div>
+
 ---
 
-## Q33. What is the difference between abstract classes and interfaces?
+## Q33. Difference between abstract classes and interfaces
 
 Abstract classes can have implementation and cannot be instantiated, while interfaces only define contracts and can be implemented by classes - abstract classes provide base implementation, interfaces provide contracts. Abstract classes can have implementation, interfaces only define contracts.
 
@@ -48,7 +54,7 @@ interface Flyable {
 
 ---
 
-## Q34. What is inheritance?
+## Q34. Inheritance
 
 Inheritance uses `extends` keyword, while polymorphism allows objects of different types to be treated uniformly through common interfaces - inheritance maintains type safety across hierarchy. Use `extends` to create class hierarchies.
 
@@ -70,7 +76,7 @@ class Car extends Vehicle {
 
 ---
 
-## Q35. What is polymorphism?
+## Q35. Polymorphism
 
 Polymorphism allows objects of different types to be treated uniformly through common interfaces - same interface, different implementations. Same interface, different implementations.
 
@@ -96,7 +102,7 @@ class Rectangle implements Shape {
 
 ---
 
-## Q36. What are static properties and methods?
+## Q36. Static properties and methods
 
 Static members belong to the class itself rather than instances, accessed through the class name without instantiation - static methods don't require instance creation (memory efficient). Static members belong to the class, not instances.
 
@@ -117,7 +123,7 @@ class MathUtils {
 
 ---
 
-## Q37. What are readonly properties?
+## Q37. Readonly properties
 
 `readonly` properties can only be assigned during initialization, preventing modification after object creation - use cases include IDs, timestamps, configuration values. Prevent modification after initialization (immutability).
 
@@ -143,7 +149,7 @@ class User {
 
 ---
 
-## Q38. What are decorators and how do you use them?
+## Q38. Decorators and how to use them
 
 Decorators are functions that modify classes, methods, or properties, providing metadata and enabling aspect-oriented programming - use cases include logging, validation, dependency injection. Add cross-cutting concerns to classes (aspect-oriented).
 
@@ -173,7 +179,7 @@ class User {
 
 ---
 
-## Q39. What are mixins and how do you implement them?
+## Q39. Mixins and how to use them
 
 Mixins are a way to combine multiple classes into one, enabling multiple inheritance-like behavior in TypeScript - mixins add functionality to existing classes (flexibility). Combine multiple classes into one (multiple inheritance).
 
@@ -195,3 +201,9 @@ const user = new TimestampedUser();
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Functions & Advanced Type Features](3%29%20Functions%20%26%20Advanced%20Type%20Features.md)** | **[Next: Advanced TypeScript Internals →](5%29%20Advanced%20TypeScript%20Internals.md)**
+
+</div>

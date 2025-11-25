@@ -14,68 +14,68 @@
 
 ## 🧠 1. SQL Fundamentals
 
-1. What is SQL, and what are its main sublanguages (DDL, DML, DCL, TCL)?
-2. What is the difference between SQL and MySQL/PostgreSQL/SQL Server?
-3. What is a database schema?
-4. What is the difference between a table and a view?
-5. What are constraints in SQL? Give examples.
-6. What is the difference between primary key and foreign key?
-7. What is a unique constraint and how is it different from primary key?
-8. What is a composite key?
-9. What is the difference between DELETE, TRUNCATE, and DROP?
-10. What are aliases in SQL and how do you use them?
+1. SQL and what it stands for
+2. Difference between SQL and MySQL/PostgreSQL/SQL Server
+3. Database schema
+4. Difference between a table and a view
+5. Constraints in SQL and examples
+6. Difference between primary key and foreign key
+7. Unique constraint and how it differs from primary key
+8. Composite key
+9. Difference between DELETE, TRUNCATE, and DROP
+10. Aliases in SQL and how to use them
 
 ## 🔍 2. Querying & Joins
 
-11. What are the different types of JOINs in SQL?
-12. What is the difference between INNER JOIN and LEFT JOIN?
-13. What is a self-join and when do you use it?
-14. What is the difference between UNION and UNION ALL?
-15. What are subqueries and how do you use them?
-16. What is the difference between correlated and non-correlated subqueries?
-17. What are CTEs (Common Table Expressions) and how do you use them?
-18. What are temporary tables and how do you create them?
-19. How do you find duplicate records in a table?
-20. How do you find the second-highest salary from a table?
+11. Different types of JOINs in SQL
+12. Difference between INNER JOIN and LEFT JOIN
+13. Self-join and when to use it
+14. Difference between UNION and UNION ALL
+15. Subqueries and how to use them
+16. Difference between correlated and non-correlated subqueries
+17. CTEs (Common Table Expressions) and how to use them
+18. Temporary tables and how to create them
+19. Finding duplicate records in a table
+20. Finding the second-highest salary from a table
 
 ## 📊 3. Filtering, Grouping & Aggregation
 
-21. What is the difference between WHERE and HAVING clauses?
-22. How do you handle NULL values in SQL?
-23. What is the difference between IN, EXISTS, and ANY operators?
-24. What is GROUP BY and how do you use it?
-25. What are aggregate functions in SQL?
-26. What is the difference between COUNT(*) and COUNT(column_name)?
-27. How do you use conditional aggregation with CASE statements?
-28. What are window functions and how do you use them?
-29. What is the difference between ROW_NUMBER, RANK, and DENSE_RANK?
-30. How do you create pivot tables in SQL?
+21. Difference between WHERE and HAVING clauses
+22. Handling NULL values in SQL
+23. Difference between IN, EXISTS, and ANY operators
+24. GROUP BY and how to use it
+25. Aggregate functions in SQL
+26. Difference between COUNT(*) and COUNT(column_name)
+27. Using conditional aggregation with CASE statements
+28. Window functions and how to use them
+29. Difference between ROW_NUMBER, RANK, and DENSE_RANK
+30. Creating pivot tables in SQL
 
 ## 🏗️ 4. Database Design, Indexing & Performance
 
-31. What is database normalization and why is it important?
-32. What are the different normal forms (1NF, 2NF, 3NF, BCNF)?
-33. What is denormalization and when do you use it?
-34. What are indexes and how do they improve performance?
-35. What is the difference between clustered and non-clustered indexes?
-36. What are composite indexes and when do you use them?
-37. What is index fragmentation and how do you fix it?
-38. How do you use EXPLAIN/EXPLAIN ANALYZE to optimize queries?
-39. What are some common query optimization techniques?
-40. How do you identify and fix slow queries?
+31. Database normalization and why it's important
+32. Different normal forms (1NF, 2NF, 3NF, BCNF)
+33. Denormalization and when to use it
+34. Indexes and how they improve performance
+35. Difference between clustered and non-clustered indexes
+36. Composite indexes and when to use them
+37. Index fragmentation and how to fix it
+38. Using EXPLAIN/EXPLAIN ANALYZE to optimize queries
+39. Common query optimization techniques
+40. Identifying and fixing slow queries
 
 ## ⚡ 5. Transactions, Concurrency & Stored Logic
 
-41. What is a transaction in SQL?
-42. What are the ACID properties of transactions?
-43. What is the difference between COMMIT and ROLLBACK?
-44. What are isolation levels in SQL?
-45. What is a deadlock and how do you prevent it?
-46. What is the difference between optimistic and pessimistic locking?
-47. What are stored procedures and how do you create them?
-48. What are triggers and when do you use them?
-49. What are user-defined functions in SQL?
-50. What are the best practices for writing efficient SQL queries?
+41. Transaction in SQL
+42. ACID properties of transactions
+43. Difference between COMMIT and ROLLBACK
+44. Isolation levels in SQL
+45. Deadlock and how to prevent it
+46. Difference between optimistic and pessimistic locking
+47. Stored procedures and how to create them
+48. Triggers and when to use them
+49. User-defined functions in SQL
+50. Best practices for writing efficient SQL queries
 
 ---
 

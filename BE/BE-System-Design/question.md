@@ -1,358 +1,366 @@
-Perfect — here is your **FINAL MERGED LIST** with all topics included:
+# 🎯 Backend System Design Interview Questions
 
-✔️ API Scaling
-✔️ REST vs GraphQL
-✔️ Protocols (HTTP/2, HTTP/3, WebSockets, gRPC, MQTT, TCP/UDP, SSE)
-✔️ Existing 200 topics (System Design + Node.js + AWS + Kafka + Redis + Tools)
+240 carefully curated questions covering backend system design fundamentals to real-world scenarios, including API scaling, REST vs GraphQL, and communication protocols.
 
-➡️ **No duplicates**
-➡️ **New sections added cleanly**
-➡️ **Total questions = 240**
-➡️ **All high-signal senior-level interview questions**
+## 📋 Quick Navigation
 
----
-
-# 🎯 **FINAL — TOP 240 BACKEND + SYSTEM DESIGN + CLOUD + DEVOPS QUESTIONS**
-
-### *(Including API Scaling, REST vs GraphQL, Protocols — ZERO DUPLICATES)*
-
----
-
-# 🟦 **SECTION 1 — SYSTEM DESIGN FUNDAMENTALS (25)**
-
-1. What are functional vs non-functional requirements?
-2. What is a distributed system?
-3. Vertical vs horizontal scaling – which to choose?
-4. What is latency vs throughput?
-5. What is high availability?
-6. What is fault tolerance?
-7. Explain CAP theorem with real-world examples.
-8. Difference between consistency, availability, and durability.
-9. What is sharding and when do you apply it?
-10. What is replication and why is it important?
-11. How does caching improve system performance?
-12. CDN vs reverse proxy.
-13. What is a circuit breaker pattern?
-14. What is a bulkhead pattern?
-15. What is rate limiting?
-16. What is eventual consistency?
-17. What is strong consistency?
-18. How do you identify bottlenecks in distributed systems?
-19. What is backpressure and how to handle it?
-20. What is a distributed transaction?
-21. What is the Saga pattern?
-22. What is graceful degradation?
-23. Failover vs fallback.
-24. Stateless vs stateful design.
-25. What is P99 latency?
+| Section | Topic | Questions | Difficulty |
+|---------|-------|-----------|------------|
+| [1️⃣](#1-system-design-fundamentals) | System Design Fundamentals | Q1–25 | ⭐⭐ |
+| [2️⃣](#2-database-design) | Database Design | Q26–60 | ⭐⭐⭐ |
+| [3️⃣](#3-communication-protocols) | Communication Protocols | Q61–75 | ⭐⭐⭐⭐ |
+| [4️⃣](#4-rest-vs-graphql) | REST vs GraphQL | Q76–85 | ⭐⭐⭐ |
+| [5️⃣](#5-api-scaling) | API Scaling | Q86–100 | ⭐⭐⭐⭐ |
+| [6️⃣](#6-messaging-systems) | Messaging Systems | Q101–130 | ⭐⭐⭐⭐ |
+| [7️⃣](#7-nodejs-system-design) | Node.js System Design | Q131–150 | ⭐⭐⭐ |
+| [8️⃣](#8-aws-cloud-architecture) | AWS Cloud Architecture | Q151–175 | ⭐⭐⭐⭐ |
+| [9️⃣](#9-observability) | Observability | Q176–190 | ⭐⭐⭐⭐ |
+| [🔟](#10-git-docker-cicd-tooling) | Git, Docker, CI/CD, Tooling | Q191–210 | ⭐⭐⭐ |
+| [1️⃣1️⃣](#11-code-quality--debugging) | Code Quality + Debugging | Q211–220 | ⭐⭐⭐⭐ |
+| [1️⃣2️⃣](#12-ai-tools) | AI Tools | Q221–225 | ⭐⭐ |
+| [1️⃣3️⃣](#13-real-system-design-scenarios) | Real System Design Scenarios | Q226–240 | ⭐⭐⭐⭐⭐ |
 
 ---
 
-# 🟩 **SECTION 2 — NODE.JS SYSTEM DESIGN (20)**
+## 🟦 1. System Design Fundamentals
 
-26. How does Node.js handle concurrency?
-27. Explain Node.js event loop phases.
-28. When to use worker threads?
-29. How to handle CPU-heavy tasks in Node.js?
-30. Node clustering – how it works?
-31. How to scale Node.js horizontally?
-32. Designing WebSocket-based systems.
-33. Streaming large files in Node.js.
-34. Designing a rate limiter in Node.js.
-35. Large-scale Node.js project structure.
-36. Connection pooling strategies.
-37. Retry & exponential backoff.
-38. Idempotent API design in Node.js.
-39. JWT authentication – architecture.
-40. Preventing brute-force attacks.
-41. Graceful shutdown – why & how?
-42. Logging architecture for Node.js services.
-43. Handling partial failures in Node.js.
-44. Designing Node.js + S3 upload flow.
-45. Handling environment configs in Node.js microservices.
-
----
-
-# 🟥 **SECTION 3 — DATABASE DESIGN (SQL + MongoDB + Redis) (35)**
-
-### **SQL (15)**
-
-46. SQL vs NoSQL – when to choose which?
-47. ACID properties with examples.
-48. How do SQL transactions work?
-49. Deadlock avoidance strategies.
-50. What is a connection pool?
-51. Using read replicas for scaling read-heavy workloads.
-52. SQL sharding patterns.
-53. Indexing strategy for large databases.
-54. What is a covering index?
-55. Query optimization best practices.
-56. Table partitioning – where to use?
-57. Write-ahead log internals.
-58. Schema federation vs centralized DB.
-59. Designing relational schema for e-commerce.
-60. Archival strategies for SQL databases.
-
-### **MongoDB (12)**
-
-61. Embed vs reference – decision rules.
-62. MongoDB replica set – architecture.
-63. Choosing the right shard key.
-64. Aggregation pipeline performance rules.
-65. Designing high-write workloads.
-66. MongoDB multi-document transactions.
-67. Indexing best practices in Mongo.
-68. TTL index use cases.
-69. Time-series schema design.
-70. Mongo high-throughput strategies.
-71. Change streams use cases.
-72. MongoDB anti-patterns.
-
-### **Redis (8)**
-
-73. Redis architecture.
-74. Redis AOF vs RDB persistence.
-75. Redis pub/sub – pros & cons.
-76. Redis clustering — how it works.
-77. Distributed locking with Redis.
-78. Cache invalidation best practices.
-79. Avoiding memory eviction issues.
-80. Redis vs Memcached differences.
+1. Functional vs non-functional requirements
+2. Distributed system
+3. Vertical vs horizontal scaling
+4. Latency vs throughput
+5. High availability
+6. Fault tolerance
+7. CAP theorem with real-world examples
+8. Difference between consistency, availability, and durability
+9. Sharding and when to apply it
+10. Replication and why it's important
+11. How caching improves system performance
+12. CDN vs reverse proxy
+13. Circuit breaker pattern
+14. Bulkhead pattern
+15. Rate limiting
+16. Eventual consistency
+17. Strong consistency
+18. Identifying bottlenecks in distributed systems
+19. Backpressure and how to handle it
+20. Distributed transaction
+21. Saga pattern
+22. Graceful degradation
+23. Failover vs fallback
+24. Stateless vs stateful design
+25. P99 latency
 
 ---
 
-# 🟧 **SECTION 4 — AWS CLOUD ARCHITECTURE (25)**
+## 🟥 2. Database Design
 
-### **Core AWS (10)**
+### SQL (15)
 
-81. EC2 vs Lambda – when to choose?
-82. Auto Scaling Groups — internal flow.
-83. IAM Users vs Roles vs Policies.
-84. VPC architecture explained.
-85. NACLs vs Security Groups.
-86. Designing highly available AWS systems.
-87. S3 vs EFS vs EBS.
-88. S3 lifecycle & cost optimization.
-89. Route53 routing policies.
-90. Securing S3 buckets.
+26. SQL vs NoSQL and when to choose which
+27. ACID properties with examples
+28. How SQL transactions work
+29. Deadlock avoidance strategies
+30. Connection pool
+31. Using read replicas for scaling read-heavy workloads
+32. SQL sharding patterns
+33. Indexing strategy for large databases
+34. Covering index
+35. Query optimization best practices
+36. Table partitioning and where to use it
+37. Write-ahead log internals
+38. Schema federation vs centralized DB
+39. Designing relational schema for e-commerce
+40. Archival strategies for SQL databases
 
-### **Deployment (8)**
+### MongoDB (12)
 
-91. Deployment architecture for React + Node.
-92. CI/CD pipelines for microservices.
-93. Blue-green deployment.
-94. Rolling updates with zero downtime.
-95. CloudFront + S3 architecture.
-96. S3 pre-signed URL flow.
-97. Handling secrets with AWS Secrets Manager.
-98. AWS cost optimization best practices.
+41. Embed vs reference decision rules
+42. MongoDB replica set architecture
+43. Choosing the right shard key
+44. Aggregation pipeline performance rules
+45. Designing high-write workloads
+46. MongoDB multi-document transactions
+47. Indexing best practices in Mongo
+48. TTL index use cases
+49. Time-series schema design
+50. Mongo high-throughput strategies
+51. Change streams use cases
+52. MongoDB anti-patterns
 
-### **Database (7)**
+### Redis (8)
 
-99. RDS vs DynamoDB vs Mongo Atlas.
-100. DynamoDB partition key design.
-101. DynamoDB throttling prevention.
-102. Multi-AZ replication in RDS.
-103. RDS read replicas.
-104. DynamoDB Global Tables.
-105. On-demand vs provisioned capacity.
-
----
-
-# 🟪 **SECTION 5 — OBSERVABILITY (CloudWatch + New Relic) (15)**
-
-106. CloudWatch Metrics vs Logs vs Events.
-107. Creating custom CloudWatch metrics.
-108. CloudWatch dashboards.
-109. Setting alarms for auto-scaling.
-110. Debugging Lambda using CloudWatch.
-111. Cost optimization of CloudWatch logs.
-112. AWS X-Ray — full tracing pipeline.
-113. Distributed tracing concepts.
-114. Detecting throttling via CloudWatch Metrics.
-115. What is New Relic APM?
-116. Monitoring Node.js with New Relic.
-117. New Relic distributed tracing.
-118. Database query monitoring with New Relic.
-119. Alerting best practices in New Relic.
-120. CloudWatch Logs vs New Relic Logs.
+53. Redis architecture
+54. Redis AOF vs RDB persistence
+55. Redis pub/sub pros and cons
+56. Redis clustering and how it works
+57. Distributed locking with Redis
+58. Cache invalidation best practices
+59. Avoiding memory eviction issues
+60. Redis vs Memcached differences
 
 ---
 
-# 🟨 **SECTION 6 — MESSAGING SYSTEMS (Kafka + RabbitMQ + SQS + Redis Streams) (30)**
+## 🟩 3. Communication Protocols
 
-121. Message queues vs event streams.
-122. Kafka vs RabbitMQ vs SQS vs Redis Streams.
-123. Kafka partitions — how they scale.
-124. Kafka consumer groups — internals.
-125. Kafka offset management.
-126. Kafka retention policy.
-127. Kafka replication mechanism.
-128. Exactly-once semantics in Kafka.
-129. Kafka consumer lag handling.
-130. RabbitMQ exchange types.
-131. RabbitMQ acks & redeliveries.
-132. RabbitMQ durable queues.
-133. SQS Standard vs FIFO.
-134. SQS Visibility Timeout — full flow.
-135. SQS DLQ architecture.
-136. Long polling vs short polling.
-137. FIFO deduplication logic.
-138. Scaling SQS consumers.
-139. Redis Streams internals.
-140. SNS + SQS fan-out pattern.
-141. Backpressure in Kafka consumers.
-142. Backpressure in RabbitMQ consumers.
-143. Poison message handling.
-144. Outbox pattern.
-145. Schema evolution in event-driven systems.
-146. Idempotency in event consumers.
-147. Event chaining in microservices.
-148. Multi-topic event pipelines.
-149. Choosing the right messaging system.
-150. Ensuring event ordering at scale.
+61. HTTP/1.1 vs HTTP/2 vs HTTP/3
+62. gRPC vs REST and when to use
+63. WebSockets vs SSE vs Long Polling
+64. TCP vs UDP trade-offs
+65. QUIC and why it's fast
+66. Binary vs text protocols
+67. MQTT use cases
+68. Protocol overhead and latency
+69. DNS resolution flow
+70. TLS handshake
+71. TLS session resumption
+72. API communication patterns (request/response vs streaming)
+73. MTLS mutual TLS use cases
+74. HTTP keep-alive
+75. Connection multiplexing in HTTP/2
 
 ---
 
-# 🟫 **SECTION 7 — API SCALING (NEW — 15)**
+## 🟦 4. REST vs GraphQL
 
-151. Vertical vs horizontal API scaling.
-152. Stateless API design for scaling.
-153. Scaling APIs using ALB/NLB.
-154. Scaling API Gateway.
-155. How CDNs reduce API load.
-156. Token Bucket vs Leaky Bucket algorithms.
-157. Multi-region API scaling strategies.
-158. High-throughput API design patterns.
-159. Avoiding API hotspots.
-160. API throttling vs rate limiting.
-161. Scaling APIs with caching layers.
-162. Efficient pagination strategies for large APIs.
-163. Reducing DB load via query batching.
-164. Hypermedia-driven API design.
-165. Scaling webhooks API endpoints.
+76. REST vs GraphQL and when to choose which
+77. Overfetching vs underfetching in REST vs GraphQL
+78. N+1 problem in GraphQL
+79. GraphQL caching challenges
+80. GraphQL schema design best practices
+81. GraphQL vs gRPC for backend services
+82. Error handling differences between REST and GraphQL
+83. Versioning in REST vs GraphQL
+84. Authentication differences between REST and GraphQL
+85. Performance differences at scale
 
 ---
 
-# 🟦 **SECTION 8 — REST vs GRAPHQL (NEW — 10)**
+## 🟫 5. API Scaling
 
-166. REST vs GraphQL — when to choose which?
-167. Overfetching vs underfetching in REST vs GraphQL.
-168. N+1 problem in GraphQL.
-169. GraphQL caching challenges.
-170. GraphQL schema design best practices.
-171. GraphQL vs gRPC for backend services.
-172. Error handling differences (REST vs GraphQL).
-173. Versioning in REST vs GraphQL.
-174. Authentication differences (REST vs GraphQL).
-175. Performance differences at scale.
-
----
-
-# 🟩 **SECTION 9 — COMMUNICATION PROTOCOLS (NEW — 15)**
-
-176. HTTP/1.1 vs HTTP/2 vs HTTP/3.
-177. gRPC vs REST — when to use?
-178. WebSockets vs SSE vs Long Polling.
-179. TCP vs UDP — trade-offs.
-180. What is QUIC and why is it fast?
-181. Binary vs text protocols.
-182. MQTT — use cases.
-183. Protocol overhead & latency.
-184. DNS resolution flow.
-185. TLS handshake explained.
-186. TLS session resumption.
-187. API communication patterns (request/response vs streaming).
-188. MTLS — mutual TLS use cases.
-189. HTTP keep-alive.
-190. Connection multiplexing in HTTP/2.
+86. Vertical vs horizontal API scaling
+87. Stateless API design for scaling
+88. Scaling APIs using ALB/NLB
+89. Scaling API Gateway
+90. How CDNs reduce API load
+91. Token Bucket vs Leaky Bucket algorithms
+92. Multi-region API scaling strategies
+93. High-throughput API design patterns
+94. Avoiding API hotspots
+95. API throttling vs rate limiting
+96. Scaling APIs with caching layers
+97. Efficient pagination strategies for large APIs
+98. Reducing DB load via query batching
+99. Hypermedia-driven API design
+100. Scaling webhooks API endpoints
 
 ---
 
-# 🟥 **SECTION 10 — GIT, DOCKER, CI/CD, TOOLING (20)**
+## 🟨 6. Messaging Systems
 
-191. Git merge vs rebase.
-192. Git cherry-pick.
-193. Fixing merge conflicts.
-194. GitFlow vs trunk-based development.
-195. Docker image vs container.
-196. Docker multi-stage builds.
-197. Reducing Docker image size.
-198. Docker Compose use cases.
-199. Securing secrets in Docker.
-200. Kubernetes vs Docker — differences.
-201. CI/CD pipeline stages.
-202. Blue-green vs canary deployments.
-203. Zero-downtime deployment techniques.
-204. Postman automated testing.
-205. npm vs Yarn differences.
-206. package-lock.json vs yarn.lock.
-207. Peer dependencies in npm.
-208. Solving dependency conflicts.
-209. Node.js performance debugging tools.
-210. Postman environments vs globals.
-
----
-
-# 🟧 **SECTION 11 — AI TOOLS (Cursor, Copilot) (5)**
-
-211. Using GitHub Copilot effectively.
-212. Risks of AI-generated code.
-213. Reviewing AI-generated code securely.
-214. Cursor productivity benefits.
-215. Using AI for refactoring safely.
-
----
-
-# 🟨 **SECTION 12 — CODE QUALITY + DEBUGGING (10)**
-
-216. Code review checklist.
-217. Debugging memory leaks.
-218. Debugging high CPU usage.
-219. Static code analysis tools.
-220. ESLint vs Prettier.
-221. Root cause analysis workflow.
-222. Logging best practices.
-223. Handling production errors.
-224. Preventing flaky tests.
-225. Measuring code quality KPIs.
+101. Message queues vs event streams
+102. Kafka vs RabbitMQ vs SQS vs Redis Streams
+103. Kafka partitions and how they scale
+104. Kafka consumer groups internals
+105. Kafka offset management
+106. Kafka retention policy
+107. Kafka replication mechanism
+108. Exactly-once semantics in Kafka
+109. Kafka consumer lag handling
+110. RabbitMQ exchange types
+111. RabbitMQ acks and redeliveries
+112. RabbitMQ durable queues
+113. SQS Standard vs FIFO
+114. SQS Visibility Timeout full flow
+115. SQS DLQ architecture
+116. Long polling vs short polling
+117. FIFO deduplication logic
+118. Scaling SQS consumers
+119. Redis Streams internals
+120. SNS + SQS fan-out pattern
+121. Backpressure in Kafka consumers
+122. Backpressure in RabbitMQ consumers
+123. Poison message handling
+124. Outbox pattern
+125. Schema evolution in event-driven systems
+126. Idempotency in event consumers
+127. Event chaining in microservices
+128. Multi-topic event pipelines
+129. Choosing the right messaging system
+130. Ensuring event ordering at scale
 
 ---
 
-# 🟩 **SECTION 13 — REAL SYSTEM DESIGN SCENARIOS (Final 15)**
+## 🟩 7. Node.js System Design
 
-226. Design a URL shortener.
-227. Design WhatsApp chat architecture.
-228. Design Twitter feed system.
-229. Design YouTube video streaming.
-230. Design Uber backend.
-231. Design a payment system.
-232. Design an e-commerce platform.
-233. Design a food delivery platform.
-234. Design a distributed cache system.
-235. Design a notification system.
-236. Design a social media recommendation engine.
-237. Design a search engine.
-238. Design a large-scale file storage system.
-239. Design a real-time analytics system.
-240. Design disaster recovery architecture.
-
----
-
-# 🎉 **DONE — Your FINAL TOP 240 Senior System Design + Backend Questions**
-
-All unique.
-All merged.
-All cleaned.
-All topics covered.
+131. How Node.js handles concurrency
+132. Node.js event loop phases
+133. When to use worker threads
+134. Handling CPU-heavy tasks in Node.js
+135. Node clustering and how it works
+136. Scaling Node.js horizontally
+137. Designing WebSocket-based systems
+138. Streaming large files in Node.js
+139. Designing a rate limiter in Node.js
+140. Large-scale Node.js project structure
+141. Connection pooling strategies
+142. Retry and exponential backoff
+143. Idempotent API design in Node.js
+144. JWT authentication architecture
+145. Preventing brute-force attacks
+146. Graceful shutdown and why it's important
+147. Logging architecture for Node.js services
+148. Handling partial failures in Node.js
+149. Designing Node.js + S3 upload flow
+150. Handling environment configs in Node.js microservices
 
 ---
 
-If you want next:
-✅ Full answers
-⬆️ Short answers
-⬆️ Long interview-style answers
-⬆️ Folder structure ready for documentation
-⬆️ PDF export
+## 🟧 8. AWS Cloud Architecture
 
-Just tell me!
+### Core AWS (10)
+
+151. EC2 vs Lambda and when to choose
+152. Auto Scaling Groups internal flow
+153. IAM Users vs Roles vs Policies
+154. VPC architecture
+155. NACLs vs Security Groups
+156. Designing highly available AWS systems
+157. S3 vs EFS vs EBS
+158. S3 lifecycle and cost optimization
+159. Route53 routing policies
+160. Securing S3 buckets
+
+### Deployment (8)
+
+161. Deployment architecture for React + Node
+162. CI/CD pipelines for microservices
+163. Blue-green deployment
+164. Rolling updates with zero downtime
+165. CloudFront + S3 architecture
+166. S3 pre-signed URL flow
+167. Handling secrets with AWS Secrets Manager
+168. AWS cost optimization best practices
+
+### Database (7)
+
+169. RDS vs DynamoDB vs Mongo Atlas
+170. DynamoDB partition key design
+171. DynamoDB throttling prevention
+172. Multi-AZ replication in RDS
+173. RDS read replicas
+174. DynamoDB Global Tables
+175. On-demand vs provisioned capacity
+
+---
+
+## 🟪 9. Observability
+
+176. CloudWatch Metrics vs Logs vs Events
+177. Creating custom CloudWatch metrics
+178. CloudWatch dashboards
+179. Setting alarms for auto-scaling
+180. Debugging Lambda using CloudWatch
+181. Cost optimization of CloudWatch logs
+182. AWS X-Ray full tracing pipeline
+183. Distributed tracing concepts
+184. Detecting throttling via CloudWatch Metrics
+185. New Relic APM
+186. Monitoring Node.js with New Relic
+187. New Relic distributed tracing
+188. Database query monitoring with New Relic
+189. Alerting best practices in New Relic
+190. CloudWatch Logs vs New Relic Logs
+
+---
+
+## 🟥 10. Git, Docker, CI/CD, Tooling
+
+191. Git merge vs rebase
+192. Git cherry-pick
+193. Fixing merge conflicts
+194. GitFlow vs trunk-based development
+195. Docker image vs container
+196. Docker multi-stage builds
+197. Reducing Docker image size
+198. Docker Compose use cases
+199. Securing secrets in Docker
+200. Kubernetes vs Docker differences
+201. CI/CD pipeline stages
+202. Blue-green vs canary deployments
+203. Zero-downtime deployment techniques
+204. Postman automated testing
+205. npm vs Yarn differences
+206. package-lock.json vs yarn.lock
+207. Peer dependencies in npm
+208. Solving dependency conflicts
+209. Node.js performance debugging tools
+210. Postman environments vs globals
+
+---
+
+## 🟨 11. Code Quality + Debugging
+
+211. Code review checklist
+212. Debugging memory leaks
+213. Debugging high CPU usage
+214. Static code analysis tools
+215. ESLint vs Prettier
+216. Root cause analysis workflow
+217. Logging best practices
+218. Handling production errors
+219. Preventing flaky tests
+220. Measuring code quality KPIs
+
+---
+
+## 🟧 12. AI Tools
+
+221. Using GitHub Copilot effectively
+222. Risks of AI-generated code
+223. Reviewing AI-generated code securely
+224. Cursor productivity benefits
+225. Using AI for refactoring safely
+
+---
+
+## 🟩 13. Real System Design Scenarios
+
+226. Designing a URL shortener
+227. Designing WhatsApp chat architecture
+228. Designing Twitter feed system
+229. Designing YouTube video streaming
+230. Designing Uber backend
+231. Designing a payment system
+232. Designing an e-commerce platform
+233. Designing a food delivery platform
+234. Designing a distributed cache system
+235. Designing a notification system
+236. Designing a social media recommendation engine
+237. Designing a search engine
+238. Designing a large-scale file storage system
+239. Designing a real-time analytics system
+240. Designing disaster recovery architecture
+
+---
+
+## 📖 Complete Answer Guide
+
+- [1) System Design Fundamentals](1%20System%20Design%20Fundamentals.md) - Q1-25
+- [2) Database Design](3%20Database%20Design.md) - Q26-60
+- [3) Communication Protocols](9%20Communication%20Protocols.md) - Q61-75
+- [4) REST vs GraphQL](8%20REST%20vs%20GraphQL.md) - Q76-85
+- [5) API Scaling](7%20API%20Scaling.md) - Q86-100
+- [6) Messaging Systems](6%20Messaging%20Systems.md) - Q101-130
+- [7) Node.js System Design](2%20Node.js%20System%20Design.md) - Q131-150
+- [8) AWS Cloud Architecture](4%20AWS%20Cloud%20Architecture.md) - Q151-175
+- [9) Observability](5%20Observability.md) - Q176-190
+- [10) Git, Docker, CI-CD, Tooling](10%20Git%2C%20Docker%2C%20CI-CD%2C%20Tooling.md) - Q191-210
+- [11) Code Quality + Debugging](12%20Code%20Quality%20%2B%20Debugging.md) - Q211-220
+- [12) AI Tools](11%20AI%20Tools.md) - Q221-225
+- [13) Real System Design Scenarios](13%20Real%20System%20Design%20Scenarios.md) - Q226-240
+
+## 📝 Cheatsheet
+
+[BE-System-Design Interview Cheatsheet](BE-System-Design%20Interview%20Cheatsheet.md) - Quick reference guide
+
+---

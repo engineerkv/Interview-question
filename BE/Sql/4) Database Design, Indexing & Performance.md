@@ -2,7 +2,7 @@
 
 ---
 
-## Q31. What is normalization? Explain 1NF, 2NF, 3NF, and BCNF with examples.
+## Q31. Database normalization and why it's important
 
 Normalization is the process of organizing data to reduce redundancy and improve data integrity by eliminating duplicate data and ensuring data dependencies make sense. 1NF eliminates duplicate columns and ensures atomic values, 2NF removes partial dependencies, 3NF removes transitive dependencies, and BCNF ensures every determinant is a candidate key (stronger than 3NF).
 
@@ -44,9 +44,15 @@ CREATE TABLE orders (
 );
 ```
 
+<div align="center">
+
+**[← Previous: Filtering, Grouping & Aggregation](3%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md)** | **[Next: Transactions, Concurrency & Stored Logic →](5%29%20Transactions%2C%20Concurrency%20%26%20Stored%20Logic.md)**
+
+</div>
+
 ---
 
-## Q32. What are the advantages and disadvantages of normalization?
+## Q32. Different normal forms (1NF, 2NF, 3NF, BCNF)
 
 Normalization reduces data redundancy and improves data integrity, but can increase query complexity and potentially impact performance due to more joins. Normalized databases use less storage space and are easier to maintain, but denormalized databases may have faster read operations.
 
@@ -65,7 +71,7 @@ WHERE c.customer_id = 1;
 
 ---
 
-## Q33. What is denormalization, and when is it beneficial?
+## Q33. Denormalization and when to use it
 
 Denormalization intentionally introduces redundancy to improve query performance, especially useful for read-heavy applications and reporting systems. It reduces joins and pre-calculates values, making queries significantly faster for complex analytical queries.
 
@@ -86,7 +92,7 @@ CREATE TABLE sales_summary (
 
 ---
 
-## Q34. What are indexes, and how do they improve query performance?
+## Q34. Indexes and how they improve performance
 
 Indexes are data structures that speed up data retrieval by providing quick access to specific rows, similar to a book's index. Most indexes use B-tree structures that provide logarithmic search time, reducing query time from seconds to milliseconds.
 
@@ -106,7 +112,7 @@ SELECT * FROM employees WHERE name = 'John Doe';
 
 ---
 
-## Q35. What's the difference between clustered and non-clustered indexes?
+## Q35. Difference between clustered and non-clustered indexes
 
 Clustered indexes determine the physical order of data storage and there can only be one per table, while non-clustered indexes are separate structures that point to data and multiple can exist per table. The clustered index is the table itself (very fast for primary key lookups), while non-clustered indexes are separate structures (require index lookup plus table access).
 
@@ -135,7 +141,7 @@ SELECT * FROM employees WHERE name = 'John Doe';
 
 ---
 
-## Q36. What are composite indexes, and how does column order affect performance?
+## Q36. Composite indexes and when to use them
 
 Composite indexes are indexes on multiple columns where column order significantly affects query performance, with the most selective columns typically placed first. The leftmost rule means queries must use leftmost columns of the composite index to be effective.
 
@@ -157,7 +163,7 @@ SELECT * FROM employees WHERE salary > 50000;  -- Won't use index
 
 ---
 
-## Q37. What is a covering index, and when is it useful?
+## Q37. Index fragmentation and how to fix it
 
 A covering index includes all columns needed for a query, eliminating the need to access the actual table data and significantly improving query performance. It includes all columns needed for SELECT, WHERE, and ORDER BY clauses, making it the fastest possible query execution.
 
@@ -178,7 +184,7 @@ SELECT name, salary FROM employees WHERE department_id = 5;
 
 ---
 
-## Q38. What is index fragmentation, and how do you fix it?
+## Q38. Using EXPLAIN/EXPLAIN ANALYZE to optimize queries
 
 Index fragmentation occurs when data pages are not contiguous due to frequent updates, causing performance degradation that can be fixed through rebuild or reorganize operations. Frequent INSERT, UPDATE, DELETE operations cause page splits and fragmentation, which slows down query performance and wastes storage space.
 
@@ -205,7 +211,7 @@ ALTER INDEX idx_employee_name ON employees REORGANIZE;
 
 ---
 
-## Q39. How do you analyze a query's performance using EXPLAIN or EXPLAIN ANALYZE?
+## Q39. Common query optimization techniques
 
 EXPLAIN shows the query execution plan, while EXPLAIN ANALYZE also shows actual execution statistics and timing, helping identify performance bottlenecks. The execution plan shows how the database will execute the query (Index Scan, Hash Join, etc.), reveals whether indexes are being used effectively, and shows which join algorithms are being used.
 
@@ -228,7 +234,7 @@ WHERE e.department_id = 5;
 
 ---
 
-## Q40. What are common query optimization techniques (indexing, joins, avoiding SELECT *)?
+## Q40. Identifying and fixing slow queries
 
 Query optimization involves using proper indexing, efficient joins, avoiding unnecessary operations, and writing queries that leverage database features effectively. Create appropriate indexes on frequently queried columns, use INNER JOIN instead of WHERE clauses, avoid SELECT *, and use indexed columns in WHERE conditions.
 
@@ -252,3 +258,9 @@ ORDER BY e.name;
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Filtering, Grouping & Aggregation](3%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md)** | **[Next: Transactions, Concurrency & Stored Logic →](5%29%20Transactions%2C%20Concurrency%20%26%20Stored%20Logic.md)**
+
+</div>

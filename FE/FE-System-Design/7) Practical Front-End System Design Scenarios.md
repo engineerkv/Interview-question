@@ -1,8 +1,14 @@
-# 7. Practical Front-End System Design Scenarios (Q70–89)
+# 7. Practical Front-End System Design Scenarios (Q65–83)
+
+<div align="center">
+
+**[← Previous: Browser Internals & Rendering](6%29%20Browser%20Internals%20%26%20Rendering.md)** | **[Next: Networking & APIs →](8%29%20Networking%20%26%20APIs.md)**
+
+</div>
 
 ---
 
-## Q70. How would you design a news feed UI with infinite scroll and real-time updates?
+## Q65. Designing a news feed UI like Facebook or Twitter
 
 A news feed requires efficient data management, virtual scrolling for performance, real-time updates via WebSockets, and proper state synchronization across components - consider pagination strategies and data freshness. Use virtual scrolling to handle thousands of posts efficiently.
 
@@ -37,7 +43,7 @@ const NewsFeed = () => {
 
 ---
 
-## Q71. How would you design an autocomplete / type-ahead search component?
+## Q66. Designing an autocomplete search component
 
 Autocomplete requires debounced input handling, efficient search algorithms, caching of results, and proper keyboard navigation for accessibility - consider fuzzy matching and search suggestions. Implement debouncing to avoid excessive API calls.
 
@@ -91,7 +97,7 @@ const Autocomplete = ({ onSelect, searchFn }) => {
 
 ---
 
-## Q72. How would you design a large data table with sorting, filtering, pagination, and virtualization?
+## Q67. Designing a large data table with sorting and filtering
 
 Large data tables require virtualization for performance, efficient sorting algorithms, client-side filtering, and proper state management for complex interactions - ensure accessibility with proper ARIA attributes. Use virtualization to handle large datasets efficiently.
 
@@ -137,7 +143,7 @@ const DataTable = ({ data, columns }) => {
 
 ---
 
-## Q73. How would you design a real-time chat interface?
+## Q68. Designing a real-time chat interface
 
 Real-time chat requires WebSocket connections, message queuing, offline storage, delivery status tracking, and proper state synchronization - implement proper message delivery status tracking. Implement WebSocket connections for real-time communication.
 
@@ -198,7 +204,7 @@ const ChatInterface = () => {
 
 ---
 
-## Q74. How would you design a media-rich gallery for images and videos?
+## Q69. Designing a media gallery with lazy loading
 
 Media galleries require lazy loading, responsive image sizing, progressive loading, and efficient memory management for large collections - implement proper error handling and fallbacks. Use Intersection Observer for efficient lazy loading.
 
@@ -251,7 +257,7 @@ const MediaGallery = ({ media }) => {
 
 ---
 
-## Q75. How would you design an e-commerce shopping cart & checkout UI that works offline?
+## Q70. Designing an e-commerce shopping cart
 
 Shopping cart requires offline storage, cross-device synchronization, optimistic updates, and proper state management for complex business logic - consider inventory management and stock validation. Use localStorage for offline cart persistence.
 
@@ -308,7 +314,7 @@ const ShoppingCart = () => {
 
 ---
 
-## Q76. How would you design a collaborative editor from the front-end side?
+## Q71. Designing a collaborative text editor
 
 Collaborative editing requires real-time synchronization, conflict resolution, operational transforms, and proper cursor/selection management - consider performance optimization for large documents. Implement operational transforms for conflict resolution.
 
@@ -363,7 +369,7 @@ const CollaborativeEditor = () => {
 
 ---
 
-## Q77. How would you design a map or geo-based UI?
+## Q72. Designing a map-based interface with markers
 
 Map-based UIs require efficient rendering of large datasets, real-time location updates, smooth animations, and proper handling of map interactions - optimize rendering performance for mobile devices. Use efficient clustering for large numbers of markers.
 
@@ -411,59 +417,7 @@ const MapInterface = () => {
 
 ---
 
-## Q78. How would you design a Progressive Web App (PWA)?
-
-PWAs require service workers for offline functionality, web app manifests for installability, push notification APIs, and proper caching strategies - test across different browsers and devices. Implement service workers for offline functionality.
-
-- **Trade-offs**: The catch is use web app manifest for installability - handle push notifications with proper permissions. Test across different browsers and devices, but watch out - implement proper caching strategies.
-
-Example:
-
-```javascript
-const PWAApp = () => {
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
-  const [deferredPrompt, setDeferredPrompt] = useState(null);
-  
-  useEffect(() => {
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-    
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-    });
-    
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
-  }, []);
-  
-  const handleInstall = async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      setDeferredPrompt(null);
-    }
-  };
-  
-  return (
-    <div className="pwa-app">
-      {!isOnline && <div className="offline-indicator">Offline</div>}
-      {deferredPrompt && (
-        <button onClick={handleInstall}>Install App</button>
-      )}
-      <Content />
-    </div>
-  );
-};
-```
-
----
-
-## Q79. How would you design a dashboard UI with real-time charts and metrics?
+## Q73. Designing a dashboard with real-time data
 
 Real-time dashboards require efficient data visualization, WebSocket connections for live updates, responsive layouts, and proper state management for complex metrics - implement proper error handling and fallbacks. Use efficient charting libraries for real-time updates.
 
@@ -506,14 +460,13 @@ const Dashboard = () => {
           <Chart key={chart.id} data={chart.data} type={chart.type} />
         ))}
       </div>
-    </div>
   );
 };
 ```
 
 ---
 
-## Q80. How would you design a front-end that dynamically loads micro-frontends?
+## Q74. Designing a dynamic micro-frontend architecture
 
 Dynamic micro-frontend loading requires proper module federation, version management, fallback strategies, and independent deployment coordination - consider performance implications of dynamic loading. Implement proper version management and fallback strategies.
 
@@ -556,7 +509,7 @@ const MicroFrontendLoader = ({ name, version, fallback }) => {
 
 ---
 
-## Q81. How would you design a high-performance image carousel?
+## Q75. Designing a high-performance image carousel
 
 High-performance image carousels require lazy loading, memory management, smooth animations, and responsive design for optimal user experience - consider responsive design and touch gestures. Implement lazy loading for memory efficiency.
 
@@ -615,7 +568,7 @@ const ImageCarousel = ({ images }) => {
 
 ---
 
-## Q82. How would you design accessible UI components?
+## Q76. Designing an accessible UI component library
 
 Accessible UI components require proper ARIA attributes, keyboard navigation support, color contrast compliance, and screen reader compatibility - provide multiple ways to convey information. Implement proper ARIA attributes and roles.
 
@@ -662,7 +615,7 @@ const AccessibleButton = ({ children, onClick, disabled, ...props }) => {
 
 ---
 
-## Q83. How would you design a global theme switcher?
+## Q77. Designing a global theme switching system
 
 Global theme switching requires centralized theme management, persistent storage, smooth transitions, and proper CSS variable handling - test with different color schemes and contrast ratios. Use CSS custom properties for theme values.
 
@@ -696,7 +649,7 @@ const ThemeProvider = ({ children }) => {
 
 ---
 
-## Q84. How would you design routing architecture for a SPA with SEO support?
+## Q78. Designing a routing architecture for a large SPA
 
 SPA routing requires client-side navigation, SEO optimization, fast transitions, and proper state management for complex applications - test navigation across different browsers and devices. Implement client-side routing with proper history management.
 
@@ -743,7 +696,7 @@ const AppRouter = () => {
 
 ---
 
-## Q85. How would you design a file upload system with progress tracking?
+## Q79. Designing a file upload system with progress tracking
 
 File upload systems require progress tracking, chunked uploads for resumability, mobile optimization, and proper error handling for various scenarios - consider file validation and security measures. Implement chunked uploads for large files.
 
@@ -798,7 +751,6 @@ const FileUpload = () => {
               style={{ width: `${uploadProgress[file.name] || 0}%` }}
             />
           </div>
-        </div>
       ))}
     </div>
   );
@@ -807,7 +759,7 @@ const FileUpload = () => {
 
 ---
 
-## Q86. How would you design a feature flag / A/B testing framework?
+## Q80. Designing a feature flag and A/B testing system
 
 Feature flags require dynamic configuration, A/B testing capabilities, user segmentation, and proper analytics integration for data-driven decisions - implement proper fallback strategies. Implement dynamic feature flag configuration.
 
@@ -854,7 +806,7 @@ const FeatureFlagProvider = ({ children }) => {
 
 ---
 
-## Q87. How would you design a notification system?
+## Q81. Designing a notification system for web apps
 
 Notification systems require multiple delivery channels, user preferences, analytics tracking, and proper state management for complex notification flows - implement proper notification management and cleanup. Implement multiple notification channels.
 
@@ -913,7 +865,7 @@ const NotificationSystem = () => {
 
 ---
 
-## Q88. How would you design a search results UI with infinite scrolling?
+## Q82. Designing a search results UI with faceted search
 
 Search results require efficient data management, client-side caching, infinite scrolling, and proper filter handling for optimal user experience - implement proper loading states and error handling. Implement client-side caching for better performance.
 
@@ -974,7 +926,7 @@ const SearchResults = () => {
 
 ---
 
-## Q89. How would you design a live streaming UI?
+## Q83. Designing a live streaming video interface
 
 Live streaming UIs require real-time video/audio handling, low-latency optimization, proper buffering management, and intuitive streaming controls - implement proper error handling and reconnection logic. Implement low-latency streaming protocols.
 
@@ -1047,9 +999,14 @@ const LiveStreamingUI = () => {
           <option value="480p">480p</option>
         </select>
       </div>
-    </div>
   );
 };
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Browser Internals & Rendering](6%29%20Browser%20Internals%20%26%20Rendering.md)** | **[Next: Networking & APIs →](8%29%20Networking%20%26%20APIs.md)**
+
+</div>

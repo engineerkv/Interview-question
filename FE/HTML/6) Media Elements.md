@@ -1,8 +1,14 @@
 # 6. Media Elements (Q76–85)
 
+<div align="center">
+
+**[← Previous: HTML5 Features & APIs](5%29%20HTML5%20Features%20%26%20APIs.md)** | **[Next: Performance & SEO →](7%29%20Performance%20%26%20SEO.md)**
+
+</div>
+
 ---
 
-## Q76. How do you embed videos in HTML?
+## Q76. Embedding videos in HTML
 
 Use `<video>` element with controls and multiple source formats for cross-browser compatibility - each element has specific use cases and attributes. Each element serves specific media types (images, video, audio, iframes).
 
@@ -23,7 +29,7 @@ Example:
 
 ---
 
-## Q77. How do you create responsive images?
+## Q77. Creating responsive images
 
 Use `srcset` and `sizes` attributes to provide different image sizes for different screen densities and viewport widths - responsive images improve performance and user experience. `srcset` provides multiple image sources, `sizes` tells browser which size to use.
 
@@ -40,7 +46,7 @@ Example:
 
 ---
 
-## Q78. What is the difference between `<img>` and `<picture>`?
+## Q78. `<img>` vs `<picture>`
 
 `<img>` displays a single image, while `<picture>` provides multiple image sources with media queries for different conditions - `<picture>` is for art direction, `<img>` is for responsive sizing. `<img>` is simpler for basic responsive images, `<picture>` enables art direction.
 
@@ -62,7 +68,7 @@ Example:
 
 ---
 
-## Q79. How do you create accessible videos?
+## Q79. Creating accessible videos
 
 Use proper video structure with captions, transcripts, and controls for accessibility - accessible video is required by WCAG guidelines. Always provide captions for audio content, use `poster` attribute for thumbnail.
 
@@ -81,7 +87,7 @@ Example:
 
 ---
 
-## Q80. What are the different video formats?
+## Q80. Different video formats
 
 Different video formats offer varying compression, quality, and browser support trade-offs - multiple formats ensure cross-browser compatibility. MP4/H.264 (best browser support), WebM/VP9 (better compression), AV1 (next-gen).
 
@@ -98,7 +104,7 @@ Example:
 
 ---
 
-## Q81. How do you create audio players?
+## Q81. Creating audio players
 
 Use `<audio>` element with controls and multiple source formats for cross-browser compatibility - audio element is simpler than video, but similar principles apply. `controls` shows default player, `preload` controls when audio loads.
 
@@ -117,7 +123,7 @@ Example:
 
 ---
 
-## Q82. What is the purpose of the `<source>` element?
+## Q82. Purpose of the `<source>` element
 
 `<source>` provides alternative media sources for `<video>`, `<audio>`, and `<picture>` elements - browser tries sources in order until it finds one it supports. Provide fallback sources for unsupported formats, ensure cross-browser compatibility.
 
@@ -135,7 +141,7 @@ Example:
 
 ---
 
-## Q83. How do you add subtitles to videos?
+## Q83. Adding subtitles to videos
 
 Use `<track>` elements with WebVTT files to provide subtitles and captions for video content - WebVTT is the standard format, required for accessibility. WebVTT is the standard format for captions and subtitles.
 
@@ -154,7 +160,7 @@ Example:
 
 ---
 
-## Q84. What are the different image formats?
+## Q84. Different image formats
 
 Different image formats offer various compression, quality, and feature trade-offs for different use cases - format choice affects file size, quality, and browser support. JPEG (photos), PNG (transparency), WebP (better compression), SVG (scalable).
 
@@ -171,7 +177,7 @@ Example:
 
 ---
 
-## Q85. How do you optimize media for web?
+## Q85. Optimizing media for web
 
 Optimize media through proper sizing, compression, lazy loading, and modern formats to improve page performance - media optimization significantly improves page load performance. Use `loading="lazy"` for below-fold images, provide appropriate sizes.
 
@@ -188,4 +194,8 @@ Example:
 <link rel="preload" as="image" href="hero-image.jpg">
 ```
 
----
+<div align="center">
+
+**[← Previous: HTML5 Features & APIs](5%29%20HTML5%20Features%20%26%20APIs.md)** | **[Next: Performance & SEO →](7%29%20Performance%20%26%20SEO.md)**
+
+</div>

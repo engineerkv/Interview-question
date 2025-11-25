@@ -1,8 +1,14 @@
-# 3. Promises, Async/Await & Event Loop (Q26–51)
+# 5. Promises, Async/Await & Event Loop (Q56–81)
+
+<div align="center">
+
+**[← Previous: ES6+ Features](6%29%20ES6%2B%20Features.md)** | **[Next: Practical JavaScript Questions →](9%29%20Practical%20JavaScript%20Questions.md)**
+
+</div>
 
 ---
 
-## Q26. What is a Promise in JavaScript?
+## Q56. Promises in JavaScript
 
 A Promise is a placeholder for a future value that can be pending, fulfilled, or rejected - it helps handle async operations cleanly without callback nesting. Promises have three states: pending (initial state), fulfilled (success), or rejected (failure) - once settled, they can't change state. Perfect for API calls, file operations, and async data loading.
 
@@ -17,7 +23,7 @@ getData().then(data => console.log(data));
 
 ---
 
-## Q27. What is the difference between callbacks and Promises?
+## Q57. Callbacks vs Promises
 
 Promises make async code easier to read and handle errors better than callbacks - they avoid callback hell by chaining instead of nesting. Promises chain flatly instead of nesting callbacks, making code more readable and maintainable.
 
@@ -39,9 +45,9 @@ getData().then(processData).then(saveData);
 
 ---
 
-## Q28. How do you chain Promises?
+## Q58. Chaining Promises
 
-Promise chaining lets you pass data from one async operation to the next using `.then()` methods - each step receives the result from the previous one. You can return promises or regular values, and the chain waits for promises to resolve before moving to the next step.
+Promise chaining allows you to pass data from one async operation to the next using `.then()` methods - each step receives the result from the previous one. You can return promises or regular values, and the chain waits for promises to resolve before moving to the next step.
 
 - **Trade-offs**: The tricky part is forgetting to return values in `.then()` handlers breaks the data flow - the next `.then()` gets `undefined` instead of your data. Use arrow functions with implicit returns when possible to avoid this common mistake.
 
@@ -57,9 +63,9 @@ fetch('/user')
 
 ---
 
-## Q29. What is the difference between Promise.resolve() and new Promise()?
+## Q59. Async/await: what it is and how it works
 
-`Promise.resolve()` creates a resolved promise immediately, while `new Promise()` lets you control when it resolves - use the first for values, the second for async work. `Promise.resolve()` is great for wrapping values or converting thenables, while `new Promise()` is for wrapping callback-based APIs.
+`Promise.resolve()` creates a resolved promise immediately, while `new Promise()` allows you to control when it resolves - use the first for values, the second for async work. `Promise.resolve()` is great for wrapping values or converting thenables, while `new Promise()` is for wrapping callback-based APIs.
 
 - **Trade-offs**: Watch out for the `new Promise(async ...)` anti-pattern - it's redundant and can cause issues. Use `Promise.resolve()` when you already have a value, and `new Promise()` only when you need to wrap callbacks or control resolution timing.
 
@@ -74,7 +80,7 @@ const p2 = new Promise(resolve => {
 
 ---
 
-## Q30. How do you handle errors in Promises?
+## Q60. `Promise.resolve()` vs `new Promise()`
 
 Use `.catch()` to handle errors in promise chains - it catches both thrown errors and rejected promises, allowing you to recover or handle failures gracefully. You can recover from errors and continue the chain, or handle them at the end.
 
@@ -94,7 +100,7 @@ fetch('/api/data')
 
 ---
 
-## Q31. What happens if you return a promise inside `.then()`?
+## Q61. Handling errors in Promises
 
 When you return a promise inside `.then()`, the outer promise waits for the inner one to complete - this enables chaining dependent async operations. Errors in inner promises bubble up to outer chains, so you can handle them at any level.
 
@@ -111,7 +117,7 @@ Promise.resolve(5)
 
 ---
 
-## Q32. What happens if you forget to `return` inside `.then()`?
+## Q62. Callback hell: what it is and how to avoid it
 
 If you forget to return from `.then()`, the next `.then()` gets `undefined` instead of your data - this breaks the data flow in the chain. This is one of the most common promise mistakes and can be hard to debug.
 
@@ -127,7 +133,7 @@ Promise.resolve(5)
 
 ---
 
-## Q33. What is the Event Loop in JavaScript?
+## Q63. Event Loop in JavaScript
 
 The event loop is JavaScript's way of handling async operations - it continuously checks the call stack, and when it's empty, it processes tasks from the microtask queue first, then one task from the macrotask queue, and repeats this cycle. Promise callbacks run as microtasks, so they execute right after the current code finishes but before any `setTimeout` or other macrotasks.
 
@@ -144,7 +150,7 @@ console.log('Third');
 
 ---
 
-## Q34. What is the difference between microtasks and macrotasks?
+## Q64. Microtasks vs macrotasks
 
 Microtasks (promises, queueMicrotask) run before the next macrotask (setTimeout, I/O) at microtask checkpoints - this ensures promises execute before timers. The event loop processes all microtasks before moving to the next macrotask.
 
@@ -160,7 +166,7 @@ Promise.resolve().then(() => console.log('micro'));
 
 ---
 
-## Q35. How do you avoid callback hell using Promises?
+## Q65. Running Promises concurrently
 
 Avoid callback hell by chaining promises instead of nesting callbacks - keep each step simple and readable. Use `Promise.all()` for parallel operations, and chain dependent operations sequentially.
 
@@ -177,7 +183,7 @@ getUser(id)
 
 ---
 
-## Q36. What is async/await and how does it work?
+## Q66. `Promise.all()`: what it is and when to use it
 
 `async/await` makes promises easier to read by letting you write async code that looks like regular code - it's syntactic sugar over promises. `async` functions always return promises, and `await` pauses execution until the promise settles, then resumes with the result.
 
@@ -195,7 +201,7 @@ async function getUserData(id) {
 
 ---
 
-## Q37. What happens if you don't `await` an async function?
+## Q67. `Promise.race()`: what it is and when to use it
 
 If you call an async function without `await`, you get a promise object instead of the actual result - this causes bugs where you expect data but get promises. This is the most common async/await mistake and can be confusing to debug.
 
@@ -215,7 +221,7 @@ const data = await getData(); // With await - returns the actual data
 
 ---
 
-## Q38. How does the event loop handle Promises and async/await?
+## Q68. `Promise.allSettled()`: what it is and when to use it
 
 Promise handlers run as microtasks, and `await` schedules continuation as a microtask after the current turn - this is how async/await works under the hood. The event loop processes all microtasks before moving to the next macrotask, ensuring predictable execution order.
 
@@ -234,7 +240,7 @@ Example:
 
 ---
 
-## Q39. How do you run Promises concurrently?
+## Q69. `Promise.any()`: what it is and when to use it
 
 Start all promises before awaiting to run them in parallel - use combinators like `Promise.all()`, `allSettled()`, `race()`, or `any()` to aggregate results. This is much faster than awaiting promises one by one.
 
@@ -250,7 +256,7 @@ const [ra, rb] = await Promise.all([a, b]);
 
 ---
 
-## Q40. What is Promise.all() and when do you use it?
+## Q70. Implementing retry logic with Promises
 
 `Promise.all()` waits for all promises to fulfill or fails fast on first rejection - use it when you need all results or want to fail quickly. Results array matches input order, not completion order, which makes it easy to map results back to inputs.
 
@@ -267,7 +273,7 @@ const [user, posts] = await Promise.all([
 
 ---
 
-## Q41. What is Promise.race() and when do you use it?
+## Q71. Promise cancellation: what it is and how to implement it
 
 `Promise.race()` resolves with the first promise to settle (fulfill or reject) - use it for timeouts, cancellation, or first-available service patterns. It returns the first promise to complete, whether success or failure.
 
@@ -284,7 +290,7 @@ const data = await Promise.race([fetch('/data'), timeout]);
 
 ---
 
-## Q42. What is Promise.allSettled() and when do you use it?
+## Q72. Running Promises sequentially
 
 `Promise.allSettled()` waits for all promises to complete regardless of success/failure - it never rejects and always returns results with status. Each result has `status` and `value`/`reason` properties, so you can filter successful vs failed results.
 
@@ -301,7 +307,7 @@ const successes = results.filter(r => r.status === 'fulfilled');
 
 ---
 
-## Q43. What is Promise.any() and when do you use it?
+## Q73. Implementing progress updates with Promises
 
 `Promise.any()` resolves with the first successful promise, while `race()` resolves with the first to settle (success or failure) - use `any()` for failover, `race()` for timeouts. `any()` ignores rejections until all promises fail, then rejects with an AggregateError.
 
@@ -318,7 +324,7 @@ const fast = await Promise.any([
 
 ---
 
-## Q44. How do you implement retry logic with Promises?
+## Q74. `Promise.finally()`: what it is and when to use it
 
 Wrap async operations in retry loops with exponential backoff and max attempts - this improves reliability for transient failures. Use jitter to distribute retry timing across clients and avoid overwhelming services.
 
@@ -333,7 +339,7 @@ const retry = (fn, max = 3) =>
 
 ---
 
-## Q45. What is Promise cancellation and how do you implement it?
+## Q75. Promise vs async/await: differences and mixing them
 
 Use `AbortController` for fetch requests or custom cancellation tokens for other async work - cancellation is cooperative, not preemptive. The request checks the abort signal and stops when cancelled.
 
@@ -349,7 +355,7 @@ controller.abort(); // cancels request
 
 ---
 
-## Q46. How do you run Promises sequentially?
+## Q76. Handling multiple async operations
 
 Use `for...of` loops or `reduce()` to await promises one at a time instead of parallel execution - use this when order matters or resources are limited. Sequential execution is slower but more predictable and resource-friendly.
 
@@ -367,7 +373,7 @@ for (const url of urls) {
 
 ---
 
-## Q47. How do you implement progress updates with Promises?
+## Q77. Promise vs Observable
 
 Emit progress events through callbacks or custom event systems during async work - this provides feedback for long-running operations. Call the progress callback after each step to update the UI.
 
@@ -386,7 +392,7 @@ const process = async (items, onProgress) => {
 
 ---
 
-## Q48. What is Promise.finally() and when do you use it?
+## Q78. Implementing timeout with Promises
 
 `Promise.finally()` runs cleanup code regardless of whether the promise fulfills or rejects - use it for hiding loading spinners, closing connections, or resetting state. It runs after all `then`/`catch` handlers, so it's perfect for cleanup.
 
@@ -404,33 +410,26 @@ fetch('/data')
 
 ---
 
-## Q49. How do you mix Promises and async/await?
+## Q79. Promise vs Generator
 
-They're fully compatible - `await` works with any thenable, and async functions return promises, so you can mix them seamlessly. You can await promises in async functions, and return promises from async functions for chaining.
+`async/await` is syntactic sugar over promises - it makes async code look like regular code, but under the hood it's still promises. `async` functions always return promises, and `await` pauses execution until the promise settles. They're fully compatible - `await` works with any thenable, and async functions return promises, so you can mix them seamlessly.
 
-- **Trade-offs**: The catch is inconsistent mixing without understanding compatibility can lead to confusion - both compile to similar code, so they work together fine. It's great for migrating from callbacks to promises, but try to be consistent within a codebase - don't mix styles randomly.
+- **Trade-offs**: The catch is they compile to similar code, so performance is the same - choose based on readability. `async/await` is better for sequential async operations, while promise chains are better for parallel operations or when you need more control. Inconsistent mixing without understanding compatibility can lead to confusion - both compile to similar code, so they work together fine. It's great for migrating from callbacks to promises, but try to be consistent within a codebase - don't mix styles randomly.
 
 Example:
 
 ```js
-async function mixed() {
+// async/await is syntactic sugar over promises
+async function example() {
   const p = Promise.resolve(1);
-  const a = await p;
-  return p.then(x => x + 1);
+  const a = await p; // await works with any thenable
+  return p.then(x => x + 1); // can mix both styles
 }
 ```
 
 ---
 
-## Q50. What is the difference between Promise and async/await?
-
-`async/await` is syntactic sugar over promises - it makes async code look like regular code, but under the hood it's still promises. `async` functions always return promises, and `await` pauses execution until the promise settles.
-
-- **Trade-offs**: The catch is they compile to similar code, so performance is the same - choose based on readability. `async/await` is better for sequential async operations, while promise chains are better for parallel operations or when you need more control. Both work the same way under the hood.
-
----
-
-## Q51. How does the fetch Promise work internally in V8?
+## Q80. How fetch Promise works internally in V8
 
 When you call fetch, V8 creates a Promise right away and hands off the actual network work to the browser's task queue - so the networking happens outside of JavaScript entirely. The Promise sits there waiting, and once the network request finishes, it resolves and your handlers run as microtasks.
 
@@ -446,3 +445,29 @@ promise.then(response => {
 ```
 
 ---
+
+## Q81. Promise chaining and error propagation
+
+Promise chaining allows you to connect multiple async operations sequentially - each `.then()` returns a new promise, which can be chained further. Errors propagate down the chain until caught by a `.catch()` handler - if any promise in the chain rejects, subsequent `.then()` handlers are skipped and the error bubbles to the nearest `.catch()`.
+
+- **Trade-offs**: The catch is forgetting to return a value in `.then()` causes the next handler to receive `undefined` instead of the expected value. Promise chains can become hard to read with many nested operations - consider async/await for complex flows, but promise chaining is still useful for simple sequential operations.
+
+Example:
+
+```js
+fetch('/api/user')
+  .then(response => response.json())
+  .then(user => fetch(`/api/posts/${user.id}`))
+  .then(response => response.json())
+  .then(posts => console.log(posts))
+  .catch(error => console.error('Error:', error));
+```
+
+---
+<div align="center">
+
+**[← Previous: ES6+ Features](6%29%20ES6%2B%20Features.md)** | **[Next: Practical JavaScript Questions →](9%29%20Practical%20JavaScript%20Questions.md)**
+
+</div>
+
+**[← Previous Section](6%29%20ES6%2B%20Features.md)** | **[Next Section →](9%29%20Practical%20JavaScript%20Questions.md)**

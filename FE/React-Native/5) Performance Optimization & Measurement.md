@@ -2,7 +2,7 @@
 
 ---
 
-## Q41. What are the most common causes of React Native performance issues?
+## Q41. Common performance issues in React Native
 
 Common causes include unnecessary re-renders, heavy operations on the main thread, memory leaks, and inefficient list rendering - identify and fix these issues systematically. Components re-rendering when they shouldn't (unnecessary re-renders), heavy operations blocking the UI thread (main thread blocking).
 
@@ -36,9 +36,15 @@ function GoodList({ data }) {
 }
 ```
 
+<div align="center">
+
+**[← Previous: Navigation & Lifecycle](4%29%20Navigation%20%26%20Lifecycle.md)** | **[Next: State Management & Data Handling →](6%29%20State%20Management%20%26%20Data%20Handling.md)**
+
+</div>
+
 ---
 
-## Q42. How does the Hermes engine improve runtime performance?
+## Q42. Hermes engine and how it improves performance
 
 Hermes is a JavaScript engine optimized for mobile, providing faster startup times and reduced memory usage - smaller bundle sizes with Hermes. Optimized for mobile app startup (faster startup).
 
@@ -62,7 +68,7 @@ module.exports = {
 
 ---
 
-## Q43. How can you measure app performance?
+## Q43. Measuring performance in React Native apps
 
 Use Flipper, React Native Profiler, and performance monitoring tools to measure and analyze app performance - use multiple tools for comprehensive analysis. Flipper (comprehensive debugging and performance monitoring), React Native Profiler (built-in performance profiling).
 
@@ -85,7 +91,7 @@ function MyComponent() {
 
 ---
 
-## Q44. What is virtualization in FlatList and how does it work?
+## Q44. Using Flipper for debugging React Native apps
 
 Virtualization renders only visible items in FlatList, improving performance by reducing memory usage and rendering overhead - works on both iOS and Android (platform support). Only renders items currently visible (visible items only).
 
@@ -113,7 +119,7 @@ function VirtualizedList({ data }) {
 
 ---
 
-## Q45. What is the difference between FlatList and ScrollView?
+## Q45. Optimizing FlatList for large datasets
 
 FlatList is optimized for large lists with virtualization, while ScrollView renders all children and is better for small, static content - FlatList is preferred for dynamic lists. ScrollView renders all children, good for small lists; FlatList uses virtualized rendering, good for large lists.
 
@@ -149,7 +155,7 @@ function FlatListExample({ data }) {
 
 ---
 
-## Q46. How do FlatList optimization props work?
+## Q46. Difference between FlatList and ScrollView
 
 Props like `getItemLayout`, `initialNumToRender`, and `windowSize` optimize FlatList rendering by providing layout information, controlling initial render count, and setting the render window size - these props are key to FlatList optimization. `getItemLayout` provides item dimensions for better performance, `initialNumToRender` controls how many items render initially, `windowSize` sets the render window size.
 
@@ -179,7 +185,7 @@ function OptimizedFlatList({ data }) {
 
 ---
 
-## Q47. How can you prevent unnecessary re-renders in FlatList?
+## Q47. Implementing virtualization in React Native
 
 Use React.memo, useMemo, and useCallback to optimize renderItem functions and prevent unnecessary re-renders - memoization is critical for FlatList performance. React.memo prevents re-renders when props haven't changed, useCallback memoizes callback functions, useMemo memoizes expensive calculations.
 
@@ -203,7 +209,7 @@ const ListItem = React.memo(({ item, onPress }) => {
 
 ---
 
-## Q48. How do you implement pagination with `onEndReached`?
+## Q48. Optimizing `renderItem` functions
 
 Use onEndReached to detect when user reaches the end of the list and load more data - provide smooth pagination experience (user experience). Triggered when user reaches the end (onEndReached).
 
@@ -239,7 +245,7 @@ function PaginatedList() {
 
 ---
 
-## Q49. How does `removeClippedSubviews` improve memory usage?
+## Q49. Implementing pagination with `onEndReached`
 
 removeClippedSubviews removes off-screen views from the native view hierarchy, reducing memory usage - especially useful for large lists with complex items (use cases). Removes off-screen views from native hierarchy (memory reduction).
 
@@ -262,7 +268,7 @@ function MemoryOptimizedList({ data }) {
 
 ---
 
-## Q50. What are the benefits of using Fabric Renderer?
+## Q50. Using `removeClippedSubviews` for performance
 
 Fabric provides synchronous rendering, better performance, and improved debugging capabilities - Fabric is the future of React Native rendering. Enables synchronous UI updates (synchronous rendering), improved rendering performance (better performance).
 
@@ -290,3 +296,9 @@ function FabricComponent() {
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Navigation & Lifecycle](4%29%20Navigation%20%26%20Lifecycle.md)** | **[Next: State Management & Data Handling →](6%29%20State%20Management%20%26%20Data%20Handling.md)**
+
+</div>

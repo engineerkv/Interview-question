@@ -1,8 +1,8 @@
-# 2. React Hooks (Q20–36)
+# 2. React Hooks (Q20-36)
 
 ---
 
-## Q32. What are React Hooks and why were they introduced?
+## Q20. React Hooks and why they were introduced
 
 Hooks let functional components use state and lifecycle features without classes - they solve class component complexity and enable better code reuse through custom hooks. Custom hooks let you share stateful logic across components easily, replacing HOCs and render props.
 
@@ -20,9 +20,15 @@ function Counter() {
 }
 ```
 
+<div align="center">
+
+**[← Previous: React Fundamentals](1%29%20React%20Fundamentals.md)** | **[Next: State Management →](3%29%20State%20Management.md)**
+
+</div>
+
 ---
 
-## Q33. Explain how `useState` works internally.
+## Q21. How `useState` works internally
 
 useState returns state value and setter - React tracks hooks in a linked list per component, maintaining order between renders to ensure consistency. Hooks must be called in same order every render, no conditional hooks.
 
@@ -43,7 +49,7 @@ return (
 
 ---
 
-## Q34. How does `useEffect` work and what is the role of its dependency array?
+## Q22. `useEffect` and how to use it
 
 useEffect runs side effects after render - the dependency array controls when it runs: empty means once on mount, missing means every render, with dependencies means when they change. Effect runs after DOM updates complete, not during render.
 
@@ -61,7 +67,7 @@ return <div>{user ? user.name : 'Loading...'}</div>;
 
 ---
 
-## Q35. What is the difference between `useEffect` and `useLayoutEffect`?
+## Q23. `useEffect` vs `useLayoutEffect`
 
 useEffect runs after paint, useLayoutEffect runs before paint - use useLayoutEffect to prevent visual flicker when you need DOM measurements. useLayoutEffect blocks paint, useEffect doesn't.
 
@@ -80,7 +86,7 @@ useLayoutEffect(() => {
 
 ---
 
-## Q36. What is `useRef` and what are its common use cases?
+## Q24. `useRef` and how to use it
 
 useRef returns a mutable object that persists across renders - use it for DOM access and values that don't need re-renders when they change. Changing `.current` doesn't trigger re-renders, unlike state.
 
@@ -101,7 +107,7 @@ return (
 
 ---
 
-## Q31. What is the difference between refs and state?
+## Q25. Refs vs state in React
 
 State changes trigger re-renders, while refs don't trigger re-renders but persist across renders - making them perfect for values that change but shouldn't update UI. State changes cause UI updates, ref changes don't.
 
@@ -118,7 +124,7 @@ return <div>Renders: {renderCount.current} Count: {count}</div>;
 
 ---
 
-## Q32. What is `useCallback` and when should you use it?
+## Q26. `useCallback` and when to use it
 
 useCallback memoizes a function so it only changes when dependencies change - use it to prevent child re-renders when passing callbacks to memoized components. useCallback memoizes function references to prevent unnecessary child re-renders.
 
@@ -135,7 +141,7 @@ return <Child onIncrement={onIncrement} name={name} />;
 
 ---
 
-## Q33. What is `useMemo` and how does it help with performance?
+## Q27. `useMemo` and when to use it
 
 useMemo caches a computed value, recalculating only when dependencies change - use it for expensive calculations to avoid recomputing on every render. useMemo memoizes expensive calculations to avoid recomputing on every render.
 
@@ -154,7 +160,7 @@ return <ul>{filteredItems.map(i => <li key={i.id}>{i.name}</li>)}</ul>;
 
 ---
 
-## Q34. What is `useReducer` and when is it better than `useState`?
+## Q28. `useReducer` vs `useState`
 
 useReducer manages complex state with a reducer function - better than useState when state logic is complex or involves multiple related values. useReducer manages complex state with predictable updates through reducer pattern.
 
@@ -177,7 +183,7 @@ return <button onClick={() => dispatch({ type: 'increment' })}>Count: {state.cou
 
 ---
 
-## Q35. What is the `useContext` hook and how does it relate to the Context API?
+## Q29. `useContext` and how to use it
 
 useContext reads context values in functional components - it works with Context.Provider to share data without prop drilling through multiple levels. useContext consumes context values without prop drilling through multiple components.
 
@@ -207,7 +213,7 @@ function ThemedButton() {
 
 ---
 
-## Q36. What is `useImperativeHandle` and where is it used?
+## Q30. `useImperativeHandle` and when to use it
 
 useImperativeHandle customizes what ref exposes to parent components - must be used with forwardRef to create controlled APIs for parent components. useImperativeHandle exposes specific methods to parent instead of entire DOM element.
 
@@ -228,7 +234,7 @@ const FancyInput = forwardRef((props, ref) => {
 
 ---
 
-## Q31. What is `useDebugValue` and what is it used for?
+## Q31. `useDebugValue` and when to use it
 
 useDebugValue adds labels to custom hooks in React DevTools - only visible during development, automatically stripped in production builds. useDebugValue displays helpful labels in DevTools for custom hooks.
 
@@ -247,7 +253,7 @@ function useCounter(initialValue = 0) {
 
 ---
 
-## Q32. What are custom hooks and why would you create one?
+## Q32. Creating custom hooks
 
 Custom hooks are functions using other hooks, named with "use" - extract reusable stateful logic to share between components without HOCs or render props. Custom hooks share stateful logic between components without HOCs or render props.
 
@@ -272,7 +278,7 @@ function useApi(url) {
 
 ---
 
-## Q33. What are `useTransition` and `useDeferredValue` used for in concurrent rendering?
+## Q33. `useTransition` and `useDeferredValue`
 
 useTransition marks updates as non-urgent, useDeferredValue defers value updates - both keep UI responsive during heavy updates by prioritizing user interactions. These hooks keep UI responsive during heavy updates by marking them as low priority.
 
@@ -292,7 +298,7 @@ useEffect(() => {
 
 ---
 
-## Q34. What is `useId` and when is it helpful?
+## Q34. `useId` and when to use it
 
 useId generates unique IDs stable across server and client - essential for accessibility and form labels in SSR applications to prevent hydration mismatches. useId generates stable, unique IDs for form labels and ARIA attributes.
 
@@ -312,7 +318,7 @@ return (
 
 ---
 
-## Q35. What is `useSyncExternalStore` and what problem does it solve?
+## Q35. `useSyncExternalStore` and when to use it
 
 useSyncExternalStore subscribes to external stores safely during concurrent rendering - prevents hydration mismatches and ensures consistent reads in React 18+. useSyncExternalStore safely subscribes to external stores during concurrent rendering.
 
@@ -337,7 +343,7 @@ function useLocalStorage(key, defaultValue) {
 
 ---
 
-## Q36. What is `useInsertionEffect` and how does it differ from `useLayoutEffect`?
+## Q36. `useInsertionEffect` and when to use it
 
 useInsertionEffect runs before DOM mutations, earlier than useLayoutEffect - used by CSS-in-JS libraries to inject styles before layout calculations. useInsertionEffect injects styles before DOM mutations to prevent visual flicker.
 
@@ -358,3 +364,9 @@ useInsertionEffect(() => {
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: React Fundamentals](1%29%20React%20Fundamentals.md)** | **[Next: State Management →](3%29%20State%20Management.md)**
+
+</div>

@@ -1,14 +1,15 @@
-# 2. Indexing & Query Optimization (Q11–20)
+# 2. Indexing & Query Optimization (Q17–29)
 
 ---
 
-## Q11. What is an index in MongoDB, and how does it improve performance?
+## Q17. Indexes in MongoDB and why they're important
 
-An index is a B-tree structure that lets MongoDB jump directly to matching keys instead of scanning the whole collection, cutting lookups from O(n) scans to O(log n) seeks.
+An index is a B-tree structure that allows MongoDB to jump directly to matching keys instead of scanning the whole collection, cutting lookups from O(n) scans to O(log n) seeks.
 
 - **Trade-offs**: Indexes speed reads and sorts but consume RAM/disk and slow writes because each insert/update must update the index—only create indexes that match real query patterns.
 
 Example:
+
 ```javascript
 // Create index on name field
 db.users.createIndex({ name: 1 });
@@ -17,15 +18,22 @@ db.users.createIndex({ name: 1 });
 db.users.find({ name: "John" }).explain("executionStats");
 ```
 
+<div align="center">
+
+**[← Previous: MongoDB Fundamentals](1%29%20MongoDB%20Fundamentals.md)** | **[Next: Aggregation Framework →](3%29%20Aggregation%20Framework.md)**
+
+</div>
+
 ---
 
-## Q12. What types of indexes does MongoDB provide (single, compound, multikey, text, geo, TTL, partial)?
+## Q18. Difference between single field and compound indexes
 
-MongoDB offers single-field, compound, multikey (arrays), text search, geospatial, hashed, TTL, sparse, and partial indexes so you can tailor the data structure to your workload.
+Single-field indexes index one field (e.g., `{email: 1}`), while compound indexes combine multiple fields in one structure (e.g., `{name: 1, age: -1}`) and can satisfy queries on the leftmost prefix.
 
-- **Trade-offs**: Specialized indexes solve niche problems (full-text, geo, expiring docs) but each one increases storage and slows writes; audit unused indexes to avoid bloat.
+- **Trade-offs**: Single-field indexes are simple and fast for single-field queries, but compound indexes are more efficient for multi-field queries and sorts. However, compound indexes are larger, slower to maintain, and only help when queries use the leftmost prefix—order matters.
 
 Example:
+
 ```javascript
 // Single field index
 db.users.createIndex({ email: 1 });
@@ -36,31 +44,14 @@ db.users.createIndex({ name: 1, age: -1 });
 
 ---
 
-## Q13. What is a compound index, and how does field order affect queries?
+## Q19. Multikey indexes and when to use them
 
-A compound index stores multiple fields in one key; MongoDB can only use it when queries reference the leftmost prefix, so order must match your most common filters.
+Multikey indexes automatically index each element in an array field, allowing queries to match values inside arrays efficiently—MongoDB creates them automatically when you index an array field.
 
-- **Trade-offs**: Place equality and highly selective fields first to maximize usefulness, but remember compound indexes are larger and only help for the prefixes you plan for.
-
-Example:
-```javascript
-// Create compound index
-db.users.createIndex({ name: 1, age: -1, city: 1 });
-
-// These queries can use the index
-db.users.find({ name: "John" });
-db.users.find({ name: "John", age: { $gte: 25 } });
-```
-
----
-
-## Q14. What is a multikey index, and when is it automatically created?
-
-Whenever you index a field that contains arrays, MongoDB automatically converts the index to multikey, indexing each array element so queries can match inside arrays.
-
-- **Trade-offs**: Multikey indexes are vital for arrays but become larger and slower than scalar indexes, and MongoDB forbids compound indexes with more than one array field.
+- **Trade-offs**: Multikey indexes are essential for array queries but become larger than scalar indexes and slower to maintain. MongoDB forbids compound indexes with more than one array field, so design carefully when mixing arrays with other fields.
 
 Example:
+
 ```javascript
 // Document with array field
 {
@@ -68,109 +59,250 @@ Example:
   name: "John",
   hobbies: ["reading", "gaming", "cooking"]
 }
+
+// Create multikey index (automatic when indexing array)
+db.users.createIndex({ hobbies: 1 });
+
+// Query can use multikey index
+db.users.find({ hobbies: "gaming" });
 ```
 
 ---
 
-## Q15. What is a covered query, and how can you spot one with `explain()`?
+## Q20. Text indexes and how to create them
 
-A query is covered when the index contains every field needed for the filter and projection, so MongoDB never reads the documents—`explain("executionStats")` shows `indexOnly: true`.
+Text indexes enable full-text search across string fields, supporting language-specific stemming and stop words—create them with `"text"` type and use `$text` operator for searches.
 
-- **Trade-offs**: Covered queries are the fastest possible, but you must design indexes that include projection fields (or exclude `_id`); otherwise MongoDB has to fetch documents.
+- **Trade-offs**: Text indexes enable powerful search capabilities but are large, slow to build, and only one text index per collection is allowed. They also ignore case and diacritics by default, which may not match all use cases.
 
 Example:
+
+```javascript
+// Create text index on single field
+db.articles.createIndex({ title: "text" });
+
+// Create text index on multiple fields
+db.articles.createIndex({ title: "text", content: "text" });
+
+// Search using text index
+db.articles.find({ $text: { $search: "mongodb tutorial" } });
+```
+
+---
+
+## Q21. Geospatial indexes and how to use them
+
+Geospatial indexes (2dsphere for Earth-like coordinates, 2d for flat planes) enable location-based queries like finding points within a radius or near a location using `$near`, `$geoWithin`, and `$geoIntersects`.
+
+- **Trade-offs**: Geospatial indexes enable powerful location queries but require coordinate data in GeoJSON or legacy coordinate pairs. 2dsphere indexes are more accurate for real-world distances, while 2d is faster for flat surfaces—choose based on your use case.
+
+Example:
+
+```javascript
+// Create 2dsphere index
+db.places.createIndex({ location: "2dsphere" });
+
+// Document with GeoJSON location
+{
+  name: "Central Park",
+  location: { type: "Point", coordinates: [-73.97, 40.78] }
+}
+
+// Find places near a location
+db.places.find({
+  location: {
+    $near: {
+      $geometry: { type: "Point", coordinates: [-73.98, 40.77] },
+      $maxDistance: 1000  // meters
+    }
+  }
+});
+```
+
+---
+
+## Q22. Covered query and how to create one
+
+A covered query is satisfied entirely by the index without reading documents—all fields in the filter, sort, and projection must be in the index, and `_id` must be excluded from projection (unless it's in the index).
+
+- **Trade-offs**: Covered queries are the fastest possible reads since they avoid document fetches, but you must design indexes that include all needed fields. This can lead to larger indexes, so balance coverage with index size and write performance.
+
+Example:
+
 ```javascript
 // Create compound index
 db.users.createIndex({ name: 1, age: 1, email: 1 });
 
-// Covered query - only uses index
+// Covered query - only uses index (no document fetch)
 db.users.find(
   { name: "John", age: { $gte: 25 } },
   { name: 1, age: 1, email: 1, _id: 0 }
 );
+
+// Verify with explain
+db.users.find({ name: "John" }, { name: 1, age: 1, _id: 0 })
+  .explain("executionStats");  // Check for indexOnly: true
 ```
 
 ---
 
-## Q16. What’s the difference between ascending and descending indexes?
+## Q23. Difference between ascending and descending indexes
 
-Index keys can be ascending (1) or descending (-1); MongoDB uses the stored order to satisfy sorts without in-memory work, especially in compound indexes with mixed directions.
+Ascending indexes (1) store keys in ascending order, while descending indexes (-1) store them in reverse—MongoDB can use either direction for equality queries, but sort direction matters for efficient sorting.
 
-- **Trade-offs**: Match index direction to how you sort—misaligned sorts may trigger an extra SORT stage and more memory usage, especially on large result sets.
+- **Trade-offs**: For single-field queries, direction rarely matters, but for compound indexes with sorts, matching index direction to sort order avoids in-memory sorting. Mixed-direction compound indexes (e.g., `{name: 1, age: -1}`) can satisfy both ascending and descending sorts efficiently.
 
 Example:
+
 ```javascript
 // Ascending index
 db.users.createIndex({ age: 1 });
+db.users.find().sort({ age: 1 });  // Efficient
 
 // Descending index
 db.users.createIndex({ age: -1 });
+db.users.find().sort({ age: -1 });  // Efficient
+
+// Compound index with mixed directions
+db.users.createIndex({ name: 1, age: -1 });
+db.users.find().sort({ name: 1, age: -1 });  // Efficient
 ```
 
 ---
 
-## Q17. What is index intersection, and how does MongoDB use multiple indexes?
+## Q24. Index intersection and how it works
 
-Index intersection lets MongoDB combine the results of multiple single-field indexes (e.g., `{name:1}` and `{age:1}`) to satisfy a query without maintaining every possible compound index.
+Index intersection allows MongoDB to combine results from multiple single-field indexes to satisfy a query, avoiding the need for a compound index when queries use different field combinations.
 
-- **Trade-offs**: Intersection can rescue queries when a perfect compound index doesn’t exist, but it’s usually slower than a dedicated compound index and can use more memory.
+- **Trade-offs**: Intersection can rescue queries when a perfect compound index doesn't exist, but it's usually slower than a dedicated compound index and uses more memory. MongoDB only uses intersection for equality predicates, not ranges or sorts—prefer compound indexes for common query patterns.
 
 Example:
 
 ```javascript
+// Create separate single-field indexes
 db.users.createIndex({ name: 1 });
 db.users.createIndex({ age: 1 });
-db.users.find({ name: "John", age: { $gte: 30 } }).explain();
+
+// Query can use index intersection
+db.users.find({ name: "John", age: 30 }).explain();
+// MongoDB may intersect both indexes
+
+// Better: Create compound index for this pattern
+db.users.createIndex({ name: 1, age: 1 });
 ```
 
 ---
 
-## Q18. What is a TTL (Time-To-Live) index, and when should you apply it?
+## Q25. TTL indexes and how to use them
 
-TTL indexes automatically delete documents after a specified age by watching a Date field—ideal for session tokens, logs, cache entries, or any data that expires naturally.
+TTL (Time-To-Live) indexes automatically delete documents after a specified age by monitoring a Date field—ideal for session tokens, logs, cache entries, or any data that expires naturally.
 
-- **Trade-offs**: Cleanup runs every ~60 seconds and only works on Date fields; don’t rely on TTL when you might need data later, because deletions are irreversible.
+- **Trade-offs**: Cleanup runs every ~60 seconds and only works on Date fields; don't rely on TTL when you might need data later, because deletions are irreversible. TTL indexes are single-field indexes, so they can't be combined with other fields in compound indexes.
 
 Example:
+
 ```javascript
 // Create TTL index (expires after 1 hour)
 db.sessions.createIndex(
   { createdAt: 1 },
   { expireAfterSeconds: 3600 }
 );
+
+// Document will be deleted after 1 hour
+{
+  _id: ObjectId("..."),
+  sessionId: "abc123",
+  createdAt: new Date()  // TTL field
+}
 ```
 
 ---
 
-## Q19. What does the `$hint` operator do, and when should you use it?
+## Q26. Using `$hint` and `explain()` to optimize queries
 
-`$hint` forces MongoDB to use a specific index instead of relying on the planner—handy for testing or working around bad plan choices, but dangerous if data patterns change.
+`explain()` reveals whether a query used an index or collection scan, how many docs it examined, and which stages (IXSCAN, FETCH, SORT) were executed so you can tune queries. `$hint` forces MongoDB to use a specific index when the query planner might choose a different one, useful when you know a particular index performs better.
 
-- **Trade-offs**: A hint can stabilize performance but can also lock you into a poor plan later; prefer fixing index design or analyzing plans before shipping hints to production.
-
-Example:
-```javascript
-// Force use of specific index
-db.users.find({ name: "John", age: 25 })
-  .hint({ name: 1, age: 1 });
-
-// Force collection scan (no index)
-db.users.find({ name: "John" }).hint({ $natural: 1 });
-```
-
----
-
-## Q20. How do you use `explain()` to analyze query performance and execution plans?
-
-`explain()` reveals whether a query used an index or collection scan, how many docs it examined, and which stages (IXSCAN, FETCH, SORT) were executed so you can tune queries.
-
-- **Trade-offs**: `explain("executionStats")` gives real numbers but actually runs the query; `allPlansExecution` helps catch unstable plans but is heavier—use carefully on production data.
+- **Trade-offs**: `explain("executionStats")` gives real numbers but actually runs the query, and `allPlansExecution` helps catch unstable plans but is heavier—use carefully on production data. `$hint` can improve performance when the planner picks wrong, but the catch is it bypasses MongoDB's automatic index selection, so you must manually update hints if indexes change—avoid using it unless you've proven the planner is wrong.
 
 Example:
+
 ```javascript
 // Basic explain
 db.users.find({ name: "John" }).explain();
 
 // Detailed execution stats
 db.users.find({ name: "John" }).explain("executionStats");
+
+// Force specific index with $hint
+db.users.find({ name: "John", age: 30 }).hint({ name: 1, age: 1 });
+
+// Check which index was used
+db.users.find({ name: "John" }).hint({ name: 1 }).explain("executionStats");
 ```
+
+---
+
+## Q27. Creating indexes in Mongoose schemas
+
+Mongoose allows you to define indexes directly in schema definitions using the `index` option or `schema.index()`, and automatically creates them when the model is first used.
+
+- **Trade-offs**: Schema-level indexes are declarative and easy to maintain, but the catch is they're created on every application startup which can slow initial connections. Use `autoIndex: false` in production to disable automatic index creation, and create indexes manually or via migrations—always monitor index creation time on large collections.
+
+Example:
+
+```javascript
+const userSchema = new mongoose.Schema({
+  email: { type: String, required: true, unique: true, index: true },
+  name: { type: String, index: true },
+  age: { type: Number }
+});
+userSchema.index({ name: 1, age: -1 }); // Compound index
+userSchema.index({ email: 'text' }); // Text index
+```
+
+---
+
+## Q28. Mongoose query methods and optimization
+
+Mongoose provides chainable query methods like `find()`, `where()`, `sort()`, `limit()`, `select()`, and `populate()` that build queries lazily and execute only when you call `.exec()` or use `await`.
+
+- **Trade-offs**: Chainable queries are readable and composable, but the catch is they're lazy (don't execute until awaited), which can lead to confusion. Use `select()` to limit fields (projection), `lean()` to return plain JavaScript objects (faster but no Mongoose features), and `explain()` to analyze query performance—always use indexes for filtered and sorted queries.
+
+Example:
+
+```javascript
+const users = await User.find({ age: { $gte: 18 } })
+  .select('name email')
+  .sort({ age: -1 })
+  .limit(10)
+  .lean(); // Returns plain objects, faster
+const plan = await User.find({ age: { $gte: 18 } })
+  .explain('executionStats'); // Query analysis
+```
+
+---
+
+## Q29. Mongoose query middleware and hooks
+
+Mongoose provides pre and post hooks for queries (`find`, `findOne`, `update`, `delete`) that allow you to intercept and modify queries or results before and after execution.
+
+- **Trade-offs**: Query hooks enable cross-cutting concerns like logging, caching, or data transformation, but the catch is they add overhead and can make debugging harder if overused. Use them sparingly for common operations like soft deletes or audit logging—avoid complex logic in hooks that could slow down queries.
+
+Example:
+
+```javascript
+userSchema.pre('find', function() {
+  this.where({ deleted: { $ne: true } }); // Soft delete filter
+});
+userSchema.post('find', function(docs) {
+  console.log(`Found ${docs.length} users`);
+});
+```
+
+---
+
+<div align="center">
+
+**[← Previous: MongoDB Fundamentals](1%29%20MongoDB%20Fundamentals.md)** | **[Next: Aggregation Framework →](3%29%20Aggregation%20Framework.md)**
+
+</div>

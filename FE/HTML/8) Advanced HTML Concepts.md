@@ -1,8 +1,14 @@
-# 8. Advanced HTML Concepts (Q102–111)
+# 8. Advanced HTML Concepts (Q102–110)
+
+<div align="center">
+
+**[← Previous: Performance & SEO](7%29%20Performance%20%26%20SEO.md)** | **[Next: Question List →](question.md)**
+
+</div>
 
 ---
 
-## Q102. What is the difference between HTML and XML?
+## Q102. HTML vs XML
 
 HTML is a markup language for web pages with predefined tags, while XML is a markup language for data with custom tags - HTML is display-focused, XML is data-focused. HTML has predefined semantic tags, XML allows custom tag definitions.
 
@@ -33,7 +39,7 @@ Example:
 
 ---
 
-## Q103. How do you create custom attributes?
+## Q103. Creating custom attributes
 
 Use `data-*` attributes for custom data storage - this is the standard way to add custom attributes, data attributes are the preferred way to add custom metadata. `data-*` attributes are the standard way, validated by HTML validators.
 
@@ -49,7 +55,7 @@ Example:
 
 ---
 
-## Q104. What is the purpose of the `<template>` element?
+## Q104. Purpose of the `<template>` element
 
 `<template>` defines reusable HTML content that isn't rendered until cloned and inserted into the document - template element is essential for modern web components. Template content isn't rendered initially, use `content.cloneNode(true)` to clone.
 
@@ -75,7 +81,7 @@ document.body.appendChild(clone);
 
 ---
 
-## Q105. How do you create accessible SPAs?
+## Q105. Creating accessible SPAs
 
 Use proper HTML structure, ARIA attributes, and focus management for accessible SPAs - accessible SPAs require focus management and ARIA attributes. Use proper landmark roles, implement focus management, provide skip links.
 
@@ -112,7 +118,7 @@ Example:
 
 ---
 
-## Q106. How do you include CSS in HTML?
+## Q106. Including CSS in HTML
 
 CSS can be included via external files, internal styles, inline styles, or imported stylesheets - external stylesheets are preferred for maintainability. External (best for maintainability), internal (page-specific), inline (highest specificity).
 
@@ -134,7 +140,7 @@ Example:
 
 ---
 
-## Q107. How do you create responsive layouts?
+## Q107. Creating responsive layouts
 
 Use flexible HTML structure with CSS Grid, Flexbox, and responsive techniques for different screen sizes - responsive design requires semantic HTML and CSS techniques. Use semantic HTML structure, implement CSS Grid and Flexbox.
 
@@ -172,28 +178,7 @@ Example:
 
 ---
 
-## Q108. What is the purpose of `<details>` and `<summary>`?
-
-`<details>` creates collapsible content sections, while `<summary>` provides the clickable header for the details - details/summary is native HTML, no JavaScript needed. Native collapsible functionality without JavaScript.
-
-- **Trade-offs**: The catch is can be nested for complex structures, accessible by default - use `open` attribute for default expanded state. details/summary is native HTML, no JavaScript needed, but watch out - good for FAQs, documentation, or any expandable content.
-
-Example:
-
-```html
-<details>
-  <summary>Click to expand</summary>
-  <p>This content is hidden by default and can be toggled.</p>
-</details>
-<details open>
-  <summary>Already expanded</summary>
-  <p>This content is visible by default.</p>
-</details>
-```
-
----
-
-## Q109. How do you create data visualizations?
+## Q108. Creating data visualizations
 
 Use proper HTML structure, ARIA attributes, and alternative text to make charts and graphs accessible - accessible visualizations require data tables and ARIA. Provide data tables for screen readers, use ARIA labels and descriptions.
 
@@ -209,7 +194,6 @@ Example:
   </p>
   <div class="chart">
     <div class="bar" style="height: 50%;" aria-label="Q1: $50,000"></div>
-  </div>
   <table>
     <thead>
       <tr>
@@ -229,7 +213,7 @@ Example:
 
 ---
 
-## Q110. How do you implement internationalization?
+## Q109. Implementing internationalization
 
 Use proper language attributes, character encoding, and direction attributes for international content - internationalization requires proper language and direction attributes. Use `lang` attribute for language, `dir` attribute for text direction (RTL).
 
@@ -264,7 +248,7 @@ Example:
 
 ---
 
-## Q111. How do you create interactive components?
+## Q110. Creating interactive components
 
 Use proper HTML semantics, ARIA attributes, and keyboard navigation for accessible interactive elements - accessible components require ARIA, keyboard support, and proper semantics. Use appropriate ARIA roles, implement keyboard navigation, provide clear labels.
 
@@ -281,4 +265,8 @@ Example:
 <button onclick="openModal()" aria-haspopup="dialog">Open Modal</button>
 ```
 
----
+<div align="center">
+
+**[← Previous: Performance & SEO](7%29%20Performance%20%26%20SEO.md)** | **[Next: Question List →](question.md)**
+
+</div>

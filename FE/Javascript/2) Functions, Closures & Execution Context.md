@@ -1,10 +1,16 @@
 # 2. Functions, Closures & Execution Context (Q16–25)
 
+<div align="center">
+
+**[← Previous: Core JavaScript Fundamentals](1%29%20Core%20JavaScript%20Fundamentals.md)** | **[Next: Objects, Prototypes & Inheritance →](4%29%20Objects%2C%20Prototypes%20%26%20Inheritance.md)**
+
+</div>
+
 ---
 
-## Q16. What is a closure?
+## Q16. Closures in JavaScript
 
-A closure lets an inner function access variables from its outer function, even after the outer function finishes. This happens because the inner function "closes over" the outer scope's variables, keeping them alive in memory.
+A closure allows an inner function to access variables from its outer function, even after the outer function finishes. This happens because the inner function "closes over" the outer scope's variables, keeping them alive in memory.
 
 - **Trade-offs**: Variables are captured by reference, not copied - all closures share the same variable, which is efficient but can cause surprise bugs in loops. Watch out for stale closures in loops - use `let` instead of `var` to avoid this. Memory persists while references live, and gets garbage collected when no references remain.
 
@@ -21,7 +27,7 @@ inc(); // 2
 
 ---
 
-## Q17. What are higher-order functions?
+## Q17. Higher-order functions
 
 A higher-order function either takes functions as input or returns a function - this enables composition, callbacks, and reusable control flow patterns. They abstract iteration and effects, like map, filter, and reduce.
 
@@ -41,7 +47,7 @@ eightTimes(1); // 8
 
 ---
 
-## Q18. What is function currying and how do you implement it?
+## Q18. Function currying: what it is and how to implement it
 
 Function currying breaks a function that takes multiple arguments into a chain of functions, where each function takes one argument at a time. This enables partial application and composition - you can call it like `curry(sum3)(1)(2)(3)` instead of `sum3(1, 2, 3)`.
 
@@ -58,7 +64,7 @@ curry(sum3)(1)(2)(3); // 6
 
 ---
 
-## Q19. What are IIFEs (Immediately Invoked Function Expressions)?
+## Q19. IIFEs (Immediately Invoked Function Expressions)
 
 An IIFE is a function that runs right away and creates its own private scope - it's useful for avoiding variable leaks to the outer scope. You wrap a function in parentheses and call it immediately, like `(() => { ... })()`.
 
@@ -76,7 +82,7 @@ api.get(); // 42
 
 ---
 
-## Q20. How does the `this` keyword behave in different contexts?
+## Q20. How `this` keyword behaves in different contexts
 
 The `this` keyword depends on how a function is called, not where it's defined - it's dynamic binding. Arrow functions keep `this` from where they were written (lexical binding), so they ignore `call`/`bind` for `this`.
 
@@ -94,7 +100,7 @@ bound(); // 20
 
 ---
 
-## Q21. What is the call stack?
+## Q21. Call stack in JavaScript
 
 The call stack is how JavaScript keeps track of which function is running and where to return after each one finishes - it works in Last In, First Out (LIFO) order. It pushes functions when called and pops them when done.
 
@@ -111,7 +117,7 @@ one(); // Output: Three, Two, One
 
 ---
 
-## Q22. What happens in the creation and execution phases of JavaScript?
+## Q22. Creation and execution phases in JavaScript
 
 JavaScript runs code in two main phases: Creation phase (memory is set up) and Execution phase (code actually runs line by line). In creation, variables are set to `undefined` and functions get their full definitions - this explains hoisting behavior.
 
@@ -127,9 +133,9 @@ greet();
 
 ---
 
-## Q23. What is the difference between synchronous and asynchronous execution?
+## Q23. Synchronous vs asynchronous execution
 
-Synchronous code runs one line at a time, blocking the next until the current finishes. Asynchronous code lets other tasks run while waiting - it doesn't block execution, and the event loop handles async tasks via callback/microtask queues.
+Synchronous code runs one line at a time, blocking the next until the current finishes. Asynchronous code allows other tasks to run while waiting - it doesn't block execution, and the event loop handles async tasks via callback/microtask queues.
 
 - **Trade-offs**: Synchronous is sequential and predictable, but can block the UI. Asynchronous is non-blocking and great for API calls, file reads, timers, and UI rendering, but the tricky part is async code doesn't finish before the next line runs - async tasks move to queues until the call stack is empty.
 
@@ -144,7 +150,7 @@ console.log("End");
 
 ---
 
-## Q24. How does lexical environment relate to closures?
+## Q24. How lexical environment relates to closures
 
 A lexical environment remembers variables in each scope - each scope has an environment record and outer link, and variables are looked up through the outer links. Closures keep access to these variables through the environment chain, even after the outer function finishes.
 
@@ -162,7 +168,7 @@ add5(2); // 7
 
 ---
 
-## Q25. What is the difference between function declaration and arrow function `this` binding?
+## Q25. Function declaration vs arrow function `this` binding
 
 Regular functions have `this` that changes based on how you call them (dynamic binding) - method call, `call`/`apply`/`bind`, or constructor. Arrow functions keep `this` from where they were written (lexical binding), so `bind` affects regular functions but not arrows.
 
@@ -181,3 +187,10 @@ obj.arrow()(); // 1
 ```
 
 ---
+<div align="center">
+
+**[← Previous: Core JavaScript Fundamentals](1%29%20Core%20JavaScript%20Fundamentals.md)** | **[Next: Objects, Prototypes & Inheritance →](4%29%20Objects%2C%20Prototypes%20%26%20Inheritance.md)**
+
+</div>
+
+**[← Previous Section](1%29%20Core%20JavaScript%20Fundamentals.md)** | **[Next Section →](4%29%20Objects%2C%20Prototypes%20%26%20Inheritance.md)**

@@ -1,12 +1,18 @@
-# 10. Data & Caching Architecture (Q121–138)
+# 10. Data & Caching Architecture (Q118–131)
+
+<div align="center">
+
+**[← Previous: Real-time Communication Protocols](9%29%20Real-time%20Communication%20Protocols.md)** | **[Next: Security →](11%29%20Security.md)**
+
+</div>
 
 ---
 
-## Q121. What is data normalization in frontend apps and why is it important?
+## Q118. Data normalization in frontend apps and why it's important
 
-Normalization flattens nested API responses into entity maps keyed by IDs, storing relationships by references - it prevents duplication, simplifies updates, and avoids inconsistent UI state. Normalize at the boundary: on fetch or in state adapters.
+Normalization flattens nested API responses into entity maps keyed by IDs, storing relationships by references—it prevents duplication, simplifies updates, and avoids inconsistent UI state. Normalize at the boundary: on fetch or in state adapters.
 
-- **Trade-offs**: Eliminates duplication, enabling single-source-of-truth updates - improves rendering performance (smaller diffs, memoized selectors). Works well with entity adapters (Redux Toolkit `createEntityAdapter`) - use selectors to re-compose nested shapes for views.
+- **Trade-offs**: Eliminates duplication, enabling single-source-of-truth updates—improves rendering performance (smaller diffs, memoized selectors). Works well with entity adapters (Redux Toolkit `createEntityAdapter`)—use selectors to re-compose nested shapes for views.
 
 Example:
 
@@ -37,227 +43,44 @@ const entities = {
 
 ---
 
-## Q122. How does normalization improve efficiency and maintainability?
+## Q119. Local Storage
 
-It reduces redundant data, minimizes re-renders, and simplifies updates by changing a single entity rather than multiple locations holding the same data. Normalization reduces memory usage and improves performance.
+LocalStorage is a synchronous key-value storage API (~5–10MB per origin), good for small, non-sensitive preferences and settings. It persists across browser sessions and is origin-scoped.
 
-- **Trade-offs**: Fewer state writes → fewer component updates - predictable updates: IDs + references make diffs trivial. Easier cache invalidation: invalidate by entity type/id - single update propagates to all references automatically.
-
-Example:
-
-```javascript
-dispatch(usersSlice.actions.userUpdated({ id: 'user-1', changes: { name: 'Ada Lovelace' } }));
-```
-
----
-
-## Q123. Local state vs global state: when to use each?
-
-Local state (component-level) is ideal for UI concerns (inputs, toggles) - global state manages cross-cutting concerns (auth, user profile), shared data (entities), and server cache. Start with local state, move to global only when needed.
-
-- **Trade-offs**: Prefer local state by default; promote to global only when truly shared - server cache (React Query/RTK Query) is not the same as app state. Avoid over-globalizing (causes needless re-renders and coupling) - use local state for UI, global state for business logic and shared data.
-
-Example:
-
-```javascript
-function SearchBox() {
-  const [query, setQuery] = useState('');
-  return <input value={query} onChange={e => setQuery(e.target.value)} />;
-}
-const user = useSelector(state => state.auth.user);
-```
-
----
-
-## Q124. Pros and cons of state management libraries (Redux, Vuex, etc.)
-
-Libraries provide structure, tooling (DevTools), and performance patterns (memoization, entity adapters), but add boilerplate and learning curve. Choose based on app complexity and team preferences.
-
-- **Trade-offs**: Use RTK/RTK Query to reduce boilerplate, enforce good patterns - choose simpler stores (Zustand, Jotai) for small apps. Keep server cache in a dedicated tool (React Query/RTK Query) - DevTools provide time-travel debugging and state inspection.
-
-Example:
-
-```javascript
-const usersAdapter = createEntityAdapter();
-const usersSlice = createSlice({
-  name: 'users',
-  initialState: usersAdapter.getInitialState(),
-  reducers: {
-    userAdded: usersAdapter.addOne,
-    userUpdated: usersAdapter.updateOne,
-    usersReceived: usersAdapter.setAll
-  }
-});
-```
-
----
-
-## Q125. What is HTTP caching and why does it matter?
-
-HTTP caching stores responses to serve subsequent requests faster - it reduces latency, bandwidth, and server load. Caching is crucial for performance at scale.
-
-- **Trade-offs**: Leverage immutable asset versioning: `/main.8fd2a.js` → `Cache-Control: max-age=31536000, immutable` - use `ETag`/`If-None-Match` for validation. Prefer CDN caching for public GET endpoints - HTTP caching reduces server load and improves user experience.
-
-Example:
-
-```http
-Cache-Control: public, max-age=3600
-ETag: "abc123"
-Last-Modified: Wed, 21 Oct 2025 07:28:00 GMT
-```
-
----
-
-## Q126. What do common caching headers do?
-
-They control freshness and validation of cached responses - caching headers control browser and CDN behavior.
-
-- **Trade-offs**: Prefer `Cache-Control` over `Expires` - combine `stale-while-revalidate` for better UX. Use validators to avoid transferring large payloads when unchanged - `stale-while-revalidate` serves stale content while fetching fresh data.
-
-Example:
-
-```http
-Cache-Control: max-age=600, stale-while-revalidate=60
-ETag: "v1"
-If-None-Match: "v1"
-Last-Modified: Wed, 21 Oct 2025 07:28:00 GMT
-If-Modified-Since: Wed, 21 Oct 2025 07:28:00 GMT
-```
-
----
-
-## Q127. How do you implement API caching strategies?
-
-Strategies balance freshness and speed: cache-first (fast), network-first (fresh), stale-while-revalidate (best perceived performance). Choose strategy based on data freshness requirements.
-
-- **Trade-offs**: For public data: cache-first/SWR, for user-specific data: network-first with background refresh - tune `staleTime` based on data volatility. Use stale-while-revalidate for best perceived performance - cache-first for static data, network-first for dynamic data.
-
-Example:
-
-```javascript
-const { data, isFetching } = useQuery(['posts'], fetchPosts, {
-  staleTime: 60_000,
-  cacheTime: 5 * 60_000,
-});
-```
-
----
-
-## Q128. Cache invalidation and expiration: how to approach?
-
-Expiration sets time-based freshness; invalidation proactively removes/updates cache when data changes. Invalidate only what changed, not everything.
-
-- **Trade-offs**: Prefer tag-based invalidation to target minimal subsets - emit domain events to trigger invalidations after mutations. Avoid global cache clears (hurts UX) - tag-based invalidation allows fine-grained cache control.
-
-Example:
-
-```javascript
-queryClient.invalidateQueries(['posts']);
-api.util.invalidateTags([{ type: 'Post', id: 'LIST' }]);
-```
-
----
-
-## Q129. What is a service worker and how can it be used for caching?
-
-A Service Worker is a background script that intercepts network requests, enabling offline caching, background sync, and push notifications. Service workers run in background, separate from main thread.
-
-- **Trade-offs**: Choose strategy per route (HTML: network-first; assets: cache-first) - version and cleanup old caches on `activate`. Use Workbox to manage complex strategies safely - service workers enable offline functionality and background sync.
-
-Example:
-
-```javascript
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open('app-v1').then((cache) => cache.addAll([
-      '/', '/index.html', '/styles.css', '/main.js'
-    ]))
-  );
-});
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
-  );
-});
-```
-
----
-
-## Q130. Service worker caching vs traditional browser caching
-
-Browser caching obeys HTTP headers, SW caching gives app-controlled policies independent of headers and supports offline. Service workers enable offline-first applications.
-
-- **Trade-offs**: SW can cache POST results and custom responses - beware of stale HTML, use network-first for documents. Always handle SW updates to avoid stuck old versions - service workers provide programmatic cache control.
-
-Example:
-
-```javascript
-workbox.routing.registerRoute(
-  ({ request }) => request.destination === 'document',
-  new workbox.strategies.NetworkFirst({
-    cacheName: 'pages',
-    plugins: [new workbox.expiration.ExpirationPlugin({ maxEntries: 50 })]
-  })
-);
-```
-
----
-
-## Q131. Designing SW caching strategies (precache vs runtime)
-
-Precache static assets at build; runtime-cache dynamic requests with strategy per route. Precache for static assets, runtime cache for dynamic content.
-
-- **Trade-offs**: Documents/network-first; APIs/SWR or network-first; images/cache-first; fonts/cache-first + long TTL - use revisioned filenames to enable immutable caching. Precache critical assets at build time - runtime caching handles dynamic requests with appropriate strategies.
-
-Example:
-
-```javascript
-workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
-workbox.routing.registerRoute(
-  ({ request }) => request.destination === 'image',
-  new workbox.strategies.CacheFirst({
-    cacheName: 'images',
-    plugins: [new workbox.expiration.ExpirationPlugin({ maxEntries: 200, maxAgeSeconds: 7*24*3600 })]
-  })
-);
-```
-
----
-
-## Q132. What is LocalStorage and when to use it?
-
-Key-value synchronous storage (~5–10MB), good for small, non-sensitive preferences - blocks main thread on large operations. LocalStorage is synchronous, so keep data small.
-
-- **Trade-offs**: Not for secrets (readable by any script on origin) - avoid large writes/reads (blocks). Prefer JSON.stringify but handle errors - use for small, non-sensitive user preferences.
+- **Trade-offs**: Not for secrets (readable by any script on origin)—avoid large writes/reads (blocks main thread). Prefer JSON.stringify but handle errors—use for small, non-sensitive user preferences like theme, language, or UI state. Keep data under 5MB to avoid performance issues.
 
 Example:
 
 ```javascript
 localStorage.setItem('theme', 'dark');
+localStorage.setItem('userPrefs', JSON.stringify({ lang: 'en', notifications: true }));
 const theme = localStorage.getItem('theme') || 'light';
+const prefs = JSON.parse(localStorage.getItem('userPrefs') || '{}');
 ```
 
 ---
 
-## Q133. Session Storage vs LocalStorage: differences and use cases
+## Q120. Session Storage
 
-Session Storage persists per-tab until closed; LocalStorage persists across sessions - both are synchronous and origin-scoped. Choose based on persistence requirements.
+Session Storage persists per-tab until the tab is closed; it's synchronous and origin-scoped like LocalStorage but with tab-level isolation. Use it for temporary, tab-specific data.
 
-- **Trade-offs**: Use Session Storage for per-tab state (wizards, multi-tab isolation) - use LocalStorage for stable preferences. Both are synchronous and origin-scoped - Session Storage is cleared when tab closes, LocalStorage persists.
+- **Trade-offs**: Use Session Storage for per-tab state (wizards, multi-tab isolation, draft forms)—use LocalStorage for stable preferences. Both are synchronous and origin-scoped—Session Storage is cleared when tab closes, LocalStorage persists. Perfect for preventing data leakage between tabs.
 
 Example:
 
 ```javascript
-sessionStorage.setItem('draft', '...');
+sessionStorage.setItem('draft', JSON.stringify({ title: '...', content: '...' }));
+sessionStorage.setItem('wizardStep', '3');
+const draft = JSON.parse(sessionStorage.getItem('draft') || 'null');
 ```
 
 ---
 
-## Q134. Cookies: storage usage and security
+## Q121. Cookie Storage
 
-Cookies store small pieces of data sent with every HTTP request - use for session IDs, not bulk data. Use cookies for session management, not large data.
+Cookies store small pieces of data sent with every HTTP request—use for session IDs and authentication tokens, not bulk data. Cookies are automatically sent with requests, making them ideal for server-side session management.
 
-- **Trade-offs**: Use HttpOnly + Secure + SameSite to protect against XSS/CSRF - keep cookies small (<4KB) to avoid bloat on every request. Prefer server-managed, rotating session tokens - cookies are automatically sent with every request.
+- **Trade-offs**: Use HttpOnly + Secure + SameSite to protect against XSS/CSRF—keep cookies small (<4KB) to avoid bloat on every request. Prefer server-managed, rotating session tokens—cookies are automatically sent with every request, so minimize their size and number.
 
 Example:
 
@@ -265,13 +88,18 @@ Example:
 Set-Cookie: sid=abc123; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=1209600
 ```
 
+```javascript
+// Reading cookies (if not HttpOnly)
+document.cookie.split('; ').find(row => row.startsWith('theme='));
+```
+
 ---
 
-## Q135. What is IndexedDB and when to use it?
+## Q122. IndexedDB
 
-IndexedDB is an async, transactional NoSQL DB in the browser, suitable for large, structured data and offline apps. Use for large data that needs persistence and offline access.
+IndexedDB is an async, transactional NoSQL database in the browser, suitable for large, structured data and offline apps. It supports indexes, transactions, and can store hundreds of MBs of data.
 
-- **Trade-offs**: Best for offline-first, large datasets, complex queries - wrap with libraries (idb) for ergonomic API. Consider storage quotas and eviction policies - IndexedDB supports transactions and indexes for efficient queries.
+- **Trade-offs**: Best for offline-first apps, large datasets, complex queries—wrap with libraries (idb, Dexie.js) for ergonomic API. Consider storage quotas and eviction policies—IndexedDB supports transactions and indexes for efficient queries, but the API is complex without libraries.
 
 Example:
 
@@ -289,42 +117,94 @@ const todo = await db.get('todos', 't-1');
 
 ---
 
-## Q136. LocalStorage vs IndexedDB: compare capabilities
+## Q123. LocalStorage vs Session Storage vs IndexedDB
 
-LocalStorage is simple key-value and sync; IndexedDB is structured and async with indexes and transactions. IndexedDB is async, LocalStorage is sync.
+LocalStorage is simple key-value sync storage (~5–10MB), Session Storage is tab-scoped sync storage, and IndexedDB is async structured storage (hundreds of MBs). Choose based on data size, persistence needs, and access patterns.
 
-- **Trade-offs**: Choose LocalStorage for tiny preferences/settings, choose IndexedDB for caches and domain data - avoid storing secrets in either. LocalStorage for <5MB, IndexedDB for larger structured data - IndexedDB supports complex queries and transactions.
+- **Trade-offs**: LocalStorage for small preferences (<5MB, sync access)—Session Storage for tab-specific temporary data—IndexedDB for large structured data and offline apps. LocalStorage and Session Storage are synchronous (block main thread), IndexedDB is async—avoid storing secrets in any client-side storage.
 
 Example:
 
 ```javascript
-localStorage.setItem('lang', 'en');
-await db.put('posts', { id: 1, title: 'Hello' });
+// LocalStorage - small, persistent preferences
+localStorage.setItem('theme', 'dark');
+
+// Session Storage - tab-specific temporary data
+sessionStorage.setItem('draft', '...');
+
+// IndexedDB - large structured data
+await db.put('posts', { id: 1, title: 'Hello', content: '...' });
 ```
 
 ---
 
-## Q137. What are typical size limits for LocalStorage and IndexedDB?
+## Q124. API caching strategies
 
-LocalStorage: ~5–10MB per origin. IndexedDB: much larger (hundreds of MBs+), browser- and device-dependent, subject to quota and eviction. Storage limits are browser and device dependent.
+API caching stores API responses to reduce redundant network requests and improve performance. Use client-side libraries like React Query or RTK Query for intelligent caching with automatic invalidation.
 
-- **Trade-offs**: Quotas vary by browser, device, and user settings - IndexedDB may be evicted under storage pressure (persistent storage API helps). Request persistent storage with `navigator.storage.persist()` where appropriate - monitor storage usage and handle quota exceeded errors.
+- **Trade-offs**: Strategies balance freshness and speed: cache-first (fast), network-first (fresh), stale-while-revalidate (best perceived performance). For public data: cache-first/SWR, for user-specific data: network-first with background refresh—tune `staleTime` based on data volatility.
 
 Example:
 
 ```javascript
-function approximateSizeKB(obj) {
-  return new Blob([JSON.stringify(obj)]).size / 1024;
+const { data, isFetching } = useQuery(['posts'], fetchPosts, {
+  staleTime: 60_000, // Consider fresh for 1 minute
+  cacheTime: 5 * 60_000, // Keep in cache for 5 minutes
+  refetchOnWindowFocus: true
+});
+```
+
+---
+
+## Q125. State management in frontend applications
+
+Local state (component-level) is ideal for UI concerns (inputs, toggles)—global state manages cross-cutting concerns (auth, user profile), shared data (entities), and server cache. Start with local state, move to global only when needed.
+
+- **Trade-offs**: Prefer local state by default; promote to global only when truly shared—server cache (React Query/RTK Query) is not the same as app state. Avoid over-globalizing (causes needless re-renders and coupling)—use local state for UI, global state for business logic and shared data.
+
+Example:
+
+```javascript
+// Local state for UI
+function SearchBox() {
+  const [query, setQuery] = useState('');
+  return <input value={query} onChange={e => setQuery(e.target.value)} />;
 }
+
+// Global state for shared data
+const user = useSelector(state => state.auth.user);
+const posts = useSelector(state => state.posts.entities);
 ```
 
 ---
 
-## Q138. How do you integrate normalization, HTTP caching, SW caching, API caching, state, and storage into a cohesive architecture?
+## Q126. Handling cache invalidation
+
+Cache invalidation proactively removes or updates cache when data changes—invalidate only what changed, not everything. Use tag-based invalidation to target minimal subsets.
+
+- **Trade-offs**: Prefer tag-based invalidation to target minimal subsets—emit domain events to trigger invalidations after mutations. Avoid global cache clears (hurts UX)—tag-based invalidation allows fine-grained cache control and better performance.
+
+Example:
+
+```javascript
+// React Query - invalidate by query key
+queryClient.invalidateQueries(['posts']);
+
+// RTK Query - invalidate by tags
+api.util.invalidateTags([{ type: 'Post', id: 'LIST' }]);
+
+// After mutation
+mutatePost({ id: 1, title: 'Updated' });
+queryClient.invalidateQueries(['post', 1]);
+```
+
+---
+
+## Q127. Implementing caching layers in frontend applications
 
 Use layered caching with clear boundaries: server cache/CDN → HTTP cache → SW cache → API client cache → normalized app state → local storage/IndexedDB for persistence. Persist only necessary state (e.g., auth, preferences, small caches).
 
-- **Trade-offs**: Choose the lowest layer that can satisfy data (cheapest, fastest) - normalize at app state; hydrate from API cache/storage on startup. Service worker for offline + pre-cache shell and critical assets - use tag-based invalidation to propagate changes upwards.
+- **Trade-offs**: Choose the lowest layer that can satisfy data (cheapest, fastest)—normalize at app state; hydrate from API cache/storage on startup. Service worker for offline + pre-cache shell and critical assets—use tag-based invalidation to propagate changes upwards through layers.
 
 Example:
 
@@ -339,3 +219,105 @@ Example:
 ```
 
 ---
+
+## Q128. Best practices for data caching
+
+Cache strategies should balance freshness, performance, and user experience—choose the right strategy per data type and use case. Monitor cache hit rates and adjust strategies based on actual usage patterns.
+
+- **Trade-offs**: For static assets: cache-first with long TTL—for dynamic data: network-first or stale-while-revalidate. Use versioning for immutable assets—implement proper cache invalidation to prevent stale data. Always have a fallback strategy when cache fails.
+
+Example:
+
+```javascript
+// Cache-first for static assets
+workbox.strategies.CacheFirst({ cacheName: 'static-assets' });
+
+// Stale-while-revalidate for dynamic content
+workbox.strategies.StaleWhileRevalidate({ cacheName: 'api-cache' });
+
+// Network-first for critical data
+workbox.strategies.NetworkFirst({ cacheName: 'critical-data' });
+```
+
+---
+
+## Q129. Optimizing data fetching and caching strategies
+
+Optimize data fetching by reducing redundant requests, implementing proper caching, and using techniques like request deduplication and prefetching. Combine multiple strategies for optimal performance.
+
+- **Trade-offs**: Request deduplication prevents duplicate simultaneous requests—prefetching improves perceived performance but uses bandwidth. Use pagination and infinite scroll for large datasets—implement proper loading states and error handling. Balance between freshness and performance based on data volatility.
+
+Example:
+
+```javascript
+// Request deduplication (React Query does this automatically)
+const { data } = useQuery(['user', userId], fetchUser); // Multiple components can use same query
+
+// Prefetching
+queryClient.prefetchQuery(['posts'], fetchPosts);
+
+// Pagination
+const { data, fetchNextPage } = useInfiniteQuery(['posts'], fetchPosts, {
+  getNextPageParam: (lastPage) => lastPage.nextCursor
+});
+```
+
+---
+
+## Q130. Storage quotas and eviction policies
+
+Browser storage has quotas that vary by browser, device, and user settings—IndexedDB may be evicted under storage pressure. Request persistent storage where appropriate and monitor usage.
+
+- **Trade-offs**: Quotas vary by browser, device, and user settings—IndexedDB may be evicted under storage pressure (persistent storage API helps). Request persistent storage with `navigator.storage.persist()` where appropriate—monitor storage usage and handle quota exceeded errors gracefully.
+
+Example:
+
+```javascript
+// Check storage quota
+const estimate = await navigator.storage.estimate();
+console.log(`Quota: ${estimate.quota}, Usage: ${estimate.usage}`);
+
+// Request persistent storage
+const isPersistent = await navigator.storage.persist();
+console.log(`Persistent: ${isPersistent}`);
+
+// Handle quota exceeded
+try {
+  await db.put('data', largeObject);
+} catch (error) {
+  if (error.name === 'QuotaExceededError') {
+    // Handle quota exceeded
+  }
+}
+```
+
+---
+
+## Q131. Integrating normalization, HTTP caching, SW caching, API caching, state, and storage into a cohesive architecture
+
+Integrate all caching layers with clear boundaries and data flow—normalize at app state, hydrate from storage on startup, and use tag-based invalidation to propagate changes. Design a cohesive architecture that leverages each layer's strengths.
+
+- **Trade-offs**: Each layer serves a specific purpose—CDN for global distribution, HTTP cache for browser-level caching, SW for offline, API cache for request deduplication, normalized state for UI, and storage for persistence. The catch is managing invalidation across layers—use event-driven invalidation and clear data flow patterns.
+
+Example:
+
+```javascript
+// Complete caching architecture
+// 1. CDN/Edge Cache → Static assets, public API responses
+// 2. HTTP Cache → Browser-level, respects Cache-Control headers
+// 3. Service Worker → Offline support, programmatic caching
+// 4. API Client Cache → React Query/RTK Query, request deduplication
+// 5. Normalized State → Redux/Zustand, single source of truth
+// 6. Persistence → LocalStorage/IndexedDB, survive page reloads
+
+// Data flow: CDN → HTTP → SW → API Cache → State → Storage
+// Invalidation: Storage → State → API Cache → SW → HTTP → CDN
+```
+
+---
+
+<div align="center">
+
+**[← Previous: Real-time Communication Protocols](9%29%20Real-time%20Communication%20Protocols.md)** | **[Next: Security →](11%29%20Security.md)**
+
+</div>

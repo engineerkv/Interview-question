@@ -14,71 +14,71 @@
 
 ## 🧠 1. TypeScript Fundamentals
 
-1. What is TypeScript, and how is it different from JavaScript?
-2. What are the key benefits of using TypeScript in large-scale applications?
-3. How do you install and set up TypeScript?
-4. What is type inference?
-5. What are the primitive types?
-6. What is the difference between `any`, `unknown`, and `never`?
-7. What are tuples and how do you use them?
-8. What are enums and how do you use them?
-9. What is the purpose of `tsconfig.json` and what are some key compiler options?
+1. TypeScript and how it differs from JavaScript
+2. Key benefits of using TypeScript in large-scale applications
+3. Installing and setting up TypeScript
+4. Type inference
+5. Primitive types
+6. Differences between `any`, `unknown`, and `never`
+7. Tuples and how to use them
+8. Enums and how to use them
+9. Purpose of `tsconfig.json` and key compiler options
 
 ## 🏗️ 2. Type System & Interfaces
 
-10. What is a type?
-11. What is an interface?
-12. What is the difference between `type` and `interface`?
-13. What are optional and readonly properties?
-14. What are index signatures and how do you use them?
-15. What is structural typing?
-16. What is excess property checking?
-17. What is type assertion and how do you use it?
-18. What are literal types and how do you use them?
-19. What are template literal types and how do you use them?
-20. What are discriminated unions and how do you use them?
-21. What are intersection and union types?
+10. Type in TypeScript
+11. Interface in TypeScript
+12. Difference between `type` and `interface`
+13. Optional and readonly properties
+14. Index signatures and how to use them
+15. Structural typing
+16. Excess property checking
+17. Type assertion and how to use it
+18. Literal types and how to use them
+19. Template literal types and how to use them
+20. Discriminated unions and how to use them
+21. Intersection and union types
 
 ## ⚡ 3. Functions & Advanced Type Features
 
-22. What is function overloading?
-23. What are default and rest parameters?
-24. What are generics and how do you use them?
-25. What are generic constraints and how do you use them?
-26. What are utility types and how do you use them?
-27. What are mapped types and how do you use them?
-28. What are conditional types and how do you use them?
-29. What is the `infer` keyword and how do you use it?
-30. What are `keyof` and `typeof` operators?
-31. What are indexed access types and lookup types?
+22. Function overloading and overriding
+23. Default and rest parameters
+24. Generics and how to use them
+25. Generic constraints and how to use them
+26. Utility types and how to use them
+27. Mapped types and how to use them
+28. Conditional types and how to use them
+29. `infer` keyword and how to use it
+30. `keyof` and `typeof` operators
+31. Indexed access types and lookup types
 
 ## 🏛️ 4. Classes & Object-Oriented Features
 
-32. What are access modifiers?
-33. What is the difference between abstract classes and interfaces?
-34. What is inheritance?
-35. What is polymorphism?
-36. What are static properties and methods?
-37. What are readonly properties?
-38. What are decorators and how do you use them?
-39. What are mixins and how do you use them?
+32. Access modifiers
+33. Difference between abstract classes and interfaces
+34. Inheritance
+35. Polymorphism
+36. Static properties and methods
+37. Readonly properties
+38. Decorators and how to use them
+39. Mixins and how to use them
 
 ## ⚙️ 5. Advanced TypeScript Internals
 
-40. How does module resolution work?
-41. How does the internal classic module resolution strategy work?
-42. How does the internal node module resolution strategy work?
-43. What are declaration files and how do you create them?
-44. What are ambient modules and how do you use them?
-45. What is the `declare` keyword and how do you use it?
-46. What is the difference between namespaces and ES modules?
-47. What is strict mode and why is it important?
-48. What is the difference between compile-time and runtime type checking?
-49. How does TypeScript handle JSX?
-50. What are compiler flags and how do you use them?
-51. What are generics with default types?
-52. What is covariance and contravariance?
-53. What are the performance considerations when using TypeScript?
+40. Module resolution
+41. Internal classic module resolution strategy
+42. Internal node module resolution strategy
+43. Declaration files and how to create them
+44. Ambient modules and how to use them
+45. `declare` keyword and how to use it
+46. Difference between namespaces and ES modules
+47. Strict mode and why it's important
+48. Difference between compile-time and runtime type checking
+49. How TypeScript handles JSX
+50. Compiler flags and how to use them
+51. Generics with default types
+52. Covariance and contravariance
+53. Performance considerations when using TypeScript
 
 ---
 

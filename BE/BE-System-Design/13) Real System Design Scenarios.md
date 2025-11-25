@@ -1,8 +1,14 @@
 # Section 13: Real System Design Scenarios (Q226-Q240)
 
+<div align="center">
+
+**[← Previous: Code Quality + Debugging](12%29%20Code%20Quality%20%2B%20Debugging.md)** | **[Next: Question List →](question.md)**
+
+</div>
+
 ---
 
-## Q226. Design a URL shortener.
+## Q226. Designing a URL shortener
 
 Design a URL shortener by generating short codes (like base62 encoding of a counter or hash), storing mappings in a database (short code -> long URL), and redirecting requests from short URLs to long URLs. Use a distributed ID generator for unique codes, cache frequently accessed mappings in Redis, and use a CDN for global distribution. Handle scale by sharding the database by short code and using consistent hashing.
 
@@ -10,7 +16,7 @@ Design a URL shortener by generating short codes (like base62 encoding of a coun
 
 ---
 
-## Q227. Design WhatsApp chat architecture.
+## Q227. Designing WhatsApp chat architecture
 
 Design WhatsApp chat by using message queues to deliver messages, storing messages in a database sharded by chat ID, using WebSockets or long polling for real-time delivery, and using a message broker to route messages between users. Store chat metadata separately from messages, use read receipts to track delivery status, and implement message synchronization for offline users. Scale by sharding messages and using distributed message queues.
 
@@ -18,7 +24,7 @@ Design WhatsApp chat by using message queues to deliver messages, storing messag
 
 ---
 
-## Q228. Design Twitter feed system.
+## Q228. Designing Twitter feed system
 
 Design Twitter feed by storing tweets in a database, maintaining user timelines (home feed) using either pull model (fetch tweets from followed users on read) or push model (pre-compute timelines on write), and using caching to serve feeds quickly. For scale, use hybrid approach - push for active users, pull for inactive users. Store tweets, user relationships, and timelines, and use message queues for real-time updates.
 
@@ -26,7 +32,7 @@ Design Twitter feed by storing tweets in a database, maintaining user timelines 
 
 ---
 
-## Q229. Design YouTube video streaming.
+## Q229. Designing YouTube video streaming
 
 Design YouTube video streaming by storing videos in object storage (like S3), using CDN to cache and serve videos from edge locations, encoding videos into multiple quality levels (1080p, 720p, 480p), and using adaptive bitrate streaming to adjust quality based on network conditions. Store video metadata in a database, use video processing pipelines to encode videos, and serve video chunks via HTTP range requests.
 
@@ -34,7 +40,7 @@ Design YouTube video streaming by storing videos in object storage (like S3), us
 
 ---
 
-## Q230. Design Uber backend.
+## Q230. Designing Uber backend
 
 Design Uber backend by using geolocation services to track drivers and riders, matching algorithms to assign nearby drivers to ride requests, using message queues for real-time updates, and storing trip data in databases. Use Redis for real-time location tracking, implement trip state machines, and use event streaming for analytics. Scale by sharding data by region and using distributed systems for matching.
 
@@ -42,7 +48,7 @@ Design Uber backend by using geolocation services to track drivers and riders, m
 
 ---
 
-## Q231. Design a payment system.
+## Q231. Designing a payment system
 
 Design a payment system by using idempotent APIs to prevent duplicate charges, storing transactions in a database with ACID guarantees, integrating with payment gateways (like Stripe or PayPal), and implementing reconciliation to match transactions. Use message queues for async processing, implement retry logic with exponential backoff, and use distributed transactions or sagas for multi-step payments. Ensure strong consistency for financial data.
 
@@ -50,7 +56,7 @@ Design a payment system by using idempotent APIs to prevent duplicate charges, s
 
 ---
 
-## Q232. Design an e-commerce platform.
+## Q232. Designing an e-commerce platform
 
 Design an e-commerce platform with separate services for products, inventory, orders, payments, and shipping. Use databases for transactional data (orders, payments), caches for frequently accessed data (product catalogs), message queues for async processing (order fulfillment, notifications), and search engines for product search. Implement inventory management to prevent overselling, use distributed transactions or sagas for order processing, and cache product data aggressively.
 
@@ -58,7 +64,7 @@ Design an e-commerce platform with separate services for products, inventory, or
 
 ---
 
-## Q233. Design a food delivery platform.
+## Q233. Designing a food delivery platform
 
 Design a food delivery platform with services for restaurants, orders, delivery tracking, and payments. Use geolocation to track delivery drivers, match orders to nearby drivers, and estimate delivery times. Store orders in databases, use message queues for order processing and notifications, and implement real-time tracking using WebSockets or server-sent events. Scale by sharding data by region and using distributed matching algorithms.
 
@@ -66,7 +72,7 @@ Design a food delivery platform with services for restaurants, orders, delivery 
 
 ---
 
-## Q234. Design a distributed cache system.
+## Q234. Designing a distributed cache system
 
 Design a distributed cache by using consistent hashing to distribute data across cache nodes, implementing replication for fault tolerance, using cache eviction policies (like LRU), and handling cache invalidation. Use a distributed hash table to route requests to the right node, implement gossip protocols for node discovery, and use versioning or timestamps for cache coherence. Scale by adding nodes and rehashing data.
 
@@ -74,7 +80,7 @@ Design a distributed cache by using consistent hashing to distribute data across
 
 ---
 
-## Q235. Design a notification system.
+## Q235. Designing a notification system
 
 Design a notification system by using message queues to decouple notification generation from delivery, supporting multiple channels (email, SMS, push), using templates for different notification types, and implementing retry logic for failed deliveries. Store notification preferences and history, use worker pools to process notifications, and rate limit to prevent spam. Scale by sharding queues and using distributed workers.
 
@@ -82,7 +88,7 @@ Design a notification system by using message queues to decouple notification ge
 
 ---
 
-## Q236. Design a social media recommendation engine.
+## Q236. Designing a social media recommendation engine
 
 Design a recommendation engine by collecting user behavior data (likes, views, interactions), using machine learning models to generate recommendations, storing user preferences and item features, and serving recommendations in real-time. Use collaborative filtering (users who liked X also liked Y) or content-based filtering (items similar to what you liked), and cache recommendations to reduce computation. Update models periodically and serve from cache.
 
@@ -90,7 +96,7 @@ Design a recommendation engine by collecting user behavior data (likes, views, i
 
 ---
 
-## Q237. Design a search engine.
+## Q237. Designing a search engine
 
 Design a search engine by crawling and indexing web pages, building an inverted index (word -> list of documents containing it), ranking results using algorithms (like PageRank or relevance scoring), and serving search results. Use distributed systems for crawling and indexing, store indexes across multiple nodes, and use caching for popular queries. Implement ranking algorithms to order results by relevance.
 
@@ -98,7 +104,7 @@ Design a search engine by crawling and indexing web pages, building an inverted 
 
 ---
 
-## Q238. Design a large-scale file storage system.
+## Q238. Designing a large-scale file storage system
 
 Design large-scale file storage by splitting files into chunks, storing chunks across multiple storage nodes with replication, using a metadata service to track file locations, and implementing redundancy for fault tolerance. Use consistent hashing to distribute chunks, replicate chunks across multiple nodes, and implement repair mechanisms to restore lost chunks. Scale by adding storage nodes and rebalancing data.
 
@@ -106,7 +112,7 @@ Design large-scale file storage by splitting files into chunks, storing chunks a
 
 ---
 
-## Q239. Design a real-time analytics system.
+## Q239. Designing a real-time analytics system
 
 Design a real-time analytics by ingesting events in real-time using message queues or streams, processing events using stream processing frameworks (like Kafka Streams or Flink), aggregating data in time windows, and serving results via APIs or dashboards. Use time-series databases for storing metrics, implement sliding windows for aggregations, and use caching for frequently accessed analytics. Scale by partitioning streams and using distributed processing.
 
@@ -114,8 +120,16 @@ Design a real-time analytics by ingesting events in real-time using message queu
 
 ---
 
-## Q240. Design disaster recovery architecture.
+## Q240. Designing disaster recovery architecture
 
 Design disaster recovery by replicating data across multiple regions, implementing automated failover to backup regions, maintaining backup systems that can take over quickly, and regularly testing failover procedures. Use database replication, backup storage systems, and DNS failover to route traffic to backup regions. Implement RTO (Recovery Time Objective) and RPO (Recovery Point Objective) based on business requirements.
 
 - **Trade-offs**: Disaster recovery ensures business continuity, which is critical, but the catch is it requires significant infrastructure and costs - you need duplicate systems in multiple regions. The tricky part is balancing cost with recovery objectives - faster recovery (lower RTO) and less data loss (lower RPO) require more infrastructure and more frequent replication, which costs more.
+
+---
+
+<div align="center">
+
+**[← Previous: Code Quality + Debugging](12%29%20Code%20Quality%20%2B%20Debugging.md)** | **[Next: Question List →](question.md)**
+
+</div>

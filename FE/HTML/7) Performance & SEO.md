@@ -1,8 +1,14 @@
 # 7. Performance & SEO (Q86–101)
 
+<div align="center">
+
+**[← Previous: Media Elements](6%29%20Media%20Elements.md)** | **[Next: Advanced HTML Concepts →](8%29%20Advanced%20HTML%20Concepts.md)**
+
+</div>
+
 ---
 
-## Q86. How do you optimize HTML for performance?
+## Q86. Optimizing HTML for performance
 
 Optimize HTML structure, reduce file size, minimize render-blocking resources, and use efficient loading strategies - HTML optimization reduces initial load time and improves Core Web Vitals. Minimize HTML file size, inline critical CSS, defer non-critical resources.
 
@@ -24,7 +30,7 @@ Example:
 
 ---
 
-## Q87. What is the Critical Rendering Path?
+## Q87. Critical Rendering Path
 
 The critical rendering path is the sequence of steps browsers take to render a page, from HTML parsing to pixel painting - optimizing the critical path improves First Contentful Paint. HTML → CSS → JavaScript → Layout → Paint.
 
@@ -46,7 +52,7 @@ Example:
 
 ---
 
-## Q88. How do you implement lazy loading?
+## Q88. Implementing lazy loading
 
 Lazy loading defers image loading until they're needed, improving initial page load performance - lazy loading is essential for pages with many images. `loading="lazy"` provides native lazy loading, JavaScript solution offers more control.
 
@@ -74,7 +80,7 @@ document.querySelectorAll('.lazy').forEach(img => {
 
 ---
 
-## Q89. How do you minify HTML?
+## Q89. Minifying HTML
 
 Minify HTML by removing whitespace, comments, and unnecessary characters while preserving functionality - minification is standard practice for production builds. Removes unnecessary whitespace and comments, reduces file size by 20-30%.
 
@@ -88,7 +94,7 @@ Example:
 
 ---
 
-## Q90. How do you optimize for mobile?
+## Q90. Optimizing for mobile
 
 Optimize HTML for mobile by using responsive design, touch-friendly elements, and mobile-specific optimizations - mobile optimization is essential for modern web development. Use proper viewport meta tag, make touch targets at least 44px.
 
@@ -114,7 +120,7 @@ Example:
 
 ---
 
-## Q91. How do you structure HTML for SEO?
+## Q91. Structuring HTML for SEO
 
 Proper HTML structure helps search engines understand content hierarchy and importance, improving search rankings - HTML structure is fundamental for SEO, not just styling. Use semantic HTML elements, create clear heading hierarchy (h1 → h2 → h3).
 
@@ -145,7 +151,7 @@ Example:
 
 ---
 
-## Q92. What are meta tags and how do you use them?
+## Q92. Meta tags: what they are and how to use them
 
 Meta tags provide information about the page to search engines and social media platforms - meta tags are essential for SEO and social sharing. Title should be 50-60 characters, description should be 150-160 characters.
 
@@ -164,7 +170,7 @@ Example:
 
 ---
 
-## Q93. How do you implement structured data?
+## Q93. Implementing structured data
 
 Structured data uses schema.org markup to help search engines understand content and display rich snippets - structured data improves search result visibility. Helps search engines understand content, can result in rich snippets in search results.
 
@@ -187,7 +193,7 @@ Example:
 
 ---
 
-## Q94. What are Core Web Vitals?
+## Q94. Core Web Vitals
 
 Core Web Vitals measure user experience metrics that impact SEO rankings: LCP, FID, and CLS - Core Web Vitals directly impact search rankings. LCP (optimize largest contentful paint), FID (minimize JavaScript execution), CLS (prevent layout shifts).
 
@@ -211,7 +217,7 @@ Example:
 
 ---
 
-## Q95. How do you implement caching?
+## Q95. Implementing caching
 
 Implement proper caching strategies using HTTP headers and HTML meta tags to improve performance - caching improves performance but requires proper invalidation strategy. Use versioning for static resources, set appropriate cache headers server-side.
 
@@ -226,7 +232,7 @@ Example:
 
 ---
 
-## Q96. What are resource hints and how do you use them to optimize page performance?
+## Q96. Resource hints: what they are and how to use them to optimize page performance
 
 Resource hints instruct the browser to perform actions ahead of time to improve loading performance - resource hints improve perceived performance by doing work early. preconnect (opens connection), dns-prefetch (DNS lookup), preload (critical resources), prefetch (future pages).
 
@@ -244,7 +250,7 @@ Example:
 
 ---
 
-## Q97. What is fetchpriority and how do you use it to optimize resource loading?
+## Q97. `fetchpriority`: what it is and how to use it to optimize resource loading
 
 `fetchpriority` is an HTML attribute that controls the relative priority of resource fetches, helping browsers prioritize critical resources - fetchpriority is modern browser feature for resource prioritization. `high` for LCP images and critical CSS/JS, `low` for below-the-fold content.
 
@@ -261,7 +267,7 @@ Example:
 
 ---
 
-## Q98. What is SEO and how can you optimize it?
+## Q98. SEO: what it is and how to optimize it
 
 SEO is the practice of improving website visibility in search engine results through on-page, technical, and off-page optimizations - SEO is ongoing process requiring technical and content optimization. On-page (title tags, meta descriptions, headings), technical (Core Web Vitals, structured data), off-page (backlinks).
 
@@ -298,7 +304,7 @@ Example:
 
 ---
 
-## Q99. What is sitemap.xml and how do you create it?
+## Q99. `sitemap.xml`: what it is and how to create it
 
 A sitemap.xml is an XML file that lists all pages on a website, helping search engines discover and index content efficiently - sitemaps are essential for large sites with many pages. Helps search engines discover all pages, especially deep pages not linked internally.
 
@@ -320,7 +326,7 @@ Example:
 
 ---
 
-## Q100. What is robots.txt and how do you use it?
+## Q100. `robots.txt`: what it is and how to use it
 
 robots.txt is a text file in the root directory that instructs web crawlers which pages or directories they can or cannot access - robots.txt is a guideline, not security (bad bots may ignore it). Control crawler access, prevent crawling of sensitive or duplicate content.
 
@@ -338,7 +344,7 @@ Sitemap: https://example.com/sitemap.xml
 
 ---
 
-## Q101. What are Open Graph tags and how do you use them?
+## Q101. Open Graph tags: what they are and how to use them
 
 Open Graph tags are HTML meta tags that control how content appears when shared on social media platforms - Open Graph tags improve social sharing appearance and engagement. Control how links appear when shared on social platforms, creates rich previews.
 
@@ -356,4 +362,8 @@ Example:
 </head>
 ```
 
----
+<div align="center">
+
+**[← Previous: Media Elements](6%29%20Media%20Elements.md)** | **[Next: Advanced HTML Concepts →](8%29%20Advanced%20HTML%20Concepts.md)**
+
+</div>

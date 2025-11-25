@@ -2,7 +2,7 @@
 
 ---
 
-## Q11. What are native modules in React Native?
+## Q11. Native modules in React Native
 
 Native Modules are JavaScript interfaces to native platform APIs, needed to access device features not available through React Native's built-in components - different implementations for iOS and Android (platform specific). Access to device-specific functionality (platform APIs).
 
@@ -18,9 +18,15 @@ const { MyNativeModule } = NativeModules;
 MyNativeModule.doSomething().then(result => console.log(result));
 ```
 
+<div align="center">
+
+**[← Previous: React Native Fundamentals](1%29%20React%20Native%20Fundamentals.md)** | **[Next: Android & iOS Platform Internals →](3%29%20Android%20%26%20iOS%20Platform%20Internals.md)**
+
+</div>
+
 ---
 
-## Q12. How do you create custom native modules for Android?
+## Q12. Creating custom native modules for Android
 
 Create a native module by extending ReactContextBaseJavaModule and registering it in the ReactPackage - must be registered in ReactPackage. Base class for native modules (ReactContextBaseJavaModule).
 
@@ -44,7 +50,7 @@ public class MyNativeModule extends ReactContextBaseJavaModule {
 
 ---
 
-## Q13. How do you create custom native modules for iOS?
+## Q13. Creating custom native modules for iOS
 
 Create a native module by implementing RCTBridgeModule protocol and using RCT_EXPORT_MODULE macro - Objective-C is primary language for iOS native modules. Protocol for native modules (RCTBridgeModule).
 
@@ -72,7 +78,7 @@ RCT_EXPORT_METHOD(doSomething:(RCTPromiseResolveBlock)resolve
 
 ---
 
-## Q14. What is the difference between JSI and the old bridge?
+## Q14. Difference between JSI and the old bridge
 
 JSI allows direct function calls between JavaScript and native code, eliminating serialization overhead and enabling synchronous communication - better type checking and error handling (type safety). JavaScript can directly call native functions (direct calls).
 
@@ -90,7 +96,7 @@ const result = MyModule.doSomething(data);
 
 ---
 
-## Q15. What are TurboModules and how do they work?
+## Q15. TurboModules and how they work
 
 TurboModules are the new native module system that uses JSI for direct communication, providing better performance and type safety - part of React Native's new architecture (future architecture). Uses JSI for direct communication (JSI integration).
 
@@ -107,7 +113,7 @@ const { MyTurboModule } = NativeModules;
 
 ---
 
-## Q16. How do you access native APIs like Camera, Location, and Sensors?
+## Q16. Accessing native APIs like Camera, Location, and Sensors
 
 Use third-party libraries or create custom native modules to access device APIs, with proper permissions and platform-specific implementations - consider performance implications of native APIs. Use existing libraries for common APIs (third-party libraries).
 
@@ -131,7 +137,7 @@ function CameraScreen() {
 
 ---
 
-## Q17. What is Headless JS and when do you use it?
+## Q17. Headless JS and when to use it
 
 Headless JS tasks run JavaScript code in the background on Android, useful for background processing and notifications - limited access to UI and some APIs (restrictions). Available only on Android platform (Android only).
 
@@ -152,7 +158,7 @@ AppRegistry.registerHeadlessTask('BackgroundTask', () => HeadlessTask);
 
 ---
 
-## Q18. How does autolinking work in React Native?
+## Q18. How autolinking works in React Native
 
 Autolinking automatically links native dependencies by scanning package.json and configuring native projects, eliminating manual linking steps - replaces manual linking process (migration). No manual linking required (automatic linking).
 
@@ -171,7 +177,7 @@ Example:
 
 ---
 
-## Q19. What is the difference between bridged and JSI-based modules?
+## Q19. Difference between bridged and JSI-based modules
 
 Bridged modules use the old bridge system with serialization, while JSI-based modules use direct function calls for better performance - JSI is the future of React Native modules. Bridge system uses serialization and message passing; JSI system uses direct function calls without serialization.
 
@@ -189,7 +195,7 @@ const result = JSIModule.doSomething(data);
 
 ---
 
-## Q20. How do you handle permissions in React Native?
+## Q20. Handling permissions in React Native
 
 Use platform-specific permission systems and libraries like react-native-permissions to request and check permissions at runtime - follow platform-specific permission guidelines (app store guidelines). Different permission systems for iOS and Android (platform differences).
 
@@ -211,3 +217,9 @@ const requestCameraPermission = async () => {
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: React Native Fundamentals](1%29%20React%20Native%20Fundamentals.md)** | **[Next: Android & iOS Platform Internals →](3%29%20Android%20%26%20iOS%20Platform%20Internals.md)**
+
+</div>

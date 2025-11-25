@@ -1,8 +1,14 @@
-# 4. Objects, Prototypes & Inheritance (Q52–71)
+# 3. Objects, Prototypes & Inheritance (Q26–45)
+
+<div align="center">
+
+**[← Previous: Functions, Closures & Execution Context](2%29%20Functions%2C%20Closures%20%26%20Execution%20Context.md)** | **[Next: ES6+ Features →](6%29%20ES6%2B%20Features.md)**
+
+</div>
 
 ---
 
-## Q52. What is an object in JavaScript?
+## Q26. Objects in JavaScript
 
 An object is a container that holds data and behavior together - it stores information as key-value pairs and can include functions as methods. Objects are reference types, not copied when assigned, so modifying them affects all references. All objects inherit from `Object.prototype` by default, which provides common methods like `toString()` and `hasOwnProperty()`.
 
@@ -21,7 +27,7 @@ console.log(person.greet()); // "Hi, I'm John"
 
 ---
 
-## Q53. What is the difference between object literal and object constructor?
+## Q27. Object literal vs object constructor
 
 Object literals create objects with `{}` syntax, while constructors use `new` keyword with functions - literals are simpler, constructors allow custom setup. Both create objects with `Object.prototype` as prototype, but literals are more common for simple data structures.
 
@@ -37,7 +43,7 @@ const obj3 = new Date(); // Constructor
 
 ---
 
-## Q54. What is a prototype in JavaScript?
+## Q28. Prototype in JavaScript
 
 A prototype is an object that provides fallback properties and methods when they're not found on the current object - property lookup follows the prototype chain. Every object has a `[[Prototype]]` internal slot, and `Object.prototype` is the root of all chains.
 
@@ -54,7 +60,7 @@ console.log(obj.b); // 2 (from prototype)
 
 ---
 
-## Q55. What is __proto__ in JavaScript?
+## Q29. `__proto__` in JavaScript
 
 `__proto__` is a hidden link inside every object that points to another object—its prototype, but modern code should avoid it and use `Object.getPrototypeOf` instead. It exposes the internal [[Prototype]] slot and can be used to read or set prototype links.
 
@@ -71,7 +77,7 @@ console.log(Object.getPrototypeOf(obj) === proto); // true (preferred)
 
 ---
 
-## Q56. What is the prototype chain?
+## Q30. Prototype chain
 
 The prototype chain is how JavaScript looks up properties by checking each object in a linked list until it finds what it needs or reaches `Object.prototype` - the chain ends at `Object.prototype` (whose prototype is `null`). Property lookup follows the chain until found, and own properties always override inherited ones.
 
@@ -87,7 +93,7 @@ console.log(arr.toString); // from Object.prototype
 
 ---
 
-## Q57. What is the difference between `__proto__` and `prototype`?
+## Q31. `__proto__` vs `prototype`
 
 `__proto__` is an object's link to its parent, while `prototype` is a function's blueprint for creating new objects - only functions have `prototype`. When you use `new` with a function, the instance's `__proto__` points to the function's `prototype`.
 
@@ -104,7 +110,7 @@ console.log(p.__proto__ === Person.prototype); // true
 
 ---
 
-## Q58. What is the difference between `hasOwnProperty`, `in` operator, and `Object.hasOwn`?
+## Q32. `hasOwnProperty` vs `in` operator
 
 `hasOwnProperty` checks if a property exists on the object itself (not inherited), `in` operator checks the entire prototype chain including inherited properties, and `Object.hasOwn` is the modern safer way to check own properties - use `Object.hasOwn` instead of `hasOwnProperty` when possible. `hasOwnProperty` only checks the object itself, while `in` checks everywhere in the prototype chain.
 
@@ -132,7 +138,7 @@ console.log(Object.hasOwn(nullObj, 'x')); // true - works perfectly
 
 ---
 
-## Q59. What is the difference between `Object.create()` and `new` operator?
+## Q33. `Object.create()` vs `new` operator
 
 `Object.create()` sets up prototype links directly, while `new` operator calls a constructor function and sets up the prototype automatically - `Object.create` is explicit, `new` is more convenient. `Object.create` is great for simple inheritance, while `new` is better for constructor-based object creation.
 
@@ -151,7 +157,7 @@ const child2 = new Parent(1);
 
 ---
 
-## Q60. What is the difference between `Object.assign()` and spread operator?
+## Q34. `Object.assign()` vs spread operator
 
 `Object.assign()` copies properties from source objects to a target object, while spread operator creates a new object with copied properties - both do shallow copies. `Object.assign` mutates the target, while spread creates a new object.
 
@@ -168,7 +174,7 @@ const obj3 = { ...obj1 };
 
 ---
 
-## Q61. What is the difference between `Object.freeze()` and `Object.seal()`?
+## Q35. `Object.freeze()` vs `Object.seal()`
 
 `Object.freeze()` makes an object completely immutable - you can't add, delete, or modify properties. `Object.seal()` prevents adding or deleting properties but allows modifying existing ones. Both prevent adding new properties, but `freeze` is stricter.
 
@@ -189,7 +195,7 @@ obj2.y = 3; // fails
 
 ---
 
-## Q62. What is the difference between `Object.keys()` and `Object.getOwnPropertyNames()`?
+## Q36. `Object.keys()` vs `Object.getOwnPropertyNames()`
 
 `Object.keys()` returns only enumerable own property names, while `Object.getOwnPropertyNames()` returns all own property names including non-enumerable ones. Both ignore inherited properties, but `getOwnPropertyNames` includes properties like `length` on arrays.
 
@@ -206,7 +212,7 @@ console.log(Object.getOwnPropertyNames(obj)); // ['hidden']
 
 ---
 
-## Q63. What is the difference between `Object.entries()` and `Object.values()`?
+## Q37. `Object.entries()` vs `Object.values()`
 
 `Object.entries()` returns an array of `[key, value]` pairs, while `Object.values()` returns an array of just the values - both only include enumerable own properties. `entries` is useful when you need both keys and values, while `values` is simpler when you only need values.
 
@@ -222,7 +228,7 @@ console.log(Object.values(obj)); // [1, 2]
 
 ---
 
-## Q64. What are getters and setters in JavaScript?
+## Q38. Getters and setters in JavaScript
 
 Getters and setters are special methods that control property access, allowing custom logic on read/write - getters run when reading, setters run when writing. They're useful for validation, computed properties, and data transformation.
 
@@ -241,7 +247,7 @@ obj.count = -5; // becomes 0
 
 ---
 
-## Q65. What are classes in JavaScript?
+## Q39. Classes in JavaScript
 
 Classes in JavaScript are syntactic sugar over prototype-based inheritance - they provide a cleaner way to create objects and handle inheritance, but work like constructor functions underneath. `typeof Person` is `'function'` because classes are just constructor functions with special syntax.
 
@@ -259,7 +265,7 @@ const p = new Person('Alice');
 
 ---
 
-## Q66. What is the difference between class declaration and class expression?
+## Q40. Class declaration vs class expression
 
 Class declarations create classes with names, while class expressions create classes as values - both create constructor functions, but expressions are useful when you need classes as values. Named expressions help with debugging, and expressions are useful for conditional class creation.
 
@@ -275,9 +281,9 @@ const Named = class Inner {}; // named expression
 
 ---
 
-## Q67. What is the `extends` keyword and how does it work?
+## Q41. `extends` keyword: what it is and how it works
 
-`extends` lets one class inherit from another class, giving it access to all the parent's properties and methods - it creates a prototype chain between classes. `super` is lexically bound, not dynamic, which means it always refers to the parent class in the same lexical scope.
+`extends` allows one class to inherit from another class, giving it access to all the parent's properties and methods - it creates a prototype chain between classes. `super` is lexically bound, not dynamic, which means it always refers to the parent class in the same lexical scope.
 
 - **Trade-offs**: The catch is forgetting to call `super()` in constructor - you must call it before using `this` in a child constructor. `extends` is great for building class hierarchies and reusing parent functionality, but watch out for deep inheritance chains which can make code harder to understand.
 
@@ -294,7 +300,7 @@ class Dog extends Animal {
 
 ---
 
-## Q68. What is `super()` and when do you use it?
+## Q42. `super()`: what it is and when to use it
 
 `super()` calls the parent class constructor and must be called before using `this` in a child constructor - it initializes parent properties in child constructors. `super()` returns the current instance, not the parent, which can be confusing.
 
@@ -314,7 +320,7 @@ class Child extends Parent {
 
 ---
 
-## Q69. What are static members in classes?
+## Q43. Static members in classes
 
 Static methods and properties belong to the class itself, not to individual instances, and are called directly on the class - they're useful for utility functions and constants. Static members are inherited by subclasses, so child classes can access parent static methods.
 
@@ -332,7 +338,7 @@ Math.add(1, 2); // 3
 
 ---
 
-## Q70. What are private class fields?
+## Q44. Private class fields
 
 Private fields use the `#` prefix and can only be accessed from within the same class, making them truly private - they're not just conventionally private like `_private`. Private fields are not accessible from subclasses, which is different from protected fields in other languages.
 
@@ -353,7 +359,7 @@ console.log(counter.getCount()); // 1
 
 ---
 
-## Q71. What is the difference between ES6 classes and prototype-based inheritance?
+## Q45. ES6 classes vs prototype-based inheritance
 
 Classes provide cleaner syntax but work exactly like constructor functions and prototypes underneath - they're just syntactic sugar over prototype-based inheritance. Both approaches create the same result, so choose based on preference and tooling support.
 
@@ -370,3 +376,10 @@ const p2 = new Person('Bob');
 ```
 
 ---
+<div align="center">
+
+**[← Previous: Functions, Closures & Execution Context](2%29%20Functions%2C%20Closures%20%26%20Execution%20Context.md)** | **[Next: ES6+ Features →](6%29%20ES6%2B%20Features.md)**
+
+</div>
+
+**[← Previous Section](2%29%20Functions%2C%20Closures%20%26%20Execution%20Context.md)** | **[Next Section →](6%29%20ES6%2B%20Features.md)**

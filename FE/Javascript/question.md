@@ -1,6 +1,6 @@
 # ⚡️ JavaScript Interview Questions
 
-250 carefully curated questions covering JavaScript fundamentals to advanced topics, including 60 output-based questions.
+249 carefully curated questions covering JavaScript fundamentals to advanced topics, including 60 output-based questions.
 
 ## 📋 Quick Navigation
 
@@ -8,107 +8,107 @@
 |---------|-------|-----------|------------|
 | [1️⃣](#1-core-javascript-fundamentals) | Core JavaScript Fundamentals | Q1–15 | ⭐⭐ |
 | [2️⃣](#2-functions-closures--execution-context) | Functions, Closures & Execution Context | Q16–25 | ⭐⭐⭐ |
-| [3️⃣](#3-promises-asyncawait-and-event-loop) | Promises, Async/Await & Event Loop | Q26–51 | ⭐⭐⭐⭐ |
-| [4️⃣](#4-objects-prototypes--inheritance) | Objects, Prototypes & Inheritance | Q52–71 | ⭐⭐⭐ |
-| [5️⃣](#5-es6-features) | ES6+ Features | Q72–81 | ⭐⭐ |
+| [3️⃣](#3-objects-prototypes--inheritance) | Objects, Prototypes & Inheritance | Q26–45 | ⭐⭐⭐ |
+| [4️⃣](#4-es6-features) | ES6+ Features | Q46–55 | ⭐⭐ |
+| [5️⃣](#5-promises-asyncawait-and-event-loop) | Promises, Async/Await & Event Loop | Q56–81 | ⭐⭐⭐⭐ |
 | [6️⃣](#6-practical-javascript-questions) | Practical JavaScript Questions | Q82–190 | ⭐⭐⭐⭐ |
 | [7️⃣](#7-javascript-output-questions) | JavaScript Output Questions | Q191–250 | ⭐⭐⭐⭐ |
 
 ## 🧠 1. Core JavaScript Fundamentals
 
-1. What are the different data types in JavaScript?
-2. What is the difference between `var`, `let`, and `const`?
-3. What is the difference between `==` and `===`?
-4. Explain hoisting in JavaScript.
-5. What is scope (global, local, block)?
-6. What is the difference between null and undefined?
-7. What are function declarations vs function expressions?
-8. What are arrow functions and how do they differ from regular functions?
-9. What are first-class functions in JavaScript?
-10. What is lexical scope?
-11. What will "typeof NaN" return and why?
-12. What will [2] == [2] return and why?
-13. What does 0.1 + 0.2 === 0.3 evaluate to and why?
-14. What will '5' + 3 and '5' - 3 return?
-15. What are different ways to create an object in JavaScript?
+1. Data types in JavaScript
+2. `var`, `let`, and `const`: differences
+3. `==` vs `===` in JavaScript
+4. Hoisting in JavaScript
+5. Scope: global, local, and block
+6. `null` vs `undefined`
+7. Function declarations vs function expressions
+8. Arrow functions vs regular functions
+9. First-class functions in JavaScript
+10. Lexical scope in JavaScript
+11. `typeof NaN` return value and why
+12. `[2] == [2]` return value and why
+13. `0.1 + 0.2 === 0.3` evaluation and why
+14. `'5' + 3` and `'5' - 3` return values
+15. Different ways to create objects in JavaScript
 
 ## 🧩 2. Functions, Closures & Execution Context
 
-16. What is a closure?
-17. What are higher-order functions?
-18. What is function currying and how do you implement it?
-19. What are IIFEs (Immediately Invoked Function Expressions)?
-20. How does the `this` keyword behave in different contexts?
-21. What is the call stack?
-22. What happens in the creation and execution phases of JavaScript?
-23. What is the difference between synchronous and asynchronous execution?
-24. How does lexical environment relate to closures?
-25. What is the difference between function declaration and arrow function `this` binding?
+16. Closures in JavaScript
+17. Higher-order functions
+18. Function currying: what it is and how to implement it
+19. IIFEs (Immediately Invoked Function Expressions)
+20. How `this` keyword behaves in different contexts
+21. Call stack in JavaScript
+22. Creation and execution phases in JavaScript
+23. Synchronous vs asynchronous execution
+24. How lexical environment relates to closures
+25. Function declaration vs arrow function `this` binding
 
-## ⚡ 3. Promises, Async/Await & Event Loop
+## 🏗️ 3. Objects, Prototypes & Inheritance
 
-26. What is a Promise in JavaScript?
-27. What is the difference between callbacks and Promises?
-28. How do you chain Promises?
-29. What is async/await and how does it work?
-30. What is the difference between Promise.resolve() and new Promise()?
-31. How do you handle errors in Promises?
-32. What is callback hell and how do you avoid it?
-33. What is the Event Loop in JavaScript?
-34. What is the difference between microtasks and macrotasks?
-35. How do you run Promises concurrently?
-36. What is Promise.all() and when do you use it?
-37. What is Promise.race() and when do you use it?
-38. What is Promise.allSettled() and when do you use it?
-39. What is Promise.any() and when do you use it?
-40. How do you implement retry logic with Promises?
-41. What is Promise cancellation and how do you implement it?
-42. How do you run Promises sequentially?
-43. How do you implement progress updates with Promises?
-44. What is Promise.finally() and when do you use it?
-45. How do you mix Promises and async/await?
-46. What is the difference between Promise and async/await?
-47. How do you handle multiple async operations?
-48. What is the difference between Promise and Observable?
-49. How do you implement timeout with Promises?
-50. What is the difference between Promise and Generator?
-51. How does the fetch Promise work internally in V8?
+26. Objects in JavaScript
+27. Object literal vs object constructor
+28. Prototype in JavaScript
+29. `__proto__` in JavaScript
+30. Prototype chain
+31. `__proto__` vs `prototype`
+32. `hasOwnProperty` vs `in` operator
+33. `Object.create()` vs `new` operator
+34. `Object.assign()` vs spread operator
+35. `Object.freeze()` vs `Object.seal()`
+36. `Object.keys()` vs `Object.getOwnPropertyNames()`
+37. `Object.entries()` vs `Object.values()`
+38. Getters and setters in JavaScript
+39. Classes in JavaScript
+40. Class declaration vs class expression
+41. `extends` keyword: what it is and how it works
+42. `super()`: what it is and when to use it
+43. Static members in classes
+44. Private class fields
+45. ES6 classes vs prototype-based inheritance
 
-## 🏗️ 4. Objects, Prototypes & Inheritance
+## 🚀 4. ES6+ Features
 
-52. What is an object in JavaScript?
-53. What is the difference between object literal and object constructor?
-54. What is a prototype in JavaScript?
-55. What is __proto__ in JavaScript?
-56. What is the prototype chain?
-57. What is the difference between `__proto__` and `prototype`?
-58. What is the difference between `hasOwnProperty` and `in` operator?
-59. What is the difference between `Object.create()` and `new` operator?
-60. What is the difference between `Object.assign()` and spread operator?
-61. What is the difference between `Object.freeze()` and `Object.seal()`?
-62. What is the difference between `Object.keys()` and `Object.getOwnPropertyNames()`?
-63. What is the difference between `Object.entries()` and `Object.values()`?
-64. What are getters and setters in JavaScript?
-65. What are classes in JavaScript?
-66. What is the difference between class declaration and class expression?
-67. What is the `extends` keyword and how does it work?
-68. What is `super()` and when do you use it?
-69. What are static members in classes?
-70. What are private class fields?
-71. What is the difference between ES6 classes and prototype-based inheritance?
+46. Destructuring assignment
+47. Spread operator: what it is and how to use it
+48. Rest parameter: what it is and how to use it
+49. Template literals: what they are and how to use them
+50. `let` vs `const`
+51. ES modules: what they are and how to use them
+52. Generators: what they are and how to use them
+53. Async generators
+54. Symbols: what they are and how to use them
+55. Maps, Sets, WeakMaps, and WeakSets
 
-## 🚀 5. ES6+ Features
+## ⚡ 5. Promises, Async/Await & Event Loop
 
-72. What is destructuring assignment?
-73. What is the spread operator and how do you use it?
-74. What is the rest parameter and how do you use it?
-75. What is template literals and how do you use it?
-76. What is the difference between `let` and `const`?
-77. What are ES modules and how do you use them?
-78. What are generators and how do you use them?
-79. What are async generators?
-80. What are Symbols and how do you use them?
-81. What are Maps, Sets, WeakMaps, and WeakSets?
+56. Promises in JavaScript
+57. Callbacks vs Promises
+58. Chaining Promises
+59. Async/await: what it is and how it works
+60. `Promise.resolve()` vs `new Promise()`
+61. Handling errors in Promises
+62. Callback hell: what it is and how to avoid it
+63. Event Loop in JavaScript
+64. Microtasks vs macrotasks
+65. Running Promises concurrently
+66. `Promise.all()`: what it is and when to use it
+67. `Promise.race()`: what it is and when to use it
+68. `Promise.allSettled()`: what it is and when to use it
+69. `Promise.any()`: what it is and when to use it
+70. Implementing retry logic with Promises
+71. Promise cancellation: what it is and how to implement it
+72. Running Promises sequentially
+73. Implementing progress updates with Promises
+74. `Promise.finally()`: what it is and when to use it
+75. Promise vs async/await: differences and mixing them
+76. Handling multiple async operations
+77. Promise vs Observable
+78. Implementing timeout with Promises
+79. Promise vs Generator
+80. How fetch Promise works internally in V8
+81. Promise chaining and error propagation
 
 ## 🛠️ 6. Practical JavaScript Questions
 
@@ -122,13 +122,13 @@
 
 ## 📖 Complete Answer Guide
 
-- [1) Core JavaScript Fundamentals](1%20Core%20JavaScript%20Fundamentals.md) - Q1-15
-- [2) Functions, Closures & Execution Context](2%20Functions%2C%20Closures%20%26%20Execution%20Context.md) - Q16-25
-- [3) Promises, Async/Await & Event Loop](3%20Promises%2C%20Async-Await%20%26%20Event%20Loop.md) - Q26-51
-- [4) Objects, Prototypes & Inheritance](4%20Objects%2C%20Prototypes%20%26%20Inheritance.md) - Q52-71
-- [5) ES6+ Features](6%20ES6%2B%20Features.md) - Q72-81
-- [6) Practical JavaScript Questions](9%20Practical%20JavaScript%20Questions.md) - Q82-190
-- [7) JavaScript Output Questions](10%20JavaScript%20Output%20Questions.md) - Q191-250
+- [1) Core JavaScript Fundamentals](1%29%20Core%20JavaScript%20Fundamentals.md) - Q1-15
+- [2) Functions, Closures & Execution Context](2%29%20Functions%2C%20Closures%20%26%20Execution%20Context.md) - Q16-25
+- [3) Objects, Prototypes & Inheritance](4%29%20Objects%2C%20Prototypes%20%26%20Inheritance.md) - Q26-45
+- [4) ES6+ Features](6%29%20ES6%2B%20Features.md) - Q46-55
+- [5) Promises, Async/Await & Event Loop](3%29%20Promises%2C%20Async-Await%20%26%20Event%20Loop.md) - Q56-81
+- [6) Practical JavaScript Questions](9%29%20Practical%20JavaScript%20Questions.md) - Q82-190
+- [7) JavaScript Output Questions](10%29%20JavaScript%20Output%20Questions.md) - Q191-250
 
 ## 📝 Cheatsheet
 

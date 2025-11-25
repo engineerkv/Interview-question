@@ -1,6 +1,11 @@
-# 9) Performance, Optimization, Scaling & Monitoring (Q81–90)
+# 8) Performance, Optimization, Scaling & Monitoring (Q81–89)
 
-## Q81. What are common Node.js performance bottlenecks, and how can they be fixed?
+<div align="center">
+
+**[← Previous: Authentication, Security & Encryption](7%29%20Authentication%2C%20Security%20%26%20Encryption.md)** | **[Next: Testing, Debugging & Deployment →](9%29%20Testing%2C%20Debugging%20%26%20Deployment.md)**
+
+</div>
+## Q81. Identifying performance bottlenecks in Node.js applications
 
 Common bottlenecks include blocking I/O operations, memory leaks, inefficient algorithms, and event loop blocking - avoid synchronous operations in request handlers, use streaming for large data processing, implement proper error handling, monitor event loop lag, and profile CPU and memory usage regularly. Can be addressed through proper async patterns and optimization techniques.
 
@@ -27,7 +32,7 @@ app.get('/data', (req, res) => {
 });
 ```
 
-## Q82. How do you optimize Express middleware performance (limit heavy middleware, compression, caching)?
+## Q82. Optimizing middleware for performance
 
 Optimize middleware by reducing heavy operations, implementing compression, caching, and ordering middleware efficiently - order middleware by frequency of use, use compression for text responses, implement caching for expensive operations, avoid heavy middleware on all routes, and monitor middleware execution time. Minimizes request processing time.
 
@@ -60,7 +65,7 @@ app.use('/api/data', (req, res, next) => {
 });
 ```
 
-## Q83. How do you optimize database queries and prevent blocking in Node.js?
+## Q83. Optimizing database queries in Node.js
 
 Optimize database performance by using connection pooling, query optimization, indexing, and async database operations - use connection pooling for database connections, optimize queries with proper indexing, use prepared statements to prevent SQL injection, implement query caching for frequently accessed data, and monitor database performance and slow queries. Prevents blocking the event loop.
 
@@ -96,7 +101,7 @@ app.get('/api/users', async (req, res) => {
 });
 ```
 
-## Q84. What is PM2, and how does it help manage and optimize production processes?
+## Q84. Implementing clustering with PM2
 
 PM2 is a process manager for Node.js applications that provides clustering, monitoring, logging, and automatic restarts for production deployments - it provides process clustering and load balancing, automatic restarts on crashes, built-in monitoring and logging, zero-downtime deployments, and memory and CPU monitoring.
 
@@ -128,7 +133,7 @@ module.exports = {
 };
 ```
 
-## Q85. How do you scale a Node.js application horizontally (Cluster, Load Balancer, Containers)?
+## Q85. Implementing horizontal scaling in Node.js
 
 Horizontal scaling involves running multiple instances of the application across different processes, machines, or containers, with load balancing to distribute requests - use clustering for multi-core utilization, implement load balancing for multiple servers, use containers (Docker) for consistent deployments, consider microservices architecture, and implement health checks and monitoring.
 
@@ -166,7 +171,7 @@ if (cluster.isMaster) {
 }
 ```
 
-## Q86. How do you implement in-memory and distributed caching (Redis, LRU)?
+## Q86. Implementing caching with Redis or LRU
 
 Caching stores frequently accessed data in fast storage (memory or Redis) to reduce database load and improve response times - use Redis for distributed caching, implement cache invalidation strategies, consider cache warming for critical data, monitor cache hit rates, and use appropriate TTL values.
 
@@ -208,7 +213,7 @@ app.get('/api/stats', (req, res) => {
 });
 ```
 
-## Q87. What are effective techniques for optimizing API response time?
+## Q87. Optimizing API response times
 
 Optimize API response times through caching, database optimization, compression, CDN usage, and efficient data processing - use database pagination instead of loading all data, select only necessary fields, implement proper indexing, use compression for text responses, and consider CDN for static assets.
 
@@ -244,7 +249,7 @@ app.get('/api/users', async (req, res) => {
 });
 ```
 
-## Q88. How do you use monitoring tools like New Relic, Sentry, or Datadog?
+## Q88. Implementing monitoring and alerting
 
 Monitoring tools provide real-time insights into application performance, errors, and user experience - monitor key performance metrics, set up alerts for critical issues, track user experience metrics, monitor database and external service performance, and use distributed tracing for microservices. Enables proactive issue detection and resolution.
 
@@ -276,45 +281,7 @@ app.get('/api/data', async (req, res) => {
 });
 ```
 
-## Q89. How do you identify and fix memory leaks (Heap snapshots, Node --inspect)?
-
-Memory leaks occur when objects are not properly garbage collected, identified through heap snapshots and profiling tools - use --inspect flag for debugging, take heap snapshots to identify leaks, monitor memory usage over time, clear timers and event listeners, and use weak references for large objects.
-
-- **Trade-offs**: Use --inspect flag for debugging - take heap snapshots to identify leaks. Monitor memory usage over time - clear timers and event listeners. Use weak references for large objects - essential for long-running apps, but watch out - memory leaks can be subtle, so use heap snapshots to identify what's holding references.
-
-Example:
-
-```javascript
-const leakyArray = [];
-setInterval(() => {
-  leakyArray.push(new Array(1000).fill('leak'));
-}, 1000);
-
-setInterval(() => {
-  const usage = process.memoryUsage();
-  console.log('Memory usage:', {
-    rss: Math.round(usage.rss / 1024 / 1024) + ' MB',
-    heapTotal: Math.round(usage.heapTotal / 1024 / 1024) + ' MB',
-    heapUsed: Math.round(usage.heapUsed / 1024 / 1024) + ' MB'
-  });
-}, 5000);
-
-let intervalId;
-function startProcess() {
-  intervalId = setInterval(() => {
-    // Process data
-  }, 1000);
-}
-
-function stopProcess() {
-  if (intervalId) {
-    clearInterval(intervalId);
-    intervalId = null;
-  }
-}
-```
-
-## Q90. What are key strategies for performance optimization (profiling, batching, async iteration, compression, connection pooling)?
+## Q89. Implementing connection pooling and batching
 
 Performance optimization involves profiling to identify bottlenecks, implementing efficient patterns like batching and async iteration, and optimizing resource usage - profile before optimizing, use batching for bulk operations, implement async iteration for large datasets, use connection pooling for databases, and monitor and measure improvements.
 

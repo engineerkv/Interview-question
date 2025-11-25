@@ -2,7 +2,7 @@
 
 ---
 
-## Q88. How do you structure a scalable React project?
+## Q89. Structuring a scalable React project
 
 Organize by features, separate concerns, use consistent naming, and manage dependencies properly - feature-based organization scales better than type-based. Organize by features rather than file types for better scalability.
 
@@ -23,9 +23,15 @@ src/
 └── hooks/               # Shared hooks
 ```
 
+<div align="center">
+
+**[← Previous: Testing & Debugging](7%29%20Testing%20%26%20Debugging.md)** | **[Next: Question List →](question.md)**
+
+</div>
+
 ---
 
-## Q89. What are the best practices for component composition?
+## Q90. Best practices for component composition
 
 Component composition combines components to create complex UIs - it's more flexible than inheritance and aligns with React's component-based architecture. Compose simple components into complex UIs, avoid inheritance.
 
@@ -53,7 +59,7 @@ function App() {
 
 ---
 
-## Q90. How do you implement global configuration in React?
+## Q91. Implementing global configuration in React
 
 Use environment variables, configuration files, and context providers for global configuration - environment variables are build-time configuration. Use .env files for different environments (dev, staging, prod).
 
@@ -73,7 +79,7 @@ const api = fetch(`${process.env.REACT_APP_API_URL}/status`);
 
 ---
 
-## Q91. What is the difference between container and presentational components?
+## Q92. Container vs presentational components
 
 Container components handle logic and state, while presentational components handle UI - still relevant but patterns evolved with hooks, custom hooks can replace container components. Container components handle logic, state, and side effects (data fetching).
 
@@ -108,7 +114,7 @@ function UserList({ users, loading }) {
 
 ---
 
-## Q92. How do you handle errors in React applications?
+## Q93. Handling errors in React applications
 
 Use Error Boundaries, proper error states, logging, user-friendly messages, and graceful degradation - Error Boundaries are React's try-catch for components. Error Boundaries catch JavaScript errors in component tree, prevent app crashes.
 
@@ -137,7 +143,7 @@ class ErrorBoundary extends React.Component {
 
 ---
 
-## Q93. How do you manage side effects in React?
+## Q94. Managing side effects in React
 
 Use custom hooks for reusable side effects, middleware for cross-cutting concerns, and proper separation - custom hooks are the modern way to share side effect logic. Extract and reuse side effect logic across components.
 
@@ -172,7 +178,7 @@ function useApi(url) {
 
 ---
 
-## Q94. How do you implement authentication and authorization?
+## Q95. Implementing authentication and authorization
 
 Use context providers, protected routes, token management, and proper state management for auth - Context API is good for auth, but consider Redux for complex auth flows. Manage authentication state globally across the app.
 
@@ -208,7 +214,7 @@ function Protected({ children }) {
 
 ---
 
-## Q95. How do you handle environment variables in React?
+## Q96. Handling environment variables in React
 
 Use .env files, build-time configuration, and proper secret management for different environments - environment variables are embedded at build time in React. Use .env files for different environments (dev, staging, prod).
 
@@ -229,7 +235,7 @@ fetch(`${base}/health`);
 
 ---
 
-## Q96. What are common React anti-patterns to avoid?
+## Q97. Common React anti-patterns to avoid
 
 Common anti-patterns include prop drilling, mutating state directly, creating objects/functions in render, missing keys in lists, conditional hooks, and unnecessary re-renders - these usually indicate missing state management or poor architecture. Avoid passing props through multiple levels, use Context or state management instead.
 
@@ -287,7 +293,7 @@ if (condition) {
 
 ---
 
-## Q97. How do you profile and optimize React applications?
+## Q98. Profiling and optimizing React applications
 
 Use monitoring tools, performance budgets, regular profiling, and user feedback for continuous optimization - continuous optimization requires monitoring and data-driven decisions. Use tools like Lighthouse, Web Vitals, or RUM tools.
 
@@ -316,3 +322,9 @@ function usePerformanceMonitor(componentName) {
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Testing & Debugging](7%29%20Testing%20%26%20Debugging.md)** | **[Next: Question List →](question.md)**
+
+</div>

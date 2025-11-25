@@ -1,8 +1,14 @@
 # 2. Intermediate Level CSS (Q14–33)
 
+<div align="center">
+
+**[← Previous: Beginner Level CSS](1%29%20Beginner%20Level%20CSS.md)** | **[Next: Advanced CSS Concepts →](3%29%20Advanced%20CSS%20Concepts.md)**
+
+</div>
+
 ---
 
-## Q14. What is the difference between `visibility: hidden` and `display: none`?
+## Q14. `visibility: hidden` vs `display: none`
 
 `visibility: hidden` hides elements but preserves their space, while `display: none` removes elements completely from the layout - visibility preserves space, display removes from layout. `visibility: hidden` (element invisible but space preserved), `display: none` (element completely removed from layout).
 
@@ -17,7 +23,7 @@ Example:
 
 ---
 
-## Q15. What is `z-index` and how does stacking context work?
+## Q15. `z-index` and stacking context
 
 `z-index` controls the stacking order of positioned elements, with higher values appearing on top - z-index only works on positioned elements. Only works on positioned elements (relative, absolute, fixed), higher z-index values appear on top.
 
@@ -40,7 +46,7 @@ Example:
 
 ---
 
-## Q16. What is the default positioning value for HTML elements?
+## Q16. Default positioning value for HTML elements
 
 The default positioning value for HTML elements is `static`, which follows the normal document flow - static positioning is the default, follows normal flow. `static` is the default positioning, static elements follow normal document flow.
 
@@ -59,7 +65,7 @@ Example:
 
 ---
 
-## Q17. What is inheritance in CSS and which properties are inheritable?
+## Q17. Inheritance in CSS and inheritable properties
 
 Inheritance means child elements automatically get some properties from their parents, like font-family or color - inherited properties are more efficient than explicitly setting them on every element. Inherited properties include `font-family`, `font-size`, `color`, `line-height`, `text-align`, `visibility`.
 
@@ -78,7 +84,7 @@ body {
 
 ---
 
-## Q18. What are vendor prefixes and why are they used?
+## Q18. Vendor prefixes: what they are and why they're used
 
 Vendor prefixes are browser-specific prefixes added to CSS properties during experimental or early implementation phases - vendor prefixes are for experimental features, standard property comes last. `-webkit-` (Chrome, Safari, newer Edge), `-moz-` (Firefox), `-ms-` (Internet Explorer, older Edge), `-o-` (Opera, legacy).
 
@@ -96,7 +102,7 @@ Example:
 
 ---
 
-## Q19. What are shorthand properties in CSS?
+## Q19. Shorthand properties in CSS
 
 Shorthand properties allow setting multiple related CSS properties in a single declaration - shorthand properties are more efficient but order matters. Reduces code size and improves readability, common shorthands: `margin`, `padding`, `border`, `background`.
 
@@ -116,7 +122,7 @@ Example:
 
 ---
 
-## Q20. How do you apply multiple classes to an element?
+## Q20. Applying multiple classes to an element
 
 Separate multiple class names with spaces in the HTML class attribute - each class applies its styles independently, and specificity combines. Multiple classes combine their styles, order in HTML doesn't affect CSS.
 
@@ -136,7 +142,7 @@ Example:
 
 ---
 
-## Q21. What is CSS Flexbox and how does it work?
+## Q21. CSS Flexbox: what it is and how it works
 
 Flexbox helps you lay out items in one direction (row or column) with flexible sizing and easy alignment - use it when you need to distribute space or center content. Flexbox works on two axes—main (flex-direction) and cross (perpendicular).
 
@@ -155,9 +161,9 @@ Example:
 
 ---
 
-## Q22. Explain CSS Grid and its key features.
+## Q22. CSS Grid: what it is and its key features
 
-Grid lets you create layouts with both rows and columns at once, giving you precise control over where items go - perfect for complex page layouts. Unlike Flexbox, Grid handles both rows and columns simultaneously.
+Grid allows you to create layouts with both rows and columns at once, giving you precise control over where items go - perfect for complex page layouts. Unlike Flexbox, Grid handles both rows and columns simultaneously.
 
 - **Trade-offs**: The catch is `fr` units distribute available space proportionally - Grid can create implicit rows/columns when content exceeds defined tracks. Grid is perfect for complex two-dimensional layouts, but watch out - named grid areas make complex layouts more readable and maintainable.
 
@@ -177,7 +183,7 @@ Example:
 
 ---
 
-## Q23. What is the difference between Flexbox and Grid?
+## Q23. Flexbox vs Grid
 
 Grid handles 2D layouts (both rows and columns), while Flexbox handles 1D (row OR column) - use Grid for page structure and Flexbox for components. Grid for page layouts and complex two-dimensional arrangements, Flexbox for component layouts and navigation bars.
 
@@ -200,7 +206,7 @@ Example:
 
 ---
 
-## Q24. What are CSS transitions and how do you use them?
+## Q24. CSS transitions: what they are and how to use them
 
 Transitions make property changes smooth over time instead of instant - great for hover effects and user feedback, different properties can have different durations and timing functions. Can target specific properties or use `all` for multiple properties.
 
@@ -221,7 +227,7 @@ Example:
 
 ---
 
-## Q25. What are CSS animations and how do you create them?
+## Q25. CSS animations: what they are and how to create them
 
 Animations let you create complex, multi-step effects using @keyframes to define what happens at different points - use them for loading spinners or page entrances. Multiple keyframes (0%, 25%, 50%, 100%) create complex animation sequences.
 
@@ -239,7 +245,7 @@ Example:
 
 ---
 
-## Q26. What is the CSS cascade and how does it work?
+## Q26. CSS cascade: what it is and how it works
 
 The cascade is CSS's priority system—it decides which styles win based on order, specificity, and !important - later styles override earlier ones when specificity is equal. Later styles override earlier ones when specificity is equal (source order).
 
@@ -255,7 +261,7 @@ Example:
 
 ---
 
-## Q27. What are CSS combinators and how do you use them?
+## Q27. CSS combinators: what they are and how to use them
 
 Combinators let you target elements based on their relationship to other elements—like children, siblings, or descendants - useful for styling nested structures. Descendant (space) targets any descendant, child (>) targets only direct children.
 
@@ -272,7 +278,7 @@ h2 ~ p { color: gray; }
 
 ---
 
-## Q28. What is the difference between `transition` and `animation`?
+## Q28. `transition` vs `animation`
 
 Transitions animate property changes between states, while animations create complex multi-step sequences with @keyframes - transitions are simpler, animations are more powerful. Transitions need a trigger (hover, focus), animations can run automatically.
 
@@ -301,7 +307,7 @@ Example:
 
 ---
 
-## Q29. How do you create CSS animations using `@keyframes`?
+## Q29. Creating CSS animations using `@keyframes`
 
 Use `@keyframes` to define animation steps, then apply with the `animation` property - keyframes define what happens at different points in the animation. Define keyframes with percentages (0%, 50%, 100%) or keywords (from, to).
 
@@ -322,7 +328,7 @@ Example:
 
 ---
 
-## Q30. What are media queries and how do you use them?
+## Q30. Media queries: what they are and how to use them
 
 Media queries let you apply different styles based on device features like screen width - essential for making websites work on phones, tablets, and desktops. Common breakpoints are 768px (tablet), 1024px (desktop), 1200px (large desktop).
 
@@ -342,7 +348,7 @@ Example:
 
 ---
 
-## Q31. How do you create responsive text with CSS?
+## Q31. Creating responsive text with CSS
 
 Use relative units (rem, em), viewport units (vw, vh), or `clamp()` for responsive text that scales with screen size - responsive text improves readability across devices. `clamp()` sets min, preferred, and max values for fluid scaling.
 
@@ -365,7 +371,7 @@ p {
 
 ---
 
-## Q32. What are CSS variables and how do you use them?
+## Q32. CSS variables (custom properties): what they are, how to use them, and their role in design systems
 
 CSS variables let you store values like colors or spacing that you can reuse anywhere and even change with JavaScript - perfect for theming and maintaining consistent design tokens. Variables inherit and can be overridden at different levels (root, element, pseudo-class).
 
@@ -389,7 +395,7 @@ Example:
 
 ---
 
-## Q33. What is the difference between SASS and LESS?
+## Q33. SASS vs LESS
 
 SASS and LESS are CSS preprocessors that add features like variables and mixins - SASS uses indentation or SCSS syntax, LESS uses CSS-like syntax, both compile to CSS. SASS has two syntaxes (indented SASS, SCSS), LESS uses CSS-like syntax.
 
@@ -416,3 +422,10 @@ $primary-color: #007bff;
 ```
 
 ---
+<div align="center">
+
+**[← Previous: Beginner Level CSS](1%29%20Beginner%20Level%20CSS.md)** | **[Next: Advanced CSS Concepts →](3%29%20Advanced%20CSS%20Concepts.md)**
+
+</div>
+
+**[← Previous Section](1%29%20Beginner%20Level%20CSS.md)** | **[Next Section →](3%29%20Advanced%20CSS%20Concepts.md)**

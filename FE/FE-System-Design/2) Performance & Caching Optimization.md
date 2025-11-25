@@ -1,12 +1,208 @@
-# 2. Performance & Caching Optimization (Q11–27)
+# 2. Performance & Caching Optimization (Q10–23)
+
+<div align="center">
+
+**[← Previous: UI-UX Architecture & State Management](1%29%20UI-UX%20Architecture%20%26%20State%20Management.md)** | **[Next: Micro-Frontends vs Monolithic SPAs →](3%29%20Micro-Frontends%20vs%20Monolithic%20SPAs.md)**
+
+</div>
 
 ---
 
-## Q11. What are the Core Web Vitals and how do you improve them?
+## Q10. Performance overview
 
-Core Web Vitals are key metrics that measure user experience: LCP (Largest Contentful Paint), FID (First Input Delay), and CLS (Cumulative Layout Shift), which directly impact SEO and user satisfaction - core Web Vitals directly affect SEO rankings. LCP measures loading performance (should be < 2.5s), FID measures interactivity (should be < 100ms), CLS measures visual stability (should be < 0.1).
+Performance optimization improves user experience by reducing load times, improving interactivity, and ensuring smooth rendering. Performance directly impacts user satisfaction, conversion rates, SEO rankings, and business metrics—slow sites lose users and revenue.
 
-- **Trade-offs**: The catch is optimize images, fonts, and critical resources - use performance budgets and monitoring tools. Core Web Vitals directly affect SEO rankings, but watch out - measure and optimize each metric systematically.
+- **Trade-offs**: Performance optimization requires balancing multiple factors: bundle size, network requests, rendering speed, and runtime efficiency. The catch is optimizing one area can impact another—measure first, optimize based on real data, and set performance budgets to prevent regressions.
+
+Example:
+
+```javascript
+// Performance optimization checklist
+// 1. Measure Core Web Vitals
+// 2. Optimize bundle size (code splitting, tree shaking)
+// 3. Optimize images (format, size, lazy loading)
+// 4. Minimize network requests
+// 5. Optimize rendering (critical path, avoid layout shifts)
+// 6. Implement caching strategies
+// 7. Monitor and iterate
+```
+
+---
+
+## Q11. Performance importance
+
+Performance directly impacts user experience, conversion rates, SEO rankings, and business metrics—slow sites lose users and revenue. Every 100ms delay can reduce conversion rates by 1%, and 53% of mobile users abandon sites that take longer than 3 seconds to load.
+
+- **Trade-offs**: Performance improvements can increase development time and complexity, but the catch is poor performance costs more in lost users and revenue. Mobile performance is especially critical since mobile users often have slower connections and less powerful devices—optimize for mobile-first to ensure good experience across all devices.
+
+Example:
+
+```javascript
+// Performance impact metrics
+// - 1s delay = 7% reduction in conversions
+// - 3s delay = 53% mobile abandonment
+// - Core Web Vitals affect SEO rankings
+// - Performance budgets prevent regressions
+
+// Set performance budgets
+const performanceBudget = {
+  bundleSize: 200 * 1024, // 200KB
+  imageSize: 100 * 1024, // 100KB per image
+  totalRequests: 50,
+  lcp: 2500, // 2.5s
+  fid: 100, // 100ms
+  cls: 0.1
+};
+```
+
+---
+
+## Q12. Performance monitoring
+
+Performance monitoring tracks Core Web Vitals, custom metrics, and user experience metrics to identify performance issues and optimize accordingly. Monitor both Real User Monitoring (RUM) and Synthetic Monitoring for comprehensive coverage.
+
+- **Trade-offs**: RUM provides real user data but requires sufficient traffic, while synthetic monitoring tests specific scenarios but may not reflect real conditions. The catch is monitoring adds overhead—use efficient collection methods and sample data appropriately. Set up alerts for performance regressions and track trends over time.
+
+Example:
+
+```javascript
+// Performance monitoring with Web Vitals
+import { getCLS, getFID, getLCP, getFCP, getTTFB } from 'web-vitals';
+
+function sendToAnalytics(metric) {
+  analytics.track('web-vital', {
+    name: metric.name,
+    value: metric.value,
+    id: metric.id,
+    delta: metric.delta
+  });
+}
+
+getCLS(sendToAnalytics);
+getFID(sendToAnalytics);
+getLCP(sendToAnalytics);
+getFCP(sendToAnalytics);
+getTTFB(sendToAnalytics);
+
+// Custom performance marks
+performance.mark('app-start');
+performance.mark('app-ready');
+performance.measure('app-init', 'app-start', 'app-ready');
+```
+
+---
+
+## Q13. Performance tools
+
+Performance tools help measure, analyze, and optimize web performance through profiling, bundle analysis, and runtime monitoring. Use browser DevTools, Lighthouse, WebPageTest, and bundle analyzers to identify bottlenecks.
+
+- **Trade-offs**: Different tools serve different purposes—Lighthouse for audits, DevTools for debugging, bundle analyzers for size optimization. The catch is tools can give conflicting results—use multiple tools and focus on real user metrics. Learn to interpret results correctly and prioritize fixes based on impact.
+
+Example:
+
+```javascript
+// Lighthouse CI integration
+// npm install -g @lhci/cli
+// lhci autorun
+
+// Bundle analysis
+// webpack-bundle-analyzer
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+module.exports = {
+  plugins: [new BundleAnalyzerPlugin()]
+};
+
+// Performance API
+const observer = new PerformanceObserver((list) => {
+  for (const entry of list.getEntries()) {
+    console.log(entry.name, entry.duration);
+  }
+});
+observer.observe({ entryTypes: ['measure', 'navigation'] });
+```
+
+---
+
+## Q14. Network optimization
+
+Network optimization reduces latency and bandwidth usage through techniques like compression, HTTP/2, CDN usage, resource hints, and minimizing requests. Network is often the biggest performance bottleneck, especially on mobile.
+
+- **Trade-offs**: Compression reduces size but adds CPU overhead, HTTP/2 enables multiplexing but requires HTTPS. The catch is too many optimizations can complicate architecture—focus on high-impact changes first: enable compression, use CDN, minimize requests, and leverage HTTP/2. Resource hints (preconnect, dns-prefetch) help but use them strategically.
+
+Example:
+
+```javascript
+// Resource hints for network optimization
+<link rel="preconnect" href="https://api.example.com" />
+<link rel="dns-prefetch" href="https://cdn.example.com" />
+<link rel="preload" href="/critical.css" as="style" />
+<link rel="prefetch" href="/next-page.js" as="script" />
+
+// HTTP/2 server push (server-side)
+// Push critical resources with initial response
+
+// Compression
+// Enable gzip/Brotli on server
+// Content-Encoding: gzip or br
+
+// Minimize requests
+// Combine CSS/JS files
+// Use sprites for images
+// Inline critical CSS
+```
+
+---
+
+## Q15. Build optimization
+
+Build optimization reduces bundle size and improves load time through techniques like minification, tree shaking, code splitting, and dead code elimination. Build tools like Webpack, Vite, and esbuild apply these optimizations automatically.
+
+- **Trade-offs**: Aggressive optimization can break code or make debugging harder—use source maps in production (hidden) for debugging. The catch is optimization adds build time—balance optimization level with build speed. Tree shaking removes unused code but requires ES modules, code splitting improves initial load but can increase total bundle size.
+
+Example:
+
+```javascript
+// Webpack optimization
+module.exports = {
+  optimization: {
+    minimize: true,
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    },
+    usedExports: true, // Tree shaking
+    sideEffects: false
+  }
+};
+
+// Vite (uses esbuild for fast builds)
+export default {
+  build: {
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom']
+        }
+      }
+    }
+  }
+};
+```
+
+---
+
+## Q16. Core Web Vitals and how to optimize them
+
+Core Web Vitals are key metrics that measure user experience: LCP (Largest Contentful Paint), FID (First Input Delay), and CLS (Cumulative Layout Shift), which directly impact SEO and user satisfaction. LCP measures loading performance (should be < 2.5s), FID measures interactivity (should be < 100ms), CLS measures visual stability (should be < 0.1).
+
+- **Trade-offs**: Optimizing Core Web Vitals requires balancing multiple factors—optimize images and fonts for LCP, reduce JavaScript execution for FID, avoid layout shifts for CLS. The catch is these metrics are interconnected—improving one can impact another, so measure and optimize systematically.
 
 Example:
 
@@ -32,11 +228,11 @@ const ImageComponent = ({ src, alt }) => {
 
 ---
 
-## Q12. How do you implement code splitting and lazy loading?
+## Q17. Implementing code splitting and lazy loading
 
-Code splitting breaks the application into smaller chunks that are loaded on-demand, reducing initial bundle size and improving performance through lazy loading - code splitting improves initial load time. Use route and component-level splitting.
+Code splitting breaks the application into smaller chunks that are loaded on-demand, reducing initial bundle size and improving performance through lazy loading. Use route and component-level splitting.
 
-- **Trade-offs**: The catch is prefer dynamic import() for better cacheability - share common chunks, avoid vendor bloat. Code splitting improves initial load time, but watch out - analyze bundle split with tools (webpack-bundle-analyzer, rollup visualizer).
+- **Trade-offs**: Code splitting improves initial load time, but the catch is too many chunks can increase HTTP overhead—prefer dynamic import() for better cacheability, share common chunks, and avoid vendor bloat. Analyze bundle split with tools (webpack-bundle-analyzer, rollup visualizer) to find the right balance.
 
 Example:
 
@@ -58,101 +254,11 @@ const About = lazy(() => import('./pages/About'));
 
 ---
 
-## Q13. What is minification and how do you enable it?
+## Q18. Optimizing images for web performance
 
-Minification removes unnecessary characters (whitespace, comments), shortens identifiers, and applies safe code transformations to reduce asset size for faster downloads and execution - measure impact with bundle analyzers and performance budgets. Minify all text assets: JS, CSS, HTML, combine with compression (gzip/Brotli) for best results.
+Image optimization includes format selection (WebP, AVIF), responsive images, lazy loading, and proper sizing to reduce bandwidth and improve loading performance. Use modern formats and responsive images.
 
-- **Trade-offs**: The catch is prefer source maps in production (hidden) to debug minified code - safe transforms: dead-code elimination, constant folding, boolean/if simplification. Measure impact with bundle analyzers and performance budgets, but watch out - drop debug statements (`console.*`, `debugger`) to shrink bundles.
-
-Example:
-
-```javascript
-// Webpack (JS minification via Terser)
-module.exports = {
-  mode: 'production',
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          compress: { drop_console: true, passes: 2 },
-          mangle: true,
-          format: { comments: false }
-        }
-      })
-    ]
-  }
-};
-
-// Vite (uses esbuild for minify by default)
-export default defineConfig({
-  build: {
-    minify: 'esbuild',
-    terserOptions: { compress: { drop_console: true } }
-  }
-});
-```
-
----
-
-## Q14. What is code obfuscation and when should you use it?
-
-Code obfuscation transforms code to a functionally equivalent but hard-to-read form to make reverse-engineering more difficult - for strong protection, rely on server-side enforcement, licensing, watermarking. Obfuscation ≠ Security: It's defense-in-depth, not a replacement for proper security.
-
-- **Trade-offs**: The catch is larger bundles, slower runtime, harder debugging, potential compatibility issues - consider obfuscating only sensitive modules (license checks, proprietary algorithms) rather than full app. For strong protection, rely on server-side enforcement, licensing, watermarking, but watch out - do not ship public readable maps for obfuscated bundles, keep private maps securely.
-
-Example:
-
-```javascript
-// obfuscator.json
-{
-  "compact": true,
-  "controlFlowFlattening": true,
-  "deadCodeInjection": true,
-  "stringArray": true,
-  "stringArrayEncoding": ["rc4"],
-  "renameGlobals": true,
-  "disableConsoleOutput": true
-}
-```
-
----
-
-## Q15. How do you implement caching strategies?
-
-Caching strategies include browser caching, service worker caching, CDN caching, and API response caching to improve performance and reduce server load - choose strategy based on content type and update frequency. Cache first for static assets, network first for dynamic content.
-
-- **Trade-offs**: The catch is stale while revalidate for frequently updated content - implement proper cache invalidation strategies. Choose strategy based on content type and update frequency, but watch out - use ETags and cache headers for HTTP caching.
-
-Example:
-
-```javascript
-// Service Worker caching strategies
-self.addEventListener('fetch', (event) => {
-  const { request } = event;
-  
-  // Cache first for static assets
-  if (request.url.includes('/static/')) {
-    event.respondWith(cacheFirst(request));
-  }
-  // Network first for API calls
-  else if (request.url.includes('/api/')) {
-    event.respondWith(networkFirst(request));
-  }
-  // Stale while revalidate for dynamic content
-  else {
-    event.respondWith(staleWhileRevalidate(request));
-  }
-});
-```
-
----
-
-## Q16. How do you optimize images for web performance?
-
-Image optimization includes format selection (WebP, AVIF), responsive images, lazy loading, and proper sizing to reduce bandwidth and improve loading performance - use modern formats and responsive images. Use modern formats (WebP, AVIF) for better compression.
-
-- **Trade-offs**: The catch is implement lazy loading for below-the-fold images - provide responsive images with srcset. Use modern formats and responsive images, but watch out - optimize image dimensions and compression.
+- **Trade-offs**: Modern formats (WebP, AVIF) provide better compression but require fallbacks for older browsers. The catch is implement lazy loading for below-the-fold images—provide responsive images with srcset, and optimize image dimensions and compression. Use appropriate formats based on image type and browser support.
 
 Example:
 
@@ -169,59 +275,11 @@ const OptimizedImage = ({ src, alt }) => (
 
 ---
 
-## Q17. How do you implement HTTP caching?
+## Q19. Optimizing bundle size
 
-HTTP caching uses cache headers (Cache-Control, ETag, Last-Modified) to control how browsers and CDNs cache resources, reducing server load and improving performance - use appropriate cache headers for different resource types. Use long cache times for static assets with immutable flag.
+Bundle size optimization includes tree shaking, code splitting, removing unused dependencies, and analyzing bundle composition. Monitor bundle size and set performance budgets.
 
-- **Trade-offs**: The catch is use shorter cache times for dynamic content - implement proper cache invalidation. Use appropriate cache headers for different resource types, but watch out - use ETags for conditional requests.
-
-Example:
-
-```javascript
-// Cache-Control headers
-const cacheHeaders = {
-  static: 'Cache-Control: public, max-age=31536000, immutable',
-  dynamic: 'Cache-Control: public, max-age=3600, must-revalidate',
-  api: 'Cache-Control: private, max-age=0, must-revalidate'
-};
-```
-
----
-
-## Q18. How do you implement service worker caching?
-
-Service worker caching enables offline functionality and improves performance by caching resources and API responses - test offline functionality thoroughly. Cache static assets on install.
-
-- **Trade-offs**: The catch is use network-first or cache-first strategies - implement proper cache invalidation. Test offline functionality thoroughly, but watch out - update service worker for cache updates.
-
-Example:
-
-```javascript
-// Service Worker caching
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open('v1').then((cache) => {
-      return cache.addAll(['/', '/static/js/bundle.js', '/static/css/main.css']);
-    })
-  );
-});
-
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
-  );
-});
-```
-
----
-
-## Q19. How do you optimize bundle size?
-
-Bundle size optimization includes tree shaking, code splitting, removing unused dependencies, and analyzing bundle composition - monitor bundle size and set performance budgets. Use tree shaking to remove unused code.
-
-- **Trade-offs**: The catch is split vendor bundles from application code - remove unused dependencies. Monitor bundle size and set performance budgets, but watch out - use bundle analyzers to identify large dependencies.
+- **Trade-offs**: Tree shaking removes unused code but requires ES modules, code splitting improves initial load but can increase total bundle size. The catch is split vendor bundles from application code—remove unused dependencies, and use bundle analyzers to identify large dependencies.
 
 Example:
 
@@ -239,11 +297,11 @@ const analyzeBundle = () => {
 
 ---
 
-## Q20. How do you implement resource hints?
+## Q20. Implementing resource hints
 
-Resource hints (preload, prefetch, preconnect, dns-prefetch) optimize resource loading by providing hints to the browser about important resources - use resource hints strategically for critical resources. Use preconnect for critical third-party domains.
+Resource hints (preload, prefetch, preconnect, dns-prefetch) optimize resource loading by providing hints to the browser about important resources. Use resource hints strategically for critical resources.
 
-- **Trade-offs**: The catch is use preload for critical resources - use prefetch for likely next-page resources. Use resource hints strategically for critical resources, but watch out - use dns-prefetch for external domains.
+- **Trade-offs**: Resource hints improve perceived performance but can waste bandwidth if overused. The catch is use preload for critical resources—use prefetch for likely next-page resources, use preconnect for critical third-party domains, and use dns-prefetch for external domains.
 
 Example:
 
@@ -261,11 +319,11 @@ const ResourceHints = () => (
 
 ---
 
-## Q21. How do you optimize font loading?
+## Q21. Optimizing font loading
 
-Font optimization includes font-display strategies, subsetting, preloading, and using system fonts to improve loading performance - use font-display: swap for better perceived performance. Use font-display: swap to prevent invisible text.
+Font optimization includes font-display strategies, subsetting, preloading, and using system fonts to improve loading performance. Use font-display: swap to prevent invisible text.
 
-- **Trade-offs**: The catch is preload critical fonts - subset fonts to reduce file size. Use font-display: swap for better perceived performance, but watch out - use system fonts as fallback.
+- **Trade-offs**: Font-display: swap improves perceived performance but can cause flash of unstyled text (FOUT). The catch is preload critical fonts—subset fonts to reduce file size, and use system fonts as fallback. Balance between custom fonts and performance.
 
 Example:
 
@@ -289,11 +347,11 @@ const FontOptimization = () => (
 
 ---
 
-## Q22. How do you implement CDN caching?
+## Q22. Implementing CDN caching
 
-CDN caching distributes content across multiple edge locations, reducing latency and server load by serving cached content from locations closer to users - configure CDN caching based on content type. Configure different cache times for different content types.
+CDN caching distributes content across multiple edge locations, reducing latency and server load by serving cached content from locations closer to users. Configure CDN caching based on content type.
 
-- **Trade-offs**: The catch is use CDN for static assets and API responses - implement proper cache invalidation. Configure CDN caching based on content type, but watch out - monitor CDN hit rates and performance.
+- **Trade-offs**: CDN caching improves performance globally but requires proper cache invalidation. The catch is use CDN for static assets and API responses—configure different cache times for different content types, and monitor CDN hit rates and performance.
 
 Example:
 
@@ -313,68 +371,11 @@ const cdnConfig = {
 
 ---
 
-## Q23. How do you optimize API response caching?
+## Q23. Optimizing critical rendering path
 
-API response caching includes client-side caching, HTTP caching, and service worker caching to reduce API calls and improve performance - implement proper cache invalidation for dynamic data. Cache API responses with appropriate TTL.
+Critical rendering path optimization minimizes render-blocking resources, inlines critical CSS, defers non-critical JavaScript, and optimizes resource loading order. Optimize above-the-fold content first.
 
-- **Trade-offs**: The catch is use HTTP cache headers for API responses - implement proper cache invalidation. Implement proper cache invalidation for dynamic data, but watch out - use service worker for offline API caching.
-
-Example:
-
-```javascript
-// API response caching
-const apiCache = new Map();
-
-const fetchWithCache = async (url, options = {}) => {
-  const cacheKey = `${url}-${JSON.stringify(options)}`;
-  
-  if (apiCache.has(cacheKey)) {
-    const cached = apiCache.get(cacheKey);
-    if (Date.now() - cached.timestamp < 60000) { // 1 minute cache
-      return cached.data;
-    }
-  }
-  
-  const response = await fetch(url, options);
-  const data = await response.json();
-  apiCache.set(cacheKey, { data, timestamp: Date.now() });
-  return data;
-};
-```
-
----
-
-## Q24. How do you implement memory caching?
-
-Memory caching stores frequently accessed data in memory for fast retrieval, reducing computation and API calls - use memory caching for expensive computations and frequently accessed data. Use memory cache for expensive operations.
-
-- **Trade-offs**: The catch is implement TTL for cache expiration - monitor memory usage and cache size. Use memory caching for expensive computations and frequently accessed data, but watch out - use LRU cache for bounded memory usage.
-
-Example:
-
-```javascript
-// Memory cache implementation
-const memoryCache = new Map();
-
-const getCachedData = (key, fetcher, ttl = 60000) => {
-  const cached = memoryCache.get(key);
-  if (cached && Date.now() - cached.timestamp < ttl) {
-    return cached.data;
-  }
-  
-  const data = fetcher();
-  memoryCache.set(key, { data, timestamp: Date.now() });
-  return data;
-};
-```
-
----
-
-## Q25. How do you optimize critical rendering path?
-
-Critical rendering path optimization minimizes render-blocking resources, inlines critical CSS, defers non-critical JavaScript, and optimizes resource loading order - optimize above-the-fold content first. Minimize render-blocking resources.
-
-- **Trade-offs**: The catch is inline critical CSS and defer non-critical styles - use preload hints for important resources. Optimize above-the-fold content first, but watch out - defer non-critical JavaScript.
+- **Trade-offs**: Inlining critical CSS improves initial render but increases HTML size, deferring JavaScript improves interactivity but can delay functionality. The catch is minimize render-blocking resources—inline critical CSS and defer non-critical styles, use preload hints for important resources, and defer non-critical JavaScript.
 
 Example:
 
@@ -406,54 +407,8 @@ const optimizeCriticalPath = {
 
 ---
 
-## Q26. How do you implement performance monitoring?
+<div align="center">
 
-Performance monitoring tracks Core Web Vitals, custom metrics, and user experience metrics to identify performance issues and optimize accordingly - monitor performance continuously and set alerts. Track Core Web Vitals and custom metrics.
+**[← Previous: UI-UX Architecture & State Management](1%29%20UI-UX%20Architecture%20%26%20State%20Management.md)** | **[Next: Micro-Frontends vs Monolithic SPAs →](3%29%20Micro-Frontends%20vs%20Monolithic%20SPAs.md)**
 
-- **Trade-offs**: The catch is monitor real user metrics (RUM) - set performance budgets and alerts. Monitor performance continuously and set alerts, but watch out - analyze performance trends over time.
-
-Example:
-
-```javascript
-// Performance monitoring
-import { getCLS, getFID, getLCP } from 'web-vitals';
-
-const sendToAnalytics = (metric) => {
-  // Send to analytics service
-  analytics.track('web-vital', {
-    name: metric.name,
-    value: metric.value,
-    id: metric.id
-  });
-};
-
-getCLS(sendToAnalytics);
-getFID(sendToAnalytics);
-getLCP(sendToAnalytics);
-```
-
----
-
-## Q27. How do you optimize for mobile performance?
-
-Mobile performance optimization includes reducing bundle size, optimizing images, implementing touch-friendly interactions, and minimizing network requests - test on real devices and slow networks. Reduce bundle size for mobile devices.
-
-- **Trade-offs**: The catch is optimize images and assets for mobile - implement touch-friendly interactions. Test on real devices and slow networks, but watch out - minimize network requests and use compression.
-
-Example:
-
-```javascript
-// Mobile optimization
-const MobileOptimizations = () => {
-  // Reduce bundle size
-  const isMobile = window.innerWidth < 768;
-  const Component = isMobile ? MobileComponent : DesktopComponent;
-  
-  // Optimize images
-  const imageSrc = isMobile ? 'image-mobile.jpg' : 'image-desktop.jpg';
-  
-  return <Component imageSrc={imageSrc} />;
-};
-```
-
----
+</div>

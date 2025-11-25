@@ -1,8 +1,14 @@
 # Section 10: Git, Docker, CI/CD, Tooling (Q191-Q210)
 
+<div align="center">
+
+**[← Previous: Communication Protocols](9%29%20Communication%20Protocols.md)** | **[Next: AI Tools →](11%29%20AI%20Tools.md)**
+
+</div>
+
 ---
 
-## Q191. Git merge vs rebase.
+## Q191. Git merge vs rebase
 
 Git merge creates a merge commit that combines two branches, preserving the history of both branches - the branch history shows when branches diverged and merged. Git rebase replays commits from one branch onto another, creating a linear history without merge commits - it rewrites commit history to make it look like work happened sequentially. Use merge to preserve branch history, use rebase to keep history clean and linear.
 
@@ -10,7 +16,7 @@ Git merge creates a merge commit that combines two branches, preserving the hist
 
 ---
 
-## Q192. Git cherry-pick.
+## Q192. Git cherry-pick
 
 Git cherry-pick applies a specific commit from one branch to another branch - you select a commit by hash and apply its changes to your current branch. This is useful for applying bug fixes or features from one branch to another without merging the entire branch. Cherry-pick creates a new commit with the same changes but a different commit hash.
 
@@ -18,7 +24,7 @@ Git cherry-pick applies a specific commit from one branch to another branch - yo
 
 ---
 
-## Q193. Fixing merge conflicts.
+## Q193. Fixing merge conflicts
 
 Fix merge conflicts by opening conflicted files, finding conflict markers (<<<<<<, ======, >>>>>>), and manually resolving which changes to keep. Edit the file to remove conflict markers and keep the desired code, then stage the resolved file and commit. Use merge tools or IDE features to help visualize and resolve conflicts. For complex conflicts, communicate with the other developer to understand the changes.
 
@@ -26,7 +32,7 @@ Fix merge conflicts by opening conflicted files, finding conflict markers (<<<<<
 
 ---
 
-## Q194. GitFlow vs trunk-based development.
+## Q194. GitFlow vs trunk-based development
 
 GitFlow uses multiple long-lived branches - main for production, develop for integration, feature branches for new work, release branches for preparing releases, and hotfix branches for urgent fixes. Trunk-based development uses a single main branch where everyone commits frequently, with short-lived feature branches that are merged quickly. GitFlow provides more structure, trunk-based enables faster integration.
 
@@ -34,7 +40,7 @@ GitFlow uses multiple long-lived branches - main for production, develop for int
 
 ---
 
-## Q195. Docker image vs container.
+## Q195. Docker image vs container
 
 A Docker image is a read-only template that defines how to create a container - it contains the application code, dependencies, and configuration. A container is a running instance of an image - when you run an image, Docker creates a container with a writable layer on top of the image. You can have multiple containers running from the same image, each with its own state.
 
@@ -42,7 +48,7 @@ A Docker image is a read-only template that defines how to create a container - 
 
 ---
 
-## Q196. Docker multi-stage builds.
+## Q196. Docker multi-stage builds
 
 Docker multi-stage builds use multiple FROM statements in one Dockerfile, allowing you to use different base images for building and running - like using a large image with build tools to compile code, then copying only the compiled artifacts to a smaller runtime image. This reduces final image size by excluding build tools and dependencies that aren't needed at runtime.
 
@@ -69,7 +75,7 @@ CMD ["node", "dist/index.js"]
 
 ---
 
-## Q197. Reducing Docker image size.
+## Q197. Reducing Docker image size
 
 Reduce Docker image size by using smaller base images (like Alpine Linux), using multi-stage builds to exclude build tools, removing unnecessary files and dependencies, combining RUN commands to reduce layers, and using .dockerignore to exclude files from the build context. Avoid installing unnecessary packages, clean up package caches, and only copy files needed for runtime.
 
@@ -77,7 +83,7 @@ Reduce Docker image size by using smaller base images (like Alpine Linux), using
 
 ---
 
-## Q198. Docker Compose use cases.
+## Q198. Docker Compose use cases
 
 Use Docker Compose to define and run multi-container applications locally - you define services, networks, and volumes in a YAML file, and Compose starts all containers together. Use it for local development environments, testing multi-service applications, or running services that depend on each other. Compose simplifies managing multiple containers and their relationships.
 
@@ -85,7 +91,7 @@ Use Docker Compose to define and run multi-container applications locally - you 
 
 ---
 
-## Q199. Securing secrets in Docker.
+## Q199. Securing secrets in Docker
 
 Secure secrets in Docker by using Docker secrets (in Swarm mode), mounting secrets as files instead of environment variables, using secret management services like AWS Secrets Manager, or using build-time secrets with BuildKit. Never hardcode secrets in Dockerfiles or commit them to version control. Use environment variables for non-sensitive config, secrets services for sensitive data.
 
@@ -93,7 +99,7 @@ Secure secrets in Docker by using Docker secrets (in Swarm mode), mounting secre
 
 ---
 
-## Q200. Kubernetes vs Docker — differences.
+## Q200. Kubernetes vs Docker differences
 
 Docker is a containerization platform that packages applications into containers - it runs containers on a single machine. Kubernetes is an orchestration platform that manages containers across multiple machines - it handles scheduling, scaling, load balancing, and self-healing. Docker creates and runs containers, Kubernetes manages containerized applications at scale.
 
@@ -101,7 +107,7 @@ Docker is a containerization platform that packages applications into containers
 
 ---
 
-## Q201. CI/CD pipeline stages.
+## Q201. CI/CD pipeline stages
 
 CI/CD pipelines typically have stages like build (compile code, run tests), test (unit tests, integration tests), security scan (vulnerability scanning, code analysis), deploy to staging (deploy to test environment), integration tests (end-to-end tests), and deploy to production (deploy to live environment). Each stage runs automatically when the previous stage succeeds, and failures stop the pipeline.
 
@@ -109,7 +115,7 @@ CI/CD pipelines typically have stages like build (compile code, run tests), test
 
 ---
 
-## Q202. Blue-green vs canary deployments.
+## Q202. Blue-green vs canary deployments
 
 Blue-green deployment runs two identical production environments and switches traffic from one to the other - you deploy new version to green, test it, then switch all traffic. Canary deployment gradually routes traffic to the new version - you deploy new version alongside old, route 10% of traffic to new version, monitor, then gradually increase to 100%. Blue-green is faster, canary is safer.
 
@@ -117,7 +123,7 @@ Blue-green deployment runs two identical production environments and switches tr
 
 ---
 
-## Q203. Zero-downtime deployment techniques.
+## Q203. Zero-downtime deployment techniques
 
 Achieve zero-downtime deployments by using rolling updates (replace instances gradually), blue-green deployments (switch traffic instantly), or canary deployments (gradually route traffic). Use health checks to ensure new instances are ready before routing traffic, drain connections from old instances gracefully, and ensure backward compatibility so both versions can run simultaneously.
 
@@ -125,7 +131,7 @@ Achieve zero-downtime deployments by using rolling updates (replace instances gr
 
 ---
 
-## Q204. Postman automated testing.
+## Q204. Postman automated testing
 
 Postman automated testing allows you to write test scripts that run after API requests - you can validate responses, check status codes, verify response times, and chain requests together. Use Postman collections to organize tests, run them in CI/CD pipelines, and use environments to test against different stages. Tests run automatically and can be integrated into your deployment process.
 
@@ -133,7 +139,7 @@ Postman automated testing allows you to write test scripts that run after API re
 
 ---
 
-## Q205. npm vs Yarn differences.
+## Q205. npm vs Yarn differences
 
 npm is Node.js's default package manager that comes with Node.js, while Yarn is an alternative package manager created by Facebook. Yarn was faster and had better dependency resolution, but modern npm has caught up. Yarn uses yarn.lock, npm uses package-lock.json. Both work similarly, but Yarn has some features like workspaces and better offline support.
 
@@ -141,7 +147,7 @@ npm is Node.js's default package manager that comes with Node.js, while Yarn is 
 
 ---
 
-## Q206. package-lock.json vs yarn.lock.
+## Q206. package-lock.json vs yarn.lock
 
 package-lock.json is npm's lock file that locks exact versions of all dependencies and their dependencies, ensuring consistent installs across environments. yarn.lock is Yarn's equivalent lock file that serves the same purpose. Both ensure that `npm install` or `yarn install` produces the same dependency tree every time, regardless of when or where it runs.
 
@@ -149,7 +155,7 @@ package-lock.json is npm's lock file that locks exact versions of all dependenci
 
 ---
 
-## Q207. Peer dependencies in npm.
+## Q207. Peer dependencies in npm
 
 Peer dependencies are dependencies that your package expects the consuming application to provide - like a React component library that expects React to be installed by the app using it, not bundled with the library. This prevents multiple versions of the same dependency from being installed, which is important for libraries that need to share a single instance of a dependency.
 
@@ -157,7 +163,7 @@ Peer dependencies are dependencies that your package expects the consuming appli
 
 ---
 
-## Q208. Solving dependency conflicts.
+## Q208. Solving dependency conflicts
 
 Solve dependency conflicts by updating packages to compatible versions, using npm's dependency resolution (npm tries to find compatible versions), using `npm install --force` or `--legacy-peer-deps` to bypass conflicts (not recommended), or using package managers that handle conflicts better. Check which packages require conflicting versions, update them if possible, or use resolutions/overrides to force specific versions.
 
@@ -165,7 +171,7 @@ Solve dependency conflicts by updating packages to compatible versions, using np
 
 ---
 
-## Q209. Node.js performance debugging tools.
+## Q209. Node.js performance debugging tools
 
 Use Node.js performance debugging tools like the built-in profiler (`--prof`), Chrome DevTools for CPU profiling, `clinic.js` for performance analysis, or `0x` for flame graphs. Use `process.memoryUsage()` to monitor memory, `console.time()` for timing, and APM tools like New Relic or DataDog for production monitoring. Identify bottlenecks by profiling CPU usage, memory leaks, or slow operations.
 
@@ -173,8 +179,16 @@ Use Node.js performance debugging tools like the built-in profiler (`--prof`), C
 
 ---
 
-## Q210. Postman environments vs globals.
+## Q210. Postman environments vs globals
 
 Postman environments are sets of variables scoped to a specific environment - like development, staging, or production - where you can define different values for the same variable name (like different API URLs). Globals are variables available across all requests regardless of environment. Use environments for environment-specific config, use globals for values that are the same everywhere.
 
 - **Trade-offs**: Environments enable testing against different stages without changing requests, which is convenient, but the catch is you need to manage multiple environment files. Globals are simpler but less flexible - they're the same everywhere, so you can't have different values per environment. The tricky part is knowing when to use each - use environments for URLs, API keys per environment, globals for constants.
+
+---
+
+<div align="center">
+
+**[← Previous: Communication Protocols](9%29%20Communication%20Protocols.md)** | **[Next: AI Tools →](11%29%20AI%20Tools.md)**
+
+</div>
