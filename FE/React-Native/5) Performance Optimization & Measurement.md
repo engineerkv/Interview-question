@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: Navigation & Lifecycle](4%29%20Navigation%20%26%20Lifecycle.md)** | **[Next: State Management & Data Handling →](6%29%20State%20Management%20%26%20Data%20Handling.md)**
+
+</div>
+
 # 5. Performance Optimization & Measurement (Q41–50)
 
 ---
@@ -35,12 +41,6 @@ function GoodList({ data }) {
   );
 }
 ```
-
-<div align="center">
-
-**[← Previous: Navigation & Lifecycle](4%29%20Navigation%20%26%20Lifecycle.md)** | **[Next: State Management & Data Handling →](6%29%20State%20Management%20%26%20Data%20Handling.md)**
-
-</div>
 
 ---
 
@@ -297,8 +297,3 @@ function FabricComponent() {
 
 ---
 
-<div align="center">
-
-**[← Previous: Navigation & Lifecycle](4%29%20Navigation%20%26%20Lifecycle.md)** | **[Next: State Management & Data Handling →](6%29%20State%20Management%20%26%20Data%20Handling.md)**
-
-</div>

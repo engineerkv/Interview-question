@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: README](../README.md)** | **[Next: Native Modules & Platform Integrations →](2%29%20Native%20Modules%20%26%20Platform%20Integrations.md)**
+
+</div>
+
 # 1. React Native Fundamentals (Q1–10)
 
 ---
@@ -27,12 +33,6 @@ const styles = StyleSheet.create({
   title: { fontSize: 24, fontWeight: 'bold' }
 });
 ```
-
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Native Modules & Platform Integrations →](2%29%20Native%20Modules%20%26%20Platform%20Integrations.md)**
-
-</div>
 
 ---
 
@@ -269,8 +269,3 @@ const styles = StyleSheet.create({
 
 ---
 
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Native Modules & Platform Integrations →](2%29%20Native%20Modules%20%26%20Platform%20Integrations.md)**
-
-</div>

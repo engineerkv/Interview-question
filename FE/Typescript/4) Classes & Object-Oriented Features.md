@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: Functions & Advanced Type Features](3%29%20Functions%20%26%20Advanced%20Type%20Features.md)** | **[Next: Advanced TypeScript Internals →](5%29%20Advanced%20TypeScript%20Internals.md)**
+
+</div>
+
 # 4. Classes & Object-Oriented Features (Q32–39)
 
 ---
@@ -23,12 +29,6 @@ class BankAccount {
   }
 }
 ```
-
-<div align="center">
-
-**[← Previous: Functions & Advanced Type Features](3%29%20Functions%20%26%20Advanced%20Type%20Features.md)** | **[Next: Advanced TypeScript Internals →](5%29%20Advanced%20TypeScript%20Internals.md)**
-
-</div>
 
 ---
 
@@ -202,8 +202,3 @@ const user = new TimestampedUser();
 
 ---
 
-<div align="center">
-
-**[← Previous: Functions & Advanced Type Features](3%29%20Functions%20%26%20Advanced%20Type%20Features.md)** | **[Next: Advanced TypeScript Internals →](5%29%20Advanced%20TypeScript%20Internals.md)**
-
-</div>

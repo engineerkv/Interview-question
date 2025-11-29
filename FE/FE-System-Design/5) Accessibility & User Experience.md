@@ -1,10 +1,10 @@
-# 5. Accessibility & User Experience (Q44–52)
-
 <div align="center">
 
 **[← Previous: Cross-Platform Architecture & Offline Support](4%29%20Cross-Platform%20Architecture%20%26%20Offline%20Support.md)** | **[Next: Browser Internals & Rendering →](6%29%20Browser%20Internals%20%26%20Rendering.md)**
 
 </div>
+
+# 5. Accessibility & User Experience (Q44–52)
 
 ---
 
@@ -382,8 +382,3 @@ const SearchBox = () => {
 
 ---
 
-<div align="center">
-
-**[← Previous: Cross-Platform Architecture & Offline Support](4%29%20Cross-Platform%20Architecture%20%26%20Offline%20Support.md)** | **[Next: Browser Internals & Rendering →](6%29%20Browser%20Internals%20%26%20Rendering.md)**
-
-</div>

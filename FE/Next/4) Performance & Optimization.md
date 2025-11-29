@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: Routing & Navigation](3%29%20Routing%20%26%20Navigation.md)** | **[Next: Architecture & Best Practices →](5%29%20Architecture%20%26%20Best%20Practices.md)**
+
+</div>
+
 # 4. Performance & Optimization (Q28–37)
 
 ---
@@ -26,12 +32,6 @@ export default function OptimizedImage() {
   );
 }
 ```
-
-<div align="center">
-
-**[← Previous: Routing & Navigation](3%29%20Routing%20%26%20Navigation.md)** | **[Next: Architecture & Best Practices →](5%29%20Architecture%20%26%20Best%20Practices.md)**
-
-</div>
 
 ---
 
@@ -245,8 +245,3 @@ export async function getServerSideProps() {
 
 ---
 
-<div align="center">
-
-**[← Previous: Routing & Navigation](3%29%20Routing%20%26%20Navigation.md)** | **[Next: Architecture & Best Practices →](5%29%20Architecture%20%26%20Best%20Practices.md)**
-
-</div>

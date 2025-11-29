@@ -1,10 +1,10 @@
-# 5. HTML5 Features & APIs (Q61–75)
-
 <div align="center">
 
 **[← Previous: Accessibility (A11y)](4%29%20Accessibility%20%28A11y%29.md)** | **[Next: Media Elements →](6%29%20Media%20Elements.md)**
 
 </div>
+
+# 5. HTML5 Features & APIs (Q61–75)
 
 ---
 
@@ -373,8 +373,3 @@ Example:
 <meta name="apple-mobile-web-app-capable" content="yes">
 ```
 
-<div align="center">
-
-**[← Previous: Accessibility (A11y)](4%29%20Accessibility%20%28A11y%29.md)** | **[Next: Media Elements →](6%29%20Media%20Elements.md)**
-
-</div>

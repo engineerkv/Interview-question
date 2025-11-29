@@ -1,10 +1,10 @@
-# 2. Semantic HTML & Structure (Q16–30)
-
 <div align="center">
 
 **[← Previous: HTML Fundamentals](1%29%20HTML%20Fundamentals.md)** | **[Next: Forms & Input Elements →](3%29%20Forms%20%26%20Input%20Elements.md)**
 
 </div>
+
+# 2. Semantic HTML & Structure (Q16–30)
 
 ---
 
@@ -313,8 +313,3 @@ Example:
 </html>
 ```
 
-<div align="center">
-
-**[← Previous: HTML Fundamentals](1%29%20HTML%20Fundamentals.md)** | **[Next: Forms & Input Elements →](3%29%20Forms%20%26%20Input%20Elements.md)**
-
-</div>

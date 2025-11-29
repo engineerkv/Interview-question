@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: Indexing & Query Optimization](2%29%20Indexing%20%26%20Query%20Optimization.md)** | **[Next: Data Modeling & Schema Design →](4%29%20Data%20Modeling%20%26%20Schema%20Design.md)**
+
+</div>
+
 # 3. Aggregation Framework (Q30–41)
 
 ---
@@ -19,12 +25,6 @@ db.orders.aggregate([
   { $limit: 10 }
 ]);
 ```
-
-<div align="center">
-
-**[← Previous: Indexing & Query Optimization](2%29%20Indexing%20%26%20Query%20Optimization.md)** | **[Next: Data Modeling & Schema Design →](4%29%20Data%20Modeling%20%26%20Schema%20Design.md)**
-
-</div>
 
 ---
 
@@ -348,8 +348,3 @@ const orders = await Order.aggregate([
 
 ---
 
-<div align="center">
-
-**[← Previous: Indexing & Query Optimization](2%29%20Indexing%20%26%20Query%20Optimization.md)** | **[Next: Data Modeling & Schema Design →](4%29%20Data%20Modeling%20%26%20Schema%20Design.md)**
-
-</div>

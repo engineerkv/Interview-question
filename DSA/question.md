@@ -386,11 +386,11 @@
 | Graphs | 24 | Q136-Q159 | [8) Graphs.md](8%20Graphs.md) |
 | Dynamic Programming | 33 | Q160-Q192 | [9) Dynamic Programming.md](9%20Dynamic%20Programming.md) |
 | Recursion & Backtracking | 10 | Q193-Q202 | [10) Recursion & Backtracking.md](10%20Recursion%20&%20Backtracking.md) |
-| Matrix | 5 | Q203-Q207 | [12) Matrix.md](12%20Matrix.md) |
-| Trie | 3 | Q208-Q210 | [13) Trie.md](13%20Trie.md) |
-| Binary Search | 7 | Q211-Q217 | [14) Binary Search.md](14%20Binary%20Search.md) |
-| Bit Manipulation | 6 | Q218-Q223 | [15) Bit Manipulation.md](15%20Bit%20Manipulation.md) |
-| Math | 6 | Q224-Q229 | [16) Math.md](16%20Math.md) |
+| Matrix | 5 | Q203-Q207 | [11) Matrix.md](11%20Matrix.md) |
+| Trie | 3 | Q208-Q210 | [12) Trie.md](12%20Trie.md) |
+| Binary Search | 7 | Q211-Q217 | [13) Binary Search.md](13%20Binary%20Search.md) |
+| Bit Manipulation | 6 | Q218-Q223 | [14) Bit Manipulation.md](14%20Bit%20Manipulation.md) |
+| Math | 6 | Q224-Q229 | [15) Math.md](15%20Math.md) |
 
 ---
 

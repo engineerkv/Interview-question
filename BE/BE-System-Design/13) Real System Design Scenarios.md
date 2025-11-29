@@ -1,10 +1,10 @@
-# Section 13: Real System Design Scenarios (Q226-Q240)
-
 <div align="center">
 
 **[← Previous: Code Quality + Debugging](12%29%20Code%20Quality%20%2B%20Debugging.md)** | **[Next: Question List →](question.md)**
 
 </div>
+
+# Section 13: Real System Design Scenarios (Q226-Q240)
 
 ---
 
@@ -128,8 +128,3 @@ Design disaster recovery by replicating data across multiple regions, implementi
 
 ---
 
-<div align="center">
-
-**[← Previous: Code Quality + Debugging](12%29%20Code%20Quality%20%2B%20Debugging.md)** | **[Next: Question List →](question.md)**
-
-</div>

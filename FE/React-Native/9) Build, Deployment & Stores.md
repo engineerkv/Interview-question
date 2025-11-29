@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: Debugging & Testing](8%29%20Debugging%20%26%20Testing.md)** | **[Next: Push Notifications & Messaging →](10%29%20Push%20Notifications%20%26%20Messaging.md)**
+
+</div>
+
 # 9. Build, Deployment & Stores (Q79–90)
 
 ---
@@ -32,12 +38,6 @@ android {
     }
 }
 ```
-
-<div align="center">
-
-**[← Previous: Debugging & Testing](8%29%20Debugging%20%26%20Testing.md)** | **[Next: Push Notifications & Messaging →](10%29%20Push%20Notifications%20%26%20Messaging.md)**
-
-</div>
 
 ---
 
@@ -293,8 +293,3 @@ jobs:
 
 ---
 
-<div align="center">
-
-**[← Previous: Debugging & Testing](8%29%20Debugging%20%26%20Testing.md)** | **[Next: Push Notifications & Messaging →](10%29%20Push%20Notifications%20%26%20Messaging.md)**
-
-</div>

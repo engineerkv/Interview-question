@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: README](../README.md)** | **[Next: Querying & Joins →](2%29%20Querying%20%26%20Joins.md)**
+
+</div>
+
 # 1. SQL Fundamentals (Q1–10)
 
 ---
@@ -26,12 +32,6 @@ BEGIN TRANSACTION;
 UPDATE employees SET salary = 55000 WHERE id = 1;
 COMMIT;
 ```
-
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Querying & Joins →](2%29%20Querying%20%26%20Joins.md)**
-
-</div>
 
 ---
 
@@ -248,8 +248,3 @@ HAVING COUNT(*) > 5;
 
 ---
 
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Querying & Joins →](2%29%20Querying%20%26%20Joins.md)**
-
-</div>

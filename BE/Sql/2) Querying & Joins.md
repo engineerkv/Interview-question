@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: SQL Fundamentals](1%29%20SQL%20Fundamentals.md)** | **[Next: Filtering, Grouping & Aggregation →](3%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md)**
+
+</div>
+
 # 2. Querying & Joins (Q11–20)
 
 ---
@@ -36,12 +42,6 @@ SELECT e.name, d.department_name
 FROM employees e
 CROSS JOIN departments d;
 ```
-
-<div align="center">
-
-**[← Previous: SQL Fundamentals](1%29%20SQL%20Fundamentals.md)** | **[Next: Filtering, Grouping & Aggregation →](3%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md)**
-
-</div>
 
 ---
 
@@ -281,8 +281,3 @@ FETCH NEXT 10 ROWS ONLY;
 
 ---
 
-<div align="center">
-
-**[← Previous: SQL Fundamentals](1%29%20SQL%20Fundamentals.md)** | **[Next: Filtering, Grouping & Aggregation →](3%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md)**
-
-</div>

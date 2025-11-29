@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: README](../README.md)** | **[Next: Type System & Interfaces →](2%29%20Type%20System%20%26%20Interfaces.md)**
+
+</div>
+
 # 1. TypeScript Fundamentals (Q1–9)
 
 ---
@@ -21,12 +27,6 @@ function greet(name: string): string {
   return "Hello, " + name;
 }
 ```
-
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Type System & Interfaces →](2%29%20Type%20System%20%26%20Interfaces.md)**
-
-</div>
 
 ---
 
@@ -200,8 +200,3 @@ Example:
 
 ---
 
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Type System & Interfaces →](2%29%20Type%20System%20%26%20Interfaces.md)**
-
-</div>

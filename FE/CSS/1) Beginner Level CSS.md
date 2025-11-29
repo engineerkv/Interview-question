@@ -1,10 +1,10 @@
-# 1. Beginner Level CSS (Q1–12)
-
 <div align="center">
 
 **[← Previous: README](../README.md)** | **[Next: Intermediate Level CSS →](2%29%20Intermediate%20Level%20CSS.md)**
 
 </div>
+
+# 1. Beginner Level CSS (Q1–12)
 
 ---
 
@@ -266,10 +266,3 @@ Example:
 ```
 
 ---
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Intermediate Level CSS →](2%29%20Intermediate%20Level%20CSS.md)**
-
-</div>
-
-**[← Previous Section](../README.md)** | **[Next Section →](2%29%20Intermediate%20Level%20CSS.md)**

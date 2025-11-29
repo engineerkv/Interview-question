@@ -1,10 +1,10 @@
-# 2. Functions, Closures & Execution Context (Q16–25)
-
 <div align="center">
 
-**[← Previous: Core JavaScript Fundamentals](1%29%20Core%20JavaScript%20Fundamentals.md)** | **[Next: Objects, Prototypes & Inheritance →](4%29%20Objects%2C%20Prototypes%20%26%20Inheritance.md)**
+**[← Previous: Core JavaScript Fundamentals](1%29%20Core%20JavaScript%20Fundamentals.md)** | **[Next: Objects, Prototypes & Inheritance →](3%29%20Objects%2C%20Prototypes%20%26%20Inheritance.md)**
 
 </div>
+
+# 2. Functions, Closures & Execution Context (Q16–24)
 
 ---
 
@@ -152,9 +152,9 @@ console.log("End");
 
 ## Q24. How lexical environment relates to closures
 
-A lexical environment remembers variables in each scope - each scope has an environment record and outer link, and variables are looked up through the outer links. Closures keep access to these variables through the environment chain, even after the outer function finishes.
+A lexical environment tracks variables in each scope. Each scope includes an environment record and an outer link, and lookups follow the outer links. Closures maintain access to these variables through the environment chain after the outer function completes.
 
-- **Trade-offs**: Closures preserve the chain for later access, which enables powerful patterns, but garbage collection frees environments when no references remain. This helps reason about variable lifetime and capture.
+- **Trade-offs**: Closures preserve the chain for later use, enabling useful patterns, but garbage collection frees environments when no references remain. This clarifies variable lifetime and capture.
 
 Example:
 
@@ -166,31 +166,3 @@ const add5 = makeAdder(5);
 add5(2); // 7
 ```
 
----
-
-## Q25. Function declaration vs arrow function `this` binding
-
-Regular functions have `this` that changes based on how you call them (dynamic binding) - method call, `call`/`apply`/`bind`, or constructor. Arrow functions keep `this` from where they were written (lexical binding), so `bind` affects regular functions but not arrows.
-
-- **Trade-offs**: Declarations/methods use call-site `this`, which is flexible but can be confusing. Arrows close over `this` from defining scope, making callbacks simpler, but they lack `prototype` and cannot be constructors. Choose based on whether method needs dynamic or lexical `this`.
-
-Example:
-
-```js
-const obj = {
-  id: 1,
-  regular() { return function () { return this.id; }; },
-  arrow() { return () => this.id; }
-};
-obj.regular()(); // undefined
-obj.arrow()(); // 1
-```
-
----
-<div align="center">
-
-**[← Previous: Core JavaScript Fundamentals](1%29%20Core%20JavaScript%20Fundamentals.md)** | **[Next: Objects, Prototypes & Inheritance →](4%29%20Objects%2C%20Prototypes%20%26%20Inheritance.md)**
-
-</div>
-
-**[← Previous Section](1%29%20Core%20JavaScript%20Fundamentals.md)** | **[Next Section →](4%29%20Objects%2C%20Prototypes%20%26%20Inheritance.md)**

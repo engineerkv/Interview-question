@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: React Native Fundamentals](1%29%20React%20Native%20Fundamentals.md)** | **[Next: Android & iOS Platform Internals →](3%29%20Android%20%26%20iOS%20Platform%20Internals.md)**
+
+</div>
+
 # 2. Native Modules & Platform Integrations (Q11–20)
 
 ---
@@ -17,12 +23,6 @@ const { MyNativeModule } = NativeModules;
 
 MyNativeModule.doSomething().then(result => console.log(result));
 ```
-
-<div align="center">
-
-**[← Previous: React Native Fundamentals](1%29%20React%20Native%20Fundamentals.md)** | **[Next: Android & iOS Platform Internals →](3%29%20Android%20%26%20iOS%20Platform%20Internals.md)**
-
-</div>
 
 ---
 
@@ -218,8 +218,3 @@ const requestCameraPermission = async () => {
 
 ---
 
-<div align="center">
-
-**[← Previous: React Native Fundamentals](1%29%20React%20Native%20Fundamentals.md)** | **[Next: Android & iOS Platform Internals →](3%29%20Android%20%26%20iOS%20Platform%20Internals.md)**
-
-</div>

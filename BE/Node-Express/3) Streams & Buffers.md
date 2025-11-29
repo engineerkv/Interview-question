@@ -1,10 +1,10 @@
-# 3) Streams & Buffers (Q30–39)
-
 <div align="center">
 
 **[← Previous: Asynchronous Patterns & Event Emitter](2%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md)** | **[Next: Node.js Internals & Performance →](4%29%20Node.js%20Internals%20%26%20Performance.md)**
 
 </div>
+
+# 3. Streams & Buffers (Q30–39)
 ## Q30. Streams in Node.js and why they're useful
 
 Streams are objects that allow you to read data from a source or write data to a destination in a continuous fashion, enabling efficient processing of large datasets without loading everything into memory - they process data in chunks instead of loading entire file, are memory efficient for large files or datasets, and can process data as it arrives (real-time). Foundation for many Node.js APIs (HTTP, file system).

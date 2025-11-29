@@ -7,11 +7,11 @@
 | Section | Topic | Questions | Difficulty |
 |---------|-------|-----------|------------|
 | [1️⃣](#1-system-design-fundamentals) | System Design Fundamentals | Q1–25 | ⭐⭐ |
-| [2️⃣](#2-database-design) | Database Design | Q26–60 | ⭐⭐⭐ |
-| [3️⃣](#3-communication-protocols) | Communication Protocols | Q61–75 | ⭐⭐⭐⭐ |
-| [4️⃣](#4-rest-vs-graphql) | REST vs GraphQL | Q76–85 | ⭐⭐⭐ |
-| [5️⃣](#5-api-scaling) | API Scaling | Q86–100 | ⭐⭐⭐⭐ |
-| [6️⃣](#6-messaging-systems) | Messaging Systems | Q101–130 | ⭐⭐⭐⭐ |
+| [2️⃣](#2-communication-protocols) | Communication Protocols | Q26–40 | ⭐⭐⭐⭐ |
+| [3️⃣](#3-rest-vs-graphql) | REST vs GraphQL | Q41–50 | ⭐⭐⭐ |
+| [4️⃣](#4-api-scaling) | API Scaling | Q51–65 | ⭐⭐⭐⭐ |
+| [5️⃣](#5-messaging-systems) | Messaging Systems | Q66–95 | ⭐⭐⭐⭐ |
+| [6️⃣](#6-database-design) | Database Design | Q96–130 | ⭐⭐⭐ |
 | [7️⃣](#7-nodejs-system-design) | Node.js System Design | Q131–150 | ⭐⭐⭐ |
 | [8️⃣](#8-aws-cloud-architecture) | AWS Cloud Architecture | Q151–175 | ⭐⭐⭐⭐ |
 | [9️⃣](#9-observability) | Observability | Q176–190 | ⭐⭐⭐⭐ |
@@ -52,141 +52,141 @@
 
 ---
 
-## 🟥 2. Database Design
+## 🟩 2. Communication Protocols
+
+26. HTTP/1.1 vs HTTP/2 vs HTTP/3
+27. gRPC vs REST and when to use
+28. WebSockets vs SSE vs Long Polling
+29. TCP vs UDP trade-offs
+30. QUIC and why it's fast
+31. Binary vs text protocols
+32. MQTT use cases
+33. Protocol overhead and latency
+34. DNS resolution flow
+35. TLS handshake
+36. TLS session resumption
+37. API communication patterns (request/response vs streaming)
+38. MTLS mutual TLS use cases
+39. HTTP keep-alive
+40. Connection multiplexing in HTTP/2
+
+---
+
+## 🟦 3. REST vs GraphQL
+
+41. REST vs GraphQL and when to choose which
+42. Overfetching vs underfetching in REST vs GraphQL
+43. N+1 problem in GraphQL
+44. GraphQL caching challenges
+45. GraphQL schema design best practices
+46. GraphQL vs gRPC for backend services
+47. Error handling differences between REST and GraphQL
+48. Versioning in REST vs GraphQL
+49. Authentication differences between REST and GraphQL
+50. Performance differences at scale
+
+---
+
+## 🟫 4. API Scaling
+
+51. Vertical vs horizontal API scaling
+52. Stateless API design for scaling
+53. Scaling APIs using ALB/NLB
+54. Scaling API Gateway
+55. How CDNs reduce API load
+56. Token Bucket vs Leaky Bucket algorithms
+57. Multi-region API scaling strategies
+58. High-throughput API design patterns
+59. Avoiding API hotspots
+60. API throttling vs rate limiting
+61. Scaling APIs with caching layers
+62. Efficient pagination strategies for large APIs
+63. Reducing DB load via query batching
+64. Hypermedia-driven API design
+65. Scaling webhooks API endpoints
+
+---
+
+## 🟨 5. Messaging Systems
+
+66. Message queues vs event streams
+67. Kafka vs RabbitMQ vs SQS vs Redis Streams
+68. Kafka partitions and how they scale
+69. Kafka consumer groups internals
+70. Kafka offset management
+71. Kafka retention policy
+72. Kafka replication mechanism
+73. Exactly-once semantics in Kafka
+74. Kafka consumer lag handling
+75. RabbitMQ exchange types
+76. RabbitMQ acks and redeliveries
+77. RabbitMQ durable queues
+78. SQS Standard vs FIFO
+79. SQS Visibility Timeout full flow
+80. SQS DLQ architecture
+81. Long polling vs short polling
+82. FIFO deduplication logic
+83. Scaling SQS consumers
+84. Redis Streams internals
+85. SNS + SQS fan-out pattern
+86. Backpressure in Kafka consumers
+87. Backpressure in RabbitMQ consumers
+88. Poison message handling
+89. Outbox pattern
+90. Schema evolution in event-driven systems
+91. Idempotency in event consumers
+92. Event chaining in microservices
+93. Multi-topic event pipelines
+94. Choosing the right messaging system
+95. Ensuring event ordering at scale
+
+---
+
+## 🟥 6. Database Design
 
 ### SQL (15)
 
-26. SQL vs NoSQL and when to choose which
-27. ACID properties with examples
-28. How SQL transactions work
-29. Deadlock avoidance strategies
-30. Connection pool
-31. Using read replicas for scaling read-heavy workloads
-32. SQL sharding patterns
-33. Indexing strategy for large databases
-34. Covering index
-35. Query optimization best practices
-36. Table partitioning and where to use it
-37. Write-ahead log internals
-38. Schema federation vs centralized DB
-39. Designing relational schema for e-commerce
-40. Archival strategies for SQL databases
+96. SQL vs NoSQL and when to choose which
+97. ACID properties with examples
+98. How SQL transactions work
+99. Deadlock avoidance strategies
+100. Connection pool
+101. Using read replicas for scaling read-heavy workloads
+102. SQL sharding patterns
+103. Indexing strategy for large databases
+104. Covering index
+105. Query optimization best practices
+106. Table partitioning and where to use it
+107. Write-ahead log internals
+108. Schema federation vs centralized DB
+109. Designing relational schema for e-commerce
+110. Archival strategies for SQL databases
 
 ### MongoDB (12)
 
-41. Embed vs reference decision rules
-42. MongoDB replica set architecture
-43. Choosing the right shard key
-44. Aggregation pipeline performance rules
-45. Designing high-write workloads
-46. MongoDB multi-document transactions
-47. Indexing best practices in Mongo
-48. TTL index use cases
-49. Time-series schema design
-50. Mongo high-throughput strategies
-51. Change streams use cases
-52. MongoDB anti-patterns
+111. Embed vs reference decision rules
+112. MongoDB replica set architecture
+113. Choosing the right shard key
+114. Aggregation pipeline performance rules
+115. Designing high-write workloads
+116. MongoDB multi-document transactions
+117. Indexing best practices in Mongo
+118. TTL index use cases
+119. Time-series schema design
+120. Mongo high-throughput strategies
+121. Change streams use cases
+122. MongoDB anti-patterns
 
 ### Redis (8)
 
-53. Redis architecture
-54. Redis AOF vs RDB persistence
-55. Redis pub/sub pros and cons
-56. Redis clustering and how it works
-57. Distributed locking with Redis
-58. Cache invalidation best practices
-59. Avoiding memory eviction issues
-60. Redis vs Memcached differences
-
----
-
-## 🟩 3. Communication Protocols
-
-61. HTTP/1.1 vs HTTP/2 vs HTTP/3
-62. gRPC vs REST and when to use
-63. WebSockets vs SSE vs Long Polling
-64. TCP vs UDP trade-offs
-65. QUIC and why it's fast
-66. Binary vs text protocols
-67. MQTT use cases
-68. Protocol overhead and latency
-69. DNS resolution flow
-70. TLS handshake
-71. TLS session resumption
-72. API communication patterns (request/response vs streaming)
-73. MTLS mutual TLS use cases
-74. HTTP keep-alive
-75. Connection multiplexing in HTTP/2
-
----
-
-## 🟦 4. REST vs GraphQL
-
-76. REST vs GraphQL and when to choose which
-77. Overfetching vs underfetching in REST vs GraphQL
-78. N+1 problem in GraphQL
-79. GraphQL caching challenges
-80. GraphQL schema design best practices
-81. GraphQL vs gRPC for backend services
-82. Error handling differences between REST and GraphQL
-83. Versioning in REST vs GraphQL
-84. Authentication differences between REST and GraphQL
-85. Performance differences at scale
-
----
-
-## 🟫 5. API Scaling
-
-86. Vertical vs horizontal API scaling
-87. Stateless API design for scaling
-88. Scaling APIs using ALB/NLB
-89. Scaling API Gateway
-90. How CDNs reduce API load
-91. Token Bucket vs Leaky Bucket algorithms
-92. Multi-region API scaling strategies
-93. High-throughput API design patterns
-94. Avoiding API hotspots
-95. API throttling vs rate limiting
-96. Scaling APIs with caching layers
-97. Efficient pagination strategies for large APIs
-98. Reducing DB load via query batching
-99. Hypermedia-driven API design
-100. Scaling webhooks API endpoints
-
----
-
-## 🟨 6. Messaging Systems
-
-101. Message queues vs event streams
-102. Kafka vs RabbitMQ vs SQS vs Redis Streams
-103. Kafka partitions and how they scale
-104. Kafka consumer groups internals
-105. Kafka offset management
-106. Kafka retention policy
-107. Kafka replication mechanism
-108. Exactly-once semantics in Kafka
-109. Kafka consumer lag handling
-110. RabbitMQ exchange types
-111. RabbitMQ acks and redeliveries
-112. RabbitMQ durable queues
-113. SQS Standard vs FIFO
-114. SQS Visibility Timeout full flow
-115. SQS DLQ architecture
-116. Long polling vs short polling
-117. FIFO deduplication logic
-118. Scaling SQS consumers
-119. Redis Streams internals
-120. SNS + SQS fan-out pattern
-121. Backpressure in Kafka consumers
-122. Backpressure in RabbitMQ consumers
-123. Poison message handling
-124. Outbox pattern
-125. Schema evolution in event-driven systems
-126. Idempotency in event consumers
-127. Event chaining in microservices
-128. Multi-topic event pipelines
-129. Choosing the right messaging system
-130. Ensuring event ordering at scale
+123. Redis architecture
+124. Redis AOF vs RDB persistence
+125. Redis pub/sub pros and cons
+126. Redis clustering and how it works
+127. Distributed locking with Redis
+128. Cache invalidation best practices
+129. Avoiding memory eviction issues
+130. Redis vs Memcached differences
 
 ---
 
@@ -345,19 +345,19 @@
 
 ## 📖 Complete Answer Guide
 
-- [1) System Design Fundamentals](1%20System%20Design%20Fundamentals.md) - Q1-25
-- [2) Database Design](3%20Database%20Design.md) - Q26-60
-- [3) Communication Protocols](9%20Communication%20Protocols.md) - Q61-75
-- [4) REST vs GraphQL](8%20REST%20vs%20GraphQL.md) - Q76-85
-- [5) API Scaling](7%20API%20Scaling.md) - Q86-100
-- [6) Messaging Systems](6%20Messaging%20Systems.md) - Q101-130
-- [7) Node.js System Design](2%20Node.js%20System%20Design.md) - Q131-150
-- [8) AWS Cloud Architecture](4%20AWS%20Cloud%20Architecture.md) - Q151-175
-- [9) Observability](5%20Observability.md) - Q176-190
-- [10) Git, Docker, CI-CD, Tooling](10%20Git%2C%20Docker%2C%20CI-CD%2C%20Tooling.md) - Q191-210
-- [11) Code Quality + Debugging](12%20Code%20Quality%20%2B%20Debugging.md) - Q211-220
-- [12) AI Tools](11%20AI%20Tools.md) - Q221-225
-- [13) Real System Design Scenarios](13%20Real%20System%20Design%20Scenarios.md) - Q226-240
+- [1) System Design Fundamentals](1%29%20System%20Design%20Fundamentals.md) - Q1-25
+- [2) Communication Protocols](9%29%20Communication%20Protocols.md) - Q26-40
+- [3) REST vs GraphQL](8%29%20REST%20vs%20GraphQL.md) - Q41-50
+- [4) API Scaling](7%29%20API%20Scaling.md) - Q51-65
+- [5) Messaging Systems](6%29%20Messaging%20Systems.md) - Q66-95
+- [6) Database Design](3%29%20Database%20Design.md) - Q96-130
+- [7) Node.js System Design](2%29%20Node.js%20System%20Design.md) - Q131-150
+- [8) AWS Cloud Architecture](4%29%20AWS%20Cloud%20Architecture.md) - Q151-175
+- [9) Observability](5%29%20Observability.md) - Q176-190
+- [10) Git, Docker, CI-CD, Tooling](10%29%20Git%2C%20Docker%2C%20CI-CD%2C%20Tooling.md) - Q191-210
+- [11) Code Quality + Debugging](12%29%20Code%20Quality%20%2B%20Debugging.md) - Q211-220
+- [12) AI Tools](11%29%20AI%20Tools.md) - Q221-225
+- [13) Real System Design Scenarios](13%29%20Real%20System%20Design%20Scenarios.md) - Q226-240
 
 ## 📝 Cheatsheet
 

@@ -1,8 +1,14 @@
-# 6. Performance Optimization (Q64–77)
+<div align="center">
+
+**[← Previous: React Latest Features](5%29%20React%20Latest%20Features.md)** | **[Next: Testing & Debugging →](7%29%20Testing%20%26%20Debugging.md)**
+
+</div>
+
+# 6. Performance Optimization (Q63–76)
 
 ---
 
-## Q65. Causes of re-renders in React and how to prevent them
+## Q63. Causes of re-renders in React and how to prevent them
 
 Common causes include state changes, prop changes, parent re-renders, context changes, and creating objects in render - prevent them with memoization and avoiding object creation in render. Any state change triggers component re-render.
 
@@ -20,15 +26,7 @@ function App() {
 }
 ```
 
-<div align="center">
-
-**[← Previous: React Latest Features](5%29%20React%20Latest%20Features.md)** | **[Next: Testing & Debugging →](7%29%20Testing%20%26%20Debugging.md)**
-
-</div>
-
----
-
-## Q66. Memoization and `React.memo`
+## Q64. Memoization and `React.memo`
 
 Memoization caches values and prevents unnecessary re-renders - React.memo prevents re-render if props haven't changed using shallow comparison. React.memo prevents re-render if props haven't changed (shallow comparison).
 
@@ -47,7 +45,7 @@ const ExpensiveChild = React.memo(({ user, onUpdate }) => {
 
 ---
 
-## Q67. `useMemo` vs `useCallback`
+## Q65. `useMemo` vs `useCallback`
 
 useMemo caches computed values, useCallback caches function references - both prevent unnecessary re-renders but optimize different things: values vs functions. useMemo memoizes computed values based on dependencies.
 
@@ -73,7 +71,7 @@ const ExpensiveComponent = React.memo(({ data, onUpdate }) => {
 
 ---
 
-## Q68. Code splitting with `React.lazy()`
+## Q66. Code splitting with `React.lazy()`
 
 Code-splitting loads code on demand - use React.lazy() for dynamic imports and Suspense for loading states, reducing initial bundle size. React.lazy creates dynamic imports that return promises.
 
@@ -99,7 +97,7 @@ function App() {
 
 ---
 
-## Q69. Tree shaking and how to implement it
+## Q67. Tree shaking and how to implement it
 
 Tree-shaking removes unused code from bundles - React supports it through ES6 modules and named exports, enabling static analysis. Static analysis removes dead code from bundles.
 
@@ -118,7 +116,7 @@ import * as React from 'react';
 
 ---
 
-## Q70. Using React Profiler to identify performance issues
+## Q68. Using React Profiler to identify performance issues
 
 Use React Profiler API or DevTools to measure component render times and identify slow components - Profiler API is programmatic, DevTools is visual. Profiler API measures component render times programmatically.
 
@@ -149,7 +147,7 @@ function App() {
 
 ---
 
-## Q71. Core Web Vitals and how to optimize them
+## Q69. Core Web Vitals and how to optimize them
 
 Core Web Vitals are LCP, INP, and CLS metrics measuring user experience - optimize with lazy loading, code splitting, proper sizing, and keeping the main thread responsive. LCP (Largest Contentful Paint) measures loading performance, INP (Interaction to Next Paint) measures interactivity and replaced FID in 2024, and CLS (Cumulative Layout Shift) measures visual stability. FID (First Input Delay) was the previous interactivity metric that measured time until the browser responds to the first user interaction.
 
@@ -173,7 +171,7 @@ function OptimizedImage({ src, alt }) {
 
 ---
 
-## Q72. Implementing virtualization for large lists
+## Q70. Implementing virtualization for large lists
 
 Virtualization renders only visible items in large lists - use it for performance with thousands of items, reducing DOM nodes and memory usage. Only renders visible items, reducing DOM nodes and memory usage.
 
@@ -198,7 +196,7 @@ function VirtualizedList({ items }) {
 
 ---
 
-## Q73. Optimizing images in React applications
+## Q71. Optimizing images in React applications
 
 Use lazy loading, responsive images, WebP format, proper sizing, and Intersection Observer for efficient image loading and better Core Web Vitals. Lazy loading loads images only when they come into view (Intersection Observer).
 
@@ -237,7 +235,7 @@ function OptimizedImage({ src, alt, width, height }) {
 
 ---
 
-## Q74. Implementing bundle splitting
+## Q72. Implementing bundle splitting
 
 Bundle splitting divides code into smaller chunks loaded on demand - it reduces initial bundle size and improves load time, with better caching strategies. Reduces initial bundle size, improves first contentful paint.
 
@@ -268,7 +266,7 @@ function App() {
 
 ---
 
-## Q75. Optimizing React applications for mobile
+## Q73. Optimizing React applications for mobile
 
 Optimize for mobile with code splitting, lazy loading, responsive images, touch-friendly interactions, and reduced bundle sizes for slower networks. Use code splitting and lazy loading for smaller initial bundles.
 
@@ -292,7 +290,7 @@ function MobileOptimizedApp() {
 
 ---
 
-## Q76. Implementing lazy loading for components
+## Q74. Implementing lazy loading for components
 
 Lazy loading delays component creation until needed - use React.lazy() with Suspense for code splitting, or useEffect for expensive operations. Delay expensive operations until component is actually needed.
 
@@ -318,7 +316,7 @@ function ExpensiveComponent({ data }) {
 
 ---
 
-## Q77. Optimizing React applications for SEO
+## Q75. Optimizing React applications for SEO
 
 Optimize for SEO with server-side rendering, proper meta tags, semantic HTML, fast loading times, and structured data - use Next.js or similar for SSR. Server-side rendering helps search engines index content.
 
@@ -345,7 +343,7 @@ function SEOOptimizedPage({ title, description }) {
 
 ---
 
-## Q78. Best practices for React performance
+## Q76. Best practices for React performance
 
 Best practices include memoization when needed, code splitting, lazy loading, virtualization for lists, image optimization, and profiling before optimizing. Profile before optimizing, don't guess what's slow.
 
@@ -363,8 +361,3 @@ const MemoizedComponent = React.memo(({ data }) => {
 
 ---
 
-<div align="center">
-
-**[← Previous: React Latest Features](5%29%20React%20Latest%20Features.md)** | **[Next: Testing & Debugging →](7%29%20Testing%20%26%20Debugging.md)**
-
-</div>

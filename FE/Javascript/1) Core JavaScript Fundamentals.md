@@ -1,10 +1,10 @@
-# 1. Core JavaScript Fundamentals (Q1–15)
-
 <div align="center">
 
 **[← Previous: README](../README.md)** | **[Next: Functions, Closures & Execution Context →](2%29%20Functions%2C%20Closures%20%26%20Execution%20Context.md)**
 
 </div>
+
+# 1. Core JavaScript Fundamentals (Q1–15)
 
 ---
 
@@ -268,10 +268,3 @@ const obj5 = new PersonClass('John'); // class
 ```
 
 ---
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Functions, Closures & Execution Context →](2%29%20Functions%2C%20Closures%20%26%20Execution%20Context.md)**
-
-</div>
-
-**[← Previous Section](../README.md)** | **[Next Section →](2%29%20Functions%2C%20Closures%20%26%20Execution%20Context.md)**

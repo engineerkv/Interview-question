@@ -1,14 +1,14 @@
-# 12. Logging & Monitoring (Q146–150)
-
 <div align="center">
 
 **[← Previous: Security](11%29%20Security.md)** | **[Next: Question List →](question.md)**
 
 </div>
 
+# 12. Logging & Monitoring (Q147–151)
+
 ---
 
-## Q146. Logging and monitoring overview
+## Q147. Logging and monitoring overview
 
 Logging captures application events and errors for debugging and analysis, while monitoring tracks application health, performance, and user experience in real-time. Together they provide visibility into application behavior, help identify issues quickly, and enable data-driven optimization.
 
@@ -28,7 +28,7 @@ Example:
 
 ---
 
-## Q147. Telemetry
+## Q148. Telemetry
 
 Telemetry collects and transmits data about application performance, errors, and user behavior from client to server for analysis. It includes metrics, traces, logs, and events that help understand application health and user experience.
 
@@ -78,7 +78,7 @@ setInterval(() => telemetry.flush(), telemetry.flushInterval);
 
 ---
 
-## Q148. Alerting
+## Q149. Alerting
 
 Alerting notifies teams when application issues, errors, or performance degradation occur, enabling rapid response to problems. Alerts should be actionable, have appropriate thresholds, and avoid alert fatigue.
 
@@ -123,7 +123,7 @@ function checkAlerts(metrics) {
 
 ---
 
-## Q149. Fixing performance and error issues
+## Q150. Fixing performance and error issues
 
 Fixing issues involves identifying root causes through logs and monitoring, prioritizing fixes based on impact, and implementing solutions. Use structured debugging workflows: reproduce, isolate, fix, verify, and monitor.
 
@@ -161,7 +161,7 @@ window.addEventListener('error', (event) => {
 
 ---
 
-## Q150. Performance monitoring and error tracking
+## Q151. Performance monitoring and error tracking
 
 Performance monitoring tracks metrics like Core Web Vitals, custom performance marks, and resource timing, while error tracking captures and analyzes application errors. Combine Real User Monitoring (RUM) with error tracking for comprehensive coverage.
 
@@ -200,10 +200,4 @@ window.addEventListener('error', (event) => {
 ```
 
 ---
-
-<div align="center">
-
-**[← Previous: Security](11%29%20Security.md)** | **[Next: Question List →](question.md)**
-
-</div>
 

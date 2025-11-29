@@ -1,10 +1,10 @@
-# 9. Real-time Communication Protocols (Q102–116)
-
 <div align="center">
 
 **[← Previous: Networking & APIs](8%29%20Networking%20%26%20APIs.md)** | **[Next: Data & Caching Architecture →](10%29%20Data%20%26%20Caching%20Architecture.md)**
 
 </div>
+
+# 9. Real-time Communication Protocols (Q102–116)
 
 ---
 
@@ -454,8 +454,3 @@ class RealTimeConnection {
 
 ---
 
-<div align="center">
-
-**[← Previous: Networking & APIs](8%29%20Networking%20%26%20APIs.md)** | **[Next: Data & Caching Architecture →](10%29%20Data%20%26%20Caching%20Architecture.md)**
-
-</div>

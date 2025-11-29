@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: CodePush & OTA Updates](7%29%20CodePush%20%26%20OTA%20Updates.md)** | **[Next: Build, Deployment & Stores →](9%29%20Build%2C%20Deployment%20%26%20Stores.md)**
+
+</div>
+
 # 8. Debugging & Testing (Q69–78)
 
 ---
@@ -23,12 +29,6 @@ function App() {
   }, []);
 }
 ```
-
-<div align="center">
-
-**[← Previous: CodePush & OTA Updates](7%29%20CodePush%20%26%20OTA%20Updates.md)** | **[Next: Build, Deployment & Stores →](9%29%20Build%2C%20Deployment%20%26%20Stores.md)**
-
-</div>
 
 ---
 
@@ -231,8 +231,3 @@ Sentry.init({
 
 ---
 
-<div align="center">
-
-**[← Previous: CodePush & OTA Updates](7%29%20CodePush%20%26%20OTA%20Updates.md)** | **[Next: Build, Deployment & Stores →](9%29%20Build%2C%20Deployment%20%26%20Stores.md)**
-
-</div>

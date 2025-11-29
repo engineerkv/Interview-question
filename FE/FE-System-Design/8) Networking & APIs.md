@@ -1,10 +1,10 @@
-# 8. Networking & APIs (Q84–101)
-
 <div align="center">
 
 **[← Previous: Practical Front-End System Design Scenarios](7%29%20Practical%20Front-End%20System%20Design%20Scenarios.md)** | **[Next: Real-time Communication Protocols →](9%29%20Real-time%20Communication%20Protocols.md)**
 
 </div>
+
+# 8. Networking & APIs (Q84–101)
 
 ---
 
@@ -594,8 +594,3 @@ async function fetchWithCache(url, options = {}) {
 
 ---
 
-<div align="center">
-
-**[← Previous: Practical Front-End System Design Scenarios](7%29%20Practical%20Front-End%20System%20Design%20Scenarios.md)** | **[Next: Real-time Communication Protocols →](9%29%20Real-time%20Communication%20Protocols.md)**
-
-</div>

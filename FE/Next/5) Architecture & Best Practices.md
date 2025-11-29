@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: Performance & Optimization](4%29%20Performance%20%26%20Optimization.md)** | **[Next: Deployment & Tooling →](6%29%20Deployment%20%26%20Tooling.md)**
+
+</div>
+
 # 5. Architecture & Best Practices (Q38–48)
 
 ---
@@ -20,12 +26,6 @@ Example:
 //   │   └── page.js
 //   └── components/
 ```
-
-<div align="center">
-
-**[← Previous: Performance & Optimization](4%29%20Performance%20%26%20Optimization.md)** | **[Next: Deployment & Tooling →](6%29%20Deployment%20%26%20Tooling.md)**
-
-</div>
 
 ---
 
@@ -302,8 +302,3 @@ async function Page() {
 
 ---
 
-<div align="center">
-
-**[← Previous: Performance & Optimization](4%29%20Performance%20%26%20Optimization.md)** | **[Next: Deployment & Tooling →](6%29%20Deployment%20%26%20Tooling.md)**
-
-</div>

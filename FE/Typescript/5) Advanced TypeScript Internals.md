@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: Classes & Object-Oriented Features](4%29%20Classes%20%26%20Object-Oriented%20Features.md)** | **[Next: Question List →](question.md)**
+
+</div>
+
 # 5. Advanced TypeScript Internals (Q40–53)
 
 ---
@@ -19,12 +25,6 @@ Example:
   }
 }
 ```
-
-<div align="center">
-
-**[← Previous: Classes & Object-Oriented Features](4%29%20Classes%20%26%20Object-Oriented%20Features.md)** | **[Next: Question List →](question.md)**
-
-</div>
 
 ---
 
@@ -276,8 +276,3 @@ Example:
 
 ---
 
-<div align="center">
-
-**[← Previous: Classes & Object-Oriented Features](4%29%20Classes%20%26%20Object-Oriented%20Features.md)** | **[Next: Question List →](question.md)**
-
-</div>

@@ -1,10 +1,10 @@
-# 7. Performance & SEO (Q86–101)
-
 <div align="center">
 
 **[← Previous: Media Elements](6%29%20Media%20Elements.md)** | **[Next: Advanced HTML Concepts →](8%29%20Advanced%20HTML%20Concepts.md)**
 
 </div>
+
+# 7. Performance & SEO (Q86–101)
 
 ---
 
@@ -362,8 +362,3 @@ Example:
 </head>
 ```
 
-<div align="center">
-
-**[← Previous: Media Elements](6%29%20Media%20Elements.md)** | **[Next: Advanced HTML Concepts →](8%29%20Advanced%20HTML%20Concepts.md)**
-
-</div>

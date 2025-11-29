@@ -1,10 +1,10 @@
-# 10. Data & Caching Architecture (Q118–131)
-
 <div align="center">
 
 **[← Previous: Real-time Communication Protocols](9%29%20Real-time%20Communication%20Protocols.md)** | **[Next: Security →](11%29%20Security.md)**
 
 </div>
+
+# 10. Data & Caching Architecture (Q118–131)
 
 ---
 
@@ -316,8 +316,3 @@ Example:
 
 ---
 
-<div align="center">
-
-**[← Previous: Real-time Communication Protocols](9%29%20Real-time%20Communication%20Protocols.md)** | **[Next: Security →](11%29%20Security.md)**
-
-</div>

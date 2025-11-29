@@ -1,10 +1,10 @@
-# 6. Media Elements (Q76–85)
-
 <div align="center">
 
 **[← Previous: HTML5 Features & APIs](5%29%20HTML5%20Features%20%26%20APIs.md)** | **[Next: Performance & SEO →](7%29%20Performance%20%26%20SEO.md)**
 
 </div>
+
+# 6. Media Elements (Q76–85)
 
 ---
 
@@ -194,8 +194,3 @@ Example:
 <link rel="preload" as="image" href="hero-image.jpg">
 ```
 
-<div align="center">
-
-**[← Previous: HTML5 Features & APIs](5%29%20HTML5%20Features%20%26%20APIs.md)** | **[Next: Performance & SEO →](7%29%20Performance%20%26%20SEO.md)**
-
-</div>

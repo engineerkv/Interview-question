@@ -1,10 +1,11 @@
-# 8) Performance, Optimization, Scaling & Monitoring (Q81–89)
-
 <div align="center">
 
 **[← Previous: Authentication, Security & Encryption](7%29%20Authentication%2C%20Security%20%26%20Encryption.md)** | **[Next: Testing, Debugging & Deployment →](9%29%20Testing%2C%20Debugging%20%26%20Deployment.md)**
 
 </div>
+
+# 8. Performance, Optimization, Scaling & Monitoring (Q81–89)
+
 ## Q81. Identifying performance bottlenecks in Node.js applications
 
 Common bottlenecks include blocking I/O operations, memory leaks, inefficient algorithms, and event loop blocking - avoid synchronous operations in request handlers, use streaming for large data processing, implement proper error handling, monitor event loop lag, and profile CPU and memory usage regularly. Can be addressed through proper async patterns and optimization techniques.

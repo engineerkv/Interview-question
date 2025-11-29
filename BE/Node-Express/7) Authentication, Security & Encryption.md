@@ -1,10 +1,11 @@
-# 7) Authentication, Security & Encryption (Q71–80)
-
 <div align="center">
 
 **[← Previous: REST APIs & Practical Server Scenarios](6%29%20REST%20APIs%20%26%20Practical%20Server%20Scenarios.md)** | **[Next: Performance, Optimization, Scaling & Monitoring →](8%29%20Performance%2C%20Optimization%2C%20Scaling%20%26%20Monitoring.md)**
 
 </div>
+
+# 7. Authentication, Security & Encryption (Q71–80)
+
 ## Q71. Session-based vs token-based authentication
 
 Session-based authentication stores user state on the server (more secure, harder to scale), while token-based authentication stores user information in a client-side token (stateless, easier to scale) - sessions are vulnerable to CSRF attacks, tokens are vulnerable to XSS attacks. Choose based on security requirements and scalability needs.

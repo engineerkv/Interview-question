@@ -1,10 +1,10 @@
-# 6. Browser Internals & Rendering (Q53–64)
-
 <div align="center">
 
 **[← Previous: Accessibility & User Experience](5%29%20Accessibility%20%26%20User%20Experience.md)** | **[Next: Practical Front-End System Design Scenarios →](7%29%20Practical%20Front-End%20System%20Design%20Scenarios.md)**
 
 </div>
+
+# 6. Browser Internals & Rendering (Q53–64)
 
 ---
 
@@ -442,8 +442,3 @@ const browserWorkflow = () => {
 
 ---
 
-<div align="center">
-
-**[← Previous: Accessibility & User Experience](5%29%20Accessibility%20%26%20User%20Experience.md)** | **[Next: Practical Front-End System Design Scenarios →](7%29%20Practical%20Front-End%20System%20Design%20Scenarios.md)**
-
-</div>

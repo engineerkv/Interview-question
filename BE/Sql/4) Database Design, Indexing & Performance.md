@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: Filtering, Grouping & Aggregation](3%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md)** | **[Next: Transactions, Concurrency & Stored Logic →](5%29%20Transactions%2C%20Concurrency%20%26%20Stored%20Logic.md)**
+
+</div>
+
 # 4. Database Design, Indexing & Performance (Q31–40)
 
 ---
@@ -43,12 +49,6 @@ CREATE TABLE orders (
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 ```
-
-<div align="center">
-
-**[← Previous: Filtering, Grouping & Aggregation](3%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md)** | **[Next: Transactions, Concurrency & Stored Logic →](5%29%20Transactions%2C%20Concurrency%20%26%20Stored%20Logic.md)**
-
-</div>
 
 ---
 
@@ -259,8 +259,3 @@ ORDER BY e.name;
 
 ---
 
-<div align="center">
-
-**[← Previous: Filtering, Grouping & Aggregation](3%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md)** | **[Next: Transactions, Concurrency & Stored Logic →](5%29%20Transactions%2C%20Concurrency%20%26%20Stored%20Logic.md)**
-
-</div>

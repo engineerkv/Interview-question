@@ -1,10 +1,10 @@
-# 4. Accessibility (A11y) (Q46–60)
-
 <div align="center">
 
 **[← Previous: Forms & Input Elements](3%29%20Forms%20%26%20Input%20Elements.md)** | **[Next: HTML5 Features & APIs →](5%29%20HTML5%20Features%20%26%20APIs.md)**
 
 </div>
+
+# 4. Accessibility (A11y) (Q46–60)
 
 ---
 
@@ -294,8 +294,3 @@ Example:
 </script>
 ```
 
-<div align="center">
-
-**[← Previous: Forms & Input Elements](3%29%20Forms%20%26%20Input%20Elements.md)** | **[Next: HTML5 Features & APIs →](5%29%20HTML5%20Features%20%26%20APIs.md)**
-
-</div>

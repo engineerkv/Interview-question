@@ -1,10 +1,10 @@
-# 7. Practical Front-End System Design Scenarios (Q65–83)
-
 <div align="center">
 
 **[← Previous: Browser Internals & Rendering](6%29%20Browser%20Internals%20%26%20Rendering.md)** | **[Next: Networking & APIs →](8%29%20Networking%20%26%20APIs.md)**
 
 </div>
+
+# 7. Practical Front-End System Design Scenarios (Q65–83)
 
 ---
 
@@ -1005,8 +1005,3 @@ const LiveStreamingUI = () => {
 
 ---
 
-<div align="center">
-
-**[← Previous: Browser Internals & Rendering](6%29%20Browser%20Internals%20%26%20Rendering.md)** | **[Next: Networking & APIs →](8%29%20Networking%20%26%20APIs.md)**
-
-</div>

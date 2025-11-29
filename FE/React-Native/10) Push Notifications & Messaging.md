@@ -1,10 +1,10 @@
-# 10. Push Notifications & Messaging (Q91–95)
-
 <div align="center">
 
 **[← Previous: Build, Deployment & Stores](9%29%20Build%2C%20Deployment%20%26%20Stores.md)** | **[Next: Question List →](question.md)**
 
 </div>
+
+# 10. Push Notifications & Messaging (Q91–95)
 
 ---
 
@@ -164,11 +164,5 @@ const validateNotificationPayload = (payload) => {
 ```
 
 ---
-
-<div align="center">
-
-**[← Previous: Build, Deployment & Stores](9%29%20Build%2C%20Deployment%20%26%20Stores.md)** | **[Next: Question List →](question.md)**
-
-</div>
 
 ---

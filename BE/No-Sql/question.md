@@ -84,10 +84,10 @@
 
 ## 📖 Complete Answer Guide
 
-- [1) MongoDB Fundamentals](1%20MongoDB%20Fundamentals.md) - Q1-16 (includes Q12-16 Mongoose Basics & Connection Pooling)
-- [2) Indexing & Query Optimization](2%20Indexing%20%26%20Query%20Optimization.md) - Q17-29 (includes Q27-29 Mongoose Indexing)
-- [3) Aggregation Framework](3%20Aggregation%20Framework.md) - Q30-41 (includes Q40-41 Mongoose Aggregation)
-- [4) Data Modeling & Schema Design](4%20Data%20Modeling%20%26%20Schema%20Design.md) - Q42-57 (includes Q52-57 Mongoose Schema Design)
+- [1) MongoDB Fundamentals](1%29%20MongoDB%20Fundamentals.md) - Q1-16 (includes Q12-16 Mongoose Basics & Connection Pooling)
+- [2) Indexing & Query Optimization](2%29%20Indexing%20%26%20Query%20Optimization.md) - Q17-29 (includes Q27-29 Mongoose Indexing)
+- [3) Aggregation Framework](3%29%20Aggregation%20Framework.md) - Q30-41 (includes Q40-41 Mongoose Aggregation)
+- [4) Data Modeling & Schema Design](4%29%20Data%20Modeling%20%26%20Schema%20Design.md) - Q42-57 (includes Q52-57 Mongoose Schema Design)
 
 ## 📝 Cheatsheet
 

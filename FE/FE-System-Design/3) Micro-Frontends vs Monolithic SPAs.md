@@ -1,10 +1,10 @@
-# 3. Micro-Frontends vs Monolithic SPAs (Q24–33)
-
 <div align="center">
 
 **[← Previous: Performance & Caching Optimization](2%29%20Performance%20%26%20Caching%20Optimization.md)** | **[Next: Cross-Platform Architecture & Offline Support →](4%29%20Cross-Platform%20Architecture%20%26%20Offline%20Support.md)**
 
 </div>
+
+# 3. Micro-Frontends vs Monolithic SPAs (Q24–33)
 
 ---
 
@@ -323,8 +323,3 @@ const PerformanceMonitor = {
 
 ---
 
-<div align="center">
-
-**[← Previous: Performance & Caching Optimization](2%29%20Performance%20%26%20Caching%20Optimization.md)** | **[Next: Cross-Platform Architecture & Offline Support →](4%29%20Cross-Platform%20Architecture%20%26%20Offline%20Support.md)**
-
-</div>

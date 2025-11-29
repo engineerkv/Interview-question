@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: Architecture & Best Practices](5%29%20Architecture%20%26%20Best%20Practices.md)** | **[Next: Question List →](question.md)**
+
+</div>
+
 # 6. Deployment & Tooling (Q49–60)
 
 ---
@@ -18,12 +24,6 @@ Example:
   "outputDirectory": ".next"
 }
 ```
-
-<div align="center">
-
-**[← Previous: Architecture & Best Practices](5%29%20Architecture%20%26%20Best%20Practices.md)** | **[Next: Question List →](question.md)**
-
-</div>
 
 ---
 
@@ -258,8 +258,3 @@ const nextConfig = {
 
 ---
 
-<div align="center">
-
-**[← Previous: Architecture & Best Practices](5%29%20Architecture%20%26%20Best%20Practices.md)** | **[Next: Question List →](question.md)**
-
-</div>

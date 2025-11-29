@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: MongoDB Fundamentals](1%29%20MongoDB%20Fundamentals.md)** | **[Next: Aggregation Framework →](3%29%20Aggregation%20Framework.md)**
+
+</div>
+
 # 2. Indexing & Query Optimization (Q17–29)
 
 ---
@@ -17,12 +23,6 @@ db.users.createIndex({ name: 1 });
 // Query using index
 db.users.find({ name: "John" }).explain("executionStats");
 ```
-
-<div align="center">
-
-**[← Previous: MongoDB Fundamentals](1%29%20MongoDB%20Fundamentals.md)** | **[Next: Aggregation Framework →](3%29%20Aggregation%20Framework.md)**
-
-</div>
 
 ---
 
@@ -301,8 +301,3 @@ userSchema.post('find', function(docs) {
 
 ---
 
-<div align="center">
-
-**[← Previous: MongoDB Fundamentals](1%29%20MongoDB%20Fundamentals.md)** | **[Next: Aggregation Framework →](3%29%20Aggregation%20Framework.md)**
-
-</div>

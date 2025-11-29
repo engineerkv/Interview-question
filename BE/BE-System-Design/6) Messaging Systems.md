@@ -1,22 +1,16 @@
-# Section 6: Messaging Systems (Q121-Q150)
+# 5. Messaging Systems (Q66–95)
 
 ---
 
-## Q121. Message queues vs event streams
+## Q66. Message queues vs event streams
 
 Message queues are point-to-point systems where messages are consumed by one consumer and removed from the queue - like task queues where each job is processed once. Event streams are publish-subscribe systems where events are broadcast to multiple consumers and retained for replay - like event logs where multiple services can process the same event. Use queues for task distribution, use streams for event broadcasting and event sourcing.
 
 - **Trade-offs**: Queues are simple and ensure each message is processed once, but the catch is they don't support multiple consumers well. Streams support multiple consumers and replay, which is great for event-driven architectures, but the tricky part is you need to manage offsets and handle duplicate processing.
 
-<div align="center">
-
-**[← Previous: Observability](5%29%20Observability.md)** | **[Next: API Scaling →](7%29%20API%20Scaling.md)**
-
-</div>
-
 ---
 
-## Q122. Kafka vs RabbitMQ vs SQS vs Redis Streams
+## Q67. Kafka vs RabbitMQ vs SQS vs Redis Streams
 
 Kafka is a distributed event streaming platform for high-throughput, durable event logs - use it for event sourcing, log aggregation, or real-time data pipelines. RabbitMQ is a message broker with flexible routing and multiple exchange types - use it for complex routing, request-reply patterns, or when you need message priorities. SQS is AWS's managed message queue - use it for simple queuing in AWS environments. Redis Streams is a lightweight stream processing system - use it for real-time analytics or simple event streaming.
 
@@ -24,7 +18,7 @@ Kafka is a distributed event streaming platform for high-throughput, durable eve
 
 ---
 
-## Q123. Kafka partitions and how they scale
+## Q68. Kafka partitions and how they scale
 
 Kafka topics are split into partitions, and each partition can be on a different broker - when you write to a topic, Kafka distributes messages across partitions based on the partition key. More partitions mean more parallelism - you can have one consumer per partition, so 10 partitions means 10 consumers can process messages in parallel. Partitions also enable horizontal scaling by distributing data across brokers.
 
@@ -32,7 +26,7 @@ Kafka topics are split into partitions, and each partition can be on a different
 
 ---
 
-## Q124. Kafka consumer groups internals
+## Q69. Kafka consumer groups internals
 
 Consumer groups allow multiple consumers to work together to process messages from a topic - Kafka assigns partitions to consumers in the group, and each partition is consumed by only one consumer in the group. When a consumer joins or leaves, Kafka rebalances partitions among remaining consumers. This enables parallel processing while ensuring each message is processed once per consumer group.
 
@@ -40,7 +34,7 @@ Consumer groups allow multiple consumers to work together to process messages fr
 
 ---
 
-## Q125. Kafka offset management
+## Q70. Kafka offset management
 
 Kafka offsets track the position of each consumer in a partition - when a consumer reads a message, it commits the offset to mark progress. Offsets can be committed automatically after a time interval or manually after processing. If a consumer crashes and restarts, it resumes from the last committed offset, so it doesn't reprocess messages it already handled.
 
@@ -48,7 +42,7 @@ Kafka offsets track the position of each consumer in a partition - when a consum
 
 ---
 
-## Q126. Kafka retention policy
+## Q71. Kafka retention policy
 
 Kafka retention policy determines how long messages are kept - you can set time-based retention (like 7 days) or size-based retention (like 1GB per partition). Messages older than the retention period are automatically deleted. Retention enables replay - consumers can read historical messages, and you can reprocess events if needed.
 
@@ -56,7 +50,7 @@ Kafka retention policy determines how long messages are kept - you can set time-
 
 ---
 
-## Q127. Kafka replication mechanism
+## Q72. Kafka replication mechanism
 
 Kafka replicates each partition across multiple brokers for fault tolerance - one broker is the leader and handles reads and writes, and other brokers are followers that replicate data from the leader. If the leader fails, one of the followers becomes the new leader. You configure replication factor (like 3) to determine how many copies of each partition exist.
 
@@ -64,7 +58,7 @@ Kafka replicates each partition across multiple brokers for fault tolerance - on
 
 ---
 
-## Q128. Exactly-once semantics in Kafka
+## Q73. Exactly-once semantics in Kafka
 
 Exactly-once semantics ensures each message is processed exactly once, even if there are failures - Kafka uses transactional producers and idempotent producers to prevent duplicates, and consumers use transactional reads to ensure atomic processing. This requires careful coordination between producers, brokers, and consumers, and has performance overhead.
 
@@ -72,7 +66,7 @@ Exactly-once semantics ensures each message is processed exactly once, even if t
 
 ---
 
-## Q129. Kafka consumer lag handling
+## Q74. Kafka consumer lag handling
 
 Consumer lag is the difference between the latest message in a partition and the last message a consumer has processed - high lag means consumers are falling behind producers. Monitor lag using Kafka's built-in metrics, set up alerts when lag exceeds thresholds, and scale consumers or optimize processing to reduce lag. High lag can indicate performance issues or insufficient consumer capacity.
 
@@ -80,7 +74,7 @@ Consumer lag is the difference between the latest message in a partition and the
 
 ---
 
-## Q130. RabbitMQ exchange types
+## Q75. RabbitMQ exchange types
 
 RabbitMQ has four exchange types - direct routes messages to queues based on exact routing key match, topic routes based on pattern matching, fanout broadcasts to all bound queues, and headers routes based on message headers. Choose direct for point-to-point messaging, topic for pattern-based routing, fanout for broadcasting, and headers for complex routing logic.
 
@@ -88,7 +82,7 @@ RabbitMQ has four exchange types - direct routes messages to queues based on exa
 
 ---
 
-## Q131. RabbitMQ acks and redeliveries
+## Q76. RabbitMQ acks and redeliveries
 
 RabbitMQ uses acknowledgments to confirm message processing - when a consumer processes a message, it sends an ack, and RabbitMQ removes the message from the queue. If a consumer crashes without acking, RabbitMQ redelivers the message to another consumer. You can configure automatic acks (sent immediately) or manual acks (sent after processing).
 
@@ -96,7 +90,7 @@ RabbitMQ uses acknowledgments to confirm message processing - when a consumer pr
 
 ---
 
-## Q132. RabbitMQ durable queues
+## Q77. RabbitMQ durable queues
 
 Durable queues survive broker restarts - messages in durable queues are persisted to disk, so they're not lost if RabbitMQ crashes. You mark queues as durable when creating them, and messages must also be marked as persistent to be saved to disk. Use durable queues for important messages that can't be lost.
 
@@ -104,7 +98,7 @@ Durable queues survive broker restarts - messages in durable queues are persiste
 
 ---
 
-## Q133. SQS Standard vs FIFO
+## Q78. SQS Standard vs FIFO
 
 SQS Standard queues provide best-effort ordering and at-least-once delivery - messages might arrive out of order or be delivered multiple times, but throughput is unlimited. FIFO queues guarantee exactly-once processing and strict ordering - messages arrive in order and are delivered exactly once, but throughput is limited to 300 messages per second per queue.
 
@@ -112,7 +106,7 @@ SQS Standard queues provide best-effort ordering and at-least-once delivery - me
 
 ---
 
-## Q134. SQS Visibility Timeout full flow
+## Q79. SQS Visibility Timeout full flow
 
 Visibility timeout is how long a message is hidden from other consumers after being received - when a consumer receives a message, it becomes invisible for the visibility timeout period, giving the consumer time to process it. If the consumer processes and deletes the message within the timeout, it's removed. If the timeout expires, the message becomes visible again and can be redelivered.
 
@@ -120,7 +114,7 @@ Visibility timeout is how long a message is hidden from other consumers after be
 
 ---
 
-## Q135. SQS DLQ architecture
+## Q80. SQS DLQ architecture
 
 Dead Letter Queue (DLQ) is a separate queue for messages that can't be processed after multiple attempts - when a message fails processing after the max receive count, SQS moves it to the DLQ instead of redelivering it. This prevents poison messages from blocking the main queue and allows you to investigate failed messages separately. Configure DLQ on your main queue and set max receive count (like 3).
 
@@ -128,7 +122,7 @@ Dead Letter Queue (DLQ) is a separate queue for messages that can't be processed
 
 ---
 
-## Q136. Long polling vs short polling
+## Q81. Long polling vs short polling
 
 Short polling returns immediately, even if no messages are available - it checks for messages and returns empty if none found, which can waste API calls. Long polling waits up to 20 seconds for messages to arrive before returning - if messages arrive during the wait, it returns them immediately, reducing empty responses and API calls.
 
@@ -136,7 +130,7 @@ Short polling returns immediately, even if no messages are available - it checks
 
 ---
 
-## Q137. FIFO deduplication logic
+## Q82. FIFO deduplication logic
 
 FIFO queues use message deduplication IDs to prevent duplicates - if you send a message with the same deduplication ID within the 5-minute deduplication interval, SQS treats it as a duplicate and ignores it. You can provide a deduplication ID explicitly, or SQS can generate one from the message content. This ensures exactly-once processing within the deduplication window.
 
@@ -144,7 +138,7 @@ FIFO queues use message deduplication IDs to prevent duplicates - if you send a 
 
 ---
 
-## Q138. Scaling SQS consumers
+## Q83. Scaling SQS consumers
 
 Scale SQS consumers horizontally by running multiple consumer instances - each instance polls the queue independently and processes messages in parallel. Use Auto Scaling to add or remove consumers based on queue depth or processing time. Since SQS is a pull model, consumers can scale independently without coordination, and you can scale to hundreds of consumers if needed.
 
@@ -152,7 +146,7 @@ Scale SQS consumers horizontally by running multiple consumer instances - each i
 
 ---
 
-## Q139. Redis Streams internals
+## Q84. Redis Streams internals
 
 Redis Streams stores messages as an append-only log with unique IDs - each message has a timestamp and sequence number, and consumers read messages by ID or by time range. Consumer groups track which messages each consumer has processed, similar to Kafka. Streams support blocking reads, range queries, and automatic message acknowledgment.
 
@@ -160,7 +154,7 @@ Redis Streams stores messages as an append-only log with unique IDs - each messa
 
 ---
 
-## Q140. SNS + SQS fan-out pattern
+## Q85. SNS + SQS fan-out pattern
 
 SNS + SQS fan-out pattern uses SNS to publish messages to multiple SQS queues - when you publish to an SNS topic, it delivers the message to all subscribed SQS queues. This enables one-to-many messaging where multiple services can process the same event independently. Each service has its own queue, so they can process at their own pace.
 
@@ -168,7 +162,7 @@ SNS + SQS fan-out pattern uses SNS to publish messages to multiple SQS queues - 
 
 ---
 
-## Q141. Backpressure in Kafka consumers
+## Q86. Backpressure in Kafka consumers
 
 Backpressure in Kafka occurs when consumers can't keep up with producers - messages accumulate in partitions, consumer lag increases, and eventually consumers might run out of memory. Handle backpressure by scaling consumers, optimizing processing, using async processing, or pausing consumption when downstream systems are slow. Monitor consumer lag to detect backpressure early.
 
@@ -176,7 +170,7 @@ Backpressure in Kafka occurs when consumers can't keep up with producers - messa
 
 ---
 
-## Q142. Backpressure in RabbitMQ consumers
+## Q87. Backpressure in RabbitMQ consumers
 
 Backpressure in RabbitMQ occurs when consumers can't process messages fast enough - messages queue up, memory fills, and RabbitMQ might stop accepting new messages. Handle backpressure by scaling consumers, using prefetch limits to control how many unacked messages each consumer holds, or using priority queues to process important messages first. Monitor queue depth to detect backpressure.
 
@@ -184,7 +178,7 @@ Backpressure in RabbitMQ occurs when consumers can't process messages fast enoug
 
 ---
 
-## Q143. Poison message handling
+## Q88. Poison message handling
 
 Poison messages are messages that cause consumers to crash or fail repeatedly - like malformed data, messages that trigger bugs, or messages for deleted resources. Handle poison messages by catching exceptions, logging them, and sending to a DLQ after max retries. Use idempotent processing to handle duplicates, validate messages before processing, and implement circuit breakers to stop processing if too many messages fail.
 
@@ -192,7 +186,7 @@ Poison messages are messages that cause consumers to crash or fail repeatedly - 
 
 ---
 
-## Q144. Outbox pattern
+## Q89. Outbox pattern
 
 Outbox pattern ensures reliable message publishing by storing messages in the same database transaction as business data - you write business data and the message to an outbox table in one transaction, then a separate process reads from the outbox and publishes to the message queue. This ensures messages are only published if the business transaction commits, preventing lost messages.
 
@@ -200,7 +194,7 @@ Outbox pattern ensures reliable message publishing by storing messages in the sa
 
 ---
 
-## Q145. Schema evolution in event-driven systems
+## Q90. Schema evolution in event-driven systems
 
 Schema evolution allows event schemas to change over time while maintaining compatibility - use backward-compatible changes like adding optional fields, and avoid breaking changes like removing required fields. Use schema registries to manage schemas and validate compatibility, and design consumers to handle multiple schema versions gracefully.
 
@@ -208,7 +202,7 @@ Schema evolution allows event schemas to change over time while maintaining comp
 
 ---
 
-## Q146. Idempotency in event consumers
+## Q91. Idempotency in event consumers
 
 Idempotent consumers produce the same result regardless of how many times they process the same message - use idempotency keys to track processed messages, check if a message was already processed before handling it, and store processing results so retries return the same result. This is essential because message queues might deliver messages multiple times.
 
@@ -216,7 +210,7 @@ Idempotent consumers produce the same result regardless of how many times they p
 
 ---
 
-## Q147. Event chaining in microservices
+## Q92. Event chaining in microservices
 
 Event chaining occurs when one service's event triggers another service, which triggers another, creating a chain of events - like order created triggers inventory update, which triggers shipping notification. Design chains carefully to avoid tight coupling, use event sourcing to track the full chain, and handle failures gracefully with compensating actions or sagas.
 
@@ -224,7 +218,7 @@ Event chaining occurs when one service's event triggers another service, which t
 
 ---
 
-## Q148. Multi-topic event pipelines
+## Q93. Multi-topic event pipelines
 
 Multi-topic pipelines route events through multiple topics for different processing stages - like raw events go to a raw topic, processed events go to an enriched topic, and aggregated events go to an analytics topic. Use this pattern for ETL pipelines, event enrichment, or multi-stage processing where each stage transforms events.
 
@@ -232,7 +226,7 @@ Multi-topic pipelines route events through multiple topics for different process
 
 ---
 
-## Q149. Choosing the right messaging system
+## Q94. Choosing the right messaging system
 
 Choose Kafka for high-throughput event streaming, event sourcing, or log aggregation. Choose RabbitMQ for complex routing, request-reply patterns, or when you need message priorities. Choose SQS for simple queuing in AWS environments. Choose Redis Streams for real-time analytics or lightweight streaming. Consider factors like throughput, durability, ordering guarantees, and operational complexity.
 
@@ -240,13 +234,7 @@ Choose Kafka for high-throughput event streaming, event sourcing, or log aggrega
 
 ---
 
-<div align="center">
-
-**[← Previous: Observability](5%29%20Observability.md)** | **[Next: API Scaling →](7%29%20API%20Scaling.md)**
-
-</div>
-
-## Q150. Ensuring event ordering at scale
+## Q95. Ensuring event ordering at scale
 
 Ensure event ordering by using single partitions for ordered topics, using partition keys to route related events to the same partition, and processing partitions sequentially. For global ordering, use a single partition, but this limits throughput. For per-key ordering, use partition keys so events with the same key go to the same partition and are processed in order.
 

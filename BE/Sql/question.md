@@ -81,11 +81,11 @@
 
 ## 📖 Complete Answer Guide
 
-- [1) SQL Fundamentals](1%20SQL%20Fundamentals.md) - Q1-10
-- [2) Querying & Joins](2%20Querying%20%26%20Joins.md) - Q11-20
-- [3) Filtering, Grouping & Aggregation](3%20Filtering%20Grouping%20%26%20Aggregation.md) - Q21-30
-- [4) Database Design, Indexing & Performance](4%20Database%20Design%20Indexing%20%26%20Performance.md) - Q31-40
-- [5) Transactions, Concurrency & Stored Logic](5%20Transactions%20Concurrency%20%26%20Stored%20Logic.md) - Q41-50
+- [1) SQL Fundamentals](1%29%20SQL%20Fundamentals.md) - Q1-10
+- [2) Querying & Joins](2%29%20Querying%20%26%20Joins.md) - Q11-20
+- [3) Filtering, Grouping & Aggregation](3%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md) - Q21-30
+- [4) Database Design, Indexing & Performance](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md) - Q31-40
+- [5) Transactions, Concurrency & Stored Logic](5%29%20Transactions%2C%20Concurrency%20%26%20Stored%20Logic.md) - Q41-50
 
 ## 📝 Cheatsheet
 

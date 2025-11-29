@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: Data Fetching & Rendering](2%29%20Data%20Fetching%20%26%20Rendering.md)** | **[Next: Performance & Optimization →](4%29%20Performance%20%26%20Optimization.md)**
+
+</div>
+
 # 3. Routing & Navigation (Q21–27)
 
 ---
@@ -23,12 +29,6 @@ export default function RootLayout({ children }) {
   );
 }
 ```
-
-<div align="center">
-
-**[← Previous: Data Fetching & Rendering](2%29%20Data%20Fetching%20%26%20Rendering.md)** | **[Next: Performance & Optimization →](4%29%20Performance%20%26%20Optimization.md)**
-
-</div>
 
 ---
 
@@ -179,8 +179,3 @@ const nextConfig = {
 
 ---
 
-<div align="center">
-
-**[← Previous: Data Fetching & Rendering](2%29%20Data%20Fetching%20%26%20Rendering.md)** | **[Next: Performance & Optimization →](4%29%20Performance%20%26%20Optimization.md)**
-
-</div>

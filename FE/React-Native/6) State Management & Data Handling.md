@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: Performance Optimization & Measurement](5%29%20Performance%20Optimization%20%26%20Measurement.md)** | **[Next: CodePush & OTA Updates →](7%29%20CodePush%20%26%20OTA%20Updates.md)**
+
+</div>
+
 # 6. State Management & Data Handling (Q51–60)
 
 ---
@@ -25,12 +31,6 @@ const store = configureStore({
   reducer: { counter: counterSlice.reducer }
 });
 ```
-
-<div align="center">
-
-**[← Previous: Performance Optimization & Measurement](5%29%20Performance%20Optimization%20%26%20Measurement.md)** | **[Next: CodePush & OTA Updates →](7%29%20CodePush%20%26%20OTA%20Updates.md)**
-
-</div>
 
 ---
 
@@ -255,8 +255,3 @@ function Parent({ user, setUser }) {
 
 ---
 
-<div align="center">
-
-**[← Previous: Performance Optimization & Measurement](5%29%20Performance%20Optimization%20%26%20Measurement.md)** | **[Next: CodePush & OTA Updates →](7%29%20CodePush%20%26%20OTA%20Updates.md)**
-
-</div>

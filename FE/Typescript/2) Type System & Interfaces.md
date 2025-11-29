@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: TypeScript Fundamentals](1%29%20TypeScript%20Fundamentals.md)** | **[Next: Functions & Advanced Type Features →](3%29%20Functions%20%26%20Advanced%20Type%20Features.md)**
+
+</div>
+
 # 2. Type System & Interfaces (Q10–21)
 
 ---
@@ -22,12 +28,6 @@ type Status = 'pending' | 'approved' | 'rejected';
 type EventHandler = (event: Event) => void;
 type ID = string | number;
 ```
-
-<div align="center">
-
-**[← Previous: TypeScript Fundamentals](1%29%20TypeScript%20Fundamentals.md)** | **[Next: Functions & Advanced Type Features →](3%29%20Functions%20%26%20Advanced%20Type%20Features.md)**
-
-</div>
 
 ---
 
@@ -289,8 +289,3 @@ type PersonEmployee = Person & Employee; // Must have all properties
 
 ---
 
-<div align="center">
-
-**[← Previous: TypeScript Fundamentals](1%29%20TypeScript%20Fundamentals.md)** | **[Next: Functions & Advanced Type Features →](3%29%20Functions%20%26%20Advanced%20Type%20Features.md)**
-
-</div>

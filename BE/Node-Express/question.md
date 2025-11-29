@@ -146,15 +146,15 @@
 
 ## 📖 Complete Answer Guide
 
-- [1) Node.js Fundamentals & Modules](1%20Node.js%20Fundamentals.md) - Q1-19
-- [2) Asynchronous Patterns & Event Emitter](2%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md) - Q20-29
-- [3) Streams & Buffers](3%20Streams%20%26%20Buffers.md) - Q30-39
-- [4) Node.js Internals & Performance](4%20Node.js%20Internals%20%26%20Performance.md) - Q40-50
-- [5) Express.js Core Concepts](5%20Express.js%20Core%20Concepts.md) - Q51-60
-- [6) REST APIs & Practical Server Scenarios](6%20REST%20APIs%20%26%20Practical%20Server%20Scenarios.md) - Q61-70
-- [7) Authentication, Security & Encryption](7%20Authentication%20Security%20%26%20Encryption.md) - Q71-80
-- [8) Performance, Optimization, Scaling & Monitoring](8%20Performance%20Optimization%20Scaling%20%26%20Monitoring.md) - Q81-89
-- [9) Testing, Debugging & Deployment](9%20Testing%20Debugging%20%26%20Deployment.md) - Q90-99
+- [1) Node.js Fundamentals](1%29%20Node.js%20Fundamentals.md) - Q1-19
+- [2) Asynchronous Patterns & Event Emitter](2%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md) - Q20-29
+- [3) Streams & Buffers](3%29%20Streams%20%26%20Buffers.md) - Q30-39
+- [4) Node.js Internals & Performance](4%29%20Node.js%20Internals%20%26%20Performance.md) - Q40-50
+- [5) Express.js Core Concepts](5%29%20Express.js%20Core%20Concepts.md) - Q51-60
+- [6) REST APIs & Practical Server Scenarios](6%29%20REST%20APIs%20%26%20Practical%20Server%20Scenarios.md) - Q61-70
+- [7) Authentication, Security & Encryption](7%29%20Authentication%2C%20Security%20%26%20Encryption.md) - Q71-80
+- [8) Performance, Optimization, Scaling & Monitoring](8%29%20Performance%2C%20Optimization%2C%20Scaling%20%26%20Monitoring.md) - Q81-89
+- [9) Testing, Debugging & Deployment](9%29%20Testing%2C%20Debugging%20%26%20Deployment.md) - Q90-99
 
 ## 📝 Cheatsheet
 

@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: Native Modules & Platform Integrations](2%29%20Native%20Modules%20%26%20Platform%20Integrations.md)** | **[Next: Navigation & Lifecycle →](4%29%20Navigation%20%26%20Lifecycle.md)**
+
+</div>
+
 # 3. Android & iOS Platform Internals (Q21–30)
 
 ---
@@ -19,12 +25,6 @@ Example:
     </application>
 </manifest>
 ```
-
-<div align="center">
-
-**[← Previous: Native Modules & Platform Integrations](2%29%20Native%20Modules%20%26%20Platform%20Integrations.md)** | **[Next: Navigation & Lifecycle →](4%29%20Navigation%20%26%20Lifecycle.md)**
-
-</div>
 
 ---
 
@@ -225,8 +225,3 @@ keytool -genkey -v -keystore my-release-key.keystore -alias my-key-alias -keyalg
 
 ---
 
-<div align="center">
-
-**[← Previous: Native Modules & Platform Integrations](2%29%20Native%20Modules%20%26%20Platform%20Integrations.md)** | **[Next: Navigation & Lifecycle →](4%29%20Navigation%20%26%20Lifecycle.md)**
-
-</div>

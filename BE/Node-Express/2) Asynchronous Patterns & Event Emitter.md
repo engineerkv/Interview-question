@@ -1,10 +1,11 @@
-# 2) Asynchronous Patterns & Event Emitter (Q20–29)
-
 <div align="center">
 
 **[← Previous: Node.js Fundamentals](1%29%20Node.js%20Fundamentals.md)** | **[Next: Streams & Buffers →](3%29%20Streams%20%26%20Buffers.md)**
 
 </div>
+
+# 2. Asynchronous Patterns & Event Emitter (Q20–29)
+
 ## Q20. Callback hell and how to avoid it
 
 Callback hell happens when you nest multiple callbacks inside each other, creating deeply nested code that's really hard to read and debug - it's like a pyramid of doom where each async operation needs another callback. The best way to avoid it is using async/await, which makes your code look like regular synchronous code, or Promises with .then() chains, or breaking things into named functions instead of inline callbacks.

@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: Android & iOS Platform Internals](3%29%20Android%20%26%20iOS%20Platform%20Internals.md)** | **[Next: Performance Optimization & Measurement →](5%29%20Performance%20Optimization%20%26%20Measurement.md)**
+
+</div>
+
 # 4. Navigation & Lifecycle (Q31–40)
 
 ---
@@ -16,12 +22,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 ```
-
-<div align="center">
-
-**[← Previous: Android & iOS Platform Internals](3%29%20Android%20%26%20iOS%20Platform%20Internals.md)** | **[Next: Performance Optimization & Measurement →](5%29%20Performance%20Optimization%20%26%20Measurement.md)**
-
-</div>
 
 ---
 
@@ -248,8 +248,3 @@ function App() {
 
 ---
 
-<div align="center">
-
-**[← Previous: Android & iOS Platform Internals](3%29%20Android%20%26%20iOS%20Platform%20Internals.md)** | **[Next: Performance Optimization & Measurement →](5%29%20Performance%20Optimization%20%26%20Measurement.md)**
-
-</div>

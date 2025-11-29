@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: README](../README.md)** | **[Next: Data Fetching & Rendering →](2%29%20Data%20Fetching%20%26%20Rendering.md)**
+
+</div>
+
 # 1. Next.js Fundamentals (Q1–10)
 
 ---
@@ -21,12 +27,6 @@ export default function Home() {
   return <h1>Hello World</h1>;
 }
 ```
-
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Data Fetching & Rendering →](2%29%20Data%20Fetching%20%26%20Rendering.md)**
-
-</div>
 
 ---
 
@@ -255,8 +255,3 @@ const dbUrl = process.env.DATABASE_URL; // Server-side only
 
 ---
 
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Data Fetching & Rendering →](2%29%20Data%20Fetching%20%26%20Rendering.md)**
-
-</div>

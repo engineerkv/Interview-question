@@ -1,10 +1,10 @@
-# 1) Node.js Fundamentals & Modules (Q1–19)
-
 <div align="center">
 
 **[← Previous: README](../README.md)** | **[Next: Asynchronous Patterns & Event Emitter →](2%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md)**
 
 </div>
+
+# 1. Node.js Fundamentals & Modules (Q1–19)
 
 ---
 
@@ -467,18 +467,6 @@ process.on('exit', (code) => {
 });
 ```
 
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Asynchronous Patterns & Event Emitter →](2%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md)**
-
-</div>
-
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Asynchronous Patterns & Event Emitter →](2%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md)**
-
-</div>
-
 ---
 
 ## Q7. `process.exit()` vs `process.kill()`
@@ -914,18 +902,6 @@ logger.info({ userId: 123, ip: '192.168.1.1' }, 'User logged in');
 
 ---
 
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Asynchronous Patterns & Event Emitter →](2%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md)**
-
-</div>
-
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Asynchronous Patterns & Event Emitter →](2%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md)**
-
-</div>
-
 ## Q19. Handling graceful shutdown in Node.js
 
 Graceful shutdown ensures applications close properly by handling termination signals, cleaning up resources, and finishing ongoing requests - handle SIGTERM and SIGINT signals, close HTTP server and database connections, set timeout for forced shutdown, log shutdown process for debugging, and test graceful shutdown in production.
@@ -973,8 +949,3 @@ server = app.listen(3000, () => {
 
 ---
 
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Asynchronous Patterns & Event Emitter →](2%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md)**
-
-</div>

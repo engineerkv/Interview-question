@@ -2,7 +2,7 @@
 
 > **⏱️ Review Time: 20-25 minutes** | **Priority: ⭐⭐⭐ Critical** | Essential JavaScript concepts for interviews
 > 
-> **Coverage: Q1-Q250** (250 questions across 8 topics)
+> **Coverage: Q1-Q248** (248 questions across 8 topics)
 
 **Quick Review Checklist:**
 - [ ] Core Concepts (Hoisting, Closures, `this` Binding)
@@ -19,12 +19,13 @@
 ## 📋 **Question Coverage**
 
 - **Q1-Q15**: Core JavaScript Fundamentals
-- **Q16-Q25**: Functions, Closures & Execution Context
-- **Q26-Q45**: Objects, Prototypes & Inheritance
-- **Q46-Q55**: ES6+ Features
-- **Q56-Q81**: Promises, Async/Await & Event Loop
-- **Q82-Q190**: Practical JavaScript Questions
-- **Q191-Q250**: JavaScript Output Questions (tricky output-based questions)
+- **Q16-Q24**: Functions, Closures & Execution Context
+- **Q26-Q44**: Objects, Prototypes & Inheritance
+- **Q45-Q54**: ES6+ Features
+- **Q55-Q80**: Promises, Async/Await & Event Loop
+- **Q170-Q189**: Web Workers, Service Workers & Real-World Topics
+- **Q81-Q126**: Practical JavaScript Questions
+- **Q190-Q248**: JavaScript Output Questions (tricky output-based questions)
 
 ---
 

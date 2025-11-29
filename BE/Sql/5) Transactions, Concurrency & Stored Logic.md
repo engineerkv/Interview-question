@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: Database Design, Indexing & Performance](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md)** | **[Next: Question List →](question.md)**
+
+</div>
+
 # 5. Transactions, Concurrency & Stored Logic (Q41–50)
 
 ---
@@ -18,12 +24,6 @@ COMMIT;
 
 -- If any operation fails, ROLLBACK is automatic
 ```
-
-<div align="center">
-
-**[← Previous: Database Design, Indexing & Performance](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md)** | **[Next: Question List →](question.md)**
-
-</div>
 
 ---
 
@@ -279,8 +279,3 @@ ORDER BY e.name;
 
 ---
 
-<div align="center">
-
-**[← Previous: Database Design, Indexing & Performance](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md)** | **[Next: Question List →](question.md)**
-
-</div>

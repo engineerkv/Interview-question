@@ -1,10 +1,10 @@
-# 4. Cross-Platform Architecture & Offline Support (Q34–43)
-
 <div align="center">
 
 **[← Previous: Micro-Frontends vs Monolithic SPAs](3%29%20Micro-Frontends%20vs%20Monolithic%20SPAs.md)** | **[Next: Accessibility & User Experience →](5%29%20Accessibility%20%26%20User%20Experience.md)**
 
 </div>
+
+# 4. Cross-Platform Architecture & Offline Support (Q34–43)
 
 ---
 
@@ -354,8 +354,3 @@ function installPWA() {
 
 ---
 
-<div align="center">
-
-**[← Previous: Micro-Frontends vs Monolithic SPAs](3%29%20Micro-Frontends%20vs%20Monolithic%20SPAs.md)** | **[Next: Accessibility & User Experience →](5%29%20Accessibility%20%26%20User%20Experience.md)**
-
-</div>

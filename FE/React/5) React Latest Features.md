@@ -1,8 +1,14 @@
-# 5. React Latest Features (Q57–63)
+<div align="center">
+
+**[← Previous: Server State & Data Fetching](4%29%20Server%20State%20%26%20Data%20Fetching.md)** | **[Next: Performance Optimization →](6%29%20Performance%20Optimization.md)**
+
+</div>
+
+# 5. React Latest Features (Q56–62)
 
 ---
 
-## Q58. Concurrent Rendering in React 18
+## Q56. Concurrent Rendering in React 18
 
 Concurrent Rendering allows React to interrupt rendering work to handle urgent updates - it keeps UI responsive during heavy operations by prioritizing user interactions over background work. React can pause and resume rendering work based on priority.
 
@@ -22,15 +28,7 @@ return (
 );
 ```
 
-<div align="center">
-
-**[← Previous: Server State & Data Fetching](4%29%20Server%20State%20%26%20Data%20Fetching.md)** | **[Next: Performance Optimization →](6%29%20Performance%20Optimization.md)**
-
-</div>
-
----
-
-## Q59. Suspense and how to use it
+## Q57. Suspense and how to use it
 
 Suspense allows components to wait for something before rendering - use it for loading states with lazy components or data fetching, replacing manual loading state management. Suspense declaratively handles loading states for async operations.
 
@@ -51,7 +49,7 @@ function App() {
 
 ---
 
-## Q60. Transitions in React 18
+## Q58. Transitions in React 18
 
 Transitions mark state updates as non-urgent - React keeps UI responsive by interrupting heavy work to handle user input, prioritizing interactions over background updates. Transitions mark updates that can be interrupted, keeping urgent updates responsive.
 
@@ -79,7 +77,7 @@ return (
 
 ---
 
-## Q61. Strict Mode and why it's important
+## Q59. Strict Mode and why it's important
 
 Strict Mode double-renders components in development to detect side effects - it helps find bugs before production by exposing issues that might only appear in production. Development tool that helps identify side effects and bugs.
 
@@ -99,7 +97,7 @@ function App() {
 
 ---
 
-## Q62. New features in React 19
+## Q60. New features in React 19
 
 React 19 adds Actions for forms, Resource API for data fetching, and enhanced Suspense with better error handling - it continues React 18's concurrent rendering improvements. Actions provide built-in form handling with useTransition for async form submissions.
 
@@ -128,7 +126,7 @@ return (
 
 ---
 
-## Q63. React 19 Actions and Resource API
+## Q61. React 19 Actions and Resource API
 
 React 19 Actions handle form submissions with built-in async support, while Resource API uses the use() hook for data fetching with automatic Suspense integration. Actions simplify form handling with automatic pending states and error handling.
 
@@ -150,7 +148,7 @@ function UserProfile({ userId }) {
 
 ---
 
-## Q64. React Server Components (RSC) and how they work
+## Q62. React Server Components (RSC) and how they work
 
 React Server Components render on the server and send zero JavaScript to the client - they reduce bundle size and improve performance by keeping heavy logic on the server. Server Components render on server, send HTML not JavaScript, reducing bundle size.
 
@@ -180,8 +178,92 @@ function LikeButton({ postId }) {
 
 ---
 
-<div align="center">
+## React Version Major Features Summary
 
-**[← Previous: Server State & Data Fetching](4%29%20Server%20State%20%26%20Data%20Fetching.md)** | **[Next: Performance Optimization →](6%29%20Performance%20Optimization.md)**
+### React 16 (2017) - "Fiber" Release
 
-</div>
+**Major Features:**
+- **Fiber Architecture**: Complete rewrite of React's reconciliation algorithm for better performance
+- **Error Boundaries**: `componentDidCatch()` and `static getDerivedStateFromError()` for error handling
+- **Portals**: `ReactDOM.createPortal()` for rendering children outside DOM hierarchy
+- **Fragments**: `<>...</>` or `<React.Fragment>` to group elements without wrapper divs
+- **Return Arrays and Strings**: Components can return arrays and strings directly
+- **Better Server-Side Rendering**: Improved SSR performance and hydration
+- **New Context API**: `React.createContext()` for better prop drilling solution
+- **Lifecycle Methods**: New `getDerivedStateFromProps()` and `getSnapshotBeforeUpdate()`
+- **Pointer Events**: Support for pointer events API
+- **Profiler Component**: React DevTools Profiler for performance analysis
+
+**Breaking Changes:**
+- `componentWillMount`, `componentWillReceiveProps`, `componentWillUpdate` deprecated (removed in React 17)
+
+---
+
+### React 17 (2020) - "No New Features" Release
+
+**Major Features:**
+- **New JSX Transform**: No need to import React in every file using JSX
+- **Event Delegation Changes**: Events attached to root instead of document
+- **Effect Cleanup Timing**: Effects cleanup runs asynchronously after paint
+- **Removed Event Pooling**: Synthetic events no longer pooled (performance improvement)
+- **Consistent Errors**: Better error messages for undefined components
+- **Native Component Stack**: Better stack traces in error messages
+- **Lazy Loading Improvements**: Better support for Suspense with code splitting
+
+**Key Focus:**
+- **Gradual Upgrades**: Designed to enable gradual React upgrades (multiple versions in one app)
+- **No Breaking Changes**: Focused on making future upgrades easier
+
+---
+
+### React 18 (2022) - "Concurrent React" Release
+
+**Major Features:**
+- **Concurrent Rendering**: Interruptible rendering for better responsiveness
+- **Automatic Batching**: Automatic batching of state updates (including in promises, timeouts, native handlers)
+- **Transitions**: `useTransition()` and `startTransition()` for non-urgent updates
+- **Suspense Improvements**: Full support for Suspense in data fetching (not just code splitting)
+- **New Hooks**:
+  - `useTransition()`: Mark updates as non-urgent
+  - `useDeferredValue()`: Defer expensive value updates
+  - `useId()`: Generate unique IDs for accessibility
+  - `useSyncExternalStore()`: Subscribe to external stores
+  - `useInsertionEffect()`: For CSS-in-JS libraries
+- **New Root API**: `createRoot()` replaces `ReactDOM.render()`
+- **Strict Mode**: Double-invokes effects in development to catch bugs
+- **Server Components Support**: Foundation for React Server Components (Next.js 13+)
+- **Improved Hydration**: Better error messages for hydration mismatches
+
+**Breaking Changes:**
+- `ReactDOM.render()` deprecated in favor of `createRoot()`
+- `ReactDOM.hydrate()` deprecated in favor of `hydrateRoot()`
+
+---
+
+### React 19 (2024) - "Actions & Resources" Release
+
+**Major Features:**
+- **Actions**: Built-in form handling with `useActionState()` and `useFormStatus()`
+- **Resource API**: New `use()` hook for data fetching with Suspense integration
+- **Enhanced Suspense**: Better error boundaries and loading states
+- **Document Metadata**: Built-in support for `<title>`, `<meta>`, and other document tags
+- **Ref as a Prop**: Can pass refs as regular props (no need for `forwardRef`)
+- **Context as a Provider**: Context can be used directly as a provider component
+- **Improved Hydration**: Better hydration performance and error handling
+- **Compiler Optimizations**: React Compiler (experimental) for automatic memoization
+- **Better TypeScript Support**: Improved type inference and error messages
+- **Web Components Support**: Better integration with Web Components
+
+**New Hooks:**
+- `use()`: Unwrap promises and context values
+- `useActionState()`: Manage form actions with pending states
+- `useFormStatus()`: Access form submission status
+- `useOptimistic()`: Optimistic UI updates
+
+**Key Focus:**
+- **Better DX**: Improved developer experience with built-in form handling
+- **Performance**: React Compiler for automatic optimizations
+- **Simplified APIs**: Less boilerplate for common patterns
+
+---
+

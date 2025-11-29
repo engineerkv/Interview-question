@@ -210,18 +210,18 @@
 
 ## 📖 Complete Answer Guide
 
-- [1) UI/UX Architecture & State Management](1%20UI-UX%20Architecture%20%26%20State%20Management.md) - Q1-9
-- [2) Performance & Caching Optimization](2%20Performance%20%26%20Caching%20Optimization.md) - Q10-23
-- [3) Micro-Frontends vs Monolithic SPAs](3%20Micro-Frontends%20vs%20Monolithic%20SPAs.md) - Q24-33
-- [4) Cross-Platform Architecture & Offline Support](4%20Cross-Platform%20Architecture%20%26%20Offline%20Support.md) - Q34-43
-- [5) Accessibility & User Experience](5%20Accessibility%20%26%20User%20Experience.md) - Q44-52
-- [6) Browser Internals & Rendering](6%20Browser%20Internals%20%26%20Rendering.md) - Q53-64
-- [7) Practical Front-End System Design Scenarios](7%20Practical%20Front-End%20System%20Design%20Scenarios.md) - Q65-83
-- [8) Networking & APIs](8%20Networking%20%26%20APIs.md) - Q84-102
-- [9) Real-time Communication Protocols](9%20Real-time%20Communication%20Protocols.md) - Q103-117
-- [10) Data & Caching Architecture](10%20Data%20%26%20Caching%20Architecture.md) - Q118-131
-- [11) Security](11%20Security.md) - Q132-146
-- [12) Logging & Monitoring](12%20Logging%20%26%20Monitoring.md) - Q147-151
+- [1) UI-UX Architecture & State Management](1%29%20UI-UX%20Architecture%20%26%20State%20Management.md) - Q1-9
+- [2) Performance & Caching Optimization](2%29%20Performance%20%26%20Caching%20Optimization.md) - Q10-23
+- [3) Micro-Frontends vs Monolithic SPAs](3%29%20Micro-Frontends%20vs%20Monolithic%20SPAs.md) - Q24-33
+- [4) Cross-Platform Architecture & Offline Support](4%29%20Cross-Platform%20Architecture%20%26%20Offline%20Support.md) - Q34-43
+- [5) Accessibility & User Experience](5%29%20Accessibility%20%26%20User%20Experience.md) - Q44-52
+- [6) Browser Internals & Rendering](6%29%20Browser%20Internals%20%26%20Rendering.md) - Q53-64
+- [7) Practical Front-End System Design Scenarios](7%29%20Practical%20Front-End%20System%20Design%20Scenarios.md) - Q65-83
+- [8) Networking & APIs](8%29%20Networking%20%26%20APIs.md) - Q84-102
+- [9) Real-time Communication Protocols](9%29%20Real-time%20Communication%20Protocols.md) - Q103-117
+- [10) Data & Caching Architecture](10%29%20Data%20%26%20Caching%20Architecture.md) - Q118-131
+- [11) Security](11%29%20Security.md) - Q132-146
+- [12) Logging & Monitoring](12%29%20Logging%20%26%20Monitoring.md) - Q147-151
 
 ## 📝 Cheatsheet
 

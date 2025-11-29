@@ -1,10 +1,10 @@
-# 1. React Fundamentals (Q1–17)
-
 <div align="center">
 
 **[← Previous: README](../README.md)** | **[Next: React Hooks →](2%29%20React%20Hooks.md)**
 
 </div>
+
+# 1. React Fundamentals (Q1–17)
 
 ---
 
@@ -21,18 +21,6 @@ function App() {
   return <div><h1>Hello, React!</h1></div>;
 }
 ```
-
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: React Hooks →](2%29%20React%20Hooks.md)**
-
-</div>
-
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: React Hooks →](2%29%20React%20Hooks.md)**
-
-</div>
 
 ---
 
@@ -178,7 +166,7 @@ function Component() {
 
 ## Q9. Reconciliation in React
 
-Reconciliation is React's algorithm comparing virtual DOM trees to decide what DOM changes are needed - it uses heuristics and keys to efficiently find differences and update only changed nodes. It compares old and new virtual DOM trees to find differences, and only updates DOM nodes that actually changed.
+Reconciliation is React's algorithm comparing virtual DOM trees to decide what DOM changes are needed - it uses heuristics and keys to efficiently find differences and update only changed nodes.
 
 - **Trade-offs**: The catch is not understanding that reconciliation happens even when state doesn't change - React uses heuristics and keys to make diffing faster than O(n³) worst case. Reconciliation is React's "smart diffing" that makes virtual DOM practical and performant, but watch out - reconciliation still has overhead, so avoid unnecessary re-renders with memoization when needed.
 
@@ -407,7 +395,7 @@ function DataFetcher({ render }) {
 
 ## Q16. Refs and ref forwarding in React
 
-Refs access DOM elements or component instances - ref forwarding allows parents to access child component refs using forwardRef, enabling imperative operations when declarative isn't enough. Refs access DOM elements directly or component instances (imperative API).
+Refs access DOM elements directly or component instances - ref forwarding allows parents to access child component refs using forwardRef, enabling imperative operations when declarative isn't enough.
 
 - **Trade-offs**: The catch is use for focus management, animations, third-party libraries, or imperative operations - useImperativeHandle customizes what ref exposes to parent (advanced use). Refs are for imperative operations when declarative isn't enough, but watch out - ref forwarding allows parent components to access child component refs.
 
@@ -467,8 +455,3 @@ function App() {
 
 ---
 
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: React Hooks →](2%29%20React%20Hooks.md)**
-
-</div>

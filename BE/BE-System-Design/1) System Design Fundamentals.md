@@ -8,12 +8,6 @@ Functional requirements describe what the system should do - like "users can cre
 
 - **Trade-offs**: Functional requirements are easier to test, but non-functional requirements are trickier because you can only measure performance and reliability under real load. The catch is non-functional requirements cost more but they're what separates a working system from a production-ready one.
 
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Node.js System Design →](2%29%20Node.js%20System%20Design.md)**
-
-</div>
-
 ---
 
 ## Q2. Distributed system
@@ -199,12 +193,6 @@ Stateless design means each request contains all the information needed to proce
 - **Trade-offs**: Stateless design is easier to scale because you can add servers without worrying about where previous requests went, and if a server crashes, you don't lose session data. The catch is you have to send more data with each request. Stateful design can be more efficient for WebSocket connections, but the tricky part is it's harder to scale because you need sticky sessions or shared state storage.
 
 ---
-
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Node.js System Design →](2%29%20Node.js%20System%20Design.md)**
-
-</div>
 
 ## Q25. P99 latency
 

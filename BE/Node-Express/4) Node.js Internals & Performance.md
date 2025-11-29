@@ -1,4 +1,4 @@
-# 4) Node.js Internals & Performance (Q40–50)
+# 4. Node.js Internals & Performance (Q40–50)
 
 ## Q40. Libuv and how it works with Node.js
 
@@ -106,12 +106,6 @@ http.createServer((req, res) => {
 // All these operations are managed by libuv
 // JavaScript thread never blocks waiting for I/O
 ```
-
-<div align="center">
-
-**[← Previous: Streams & Buffers](3%29%20Streams%20%26%20Buffers.md)** | **[Next: Express.js Core Concepts →](5%29%20Express.js%20Core%20Concepts.md)**
-
-</div>
 
 ---
 
@@ -464,12 +458,6 @@ cpuIntensiveTask();
 ```
 
 ---
-
-<div align="center">
-
-**[← Previous: Streams & Buffers](3%29%20Streams%20%26%20Buffers.md)** | **[Next: Express.js Core Concepts →](5%29%20Express.js%20Core%20Concepts.md)**
-
-</div>
 
 ## Q48. Generating diagnostic reports in Node.js
 

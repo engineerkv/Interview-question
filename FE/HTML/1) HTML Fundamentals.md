@@ -1,10 +1,10 @@
-# 1. HTML Fundamentals (Q1–15)
-
 <div align="center">
 
 **[← Previous: README](../README.md)** | **[Next: Semantic HTML & Structure →](2%29%20Semantic%20HTML%20%26%20Structure.md)**
 
 </div>
+
+# 1. HTML Fundamentals (Q1–15)
 
 ---
 
@@ -294,8 +294,3 @@ Example:
 
 ---
 
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Semantic HTML & Structure →](2%29%20Semantic%20HTML%20%26%20Structure.md)**
-
-</div>

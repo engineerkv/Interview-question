@@ -1,10 +1,10 @@
-# 11. Security (Q132–146)
-
 <div align="center">
 
 **[← Previous: Data & Caching Architecture](10%29%20Data%20%26%20Caching%20Architecture.md)** | **[Next: Logging & Monitoring →](12%29%20Logging%20%26%20Monitoring.md)**
 
 </div>
+
+# 11. Security (Q132–146)
 
 ---
 
@@ -481,8 +481,3 @@ Example:
 
 ---
 
-<div align="center">
-
-**[← Previous: Data & Caching Architecture](10%29%20Data%20%26%20Caching%20Architecture.md)** | **[Next: Logging & Monitoring →](12%29%20Logging%20%26%20Monitoring.md)**
-
-</div>

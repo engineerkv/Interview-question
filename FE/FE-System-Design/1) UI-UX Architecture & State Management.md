@@ -1,10 +1,10 @@
-# 1. UI/UX Architecture & State Management (Q1–9)
-
 <div align="center">
 
 **[← Previous: README](../README.md)** | **[Next: Performance & Caching Optimization →](2%29%20Performance%20%26%20Caching%20Optimization.md)**
 
 </div>
+
+# 1. UI/UX Architecture & State Management (Q1–9)
 
 ---
 
@@ -307,8 +307,3 @@ const Welcome = () => {
 
 ---
 
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Performance & Caching Optimization →](2%29%20Performance%20%26%20Caching%20Optimization.md)**
-
-</div>

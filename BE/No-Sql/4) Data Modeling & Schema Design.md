@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: Aggregation Framework](3%29%20Aggregation%20Framework.md)** | **[Next: Question List →](question.md)**
+
+</div>
+
 # 4. Data Modeling & Schema Design (Q42–57)
 
 ---
@@ -21,12 +27,6 @@ Example:
   inStock: true
 }
 ```
-
-<div align="center">
-
-**[← Previous: Aggregation Framework](3%29%20Aggregation%20Framework.md)** | **[Next: Question List →](question.md)**
-
-</div>
 
 ---
 
@@ -412,8 +412,3 @@ const userSchema = new mongoose.Schema({
 
 ---
 
-<div align="center">
-
-**[← Previous: Aggregation Framework](3%29%20Aggregation%20Framework.md)** | **[Next: Question List →](question.md)**
-
-</div>

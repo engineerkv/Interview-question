@@ -1,10 +1,10 @@
-# Section 10: Git, Docker, CI/CD, Tooling (Q191-Q210)
-
 <div align="center">
 
 **[← Previous: Communication Protocols](9%29%20Communication%20Protocols.md)** | **[Next: AI Tools →](11%29%20AI%20Tools.md)**
 
 </div>
+
+# Section 10: Git, Docker, CI/CD, Tooling (Q191-Q210)
 
 ---
 
@@ -187,8 +187,3 @@ Postman environments are sets of variables scoped to a specific environment - li
 
 ---
 
-<div align="center">
-
-**[← Previous: Communication Protocols](9%29%20Communication%20Protocols.md)** | **[Next: AI Tools →](11%29%20AI%20Tools.md)**
-
-</div>

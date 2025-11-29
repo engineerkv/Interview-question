@@ -8,12 +8,6 @@ CloudWatch Metrics are numeric data points over time - like CPU usage, request c
 
 - **Trade-offs**: Metrics are great for monitoring performance and setting alarms, but the catch is they only store numeric data. Logs give you detailed information for debugging, but the tricky part is they can be expensive at scale and hard to search without proper indexing. Events enable event-driven architectures, but you need to configure rules and targets.
 
-<div align="center">
-
-**[← Previous: AWS Cloud Architecture](4%29%20AWS%20Cloud%20Architecture.md)** | **[Next: Messaging Systems →](6%29%20Messaging%20Systems.md)**
-
-</div>
-
 ---
 
 ## Q107. Creating custom CloudWatch metrics
@@ -137,12 +131,6 @@ Set up alerts on key metrics like error rate, response time, and throughput, usi
 - **Trade-offs**: Good alerting helps you catch issues quickly, but the catch is too many alerts cause alert fatigue where people ignore them. The tricky part is setting the right thresholds - too sensitive and you get false alarms, too lenient and you miss real issues. Use baselines and anomaly detection to adapt to changing traffic patterns.
 
 ---
-
-<div align="center">
-
-**[← Previous: AWS Cloud Architecture](4%29%20AWS%20Cloud%20Architecture.md)** | **[Next: Messaging Systems →](6%29%20Messaging%20Systems.md)**
-
-</div>
 
 ## Q120. CloudWatch Logs vs New Relic Logs
 

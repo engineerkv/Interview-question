@@ -146,16 +146,16 @@
 
 ## 📖 Complete Answer Guide
 
-- [1) React Native Fundamentals](1%20React%20Native%20Fundamentals.md) - Q1-10
-- [2) Native Modules & Platform Integrations](2%20Native%20Modules%20%26%20Platform%20Integrations.md) - Q11-20
-- [3) Android & iOS Platform Internals](3%20Android%20%26%20iOS%20Platform%20Internals.md) - Q21-30
-- [4) Navigation & Lifecycle](4%20Navigation%20%26%20Lifecycle.md) - Q31-40
-- [5) Performance Optimization & Measurement](5%20Performance%20Optimization%20%26%20Measurement.md) - Q41-50
-- [6) State Management & Data Handling](6%20State%20Management%20%26%20Data%20Handling.md) - Q51-60
-- [7) CodePush & OTA Updates](7%20CodePush%20%26%20OTA%20Updates.md) - Q61-68
-- [8) Debugging & Testing](8%20Debugging%20%26%20Testing.md) - Q69-78
-- [9) Build, Deployment & Stores](9%20Build%20Deployment%20%26%20Stores.md) - Q79-90
-- [10) Push Notifications & Messaging](10%20Push%20Notifications%20%26%20Messaging.md) - Q91-95
+- [1) React Native Fundamentals](1%29%20React%20Native%20Fundamentals.md) - Q1-10
+- [2) Native Modules & Platform Integrations](2%29%20Native%20Modules%20%26%20Platform%20Integrations.md) - Q11-20
+- [3) Android & iOS Platform Internals](3%29%20Android%20%26%20iOS%20Platform%20Internals.md) - Q21-30
+- [4) Navigation & Lifecycle](4%29%20Navigation%20%26%20Lifecycle.md) - Q31-40
+- [5) Performance Optimization & Measurement](5%29%20Performance%20Optimization%20%26%20Measurement.md) - Q41-50
+- [6) State Management & Data Handling](6%29%20State%20Management%20%26%20Data%20Handling.md) - Q51-60
+- [7) CodePush & OTA Updates](7%29%20CodePush%20%26%20OTA%20Updates.md) - Q61-68
+- [8) Debugging & Testing](8%29%20Debugging%20%26%20Testing.md) - Q69-78
+- [9) Build, Deployment & Stores](9%29%20Build%2C%20Deployment%20%26%20Stores.md) - Q79-90
+- [10) Push Notifications & Messaging](10%29%20Push%20Notifications%20%26%20Messaging.md) - Q91-95
 
 ## 📝 Cheatsheet
 

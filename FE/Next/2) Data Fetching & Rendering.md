@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: Next.js Fundamentals](1%29%20Next.js%20Fundamentals.md)** | **[Next: Routing & Navigation →](3%29%20Routing%20%26%20Navigation.md)**
+
+</div>
+
 # 2. Data Fetching & Rendering (Q11–20)
 
 ---
@@ -18,12 +24,6 @@ export async function getServerSideProps() {
   return { props: { data } };
 }
 ```
-
-<div align="center">
-
-**[← Previous: Next.js Fundamentals](1%29%20Next.js%20Fundamentals.md)** | **[Next: Routing & Navigation →](3%29%20Routing%20%26%20Navigation.md)**
-
-</div>
 
 ---
 
@@ -220,8 +220,3 @@ export async function createUser(formData) {
 
 ---
 
-<div align="center">
-
-**[← Previous: Next.js Fundamentals](1%29%20Next.js%20Fundamentals.md)** | **[Next: Routing & Navigation →](3%29%20Routing%20%26%20Navigation.md)**
-
-</div>

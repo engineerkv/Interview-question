@@ -1,10 +1,11 @@
-# 6) REST APIs & Practical Server Scenarios (Q61–70)
-
 <div align="center">
 
 **[← Previous: Express.js Core Concepts](5%29%20Express.js%20Core%20Concepts.md)** | **[Next: Authentication, Security & Encryption →](7%29%20Authentication%2C%20Security%20%26%20Encryption.md)**
 
 </div>
+
+# 6. REST APIs & Practical Server Scenarios (Q61–70)
+
 ## Q61. RESTful APIs: what they are and how to design them
 
 RESTful APIs follow REST principles using HTTP methods to perform CRUD operations on resources - use HTTP methods for different operations (GET, POST, PUT, DELETE), use resource-based URLs (/api/users, /api/users/:id), return appropriate HTTP status codes, use JSON for request/response data, and follow consistent naming conventions. Express provides simple routing and middleware for implementation.

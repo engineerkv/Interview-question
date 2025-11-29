@@ -1,14 +1,14 @@
-# 5. Performance & Optimization (Q50–59)
-
 <div align="center">
 
 **[← Previous: CSS Architecture & Design Systems](4%29%20CSS%20Architecture%20%26%20Design%20Systems.md)** | **[Next: Practical & Hands-On Challenges →](7%29%20Practical%20%26%20Hands-On%20Challenges.md)**
 
 </div>
 
+# 5. Performance & Optimization (Q49–58)
+
 ---
 
-## Q50. Optimizing CSS for performance
+## Q49. Optimizing CSS for performance
 
 CSS performance optimization involves reducing file size, minimizing reflows/repaints, and using efficient selectors to improve rendering performance - selector efficiency and animation performance are key to CSS optimization. Use class selectors over complex descendant selectors, use `transform` and `opacity` for animations.
 
@@ -27,7 +27,7 @@ Example:
 
 ---
 
-## Q51. CSS minification: what it is and how to implement it
+## Q50. CSS minification: what it is and how to implement it
 
 CSS minification removes unnecessary characters (whitespace, comments) and optimizes code to reduce file size and improve loading performance - minification is standard practice for production builds. Eliminates spaces, tabs, newlines, removes CSS comments.
 
@@ -41,7 +41,7 @@ Example:
 
 ---
 
-## Q52. CSS purging: what it is and how to implement it
+## Q51. CSS purging: what it is and how to implement it
 
 CSS purging removes unused CSS rules from stylesheets, reducing file size and improving performance by eliminating dead code - CSS purging is essential for frameworks like Tailwind CSS. Removes CSS rules that aren't used in HTML/JS, can reduce file size by 50-80%.
 
@@ -55,7 +55,7 @@ Example:
 
 ---
 
-## Q53. Critical CSS: what it is and how to implement it
+## Q52. Critical CSS: what it is and how to implement it
 
 Critical CSS is the minimal CSS needed to render above-the-fold content - inline it in the HTML head to improve First Contentful Paint, critical CSS improves initial render time. Inline essential styles for above-the-fold content, defer non-critical CSS.
 
@@ -73,7 +73,7 @@ Example:
 
 ---
 
-## Q54. CSS splitting: what it is and how to implement it
+## Q53. CSS splitting: what it is and how to implement it
 
 CSS splitting divides stylesheets into smaller chunks loaded on demand, reducing initial bundle size - split CSS by route or component for better performance. Split CSS by route, component, or feature for on-demand loading.
 
@@ -89,7 +89,7 @@ Example:
 
 ---
 
-## Q55. CSS lazy loading: what it is and how to implement it
+## Q54. CSS lazy loading: what it is and how to implement it
 
 CSS lazy loading defers non-critical CSS until it's needed, improving initial page load performance by loading only essential styles first - lazy loading CSS improves First Contentful Paint. Inline essential styles for above-the-fold content, use `rel="preload"` for non-critical CSS.
 
@@ -105,7 +105,7 @@ Example:
 
 ---
 
-## Q56. CSS preloading: what it is and how to implement it
+## Q55. CSS preloading: what it is and how to implement it
 
 CSS preloading hints the browser to fetch CSS files early, improving perceived performance - use `rel="preload"` for critical CSS that's discovered late. Preload critical CSS that's discovered late in the document.
 
@@ -119,7 +119,7 @@ Example:
 
 ---
 
-## Q57. CSS prefetching: what it is and how to implement it
+## Q56. CSS prefetching: what it is and how to implement it
 
 CSS prefetching hints the browser to fetch CSS files that might be needed soon, like for the next page - use for likely navigation paths. Prefetch CSS for likely navigation paths or next pages.
 
@@ -133,7 +133,7 @@ Example:
 
 ---
 
-## Q58. CSS compression: what it is and how to implement it
+## Q57. CSS compression: what it is and how to implement it
 
 CSS compression reduces file size through various techniques like minification, gzip compression, and Brotli compression to improve loading performance - compression is essential for reducing CSS file size. Minification removes whitespace and comments, gzip reduces file size by ~70%, Brotli by ~80%.
 
@@ -147,7 +147,7 @@ Example:
 
 ---
 
-## Q59. CSS optimization: what it is and how to implement it
+## Q58. CSS optimization: what it is and how to implement it
 
 CSS optimization combines multiple techniques—minification, purging, splitting, lazy loading, and compression—to improve performance - CSS optimization requires monitoring and continuous improvement. Combine minification, purging, splitting, lazy loading, and compression.
 
@@ -160,10 +160,3 @@ Example:
 ```
 
 ---
-<div align="center">
-
-**[← Previous: CSS Architecture & Design Systems](4%29%20CSS%20Architecture%20%26%20Design%20Systems.md)** | **[Next: Practical & Hands-On Challenges →](7%29%20Practical%20%26%20Hands-On%20Challenges.md)**
-
-</div>
-
-**[← Previous Section](4%29%20CSS%20Architecture%20%26%20Design%20Systems.md)** | **[Next Section →](7%29%20Practical%20%26%20Hands-On%20Challenges.md)**

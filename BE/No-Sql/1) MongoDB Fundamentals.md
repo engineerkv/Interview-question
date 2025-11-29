@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: README](../README.md)** | **[Next: Indexing & Query Optimization →](2%29%20Indexing%20%26%20Query%20Optimization.md)**
+
+</div>
+
 # 1. MongoDB Fundamentals (Q1–16)
 
 ---
@@ -18,12 +24,6 @@ Example:
   address: { city: "NYC", country: "USA" }
 }
 ```
-
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Indexing & Query Optimization →](2%29%20Indexing%20%26%20Query%20Optimization.md)**
-
-</div>
 
 ---
 
@@ -349,8 +349,3 @@ await User.deleteOne({ name: 'John' });
 
 ---
 
-<div align="center">
-
-**[← Previous: README](../README.md)** | **[Next: Indexing & Query Optimization →](2%29%20Indexing%20%26%20Query%20Optimization.md)**
-
-</div>

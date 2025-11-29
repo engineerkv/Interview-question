@@ -1,10 +1,10 @@
-# 8. Advanced HTML Concepts (Q102–110)
-
 <div align="center">
 
 **[← Previous: Performance & SEO](7%29%20Performance%20%26%20SEO.md)** | **[Next: Question List →](question.md)**
 
 </div>
+
+# 8. Advanced HTML Concepts (Q102–110)
 
 ---
 
@@ -265,8 +265,3 @@ Example:
 <button onclick="openModal()" aria-haspopup="dialog">Open Modal</button>
 ```
 
-<div align="center">
-
-**[← Previous: Performance & SEO](7%29%20Performance%20%26%20SEO.md)** | **[Next: Question List →](question.md)**
-
-</div>

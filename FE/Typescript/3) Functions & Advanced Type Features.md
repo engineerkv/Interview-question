@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: Type System & Interfaces](2%29%20Type%20System%20%26%20Interfaces.md)** | **[Next: Classes & Object-Oriented Features →](4%29%20Classes%20%26%20Object-Oriented%20Features.md)**
+
+</div>
+
 # 3. Functions & Advanced Type Features (Q22–31)
 
 ---
@@ -31,12 +37,6 @@ class Dog extends Animal {
   }
 }
 ```
-
-<div align="center">
-
-**[← Previous: Type System & Interfaces](2%29%20Type%20System%20%26%20Interfaces.md)** | **[Next: Classes & Object-Oriented Features →](4%29%20Classes%20%26%20Object-Oriented%20Features.md)**
-
-</div>
 
 ---
 
@@ -229,8 +229,3 @@ type UserAddress = User["address"]; // { street: string; city: string; }
 
 ---
 
-<div align="center">
-
-**[← Previous: Type System & Interfaces](2%29%20Type%20System%20%26%20Interfaces.md)** | **[Next: Classes & Object-Oriented Features →](4%29%20Classes%20%26%20Object-Oriented%20Features.md)**
-
-</div>

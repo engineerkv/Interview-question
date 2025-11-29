@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: State Management & Data Handling](6%29%20State%20Management%20%26%20Data%20Handling.md)** | **[Next: Debugging & Testing →](8%29%20Debugging%20%26%20Testing.md)**
+
+</div>
+
 # 7. CodePush & OTA Updates (Q61–68)
 
 ---
@@ -25,12 +31,6 @@ function App() {
   }, []);
 }
 ```
-
-<div align="center">
-
-**[← Previous: State Management & Data Handling](6%29%20State%20Management%20%26%20Data%20Handling.md)** | **[Next: Debugging & Testing →](8%29%20Debugging%20%26%20Testing.md)**
-
-</div>
 
 ---
 
@@ -193,8 +193,3 @@ const codePushOptions = {
 
 ---
 
-<div align="center">
-
-**[← Previous: State Management & Data Handling](6%29%20State%20Management%20%26%20Data%20Handling.md)** | **[Next: Debugging & Testing →](8%29%20Debugging%20%26%20Testing.md)**
-
-</div>

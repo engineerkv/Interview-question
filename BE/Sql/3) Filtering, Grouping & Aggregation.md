@@ -1,3 +1,9 @@
+<div align="center">
+
+**[← Previous: Querying & Joins](2%29%20Querying%20%26%20Joins.md)** | **[Next: Database Design, Indexing & Performance →](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md)**
+
+</div>
+
 # 3. Filtering, Grouping & Aggregation (Q21–30)
 
 ---
@@ -29,12 +35,6 @@ WHERE salary > 30000  -- Filter rows first
 GROUP BY department_id
 HAVING AVG(salary) > 50000;  -- Then filter groups
 ```
-
-<div align="center">
-
-**[← Previous: Querying & Joins](2%29%20Querying%20%26%20Joins.md)** | **[Next: Database Design, Indexing & Performance →](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md)**
-
-</div>
 
 ---
 
@@ -278,8 +278,3 @@ PIVOT (
 
 ---
 
-<div align="center">
-
-**[← Previous: Querying & Joins](2%29%20Querying%20%26%20Joins.md)** | **[Next: Database Design, Indexing & Performance →](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md)**
-
-</div>

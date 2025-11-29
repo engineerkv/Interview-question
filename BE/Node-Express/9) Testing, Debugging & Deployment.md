@@ -1,10 +1,11 @@
-# 9) Testing, Debugging & Deployment (Q90–99)
-
 <div align="center">
 
 **[← Previous: Performance, Optimization, Scaling & Monitoring](8%29%20Performance%2C%20Optimization%2C%20Scaling%20%26%20Monitoring.md)** | **[Next: Question List →](question.md)**
 
 </div>
+
+# 9. Testing, Debugging & Deployment (Q90–99)
+
 ## Q90. Writing unit tests with Jest or Mocha
 
 Testing frameworks provide tools for writing and running tests - Jest is popular for React/Node.js with built-in mocking, Mocha is flexible with many plugins, and Supertest is specialized for HTTP API testing. Choose based on project requirements and team preferences, and consider testing pyramid: unit > integration > e2e.

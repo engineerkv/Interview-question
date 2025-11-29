@@ -8,12 +8,6 @@ Choose EC2 when you need full control over the environment, long-running process
 
 - **Trade-offs**: EC2 gives you complete control and can run anything, but the catch is you manage the servers, patching, and scaling yourself. Lambda is serverless and auto-scales, but the tricky part is it has execution time limits, cold starts can add latency, and it's not great for long-running or CPU-intensive tasks.
 
-<div align="center">
-
-**[← Previous: Database Design](3%29%20Database%20Design.md)** | **[Next: Observability →](5%29%20Observability.md)**
-
-</div>
-
 ---
 
 ## Q82. Auto Scaling Groups internal flow
@@ -214,12 +208,6 @@ DynamoDB Global Tables replicate your table across multiple regions automaticall
 - **Trade-offs**: Global Tables provide low latency worldwide and automatic disaster recovery, which is great for global applications, but the catch is they cost more since you're paying for multiple regions and replication. The tricky part is eventual consistency - writes in one region might take a few seconds to appear in other regions, so you need to handle this in your application.
 
 ---
-
-<div align="center">
-
-**[← Previous: Database Design](3%29%20Database%20Design.md)** | **[Next: Observability →](5%29%20Observability.md)**
-
-</div>
 
 ## Q105. On-demand vs provisioned capacity
 
