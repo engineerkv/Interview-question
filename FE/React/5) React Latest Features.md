@@ -4,11 +4,11 @@
 
 </div>
 
-# 5. React Latest Features (Q56–62)
+# 🆕 5. React Latest Features (Q56–62)
 
 ---
 
-## Q56. Concurrent Rendering in React 18
+## Q56. 💡 Concurrent Rendering in React 18
 
 Concurrent Rendering allows React to interrupt rendering work to handle urgent updates - it keeps UI responsive during heavy operations by prioritizing user interactions over background work. React can pause and resume rendering work based on priority.
 
@@ -26,9 +26,10 @@ return (
     {isPending ? 'Searching...' : 'Search'}
   </button>
 );
+
 ```
 
-## Q57. Suspense and how to use it
+## Q57. 🔧 Suspense and how to use it
 
 Suspense allows components to wait for something before rendering - use it for loading states with lazy components or data fetching, replacing manual loading state management. Suspense declaratively handles loading states for async operations.
 
@@ -45,11 +46,12 @@ function App() {
     </Suspense>
   );
 }
+
 ```
 
 ---
 
-## Q58. Transitions in React 18
+## Q58. 💡 Transitions in React 18
 
 Transitions mark state updates as non-urgent - React keeps UI responsive by interrupting heavy work to handle user input, prioritizing interactions over background updates. Transitions mark updates that can be interrupted, keeping urgent updates responsive.
 
@@ -73,11 +75,12 @@ return (
      list.slice(0,5).map((_, i) => <div key={i}>{deferredInput}</div>)}
   </div>
 );
+
 ```
 
 ---
 
-## Q59. Strict Mode and why it's important
+## Q59. 🤔 Strict Mode and why it's important
 
 Strict Mode double-renders components in development to detect side effects - it helps find bugs before production by exposing issues that might only appear in production. Development tool that helps identify side effects and bugs.
 
@@ -93,11 +96,12 @@ function App() {
     </StrictMode>
   );
 }
+
 ```
 
 ---
 
-## Q60. New features in React 19
+## Q60. 💡 New features in React 19
 
 React 19 adds Actions for forms, Resource API for data fetching, and enhanced Suspense with better error handling - it continues React 18's concurrent rendering improvements. Actions provide built-in form handling with useTransition for async form submissions.
 
@@ -122,11 +126,12 @@ return (
     {isPending ? 'Submitting…' : <button type="submit">Send</button>}
   </form>
 );
+
 ```
 
 ---
 
-## Q61. React 19 Actions and Resource API
+## Q61. 🔌 React 19 Actions and Resource API
 
 React 19 Actions handle form submissions with built-in async support, while Resource API uses the use() hook for data fetching with automatic Suspense integration. Actions simplify form handling with automatic pending states and error handling.
 
@@ -144,11 +149,12 @@ function UserProfile({ userId }) {
   const user = use(fetchUser(userId));
   return <div>{user.name}</div>;
 }
+
 ```
 
 ---
 
-## Q62. React Server Components (RSC) and how they work
+## Q62. 🧩 React Server Components (RSC) and how they work
 
 React Server Components render on the server and send zero JavaScript to the client - they reduce bundle size and improve performance by keeping heavy logic on the server. Server Components render on server, send HTML not JavaScript, reducing bundle size.
 
@@ -174,6 +180,7 @@ function LikeButton({ postId }) {
   const [likes, setLikes] = useState(0);
   return <button onClick={() => setLikes(likes + 1)}>Like ({likes})</button>;
 }
+
 ```
 
 ---
@@ -266,4 +273,10 @@ function LikeButton({ postId }) {
 - **Simplified APIs**: Less boilerplate for common patterns
 
 ---
+
+<div align="center">
+
+**[← Previous: Server State & Data Fetching](4%29%20Server%20State%20%26%20Data%20Fetching.md)** | **[Next: Performance Optimization →](6%29%20Performance%20Optimization.md)**
+
+</div>
 

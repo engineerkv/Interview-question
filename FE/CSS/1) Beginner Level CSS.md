@@ -4,11 +4,11 @@
 
 </div>
 
-# 1. Beginner Level CSS (Q1–12)
+# 🧒 1. Beginner Level CSS (Q1–12)
 
 ---
 
-## Q1. CSS and what it stands for
+## Q1. 🎨 CSS and what it stands for
 
 CSS stands for Cascading Style Sheets - it's a stylesheet language that describes how HTML documents look, separating content from presentation for maintainable styling. Separates content (HTML) from presentation (CSS), enables consistent styling across web pages.
 
@@ -23,11 +23,12 @@ body {
   margin: 0;
   padding: 20px;
 }
+
 ```
 
 ---
 
-## Q2. Different ways to include CSS in a webpage
+## Q2. 🎨 Different ways to include CSS in a webpage
 
 CSS can be included via inline styles, internal stylesheets, or external stylesheet files - external stylesheets are preferred for production websites because they can be cached and reused. Inline (highest specificity), internal (page-specific), external (best for reusability).
 
@@ -41,11 +42,12 @@ Example:
   body { background-color: #f0f0f0; }
 </style>
 <link rel="stylesheet" href="styles.css">
+
 ```
 
 ---
 
-## Q3. CSS selectors: what they are and examples
+## Q3. 🎨 CSS selectors: what they are and examples
 
 CSS selectors target HTML elements to apply styles, using various patterns to match elements - selector specificity determines which styles apply when multiple rules match. Selectors determine which elements get styled, more specific selectors override less specific ones.
 
@@ -58,11 +60,12 @@ p { color: blue; }
 .highlight { background-color: yellow; }
 #header { font-size: 24px; }
 div p { margin: 10px; }
+
 ```
 
 ---
 
-## Q4. Element, class, and ID selectors: differences
+## Q4. 🏛️ Element, class, and ID selectors: differences
 
 Element selectors target HTML tags, class selectors target elements with specific class attributes, and ID selectors target unique elements - classes are preferred for styling, IDs for JavaScript hooks. Element (broad targeting), class (reusable), ID (unique, highest specificity).
 
@@ -74,11 +77,12 @@ Example:
 p { color: black; }
 .highlight { background-color: yellow; }
 #header { font-size: 24px; }
+
 ```
 
 ---
 
-## Q5. CSS Box Model: what it is and its components
+## Q5. 🧩 CSS Box Model: what it is and its components
 
 The CSS Box Model describes how elements are sized and spaced - it consists of content, padding, border, and margin, layers from inside to outside, understanding the box model is essential for layout. Content → Padding → Border → Margin (from inside to outside). `box-sizing: content-box` (default) calculates width/height as content only, while `box-sizing: border-box` includes padding and border in the width/height calculation.
 
@@ -102,11 +106,12 @@ Example:
   border: 2px solid black;
   /* Total width = 200px (includes padding and border) */
 }
+
 ```
 
 ---
 
-## Q6. Margin vs padding
+## Q6. 🤔 Margin vs padding
 
 Margin creates space outside an element's border, while padding creates space inside an element's border - padding is inside the border, margin is outside. Padding (inside space, affects background color), margin (outside space, transparent, can collapse).
 
@@ -121,11 +126,12 @@ Example:
   border: 1px solid black;
   background-color: lightgray;
 }
+
 ```
 
 ---
 
-## Q7. Purpose of the `box-sizing` property
+## Q7. 💡 Purpose of the `box-sizing` property
 
 `box-sizing` controls how the total width and height of an element is calculated, including or excluding padding and borders - border-box is preferred for predictable layouts. `content-box` (default, width/height = content only), `border-box` (includes padding and border).
 
@@ -145,11 +151,12 @@ Example:
   border: 2px solid black; 
   box-sizing: border-box; 
 }
+
 ```
 
 ---
 
-## Q8. `display: block`, `inline`, and `inline-block`: differences
+## Q8. 🤔 `display: block`, `inline`, and `inline-block`: differences
 
 These display values control how elements flow and interact with other elements on the page - inline-block is useful for buttons and form elements because it flows like inline but respects all properties. Block (full width, new line), inline (flows with text, ignores width/height), inline-block (flows like inline but respects all properties).
 
@@ -172,11 +179,12 @@ Example:
   width: 100px; 
   background-color: green; 
 }
+
 ```
 
 ---
 
-## Q9. Pseudo-classes and pseudo-elements: what they are and examples
+## Q9. 🏛️ Pseudo-classes and pseudo-elements: what they are and examples
 
 Pseudo-classes target element states (like `:hover`), while pseudo-elements create virtual elements (like `::before`) - pseudo-classes target states, pseudo-elements create new elements. Pseudo-classes use single colon `:`, pseudo-elements use double colon `::`.
 
@@ -195,11 +203,12 @@ Example:
 }
 a:visited { color: purple; }
 p::first-line { font-weight: bold; }
+
 ```
 
 ---
 
-## Q10. CSS specificity: what it is and how it's calculated
+## Q10. 🎨 CSS specificity: what it is and how it's calculated
 
 CSS specificity determines which styles apply when multiple rules target the same element - higher specificity wins, specificity is calculated based on selectors. Specificity: inline styles (1,0,0,0) > IDs (0,1,0,0) > classes (0,0,1,0) > elements (0,0,0,1).
 
@@ -212,11 +221,12 @@ p { color: black; }                    /* 0,0,0,1 */
 .highlight { color: yellow; }          /* 0,0,1,0 */
 #header { color: blue; }               /* 0,1,0,0 */
 #header.highlight { color: red; }      /* 0,1,1,0 */
+
 ```
 
 ---
 
-## Q11. Relative vs absolute CSS units
+## Q11. 🎨 Relative vs absolute CSS units
 
 Relative units scale based on context (em, rem, %, vw, vh), while absolute units are fixed (px, pt, cm) - relative units are better for responsive design because they adapt to different screen sizes. Relative units (em, rem, %, vw, vh) scale with context, absolute units (px, pt) are fixed.
 
@@ -231,11 +241,12 @@ Example:
   width: 50%;                /* relative to parent */
   height: 100vh;             /* relative to viewport */
 }
+
 ```
 
 ---
 
-## Q12. `position: relative`, `absolute`, `fixed`, and `sticky`: differences
+## Q12. 🤔 `position: relative`, `absolute`, `fixed`, and `sticky`: differences
 
 Positioning controls how elements are placed - `relative` positions relative to itself, `absolute` to nearest positioned parent, `fixed` to viewport, `sticky` toggles between relative and fixed, understanding positioning is key to complex layouts. `relative` positions relative to normal flow, `absolute` to positioned parent, `fixed` to viewport, `sticky` toggles.
 
@@ -263,6 +274,13 @@ Example:
   position: sticky; 
   top: 0; 
 }
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: README](../README.md)** | **[Next: Intermediate Level CSS →](2%29%20Intermediate%20Level%20CSS.md)**
+
+</div>

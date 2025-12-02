@@ -4,11 +4,11 @@
 
 </div>
 
-# 2. Type System & Interfaces (Q10–21)
+# 🎯 2. Type System & Interfaces (Q10–21)
 
 ---
 
-## Q10. Type in TypeScript
+## Q10. 📝 Type in TypeScript
 
 A type is a way to define the shape, structure, and behavior of data, providing compile-time type checking and better developer experience - types provide compile-time guarantees. Type safety prevents runtime errors by catching type mismatches at compile time.
 
@@ -27,11 +27,12 @@ type User = {
 type Status = 'pending' | 'approved' | 'rejected';
 type EventHandler = (event: Event) => void;
 type ID = string | number;
+
 ```
 
 ---
 
-## Q11. Interface in TypeScript
+## Q11. 📝 Interface in TypeScript
 
 An interface defines the contract or shape that an object must follow, specifying what properties and methods it should have - interfaces ensure objects conform to the expected structure. Specifies what an object should look like.
 
@@ -56,11 +57,12 @@ interface Config {
   readonly apiUrl: string;
   readonly timeout: number;
 }
+
 ```
 
 ---
 
-## Q12. Difference between `type` and `interface`
+## Q12. 📝 Difference between `type` and `interface`
 
 `type` aliases can represent any type, while `interface` specifically defines object shapes and can be extended - use types for unions/primitives, interfaces for object shapes. Type aliases can represent unions, primitives, and complex types.
 
@@ -79,11 +81,12 @@ interface ApiResponse {
   data: any;
   status: number;
 }
+
 ```
 
 ---
 
-## Q13. Optional and readonly properties
+## Q13. 💡 Optional and readonly properties
 
 Optional properties can be undefined, while readonly properties cannot be modified after initialization - readonly properties enable immutability. Use `?` to make properties optional, use `readonly` to prevent modification.
 
@@ -98,11 +101,12 @@ interface User {
   email?: string; // Optional property
   readonly createdAt: Date; // Readonly property
 }
+
 ```
 
 ---
 
-## Q14. Index signatures and how to use them
+## Q14. 📇 Index signatures and how to use them
 
 Index signatures allow objects to have additional properties with dynamic keys, useful for dictionaries and dynamic objects - use cases include configuration objects, API responses, dynamic data. Allow objects with unknown property names.
 
@@ -120,11 +124,12 @@ interface FlexibleUser {
   name: string;
   [key: string]: any;
 }
+
 ```
 
 ---
 
-## Q15. Structural typing
+## Q15. 💡 Structural typing
 
 Structural typing means types are compatible if they have the same structure, regardless of their names - structural typing maintains type checking while being flexible. Types are compatible based on shape, not name.
 
@@ -149,11 +154,12 @@ function movePoint(point: Point) {
 
 const vector: Vector = { x: 10, y: 20 };
 movePoint(vector); // Works! Vector has same structure as Point
+
 ```
 
 ---
 
-## Q16. Excess property checking
+## Q16. 💡 Excess property checking
 
 Excess property checking prevents assigning objects with extra properties to variables, avoidable with type assertions or index signatures - helps maintain clear interfaces between components. Prevents errors, catches typos and unexpected properties.
 
@@ -178,11 +184,12 @@ interface FlexibleUser {
   name: string;
   [key: string]: any;
 }
+
 ```
 
 ---
 
-## Q17. Type assertion and how to use it
+## Q17. 📝 Type assertion and how to use it
 
 Type assertion tells TypeScript the type of a value, while type casting is a runtime operation that TypeScript doesn't perform - type assertion is compile-time only, not runtime. Type assertion only affects TypeScript compilation, no runtime cost.
 
@@ -194,11 +201,12 @@ Example:
 let value: unknown = "Hello World";
 let strLength: number = (value as string).length;
 let strLength2: number = (<string>value).length;
+
 ```
 
 ---
 
-## Q18. Literal types and how to use them
+## Q18. 📝 Literal types and how to use them
 
 Literal types allow you specify exact values instead of broad types - when you use `"up"` instead of `string`, TypeScript only allows that specific value. You can use them for string literals like `"success" | "error"`, number literals like `200 | 404 | 500`, or boolean literals like `true` - perfect for event names, status codes, CSS properties, and API endpoints where you need to restrict values to specific options.
 
@@ -212,11 +220,12 @@ let status: 200 | 404 | 500 = 200;
 
 type Theme = "light" | "dark";
 let currentTheme: Theme = "light";
+
 ```
 
 ---
 
-## Q19. Template literal types and how to use them
+## Q19. 📝 Template literal types and how to use them
 
 Template literal types create string types from template expressions, enabling type-safe string manipulation - use cases include event names, CSS properties, API endpoints. Create string types from template expressions.
 
@@ -227,11 +236,12 @@ Example:
 ```typescript
 type EventName<T extends string> = `on${Capitalize<T>}`;
 type CSSProperty = `margin-${'top' | 'bottom' | 'left' | 'right'}`;
+
 ```
 
 ---
 
-## Q20. Discriminated unions and how to use them
+## Q20. 🔧 Discriminated unions and how to use them
 
 Discriminated unions use a common property to distinguish between different union members, enabling type-safe pattern matching - use cases include state management, API responses, event handling. Common property (discriminator) identifies the union member.
 
@@ -258,11 +268,12 @@ function handleState(state: AppState) {
       break;
   }
 }
+
 ```
 
 ---
 
-## Q21. Intersection and union types
+## Q21. 📝 Intersection and union types
 
 Union types represent values that can be one of several types, while intersection types combine multiple types into one - choose based on need: alternatives vs combination. Union types: values can be one of several types; Intersection types: values must satisfy all types simultaneously.
 
@@ -285,7 +296,14 @@ interface Employee {
 }
 
 type PersonEmployee = Person & Employee; // Must have all properties
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: TypeScript Fundamentals](1%29%20TypeScript%20Fundamentals.md)** | **[Next: Functions & Advanced Type Features →](3%29%20Functions%20%26%20Advanced%20Type%20Features.md)**
+
+</div>
 

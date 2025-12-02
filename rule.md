@@ -6,6 +6,56 @@ This playbook defines the format rules for all interview questions. **Read this 
 
 ## 📌 PINNED: Critical Rules (READ FIRST)
 
+### 🗣️ Language Requirements (MANDATORY - SYSTEM DESIGN ONLY)
+
+**⚠️ IMPORTANT: These rules apply ONLY to FE System Design content (`FE/FE-System-Design/` directory).**
+
+**All System Design content (introductions, numbered stages, summaries, extra points) must follow these conversational language rules:**
+
+#### ✅ Natural Language & Word Choice
+- **Use "you can" instead of "they can"** - Write from the reader's perspective
+- **Use "allows/allows you to" instead of "lets/lets you"** - More professional and clear
+- **Use "when you assign" instead of "are copied by value"** - Action-oriented language
+- **Use "these/those" instead of vague "they"** - Be specific about what you're referring to
+- **Use "users" instead of "they" when referring to users** - Clear and direct
+
+#### ✅ Conversational Tone
+- **Write like explaining to a colleague** - Use everyday words, avoid jargon
+- **Use "weird part" instead of "historical bug"** - More relatable
+- **Use "surprise bugs" instead of technical jargon** - Easier to understand
+- **Use "because it's a copy" instead of technical explanations** - Simple and clear
+- **Make it easy to speak aloud** - Should sound natural when read
+
+#### ✅ Natural Flow & Clarity
+- **Use "the catch is" instead of "however"** - More conversational
+- **Use "watch out for" instead of "limitation"** - Practical warning
+- **Use "can be confusing" instead of "may lead to confusion"** - Direct and clear
+- **Use "tricky part" instead of "consideration"** - More engaging
+- **Use "works great for" instead of "optimal for"** - Natural language
+- **Use "can cause issues" instead of "may result in"** - Direct and practical
+
+#### ✅ System Design Content (SPECIAL REQUIREMENT)
+**All FE System Design content (introductions, numbered stages, summaries, extra points) MUST follow these rules:**
+- ✅ **Natural language** - Use "when you assign" instead of "are copied by value", "you can" instead of "they can"
+- ✅ **Word choice** - Use "allows/allows you to" instead of "lets/lets you", "allows" instead of "lets"
+- ✅ **Conversational tone** - Write like explaining to a colleague, use everyday words
+- ✅ **Simple explanations** - Use "weird part" instead of "historical bug", "surprise bugs" instead of technical jargon
+- ✅ **Natural flow** - Make it easy to speak aloud, sound like a real conversation
+- ✅ **Clearer examples** - Use "because it's a copy" instead of technical explanations
+
+**Goal:** All System Design content should sound like you're explaining to a colleague in a hallway conversation, not reading from a textbook.
+
+**Note:** Tech Stack files (HTML, CSS, JavaScript, React, etc.) do NOT need to follow these conversational language rules - they follow the standard answer format rules below.
+
+#### ❌ Common Mistakes to Avoid
+- ❌ "They can" → ✅ "You can" or "These can"
+- ❌ "Lets you" → ✅ "Allows you to"
+- ❌ "They are" → ✅ "These are" or be specific
+- ❌ "They don't" → ✅ "These don't" or be specific
+- ❌ "When they" → ✅ "When you" or "When users"
+- ❌ Technical jargon → ✅ Everyday words
+- ❌ Textbook language → ✅ Conversational language
+
 ### 📝 Answer Format (MANDATORY)
 
 **Format:** Direct answer (no label) + Trade-offs (optional) + Example (optional)
@@ -216,6 +266,193 @@ Promise.all() waits for all promises to fulfill or fails fast on first rejection
 ## Section 1: Tech Stack Questions Format
 
 > **Applies to:** All questions in `FE/` and `BE/` directories (HTML, CSS, JavaScript, TypeScript, React, Next.js, React Native, Node.js, Express, SQL, MongoDB, System Design, etc.)
+
+### FE System Design Answer Format (SPECIAL FORMAT)
+
+> **Applies to:** Questions in `FE/FE-System-Design/` directory (Networking, Architecture, Performance, etc.)
+
+**Format:** Clean, interview-friendly, easy-to-understand but detailed explanation structured for system design interviews.
+
+**Structure:**
+
+```
+## [Question Title]
+
+[Brief introduction explaining the process/concept - 1-2 sentences setting context]
+
+---
+
+## [Numbered Stage/Step 1]
+
+[Clear explanation with examples]
+
+### 🔹 [Sub-point if needed]
+
+* **Point 1** → Explanation
+* **Point 2** → Explanation
+
+📌 **In simple terms**: [One-line summary]
+
+---
+
+## [Numbered Stage/Step 2]
+
+[Clear explanation with examples]
+
+---
+
+## ⭐ Summary — 10-second Interview Version
+
+> "[Quick, concise summary that can be spoken in 10 seconds - perfect for interview responses]"
+
+---
+
+## ⭐ Extra Points (If Interviewer Asks More)
+
+### [Follow-up Question 1]
+
+[Brief answer]
+
+### [Follow-up Question 2]
+
+[Brief answer]
+```
+
+**Key Requirements:**
+
+1. **Clear Introduction** - Start with 1-2 sentences explaining what happens when the process starts
+2. **Numbered Stages** - Break down into 6-8 major stages/steps with clear headings
+3. **Visual Structure** - Use separators (`---`), emojis (🔹, 📌, ⭐), and formatting for clarity
+4. **Simple Language** - Use everyday words, avoid jargon, explain like talking to a colleague
+5. **Examples** - Include code examples, URL examples, or practical demonstrations
+6. **Summary Section** - Always include a "10-second Interview Version" for quick recall
+7. **Extra Points** - Include follow-up questions that interviewers commonly ask
+8. **No Question Format** - Use concept statements, not questions (e.g., "How the Web Works" not "How does the web work?")
+
+**Language Requirements (MANDATORY for System Design Content):**
+
+**⚠️ IMPORTANT: All system design content must follow the comprehensive Language Requirements pinned at the top of this document (see "🗣️ Language Requirements" section).**
+
+This includes:
+- ✅ All introductions, numbered stages, summaries, and extra points sections
+- ✅ All explanations, examples, and code comments
+- ✅ All "In simple terms" summaries
+- ✅ All interview version summaries
+
+**Key reminders:**
+- Use "you can" instead of "they can"
+- Use "allows/allows you to" instead of "lets/lets you"
+- Use "these/those" instead of vague "they"
+- Write like explaining to a colleague, not a textbook
+- Make it easy to speak aloud naturally
+
+**Goal:** All system design explanations should sound like you're explaining to a colleague in a hallway conversation, not reading from a textbook.
+
+**Example Structure:**
+
+```
+## How the Web Works
+
+When a user types a URL into a browser and presses Enter, a series of steps happen behind the scenes. The entire process can be broken down into **6 major stages**:
+
+---
+
+## 1. Entering the URL (Understanding URLs)
+
+A URL has parts like:
+
+```
+https://www.example.com/products?id=10
+```
+
+* **https** → Protocol (how to communicate)
+* **www.example.com** → Domain name
+* **/products** → Path (location on server)
+* **?id=10** → Query params (extra data)
+
+---
+
+## 2. DNS Lookup (Finding the Server's IP Address)
+
+[Explanation...]
+
+📌 **In simple terms**: DNS converts the domain name → IP address.
+
+---
+
+## ⭐ Summary — 10-second Interview Version
+
+> "When you type a URL, the browser performs a DNS lookup to find the server's IP, then establishes a TCP/TLS connection..."
+
+---
+
+## ⭐ Extra Points (If Interviewer Asks More)
+
+### What is DNS?
+
+A naming system that converts domain names → IP addresses.
+```
+
+**Question Numbering:**
+
+- ✅ **Format**: `## Q#. [Question Title]` - Always include question number in heading
+- ✅ **Sequential**: Questions must be numbered sequentially (Q1, Q2, Q3, etc.)
+- ✅ **Match question.md**: Question numbers must match the numbering in question.md file
+- ✅ **No gaps**: No missing question numbers in sequence
+- ✅ **No overview questions**: Do not include "Overview" questions in FE System Design
+
+**Answer Structure Requirements:**
+
+- ✅ **Introduction**: 1-2 sentences setting context for the process/concept
+- ✅ **Numbered stages**: Break complex processes into 6-8 numbered stages/steps
+- ✅ **Sub-sections**: Use `### 🔹` for sub-points within stages
+- ✅ **Simple summaries**: Use `📌 **In simple terms**:` for one-line explanations
+- ✅ **Code examples**: Include practical code examples, URL examples, or demonstrations
+- ✅ **Summary section**: Always include `## ⭐ Summary — 10-second Interview Version` with quote format
+- ✅ **Extra points**: Always include `## ⭐ Extra Points (If Interviewer Asks More)` with follow-up Q&A
+
+**Content Guidelines:**
+
+- ✅ **Interview-friendly** - Easy to understand, natural to speak aloud, conversational language (see Language Requirements above)
+- ✅ **Detailed but clear** - Comprehensive coverage without overwhelming
+- ✅ **Visual formatting** - Use separators (`---`), emojis (🔹, 📌, ⭐), code blocks for clarity
+- ✅ **Practical focus** - Real-world examples, not abstract theory
+- ✅ **Quick reference** - Summary section for fast recall during interviews
+- ✅ **Deep details** - Provide comprehensive explanations suitable for system design interviews
+- ✅ **Conversational language** - Must follow natural language rules (use "allows" not "lets", "you can" not "they can", everyday words, easy to speak aloud)
+
+**Formatting Rules:**
+
+- ✅ **Separators**: Use `---` between major sections and after introduction
+- ✅ **Emojis allowed**: Use 🔹, 📌, ⭐ for visual clarity (only in FE System Design format)
+- ✅ **Code blocks**: Use triple backticks for code examples
+- ✅ **Bullet points**: Use `* **Bold** → Explanation` format for key points
+- ✅ **Headings**: Use `## Q#.` for main question, `## [Number]` for stages, `### 🔹` for sub-sections
+
+**Question Numbering:**
+
+- ✅ **Format**: `## Q#. [Question Title]` - Always include question number in heading
+- ✅ **Sequential**: Questions must be numbered sequentially (Q1, Q2, Q3, etc.)
+- ✅ **Match question.md**: Question numbers must match the numbering in question.md file
+- ✅ **No gaps**: No missing question numbers in sequence
+
+**Answer Structure Requirements:**
+
+- ✅ **Introduction**: 1-2 sentences setting context for the process/concept
+- ✅ **Numbered stages**: Break complex processes into 6-8 numbered stages/steps
+- ✅ **Sub-sections**: Use `### 🔹` for sub-points within stages
+- ✅ **Simple summaries**: Use `📌 **In simple terms**:` for one-line explanations
+- ✅ **Code examples**: Include practical code examples, URL examples, or demonstrations
+- ✅ **Summary section**: Always include `## ⭐ Summary — 10-second Interview Version` with quote format
+- ✅ **Extra points**: Always include `## ⭐ Extra Points (If Interviewer Asks More)` with follow-up Q&A
+
+**Formatting Rules:**
+
+- ✅ **Separators**: Use `---` between major sections
+- ✅ **Emojis allowed**: Use 🔹, 📌, ⭐ for visual clarity (only in FE System Design)
+- ✅ **Code blocks**: Use triple backticks for code examples
+- ✅ **Bullet points**: Use `* **Bold** → Explanation` format for key points
+- ✅ **Headings**: Use `##` for main question, `###` for sub-sections
 
 ### Answer Template
 
@@ -462,6 +699,79 @@ Q#. [Question]
 
 ---
 
+## Section 5: Project System Design Documents (HLD/LLD)
+
+> **Applies to:** All project system design documents in `Projects/` directory (High Level Design and Low Level Design files)
+
+### Language Requirements (MANDATORY)
+
+**All project system design content must follow conversational language rules:**
+
+#### ✅ Natural Language & Word Choice
+- **Use "you can" instead of "they can"** - Write from the reader's perspective
+- **Use "allows/allows you to" instead of "lets/lets you"** - More professional and clear
+- **Use analogies and simple explanations** - "Like a walkie-talkie" instead of "bidirectional communication"
+- **Use "think of it as" for complex concepts** - Makes abstract ideas concrete
+- **Use everyday words** - "Smart messenger" instead of "HTTP client with interceptors"
+
+#### ✅ Conversational Tone
+- **Write like explaining to a colleague** - Use everyday words, avoid jargon
+- **Use analogies** - "Like building with LEGO blocks" for component-based architecture
+- **Use simple comparisons** - "Like a GPS for your app" for routing
+- **Make it easy to speak aloud** - Should sound natural when read in an interview
+- **Explain "why" not just "what"** - Help interviewer understand decisions
+
+#### ✅ Natural Flow & Clarity
+- **Use "the catch is" instead of "however"** - More conversational
+- **Use "watch out for" instead of "limitation"** - Practical warning
+- **Use "works great for" instead of "optimal for"** - Natural language
+- **Use "like having" for tools** - "Like having a professional animator" for animation libraries
+- **Use "think of it as" for abstractions** - Makes concepts relatable
+
+#### ✅ Tech Stack Explanations
+- **Explain why you chose it** - Not just what it is, but why it fits
+- **Use real-world comparisons** - "Like a cashier" for payment gateway
+- **Focus on benefits** - What problem it solves, not just features
+- **Keep it interview-friendly** - Easy to explain and remember
+
+**Examples:**
+- ❌ "Redux Toolkit provides predictable state updates with DevTools support" (textbook)
+- ✅ "Redux Toolkit is like a global storage box that any component can access - when you have lots of data that many components need, Redux keeps it organized" (conversational)
+
+- ❌ "Socket.io enables real-time bidirectional communication" (technical)
+- ✅ "Socket.io is like a walkie-talkie between browser and server - instant two-way communication" (conversational)
+
+- ❌ "Code splitting reduces initial bundle size" (dry)
+- ✅ "Code splitting means only loads the code for the page you're on - like opening one chapter of a book instead of the whole library" (memorable)
+
+**Goal:** All project system design explanations should sound like you're explaining your tech choices to a colleague in a hallway conversation, making it easy to explain in interviews and easy to remember.
+
+### Content Structure
+
+**High Level Design (HLD) Files:**
+- Project overview with conversational tech stack descriptions
+- Requirements explained in simple terms
+- Tech choices with "why" explanations using analogies
+- Architecture diagrams with clear explanations
+- Key design decisions with conversational reasoning
+
+**Low Level Design (LLD) Files:**
+- Component architecture with clear explanations
+- Data models with practical examples
+- API designs with simple descriptions
+- Implementation details with conversational code comments
+- Performance optimizations explained simply
+
+### Format Requirements
+
+- ✅ **Conversational language** - Use analogies, simple words, "think of it as" explanations
+- ✅ **Explain "why"** - Not just what you chose, but why it fits the project
+- ✅ **Interview-friendly** - Easy to explain and remember during interviews
+- ✅ **Natural flow** - Should sound like explaining to a colleague
+- ✅ **Code comments** - Use conversational comments in code examples
+
+---
+
 ## Section 4: Cheatsheet Format Rules
 
 > **Applies to:** All cheatsheet files (e.g., `FE/HTML/HTML Interview Cheatsheet.md`)
@@ -503,6 +813,18 @@ Q#. [Question]
 - **Code:** 1-10 lines, focused, practical, and relevant to the answer
 - **Spacing:** Blank line after question, before "Trade-offs", before "Example:", and before code block
 
+### FE System Design Questions (Special Format)
+- **Format:** Clean, interview-friendly explanation with numbered stages, summary, and extra points
+- **Question numbering:** Always include `## Q#.` format in headings, match question.md numbering
+- **Structure:** Introduction → Numbered stages (6-8 steps) → Summary (10-second version) → Extra points
+- **Visual formatting:** Use separators (`---`), emojis (🔹, 📌, ⭐), code blocks, and clear headings
+- **Language:** Simple, everyday words, explain like talking to a colleague
+- **Summary section:** Always include a "10-second Interview Version" for quick recall
+- **Extra points:** Always include follow-up questions that interviewers commonly ask
+- **Examples:** Include code examples, URL examples, or practical demonstrations in each stage
+- **No overview questions:** Do not include "Overview" questions in FE System Design sections
+- **Deep details:** Provide comprehensive, detailed explanations suitable for system design interviews
+
 ### DSA Questions
 - **Format:** Problem / Approach / Solution / Complexity
 - **Code:** Complete working functions
@@ -512,7 +834,7 @@ Q#. [Question]
 ### All Questions
 - **Concept format** - All questions must be written as concept statements, not questions
 - **No question marks** - Remove question marks and rephrase as statements
-- **No emojis** (except cheatsheet headers)
+- **No emojis** (except cheatsheet headers and FE System Design format for visual clarity)
 - **Conversational language** (like talking to a colleague)
 - **Practical focus** (real-world examples, avoid theory)
 - **Interview-ready** (natural to speak aloud)

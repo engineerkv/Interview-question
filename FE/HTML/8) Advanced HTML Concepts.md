@@ -4,11 +4,11 @@
 
 </div>
 
-# 8. Advanced HTML Concepts (Q102–110)
+# 🔧 8. Advanced HTML Concepts (Q102–110)
 
 ---
 
-## Q102. HTML vs XML
+## Q102. 📄 HTML vs XML
 
 HTML is a markup language for web pages with predefined tags, while XML is a markup language for data with custom tags - HTML is display-focused, XML is data-focused. HTML has predefined semantic tags, XML allows custom tag definitions.
 
@@ -35,11 +35,12 @@ Example:
   <name>John Doe</name>
   <email>john@example.com</email>
 </user>
+
 ```
 
 ---
 
-## Q103. Creating custom attributes
+## Q103. 💡 Creating custom attributes
 
 Use `data-*` attributes for custom data storage - this is the standard way to add custom attributes, data attributes are the preferred way to add custom metadata. `data-*` attributes are the standard way, validated by HTML validators.
 
@@ -51,11 +52,12 @@ Example:
 <div data-user-id="12345" data-role="admin" data-theme="dark">
   User content
 </div>
+
 ```
 
 ---
 
-## Q104. Purpose of the `<template>` element
+## Q104. 💡 Purpose of the `<template>` element
 
 `<template>` defines reusable HTML content that isn't rendered until cloned and inserted into the document - template element is essential for modern web components. Template content isn't rendered initially, use `content.cloneNode(true)` to clone.
 
@@ -77,11 +79,12 @@ const clone = template.content.cloneNode(true);
 clone.querySelector('.name').textContent = 'John Doe';
 document.body.appendChild(clone);
 </script>
+
 ```
 
 ---
 
-## Q105. Creating accessible SPAs
+## Q105. 💡 Creating accessible SPAs
 
 Use proper HTML structure, ARIA attributes, and focus management for accessible SPAs - accessible SPAs require focus management and ARIA attributes. Use proper landmark roles, implement focus management, provide skip links.
 
@@ -114,11 +117,12 @@ Example:
   </footer>
 </body>
 </html>
+
 ```
 
 ---
 
-## Q106. Including CSS in HTML
+## Q106. 🎨 Including CSS in HTML
 
 CSS can be included via external files, internal styles, inline styles, or imported stylesheets - external stylesheets are preferred for maintainability. External (best for maintainability), internal (page-specific), inline (highest specificity).
 
@@ -136,11 +140,12 @@ Example:
 <body>
   <div style="color: blue;">Inline styled content</div>
 </body>
+
 ```
 
 ---
 
-## Q107. Creating responsive layouts
+## Q107. 💡 Creating responsive layouts
 
 Use flexible HTML structure with CSS Grid, Flexbox, and responsive techniques for different screen sizes - responsive design requires semantic HTML and CSS techniques. Use semantic HTML structure, implement CSS Grid and Flexbox.
 
@@ -174,11 +179,12 @@ Example:
   </footer>
 </body>
 </html>
+
 ```
 
 ---
 
-## Q108. Creating data visualizations
+## Q108. 💡 Creating data visualizations
 
 Use proper HTML structure, ARIA attributes, and alternative text to make charts and graphs accessible - accessible visualizations require data tables and ARIA. Provide data tables for screen readers, use ARIA labels and descriptions.
 
@@ -209,11 +215,12 @@ Example:
     </tbody>
   </table>
 </div>
+
 ```
 
 ---
 
-## Q109. Implementing internationalization
+## Q109. 🔧 Implementing internationalization
 
 Use proper language attributes, character encoding, and direction attributes for international content - internationalization requires proper language and direction attributes. Use `lang` attribute for language, `dir` attribute for text direction (RTL).
 
@@ -244,11 +251,12 @@ Example:
 
 <div lang="en">English text</div>
 <div lang="es">Texto en español</div>
+
 ```
 
 ---
 
-## Q110. Creating interactive components
+## Q110. 🧩 Creating interactive components
 
 Use proper HTML semantics, ARIA attributes, and keyboard navigation for accessible interactive elements - accessible components require ARIA, keyboard support, and proper semantics. Use appropriate ARIA roles, implement keyboard navigation, provide clear labels.
 
@@ -263,5 +271,13 @@ Example:
   <button aria-label="Close dialog" onclick="closeModal()">Close</button>
 </div>
 <button onclick="openModal()" aria-haspopup="dialog">Open Modal</button>
+
 ```
 
+---
+
+<div align="center">
+
+**[← Previous: Performance & SEO](7%29%20Performance%20%26%20SEO.md)** | **[Next: Question List →](question.md)**
+
+</div>

@@ -4,11 +4,11 @@
 
 </div>
 
-# 7. Practical JavaScript Questions (Q81–127)
+# 💼 7. Practical JavaScript Questions (Q81–127)
 
 ---
 
-## Q81. Write a debounce function.
+## Q81. 🔧 Write a debounce function.
 
 Debouncing delays function execution until after a period of inactivity, preventing rapid repeated calls. It clears the previous timeout on each call and only executes after the delay period.
 
@@ -24,11 +24,12 @@ const debounce = (fn, delay) => {
     timeoutId = setTimeout(() => fn(...args), delay);
   };
 };
+
 ```
 
 ---
 
-## Q82. Write a custom `bind()` polyfill.
+## Q82. 💡 Write a custom `bind()` polyfill.
 
 `bind()` creates a new function with `this` bound and optional partial arguments. Store the original function and bound context, return a new function that calls the original with `apply`.
 
@@ -43,11 +44,12 @@ Function.prototype.bind = function(context, ...args) {
     return fn.apply(context, [...args, ...moreArgs]);
   };
 };
+
 ```
 
 ---
 
-## Q83. Implement your own `call()` polyfill
+## Q83. 🔧 Implement your own `call()` polyfill
 
 `call()` invokes a function with a specific `this` context and arguments passed individually. It allows you to borrow methods from other objects and explicitly set the `this` binding.
 
@@ -82,11 +84,12 @@ console.log(greet.call(person1, 'Hello', '!'));
 const numbers = [5, 6, 2, 3, 7];
 const max = Math.max.call(null, ...numbers);
 console.log(max); // 7
+
 ```
 
 ---
 
-## Q84. Implement your own `apply()` polyfill
+## Q84. 🔧 Implement your own `apply()` polyfill
 
 `apply()` invokes a function with a specific `this` context and arguments passed as an array. It's essential when you have a dynamic number of arguments or an array to pass, enabling method borrowing and explicit `this` binding.
 
@@ -121,11 +124,12 @@ console.log(greet.apply(person2, ['Hi', '.']));
 const numbers = [5, 6, 2, 3, 7];
 const max = Math.max.apply(null, numbers);
 console.log(max); // 7
+
 ```
 
 ---
 
-## Q85. Implement your own `Promise.all()` polyfill.
+## Q85. ⚡ Implement your own `Promise.all()` polyfill.
 
 `Promise.all()` resolves when all promises fulfill or rejects on first failure. Handle non-promise values with `Promise.resolve`, preserve order of results array, and count completions to know when done.
 
@@ -145,11 +149,12 @@ Promise.all = function(promises) {
     });
   });
 };
+
 ```
 
 ---
 
-## Q86. Implement your own `Promise.race()` polyfill.
+## Q86. ⚡ Implement your own `Promise.race()` polyfill.
 
 `Promise.race()` resolves or rejects as soon as the first promise settles. Return the first settled promise's result, whether it fulfills or rejects. Handle non-promise values with `Promise.resolve`.
 
@@ -171,11 +176,12 @@ Promise.race = function(promises) {
 const p1 = new Promise(resolve => setTimeout(() => resolve('First'), 100));
 const p2 = new Promise(resolve => setTimeout(() => resolve('Second'), 200));
 Promise.race([p1, p2]).then(console.log); // 'First'
+
 ```
 
 ---
 
-## Q87. Implement your own `Promise.any()` polyfill.
+## Q87. ⚡ Implement your own `Promise.any()` polyfill.
 
 `Promise.any()` resolves with the first fulfilled promise, or rejects with an AggregateError if all promises reject. Track rejections and only reject when all promises have rejected.
 
@@ -209,11 +215,12 @@ const p1 = Promise.reject('Error 1');
 const p2 = Promise.resolve('Success');
 const p3 = Promise.reject('Error 2');
 Promise.any([p1, p2, p3]).then(console.log); // 'Success'
+
 ```
 
 ---
 
-## Q88. Implement your own `Promise.allSettled()` polyfill.
+## Q88. ⚡ Implement your own `Promise.allSettled()` polyfill.
 
 `Promise.allSettled()` waits for all promises to settle (fulfill or reject) and returns an array of results with status and value/reason. Never rejects, always resolves with all outcomes.
 
@@ -244,11 +251,12 @@ Promise.allSettled([p1, p2, p3]).then(results => {
   //   { status: 'fulfilled', value: 'Another success' }
   // ]
 });
+
 ```
 
 ---
 
-## Q89. Write a throttle function.
+## Q89. 🔧 Write a throttle function.
 
 Throttle limits function execution to once per specified time period. Track last execution time and execute immediately if enough time has passed.
 
@@ -267,11 +275,12 @@ const throttle = (fn, delay) => {
     }
   };
 };
+
 ```
 
 ---
 
-## Q90. Flatten a deeply nested array.
+## Q90. 💡 Flatten a deeply nested array.
 
 Recursively flatten arrays to any depth, handling nested structures. Use recursion to handle arbitrary depth and check `Array.isArray` for nested arrays.
 
@@ -283,11 +292,12 @@ Example:
 const flatten = arr => arr.reduce((acc, val) => 
   Array.isArray(val) ? acc.concat(flatten(val)) : acc.concat(val), []);
 flatten([1, [2, [3, 4]], 5]); // [1, 2, 3, 4, 5]
+
 ```
 
 ---
 
-## Q91. Memoize a given function to cache results.
+## Q91. 🔧 Memoize a given function to cache results.
 
 Memoization caches function results based on arguments to avoid repeated computation. Use Map for O(1) cache lookups and serialize arguments for cache keys.
 
@@ -306,11 +316,12 @@ const memoize = fn => {
     return result;
   };
 };
+
 ```
 
 ---
 
-## Q92. Implement a custom event emitter (pub/sub).
+## Q92. 🔄 Implement a custom event emitter (pub/sub).
 
 Event emitter allows objects to subscribe to and emit events with data. Store event handlers in object/Map and support multiple listeners per event.
 
@@ -325,11 +336,12 @@ class EventEmitter {
   emit(event, data) { (this.events[event] || []).forEach(fn => fn(data)); }
   off(event, fn) { this.events[event] = (this.events[event] || []).filter(f => f !== fn); }
 }
+
 ```
 
 ---
 
-## Q93. Implement a retry mechanism for a failed promise.
+## Q93. ⚡ Implement a retry mechanism for a failed promise.
 
 Retry failed operations with exponential backoff and maximum attempt limits. Use exponential backoff to prevent thundering herd and add jitter to distribute retry timing.
 
@@ -346,11 +358,12 @@ const retry = (fn, maxAttempts = 3, delay = 1000) =>
       ) : 
       Promise.reject(err)
   );
+
 ```
 
 ---
 
-## Q94. Write a function to compose multiple functions (`compose(f,g,h)` style).
+## Q94. 🔧 Write a function to compose multiple functions (`compose(f,g,h)` style).
 
 Function composition applies functions from right to left, creating a pipeline. Use `reduceRight` for right-to-left application, each function receives result of previous.
 
@@ -363,11 +376,12 @@ const compose = (...fns) => x => fns.reduceRight((acc, fn) => fn(acc), x);
 const add1 = x => x + 1;
 const double = x => x * 2;
 compose(console.log, add1, double)(5); // 11
+
 ```
 
 ---
 
-## Q95. Implement a custom `map()` method for arrays.
+## Q95. 🔧 Implement a custom `map()` method for arrays.
 
 `map()` creates new array by applying function to each element. Create new array, don't modify original, and pass element, index, and array to callback.
 
@@ -383,11 +397,12 @@ Array.prototype.map = function(fn, thisArg) {
   }
   return result;
 };
+
 ```
 
 ---
 
-## Q96. Implement a `once()` function that executes only once.
+## Q96. 🔧 Implement a `once()` function that executes only once.
 
 `once()` ensures a function can only be called once, returning the same result on subsequent calls. Track if function has been called and cache result for subsequent calls.
 
@@ -406,11 +421,12 @@ const once = fn => {
     return result;
   };
 };
+
 ```
 
 ---
 
-## Q97. Convert callback-based code to a promise-based version.
+## Q97. ⚡ Convert callback-based code to a promise-based version.
 
 Wrap callback-based functions in promises using the Promise constructor. Use Promise constructor for one-time operations and handle both success and error cases.
 
@@ -425,11 +441,12 @@ const readFile = path => new Promise((resolve, reject) => {
     else resolve(data);
   });
 });
+
 ```
 
 ---
 
-## Q98. Write a function to limit the number of concurrent promises.
+## Q98. ⚡ Write a function to limit the number of concurrent promises.
 
 Control concurrency by limiting how many promises can run simultaneously. Track running and completed tasks, queue tasks when limit reached.
 
@@ -449,11 +466,12 @@ const limitConcurrency = (tasks, limit) => {
     }; runNext();
   });
 };
+
 ```
 
 ---
 
-## Q99. Write a function that returns a promise resolved after a delay.
+## Q99. ⚡ Write a function that returns a promise resolved after a delay.
 
 Create a promise that resolves after a specified time delay. Use `setTimeout` with Promise constructor and return promise for chaining.
 
@@ -464,11 +482,12 @@ Example:
 ```js
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 delay(1000).then(() => console.log('1 second later'));
+
 ```
 
 ---
 
-## Q100. Implement a chainable calculator API (`calc.add(5).multiply(2).value()`).
+## Q100. 🔌 Implement a chainable calculator API (`calc.add(5).multiply(2).value()`).
 
 Create a fluent interface where methods return the object for chaining. Return `this` from methods for chaining and store state in the object.
 
@@ -484,11 +503,12 @@ const calc = {
   getValue() { return this.value; }
 };
 calc.add(5).multiply(2).getValue(); // 10
+
 ```
 
 ---
 
-## Q101. Implement a simple version of `setInterval` using `setTimeout`.
+## Q101. 🔧 Implement a simple version of `setInterval` using `setTimeout`.
 
 Use recursive `setTimeout` calls to create interval-like behavior. Recursive calls create repeating behavior, return cleanup function for cancellation.
 
@@ -504,11 +524,12 @@ const setInterval = (fn, delay) => {
   };
   setTimeout(run, delay);
 };
+
 ```
 
 ---
 
-## Q102. Write a function to shuffle an array randomly.
+## Q102. 🔧 Write a function to shuffle an array randomly.
 
 Randomly reorder array elements using Fisher-Yates shuffle algorithm. Use Fisher-Yates for uniform distribution and work backwards through array.
 
@@ -525,11 +546,12 @@ const shuffle = arr => {
   }
   return result;
 };
+
 ```
 
 ---
 
-## Q103. Implement your own version of `debounce + immediate` combined logic.
+## Q103. 🎬 Implement your own version of `debounce + immediate` combined logic.
 
 Combine debounce with immediate execution option for first call. Execute immediately on first call if enabled, clear timeout on subsequent calls.
 
@@ -550,11 +572,12 @@ const debounceImmediate = (fn, delay, immediate = false) => {
     if (callNow) fn(...args);
   };
 };
+
 ```
 
 ---
 
-## Q104. Implementing `useMemo` in vanilla JavaScript
+## Q104. 🔧 Implementing `useMemo` in vanilla JavaScript
 
 `useMemo`-style helpers cache the result of a computation and only recompute when the dependency list changes. Track the last dependencies and value in a closure so future calls can reuse the cached result if every dependency matches.
 
@@ -577,11 +600,12 @@ const createUseMemo = () => {
 
 const useMemo = createUseMemo();
 const heavyValue = useMemo(() => expensiveFn(data), [data.id, data.count]);
+
 ```
 
 ---
 
-## Q105. Implementing `useCallback` in vanilla JavaScript
+## Q105. 🔧 Implementing `useCallback` in vanilla JavaScript
 
 `useCallback` memoizes a function reference so the same function instance is returned until dependencies change. Reuse the `useMemo` helper to store the callback itself instead of a computed value.
 
@@ -629,11 +653,12 @@ const useCallback = createUseCallback();
 const stableHandler = useCallback(() => api.save(formData), [formData.id]);
 button.addEventListener('click', stableHandler);
 // later: button.removeEventListener('click', stableHandler);
+
 ```
 
 ---
 
-## Q106. Compact Number (Intl.NumberFormat)
+## Q106. 📝 Compact Number (Intl.NumberFormat)
 
 Compact Number formatting displays large numbers in a shortened, human-readable format using locale-specific abbreviations. Uses `Intl.NumberFormat` with `notation: 'compact'` option.
 
@@ -645,11 +670,12 @@ Example:
 const formatter = new Intl.NumberFormat('en-US', { notation: 'compact' });
 console.log(formatter.format(1000)); // "1K"
 console.log(formatter.format(1000000)); // "1M"
+
 ```
 
 ---
 
-## Q107. JavaScript object property flags and descriptors
+## Q107. 📦 JavaScript object property flags and descriptors
 
 Property descriptors define the characteristics of object properties, including configurability, enumerability, writability, and value. Use `Object.defineProperty` to set custom descriptors.
 
@@ -666,11 +692,12 @@ Object.defineProperty(obj, 'name', {
   configurable: false
 });
 console.log(Object.getOwnPropertyDescriptor(obj, 'name'));
+
 ```
 
 ---
 
-## Q108. Server-sent events
+## Q108. 🔄 Server-sent events
 
 Server-Sent Events (SSE) enable servers to push data to web pages in real-time using a unidirectional connection. Unidirectional: Server to client only, built on HTTP, simpler than WebSockets.
 
@@ -681,11 +708,12 @@ Example:
 ```js
 const eventSource = new EventSource('/events');
 eventSource.onmessage = event => console.log('Received:', event.data);
+
 ```
 
 ---
 
-## Q109. Proxies in JavaScript and their use cases
+## Q109. ⏰ Proxies in JavaScript and their use cases
 
 Proxies allow you to intercept and customize operations performed on objects, enabling meta-programming capabilities. Intercept fundamental operations (get, set, has, delete).
 
@@ -700,11 +728,12 @@ const handler = {
 };
 const proxy = new Proxy({}, handler);
 proxy.name = 'John'; console.log(proxy.name); // Logs then "John"
+
 ```
 
 ---
 
-## Q110. Tools for measuring and analyzing JavaScript performance
+## Q110. ⚡ Tools for measuring and analyzing JavaScript performance
 
 Various tools help measure and analyze JavaScript performance, from browser dev tools to specialized profiling tools. Chrome DevTools, Performance API, and third-party tools provide comprehensive analysis.
 
@@ -718,11 +747,12 @@ const start = performance.now();
 const end = performance.now();
 console.log(`Operation took ${end - start}ms`);
 console.log(performance.memory);
+
 ```
 
 ---
 
-## Q111. Explain the concept of a microtask queue?
+## Q111. ❓ Explain the concept of a microtask queue?
 
 The microtask queue processes high-priority tasks that should execute before the next task in the main queue, including Promise callbacks and queueMicrotask. Microtasks have higher priority than macrotasks.
 
@@ -737,11 +767,12 @@ Promise.resolve().then(() => console.log('3'));
 queueMicrotask(() => console.log('4'));
 console.log('5');
 // Output: 1, 5, 3, 4, 2
+
 ```
 
 ---
 
-## Q112. Checking HTTP status codes in axios and fetch API
+## Q112. 🔌 Checking HTTP status codes in axios and fetch API
 
 Fetch requires manual status checking with `response.ok`, while axios automatically rejects on 4xx/5xx status codes. Fetch only rejects on network errors, not HTTP errors.
 
@@ -757,11 +788,12 @@ fetch('/api/data').then(response => {
 
 axios.get('/api/data').then(res => res.data)
   .catch(err => console.error('Status:', err.response?.status));
+
 ```
 
 ---
 
-## Q113. Optimizing DOM manipulation for better performance
+## Q113. ⚡ Optimizing DOM manipulation for better performance
 
 Optimize DOM manipulation by minimizing reflows, using efficient selectors, and leveraging modern APIs for better performance. Minimize reflows and repaints, use `DocumentFragment` for multiple insertions.
 
@@ -778,11 +810,12 @@ items.forEach(item => {
   fragment.appendChild(li); 
 });
 list.appendChild(fragment);
+
 ```
 
 ---
 
-## Q114. Implement `Promise.all()` with a concurrency limit.
+## Q114. ⚡ Implement `Promise.all()` with a concurrency limit.
 
 Concurrency limit controls how many promises execute simultaneously, preventing resource exhaustion. Use a pool of active promises and queue remaining ones, starting new promises as others complete.
 
@@ -822,11 +855,12 @@ const promiseAllWithLimit = (taskFns, limit) => new Promise((resolve, reject) =>
 // Usage
 const tasks = [1, 2, 3, 4, 5].map(n => () => fetch(`/api/data/${n}`));
 const results = await promiseAllWithLimit(tasks, 2);
+
 ```
 
 ---
 
-## Q115. Implement a deep clone function for objects.
+## Q115. 🔧 Implement a deep clone function for objects.
 
 Deep cloning creates a completely independent copy of an object, including nested objects and arrays. Handle primitives, objects, arrays, dates, and circular references for a complete solution.
 
@@ -856,11 +890,12 @@ const deepClone = (obj, visited = new WeakMap()) => {
 
 // Using structuredClone (modern browsers)
 const deepClone = (obj) => structuredClone(obj);
+
 ```
 
 ---
 
-## Q116. Implement a `groupBy` function that groups array items by a key.
+## Q116. 🔧 Implement a `groupBy` function that groups array items by a key.
 
 Grouping organizes array items into objects keyed by a property or computed value. Use `reduce()` to build the grouped object, handling both string keys and computed keys from functions.
 
@@ -891,11 +926,12 @@ groupBy(users, 'age');
 
 groupBy(users, user => user.city);
 // { NYC: [...], LA: [...] }
+
 ```
 
 ---
 
-## Q117. Implement an LRU (Least Recently Used) cache.
+## Q117. 💾 Implement an LRU (Least Recently Used) cache.
 
 LRU cache evicts least recently used items when capacity is reached. Use a combination of `Map` (for O(1) access) and doubly-linked list (for O(1) insertion/deletion) or leverage `Map`'s insertion order.
 
@@ -928,11 +964,12 @@ class LRUCache {
     this.cache.set(key, value);
   }
 }
+
 ```
 
 ---
 
-## Q118. Create a task scheduler that handles dependencies between tasks.
+## Q118. 💡 Create a task scheduler that handles dependencies between tasks.
 
 Task scheduling with dependencies requires topological sorting to determine execution order. Use graph algorithms to detect cycles and order tasks so dependencies execute before dependents.
 
@@ -1036,12 +1073,12 @@ scheduler.addTask("C", []);
 scheduler.addTask("D", []);
 const result = scheduler.execute();
 console.log('result->', result); // ['D', 'B', 'C', 'A']
-```
 
+```
 
 ---
 
-## Q119. Write a function to chunk an array into smaller arrays of a specified size.
+## Q119. 🔧 Write a function to chunk an array into smaller arrays of a specified size.
 
 Array chunking splits an array into smaller sub-arrays of a specified size. Iterate through the array, collect elements into a temporary array, and push it to the result when it reaches the target size. Handle the remaining elements if the array length isn't divisible by the chunk size.
 
@@ -1068,11 +1105,12 @@ function chunkArray(arr, n) {
 const result = chunkArray([1, 2, 3], 5);
 console.log('result ->', result); // [[1, 2, 3]]
 module.exports = chunkArray;
+
 ```
 
 ---
 
-## Q120. Implement a WorkerPool class that manages concurrent task execution with a maximum worker limit.
+## Q120. 👷 Implement a WorkerPool class that manages concurrent task execution with a maximum worker limit.
 
 A WorkerPool limits concurrent task execution to prevent resource exhaustion. It maintains a queue of pending tasks and executes them as workers become available, ensuring no more than the maximum number of workers run simultaneously.
 
@@ -1121,11 +1159,12 @@ pool.run(() => fetch('/api/1'));
 pool.run(() => fetch('/api/2'));
 pool.run(() => fetch('/api/3'));
 pool.run(() => fetch('/api/4')); // Queued until a worker is free
+
 ```
 
 ---
 
-## Q121. Write a function to flatten a nested object.
+## Q121. 🔧 Write a function to flatten a nested object.
 
 Flattening a nested object converts a hierarchical structure into a single-level object with dot-notation keys. Recursively traverse the object, building full keys by concatenating parent keys, and handle null values and arrays appropriately.
 
@@ -1154,11 +1193,12 @@ function flattenObject(obj, parentKey, ans = {}) {
 const res = flattenObject({ a: null, b: { c: undefined } });
 console.log('res 1->', res); // { a: null, 'b.c': undefined }
 module.exports = flattenObject;
+
 ```
 
 ---
 
-## Q122. Implement a garbage collector function that marks and returns only reachable nodes from roots.
+## Q122. 🔧 Implement a garbage collector function that marks and returns only reachable nodes from roots.
 
 Garbage collection identifies and retains only nodes reachable from root nodes using depth-first search. Unreachable nodes are considered garbage and excluded from the result.
 
@@ -1202,11 +1242,12 @@ const roots = ['A'];
 const res = garbageCollector(graph, roots);
 console.log('res-> ', res);
 module.exports = garbageCollector;
+
 ```
 
 ---
 
-## Q123. Implement an AutocompleteSystem class using a Trie data structure.
+## Q123. 🏛️ Implement an AutocompleteSystem class using a Trie data structure.
 
 Autocomplete uses a Trie (prefix tree) to efficiently store and search words by prefix. Each node represents a character, and paths from root to leaf nodes form complete words.
 
@@ -1249,11 +1290,12 @@ class AutocompleteSystem {
 }
 
 module.exports = AutocompleteSystem;
+
 ```
 
 ---
 
-## Q124. Implement a deepOmit function that recursively removes specified keys from objects and arrays.
+## Q124. 🔧 Implement a deepOmit function that recursively removes specified keys from objects and arrays.
 
 Deep omit recursively removes specified keys from objects at all nested levels. It handles arrays by mapping over items and objects by filtering out omitted keys, preserving the structure while removing unwanted properties.
 
@@ -1286,11 +1328,12 @@ const obj = [{ "a": 1 }, { "c": 4 }];
 const result = deepOmit(obj, ['c']);
 console.log('result ', result);
 module.exports = deepOmit;
+
 ```
 
 ---
 
-## Q125. Common JavaScript anti-patterns to avoid
+## Q125. 🎯 Common JavaScript anti-patterns to avoid
 
 Common anti-patterns include modifying prototypes, using `var` instead of `let/const`, relying on type coercion with `==`, creating global variables, using `eval()`, callback hell, and mutating function parameters - these lead to bugs, security issues, and hard-to-maintain code. Avoid modifying built-in prototypes, always use strict mode, and prefer explicit over implicit behavior.
 
@@ -1367,11 +1410,12 @@ fetch('/api/data').then(data => process(data));
 fetch('/api/data')
   .then(data => process(data))
   .catch(error => handleError(error));
+
 ```
 
 ---
 
-## Q126. Write a reverseWords function that reverses each word while keeping delimiters intact.
+## Q126. 🔧 Write a reverseWords function that reverses each word while keeping delimiters intact.
 
 Reverse each alphanumeric word individually while preserving original spacing and punctuation by scanning the string, collecting characters, and reversing them when hitting a delimiter.
 
@@ -1408,11 +1452,12 @@ console.log(reverseWords("Hello  World"));
 console.log(reverseWords("Hello, World!"));
 reverseWords("Hello  World");
 module.exports = reverseWords;
+
 ```
 
 ---
 
-## Q127. Implement a customAssign function that mimics Object.assign behavior.
+## Q127. 🔧 Implement a customAssign function that mimics Object.assign behavior.
 
 Custom assign copies enumerable own properties from source objects to a target object. It processes sources in order, overwriting target properties with later source values, and returns the modified target.
 
@@ -1445,7 +1490,14 @@ function customAssign(target, ...sources) {
 // pass appropriate input in below function call
 customAssign({}, { a: 1 }, { b: 2 });
 module.exports = customAssign;
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Web Workers, Service Workers & Real-World Topics](6%29%20Web%20Workers%2C%20Service%20Workers%20%26%20Real-World%20Topics.md)** | **[Next: JavaScript Output Questions →](8%29%20JavaScript%20Output%20Questions.md)**
+
+</div>
 

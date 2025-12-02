@@ -4,11 +4,11 @@
 
 </div>
 
-# 4. Classes & Object-Oriented Features (Q32–39)
+# 🏛️ 4. Classes & Object-Oriented Features (Q32–39)
 
 ---
 
-## Q32. Access modifiers
+## Q32. 💡 Access modifiers
 
 Access modifiers control visibility of class members, with public being default, private only accessible within class, and protected accessible in subclasses - access modifiers enable proper object-oriented design. Public (default access, accessible from anywhere), Private (only accessible within the same class), Protected (accessible within class and subclasses).
 
@@ -28,11 +28,12 @@ class BankAccount {
     this.bankName = "MyBank";
   }
 }
+
 ```
 
 ---
 
-## Q33. Difference between abstract classes and interfaces
+## Q33. 📋 Difference between abstract classes and interfaces
 
 Abstract classes can have implementation and cannot be instantiated, while interfaces only define contracts and can be implemented by classes - abstract classes provide base implementation, interfaces provide contracts. Abstract classes can have implementation, interfaces only define contracts.
 
@@ -50,11 +51,12 @@ abstract class Animal {
 interface Flyable {
   fly(): void;
 }
+
 ```
 
 ---
 
-## Q34. Inheritance
+## Q34. 🧬 Inheritance
 
 Inheritance uses `extends` keyword, while polymorphism allows objects of different types to be treated uniformly through common interfaces - inheritance maintains type safety across hierarchy. Use `extends` to create class hierarchies.
 
@@ -72,11 +74,12 @@ class Vehicle {
 class Car extends Vehicle {
   start(): string { return `Car ${super.start()}`; }
 }
+
 ```
 
 ---
 
-## Q35. Polymorphism
+## Q35. 💡 Polymorphism
 
 Polymorphism allows objects of different types to be treated uniformly through common interfaces - same interface, different implementations. Same interface, different implementations.
 
@@ -98,11 +101,12 @@ class Rectangle implements Shape {
   constructor(private width: number, private height: number) {}
   area(): number { return this.width * this.height; }
 }
+
 ```
 
 ---
 
-## Q36. Static properties and methods
+## Q36. 💡 Static properties and methods
 
 Static members belong to the class itself rather than instances, accessed through the class name without instantiation - static methods don't require instance creation (memory efficient). Static members belong to the class, not instances.
 
@@ -119,11 +123,12 @@ class MathUtils {
     return a + b;
   }
 }
+
 ```
 
 ---
 
-## Q37. Readonly properties
+## Q37. 💡 Readonly properties
 
 `readonly` properties can only be assigned during initialization, preventing modification after object creation - use cases include IDs, timestamps, configuration values. Prevent modification after initialization (immutability).
 
@@ -145,11 +150,12 @@ class User {
     this.email = email;
   }
 }
+
 ```
 
 ---
 
-## Q38. Decorators and how to use them
+## Q38. 🔧 Decorators and how to use them
 
 Decorators are functions that modify classes, methods, or properties, providing metadata and enabling aspect-oriented programming - use cases include logging, validation, dependency injection. Add cross-cutting concerns to classes (aspect-oriented).
 
@@ -175,11 +181,12 @@ class User {
   @LogMethod
   getName() { return "John"; }
 }
+
 ```
 
 ---
 
-## Q39. Mixins and how to use them
+## Q39. 🔧 Mixins and how to use them
 
 Mixins are a way to combine multiple classes into one, enabling multiple inheritance-like behavior in TypeScript - mixins add functionality to existing classes (flexibility). Combine multiple classes into one (multiple inheritance).
 
@@ -198,7 +205,14 @@ function Timestamped<T extends new (...args: any[]) => {}>(Base: T) {
 class User { name: string = "John"; }
 const TimestampedUser = Timestamped(User);
 const user = new TimestampedUser();
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Functions & Advanced Type Features](3%29%20Functions%20%26%20Advanced%20Type%20Features.md)** | **[Next: Advanced TypeScript Internals →](5%29%20Advanced%20TypeScript%20Internals.md)**
+
+</div>
 

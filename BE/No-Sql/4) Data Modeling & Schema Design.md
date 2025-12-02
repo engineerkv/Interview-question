@@ -4,11 +4,11 @@
 
 </div>
 
-# 4. Data Modeling & Schema Design (Q42–57)
+# 🏗️ 4. Data Modeling & Schema Design (Q42–57)
 
 ---
 
-## Q42. Designing schemas in MongoDB
+## Q42. 💡 Designing schemas in MongoDB
 
 Schema design determines how data is organized and stored, directly impacting query performance, storage efficiency, and application scalability in MongoDB. Good schema design enables efficient queries, reduces storage costs, and supports horizontal scaling.
 
@@ -26,11 +26,12 @@ Example:
   category: "electronics",
   inStock: true
 }
+
 ```
 
 ---
 
-## Q43. Difference between embedding and referencing documents
+## Q43. 🤔 Difference between embedding and referencing documents
 
 Embedding provides faster reads and atomic updates but can lead to large documents, while referencing offers better data consistency but requires multiple queries. Embed for small, frequently accessed data that changes together; reference for large or independently changing data.
 
@@ -58,11 +59,12 @@ Example:
   email: "john@example.com",
   addressId: ObjectId("...")
 }
+
 ```
 
 ---
 
-## Q44. Modeling one-to-many relationships
+## Q44. 💡 Modeling one-to-many relationships
 
 For one-to-many: embed for small arrays, reference for large arrays. For many-to-many: use arrays of references or separate junction collections. Design based on your most common query patterns and how frequently data changes.
 
@@ -96,11 +98,12 @@ Example:
 { _id: ObjectId("..."), name: "Laptop" }
 // user_products collection (junction)
 { userId: ObjectId("..."), productId: ObjectId("..."), quantity: 2 }
+
 ```
 
 ---
 
-## Q45. Modeling many-to-many relationships
+## Q45. 💡 Modeling many-to-many relationships
 
 Many-to-many relationships in MongoDB are modeled using arrays of ObjectIds in both documents, or more commonly with a separate junction/join collection that stores pairs of references. Use arrays when relationships are simple and bounded, use junction collections when relationships have attributes or need to scale.
 
@@ -127,11 +130,12 @@ Example:
   quantity: 2,
   addedAt: new Date()
 }
+
 ```
 
 ---
 
-## Q46. When to denormalize data in MongoDB
+## Q46. ⏰ When to denormalize data in MongoDB
 
 Denormalization involves storing redundant data to improve read performance, beneficial when read operations significantly outnumber write operations. It speeds up queries by avoiding joins and keeping related data together, but requires updating multiple documents when data changes.
 
@@ -154,11 +158,12 @@ Example:
 
 // Use when: reads >> writes, data changes infrequently
 // Avoid when: data changes frequently, consistency is critical
+
 ```
 
 ---
 
-## Q47. Implementing schema validation in MongoDB
+## Q47. 🔧 Implementing schema validation in MongoDB
 
 Schema validation rules enforce data structure and content constraints using JSON Schema, ensuring data quality and consistency at the database level. You can set validation to strict (reject invalid docs) or moderate (warn but allow), and update rules without downtime.
 
@@ -183,11 +188,12 @@ db.createCollection("users", {
   validationLevel: "strict",
   validationAction: "error"
 });
+
 ```
 
 ---
 
-## Q48. Sharding in MongoDB and how it works
+## Q48. 🔧 Sharding in MongoDB and how it works
 
 Sharding distributes data across multiple servers for horizontal scaling, with shard keys determining data distribution and affecting query performance. MongoDB automatically manages data chunks, but poor shard key selection can cause uneven distribution and slow queries.
 
@@ -204,11 +210,12 @@ sh.shardCollection("ecommerce.orders", {
   customerId: 1,
   orderDate: 1
 });
+
 ```
 
 ---
 
-## Q49. Shard keys and how to choose them
+## Q49. 🔧 Shard keys and how to choose them
 
 Shard keys determine how data is distributed across shards—choose keys with high cardinality, even distribution, and that match your query patterns. Good shard keys prevent hotspots and enable targeted queries to specific shards.
 
@@ -228,11 +235,12 @@ sh.shardCollection("ecommerce.orders", {
   customerId: 1,  // High cardinality
   orderDate: 1    // Time-based for even distribution
 });
+
 ```
 
 ---
 
-## Q50. Replication in MongoDB and how it works
+## Q50. 🔧 Replication in MongoDB and how it works
 
 Replication creates multiple copies of data across different servers in a replica set, ensuring high availability, data redundancy, and automatic failover. One node serves as primary (handles writes), while secondaries replicate data and can handle reads or become primary if the primary fails.
 
@@ -253,11 +261,12 @@ Example:
 
 // Read from secondary for read scaling
 db.orders.find().readPref("secondary");
+
 ```
 
 ---
 
-## Q51. Write concern and read concern in MongoDB
+## Q51. 💡 Write concern and read concern in MongoDB
 
 Write concern controls acknowledgment requirements for write operations (how many nodes must confirm the write), while read concern determines data consistency guarantees for reads (what version of data you see). Both affect performance and reliability—higher concerns mean better consistency but slower performance.
 
@@ -283,11 +292,12 @@ db.orders.find({ orderId: "ORD001" })
 
 db.orders.find({ orderId: "ORD001" })
   .readConcern("majority");  // Slower, ensures committed data
+
 ```
 
 ---
 
-## Q52. Mongoose schema types and validation
+## Q52. 📝 Mongoose schema types and validation
 
 Mongoose schemas support various types (String, Number, Date, Boolean, Array, ObjectId, Mixed) and built-in validators (required, min, max, enum, match, custom) that enforce data integrity at the application level.
 
@@ -306,11 +316,12 @@ const userSchema = new mongoose.Schema({
   },
   role: { type: String, enum: ['user', 'admin'], default: 'user' }
 });
+
 ```
 
 ---
 
-## Q53. Mongoose virtuals and computed properties
+## Q53. 💡 Mongoose virtuals and computed properties
 
 Virtuals are document properties that aren't stored in MongoDB but computed on-the-fly from other fields, useful for formatting, combining fields, or creating derived values without duplicating data.
 
@@ -325,11 +336,12 @@ userSchema.virtual('fullName').get(function() {
 userSchema.set('toJSON', { virtuals: true });
 const user = await User.findOne();
 console.log(user.fullName); // "John Doe"
+
 ```
 
 ---
 
-## Q54. Mongoose instance methods and static methods
+## Q54. 💡 Mongoose instance methods and static methods
 
 Instance methods are defined on the schema and called on document instances (e.g., `user.save()`), while static methods are called on the model itself (e.g., `User.findByEmail()`), allowing you to encapsulate business logic within your models.
 
@@ -346,11 +358,12 @@ userSchema.statics.findByEmail = function(email) {
 };
 const user = await User.findByEmail('john@example.com');
 const age = user.getAge();
+
 ```
 
 ---
 
-## Q55. Mongoose middleware (pre/post hooks)
+## Q55. 🪝 Mongoose middleware (pre/post hooks)
 
 Mongoose middleware hooks allow you to execute functions before or after specific operations (save, validate, remove, init) on documents, enabling cross-cutting concerns like password hashing, timestamps, or logging.
 
@@ -368,11 +381,12 @@ userSchema.pre('save', async function(next) {
 userSchema.post('save', function(doc) {
   console.log(`User ${doc.name} saved`);
 });
+
 ```
 
 ---
 
-## Q56. Mongoose population and referencing documents
+## Q56. 💡 Mongoose population and referencing documents
 
 Population automatically replaces ObjectId references with the actual documents from other collections using `populate()`, making it easy to work with related data without manual joins.
 
@@ -386,11 +400,12 @@ const orderSchema = new mongoose.Schema({
   items: [{ productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' } }]
 });
 const order = await Order.findOne().populate('customerId').populate('items.productId');
+
 ```
 
 ---
 
-## Q57. Mongoose schema options and configuration
+## Q57. 💡 Mongoose schema options and configuration
 
 Mongoose schemas support various options like `timestamps`, `versionKey`, `strict`, `collection`, and `id` that control behavior, automatic fields, and how documents are stored and retrieved.
 
@@ -408,7 +423,14 @@ const userSchema = new mongoose.Schema({
   strict: true, // Only save defined fields
   collection: 'users' // Custom collection name
 });
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Aggregation Framework](3%29%20Aggregation%20Framework.md)** | **[Next: Question List →](question.md)**
+
+</div>
 

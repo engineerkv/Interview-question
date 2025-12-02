@@ -8,7 +8,7 @@
 
 ---
 
-## Q69. Debugging React Native apps
+## Q69. 🐛 Debugging React Native apps
 
 Use Flipper for native debugging and Chrome DevTools for JavaScript debugging - use Flipper for native debugging, Chrome for JS. Flipper (comprehensive debugging platform for React Native), Chrome DevTools (JavaScript debugging and profiling).
 
@@ -28,11 +28,12 @@ function App() {
     });
   }, []);
 }
+
 ```
 
 ---
 
-## Q70. Using Flipper for React Native debugging
+## Q70. 🐛 Using Flipper for React Native debugging
 
 Remote debugging runs JavaScript on Chrome, useful for debugging but can cause performance issues and should be avoided in production - never use in production. Use only in development (development only).
 
@@ -48,11 +49,12 @@ if (__DEV__) {
   // This runs JavaScript on Chrome
   // Good for debugging but affects performance
 }
+
 ```
 
 ---
 
-## Q71. Debugging with Chrome DevTools
+## Q71. 🐛 Debugging with Chrome DevTools
 
 Flipper is a debugging platform that provides plugins for network inspection, layout debugging, and performance monitoring - Flipper is essential for React Native debugging. Network plugin (debug network requests and responses), Layout plugin (debug UI layout and styling), Performance plugin (monitor app performance).
 
@@ -67,11 +69,12 @@ Flipper.addPlugin({
   getId: () => 'Network',
   onConnect: () => {}
 });
+
 ```
 
 ---
 
-## Q72. Creating custom Flipper plugins
+## Q72. 💡 Creating custom Flipper plugins
 
 Use Jest with React Native Testing Library to test components, hooks, and user interactions - handle asynchronous operations in tests (async testing). Jest (JavaScript testing framework).
 
@@ -89,11 +92,12 @@ describe('MyComponent', () => {
     expect(getByText('Hello')).toBeTruthy();
   });
 });
+
 ```
 
 ---
 
-## Q73. Writing unit tests with Jest
+## Q73. 🧪 Writing unit tests with Jest
 
 Use Detox to write and run E2E tests that interact with the app like a real user - integrate with CI/CD pipelines. Test complete user workflows (E2E testing).
 
@@ -114,11 +118,12 @@ describe('Login Flow', () => {
     await expect(element(by.id('home-screen'))).toBeVisible();
   });
 });
+
 ```
 
 ---
 
-## Q74. Implementing end-to-end testing with Detox
+## Q74. 🧪 Implementing end-to-end testing with Detox
 
 Use Jest's mocking capabilities to mock native modules and their methods - isolate tests from external dependencies (test isolation). Mock native modules for testing (module mocking).
 
@@ -137,11 +142,12 @@ jest.mock('react-native-camera', () => ({
     }
   }
 }));
+
 ```
 
 ---
 
-## Q75. Mocking native modules in tests
+## Q75. 🧪 Mocking native modules in tests
 
 Use async/await, promises, and Jest's async testing utilities to test asynchronous code - test error cases in async code (error handling). Use async/await for asynchronous tests (async testing).
 
@@ -161,11 +167,12 @@ test('fetches user data', async () => {
   const user = await fetchUser(1);
   expect(user).toEqual(mockUser);
 });
+
 ```
 
 ---
 
-## Q76. Testing asynchronous behavior in React Native
+## Q76. ⚡ Testing asynchronous behavior in React Native
 
 Use gesture simulation methods provided by testing frameworks to test touch interactions - test multi-touch interactions (multi-touch). Simulate touch gestures in tests (gesture simulation).
 
@@ -180,11 +187,12 @@ describe('Gesture Tests', () => {
     await expect(element(by.id('delete-button'))).toBeVisible();
   });
 });
+
 ```
 
 ---
 
-## Q77. Simulating gestures in tests
+## Q77. 🧪 Simulating gestures in tests
 
 Avoid slow tests, memory leaks, and inefficient test setup that can impact test performance - keep tests isolated and independent (test isolation). Avoid unnecessary waits and timeouts (slow tests).
 
@@ -207,11 +215,12 @@ describe('Fast Tests', () => {
     // Mock async operations
   });
 });
+
 ```
 
 ---
 
-## Q78. Monitoring app performance and crashes
+## Q78. ⚡ Monitoring app performance and crashes
 
 Integrate crash reporting tools to monitor and analyze app crashes in production - track crashes by app version (release tracking). Monitor app crashes and errors (crash reporting).
 
@@ -227,6 +236,7 @@ Sentry.init({
   environment: 'production',
   tracesSampleRate: 1.0
 });
+
 ```
 
 ---

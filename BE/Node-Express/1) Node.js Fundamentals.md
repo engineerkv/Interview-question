@@ -4,11 +4,11 @@
 
 </div>
 
-# 1. Node.js Fundamentals & Modules (Q1–19)
+# 🚀 1. Node.js Fundamentals & Modules (Q1–19)
 
 ---
 
-## Q1. Node.js and what problem it solves
+## Q1. ❓ Node.js and what problem it solves
 
 Node.js is a JavaScript runtime built on Chrome's V8 engine that enables server-side JavaScript execution - it solves the problem of using JavaScript for both frontend and backend development, enabling JavaScript everywhere with the same language. Perfect for real-time applications, APIs, and microservices.
 
@@ -23,9 +23,10 @@ const server = http.createServer((req, res) => {
   res.end('Hello World!');
 });
 server.listen(3000, () => console.log('Server running on port 3000'));
+
 ```
 
-## Q2. Why Node.js is single-threaded and how it handles concurrency
+## Q2. 🔄 Why Node.js is single-threaded and how it handles concurrency
 
 Node.js uses a single-threaded event loop to avoid context switching overhead and memory issues - it handles concurrency through non-blocking I/O operations and the event loop, allowing the thread to handle other requests while waiting for I/O to complete.
 
@@ -40,9 +41,10 @@ fs.readFile('large-file.txt', (err, data) => {
   console.log('File read complete');
 });
 console.log('End');
+
 ```
 
-## Q3. Event Loop: its role and how it processes asynchronous tasks
+## Q3. ⚡ Event Loop: its role and how it processes asynchronous tasks
 
 The Event Loop is Node.js's core mechanism that continuously monitors the call stack and callback queue, executing callbacks when the stack is empty - it has six phases (timers, pending callbacks, idle/prepare, poll, check, close callbacks) that process different types of operations. Enables non-blocking behavior in single-threaded environment.
 
@@ -82,6 +84,7 @@ The Event Loop is Node.js's core mechanism that continuously monitors the call s
 - *Remember*: "Close - cleanup time"
 
 ### **Microtasks (Between Every Phase):**
+
 After **each phase**, Node.js processes microtasks before moving to the next phase:
 - `process.nextTick()` - **Highest priority** (runs first)
 - Promise callbacks - Second priority
@@ -105,9 +108,10 @@ setImmediate(() => console.log('3'));
 process.nextTick(() => console.log('4'));
 console.log('5');
 // Output: 1, 5, 4, 2, 3
+
 ```
 
-## Q4. V8 engine: what it is and how it works with Node.js
+## Q4. ❓ V8 engine: what it is and how it works with Node.js
 
 V8 is Google's open-source JavaScript engine written in C++ that compiles and executes JavaScript code - it's the same engine that powers Chrome browser. Node.js uses V8 to run JavaScript on the server-side, giving you the same JavaScript runtime in both browser and server environments.
 
@@ -162,6 +166,7 @@ JavaScript Code → V8 Engine → Machine Code
             Event Loop + I/O Operations
                       ↓
               Callback → V8 (executes)
+
 ```
 
 **The Flow:**
@@ -195,9 +200,10 @@ setTimeout(() => {
   // V8 executes this callback when event loop calls it
   console.log('Async callback');
 }, 1000);
+
 ```
 
-## Q5. Non-blocking I/O: what it is and how it works in Node.js
+## Q5. ❓ Non-blocking I/O: what it is and how it works in Node.js
 
 **Non-blocking I/O** is a programming model where I/O operations (file reads, network requests, database queries) don't block the execution thread - instead, the program initiates the operation and continues executing other code immediately, then handles the result via callbacks when the operation completes. This is the core mechanism that makes Node.js highly scalable and performant.
 
@@ -215,6 +221,7 @@ setTimeout(() => {
 ### **How It Works in Node.js:**
 
 **1. The Flow** 🔄
+
 ```text
 1. JavaScript code initiates I/O (e.g., fs.readFile)
 2. Node.js delegates to libuv (C++ library)
@@ -223,6 +230,7 @@ setTimeout(() => {
 5. When I/O completes, kernel notifies libuv
 6. libuv queues callback in event loop
 7. Event loop executes callback when ready
+
 ```
 
 **2. Key Components** 🧩
@@ -248,20 +256,24 @@ setTimeout(() => {
 ### **Blocking vs Non-Blocking:**
 
 **Blocking I/O** ❌
+
 ```javascript
 // Blocking - thread waits until file is read
 const data = fs.readFileSync('file.txt', 'utf8');
 console.log(data); // Waits here until file is read
 console.log('This runs after file is read');
+
 ```
 
 **Non-Blocking I/O** ✅
+
 ```javascript
 // Non-blocking - thread continues immediately
 fs.readFile('file.txt', 'utf8', (err, data) => {
   console.log(data); // Runs when file is ready
 });
 console.log('This runs immediately, not waiting');
+
 ```
 
 ### **Why Non-Blocking I/O Matters:**
@@ -277,36 +289,46 @@ console.log('This runs immediately, not waiting');
 - Can handle many requests with minimal resources
 
 **Real-World Example:**
+
 ```text
 Traditional (Blocking): 1 thread per request
 - 1000 requests = 1000 threads = High memory usage
 
 Node.js (Non-Blocking): 1 thread for all requests
 - 1000 requests = 1 thread = Low memory usage
+
 ```
 
 ### **Types of I/O Operations:**
 
 **1. File System I/O** 📁
+
 ```javascript
 fs.readFile('file.txt', callback); // Non-blocking
 fs.writeFile('file.txt', data, callback); // Non-blocking
+
 ```
 
 **2. Network I/O** 🌐
+
 ```javascript
 http.get('url', callback); // Non-blocking
 fetch('url').then(...); // Non-blocking
+
 ```
 
 **3. Database I/O** 💾
+
 ```javascript
 db.query('SELECT * FROM users', callback); // Non-blocking
+
 ```
 
 **4. DNS Lookups** 🔍
+
 ```javascript
 dns.lookup('example.com', callback); // Non-blocking
+
 ```
 
 - **Trade-offs**: Prevents thread blocking during I/O operations - dramatically improves performance for I/O-heavy applications. Enables handling thousands of concurrent connections with single thread, but watch out - CPU-intensive operations still block the event loop. Non-blocking I/O is perfect for web servers, APIs, and real-time applications, but not ideal for CPU-bound tasks like image processing or heavy calculations (use worker threads for those).
@@ -337,9 +359,10 @@ console.log('This also runs immediately');
 // "This also runs immediately"
 // "File content: ..." (when file is ready)
 // "Response received" (when response arrives)
+
 ```
 
-## Q6. Process object: what it is in Node.js
+## Q6. 📦 Process object: what it is in Node.js
 
 The `process` object is a global Node.js object that provides information about the current Node.js process and allows interaction with the operating system - it gives you access to process ID, environment variables, command line arguments, memory usage, current working directory, and process control methods. Essential for process management, configuration, and system interaction.
 
@@ -384,27 +407,34 @@ The `process` object is a global Node.js object that provides information about 
 ### **Common Use Cases:**
 
 **1. Environment Configuration**
+
 ```javascript
 const port = process.env.PORT || 3000;
 const nodeEnv = process.env.NODE_ENV || 'development';
+
 ```
 
 **2. Command Line Arguments**
+
 ```javascript
 // node app.js --port=3000 --env=production
 const args = process.argv.slice(2);
 const port = args.find(arg => arg.startsWith('--port'))?.split('=')[1];
+
 ```
 
 **3. Process Information**
+
 ```javascript
 console.log('Process ID:', process.pid);
 console.log('Node version:', process.version);
 console.log('Platform:', process.platform);
 console.log('Working directory:', process.cwd());
+
 ```
 
 **4. Memory Monitoring**
+
 ```javascript
 const usage = process.memoryUsage();
 console.log({
@@ -412,9 +442,11 @@ console.log({
   heapTotal: `${Math.round(usage.heapTotal / 1024 / 1024)} MB`,
   external: `${Math.round(usage.external / 1024 / 1024)} MB`
 });
+
 ```
 
 **5. Process Events**
+
 ```javascript
 // Handle process termination
 process.on('SIGTERM', () => {
@@ -432,6 +464,7 @@ process.on('uncaughtException', (error) => {
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection:', reason);
 });
+
 ```
 
 - **Trade-offs**: process object provides essential process information and control - enables environment-based configuration and process management. Essential for production applications - allows graceful shutdowns and error handling. The catch is process is a global object, so be careful with modifications that could affect the entire application.
@@ -465,11 +498,12 @@ console.log('Memory usage:', {
 process.on('exit', (code) => {
   console.log(`Process exiting with code: ${code}`);
 });
+
 ```
 
 ---
 
-## Q7. `process.exit()` vs `process.kill()`
+## Q7. 🤔 `process.exit()` vs `process.kill()`
 
 `process.exit()` terminates the current Node.js process with an exit code (0 for success, non-zero for failure), while `process.kill()` sends a signal to another process by PID. `process.exit()` is for graceful shutdown of current process, `process.kill()` is for inter-process communication and controlling other processes.
 
@@ -503,11 +537,12 @@ process.kill(child.pid, 'SIGKILL');
 
 // Kill current process with signal
 process.kill(process.pid, 'SIGTERM');
+
 ```
 
 ---
 
-## Q8. `process.nextTick()`, `setImmediate()`, and `setTimeout()`: differences
+## Q8. 🎬 `process.nextTick()`, `setImmediate()`, and `setTimeout()`: differences
 
 process.nextTick() executes in the current phase (highest priority), setImmediate() executes in the check phase (after I/O events), and setTimeout() executes in the timers phase (minimum 1ms delay) - they have different priorities and timing, with process.nextTick having highest priority.
 
@@ -520,11 +555,12 @@ setTimeout(() => console.log('setTimeout'), 0);
 setImmediate(() => console.log('setImmediate'));
 process.nextTick(() => console.log('process.nextTick'));
 // Output: process.nextTick, setTimeout, setImmediate
+
 ```
 
 ---
 
-## Q9. CommonJS vs ES Modules
+## Q9. 🧩 CommonJS vs ES Modules
 
 CommonJS uses `require()` and `module.exports` for synchronous loading (runtime resolution, dynamic imports), while ES Modules use `import`/`export` for asynchronous loading with static analysis capabilities (compile-time resolution, static imports). ES Modules support tree-shaking and better optimization.
 
@@ -540,11 +576,12 @@ module.exports = { readFile: fs.readFile };
 // ES Modules
 import fs from 'fs';
 export { readFile: fs.readFile };
+
 ```
 
 ---
 
-## Q10. Handling errors in Node.js applications
+## Q10. ⚠️ Handling errors in Node.js applications
 
 Error handling in Node.js should use try/catch blocks for synchronous code, error-first callbacks for async operations, proper error propagation, and global error handlers. Handle both synchronous and asynchronous errors, use error boundaries, log errors with context, and prevent unhandled promise rejections from crashing the application.
 
@@ -589,11 +626,12 @@ process.on('uncaughtException', (error) => {
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection:', reason);
 });
+
 ```
 
 ---
 
-## Q11. How `require()` works in Node.js
+## Q11. 🔧 How `require()` works in Node.js
 
 Node.js follows a specific algorithm to resolve module paths: checks core modules first (fs, http, path), then looks for local files with extensions (.js, .json, .node), then searches node_modules directories up the directory tree. Checks package.json main field for entry point and handles index.js as default when directory is required.
 
@@ -618,11 +656,12 @@ require('./routes'); // Loads ./routes/index.js
 
 // 5. package.json main field
 require('lodash'); // Loads from package.json "main" field
+
 ```
 
 ---
 
-## Q12. `import` vs `require()`
+## Q12. 🤔 `import` vs `require()`
 
 require() is CommonJS synchronous loading (runtime resolution, dynamic), while import is ES Modules asynchronous loading with static analysis and better tree-shaking capabilities (compile-time resolution, static). ES Modules support tree-shaking for smaller bundles and have better optimization.
 
@@ -648,11 +687,12 @@ import { readFile } from 'fs';
 // if (condition) {
 //   import module from './module'; // Syntax error
 // }
+
 ```
 
 ---
 
-## Q13. `exports` vs `module.exports`
+## Q13. 🤔 `exports` vs `module.exports`
 
 exports is a reference to module.exports, but reassigning exports breaks the reference - module.exports is the actual object returned by require(). You can mix both but exports must come first, and the common mistake is that `exports = {}` doesn't work.
 
@@ -680,11 +720,12 @@ exports = { name: 'John' }; // Breaks reference!
 
 // Correct way
 module.exports = { name: 'John' };
+
 ```
 
 ---
 
-## Q14. Handling circular dependencies in Node.js
+## Q14. 💡 Handling circular dependencies in Node.js
 
 Circular dependencies occur when two or more modules require each other directly or indirectly, which can cause undefined exports during module loading - Node.js handles them but exports may be incomplete. Solution: restructure code to avoid mutual dependencies, use dependency injection or event emitters, or extract shared functionality to separate modules.
 
@@ -720,11 +761,12 @@ module.exports = { createA };
 // Solution 3: Extract shared functionality
 // shared.js
 module.exports = { sharedData: 'value' };
+
 ```
 
 ---
 
-## Q15. Structuring a Node.js project and best practices
+## Q15. ⭐ Structuring a Node.js project and best practices
 
 Large Node.js projects should follow modular architecture with clear separation of concerns (controllers, models, services, middleware), organized folder structure, and proper dependency management. Use barrel files for clean imports, implement dependency injection, follow consistent naming conventions, use environment-based configuration, proper error handling, logging, and testing structure. Balance structure with practicality - avoid over-engineering while maintaining maintainability.
 
@@ -781,11 +823,12 @@ module.exports = {
 // Services: userService.js, orderService.js
 // Models: User.js, Order.js
 // Routes: userRoutes.js, orderRoutes.js
+
 ```
 
 ---
 
-## Q16. Handling environment variables in Node.js
+## Q16. 💡 Handling environment variables in Node.js
 
 Environment-based configuration allows applications to use different settings for different environments (development, staging, production) using environment variables and .env files - .env files store environment variables locally, and process.env provides access to them. Never commit .env files to version control, and use libraries like dotenv for .env file loading.
 
@@ -818,11 +861,12 @@ requiredVars.forEach(varName => {
     throw new Error(`Missing required environment variable: ${varName}`);
   }
 });
+
 ```
 
 ---
 
-## Q17. Managing secrets and configuration in Node.js
+## Q17. 💡 Managing secrets and configuration in Node.js
 
 Secrets should be stored in environment variables, never in code, with proper access controls, encryption for sensitive data, and secure key management practices. Use different secrets for different environments, consider using secret management services (AWS Secrets Manager), encrypt sensitive data at rest and in transit, and rotate secrets regularly.
 
@@ -858,11 +902,12 @@ function encrypt(text) {
   encrypted += cipher.final('hex');
   return { encrypted, iv: iv.toString('hex') };
 }
+
 ```
 
 ---
 
-## Q18. Implementing logging in Node.js applications
+## Q18. 📝 Implementing logging in Node.js applications
 
 Logging in Node.js should use structured logging with appropriate log levels (error, warn, info, debug), include timestamps and context, use logging libraries (winston, pino, bunyan), and implement log rotation and storage. Log to files, console, or external services, and use different log levels for different environments.
 
@@ -898,11 +943,12 @@ const logger = pino({
 
 logger.error({ err, userId: 123 }, 'Error occurred');
 logger.info({ userId: 123, ip: '192.168.1.1' }, 'User logged in');
+
 ```
 
 ---
 
-## Q19. Handling graceful shutdown in Node.js
+## Q19. 💡 Handling graceful shutdown in Node.js
 
 Graceful shutdown ensures applications close properly by handling termination signals, cleaning up resources, and finishing ongoing requests - handle SIGTERM and SIGINT signals, close HTTP server and database connections, set timeout for forced shutdown, log shutdown process for debugging, and test graceful shutdown in production.
 
@@ -945,7 +991,14 @@ process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 server = app.listen(3000, () => {
   console.log('Server running on port 3000');
 });
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: README](../README.md)** | **[Next: Asynchronous Patterns & Event Emitter →](2%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md)**
+
+</div>
 

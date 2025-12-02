@@ -2,7 +2,7 @@
 
 ---
 
-## Q81. EC2 vs Lambda and when to choose
+## Q81. ☁️ EC2 vs Lambda and when to choose
 
 Choose EC2 when you need full control over the environment, long-running processes, or predictable workloads - like running a web server that's always on or processing large batch jobs. Choose Lambda for event-driven tasks, short-lived functions, or variable workloads - like processing file uploads, handling API requests, or responding to database changes.
 
@@ -10,7 +10,7 @@ Choose EC2 when you need full control over the environment, long-running process
 
 ---
 
-## Q82. Auto Scaling Groups internal flow
+## Q82. 📈 Auto Scaling Groups internal flow
 
 Auto Scaling Groups monitor your instances and automatically add or remove them based on metrics like CPU usage or request count - when CPU goes above 70%, it launches new instances, and when it drops below 30%, it terminates extra instances. It uses CloudWatch alarms to trigger scaling actions, and you configure min/max/desired capacity to control the scaling range.
 
@@ -18,7 +18,7 @@ Auto Scaling Groups monitor your instances and automatically add or remove them 
 
 ---
 
-## Q83. IAM Users vs Roles vs Policies
+## Q83. 🔐 IAM Users vs Roles vs Policies
 
 IAM Users are permanent identities for people or applications that need long-term access - like developers or service accounts. IAM Roles are temporary credentials that can be assumed by users, services, or EC2 instances - like giving an EC2 instance permission to access S3. Policies are documents that define permissions - you attach policies to users, roles, or groups to grant access.
 
@@ -26,7 +26,7 @@ IAM Users are permanent identities for people or applications that need long-ter
 
 ---
 
-## Q84. VPC architecture
+## Q84. 🌐 VPC architecture
 
 VPC is your private network in AWS where you launch resources - it's isolated from other AWS accounts and the internet by default. You create subnets in different availability zones for high availability, use route tables to control traffic flow, and use internet gateways or NAT gateways to connect to the internet. Public subnets have routes to the internet gateway, private subnets use NAT gateways for outbound internet access.
 
@@ -34,7 +34,7 @@ VPC is your private network in AWS where you launch resources - it's isolated fr
 
 ---
 
-## Q85. NACLs vs Security Groups
+## Q85. 🛡️ NACLs vs Security Groups
 
 Security Groups are stateful firewalls at the instance level that allow traffic - you define rules for what's allowed, and responses are automatically allowed. NACLs are stateless network-level firewalls at the subnet level that can both allow and deny traffic - you define rules with explicit allow/deny, and you must allow both inbound and outbound traffic.
 
@@ -42,7 +42,7 @@ Security Groups are stateful firewalls at the instance level that allow traffic 
 
 ---
 
-## Q86. Designing highly available AWS systems
+## Q86. ✅ Designing highly available AWS systems
 
 Design for high availability by deploying across multiple availability zones, using load balancers to distribute traffic, enabling auto-scaling to handle load changes, and using managed services like RDS Multi-AZ for automatic failover. Use health checks to detect failures, configure automatic backups, and design stateless applications that can run on any instance.
 
@@ -50,7 +50,7 @@ Design for high availability by deploying across multiple availability zones, us
 
 ---
 
-## Q87. S3 vs EFS vs EBS
+## Q87. 💾 S3 vs EFS vs EBS
 
 S3 is object storage for files, backups, and static websites - it's highly durable and scales automatically, accessed via APIs. EFS is network file storage that multiple EC2 instances can mount simultaneously - like a shared drive in the cloud. EBS is block storage attached to a single EC2 instance - like a hard drive for your server.
 
@@ -58,7 +58,7 @@ S3 is object storage for files, backups, and static websites - it's highly durab
 
 ---
 
-## Q88. S3 lifecycle and cost optimization
+## Q88. 💰 S3 lifecycle and cost optimization
 
 S3 lifecycle policies automatically move objects between storage classes or delete them based on age - like moving files to Glacier after 90 days, or deleting old logs after 1 year. Use lifecycle policies to reduce costs by moving infrequently accessed data to cheaper storage classes, and configure intelligent tiering to automatically optimize costs based on access patterns.
 
@@ -66,7 +66,7 @@ S3 lifecycle policies automatically move objects between storage classes or dele
 
 ---
 
-## Q89. Route53 routing policies
+## Q89. 🌍 Route53 routing policies
 
 Route53 offers different routing policies to control how traffic is distributed - simple routing returns one IP, weighted routing splits traffic by percentage, latency-based routing sends users to the lowest latency region, failover routing switches to backup when primary fails, and geolocation routing routes based on user location. Choose based on your needs - failover for high availability, latency for performance, weighted for gradual rollouts.
 
@@ -74,7 +74,7 @@ Route53 offers different routing policies to control how traffic is distributed 
 
 ---
 
-## Q90. Securing S3 buckets
+## Q90. 🔒 Securing S3 buckets
 
 Secure S3 buckets by blocking public access by default, using bucket policies to control access, enabling versioning to recover from accidental deletions, enabling encryption at rest and in transit, and using IAM roles instead of access keys. Enable CloudTrail to audit access, use MFA delete for critical buckets, and configure lifecycle policies to automatically delete sensitive data.
 
@@ -82,7 +82,7 @@ Secure S3 buckets by blocking public access by default, using bucket policies to
 
 ---
 
-## Q91. Deployment architecture for React + Node
+## Q91. 🚀 Deployment architecture for React + Node
 
 Deploy React as static files to S3 with CloudFront CDN for fast global delivery, and deploy Node.js API to EC2 with Auto Scaling or use Lambda for serverless. Use API Gateway in front of Lambda, or Application Load Balancer in front of EC2 instances. Store environment variables in Systems Manager Parameter Store or Secrets Manager, and use Route53 for DNS.
 
@@ -90,7 +90,7 @@ Deploy React as static files to S3 with CloudFront CDN for fast global delivery,
 
 ---
 
-## Q92. CI/CD pipelines for microservices
+## Q92. 🔄 CI/CD pipelines for microservices
 
 Design CI/CD pipelines with separate pipelines per microservice, using shared templates for consistency, and deploying to staging before production. Use CodePipeline to orchestrate builds and deployments, CodeBuild for building, and CodeDeploy for deploying. Tag deployments with version numbers, use blue-green or canary deployments for zero downtime, and run tests at each stage.
 
@@ -98,7 +98,7 @@ Design CI/CD pipelines with separate pipelines per microservice, using shared te
 
 ---
 
-## Q93. Blue-green deployment
+## Q93. 🔄 Blue-green deployment
 
 Blue-green deployment runs two identical production environments - blue is current, green is new version. You deploy the new version to green, test it, then switch traffic from blue to green. If something goes wrong, you switch back to blue immediately. This gives you instant rollback and zero downtime deployments.
 
@@ -106,7 +106,7 @@ Blue-green deployment runs two identical production environments - blue is curre
 
 ---
 
-## Q94. Rolling updates with zero downtime
+## Q94. 🔄 Rolling updates with zero downtime
 
 Rolling updates deploy new versions gradually by replacing instances one at a time - you launch new instances with the new version, wait for them to be healthy, then terminate old instances. Use health checks to ensure new instances are ready before terminating old ones, and configure your load balancer to drain connections from old instances gracefully.
 
@@ -114,7 +114,7 @@ Rolling updates deploy new versions gradually by replacing instances one at a ti
 
 ---
 
-## Q95. CloudFront + S3 architecture
+## Q95. 🌍 CloudFront + S3 architecture
 
 CloudFront CDN sits in front of S3 to cache and serve content from edge locations close to users - when a user requests a file, CloudFront checks its cache, and if it's not cached, it fetches from S3 and caches it for future requests. This reduces latency, offloads traffic from S3, and reduces costs by serving cached content.
 
@@ -122,7 +122,7 @@ CloudFront CDN sits in front of S3 to cache and serve content from edge location
 
 ---
 
-## Q96. S3 pre-signed URL flow
+## Q96. 🔗 S3 pre-signed URL flow
 
 Pre-signed URLs give temporary access to S3 objects without exposing your AWS credentials - your server generates a signed URL with an expiration time, the client uses that URL to upload or download directly from S3. The URL includes authentication information in the query string, so S3 can verify the request without the client needing AWS credentials.
 
@@ -145,7 +145,7 @@ const url = s3.getSignedUrl('putObject', params);
 
 ---
 
-## Q97. Handling secrets with AWS Secrets Manager
+## Q97. 🔐 Handling secrets with AWS Secrets Manager
 
 Use Secrets Manager to store secrets like database passwords, API keys, and certificates - it encrypts secrets at rest, rotates them automatically, and provides APIs to retrieve them. Your application retrieves secrets at runtime using IAM roles, so secrets never appear in code or environment variables. Enable automatic rotation for database credentials to improve security.
 
@@ -153,7 +153,7 @@ Use Secrets Manager to store secrets like database passwords, API keys, and cert
 
 ---
 
-## Q98. AWS cost optimization best practices
+## Q98. 💰 AWS cost optimization best practices
 
 Optimize costs by using reserved instances for predictable workloads, right-sizing instances based on actual usage, using spot instances for flexible workloads, enabling auto-scaling to remove unused resources, and using S3 lifecycle policies to move data to cheaper storage. Monitor costs with Cost Explorer, set up billing alerts, and tag resources to track spending by team or project.
 
@@ -161,7 +161,7 @@ Optimize costs by using reserved instances for predictable workloads, right-sizi
 
 ---
 
-## Q99. RDS vs DynamoDB vs Mongo Atlas
+## Q99. 🗄️ RDS vs DynamoDB vs Mongo Atlas
 
 Choose RDS for relational data with complex queries, transactions, and SQL compatibility - like user accounts, orders, or financial data. Choose DynamoDB for high-scale key-value access with predictable performance - like session storage, user profiles, or real-time leaderboards. Choose Mongo Atlas for document data with flexible schemas - like content management, catalogs, or user-generated content.
 
@@ -169,7 +169,7 @@ Choose RDS for relational data with complex queries, transactions, and SQL compa
 
 ---
 
-## Q100. DynamoDB partition key design
+## Q100. 🔑 DynamoDB partition key design
 
 Design partition keys to distribute data evenly across partitions and match your access patterns - use high-cardinality attributes like user_id or order_id, and avoid hot partitions where one key gets all the traffic. Use composite keys (partition + sort key) to model relationships and enable range queries, and consider using write sharding for high-write scenarios.
 
@@ -177,7 +177,7 @@ Design partition keys to distribute data evenly across partitions and match your
 
 ---
 
-## Q101. DynamoDB throttling prevention
+## Q101. ⚠️ DynamoDB throttling prevention
 
 Prevent throttling by designing partition keys for even distribution, using on-demand capacity for unpredictable workloads, or provisioning enough capacity for predictable workloads. Enable auto-scaling to adjust capacity automatically, use exponential backoff when throttled, and monitor CloudWatch metrics to catch throttling early. For high-write scenarios, use write sharding to distribute writes across multiple partition keys.
 
@@ -185,7 +185,7 @@ Prevent throttling by designing partition keys for even distribution, using on-d
 
 ---
 
-## Q102. Multi-AZ replication in RDS
+## Q102. 📋 Multi-AZ replication in RDS
 
 Multi-AZ replication creates a standby replica in a different availability zone that automatically takes over if the primary fails - data is synchronously replicated, so there's no data loss, and failover typically takes 60-120 seconds. The standby replica can't serve reads, it's only for failover, but it provides high availability and automatic backups.
 
@@ -193,7 +193,7 @@ Multi-AZ replication creates a standby replica in a different availability zone 
 
 ---
 
-## Q103. RDS read replicas
+## Q103. 📖 RDS read replicas
 
 RDS read replicas are asynchronous copies of your primary database that can serve read queries - you create replicas in different availability zones or regions, and they replicate changes from the primary with a small delay. Use read replicas to scale reads, reduce load on the primary, and provide disaster recovery. You can promote a read replica to become the primary if needed.
 
@@ -201,7 +201,7 @@ RDS read replicas are asynchronous copies of your primary database that can serv
 
 ---
 
-## Q104. DynamoDB Global Tables
+## Q104. 🌐 DynamoDB Global Tables
 
 DynamoDB Global Tables replicate your table across multiple regions automatically, so you can serve users from the nearest region with low latency. Writes to any region are replicated to all other regions within seconds, and each region can serve both reads and writes. This provides global low latency and disaster recovery.
 
@@ -209,7 +209,7 @@ DynamoDB Global Tables replicate your table across multiple regions automaticall
 
 ---
 
-## Q105. On-demand vs provisioned capacity
+## Q105. ⚡ On-demand vs provisioned capacity
 
 On-demand capacity automatically scales up and down based on traffic, so you pay for what you use without capacity planning - perfect for unpredictable workloads or new applications. Provisioned capacity requires you to specify read and write capacity units, and you pay for that capacity whether you use it or not - better for predictable, steady workloads where you can optimize costs.
 

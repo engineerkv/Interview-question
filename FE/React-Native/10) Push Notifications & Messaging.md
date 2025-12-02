@@ -8,7 +8,7 @@
 
 ---
 
-## Q91. Difference between local and push notifications
+## Q91. 🔔 Difference between local and push notifications
 
 Local notifications are scheduled by the app, while push notifications are sent from a server - choose based on use case. Local notifications (scheduled by the app, work offline), Push notifications (sent from server, require internet).
 
@@ -29,11 +29,12 @@ const scheduleLocalNotification = () => {
 };
 
 // Push notification - handled by server
+
 ```
 
 ---
 
-## Q92. Implementing Firebase Cloud Messaging (FCM) for Android
+## Q92. 🔧 Implementing Firebase Cloud Messaging (FCM) for Android
 
 Configure FCM for Android and APNs for iOS, then handle notification registration and display - configure both services for cross-platform support. FCM (Firebase Cloud Messaging for Android), APNs (Apple Push Notification service for iOS).
 
@@ -61,11 +62,12 @@ const getToken = async () => {
   const token = await messaging().getToken();
   return token;
 };
+
 ```
 
 ---
 
-## Q93. Implementing Apple Push Notification service (APNs) for iOS
+## Q93. 🔔 Implementing Apple Push Notification service (APNs) for iOS
 
 Use different notification handlers and display methods based on app state - handle both states for best UX. Foreground (app is active, show custom UI), Background (app is not active, use system notifications).
 
@@ -102,11 +104,12 @@ function NotificationHandler() {
     };
   }, [appState]);
 }
+
 ```
 
 ---
 
-## Q94. Handling background and foreground notifications
+## Q94. 🔔 Handling background and foreground notifications
 
 Request notification permissions and configure notification channels for Android - set appropriate importance levels (channel importance). Configure notification channels for Android (Android channels).
 
@@ -132,11 +135,12 @@ const configureNotificationChannels = () => {
     );
   }
 };
+
 ```
 
 ---
 
-## Q95. Managing notification permissions and channels
+## Q95. 🔔 Managing notification permissions and channels
 
 Use proper payload validation, testing strategies, and security measures for push notifications - sanitize notification data (data sanitization). Validate notification payloads (payload validation).
 
@@ -161,6 +165,7 @@ const validateNotificationPayload = (payload) => {
   
   return true;
 };
+
 ```
 
 ---

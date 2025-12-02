@@ -4,11 +4,11 @@
 
 </div>
 
-# 1. SQL Fundamentals (Q1–10)
+# 🗄️ 1. SQL Fundamentals (Q1–10)
 
 ---
 
-## Q1. SQL and what it stands for
+## Q1. 🗄️ SQL and what it stands for
 
 SQL stands for Structured Query Language - it's a standard language for managing relational databases with four main sublanguages: DDL creates and modifies database structure (CREATE, ALTER, DROP), DML manages data (SELECT, INSERT, UPDATE, DELETE), DCL controls access (GRANT, REVOKE), and TCL manages transactions (COMMIT, ROLLBACK, SAVEPOINT). Standard language for managing relational databases, enables data manipulation and structure management.
 
@@ -31,11 +31,12 @@ INSERT INTO employees VALUES (1, 'John', 50000);
 BEGIN TRANSACTION;
 UPDATE employees SET salary = 55000 WHERE id = 1;
 COMMIT;
+
 ```
 
 ---
 
-## Q2. Difference between SQL and MySQL/PostgreSQL/SQL Server
+## Q2. 🗄️ Difference between SQL and MySQL/PostgreSQL/SQL Server
 
 SQL is the standard language specification, while MySQL, PostgreSQL, and SQL Server are specific database management systems (RDBMS) that implement SQL with their own extensions and features. Each RDBMS adds proprietary syntax, data types, and optimizations on top of the SQL standard.
 
@@ -52,11 +53,12 @@ SELECT name, salary FROM employees WHERE salary > 50000 LIMIT 10;
 
 -- SQL Server specific
 SELECT TOP 10 name, salary FROM employees WHERE salary > 50000;
+
 ```
 
 ---
 
-## Q3. Database schema
+## Q3. 🗄️ Database schema
 
 A database schema is the logical structure that defines how data is organized, including tables, views, indexes, constraints, and relationships between database objects. It provides namespace separation and logical grouping of related objects.
 
@@ -74,11 +76,12 @@ CREATE TABLE hr.employees (
     name VARCHAR(100),
     salary DECIMAL(10,2)
 );
+
 ```
 
 ---
 
-## Q4. Difference between a table and a view
+## Q4. 🤔 Difference between a table and a view
 
 A table stores actual data physically, while a view is a virtual table based on the result of a SQL query that doesn't store data but provides a way to access and manipulate data from underlying tables. Views store only the query definition, not the data itself.
 
@@ -98,11 +101,12 @@ CREATE TABLE employees (
 -- Create a view (virtual table)
 CREATE VIEW high_earners AS
 SELECT id, name, salary FROM employees WHERE salary > 50000;
+
 ```
 
 ---
 
-## Q5. Constraints in SQL and examples
+## Q5. 🗄️ Constraints in SQL and examples
 
 Constraints are rules applied to table columns to ensure data integrity, consistency, and validity by restricting the type of data that can be stored. NOT NULL prevents NULL values, CHECK validates against conditions, DEFAULT provides fallback values, UNIQUE ensures uniqueness, and PRIMARY KEY combines NOT NULL and UNIQUE.
 
@@ -118,11 +122,12 @@ CREATE TABLE products (
     category VARCHAR(50) DEFAULT 'General',
     email VARCHAR(100) UNIQUE
 );
+
 ```
 
 ---
 
-## Q6. Difference between primary key and foreign key
+## Q6. 🤔 Difference between primary key and foreign key
 
 Primary Key uniquely identifies each row and cannot be NULL (only one per table), Foreign Key references another table's primary key to maintain referential integrity, and Unique Key ensures uniqueness but allows NULL values (multiple allowed per table). Primary and unique keys automatically create indexes for performance.
 
@@ -143,11 +148,12 @@ CREATE TABLE employees (
     dept_id INT,
     FOREIGN KEY (dept_id) REFERENCES departments(dept_id)  -- Foreign Key
 );
+
 ```
 
 ---
 
-## Q7. Unique constraint and how it differs from primary key
+## Q7. 🔧 Unique constraint and how it differs from primary key
 
 Composite keys are primary keys made up of multiple columns when no single column can uniquely identify a row, but a combination of columns can. They often represent natural business relationships, but column order matters for query performance.
 
@@ -164,11 +170,12 @@ CREATE TABLE order_items (
     price DECIMAL(10,2),
     PRIMARY KEY (order_id, product_id)  -- Composite key
 );
+
 ```
 
 ---
 
-## Q8. Composite key
+## Q8. 💡 Composite key
 
 DELETE removes specific rows and can be rolled back (triggers fire, can use WHERE clause), TRUNCATE removes all rows quickly but cannot be rolled back (no triggers, table-level operation), and DROP removes the entire table structure and data permanently. TRUNCATE is fastest for removing all data, DELETE is slowest for large datasets.
 
@@ -186,11 +193,12 @@ TRUNCATE TABLE temp_data;
 
 -- DROP - removes entire table structure
 DROP TABLE old_table;
+
 ```
 
 ---
 
-## Q9. Difference between DELETE, TRUNCATE, and DROP
+## Q9. 🤔 Difference between DELETE, TRUNCATE, and DROP
 
 Aliases provide temporary names for tables or columns, making queries more readable, enabling shorter references, and allowing for self-joins and complex queries. They're essential for joining a table with itself and preventing ambiguity when multiple tables have the same column names.
 
@@ -213,11 +221,12 @@ SELECT
     e2.employee_name AS manager
 FROM employees e1
 LEFT JOIN employees e2 ON e1.manager_id = e2.employee_id;
+
 ```
 
 ---
 
-## Q10. Aliases in SQL and how to use them
+## Q10. 🗄️ Aliases in SQL and how to use them
 
 Aggregate functions perform calculations on a set of values and return a single result, commonly used with GROUP BY to analyze data across groups. COUNT counts rows or non-NULL values, SUM/AVG work with numeric data, and MIN/MAX work with any data type—most ignore NULL values except COUNT(*).
 
@@ -244,7 +253,14 @@ SELECT
 FROM employees
 GROUP BY department_id
 HAVING COUNT(*) > 5;
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: README](../README.md)** | **[Next: Querying & Joins →](2%29%20Querying%20%26%20Joins.md)**
+
+</div>
 

@@ -4,11 +4,11 @@
 
 </div>
 
-# 5. Advanced TypeScript Internals (Q40–53)
+# 🔬 5. Advanced TypeScript Internals (Q40–53)
 
 ---
 
-## Q40. Module resolution
+## Q40. 🧩 Module resolution
 
 Module resolution determines how TypeScript finds and loads modules, with classic strategy for legacy code and node strategy for modern Node.js - node strategy is the modern standard. Classic strategy (legacy resolution, looks for .ts files first), Node strategy (modern resolution, follows Node.js module resolution).
 
@@ -24,11 +24,12 @@ Example:
     "paths": { "@/*": ["src/*"] }
   }
 }
+
 ```
 
 ---
 
-## Q41. Internal classic module resolution strategy
+## Q41. 🧩 Internal classic module resolution strategy
 
 Classic module resolution looks for TypeScript files first, then checks for declaration files, following a simple file extension priority order - simple logic uses straightforward file extension matching. .ts files take precedence over .d.ts files.
 
@@ -42,11 +43,12 @@ import { utils } from './utils'; // Looks for:
 // 2. ./utils.d.ts
 // 3. ./utils/index.ts
 // 4. ./utils/index.d.ts
+
 ```
 
 ---
 
-## Q42. Internal node module resolution strategy
+## Q42. 🧩 Internal node module resolution strategy
 
 Node module resolution follows Node.js algorithm, checking node_modules, package.json, and supporting directory imports with index files - follows Node.js module resolution algorithm (modern standard). Searches node_modules directory hierarchy.
 
@@ -60,11 +62,12 @@ import { lodash } from 'lodash'; // Looks for:
 // 2. ./node_modules/lodash/index.js
 // 3. ./node_modules/lodash/index.d.ts
 // 4. ./node_modules/@types/lodash/index.d.ts
+
 ```
 
 ---
 
-## Q43. Declaration files and how to create them
+## Q43. 🔧 Declaration files and how to create them
 
 Declaration files provide type information for JavaScript libraries, generated automatically or written manually for type safety - enable type checking for JavaScript code (type safety). Provide type definitions for JavaScript libraries.
 
@@ -79,11 +82,12 @@ declare module "my-library" {
     timeout?: number;
   }
 }
+
 ```
 
 ---
 
-## Q44. Ambient modules and how to use them
+## Q44. 🧩 Ambient modules and how to use them
 
 Ambient modules declare types for existing JavaScript code, while normal modules are TypeScript modules with implementation - ambient modules don't affect runtime behavior (no runtime). Ambient modules are type declarations without implementation.
 
@@ -97,11 +101,12 @@ declare module "lodash" {
   export function debounce<T extends (...args: any[]) => any>(
     func: T, wait: number): T;
 }
+
 ```
 
 ---
 
-## Q45. `declare` keyword and how to use it
+## Q45. 🔧 `declare` keyword and how to use it
 
 `declare` tells TypeScript that a variable, function, or module exists elsewhere, providing type information without implementation - declare statements don't generate JavaScript code (no runtime impact). Provide types without implementation (type information).
 
@@ -116,11 +121,12 @@ declare const process: {
     API_URL: string;
   };
 };
+
 ```
 
 ---
 
-## Q46. Difference between namespaces and ES modules
+## Q46. 🧩 Difference between namespaces and ES modules
 
 Namespaces provide logical grouping of code and can be split across files, while ES modules are the modern standard for module systems - use cases: namespaces for legacy code, ES modules for new projects. Namespaces group related code together (logical grouping).
 
@@ -138,11 +144,12 @@ namespace MathUtils {
 export function multiply(a: number, b: number): number {
   return a * b;
 }
+
 ```
 
 ---
 
-## Q47. Strict mode and why it's important
+## Q47. 🤔 Strict mode and why it's important
 
 Strict mode enables additional type checking options, with `strictNullChecks` preventing null and undefined from being assigned to non-nullable types - reduces runtime errors in production. Enables additional type checking options.
 
@@ -158,11 +165,12 @@ Example:
     "strictFunctionTypes": true
   }
 }
+
 ```
 
 ---
 
-## Q48. Difference between compile-time and runtime type checking
+## Q48. 📝 Difference between compile-time and runtime type checking
 
 Compile-time checking happens during TypeScript compilation, while runtime checking happens during JavaScript execution - combine both for maximum type safety. TypeScript checks types during compilation (compile time).
 
@@ -178,11 +186,12 @@ function processData(data: string): number {
 function isString(value: any): value is string {
   return typeof value === "string";
 }
+
 ```
 
 ---
 
-## Q49. How TypeScript handles JSX
+## Q49. 📝 How TypeScript handles JSX
 
 TypeScript supports JSX through special file extensions and compiler options, providing type checking for React components - TypeScript supports React hooks with proper typing. TypeScript understands JSX syntax.
 
@@ -197,11 +206,12 @@ Example:
     "jsxImportSource": "react"
   }
 }
+
 ```
 
 ---
 
-## Q50. Compiler flags and how to use them
+## Q50. 🔧 Compiler flags and how to use them
 
 Common flags include `noImplicitAny` for explicit any types, `strict` for strict type checking, and `noUnusedLocals` for unused variable detection - helps maintain clean, type-safe code (code quality). Strict mode enables comprehensive type checking.
 
@@ -217,11 +227,12 @@ Example:
     "noImplicitReturns": true
   }
 }
+
 ```
 
 ---
 
-## Q51. Generics with default types
+## Q51. 📝 Generics with default types
 
 TypeScript allows generic parameters to have default types, providing fallback types when no type argument is specified - common for libraries and frameworks (use cases). Provide fallback types for generics (default types).
 
@@ -235,11 +246,12 @@ interface ApiResponse<T = any> {
   status: number;
   message: string;
 }
+
 ```
 
 ---
 
-## Q52. Covariance and contravariance
+## Q52. 💡 Covariance and contravariance
 
 Covariance preserves the subtype relationship in the same direction, while contravariance reverses it, affecting function parameter and return types - variance affects function parameter and return types. Covariance preserves subtype relationship in same direction, contravariance reverses it.
 
@@ -252,11 +264,12 @@ class Animal { name: string; }
 class Dog extends Animal { breed: string; }
 
 function getAnimal(): Animal { return new Dog(); }
+
 ```
 
 ---
 
-## Q53. Performance considerations when using TypeScript
+## Q53. ⚡ Performance considerations when using TypeScript
 
 Performance considerations include compilation time, bundle size, type checking overhead, and the balance between type safety and development speed - avoid overly complex types in performance-critical code. Use incremental compilation and build caching (compilation time).
 
@@ -272,7 +285,14 @@ Example:
     "skipLibCheck": true
   }
 }
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Classes & Object-Oriented Features](4%29%20Classes%20%26%20Object-Oriented%20Features.md)** | **[Next: Question List →](question.md)**
+
+</div>
 

@@ -8,7 +8,7 @@
 
 ---
 
-## Q1. React Native and how it differs from React.js
+## Q1. 📱 React Native and how it differs from React.js
 
 React Native is a framework for building mobile applications using React, but instead of rendering to the web DOM, it renders to native mobile components - handles platform-specific UI patterns and behaviors. Designed specifically for iOS and Android development (mobile focus).
 
@@ -32,11 +32,12 @@ const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   title: { fontSize: 24, fontWeight: 'bold' }
 });
+
 ```
 
 ---
 
-## Q2. How React Native renders UI on mobile devices and the bridge concept
+## Q2. 📱 How React Native renders UI on mobile devices and the bridge concept
 
 React Native uses a bridge to communicate between JavaScript and native code, translating JavaScript calls into native platform APIs - JSI replaces bridge for better performance (new architecture). Asynchronous communication between JS and native threads (bridge communication).
 
@@ -58,11 +59,12 @@ function MyComponent() {
 // Bridge translates JSX to native calls
 // <View> -> UIView (iOS) / ViewGroup (Android)
 // <Text> -> UILabel (iOS) / TextView (Android)
+
 ```
 
 ---
 
-## Q3. JavaScript Interface (JSI) and how it works
+## Q3. 📋 JavaScript Interface (JSI) and how it works
 
 JSI is a new architecture that allows direct communication between JavaScript and native code, eliminating the need for the bridge and improving performance - foundation for new React Native architecture (future-proof). JavaScript can directly call native functions (direct communication).
 
@@ -76,11 +78,12 @@ const result = await NativeModules.MyModule.doSomething(data);
 
 // JSI approach (direct function call)
 const result = MyModule.doSomething(data);
+
 ```
 
 ---
 
-## Q4. Fabric and TurboModules in React Native
+## Q4. 📱 Fabric and TurboModules in React Native
 
 Fabric is the new rendering system, while TurboModules are the new native module system, both designed to improve performance and enable synchronous communication - new architecture significantly improves performance. Fabric (new rendering system with better performance and debugging), TurboModules (new native module system using JSI).
 
@@ -103,11 +106,12 @@ function MyComponent() {
 // TurboModules - New native module system
 import { TurboModuleRegistry } from 'react-native';
 const MyTurboModule = TurboModuleRegistry.get('MyTurboModule');
+
 ```
 
 ---
 
-## Q5. How JavaScript communicates with native code
+## Q5. 📱 How JavaScript communicates with native code
 
 React Native uses the bridge (or JSI in new architecture) to serialize data and pass it between JavaScript and native threads - bridge communication can be a bottleneck for high-frequency calls (performance). Bridge protocol defines how data is serialized and passed.
 
@@ -126,11 +130,12 @@ MyNativeModule.doSomething('Hello from JS', (result) => {
 
 const data = { name: 'John', age: 30 };
 MyNativeModule.processData(data);
+
 ```
 
 ---
 
-## Q6. Differences between iOS and Android rendering in React Native
+## Q6. 📱 Differences between iOS and Android rendering in React Native
 
 iOS uses UIKit components while Android uses Android Views, with different styling systems and platform-specific optimizations - same code renders differently on each platform. iOS UIKit uses UIKit components and Auto Layout, Android Views uses Android View system and ConstraintLayout.
 
@@ -154,11 +159,12 @@ const styles = StyleSheet.create({
     // Android: Uses ConstraintLayout
   }
 });
+
 ```
 
 ---
 
-## Q7. Metro bundler and how it works
+## Q7. 🔧 Metro bundler and how it works
 
 Metro is the JavaScript bundler that transforms, bundles, and serves React Native code, similar to Webpack for web applications - handles platform-specific code splitting. Bundles JavaScript code for mobile (JavaScript bundling).
 
@@ -181,11 +187,12 @@ module.exports = {
     assetExts: ['bin', 'txt', 'jpg', 'png', 'json'],
   },
 };
+
 ```
 
 ---
 
-## Q8. Difference between Live Reload, Hot Reload, and Fast Refresh
+## Q8. 🤔 Difference between Live Reload, Hot Reload, and Fast Refresh
 
 Live Reload reloads the entire app, Hot Reload updates components without losing state, and Fast Refresh is the improved version that combines both features - Fast Refresh is the recommended approach. Live Reload reloads entire app, loses all state; Hot Reload updates components while preserving state; Fast Refresh combines both with better error recovery.
 
@@ -208,11 +215,12 @@ function Counter() {
 // Fast Refresh preserves state when you edit this component
 // Live Reload would reset count to 0
 // Hot Reload would keep count value
+
 ```
 
 ---
 
-## Q9. Built-in components in React Native
+## Q9. 🧩 Built-in components in React Native
 
 React Native provides core components like View (container), Text (text display), Image (images), FlatList (efficient lists), and ScrollView (scrollable content) - these are the building blocks of React Native apps. View (basic container component, equivalent to div), Text (text display component, equivalent to span/p), Image (image display component with optimization).
 
@@ -239,11 +247,12 @@ function MyScreen() {
     </ScrollView>
   );
 }
+
 ```
 
 ---
 
-## Q10. How Flexbox works in React Native compared to CSS
+## Q10. 🎨 How Flexbox works in React Native compared to CSS
 
 React Native uses a subset of Flexbox with some differences in default values and behavior, optimized for mobile layouts - designed for touch interfaces and mobile layouts (mobile optimized). Column by default (row in CSS) (default direction).
 
@@ -265,6 +274,7 @@ const styles = StyleSheet.create({
     margin: 10
   }
 });
+
 ```
 
 ---

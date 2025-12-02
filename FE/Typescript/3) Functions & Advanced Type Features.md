@@ -4,11 +4,11 @@
 
 </div>
 
-# 3. Functions & Advanced Type Features (Q22–31)
+# ⚡ 3. Functions & Advanced Type Features (Q22–31)
 
 ---
 
-## Q22. Function overloading and overriding
+## Q22. 🔧 Function overloading and overriding
 
 Function overloading allows you to define multiple signatures for the same function with different parameter types - TypeScript picks the right one based on what you pass, and you write one implementation that handles all cases. Overriding happens when a child class replaces a parent class method with its own implementation - the child's version runs at runtime instead of the parent's.
 
@@ -36,11 +36,12 @@ class Dog extends Animal {
     console.log("Woof!");
   }
 }
+
 ```
 
 ---
 
-## Q23. Default and rest parameters
+## Q23. 🌐 Default and rest parameters
 
 Default parameters provide fallback values, while rest parameters collect remaining arguments into an array - default and rest parameters improve function flexibility. Default parameters provide fallback values when arguments are omitted.
 
@@ -56,11 +57,12 @@ function greet(name: string, greeting: string = "Hello"): string {
 function sum(...numbers: number[]): number {
   return numbers.reduce((total, num) => total + num, 0);
 }
+
 ```
 
 ---
 
-## Q24. Generics and how to use them
+## Q24. 🔧 Generics and how to use them
 
 Generics allow you to write code once and use it with different types, keeping everything type-safe - generics provide better IDE support with IntelliSense. Maintain type information throughout function execution.
 
@@ -77,11 +79,12 @@ interface Container<T> {
   value: T;
   getValue(): T;
 }
+
 ```
 
 ---
 
-## Q25. Generic constraints and how to use them
+## Q25. 🔧 Generic constraints and how to use them
 
 The `extends` keyword constrains generic types to specific shapes or types, ensuring they have required properties - use with `keyof` operator to constrain to object keys. Limit generic types to specific shapes.
 
@@ -97,11 +100,12 @@ function getLength<T extends { length: number }>(item: T): number {
 function getKeys<T extends object>(obj: T): (keyof T)[] {
   return Object.keys(obj) as (keyof T)[];
 }
+
 ```
 
 ---
 
-## Q26. Utility types and how to use them
+## Q26. 📝 Utility types and how to use them
 
 Utility types are built-in type transformations that modify existing types for common use cases - utility types reduce boilerplate code. Partial (makes all properties optional), Pick (selects specific properties), Omit (excludes specific properties).
 
@@ -122,11 +126,12 @@ type UserName = Pick<User, 'name'>; // Only name
 type UserWithoutId = Omit<User, 'id'>; // Exclude id
 type RequiredUser = Required<PartialUser>; // All required
 type ReadonlyUser = Readonly<User>; // All readonly
+
 ```
 
 ---
 
-## Q27. Mapped types and how to use them
+## Q27. 📝 Mapped types and how to use them
 
 Mapped types transform existing types by applying transformations to each property, creating new types based on existing ones - mapped types enable complex type transformations. Iterate over all properties of a type.
 
@@ -142,11 +147,12 @@ type Optional<T> = {
 type Readonly<T> = {
   readonly [K in keyof T]: T[K];
 };
+
 ```
 
 ---
 
-## Q28. Conditional types and how to use them
+## Q28. 📝 Conditional types and how to use them
 
 Conditional types select one of two types based on a condition, enabling type-level programming and complex type transformations - conditional types enable complex type manipulations. Perform logic at the type level.
 
@@ -160,11 +166,12 @@ type IsString<T> = T extends string ? true : false;
 type ApiResponse<T> = T extends string 
   ? { message: T } 
   : { data: T };
+
 ```
 
 ---
 
-## Q29. `infer` keyword and how to use it
+## Q29. 🔧 `infer` keyword and how to use it
 
 `infer` extracts and infers types from other types within conditional types, enabling powerful type inference patterns - use cases include utility types, type extraction, pattern matching. Extract types from other types.
 
@@ -176,11 +183,12 @@ Example:
 type ReturnType<T> = T extends (...args: any[]) => infer R ? R : never;
 
 type Parameters<T> = T extends (...args: infer P) => any ? P : never;
+
 ```
 
 ---
 
-## Q30. `keyof` and `typeof` operators
+## Q30. 📝 `keyof` and `typeof` operators
 
 `keyof` extracts keys from object types, while `typeof` gets the type of a value, both enabling type-level operations - these operators enable type-level programming. `keyof` extracts all keys from object types, `typeof` gets type of a value or expression.
 
@@ -200,11 +208,12 @@ type UserName = User["name"]; // string
 
 const user = { id: 1, name: "John", age: 30 };
 type UserType = typeof user; // { id: number; name: string; age: number; }
+
 ```
 
 ---
 
-## Q31. Indexed access types and lookup types
+## Q31. 📇 Indexed access types and lookup types
 
 Indexed access types access property types using bracket notation, enabling type lookups and property type extraction - can create unions of property types. Access property types using bracket notation.
 
@@ -225,7 +234,14 @@ interface User {
 
 type UserId = User["id"]; // number
 type UserAddress = User["address"]; // { street: string; city: string; }
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Type System & Interfaces](2%29%20Type%20System%20%26%20Interfaces.md)** | **[Next: Classes & Object-Oriented Features →](4%29%20Classes%20%26%20Object-Oriented%20Features.md)**
+
+</div>
 

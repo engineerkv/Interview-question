@@ -8,7 +8,7 @@
 
 ---
 
-## Q79. Creating Android release builds
+## Q79. 🏗️ Creating Android release builds
 
 Configure signing in build.gradle, create a keystore, and build the release APK - use gradlew assembleRelease to build (build process). Use keytool to create release keystore (keystore creation).
 
@@ -37,11 +37,12 @@ android {
         }
     }
 }
+
 ```
 
 ---
 
-## Q80. Creating iOS release builds
+## Q80. 🏗️ Creating iOS release builds
 
 Configure code signing in Xcode, create provisioning profiles, and archive the app - manage development and distribution certificates (certificates). Configure code signing in Xcode (code signing).
 
@@ -56,11 +57,12 @@ Example:
 # 3. Select provisioning profile
 # 4. Archive the app
 # 5. Distribute to App Store
+
 ```
 
 ---
 
-## Q81. Handling build numbers and versioning
+## Q81. 🏗️ Handling build numbers and versioning
 
 Use consistent versioning strategies and automate version management across platforms - keep versions consistent across platforms (consistency). Use semantic versioning (major.minor.patch) (semantic versioning).
 
@@ -81,11 +83,12 @@ android {
         versionName "1.2.3"
     }
 }
+
 ```
 
 ---
 
-## Q82. Submitting apps to Google Play Store
+## Q82. 💡 Submitting apps to Google Play Store
 
 Follow Google Play Store guidelines for app quality, content, and technical requirements - target recent Android API levels (target API). Meet quality guidelines and standards (app quality).
 
@@ -103,11 +106,12 @@ Example:
         android:icon="@mipmap/ic_launcher">
     </application>
 </manifest>
+
 ```
 
 ---
 
-## Q83. Submitting apps to Apple App Store
+## Q83. 💡 Submitting apps to Apple App Store
 
 Follow Apple App Store guidelines for app quality, content, and technical requirements - use App Store Connect for submission (App Store Connect). Follow App Store review guidelines (app review).
 
@@ -125,11 +129,12 @@ Example:
     <key>NSPrivacyPolicyURL</key>
     <string>https://example.com/privacy</string>
 </dict>
+
 ```
 
 ---
 
-## Q84. Implementing phased rollouts
+## Q84. 🔧 Implementing phased rollouts
 
 Use store-specific rollout features to gradually release updates to users - ability to pause or rollback if issues arise (rollback). Release updates to subset of users first (gradual release).
 
@@ -148,11 +153,12 @@ const rolloutConfig = {
     phasedReleasePeriod: 7 // 7 days for phased release
   }
 };
+
 ```
 
 ---
 
-## Q85. Automating builds with Fastlane
+## Q85. 🏗️ Automating builds with Fastlane
 
 Use CI/CD tools to automate the build, test, and deployment process - automation improves development workflow. Fastlane (Ruby-based automation tool), EAS (Expo's build and deployment service), Bitrise (cloud-based CI/CD platform).
 
@@ -172,11 +178,12 @@ platform :android do
     upload_to_play_store
   end
 end
+
 ```
 
 ---
 
-## Q86. Handling store rejections and resubmissions
+## Q86. 💡 Handling store rejections and resubmissions
 
 Common causes include policy violations, technical issues, and quality problems that need to be addressed - prevention is better than fixing rejections. Follow store policies and guidelines (policy violations), Fix crashes and performance issues (technical issues).
 
@@ -195,11 +202,12 @@ Example:
 
 // 3. Misleading metadata
 // Fix: Ensure accurate app descriptions
+
 ```
 
 ---
 
-## Q87. Reducing app size for store submission
+## Q87. 💡 Reducing app size for store submission
 
 Use Hermes, code obfuscation, asset optimization, and other techniques to reduce app size - smaller apps improve download rates. Use Hermes JavaScript engine, Enable code obfuscation and shrinking (Proguard).
 
@@ -218,11 +226,12 @@ android {
         }
     }
 }
+
 ```
 
 ---
 
-## Q88. Implementing analytics in React Native apps
+## Q88. 📱 Implementing analytics in React Native apps
 
 Integrate analytics tools to track user behavior and app performance - analytics help improve app experience. Firebase Analytics (Google's analytics platform), Segment (customer data platform).
 
@@ -242,11 +251,12 @@ function App() {
     analytics().logEvent(eventName, params);
   };
 }
+
 ```
 
 ---
 
-## Q89. Handling app signing and certificates
+## Q89. 💡 Handling app signing and certificates
 
 Use proper certificate management, secure signing practices, and automated release processes - secure signing is critical for production. Keep Android keystore secure (keystore security), Manage iOS certificates properly (certificate management).
 
@@ -261,11 +271,12 @@ keytool -genkey -v -keystore my-release-key.keystore \
         -validity 10000
 
 # iOS certificate management - Use Xcode
+
 ```
 
 ---
 
-## Q90. Setting up CI/CD pipelines for React Native
+## Q90. 📱 Setting up CI/CD pipelines for React Native
 
 Configure automated pipelines for building, testing, and deploying React Native apps - implement quality gates in pipeline (quality gates). Use GitHub Actions for CI/CD (GitHub Actions).
 
@@ -289,6 +300,7 @@ jobs:
       - run: npm test
       - run: npm run build:android
       - run: npm run build:ios
+
 ```
 
 ---

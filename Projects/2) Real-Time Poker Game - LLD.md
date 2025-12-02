@@ -1,128 +1,145 @@
 # Real-Time Poker Game - Low Level Design (LLD)
 
-> **Project Type:** Multiplayer Real-time Card Game (Web Application)  
-> **Tech Stack:** React.js, TypeScript, Socket.io, REST APIs
+> **Project Type:** Full-Stack Web Application (MERN Stack)  
+> **Tech Stack:** 
+> - **Frontend:** React.js, TypeScript, React Router, Socket.io Client, Framer Motion, Material-UI
+> - **Backend:** Node.js, Express.js, MongoDB, Redis, Socket.io Server, JWT
 
 ---
 
 ## 3. Component Architecture
 
-### Routing Structure
+**Think of this as the building blocks - how components are organized and connected**
+
+### Component Hierarchy (React.js)
 
 ```
-App Router
-├── Public Routes
-│   ├── Login Page
-│   ├── Register Page
-│   └── Landing Page
-├── Protected Routes
-│   ├── Lobby Page
-│   │   ├── Room List
-│   │   ├── Create Room Modal
-│   │   └── Room Search
-│   ├── Game Room Page
-│   │   ├── Game Table
-│   │   ├── Player Seats
-│   │   ├── Community Cards
-│   │   ├── Action Buttons
-│   │   ├── Pot Display
-│   │   ├── Chat Panel
-│   │   └── Hand History
-│   ├── Profile Page
-│   │   ├── User Stats
-│   │   ├── Game History
-│   │   └── Settings
-│   └── Leaderboard Page
-└── Spectator Routes
-    └── Spectate Game Page
-```
-
-### Component Hierarchy
-
-```
-App
-├── Router
-│   ├── PublicRoute
-│   │   └── LoginPage
-│   │       ├── LoginForm
-│   │       └── SocialLogin
-│   └── ProtectedRoute
+App (Root Component - Entry Point)
+├── Layout (Main Layout with Navigation)
+│   ├── Header
+│   │   ├── Logo
+│   │   ├── UserMenu
+│   │   └── CreateRoomButton
+│   └── Main Content Area
+│       ├── LandingPage
+│       ├── LoginPage
+│       │   └── LoginForm
+│       │       ├── EmailInput
+│       │       ├── PasswordInput
+│       │       └── SubmitButton
 │       ├── LobbyPage
+│       │   ├── SearchBar
+│       │   ├── FilterBar
+│       │   │   ├── StatusFilter
+│       │   │   └── TypeFilter
 │       │   ├── RoomList
-│       │   │   ├── RoomCard
-│       │   │   │   ├── RoomInfo
-│       │   │   │   ├── PlayerCount
-│       │   │   │   └── JoinButton
-│       │   │   └── FilterBar
-│       │   ├── CreateRoomModal
-│       │   │   ├── RoomSettings
-│       │   │   └── CreateButton
-│       │   └── SearchBar
-│       ├── GameRoomPage
+│       │   │   └── RoomCard
+│       │   │       ├── RoomInfo
+│       │   │       │   ├── RoomName
+│       │   │       │   ├── Blinds
+│       │   │       │   └── BuyIn
+│       │   │       ├── PlayerCount
+│       │   │       └── JoinButton
+│       │   └── CreateRoomModal
+│       │       ├── RoomSettingsForm
+│       │       └── CreateButton
+│       ├── GameRoomPage (Main Game Interface)
 │       │   ├── GameTable
-│       │   │   ├── TableCanvas
-│       │   │   ├── PlayerSeats
+│       │   │   ├── TableCanvas (SVG/Canvas for table graphics)
+│       │   │   ├── PlayerSeats (6-9 seats around table)
 │       │   │   │   └── PlayerSeat
 │       │   │   │       ├── PlayerAvatar
-│       │   │   │       ├── PlayerCards
+│       │   │   │       ├── PlayerCards (animated card flip)
 │       │   │   │       ├── PlayerChips
 │       │   │   │       ├── PlayerStatus
+│       │   │   │       │   ├── ActiveBadge
+│       │   │   │       │   ├── FoldedBadge
+│       │   │   │       │   └── AllInBadge
 │       │   │   │       └── PlayerAction
-│       │   │   ├── CommunityCards
-│       │   │   │   └── Card
+│       │   │   ├── CommunityCards (Center of table)
+│       │   │   │   └── Card (animated)
+│       │   │   │       ├── CardFront
+│       │   │   │       └── CardBack
 │       │   │   ├── PotDisplay
 │       │   │   │   ├── MainPot
 │       │   │   │   └── SidePots
-│       │   │   └── DealerButton
-│       │   ├── ActionPanel
+│       │   │   └── DealerButton (animated, moves around table)
+│       │   ├── ActionPanel (Player's action buttons)
 │       │   │   ├── ActionButtons
 │       │   │   │   ├── FoldButton
 │       │   │   │   ├── CheckButton
 │       │   │   │   ├── CallButton
 │       │   │   │   ├── RaiseButton
 │       │   │   │   └── AllInButton
-│       │   │   ├── BetSlider
-│       │   │   └── TimerDisplay
-│       │   ├── ChatPanel
+│       │   │   ├── BetSlider (Adjust bet amount)
+│       │   │   │   ├── MinBet
+│       │   │   │   ├── MaxBet
+│       │   │   │   └── CurrentBet
+│       │   │   └── TimerDisplay (Time left to act)
+│       │   │       └── ProgressBar
+│       │   ├── ChatPanel (collapsible side panel)
+│       │   │   ├── ChatHeader
 │       │   │   ├── ChatMessages
 │       │   │   │   └── ChatMessage
+│       │   │   │       ├── UserAvatar
+│       │   │   │       ├── MessageText
+│       │   │   │       └── Timestamp
 │       │   │   └── ChatInput
-│       │   └── HandHistory
+│       │   └── HandHistory (modal overlay)
 │       │       └── HandHistoryItem
-│       └── ProfilePage
-│           ├── UserStats
-│           │   ├── WinRate
-│           │   ├── GamesPlayed
-│           │   └── TotalWinnings
-│           └── GameHistory
-│               └── GameHistoryItem
-└── GameProvider (Context)
-    ├── GameState
-    ├── SocketConnection
-    └── GameActions
+│       ├── ProfilePage
+│       │   ├── UserStats
+│       │   │   ├── WinRate
+│       │   │   ├── GamesPlayed
+│       │   │   └── TotalWinnings
+│       │   └── GameHistory
+│       │       └── GameHistoryItem
+│       ├── LeaderboardPage
+│       │   ├── GlobalLeaderboard
+│       │   └── TimePeriodFilter
+│       └── SpectateGamePage (Read-only game view)
+│           └── GameTable (Same as GameRoomPage but no actions)
+├── GameProvider (Context API - Game State Management)
+│   ├── GameState (Current game state - cards, pot, players)
+│   ├── SocketConnection (WebSocket connection status)
+│   └── GameActions (Functions to perform game actions)
+└── ThemeProvider (Material-UI Theme)
+    └── CustomTheme (Light/Dark mode, colors, typography)
 ```
+
+**How components work together:**
+- **App** is the root - wraps everything, provides context
+- **Layout** provides structure - header, main content area
+- **Pages** are top-level components - LobbyPage, GameRoomPage, ProfilePage
+- **GameRoomPage** is the main game interface - has GameTable, ActionPanel, ChatPanel
+- **GameTable** shows the poker table - PlayerSeats, CommunityCards, PotDisplay
+- **ActionPanel** lets players act - buttons for Fold, Call, Raise, etc.
+- **GameProvider** manages game state - connects to Socket.io, updates UI in real-time
+- **ThemeProvider** manages styling - colors, fonts, dark/light mode
 
 ### Data Sharing Strategy
 
 #### Global State (Context API + useReducer)
-- **Game State:** Current game room, players, cards, pot, betting round
-- **User State:** Current user, authentication status
-- **Socket State:** Connection status, room subscriptions
-- **UI State:** Modals, notifications, loading states
+- **Game State:** Current game room, players, cards, pot, betting round, phase
+- **User State:** Current user, authentication status, user stats
+- **Socket State:** Connection status, room subscriptions, reconnection state
+- **UI State:** Modals, notifications, loading states, theme
 
-#### Local State (Component State)
-- **Form Inputs:** Login form, room creation form, chat input
-- **UI State:** Modal visibility, dropdowns, tooltips
-- **Animation State:** Card flip states, chip animation states
+#### Local State (React useState/useReducer)
+- **Form Inputs:** Login form, room creation form, chat input (React Hook Form)
+- **UI State:** Modal visibility, dropdowns, tooltips, selected filters
+- **Animation State:** Card flip states, chip animation states, transition states
+- **Component-specific State:** Loading states, error states
 
 #### Socket.io Events
 - **Real-time Updates:** Game actions, player updates, card dealing
-- **Room Events:** Player join/leave, room updates
-- **Chat Events:** New messages, typing indicators
+- **Room Events:** Player join/leave, room updates, room status changes
+- **Chat Events:** New messages, typing indicators, user presence
 
 #### Props Drilling
 - **Simple Data:** Pass props for parent-child communication
 - **Avoid Deep Nesting:** Use Context for deeply nested game components
+- **Component Composition:** Use children props and render props pattern
 
 ---
 
@@ -246,7 +263,12 @@ interface ChatMessage {
 
 ## 5. Data APIs
 
+**Note:** All API endpoints are implemented on the **backend (Node.js/Express)**, and the **frontend (React.js)** calls these APIs using Axios. Socket.io events are handled by **backend Socket.io server** and received by **frontend Socket.io client**.
+
 ### Authentication APIs
+
+**Backend Implementation:** Express.js routes handle authentication logic  
+**Frontend Implementation:** React components call these APIs and handle responses
 
 #### POST /api/auth/register
 - **URL:** `/api/auth/register`
@@ -500,50 +522,132 @@ interface ChatMessage {
 
 ---
 
-## 7. Implementation Details
+## 8. Implementation Details
+
+**Note:** Implementation details are split between frontend (React.js) and backend (Node.js/Express.js/Socket.io). Each section indicates where the code runs.
 
 ### Code Splitting with React.lazy
+
+**Frontend Implementation:** React.js code splitting for faster initial load
 ```typescript
-// Lazy load game room page
-const GameRoomPage = React.lazy(() => import('./pages/GameRoomPage'));
-const LobbyPage = React.lazy(() => import('./pages/LobbyPage'));
+import { lazy, Suspense } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { CircularProgress, Box } from '@mui/material';
+
+// Lazy load pages - only loads code when you visit that page, like opening one chapter of a book
+const GameRoomPage = lazy(() => import('./pages/GameRoomPage'));
+const LobbyPage = lazy(() => import('./pages/LobbyPage'));
+const ProfilePage = lazy(() => import('./pages/ProfilePage'));
+const LeaderboardPage = lazy(() => import('./pages/LeaderboardPage'));
+
+// Loading fallback component
+const LoadingFallback = () => (
+  <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+    <CircularProgress />
+  </Box>
+);
 
 // Route with Suspense
-<Suspense fallback={<LoadingSpinner />}>
+<Suspense fallback={<LoadingFallback />}>
   <Routes>
     <Route path="/game/:roomId" element={<GameRoomPage />} />
     <Route path="/lobby" element={<LobbyPage />} />
+    <Route path="/profile" element={<ProfilePage />} />
+    <Route path="/leaderboard" element={<LeaderboardPage />} />
   </Routes>
 </Suspense>
 ```
 
 ### Socket.io Connection Management
+
+**Frontend Implementation:** React.js Socket.io client connects to backend server  
+**Backend Implementation:** Socket.io server handles connections and broadcasts
+
+**Backend (Socket.io Server):**
 ```typescript
-// Socket connection setup
+// Backend: Socket.io server - handles all WebSocket connections
+```
+
+**Frontend Implementation:**
+```typescript
+// Frontend: Socket connection setup - like a walkie-talkie connection, automatically reconnects if it drops
 import { io, Socket } from 'socket.io-client';
+import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 
-const socket: Socket = io(process.env.REACT_APP_SOCKET_URL, {
-  auth: {
-    token: getAuthToken()
-  },
-  transports: ['websocket'],
-  reconnection: true,
-  reconnectionDelay: 1000,
-  reconnectionAttempts: 5
-});
+interface SocketContextType {
+  socket: Socket | null;
+  isConnected: boolean;
+  joinRoom: (roomId: string) => void;
+  leaveRoom: (roomId: string) => void;
+}
 
-// Event listeners
-socket.on('connect', () => {
-  console.log('Connected to server');
-});
+const SocketContext = createContext<SocketContextType | null>(null);
 
-socket.on('disconnect', () => {
-  console.log('Disconnected from server');
-});
+export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [socket, setSocket] = useState<Socket | null>(null);
+  const [isConnected, setIsConnected] = useState(false);
 
-socket.on('game-state-updated', (gameState: GameState) => {
-  dispatch(updateGameState(gameState));
-});
+  useEffect(() => {
+    const token = localStorage.getItem('auth_token');
+    const newSocket = io(process.env.REACT_APP_SOCKET_URL!, {
+      auth: {
+        token
+      },
+      transports: ['websocket'],
+      reconnection: true,
+      reconnectionDelay: 1000,
+      reconnectionAttempts: 5,
+      timeout: 20000,
+    });
+
+    newSocket.on('connect', () => {
+      console.log('Connected to server');
+      setIsConnected(true);
+    });
+
+    newSocket.on('disconnect', (reason) => {
+      console.log('Disconnected from server:', reason);
+      setIsConnected(false);
+    });
+
+    newSocket.on('connect_error', (error) => {
+      console.error('Connection error:', error);
+      setIsConnected(false);
+    });
+
+    setSocket(newSocket);
+
+    return () => {
+      newSocket.close();
+    };
+  }, []);
+
+  const joinRoom = useCallback((roomId: string) => {
+    if (socket && isConnected) {
+      socket.emit('join-room', roomId);
+    }
+  }, [socket, isConnected]);
+
+  const leaveRoom = useCallback((roomId: string) => {
+    if (socket && isConnected) {
+      socket.emit('leave-room', roomId);
+    }
+  }, [socket, isConnected]);
+
+  return (
+    <SocketContext.Provider value={{ socket, isConnected, joinRoom, leaveRoom }}>
+      {children}
+    </SocketContext.Provider>
+  );
+};
+
+export const useSocket = () => {
+  const context = useContext(SocketContext);
+  if (!context) {
+    throw new Error('useSocket must be used within SocketProvider');
+  }
+  return context;
+};
 ```
 
 ### Game State Management with Context API
@@ -592,37 +696,118 @@ const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 ```
 
 ### Card Animation with Framer Motion
-```typescript
-import { motion } from 'framer-motion';
 
-// Card component with animation
-const Card: React.FC<{ card: Card; delay?: number }> = ({ card, delay = 0 }) => {
+**Frontend Implementation:** React.js components use Framer Motion for animations
+```typescript
+import { motion, AnimatePresence } from 'framer-motion';
+import { Box } from '@mui/material';
+
+// Card component with flip animation - cards flip and slide smoothly, feels like real cards
+const Card: React.FC<{ card: Card; delay?: number; isFlipping?: boolean }> = ({ 
+  card, 
+  delay = 0,
+  isFlipping = false 
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0, rotateY: 180 }}
-      animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-      transition={{ duration: 0.5, delay }}
+      animate={{ 
+        opacity: 1, 
+        scale: 1, 
+        rotateY: isFlipping ? 0 : 180 
+      }}
+      transition={{ 
+        duration: 0.5, 
+        delay,
+        ease: "easeInOut"
+      }}
+      style={{
+        perspective: '1000px',
+        transformStyle: 'preserve-3d',
+      }}
       className="card"
     >
-      {card.isVisible ? (
-        <img src={`/cards/${card.suit}-${card.rank}.png`} alt={`${card.rank} of ${card.suit}`} />
-      ) : (
-        <img src="/cards/back.png" alt="Card back" />
-      )}
+      <AnimatePresence mode="wait">
+        {card.isVisible ? (
+          <motion.img
+            key="front"
+            initial={{ rotateY: 180 }}
+            animate={{ rotateY: 0 }}
+            exit={{ rotateY: 180 }}
+            src={`/cards/${card.suit}-${card.rank}.png`}
+            alt={`${card.rank} of ${card.suit}`}
+            style={{ width: '100%', height: '100%' }}
+          />
+        ) : (
+          <motion.img
+            key="back"
+            initial={{ rotateY: 0 }}
+            animate={{ rotateY: 180 }}
+            exit={{ rotateY: 0 }}
+            src="/cards/back.png"
+            alt="Card back"
+            style={{ width: '100%', height: '100%' }}
+          />
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
 
-// Chip animation
-const Chip: React.FC<{ amount: number; position: { x: number; y: number } }> = ({ amount, position }) => {
+// Chip animation with physics
+const Chip: React.FC<{ 
+  amount: number; 
+  from: { x: number; y: number };
+  to: { x: number; y: number };
+  onComplete?: () => void;
+}> = ({ amount, from, to, onComplete }) => {
   return (
     <motion.div
-      initial={{ x: 0, y: 0, scale: 0 }}
-      animate={{ x: position.x, y: position.y, scale: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      initial={{ 
+        x: from.x, 
+        y: from.y, 
+        scale: 0,
+        opacity: 0
+      }}
+      animate={{ 
+        x: to.x, 
+        y: to.y, 
+        scale: 1,
+        opacity: 1
+      }}
+      exit={{
+        scale: 0,
+        opacity: 0
+      }}
+      transition={{ 
+        duration: 0.6, 
+        ease: "easeOut",
+        type: "spring",
+        stiffness: 200,
+        damping: 20
+      }}
+      onAnimationComplete={onComplete}
+      style={{
+        position: 'absolute',
+        zIndex: 1000,
+      }}
       className="chip"
     >
-      {amount}
+      <Box
+        sx={{
+          width: 60,
+          height: 60,
+          borderRadius: '50%',
+          backgroundColor: 'gold',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontWeight: 'bold',
+          boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
+        }}
+      >
+        {amount}
+      </Box>
     </motion.div>
   );
 };
@@ -734,16 +919,20 @@ socket.on('error', (error: { message: string; code: string }) => {
 ```
 
 ### Performance Optimizations
+
+**Frontend Optimizations:** React.js code splitting, lazy loading, memoization  
+**Backend Optimizations:** Redis caching for game state, efficient database queries
 ```typescript
-// Virtual scrolling for large lists
+// Virtual scrolling - only renders what's visible, like a window showing part of a long list
 import { FixedSizeList } from 'react-window';
+import { memo } from 'react';
 
 const RoomList: React.FC<{ rooms: GameRoom[] }> = ({ rooms }) => {
-  const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => (
+  const Row = memo(({ index, style }: { index: number; style: React.CSSProperties }) => (
     <div style={style}>
       <RoomCard room={rooms[index]} />
     </div>
-  );
+  ));
 
   return (
     <FixedSizeList
@@ -751,24 +940,29 @@ const RoomList: React.FC<{ rooms: GameRoom[] }> = ({ rooms }) => {
       itemCount={rooms.length}
       itemSize={100}
       width="100%"
+      overscanCount={5}
     >
       {Row}
     </FixedSizeList>
   );
 };
 
-// Image lazy loading
+// Image lazy loading - loads images as you scroll, like Instagram with Intersection Observer
 const LazyCardImage: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isInView, setIsInView] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setIsLoaded(true);
-        observer.disconnect();
-      }
-    });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '50px' }
+    );
 
     if (imgRef.current) {
       observer.observe(imgRef.current);
@@ -780,12 +974,42 @@ const LazyCardImage: React.FC<{ src: string; alt: string }> = ({ src, alt }) => 
   return (
     <img
       ref={imgRef}
-      src={isLoaded ? src : '/placeholder.png'}
+      src={isInView ? src : '/placeholder.png'}
       alt={alt}
       loading="lazy"
+      onLoad={() => setIsLoaded(true)}
+      style={{
+        opacity: isLoaded ? 1 : 0,
+        transition: 'opacity 0.3s',
+      }}
     />
   );
 };
+
+// Memoized expensive calculations - remembers result, recalculates only when inputs change
+const HandRankDisplay: React.FC<{ cards: Card[] }> = ({ cards }) => {
+  const handRank = useMemo(() => {
+    return calculateHandRank(cards);
+  }, [cards]);
+
+  return <div>{handRank.description}</div>;
+};
+
+// Memoized components - remembers component output, skips re-render if props didn't change
+const PlayerSeat = memo(({ player }: { player: Player }) => {
+  return (
+    <div className="player-seat">
+      <PlayerAvatar player={player} />
+      <PlayerCards cards={player.cards} />
+      <PlayerChips chips={player.chips} />
+    </div>
+  );
+}, (prevProps, nextProps) => {
+  // Custom comparison function
+  return prevProps.player.id === nextProps.player.id &&
+         prevProps.player.chips === nextProps.player.chips &&
+         prevProps.player.status === nextProps.player.status;
+});
 ```
 
 ### Security Implementation

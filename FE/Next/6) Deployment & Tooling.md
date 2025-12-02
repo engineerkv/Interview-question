@@ -4,11 +4,11 @@
 
 </div>
 
-# 6. Deployment & Tooling (Q49–60)
+# 🚀 6. Deployment & Tooling (Q49–60)
 
 ---
 
-## Q49. Deploying Next.js applications to Vercel
+## Q49. 💡 Deploying Next.js applications to Vercel
 
 Vercel automatically optimizes images, enables edge functions, and provides analytics - Vercel provides zero-config deployment. Automatic deployments on git push, automatic image optimization.
 
@@ -23,11 +23,12 @@ Example:
   "buildCommand": "npm run build",
   "outputDirectory": ".next"
 }
+
 ```
 
 ---
 
-## Q50. Creating custom servers for Next.js
+## Q50. 💡 Creating custom servers for Next.js
 
 Create a custom server using `next()` function with Express or Node.js - not recommended for new projects (legacy). Only needed for specific requirements (custom server).
 
@@ -48,11 +49,12 @@ app.prepare().then(() => {
   server.get('*', (req, res) => handle(req, res));
   server.listen(3000);
 });
+
 ```
 
 ---
 
-## Q51. Different build output types
+## Q51. 🏗️ Different build output types
 
 Different build outputs for different deployment targets and optimization levels - choose output type based on deployment target. Standalone (self-contained build for Docker), Export (static files for static hosting), Default (optimized for Vercel deployment).
 
@@ -65,11 +67,12 @@ Example:
 const nextConfig = {
   output: 'standalone', // Self-contained build for Docker
 };
+
 ```
 
 ---
 
-## Q52. Handling environment-specific settings
+## Q52. 💡 Handling environment-specific settings
 
 Use different `.env` files and environment variables for different deployment stages - set environment variables in deployment pipeline (CI/CD). Use different `.env` files for different stages (environment files).
 
@@ -87,11 +90,12 @@ NEXT_PUBLIC_API_URL=https://staging-api.example.com
 
 // .env.production (production)
 NEXT_PUBLIC_API_URL=https://api.example.com
+
 ```
 
 ---
 
-## Q53. Integrating ESLint and TypeScript
+## Q53. 📝 Integrating ESLint and TypeScript
 
 Install ESLint and TypeScript packages and configure them for Next.js - better IDE support and error detection (development). TypeScript provides type safety and better development experience.
 
@@ -102,11 +106,12 @@ Example:
 ```bash
 npm install --save-dev typescript @types/react @types/node
 npm install --save-dev eslint eslint-config-next
+
 ```
 
 ---
 
-## Q54. Setting up CI/CD for Next.js applications
+## Q54. 💡 Setting up CI/CD for Next.js applications
 
 Next.js works with various CI/CD platforms for automated deployment - CI/CD improves development workflow. GitHub Actions (popular CI/CD platform), Vercel (automatic deployments from Git), Docker (containerized deployment).
 
@@ -127,11 +132,12 @@ jobs:
       - uses: actions/checkout@v2
       - run: npm install
       - run: npm run build
+
 ```
 
 ---
 
-## Q55. Implementing static export with `exportPathMap`
+## Q55. 🔧 Implementing static export with `exportPathMap`
 
 Static export generates static HTML files for deployment to any static hosting - good for SEO-friendly sites (SEO). Generates static HTML files (static export).
 
@@ -148,11 +154,12 @@ const nextConfig = {
     unoptimized: true
   }
 };
+
 ```
 
 ---
 
-## Q56. Debugging and profiling Next.js applications
+## Q56. 🐛 Debugging and profiling Next.js applications
 
 Use browser DevTools, React Profiler, and Next.js built-in analyzers - debugging tools improve development experience. Use browser DevTools for debugging, React Profiler for component performance, Bundle Analyzer for bundle size.
 
@@ -165,11 +172,12 @@ Example:
 const nextConfig = {
   productionBrowserSourceMaps: true,
 };
+
 ```
 
 ---
 
-## Q57. Implementing partial prerendering and streaming
+## Q57. 🌊 Implementing partial prerendering and streaming
 
 Partial prerendering combines static and dynamic content for optimal performance - page loads progressively. Combines static and dynamic content (partial prerendering).
 
@@ -192,11 +200,12 @@ export default function Page() {
     </div>
   );
 }
+
 ```
 
 ---
 
-## Q58. Using Turbopack for faster development
+## Q58. 💡 Using Turbopack for faster development
 
 Turbopack is a faster bundler written in Rust, replacing Webpack for development - will replace Webpack for production builds (future). Rust-based bundler, much faster than Webpack.
 
@@ -213,11 +222,12 @@ const nextConfig = {
     }
   }
 };
+
 ```
 
 ---
 
-## Q59. Migrating from Next.js 12 to Next.js 14
+## Q59. 💡 Migrating from Next.js 12 to Next.js 14
 
 Migrate gradually by moving pages to App Router and updating data fetching patterns - mark interactive components with 'use client' (client components). Migrate page by page (gradual migration).
 
@@ -234,11 +244,12 @@ Example:
     "react": "18.0.0"
   }
 }
+
 ```
 
 ---
 
-## Q60. Best practices for Next.js deployment
+## Q60. 🚀 Best practices for Next.js deployment
 
 Use proper build configuration, optimize assets, enable caching, and monitor performance - follow deployment best practices for production readiness. Use proper build configuration, optimize assets, enable caching.
 
@@ -254,7 +265,14 @@ const nextConfig = {
   poweredByHeader: false,
   generateEtags: true,
 };
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Architecture & Best Practices](5%29%20Architecture%20%26%20Best%20Practices.md)** | **[Next: Question List →](question.md)**
+
+</div>
 

@@ -4,11 +4,11 @@
 
 </div>
 
-# 3. Routing & Navigation (Q21–27)
+# 🧭 3. Routing & Navigation (Q21–27)
 
 ---
 
-## Q21. Nested routing in App Router
+## Q21. 🛣️ Nested routing in App Router
 
 Nested routes create layouts that wrap child pages, with `layout.js` files defining shared UI - layouts compose together for complex UIs (composition). Each folder can have its own layout (nested layouts).
 
@@ -28,11 +28,12 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
 ```
 
 ---
 
-## Q22. Parallel Routes and how to use them
+## Q22. 🔧 Parallel Routes and how to use them
 
 Parallel routes render multiple pages simultaneously, while intercepting routes show pages in modals - parallel routes enable complex dashboard layouts. Parallel routes render multiple pages in same layout, intercepting routes show pages in modals or overlays.
 
@@ -46,11 +47,12 @@ Example:
 export default function Analytics() {
   return <div>Analytics Panel</div>;
 }
+
 ```
 
 ---
 
-## Q23. Intercepting Routes and how to use them
+## Q23. 🔧 Intercepting Routes and how to use them
 
 Intercepting routes show pages in modals or overlays without changing the URL - great for modal dialogs and overlays (modals). Use `(.)` prefix for same-level intercepting, `(..)` for parent level.
 
@@ -64,11 +66,12 @@ Example:
 export default function PhotoModal({ params }) {
   return <div>Photo {params.id}</div>;
 }
+
 ```
 
 ---
 
-## Q24. Handling `not-found.tsx` and `error.tsx`
+## Q24. ⚠️ Handling `not-found.tsx` and `error.tsx`
 
 These files handle 404 errors, runtime errors, and loading states respectively in the App Router - these files improve error handling and loading states. `not-found.tsx` handles 404 errors and missing pages, `error.tsx` handles runtime errors and exceptions, `loading.tsx` shows loading states during navigation.
 
@@ -97,11 +100,12 @@ export default function Error({ error, reset }) {
     </div>
   );
 }
+
 ```
 
 ---
 
-## Q25. Using `loading.tsx` for loading states
+## Q25. 📊 Using `loading.tsx` for loading states
 
 `loading.tsx` shows loading states during navigation automatically - provides better UX during route transitions. Automatically shows during route transitions.
 
@@ -114,11 +118,12 @@ Example:
 export default function Loading() {
   return <div>Loading...</div>;
 }
+
 ```
 
 ---
 
-## Q26. Using `useRouter()` and `router.push()`
+## Q26. 📲 Using `useRouter()` and `router.push()`
 
 Use `useRouter()` to get the router object and call `push()` to navigate programmatically - use router for client-side navigation. `useRouter` hook for programmatic navigation.
 
@@ -139,11 +144,12 @@ export default function Navigation() {
     </button>
   );
 }
+
 ```
 
 ---
 
-## Q27. Implementing redirects and rewrites
+## Q27. 🔧 Implementing redirects and rewrites
 
 Configure redirects, rewrites, and headers in the `next.config.js` file for routing and security - these configs affect routing and security. Redirects (permanent (301) or temporary (302) redirects), Rewrites (internal URL rewriting without changing browser URL), Headers (security headers and CORS configuration).
 
@@ -175,7 +181,14 @@ const nextConfig = {
     ];
   }
 };
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Data Fetching & Rendering](2%29%20Data%20Fetching%20%26%20Rendering.md)** | **[Next: Performance & Optimization →](4%29%20Performance%20%26%20Optimization.md)**
+
+</div>
 

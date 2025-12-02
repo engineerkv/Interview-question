@@ -4,11 +4,11 @@
 
 </div>
 
-# 4. CSS Architecture & Design Systems (Q41–48)
+# 🏗️ 4. CSS Architecture & Design Systems (Q41–48)
 
 ---
 
-## Q41. BEM methodology: what it is and how it works
+## Q41. 📝 BEM methodology: what it is and how it works
 
 BEM (Block, Element, Modifier) is a CSS naming convention that creates clear, maintainable, and scalable CSS by establishing a strict naming structure - BEM prevents specificity wars and improves maintainability. Block (independent component), Element (part of block), Modifier (variation or state).
 
@@ -30,11 +30,12 @@ Example:
 .card--featured { 
   border: 2px solid gold; 
 }
+
 ```
 
 ---
 
-## Q42. OOCSS (Object-Oriented CSS) principles
+## Q42. 📦 OOCSS (Object-Oriented CSS) principles
 
 OOCSS separates structure from skin, creating reusable CSS objects that can be combined to build complex interfaces without duplication - OOCSS promotes reusability and maintainability. Separate layout properties from visual properties (structure vs skin).
 
@@ -56,11 +57,12 @@ Example:
 .media__content { 
   flex: 1; 
 }
+
 ```
 
 ---
 
-## Q43. SMACSS (Scalable and Modular CSS): what it is and its principles
+## Q43. 🎨 SMACSS (Scalable and Modular CSS): what it is and its principles
 
 SMACSS organizes CSS into five categories (Base, Layout, Module, State, Theme) to create scalable and maintainable stylesheets - SMACSS provides structure for large CSS codebases. Base (default styles), Layout (major structure, prefixed with `l-`), Module (reusable components, prefixed with `m-`), State (element states, prefixed with `is-` or `has-`), Theme (visual themes, prefixed with `t-`).
 
@@ -90,11 +92,12 @@ html, body {
   background-color: #007bff; 
   color: white; 
 }
+
 ```
 
 ---
 
-## Q44. CSS-in-JS: what it is and its benefits
+## Q44. 🎨 CSS-in-JS: what it is and its benefits
 
 CSS-in-JS allows you to write CSS styles in JavaScript, providing component-scoped styles, dynamic styling, and better integration with modern frameworks - CSS-in-JS improves component isolation and dynamic styling. Styles are automatically scoped to components, no global pollution.
 
@@ -112,11 +115,12 @@ const Button = styled.button`
   border: none;
   border-radius: 4px;
 `;
+
 ```
 
 ---
 
-## Q45. CSS Modules: what it is and how it works
+## Q45. 🎨 CSS Modules: what it is and how it works
 
 CSS Modules automatically scope CSS classes to components, preventing style conflicts and enabling modular CSS architecture - CSS Modules provide automatic scoping without JavaScript runtime. Classes are automatically prefixed with unique identifiers, preventing style conflicts.
 
@@ -136,6 +140,7 @@ Example:
   padding: 12px 24px; 
   font-size: 18px; 
 }
+
 ```
 
 ```javascript
@@ -147,11 +152,12 @@ function Button({ children, size }) {
   ].filter(Boolean).join(' ');
   return <button className={className}>{children}</button>;
 }
+
 ```
 
 ---
 
-## Q46. CSS architecture: what it is and how to organize large stylesheets
+## Q46. 🎨 CSS architecture: what it is and how to organize large stylesheets
 
 CSS custom properties enable consistent theming and design tokens in design systems, allowing dynamic theme switching and centralized style management - CSS variables are essential for modern design systems. Centralized values for colors, spacing, typography, and other design elements.
 
@@ -167,11 +173,12 @@ Example:
   --spacing-unit: 8px;
   --border-radius: 4px;
 }
+
 ```
 
 ---
 
-## Q47. CSS preprocessors in large projects
+## Q47. 🎨 CSS preprocessors in large projects
 
 CSS architecture involves organizing stylesheets into logical sections and using methodologies to create maintainable, scalable CSS codebases - CSS architecture requires documentation and consistent conventions. Group related styles into separate files for better maintainability.
 
@@ -185,10 +192,10 @@ Example:
 @import 'utilities/spacing.css';
 @import 'layout/header.css';
 @import 'components/button.css';
+
 ```
 
 ---
-
 
 CSS preprocessors provide powerful features for managing large CSS codebases, including variables, mixins, functions, and modular architecture - preprocessors compile to standard CSS, browser support depends on output. Centralized values for colors, spacing, breakpoints, and other design tokens.
 
@@ -209,6 +216,13 @@ $breakpoints: (
     @content; 
   }
 }
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Advanced CSS Concepts](3%29%20Advanced%20CSS%20Concepts.md)** | **[Next: Performance & Optimization →](5%29%20Performance%20%26%20Optimization.md)**
+
+</div>

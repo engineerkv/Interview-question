@@ -8,7 +8,7 @@
 
 ---
 
-## Q51. State management tools available for React Native
+## Q51. 📊 State management tools available for React Native
 
 Popular tools include Redux, Redux Toolkit, Recoil, Zustand, and Context API for state management - choose based on app complexity and team preference. Redux (most popular, complex but powerful), Redux Toolkit (simplified Redux with less boilerplate).
 
@@ -30,11 +30,12 @@ const counterSlice = createSlice({
 const store = configureStore({
   reducer: { counter: counterSlice.reducer }
 });
+
 ```
 
 ---
 
-## Q52. Implementing Redux in React Native
+## Q52. 📱 Implementing Redux in React Native
 
 Use Redux Toolkit for complex state logic and multiple components, Context API for simple state and fewer components - start with Context API, migrate to Redux if needed. Context API (good for simple state and fewer components), Redux Toolkit (better for complex state and many components).
 
@@ -54,11 +55,12 @@ function ThemeProvider({ children }) {
     </ThemeContext.Provider>
   );
 }
+
 ```
 
 ---
 
-## Q53. Using Recoil for state management
+## Q53. 📊 Using Recoil for state management
 
 Use AsyncStorage for simple key-value storage, MMKV for better performance, or SQLite for complex relational data - choose storage based on data structure. AsyncStorage (simple key-value storage, good for small data), MMKV (better performance, good for frequent access), SQLite (relational database, good for complex data).
 
@@ -76,11 +78,12 @@ const storeData = async (key, value) => {
     console.error('Error storing data:', error);
   }
 };
+
 ```
 
 ---
 
-## Q54. Implementing Zustand for state management
+## Q54. 📊 Implementing Zustand for state management
 
 AsyncStorage stores data in plain text, while SecureStorage encrypts data for sensitive information like tokens - always use SecureStorage for sensitive data. AsyncStorage is plain text storage, not secure; SecureStorage is encrypted storage, secure for sensitive data.
 
@@ -102,11 +105,12 @@ import * as Keychain from 'react-native-keychain';
 const storeSecureToken = async (token) => {
   await Keychain.setGenericPassword('authToken', token);
 };
+
 ```
 
 ---
 
-## Q55. Using Context API for state management
+## Q55. 📊 Using Context API for state management
 
 Use local storage, sync mechanisms, and network state detection to build apps that work offline - provide seamless offline experience (user experience). Store data locally for offline access (local storage).
 
@@ -132,11 +136,12 @@ function OfflineFirstApp() {
     return () => unsubscribe();
   }, []);
 }
+
 ```
 
 ---
 
-## Q56. Persisting data locally with AsyncStorage
+## Q56. ⚡ Persisting data locally with AsyncStorage
 
 Use background tasks, push notifications, and sync strategies to update data when the app is in the background - handle platform-specific limitations. Use background task libraries (background tasks).
 
@@ -155,11 +160,12 @@ function BackgroundSync() {
     });
   }, []);
 }
+
 ```
 
 ---
 
-## Q57. MMKV and how it compares to AsyncStorage
+## Q57. ⚡ MMKV and how it compares to AsyncStorage
 
 Batching groups multiple state updates into a single render cycle, reducing the number of re-renders and improving performance - React 18 has improved batching. React Native automatically batches updates (automatic batching).
 
@@ -179,11 +185,12 @@ function BatchingExample() {
     // Only one re-render occurs
   };
 }
+
 ```
 
 ---
 
-## Q58. Implementing offline-first apps
+## Q58. 🔧 Implementing offline-first apps
 
 Use platform-specific configuration files and build-time environment variables for different environments - use build scripts to set environment variables. Set variables at build time (build-time variables).
 
@@ -205,11 +212,12 @@ const config = {
 
 const env = __DEV__ ? 'development' : 'production';
 export const API_URL = config[env].apiUrl;
+
 ```
 
 ---
 
-## Q59. Handling background data synchronization
+## Q59. 💡 Handling background data synchronization
 
 Use secure storage solutions, environment variables, and proper key management practices - control access to sensitive data (access control). Use keychain or keystore for sensitive data (secure storage).
 
@@ -227,11 +235,12 @@ const storeApiKey = async (apiKey) => {
     console.error('Error storing key:', error);
   }
 };
+
 ```
 
 ---
 
-## Q60. Implementing data batching for performance
+## Q60. ⚡ Implementing data batching for performance
 
 Avoid prop drilling, mutating state directly, overusing global state, and not properly handling async state - recognize and fix these patterns early. Avoid passing props through multiple levels (prop drilling), never mutate state directly (state mutation).
 
@@ -251,6 +260,7 @@ function Parent({ user, setUser }) {
 }
 
 // ✅ Better: Use Context or Redux
+
 ```
 
 ---

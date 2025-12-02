@@ -4,11 +4,11 @@
 
 </div>
 
-# 5. Transactions, Concurrency & Stored Logic (Q41–50)
+# 🔄 5. Transactions, Concurrency & Stored Logic (Q41–50)
 
 ---
 
-## Q41. Transaction in SQL
+## Q41. 🗄️ Transaction in SQL
 
 A transaction is a sequence of operations treated as a single unit that ensures data consistency and reliability through ACID properties. Atomicity means all operations succeed or all fail (all-or-nothing), Consistency ensures the database remains in a valid state, Isolation prevents concurrent transactions from interfering, and Durability ensures committed changes persist even after system failure.
 
@@ -23,11 +23,12 @@ UPDATE accounts SET balance = balance + 1000 WHERE account_id = 2;
 COMMIT;
 
 -- If any operation fails, ROLLBACK is automatic
+
 ```
 
 ---
 
-## Q42. ACID properties of transactions
+## Q42. 🔄 ACID properties of transactions
 
 COMMIT saves all changes permanently and makes them visible to other transactions, ROLLBACK undoes all changes since the last COMMIT, and SAVEPOINT creates a named point to rollback to within a transaction. You can rollback to specific savepoints without ending the transaction, which is useful for partial error recovery.
 
@@ -47,13 +48,14 @@ COMMIT;
 
 -- Or rollback to savepoint if needed
 -- ROLLBACK TO sp1;
+
 ```
 
 ---
 
 ---
 
-## Q43. Difference between COMMIT and ROLLBACK
+## Q43. 🤔 Difference between COMMIT and ROLLBACK
 
 Isolation levels control how transactions interact with each other, balancing data consistency with performance by controlling what data changes are visible to concurrent transactions. READ UNCOMMITTED is lowest (allows dirty reads, fastest), READ COMMITTED prevents dirty reads, REPEATABLE READ prevents dirty and non-repeatable reads, and SERIALIZABLE is highest (prevents all anomalies, slowest).
 
@@ -69,13 +71,14 @@ SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
 BEGIN TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 SELECT * FROM accounts WHERE account_id = 1;
 COMMIT;
+
 ```
 
 ---
 
 ---
 
-## Q44. Isolation levels in SQL
+## Q44. 🗄️ Isolation levels in SQL
 
 A deadlock occurs when two or more transactions wait indefinitely for each other to release locks, creating a circular dependency that prevents any transaction from completing. The database automatically detects and resolves deadlocks by choosing one transaction as a victim and rolling it back.
 
@@ -96,13 +99,14 @@ BEGIN TRANSACTION;
 UPDATE accounts SET balance = balance - 50 WHERE account_id = 2;
 UPDATE accounts SET balance = balance + 50 WHERE account_id = 1;
 COMMIT;
+
 ```
 
 ---
 
 ---
 
-## Q45. Deadlock and how to prevent it
+## Q45. 🔄 Deadlock and how to prevent it
 
 Phantom reads occur when a transaction sees different sets of rows in repeated queries, while dirty reads occur when a transaction reads uncommitted data from another transaction. Non-repeatable reads happen when the same row has different values in repeated reads. Higher isolation levels prevent these anomalies but require more locking and reduce concurrency.
 
@@ -121,13 +125,14 @@ ROLLBACK;
 
 -- Transaction 2 (reads uncommitted data - dirty read)
 SELECT balance FROM accounts WHERE account_id = 1; -- Reads 1000 (dirty read)
+
 ```
 
 ---
 
 ---
 
-## Q46. Difference between optimistic and pessimistic locking
+## Q46. 🤔 Difference between optimistic and pessimistic locking
 
 Optimistic locking assumes no conflicts and checks at commit time (using version/timestamp), while pessimistic locking acquires locks immediately to prevent conflicts during transaction execution. Optimistic is better for read-heavy workloads with low conflict probability, while pessimistic is better for write-heavy workloads.
 
@@ -145,13 +150,14 @@ WHERE product_id = 1 AND version = 5; -- Check version hasn't changed
 SELECT * FROM products WHERE product_id = 1 FOR UPDATE;
 UPDATE products SET stock = stock - 1 WHERE product_id = 1;
 COMMIT;
+
 ```
 
 ---
 
 ---
 
-## Q47. Stored procedures and how to create them
+## Q47. 🔧 Stored procedures and how to create them
 
 A trigger is a stored procedure that automatically executes in response to specific database events (INSERT, UPDATE, DELETE) on a table, useful for audit trails and business logic. Triggers fire automatically on specified events and are perfect for tracking data changes and maintaining history.
 
@@ -177,13 +183,14 @@ BEGIN
     FROM inserted
     INNER JOIN deleted ON inserted.id = deleted.id;
 END;
+
 ```
 
 ---
 
 ---
 
-## Q48. Triggers and when to use them
+## Q48. ⏰ Triggers and when to use them
 
 A stored procedure is a precompiled collection of SQL statements that can accept parameters and return result sets (can return multiple result sets, support output parameters), while a function returns a single value and can be used in SELECT statements. Stored procedures are precompiled and cached for better performance.
 
@@ -212,13 +219,14 @@ AS
 BEGIN
     RETURN (SELECT COUNT(*) FROM employees WHERE department_id = @dept_id);
 END;
+
 ```
 
 ---
 
 ---
 
-## Q49. User-defined functions in SQL
+## Q49. 🔧 User-defined functions in SQL
 
 Stored procedures centralize business logic in the database, providing better performance (precompiled and cached), security, and reduced network traffic, but they create database dependency and can complicate application maintenance. Changes require database deployment and are harder to version control and test.
 
@@ -242,13 +250,14 @@ BEGIN
     
     UPDATE products SET stock = stock - @quantity WHERE product_id = @product_id;
 END;
+
 ```
 
 ---
 
 ---
 
-## Q50. Best practices for writing efficient SQL queries
+## Q50. 🗄️ Best practices for writing efficient SQL queries
 
 Query optimization involves using proper indexing, efficient query structure, avoiding performance anti-patterns, and leveraging database features. Create indexes on frequently queried columns and join conditions, use INNER JOIN instead of WHERE clauses, avoid SELECT *, use CTEs or JOINs instead of correlated subqueries, and use EXPLAIN/EXECUTION PLAN to identify bottlenecks.
 
@@ -273,9 +282,16 @@ INNER JOIN departments d ON e.department_id = d.department_id
 CROSS JOIN avg_salary
 WHERE e.salary > avg_salary.avg_sal
 ORDER BY e.name;
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Database Design, Indexing & Performance](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md)** | **[Next: Question List →](question.md)**
+
+</div>
 
 ---
 

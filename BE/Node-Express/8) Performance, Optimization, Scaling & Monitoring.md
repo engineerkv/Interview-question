@@ -4,9 +4,9 @@
 
 </div>
 
-# 8. Performance, Optimization, Scaling & Monitoring (Q81–89)
+# ⚡ 8. Performance, Optimization, Scaling & Monitoring (Q81–89)
 
-## Q81. Identifying performance bottlenecks in Node.js applications
+## Q81. ⚡ Identifying performance bottlenecks in Node.js applications
 
 Common bottlenecks include blocking I/O operations, memory leaks, inefficient algorithms, and event loop blocking - avoid synchronous operations in request handlers, use streaming for large data processing, implement proper error handling, monitor event loop lag, and profile CPU and memory usage regularly. Can be addressed through proper async patterns and optimization techniques.
 
@@ -31,9 +31,10 @@ app.get('/data', (req, res) => {
   const stream = fs.createReadStream('large-file.txt');
   stream.pipe(res);
 });
+
 ```
 
-## Q82. Optimizing middleware for performance
+## Q82. ⚡ Optimizing middleware for performance
 
 Optimize middleware by reducing heavy operations, implementing compression, caching, and ordering middleware efficiently - order middleware by frequency of use, use compression for text responses, implement caching for expensive operations, avoid heavy middleware on all routes, and monitor middleware execution time. Minimizes request processing time.
 
@@ -64,9 +65,10 @@ app.use('/api/data', (req, res, next) => {
   }
   next();
 });
+
 ```
 
-## Q83. Optimizing database queries in Node.js
+## Q83. 🗄️ Optimizing database queries in Node.js
 
 Optimize database performance by using connection pooling, query optimization, indexing, and async database operations - use connection pooling for database connections, optimize queries with proper indexing, use prepared statements to prevent SQL injection, implement query caching for frequently accessed data, and monitor database performance and slow queries. Prevents blocking the event loop.
 
@@ -100,9 +102,10 @@ app.get('/api/users', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 ```
 
-## Q84. Implementing clustering with PM2
+## Q84. 🔧 Implementing clustering with PM2
 
 PM2 is a process manager for Node.js applications that provides clustering, monitoring, logging, and automatic restarts for production deployments - it provides process clustering and load balancing, automatic restarts on crashes, built-in monitoring and logging, zero-downtime deployments, and memory and CPU monitoring.
 
@@ -132,9 +135,10 @@ module.exports = {
     time: true
   }]
 };
+
 ```
 
-## Q85. Implementing horizontal scaling in Node.js
+## Q85. 🔧 Implementing horizontal scaling in Node.js
 
 Horizontal scaling involves running multiple instances of the application across different processes, machines, or containers, with load balancing to distribute requests - use clustering for multi-core utilization, implement load balancing for multiple servers, use containers (Docker) for consistent deployments, consider microservices architecture, and implement health checks and monitoring.
 
@@ -170,9 +174,10 @@ if (cluster.isMaster) {
     console.log(`Worker ${process.pid} started`);
   });
 }
+
 ```
 
-## Q86. Implementing caching with Redis or LRU
+## Q86. 💾 Implementing caching with Redis or LRU
 
 Caching stores frequently accessed data in fast storage (memory or Redis) to reduce database load and improve response times - use Redis for distributed caching, implement cache invalidation strategies, consider cache warming for critical data, monitor cache hit rates, and use appropriate TTL values.
 
@@ -212,9 +217,10 @@ app.get('/api/stats', (req, res) => {
   
   res.json(stats);
 });
+
 ```
 
-## Q87. Optimizing API response times
+## Q87. 🔌 Optimizing API response times
 
 Optimize API response times through caching, database optimization, compression, CDN usage, and efficient data processing - use database pagination instead of loading all data, select only necessary fields, implement proper indexing, use compression for text responses, and consider CDN for static assets.
 
@@ -248,9 +254,10 @@ app.get('/api/users', async (req, res) => {
     pagination: { page, limit, total: await User.countDocuments() }
   });
 });
+
 ```
 
-## Q88. Implementing monitoring and alerting
+## Q88. 📊 Implementing monitoring and alerting
 
 Monitoring tools provide real-time insights into application performance, errors, and user experience - monitor key performance metrics, set up alerts for critical issues, track user experience metrics, monitor database and external service performance, and use distributed tracing for microservices. Enables proactive issue detection and resolution.
 
@@ -280,9 +287,10 @@ app.get('/api/data', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 ```
 
-## Q89. Implementing connection pooling and batching
+## Q89. 🔧 Implementing connection pooling and batching
 
 Performance optimization involves profiling to identify bottlenecks, implementing efficient patterns like batching and async iteration, and optimizing resource usage - profile before optimizing, use batching for bulk operations, implement async iteration for large datasets, use connection pooling for databases, and monitor and measure improvements.
 
@@ -319,4 +327,5 @@ async function processLargeDataset() {
     await processChunk(chunk);
   }
 }
+
 ```

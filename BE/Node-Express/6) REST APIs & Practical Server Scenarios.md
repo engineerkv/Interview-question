@@ -4,9 +4,9 @@
 
 </div>
 
-# 6. REST APIs & Practical Server Scenarios (Q61–70)
+# 🌐 6. REST APIs & Practical Server Scenarios (Q61–70)
 
-## Q61. RESTful APIs: what they are and how to design them
+## Q61. 🔌 RESTful APIs: what they are and how to design them
 
 RESTful APIs follow REST principles using HTTP methods to perform CRUD operations on resources - use HTTP methods for different operations (GET, POST, PUT, DELETE), use resource-based URLs (/api/users, /api/users/:id), return appropriate HTTP status codes, use JSON for request/response data, and follow consistent naming conventions. Express provides simple routing and middleware for implementation.
 
@@ -37,9 +37,10 @@ app.put('/api/users/:id', (req, res) => {
 app.delete('/api/users/:id', (req, res) => {
   res.json({ message: 'User deleted' });
 });
+
 ```
 
-## Q62. Implementing input validation and sanitization
+## Q62. ⌨️ Implementing input validation and sanitization
 
 Input validation ensures data integrity and security by checking data format, type, and constraints before processing - validate input data before processing, sanitize data to prevent XSS attacks, use middleware for reusable validation, return clear error messages for invalid data, and consider using Joi for complex validation schemas. Use libraries like express-validator or Joi.
 
@@ -66,9 +67,10 @@ const validateUser = [
 app.post('/api/users', validateUser, (req, res) => {
   res.json({ message: 'User created', user: req.body });
 });
+
 ```
 
-## Q63. Implementing pagination in REST APIs
+## Q63. 🔌 Implementing pagination in REST APIs
 
 Pagination limits the number of results returned per request, while filtering allows clients to specify criteria - use query parameters for page and limit, calculate offset for database queries, include pagination metadata in response, implement filtering with search parameters, and consider cursor-based pagination for large datasets. Both improve performance and user experience.
 
@@ -96,9 +98,10 @@ app.get('/api/users', (req, res) => {
     }
   });
 });
+
 ```
 
-## Q64. PUT vs PATCH vs POST
+## Q64. 🤔 PUT vs PATCH vs POST
 
 PUT replaces the entire resource (idempotent), PATCH updates specific fields (not idempotent), and POST creates new resources (not idempotent) - use appropriate HTTP status codes (201 for POST), and consider idempotency for PUT operations. Each serves different purposes in RESTful APIs.
 
@@ -121,9 +124,10 @@ app.patch('/api/users/:id', (req, res) => {
   const updatedUser = updateUserFields(req.params.id, req.body);
   res.json(updatedUser);
 });
+
 ```
 
-## Q65. Implementing proper HTTP status codes
+## Q65. 🔧 Implementing proper HTTP status codes
 
 HTTP status codes communicate the result of API requests - use 2xx for successful operations, 4xx for client errors (400, 401, 403, 404), 5xx for server errors (500, 502, 503), include error details in response body, and use consistent error response format. Provides clear feedback to clients.
 
@@ -156,9 +160,10 @@ app.post('/api/users', (req, res) => {
     });
   }
 });
+
 ```
 
-## Q66. Handling file uploads with multer
+## Q66. 💡 Handling file uploads with multer
 
 File uploads require multipart/form-data parsing, handled by middleware like multer - use multer for handling multipart/form-data, set file size limits and file type filters, store files securely with unique names, validate file types and sizes, and consider cloud storage for production. Multer processes uploaded files and provides access to file information.
 
@@ -187,9 +192,10 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
     originalName: req.file.originalname
   });
 });
+
 ```
 
-## Q67. Implementing streamed downloads
+## Q67. 🌊 Implementing streamed downloads
 
 Streaming file downloads allows clients to start receiving data before the entire file is ready - use streams for large file downloads, set appropriate Content-Disposition headers, handle file not found errors, consider resumable downloads for large files, and monitor download progress and errors. Improves performance and memory usage for large files.
 
@@ -215,9 +221,10 @@ app.get('/api/download/:filename', (req, res) => {
   const fileStream = fs.createReadStream(filePath);
   fileStream.pipe(res);
 });
+
 ```
 
-## Q68. Implementing rate limiting in Express.js
+## Q68. 🔧 Implementing rate limiting in Express.js
 
 Rate limiting controls the number of requests a client can make within a time period - implement rate limiting to prevent abuse, use different limits for different endpoints, consider IP-based and user-based limiting, store rate limit data in Redis for distributed systems, and provide clear error messages for rate limit exceeded. Prevents abuse and ensures fair resource usage.
 
@@ -245,9 +252,10 @@ const strictLimiter = rateLimit({
 app.post('/api/login', strictLimiter, (req, res) => {
   // Login logic
 });
+
 ```
 
-## Q69. Implementing logging with morgan or pino
+## Q69. 📝 Implementing logging with morgan or pino
 
 HTTP request logging captures request details, response status, and timing information - use morgan for HTTP request logging, use pino for structured JSON logging, log important events and errors, consider log levels (info, warn, error), and use log aggregation tools for production. Essential for monitoring, debugging, and analytics.
 
@@ -271,9 +279,10 @@ app.get('/api/users', (req, res) => {
   req.logger.info('Fetching users');
   res.json({ users: [] });
 });
+
 ```
 
-## Q70. Implementing API versioning and documentation
+## Q70. 🔌 Implementing API versioning and documentation
 
 API versioning allows backward compatibility, while documentation helps developers understand and use APIs effectively - use URL versioning (/api/v1, /api/v2), document APIs with OpenAPI/Swagger, maintain backward compatibility, use semantic versioning for API versions, and provide interactive API documentation.
 
@@ -303,4 +312,5 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 app.use('/api/v1', v1Routes);
 app.use('/api/v2', v2Routes);
+
 ```

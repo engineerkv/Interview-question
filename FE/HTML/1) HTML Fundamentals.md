@@ -4,11 +4,11 @@
 
 </div>
 
-# 1. HTML Fundamentals (Q1–15)
+# 📝 1. HTML Fundamentals (Q1–15)
 
 ---
 
-## Q1. HTML and what it stands for
+## Q1. 📄 HTML and what it stands for
 
 HTML stands for HyperText Markup Language - it's the standard markup language for creating web pages that describes structure and content using tags. HTML5 is the current standard with semantic elements and modern features that enable links between pages, making the web interconnected.
 
@@ -26,11 +26,12 @@ Example:
     <h1>Welcome</h1>
   </body>
 </html>
+
 ```
 
 ---
 
-## Q2. HTML vs XHTML
+## Q2. 📄 HTML vs XHTML
 
 XHTML is HTML written as XML with stricter syntax rules - it requires all tags closed, case-sensitive attributes, and proper nesting. HTML5 is more forgiving and widely used, making it the modern standard for web development.
 
@@ -45,11 +46,12 @@ Example:
 
 <!-- XHTML (strict) -->
 <img src="image.jpg" alt="description" />
+
 ```
 
 ---
 
-## Q3. HTML elements, tags, and attributes
+## Q3. 📄 HTML elements, tags, and attributes
 
 Elements are complete structures made of opening tag, content, and closing tag - tags are the markup syntax like `<a>` and `</a>`, while attributes provide additional information like `href`, `target`, or `class`. Some tags like `<img>` are self-closing and don't need a closing tag.
 
@@ -64,11 +66,12 @@ Example:
 <!-- <a> = opening tag, </a> = closing tag -->
 <!-- href, target, class = attributes -->
 <!-- Complete structure = element -->
+
 ```
 
 ---
 
-## Q4. Block vs inline elements
+## Q4. 🤔 Block vs inline elements
 
 Block elements take full width and create new lines, perfect for layout structure, while inline elements flow with text and don't break lines, ideal for text styling and links. You can change element behavior with the CSS `display` property.
 
@@ -83,11 +86,12 @@ Example:
 
 <!-- Inline: flows with text -->
 <span>Inline text</span> and <a href="#">link</a>
+
 ```
 
 ---
 
-## Q5. Basic structure elements of an HTML document
+## Q5. 📄 Basic structure elements of an HTML document
 
 Every HTML document needs DOCTYPE declaration (first line, tells browser which HTML version), html root element, head section for metadata (title, meta tags, links), and body section for visible content. DOCTYPE prevents quirks mode and ensures consistent rendering.
 
@@ -106,11 +110,12 @@ Example:
     <h1>Hello World</h1>
   </body>
 </html>
+
 ```
 
 ---
 
-## Q6. DOCTYPE declaration and its importance
+## Q6. 📝 DOCTYPE declaration and its importance
 
 DOCTYPE tells the browser which HTML version to use and triggers standards mode rendering, preventing quirks mode and ensuring consistent layout across browsers. HTML5's simple `<!DOCTYPE html>` must be the very first line in the document.
 
@@ -124,11 +129,12 @@ Example:
 
 <!-- Older HTML versions (complex) -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
 ```
 
 ---
 
-## Q7. HTML comments and how to write them
+## Q7. 📄 HTML comments and how to write them
 
 HTML comments are non-displayed text using `<!--` and `-->` syntax, useful for documentation, debugging, or temporarily disabling code. They're visible in page source, so don't use them to hide secrets.
 
@@ -141,11 +147,12 @@ Example:
 <!-- Multi-line comment
      spans multiple lines -->
 <!-- <div>Hidden code</div> -->
+
 ```
 
 ---
 
-## Q8. `<div>` vs `<span>`
+## Q8. 🤔 `<div>` vs `<span>`
 
 `<div>` is a block-level container for layout structure, while `<span>` is an inline container for styling or grouping text - both are generic with no semantic meaning. Use semantic elements when possible instead of generic containers.
 
@@ -157,11 +164,12 @@ Example:
 <div class="container">
   <p>This is a paragraph with <span class="highlight">highlighted text</span> inside.</p>
   <div class="section">This is a section</div>
+
 ```
 
 ---
 
-## Q9. HTML entities and when to use them
+## Q9. 📄 HTML entities and when to use them
 
 HTML entities are special codes starting with `&` and ending with `;` that display characters with special meaning in HTML or characters not on your keyboard. Common ones: `&lt;` for <, `&gt;` for >, `&amp;` for &, `&nbsp;` for non-breaking space.
 
@@ -173,11 +181,12 @@ Example:
 <p>&lt;div&gt; is a tag</p>
 <p>Copyright &copy; 2024</p>
 <p>Price: &euro;25.99</p>
+
 ```
 
 ---
 
-## Q10. `<strong>` vs `<b>` tags
+## Q10. 🤔 `<strong>` vs `<b>` tags
 
 `<strong>` indicates importance and has semantic meaning that screen readers emphasize, while `<b>` is purely visual styling with no semantic meaning. Use `<strong>` for important text, `<b>` only when you need bold styling without meaning.
 
@@ -188,11 +197,12 @@ Example:
 ```html
 <p>This is <strong>important</strong> information.</p>
 <p>This is <b>bold</b> text for visual emphasis.</p>
+
 ```
 
 ---
 
-## Q11. `<em>` vs `<i>` tags
+## Q11. 🤔 `<em>` vs `<i>` tags
 
 `<em>` indicates emphasis with semantic meaning that screen readers stress, while `<i>` is purely visual styling with no semantic meaning. Use `<em>` for emphasized text, `<i>` for foreign words, technical terms, or visual-only italic styling.
 
@@ -204,11 +214,12 @@ Example:
 <p>This is <em>emphasized</em> text.</p>
 <p>This is <i>italic</i> text for visual styling.</p>
 <p><i>Homo sapiens</i> is the scientific name.</p>
+
 ```
 
 ---
 
-## Q12. Creating hyperlinks in HTML
+## Q12. 📄 Creating hyperlinks in HTML
 
 Use the `<a>` tag with `href` attribute to create clickable links - use descriptive link text for better accessibility and SEO. Use `rel="noopener"` with `target="_blank"` for security when opening external links in new tabs.
 
@@ -221,11 +232,12 @@ Example:
 <a href="/about.html">Internal link</a>
 <a href="#section1">Anchor link</a>
 <a href="mailto:email@example.com">Email link</a>
+
 ```
 
 ---
 
-## Q13. Different types of lists in HTML
+## Q13. 📄 Different types of lists in HTML
 
 HTML supports three list types: unordered `<ul>` for bulleted lists, ordered `<ol>` for numbered sequential lists, and definition `<dl>` for terms and descriptions. Semantic list types improve accessibility and make styling easier.
 
@@ -246,11 +258,12 @@ Example:
   <dt>HTML</dt>
   <dd>HyperText Markup Language</dd>
 </dl>
+
 ```
 
 ---
 
-## Q14. Creating tables in HTML
+## Q14. 📄 Creating tables in HTML
 
 Use `<table>`, `<tr>` for rows, `<td>` for data cells, and `<th>` for header cells to create structured data tables. Use `<thead>`, `<tbody>`, and `<tfoot>` for better structure, and `<caption>` for table descriptions.
 
@@ -273,11 +286,12 @@ Example:
     </tr>
   </tbody>
 </table>
+
 ```
 
 ---
 
-## Q15. Purpose of the `<meta>` tag
+## Q15. 💡 Purpose of the `<meta>` tag
 
 `<meta>` tags provide metadata about the HTML document for browsers and search engines - they're crucial for SEO, mobile optimization, and social sharing. Common uses include character encoding, viewport settings, SEO descriptions, and Open Graph tags.
 
@@ -290,7 +304,13 @@ Example:
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Page description">
 <meta name="keywords" content="keyword1, keyword2">
+
 ```
 
 ---
 
+<div align="center">
+
+**[← Previous: README](../README.md)** | **[Next: Semantic HTML & Structure →](2%29%20Semantic%20HTML%20%26%20Structure.md)**
+
+</div>

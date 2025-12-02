@@ -4,11 +4,11 @@
 
 </div>
 
-# 7. Testing & Debugging (Q77–102)
+# 🧪 7. Testing & Debugging (Q77–102)
 
 ---
 
-## Q77. Types of testing in React
+## Q77. 🧪 Types of testing in React
 
 Unit tests test individual components, integration tests test component interactions, and E2E tests test complete user workflows - the testing pyramid balances speed, coverage, and confidence. Unit tests test individual components in isolation, most common and fastest.
 
@@ -24,9 +24,10 @@ test('renders button with text', () => {
   render(<Button>Click me</Button>);
   expect(screen.getByText('Click me')).toBeInTheDocument();
 });
+
 ```
 
-## Q78. Testing React components with Jest
+## Q78. 🧩 Testing React components with Jest
 
 Jest is a JavaScript testing framework providing test runners, assertions, mocking, and code coverage for React - it's the foundation, React Testing Library is the testing approach. Test runner with built-in assertions, mocking, and coverage.
 
@@ -43,11 +44,12 @@ module.exports = {
     '\\.(css|less|scss)$': 'identity-obj-proxy'
   }
 };
+
 ```
 
 ---
 
-## Q79. React Testing Library and how to use it
+## Q79. 🧪 React Testing Library and how to use it
 
 React Testing Library tests user behavior, not implementation details - it's more maintainable than Enzyme and encourages accessible component design. Test what users see and do, not how components work internally.
 
@@ -68,11 +70,12 @@ test('user can submit form', async () => {
   
   expect(screen.getByText('Form submitted!')).toBeInTheDocument();
 });
+
 ```
 
 ---
 
-## Q80. Testing custom hooks
+## Q80. 🪝 Testing custom hooks
 
 Use renderHook to test custom hooks in isolation, or test hooks through components - renderHook is for unit testing hooks, component testing is for integration. renderHook tests custom hooks in isolation without components.
 
@@ -95,11 +98,12 @@ test('useCounter hook', () => {
   
   expect(result.current.count).toBe(1);
 });
+
 ```
 
 ---
 
-## Q81. Mocking API calls in tests
+## Q81. 🧪 Mocking API calls in tests
 
 Mock API calls using Jest mocks, MSW (Mock Service Worker), or mock implementations to isolate components - MSW is better for integration tests, Jest mocks for unit tests. Jest mocks are simple mocking for fetch and functions, good for basic cases.
 
@@ -123,11 +127,12 @@ test('fetches user data on mount', async () => {
     expect(screen.getByText('John Doe')).toBeInTheDocument();
   });
 });
+
 ```
 
 ---
 
-## Q82. Testing form inputs and user interactions
+## Q82. 🧪 Testing form inputs and user interactions
 
 Use userEvent from React Testing Library to simulate realistic user interactions - userEvent is preferred over fireEvent for realistic testing. userEvent is more realistic than fireEvent, simulates actual user interactions.
 
@@ -148,11 +153,12 @@ test('form input changes update state', async () => {
   
   expect(input).toHaveValue('test@example.com');
 });
+
 ```
 
 ---
 
-## Q83. Testing asynchronous behavior in React
+## Q83. ⚡ Testing asynchronous behavior in React
 
 Use waitFor, findBy queries, or act() to handle async operations and test loading states - async testing requires waiting for state updates and DOM changes. waitFor waits for async operations to complete with timeout.
 
@@ -205,11 +211,12 @@ test('finds user with findBy', async () => {
   const userName = await screen.findByText('Jane Smith');
   expect(userName).toBeInTheDocument();
 });
+
 ```
 
 ---
 
-## Q84. Writing snapshot tests
+## Q84. 🧪 Writing snapshot tests
 
 Snapshot tests capture component output and compare it to stored snapshots - use them to detect unintended changes, but they shouldn't replace assertion-based tests. Detect unintended changes in component output automatically.
 
@@ -225,11 +232,12 @@ test('button renders correctly', () => {
   const { container } = render(<Button>Click me</Button>);
   expect(container.firstChild).toMatchSnapshot();
 });
+
 ```
 
 ---
 
-## Q85. Debugging React applications
+## Q85. 🐛 Debugging React applications
 
 Use React DevTools, VS Code debugger, console logging, and breakpoints to debug React apps - React DevTools is essential for debugging React component trees. React DevTools browser extension inspects components, state, and props.
 
@@ -251,11 +259,12 @@ function UserProfile({ userId }) {
   
   return <div>{user ? user.name : 'Loading...'}</div>;
 }
+
 ```
 
 ---
 
-## Q86. Best practices for React testing
+## Q86. 🧪 Best practices for React testing
 
 Best practices include testing user behavior not implementation, using accessible queries, mocking external dependencies, handling async properly, and maintaining test readability. Test what users see and do, not how components work internally.
 
@@ -273,6 +282,7 @@ test('user can complete form flow', async () => {
   
   expect(await screen.findByText('Success!')).toBeInTheDocument();
 });
+
 ```
 
 ---

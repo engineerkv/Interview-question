@@ -4,11 +4,11 @@
 
 </div>
 
-# 2. React Hooks (Q18–38)
+# 🎣 2. React Hooks (Q18–38)
 
 ---
 
-## Q18. React Hooks and why they were introduced
+## Q18. 🪝 React Hooks and why they were introduced
 
 Hooks let functional components use state and lifecycle features without classes - they solve class component complexity and enable better code reuse through custom hooks. Custom hooks let you share stateful logic across components easily, replacing HOCs and render props.
 
@@ -24,11 +24,12 @@ function Counter() {
   });
   return <button onClick={() => setCount(c => c + 1)}>Count: {count}</button>;
 }
+
 ```
 
 ---
 
-## Q19. How `useState` works internally
+## Q19. 📊 How `useState` works internally
 
 useState returns state value and setter - React tracks hooks in a linked list per component, maintaining order between renders to ensure consistency. Hooks must be called in same order every render, no conditional hooks.
 
@@ -45,11 +46,12 @@ return (
     <input value={name} onChange={e => setName(e.target.value)} />
   </div>
 );
+
 ```
 
 ---
 
-## Q20. `useEffect` and how to use it
+## Q20. 🔧 `useEffect` and how to use it
 
 useEffect runs side effects after render - the dependency array controls when it runs: empty means once on mount, missing means every render, with dependencies means when they change. Effect runs after DOM updates complete, not during render.
 
@@ -63,11 +65,12 @@ useEffect(() => {
   fetchUser(userId).then(setUser);
 }, [userId]);
 return <div>{user ? user.name : 'Loading...'}</div>;
+
 ```
 
 ---
 
-## Q21. `useEffect` vs `useLayoutEffect`
+## Q21. 🤔 `useEffect` vs `useLayoutEffect`
 
 useEffect runs after paint, useLayoutEffect runs before paint - use useLayoutEffect to prevent visual flicker when you need DOM measurements. useLayoutEffect blocks paint, useEffect doesn't.
 
@@ -82,11 +85,12 @@ useLayoutEffect(() => {
   const rect = tooltipRef.current.getBoundingClientRect();
   setPosition({ top: rect.bottom + 8, left: rect.left });
 }, [children]);
+
 ```
 
 ---
 
-## Q22. `useRef` and how to use it
+## Q22. 🔧 `useRef` and how to use it
 
 useRef returns a mutable object that persists across renders - use it for DOM access and values that don't need re-renders when they change. Changing `.current` doesn't trigger re-renders, unlike state.
 
@@ -103,11 +107,12 @@ return (
     <button onClick={() => inputRef.current.focus()}>Focus</button>
   </div>
 );
+
 ```
 
 ---
 
-## Q23. Refs vs state in React
+## Q23. 📊 Refs vs state in React
 
 State changes trigger re-renders, while refs don't trigger re-renders but persist across renders - making them perfect for values that change but shouldn't update UI. State changes cause UI updates, ref changes don't.
 
@@ -120,11 +125,12 @@ const [count, setCount] = useState(0);
 const renderCount = useRef(0);
 useEffect(() => { renderCount.current += 1; });
 return <div>Renders: {renderCount.current} Count: {count}</div>;
+
 ```
 
 ---
 
-## Q24. `useCallback` and when to use it
+## Q24. ⏰ `useCallback` and when to use it
 
 useCallback memoizes a function so it only changes when dependencies change - use it to prevent child re-renders when passing callbacks to memoized components. useCallback memoizes function references to prevent unnecessary child re-renders.
 
@@ -137,11 +143,12 @@ const [count, setCount] = useState(0);
 const [name, setName] = useState('');
 const onIncrement = useCallback(() => setCount(c => c + 1), []);
 return <Child onIncrement={onIncrement} name={name} />;
+
 ```
 
 ---
 
-## Q25. `useMemo` and when to use it
+## Q25. ⏰ `useMemo` and when to use it
 
 useMemo caches a computed value, recalculating only when dependencies change - use it for expensive calculations to avoid recomputing on every render. useMemo memoizes expensive calculations to avoid recomputing on every render.
 
@@ -156,11 +163,12 @@ const filteredItems = useMemo(() => {
   );
 }, [items, filter]);
 return <ul>{filteredItems.map(i => <li key={i.id}>{i.name}</li>)}</ul>;
+
 ```
 
 ---
 
-## Q26. `useReducer` vs `useState`
+## Q26. 📊 `useReducer` vs `useState`
 
 useReducer manages complex state with a reducer function - better than useState when state logic is complex or involves multiple related values. useReducer manages complex state with predictable updates through reducer pattern.
 
@@ -179,11 +187,12 @@ const reducer = (state, action) => {
 };
 const [state, dispatch] = useReducer(reducer, { count: 0, step: 1 });
 return <button onClick={() => dispatch({ type: 'increment' })}>Count: {state.count}</button>;
+
 ```
 
 ---
 
-## Q27. `useContext` and how to use it
+## Q27. 🔧 `useContext` and how to use it
 
 useContext reads context values in functional components - it works with Context.Provider to share data without prop drilling through multiple levels. useContext consumes context values without prop drilling through multiple components.
 
@@ -209,11 +218,12 @@ function ThemedButton() {
     </button>
   );
 }
+
 ```
 
 ---
 
-## Q28. `useImperativeHandle` and when to use it
+## Q28. ⏰ `useImperativeHandle` and when to use it
 
 useImperativeHandle customizes what ref exposes to parent components - must be used with forwardRef to create controlled APIs for parent components. useImperativeHandle exposes specific methods to parent instead of entire DOM element.
 
@@ -230,11 +240,12 @@ const FancyInput = forwardRef((props, ref) => {
   }));
   return <input ref={inputRef} {...props} />;
 });
+
 ```
 
 ---
 
-## Q29. `useDebugValue` and when to use it
+## Q29. 🐛 `useDebugValue` and when to use it
 
 useDebugValue adds labels to custom hooks in React DevTools - only visible during development, automatically stripped in production builds. useDebugValue displays helpful labels in DevTools for custom hooks.
 
@@ -249,11 +260,12 @@ function useCounter(initialValue = 0) {
   const increment = useCallback(() => setCount(c => c + 1), []);
   return { count, increment };
 }
+
 ```
 
 ---
 
-## Q30. Creating custom hooks
+## Q30. 🪝 Creating custom hooks
 
 Custom hooks are functions using other hooks, named with "use" - extract reusable stateful logic to share between components without HOCs or render props. Custom hooks share stateful logic between components without HOCs or render props.
 
@@ -274,11 +286,12 @@ function useApi(url) {
   }, [url]);
   return { data, loading, error };
 }
+
 ```
 
 ---
 
-## Q31. `useTransition` and `useDeferredValue`
+## Q31. ⏰ `useTransition` and `useDeferredValue`
 
 useTransition marks updates as non-urgent, useDeferredValue defers value updates - both keep UI responsive during heavy updates by prioritizing user interactions. These hooks keep UI responsive during heavy updates by marking them as low priority.
 
@@ -294,11 +307,12 @@ useEffect(() => {
     startTransition(() => setResults(expensiveSearch(deferredQuery)));
   }
 }, [deferredQuery]);
+
 ```
 
 ---
 
-## Q32. `useId` and when to use it
+## Q32. ⏰ `useId` and when to use it
 
 useId generates unique IDs stable across server and client - essential for accessibility and form labels in SSR applications to prevent hydration mismatches. useId generates stable, unique IDs for form labels and ARIA attributes.
 
@@ -314,11 +328,12 @@ return (
     <input id={id} type={type} />
   </div>
 );
+
 ```
 
 ---
 
-## Q33. `useSyncExternalStore` and when to use it
+## Q33. ⏰ `useSyncExternalStore` and when to use it
 
 useSyncExternalStore subscribes to external stores safely during concurrent rendering - prevents hydration mismatches and ensures consistent reads in React 18+. useSyncExternalStore safely subscribes to external stores during concurrent rendering.
 
@@ -339,11 +354,12 @@ function useLocalStorage(key, defaultValue) {
     () => defaultValue
   );
 }
+
 ```
 
 ---
 
-## Q34. `useInsertionEffect` and when to use it
+## Q34. ⏰ `useInsertionEffect` and when to use it
 
 useInsertionEffect runs before DOM mutations, earlier than useLayoutEffect - used by CSS-in-JS libraries to inject styles before layout calculations. useInsertionEffect injects styles before DOM mutations to prevent visual flicker.
 
@@ -361,11 +377,12 @@ useInsertionEffect(() => {
     document.head.appendChild(style);
   }
 }, [color]);
+
 ```
 
 ---
 
-## Q35. `use()` hook and how to use it
+## Q35. 🪝 `use()` hook and how to use it
 
 The `use()` hook unwraps promises and context values, enabling data fetching with automatic Suspense integration - it can read promises, context, or any value that follows the "useable" protocol. `use()` provides a unified way to consume async data and context values with built-in Suspense support.
 
@@ -395,11 +412,12 @@ function App() {
     </Suspense>
   );
 }
+
 ```
 
 ---
 
-## Q36. `useActionState()` and how to use it
+## Q36. 📊 `useActionState()` and how to use it
 
 `useActionState()` manages form actions with built-in pending states and error handling - it's designed for form submissions and async actions, providing automatic state management for pending, error, and success states. `useActionState()` simplifies form handling by managing action state automatically.
 
@@ -434,11 +452,12 @@ function ContactForm() {
     </form>
   );
 }
+
 ```
 
 ---
 
-## Q37. `useFormStatus()` and how to use it
+## Q37. 📝 `useFormStatus()` and how to use it
 
 `useFormStatus()` provides form submission status from the nearest form ancestor - it gives access to pending state, data, method, and action of the form, useful for showing loading states in form buttons or inputs. `useFormStatus()` reads form status from parent form context.
 
@@ -472,11 +491,12 @@ function ContactForm() {
     </form>
   );
 }
+
 ```
 
 ---
 
-## Q38. `useOptimistic()` and how to use it
+## Q38. 🔧 `useOptimistic()` and how to use it
 
 `useOptimistic()` enables optimistic UI updates by showing immediate feedback before server confirmation - it manages optimistic state that gets reverted if the action fails, providing better perceived performance. `useOptimistic()` shows immediate UI updates while waiting for server response.
 
@@ -519,7 +539,14 @@ function TodoList({ todos }) {
     </div>
   );
 }
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: React Fundamentals](1%29%20React%20Fundamentals.md)** | **[Next: State Management →](3%29%20State%20Management.md)**
+
+</div>
 

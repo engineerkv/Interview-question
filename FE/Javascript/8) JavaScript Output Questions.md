@@ -6,11 +6,11 @@
 
 </div>
 
-# 8. JavaScript Output Questions (Q190–248)
+# 📊 8. JavaScript Output Questions (Q190–248)
 
 ---
 
-## Q190. Event loop ordering with timers, promises, and microtasks
+## Q190. ⚡ Event loop ordering with timers, promises, and microtasks
 
 Synchronous logs run first, then microtasks (`Promise` callbacks, `queueMicrotask`), then macrotasks (`setTimeout`), matching the event-loop order described in the GFG output list.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -24,6 +24,7 @@ setTimeout(() => console.log('Timeout'), 0);
 Promise.resolve().then(() => console.log('Promise'));
 queueMicrotask(() => console.log('Microtask'));
 console.log('End');
+
 ```
 
 Output:
@@ -34,11 +35,12 @@ End
 Promise
 Microtask
 Timeout
+
 ```
 
 ---
 
-## Q191. Async/await vs synchronous code and timers
+## Q191. ⚡ Async/await vs synchronous code and timers
 
 `await` pauses inside `async1`, so the remainder of `async1` runs as a microtask after the current stack, aligning with common interview traps noted by GFG.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -65,6 +67,7 @@ new Promise(resolve => {
   resolve();
 }).then(() => console.log('promise2'));
 console.log('script end');
+
 ```
 
 Output:
@@ -78,11 +81,12 @@ script end
 async1 end
 promise2
 setTimeout
+
 ```
 
 ---
 
-## Q192. Property descriptors, getters/setters, and non-configurable fields
+## Q192. 💡 Property descriptors, getters/setters, and non-configurable fields
 
 `configurable: false` blocks `delete`, so the accessor remains even after calling `delete obj.prop`, reflecting the behavior highlighted in multiple tricky question lists.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -103,6 +107,7 @@ obj.prop = 10;
 console.log(obj.prop);
 delete obj.prop;
 console.log(obj.prop);
+
 ```
 
 Output:
@@ -110,11 +115,12 @@ Output:
 ```
 20
 20
+
 ```
 
 ---
 
-## Q193. Prototype methods, deletion, and fallback behavior
+## Q193. 🔗 Prototype methods, deletion, and fallback behavior
 
 Deleting an instance method only removes own properties; prototype methods keep working until removed from the prototype, a frequent “gotcha” noted by interview write-ups.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -139,6 +145,7 @@ person.greet();
 
 delete Person.prototype.greet;
 person.greet();
+
 ```
 
 Output:
@@ -147,11 +154,12 @@ Output:
 Hello, John
 Hello, John
 person.greet is not a function
+
 ```
 
 ---
 
-## Q194. Prototype inheritance, hasOwnProperty, and deletion side effects
+## Q194. 🔗 Prototype inheritance, hasOwnProperty, and deletion side effects
 
 `child.a` is inherited from `parent`; deleting it on `child` does nothing until you delete the parent property, matching sample puzzles from GFG’s list.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -174,6 +182,7 @@ console.log(child.a);
 
 delete child.b;
 console.log(child.b);
+
 ```
 
 Output:
@@ -185,11 +194,12 @@ false
 true
 1
 undefined
+
 ```
 
 ---
 
-## Q195. Object.freeze on objects and arrays
+## Q195. 📦 Object.freeze on objects and arrays
 
 Frozen objects reject reassignment/additions (silently in non-strict mode); arrays also reject `push`, reproducing a common trap covered on GFG.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -212,6 +222,7 @@ arr[0] = 10;
 arr.push(4);
 
 console.log(arr);
+
 ```
 
 Output:
@@ -220,11 +231,12 @@ Output:
 1
 undefined
 [1, 2, 3]
+
 ```
 
 ---
 
-## Q196. Nested closures and shared lexical state
+## Q196. 🔒 Nested closures and shared lexical state
 
 Closures capture variables by reference, so each invocation manipulates the same `count`, demonstrating classic closure behavior documented in Medium’s question set.[\[2\]](https://medium.com/@sohammehta56/javascript-interesting-output-based-interview-questions-38682c0b64fe)
 
@@ -249,6 +261,7 @@ const fn = outer();
 const innerFn = fn();
 innerFn();
 fn();
+
 ```
 
 Output:
@@ -257,11 +270,12 @@ Output:
 1
 2
 3
+
 ```
 
 ---
 
-## Q197. `var` vs `let` in loops with asynchronous callbacks
+## Q197. 📝 `var` vs `let` in loops with asynchronous callbacks
 
 `var` is function-scoped, so each timeout logs `3`, whereas `let` creates a new binding per iteration, yielding `0,1,2`; widely cited as a classic interview trap.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -277,6 +291,7 @@ for (var i = 0; i < 3; i++) {
 for (let j = 0; j < 3; j++) {
   setTimeout(() => console.log(j), 0);
 }
+
 ```
 
 Output:
@@ -288,11 +303,12 @@ Output:
 0
 1
 2
+
 ```
 
 ---
 
-## Q198. `this` binding differences between regular and arrow methods
+## Q198. 🔧 `this` binding differences between regular and arrow methods
 
 Regular methods bind `this` dynamically while arrow functions inherit lexical `this`; extracting a method loses context, aligning with Medium’s tricky scenarios.[\[2\]](https://medium.com/@sohammehta56/javascript-interesting-output-based-interview-questions-38682c0b64fe)
 
@@ -312,6 +328,7 @@ console.log(obj.getValueArrow());
 
 const extracted = obj.getValue;
 console.log(extracted());
+
 ```
 
 Output:
@@ -320,11 +337,12 @@ Output:
 10
 undefined
 undefined
+
 ```
 
 ---
 
-## Q199. Class inheritance, `super()`, and method extraction
+## Q199. 🧬 Class inheritance, `super()`, and method extraction
 
 `Child` overrides `name`, but extracting `getName` loses the `this` binding, returning `undefined`, echoing patterns from Medium question banks.[\[3\]](https://medium.com/@iamyashkhandelwal/5-output-based-interview-questions-in-javascript-b64a707f34d2)
 
@@ -350,6 +368,7 @@ console.log(child.getName());
 
 const extracted = child.getName;
 console.log(extracted());
+
 ```
 
 Output:
@@ -357,11 +376,12 @@ Output:
 ```
 Child
 undefined
+
 ```
 
 ---
 
-## Q200. Regular methods, arrow methods, and nested arrows referencing `this`
+## Q200. 💡 Regular methods, arrow methods, and nested arrows referencing `this`
 
 Only standard methods bound via the object can access `this.a`; arrow functions inside the object or nested ones inherit `this` from the file scope (often `undefined`).[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -386,6 +406,7 @@ obj.d();
 
 const extracted = obj.b;
 extracted();
+
 ```
 
 Output:
@@ -395,11 +416,12 @@ Output:
 undefined
 1
 undefined
+
 ```
 
 ---
 
-## Q201. Async function returning a promise and chaining `.then()`
+## Q201. ⚡ Async function returning a promise and chaining `.then()`
 
 Returning `Promise.resolve('3')` after `await` means `test().then(console.log)` logs `'3'` after current microtasks, similar to examples cataloged on GFG.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -417,6 +439,7 @@ async function test() {
 
 test().then(console.log);
 console.log('4');
+
 ```
 
 Output:
@@ -426,11 +449,12 @@ Output:
 4
 2
 3
+
 ```
 
 ---
 
-## Q202. Promise unwrapping and concurrent microtask ordering
+## Q202. ⚡ Promise unwrapping and concurrent microtask ordering
 
 Returning a promise from `.then()` queues another microtask; separate `Promise.resolve().then` calls interleave, mirroring tricky sequences referenced in GFG articles.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -451,6 +475,7 @@ Promise.resolve()
   .then(console.log);
 
 Promise.resolve().then(() => console.log('4'));
+
 ```
 
 Output:
@@ -460,11 +485,12 @@ Output:
 4
 2
 3
+
 ```
 
 ---
 
-## Q203. Async `try/catch` with awaited rejections
+## Q203. ⚡ Async `try/catch` with awaited rejections
 
 Awaiting a rejected promise throws inside `try/catch`, so returning `'Caught'` yields a resolved promise—exactly the pattern highlighted in Medium write-ups.[\[3\]](https://medium.com/@iamyashkhandelwal/5-output-based-interview-questions-in-javascript-b64a707f34d2)
 
@@ -482,17 +508,19 @@ async function test() {
 }
 
 test().then(console.log).catch(console.error);
+
 ```
 
 Output:
 
 ```
 Caught
+
 ```
 
 ---
 
-## Q204. Returning a rejected promise without awaiting inside `try/catch`
+## Q204. ⚡ Returning a rejected promise without awaiting inside `try/catch`
 
 Without `await`, the rejection bypasses `try/catch`, so the caller’s `.catch()` handles it—mirroring Medium’s emphasis on the difference between awaited and unawaited promises.[\[3\]](https://medium.com/@iamyashkhandelwal/5-output-based-interview-questions-in-javascript-b64a707f34d2)
 
@@ -510,17 +538,19 @@ async function test() {
 }
 
 test().then(console.log).catch(console.error);
+
 ```
 
 Output:
 
 ```
 Error
+
 ```
 
 ---
 
-## Q205. WeakMap keys and garbage collection
+## Q205. 💡 WeakMap keys and garbage collection
 
 WeakMaps use weak references; setting `obj = null` removes the reference, making the WeakMap entry eligible for garbage collection, but the entry remains accessible until GC runs, per standard JS behaviors discussed online.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -537,6 +567,7 @@ console.log(map.get(obj));
 
 obj = null;
 console.log(map.get(obj));
+
 ```
 
 Output:
@@ -544,11 +575,12 @@ Output:
 ```
 value
 undefined
+
 ```
 
 ---
 
-## Q206. Symbol uniqueness and non-enumerability
+## Q206. 💡 Symbol uniqueness and non-enumerability
 
 Even identical descriptions produce distinct symbols, and symbol keys aren’t part of `Object.keys`, reflecting standard questions from GFG’s resource.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -568,6 +600,7 @@ console.log(obj[sym1]);
 console.log(obj[sym2]);
 console.log(sym1 === sym2);
 console.log(Object.keys(obj).length);
+
 ```
 
 Output:
@@ -577,11 +610,12 @@ value1
 value2
 false
 0
+
 ```
 
 ---
 
-## Q207. Proxies intercepting get/set for transformed values
+## Q207. 📝 Proxies intercepting get/set for transformed values
 
 Proxies can double reads/writes, exactly like similar interview puzzles; all interactions go through handlers, not the original object.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -608,6 +642,7 @@ console.log(proxy.b);
 console.log(proxy.c);
 console.log(target.a);
 console.log(target.b);
+
 ```
 
 Output:
@@ -618,11 +653,12 @@ Output:
 0
 1
 10
+
 ```
 
 ---
 
-## Q208. Generator `next()` sequencing and completion records
+## Q208. 💡 Generator `next()` sequencing and completion records
 
 Generators yield values until `return`; subsequent `next()` calls show `{value: undefined, done: true}`, a staple of output questions.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -644,6 +680,7 @@ console.log(gen.next());
 console.log(gen.next());
 console.log(gen.next());
 console.log(gen.next());
+
 ```
 
 Output:
@@ -654,11 +691,12 @@ Output:
 { value: 3, done: false }
 { value: 4, done: true }
 { value: undefined, done: true }
+
 ```
 
 ---
 
-## Q209. Async generators consumed via `for await...of`
+## Q209. ⚡ Async generators consumed via `for await...of`
 
 Each `yield Promise.resolve(x)` is awaited automatically, producing sequential logs, echoing examples from Medium.[\[2\]](https://medium.com/@sohammehta56/javascript-interesting-output-based-interview-questions-38682c0b64fe)
 
@@ -679,6 +717,7 @@ async function* asyncGenerator() {
   }
   console.log('Done');
 })();
+
 ```
 
 Output:
@@ -688,11 +727,12 @@ Output:
 2
 3
 Done
+
 ```
 
 ---
 
-## Q210. Sparse array behavior and skipped slots in `map`
+## Q210. 💡 Sparse array behavior and skipped slots in `map`
 
 Setting `arr[10]` creates empty slots; `map` skips them, so the mapped array retains holes, a common subtlety on GFG.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -710,6 +750,7 @@ console.log(arr);
 
 const mapped = arr.map(x => x * 2);
 console.log(mapped);
+
 ```
 
 Output:
@@ -719,11 +760,12 @@ Output:
 undefined
 [ 1, 2, 3, <7 empty items>, 10 ]
 [ 2, 4, 6, <7 empty items>, 20 ]
+
 ```
 
 ---
 
-## Q211. Manipulating `array.length` to expand or truncate data
+## Q211. 💡 Manipulating `array.length` to expand or truncate data
 
 Increasing length adds holes; shrinking truncates data—reflecting interview questions that highlight how mutable `length` is.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -740,6 +782,7 @@ console.log(arr.length);
 arr.length = 2;
 console.log(arr);
 console.log(arr.length);
+
 ```
 
 Output:
@@ -749,11 +792,12 @@ Output:
 10
 [ 1, 2 ]
 2
+
 ```
 
 ---
 
-## Q212. Set de-duplication and Map key overwrites
+## Q212. 💡 Set de-duplication and Map key overwrites
 
 Sets ignore duplicates and maintain insertion order; Maps keep only the latest value for a duplicate key, per GFG’s question guide.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -773,6 +817,7 @@ const map = new Map([
 ]);
 console.log(map.size);
 console.log([...map]);
+
 ```
 
 Output:
@@ -782,11 +827,12 @@ Output:
 [ 1, 2, 3 ]
 2
 [ [ 'a', 3 ], [ 'b', 2 ] ]
+
 ```
 
 ---
 
-## Q213. String vs symbol key enumeration
+## Q213. 🤔 String vs symbol key enumeration
 
 `Object.keys` ignores symbols, `Object.getOwnPropertySymbols` returns only symbols, while `Reflect.ownKeys` returns both—as frequently tested.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -805,6 +851,7 @@ console.log(Object.keys(obj));
 console.log(Object.getOwnPropertyNames(obj));
 console.log(Object.getOwnPropertySymbols(obj));
 console.log(Reflect.ownKeys(obj));
+
 ```
 
 Output:
@@ -814,11 +861,12 @@ Output:
 [ 'a', 'b' ]
 [ Symbol(c) ]
 [ 'a', 'b', Symbol(c) ]
+
 ```
 
 ---
 
-## Q214. Getter/setter computed values affecting backing state
+## Q214. 📊 Getter/setter computed values affecting backing state
 
 The getter doubles `a`, while the setter halves assignments—matching JS trick questions cataloged online.[\[2\]](https://medium.com/@sohammehta56/javascript-interesting-output-based-interview-questions-38682c0b64fe)
 
@@ -837,6 +885,7 @@ console.log(obj.b);
 obj.b = 10;
 console.log(obj.a);
 console.log(obj.b);
+
 ```
 
 Output:
@@ -845,11 +894,12 @@ Output:
 2
 5
 10
+
 ```
 
 ---
 
-## Q215. Prototype properties vs own properties with `hasOwnProperty`
+## Q215. 🔗 Prototype properties vs own properties with `hasOwnProperty`
 
 `foo.b` comes from the prototype until overwritten, so `hasOwnProperty` distinguishes them, as shown in standard interview snippets.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -872,6 +922,7 @@ console.log(foo.hasOwnProperty('b'));
 
 Foo.prototype.b = 3;
 console.log(foo.b);
+
 ```
 
 Output:
@@ -882,11 +933,12 @@ Output:
 true
 false
 3
+
 ```
 
 ---
 
-## Q216. Objects created with `Object.create(null)`
+## Q216. 📦 Objects created with `Object.create(null)`
 
 Prototype-less objects lack default methods, so accessing `.toString` or `.hasOwnProperty` yields `undefined`, per widely cited examples.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -901,6 +953,7 @@ obj.a = 1;
 console.log(obj.a);
 console.log(obj.toString);
 console.log(obj.hasOwnProperty);
+
 ```
 
 Output:
@@ -909,11 +962,12 @@ Output:
 1
 undefined
 undefined
+
 ```
 
 ---
 
-## Q217. `Object.seal` allowing updates but blocking additions & deletions
+## Q217. 📝 `Object.seal` allowing updates but blocking additions & deletions
 
 `seal` keeps existing keys mutable but prevents additions/deletions—mirroring typical output puzzles.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -931,6 +985,7 @@ delete obj.a;
 console.log(obj.a);
 console.log(obj.b);
 console.log(Object.isSealed(obj));
+
 ```
 
 Output:
@@ -939,11 +994,12 @@ Output:
 2
 undefined
 true
+
 ```
 
 ---
 
-## Q218. `Object.preventExtensions` blocking new props only
+## Q218. 📊 `Object.preventExtensions` blocking new props only
 
 Extensions are blocked but existing values change—less restrictive than `seal` or `freeze`, as shown in many quizzes.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -960,6 +1016,7 @@ obj.b = 3;
 console.log(obj.a);
 console.log(obj.b);
 console.log(Object.isExtensible(obj));
+
 ```
 
 Output:
@@ -968,11 +1025,12 @@ Output:
 2
 undefined
 false
+
 ```
 
 ---
 
-## Q219. Tagged template literal parameter breakdown
+## Q219. 💡 Tagged template literal parameter breakdown
 
 Tagged templates pass literal segments array plus interpolated values, enabling custom string construction as demonstrated in GFG’s question bank.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -991,6 +1049,7 @@ const name = 'John';
 const age = 30;
 const result = tag`Hello ${name}, you are ${age}!`;
 console.log(result);
+
 ```
 
 Output:
@@ -999,11 +1058,12 @@ Output:
 [ 'Hello ', ', you are ', '!' ]
 [ 'John', 30 ]
 Hello John, you are 30!
+
 ```
 
 ---
 
-## Q220. Nullish coalescing vs optional chaining default handling
+## Q220. 🤔 Nullish coalescing vs optional chaining default handling
 
 `??` only falls back on `null`/`undefined`; optional chaining returns `undefined` for missing nested props without throwing, consistent with modern JS quizzes.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1029,6 +1089,7 @@ console.log(obj.e ?? 'default');
 console.log(obj.a?.prop?.nested);
 console.log(obj.b?.prop);
 console.log(obj.f?.prop);
+
 ```
 
 Output:
@@ -1042,11 +1103,12 @@ false
 undefined
 undefined
 undefined
+
 ```
 
 ---
 
-## Q221. Custom primitive conversion via `Symbol.toPrimitive`
+## Q221. 💡 Custom primitive conversion via `Symbol.toPrimitive`
 
 The method inspects hints (`number`, `string`, `default`) to return different values, as showcased in tricky problem sets.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1069,6 +1131,7 @@ console.log(String(obj));
 console.log(obj + '');
 console.log(obj == 'default');
 console.log(obj * 2);
+
 ```
 
 Output:
@@ -1079,11 +1142,12 @@ hello
 hello
 true
 84
+
 ```
 
 ---
 
-## Q222. BigInt arithmetic and equality comparisons
+## Q222. 💡 BigInt arithmetic and equality comparisons
 
 BigInt operations stay BigInt; `===` respects type, `==` coerces, matching modern JS interview content.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1101,6 +1165,7 @@ console.log(a === 10);
 console.log(a == 10);
 console.log(a > 5);
 console.log(Number(a) + 5);
+
 ```
 
 Output:
@@ -1112,11 +1177,12 @@ false
 true
 true
 15
+
 ```
 
 ---
 
-## Q223. Bound functions ignore subsequent `call`/`apply`
+## Q223. 🔧 Bound functions ignore subsequent `call`/`apply`
 
 Once bound, `greet` always uses the bound object, regardless of later `.call`/`.apply`, a frequent trick question.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1139,6 +1205,7 @@ console.log(boundGreet1());
 console.log(boundGreet2());
 console.log(boundGreet1.call(obj2));
 console.log(boundGreet2.apply(obj1));
+
 ```
 
 Output:
@@ -1148,11 +1215,12 @@ John
 Jane
 John
 Jane
+
 ```
 
 ---
 
-## Q224. Destructuring defaults triggered only by `undefined`
+## Q224. 💡 Destructuring defaults triggered only by `undefined`
 
 Default values skip when properties are `null`, `0`, `false`, etc., aligning with examples in frequently cited articles.[\[2\]](https://medium.com/@sohammehta56/javascript-interesting-output-based-interview-questions-38682c0b64fe)
 
@@ -1166,17 +1234,19 @@ const obj = { a: undefined, b: null, c: 0, d: false };
 const { a = 'defaultA', b = 'defaultB', c = 'defaultC', d = 'defaultD', e = 'defaultE' } = obj;
 
 console.log(a, b, c, d, e);
+
 ```
 
 Output:
 
 ```
 defaultA null 0 false defaultE
+
 ```
 
 ---
 
-## Q225. Variable shadowing across nested scopes
+## Q225. 🔍 Variable shadowing across nested scopes
 
 Inner `let x` declarations shadow outer ones but don’t modify them; output shows per-scope values, per classic puzzles.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1202,6 +1272,7 @@ function outer() {
 
 outer();
 console.log(x, y);
+
 ```
 
 Output:
@@ -1210,11 +1281,12 @@ Output:
 100 2
 10 2
 1 2
+
 ```
 
 ---
 
-## Q226. Strict-mode `this` vs method invocation contexts
+## Q226. 🤔 Strict-mode `this` vs method invocation contexts
 
 Standalone calls produce `undefined`; object method calls bind `this` to the object, supporting canonical interview examples.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1241,6 +1313,7 @@ const obj = {
 
 test();
 obj.test();
+
 ```
 
 Output:
@@ -1249,11 +1322,12 @@ Output:
 undefined
 { test: [Function: test] }
 undefined
+
 ```
 
 ---
 
-## Q227. Proxy traps customizing property access and enumeration
+## Q227. 💡 Proxy traps customizing property access and enumeration
 
 Handlers intercept `get`, `has`, `ownKeys`; here `get` doubles values and unknown props yield `NaN`, matching tricky patterns from GFG.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1282,6 +1356,7 @@ console.log(proxy.a);
 console.log('a' in proxy);
 console.log(Object.keys(proxy));
 console.log(proxy.c);
+
 ```
 
 Output:
@@ -1291,11 +1366,12 @@ Output:
 true
 [ 'a', 'b' ]
 NaN
+
 ```
 
 ---
 
-## Q228. Generator `try/catch` catching internal errors
+## Q228. ⚠️ Generator `try/catch` catching internal errors
 
 Throwing inside a generator can be caught and the generator can continue yielding, as seen in interview question archives.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1322,6 +1398,7 @@ console.log(gen.next());
 console.log(gen.next());
 console.log(gen.next());
 console.log(gen.next());
+
 ```
 
 Output:
@@ -1332,11 +1409,12 @@ Output:
 { value: 4, done: false }
 { value: 5, done: false }
 { value: undefined, done: true }
+
 ```
 
 ---
 
-## Q229. Mixed regular and arrow functions inside objects
+## Q229. 🔧 Mixed regular and arrow functions inside objects
 
 Regular methods use dynamic `this`, arrows capture lexical `this`, and nested arrows inside methods inherit object context—mirroring common output puzzles.[\[2\]](https://medium.com/@sohammehta56/javascript-interesting-output-based-interview-questions-38682c0b64fe)
 
@@ -1362,6 +1440,7 @@ console.log(obj.b());
 console.log(obj.c());
 console.log(obj.d().e());
 console.log(obj.d().f());
+
 ```
 
 Output:
@@ -1371,11 +1450,12 @@ Output:
 undefined
 1
 1
+
 ```
 
 ---
 
-## Q230. Global symbol registry via `Symbol.for`
+## Q230. 💡 Global symbol registry via `Symbol.for`
 
 Symbols from `Symbol()` are unique per call; `Symbol.for` reuses registry entries, so assignments with the same key hit the same symbol, as covered in quizzes.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1401,6 +1481,7 @@ console.log(obj[sym1]);
 console.log(obj[sym2]);
 console.log(Symbol('a') === Symbol('a'));
 console.log(Symbol.for('shared') === Symbol.for('shared'));
+
 ```
 
 Output:
@@ -1411,11 +1492,12 @@ shared2
 shared2
 false
 true
+
 ```
 
 ---
 
-## Q231. Method chaining depends on returning `this`
+## Q231. 💡 Method chaining depends on returning `this`
 
 Each method must return the instance to allow chaining; otherwise, later calls fail, per classic chain examples.[\[2\]](https://medium.com/@sohammehta56/javascript-interesting-output-based-interview-questions-38682c0b64fe)
 
@@ -1440,17 +1522,19 @@ const obj = {
 };
 
 console.log(obj.increment().add(5).getValue());
+
 ```
 
 Output:
 
 ```
 7
+
 ```
 
 ---
 
-## Q232. Infinite Fibonacci generator producing successive values
+## Q232. 💡 Infinite Fibonacci generator producing successive values
 
 The generator yields successive Fibonacci numbers lazily, per well-known interview exercises.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1472,6 +1556,7 @@ console.log(gen.next().value);
 console.log(gen.next().value);
 console.log(gen.next().value);
 console.log(gen.next().value);
+
 ```
 
 Output:
@@ -1481,11 +1566,12 @@ Output:
 1
 2
 3
+
 ```
 
 ---
 
-## Q233. Capturing `this` via closure vs relying on dynamic binding
+## Q233. 🔒 Capturing `this` via closure vs relying on dynamic binding
 
 `self` (or arrow function) captures the object, while standalone functions fall back to `undefined`, echoing typical closure vs `this` puzzles.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1507,6 +1593,7 @@ const obj = {
 
 const fn = obj.b();
 fn();
+
 ```
 
 Output:
@@ -1514,11 +1601,12 @@ Output:
 ```
 1
 undefined
+
 ```
 
 ---
 
-## Q234. Arrow functions capturing `this` from creation context
+## Q234. 🔧 Arrow functions capturing `this` from creation context
 
 `obj.b()` returns an arrow that remembers `obj`; calling the function returned by an unbound `extracted()` has `this` as `undefined`, reflecting Medium’s outputs.[\[3\]](https://medium.com/@iamyashkhandelwal/5-output-based-interview-questions-in-javascript-b64a707f34d2)
 
@@ -1540,6 +1628,7 @@ fn();
 const extracted = obj.b;
 const fn2 = extracted();
 fn2();
+
 ```
 
 Output:
@@ -1547,11 +1636,12 @@ Output:
 ```
 1
 undefined
+
 ```
 
 ---
 
-## Q235. Promise chain errors recovered by `.catch`
+## Q235. ⚡ Promise chain errors recovered by `.catch`
 
 Throwing inside `.then` hits `.catch`, which can return a value to continue the chain, as stressed in popular interview examples.[\[2\]](https://medium.com/@sohammehta56/javascript-interesting-output-based-interview-questions-38682c0b64fe)
 
@@ -1579,6 +1669,7 @@ Promise.resolve(1)
   .then(val => {
     console.log(val);
   });
+
 ```
 
 Output:
@@ -1588,11 +1679,12 @@ Output:
 2
 Error
 10
+
 ```
 
 ---
 
-## Q236. Map keys compared by reference
+## Q236. 💡 Map keys compared by reference
 
 Different objects with identical contents are distinct keys; overwriting the same key replaces its value without growing the size.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1615,6 +1707,7 @@ console.log(map.size);
 map.set(obj1, 'value3');
 console.log(map.get(obj1));
 console.log(map.size);
+
 ```
 
 Output:
@@ -1625,11 +1718,12 @@ value2
 2
 value3
 2
+
 ```
 
 ---
 
-## Q237. Set uniqueness and delete behavior
+## Q237. 💡 Set uniqueness and delete behavior
 
 Sets ignore duplicate adds; `delete` removes values if present.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1647,6 +1741,7 @@ console.log(set.size);
 console.log([...set]);
 console.log(set.has(2));
 console.log(set.has(4));
+
 ```
 
 Output:
@@ -1656,11 +1751,12 @@ Output:
 [ 1, 3, 4 ]
 false
 true
+
 ```
 
 ---
 
-## Q238. Custom iterable object consumed via spread/Array.from
+## Q238. 📦 Custom iterable object consumed via spread/Array.from
 
 Defining `[Symbol.iterator]` allows objects to work with `...` and `Array.from`, per frequent interview fodder.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1683,6 +1779,7 @@ console.log(Array.from(obj));
 for (const val of obj) {
   console.log(val);
 }
+
 ```
 
 Output:
@@ -1693,11 +1790,12 @@ Output:
 1
 2
 3
+
 ```
 
 ---
 
-## Q239. Async generator with delay per iteration
+## Q239. ⚡ Async generator with delay per iteration
 
 Each iteration waits before yielding; completion logs `'Done'`, aligning with asynchronous iteration patterns shown in references.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1719,6 +1817,7 @@ async function* asyncGen() {
   }
   console.log('Done');
 })();
+
 ```
 
 Output:
@@ -1728,11 +1827,12 @@ Output:
 1
 2
 Done
+
 ```
 
 ---
 
-## Q240. Hoisting order between functions and variables
+## Q240. 🔧 Hoisting order between functions and variables
 
 Function declarations hoist before `var`, so the first call hits the declared function before the `var` assignment executes.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1752,6 +1852,7 @@ var foo = function() {
 };
 
 console.log(foo());
+
 ```
 
 Output:
@@ -1759,11 +1860,12 @@ Output:
 ```
 function
 var
+
 ```
 
 ---
 
-## Q241. Temporal Dead Zone (TDZ) with `let`
+## Q241. 💡 Temporal Dead Zone (TDZ) with `let`
 
 `let` bindings exist in TDZ until their declaration executes; accessing them early throws.[\[2\]](https://medium.com/@sohammehta56/javascript-interesting-output-based-interview-questions-38682c0b64fe)
 
@@ -1774,17 +1876,19 @@ Example:
 ```js
 console.log(value);
 let value = 10;
+
 ```
 
 Output:
 
 ```
 ReferenceError: Cannot access 'value' before initialization
+
 ```
 
 ---
 
-## Q242. Default parameters referencing later parameters
+## Q242. 💡 Default parameters referencing later parameters
 
 Default parameters evaluate left-to-right, so using a later parameter inside an earlier default crashes.[\[2\]](https://medium.com/@sohammehta56/javascript-interesting-output-based-interview-questions-38682c0b64fe)
 
@@ -1798,17 +1902,19 @@ function test(x = y, y = 2) {
 }
 
 console.log(test());
+
 ```
 
 Output:
 
 ```
 ReferenceError: Cannot access 'y' before initialization
+
 ```
 
 ---
 
-## Q243. Spread arguments vs rest parameters
+## Q243. 🌐 Spread arguments vs rest parameters
 
 Spread expands arrays into arguments, while rest collects remaining arguments into an array.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1823,17 +1929,19 @@ function mix(a, ...rest) {
 
 const arr = [1, 2, 3];
 mix(...arr, 4);
+
 ```
 
 Output:
 
 ```
 1 [ 2, 3, 4 ]
+
 ```
 
 ---
 
-## Q244. `typeof null` and `instanceof`
+## Q244. 📝 `typeof null` and `instanceof`
 
 Legacy behavior makes `typeof null === 'object'`, yet `null instanceof Object` is false.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1844,6 +1952,7 @@ Example:
 ```js
 console.log(typeof null);
 console.log(null instanceof Object);
+
 ```
 
 Output:
@@ -1851,11 +1960,12 @@ Output:
 ```
 object
 false
+
 ```
 
 ---
 
-## Q245. `NaN` equality quirks and `Object.is`
+## Q245. 🔍 `NaN` equality quirks and `Object.is`
 
 `NaN` isn’t equal to itself via `===`, but `Object.is` recognizes it, a common interview trick.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1867,6 +1977,7 @@ Example:
 const value = NaN;
 console.log(value === NaN);
 console.log(Object.is(value, NaN));
+
 ```
 
 Output:
@@ -1874,11 +1985,12 @@ Output:
 ```
 false
 true
+
 ```
 
 ---
 
-## Q246. Implicit globals created via sloppy-mode assignment
+## Q246. 💡 Implicit globals created via sloppy-mode assignment
 
 Assigning to an undeclared identifier creates a global (in non-strict mode), which can surprise developers.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1893,17 +2005,19 @@ function test() {
 
 test();
 console.log(implicit);
+
 ```
 
 Output:
 
 ```
 10
+
 ```
 
 ---
 
-## Q247. `delete` behavior on variables vs properties
+## Q247. 📝 `delete` behavior on variables vs properties
 
 `delete` removes object properties but not declared variables; `var` bindings remain.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1920,6 +2034,7 @@ delete obj.count;
 
 console.log(count);
 console.log(obj.count);
+
 ```
 
 Output:
@@ -1927,11 +2042,12 @@ Output:
 ```
 5
 undefined
+
 ```
 
 ---
 
-## Q248. `Promise.all` short-circuits on rejection
+## Q248. ⚡ `Promise.all` short-circuits on rejection
 
 `Promise.all` rejects as soon as any promise rejects, ignoring remaining resolutions.[\[1\]](https://www.geeksforgeeks.org/javascript/javascript-output-based-interview-questions/)
 
@@ -1946,17 +2062,19 @@ Promise.all([
   Promise.resolve(3)
 ]).then(console.log)
   .catch(console.log);
+
 ```
 
 Output:
 
 ```
 boom
+
 ```
 
 ---
 
-## Q250. `forEach` ignores async/await
+## Q250. ⚡ `forEach` ignores async/await
 
 `Array.prototype.forEach` doesn’t await async callbacks, so logs happen after the synchronous message.[\[2\]](https://medium.com/@sohammehta56/javascript-interesting-output-based-interview-questions-38682c0b64fe)
 
@@ -1973,6 +2091,7 @@ ids.forEach(async id => {
 });
 
 console.log('Done scheduling');
+
 ```
 
 Output:
@@ -1982,6 +2101,7 @@ Done scheduling
 1
 2
 3
+
 ```
 
 ---

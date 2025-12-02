@@ -4,11 +4,11 @@
 
 </div>
 
-# 3. Filtering, Grouping & Aggregation (Q21–30)
+# 📊 3. Filtering, Grouping & Aggregation (Q21–30)
 
 ---
 
-## Q21. Difference between WHERE and HAVING clauses
+## Q21. 🤔 Difference between WHERE and HAVING clauses
 
 WHERE filters rows before grouping, while HAVING filters groups after GROUP BY. WHERE cannot use aggregate functions, HAVING can. WHERE executes before GROUP BY and is more efficient because it filters data before grouping, while HAVING executes after GROUP BY for group-level filtering.
 
@@ -34,11 +34,12 @@ FROM employees
 WHERE salary > 30000  -- Filter rows first
 GROUP BY department_id
 HAVING AVG(salary) > 50000;  -- Then filter groups
+
 ```
 
 ---
 
-## Q22. Handling NULL values in SQL
+## Q22. 🗄️ Handling NULL values in SQL
 
 NULL values require special handling in SQL using IS NULL for checking (not = or !=), COALESCE for providing defaults (returns first non-NULL value), and NULLIF for conditional NULL conversion. Most aggregate functions ignore NULL values automatically, and NULL comparisons return UNKNOWN, not TRUE or FALSE.
 
@@ -59,11 +60,12 @@ FROM employees;
 -- NULLIF converts specific values to NULL
 SELECT name, NULLIF(salary, 0) as salary  -- Converts 0 to NULL
 FROM employees;
+
 ```
 
 ---
 
-## Q23. Difference between IN, EXISTS, and ANY operators
+## Q23. 🤔 Difference between IN, EXISTS, and ANY operators
 
 IN checks if value exists in a list, EXISTS checks if subquery returns any rows (stops at first match), and ANY checks if any value in subquery meets a condition. IN is best for fixed lists, EXISTS is best for correlated subqueries, and ANY is more flexible with comparison operators.
 
@@ -86,11 +88,12 @@ WHERE EXISTS (SELECT 1 FROM departments d WHERE d.dept_id = e.department_id);
 SELECT name, salary
 FROM employees
 WHERE salary > ANY (SELECT salary FROM employees WHERE department_id = 1);
+
 ```
 
 ---
 
-## Q24. GROUP BY and how to use it
+## Q24. 🔧 GROUP BY and how to use it
 
 Use GROUP BY with department column and SUM() aggregate function to calculate total salary per department. GROUP BY groups rows with the same values in specified columns, and all non-aggregate columns in SELECT must be in GROUP BY.
 
@@ -109,11 +112,12 @@ SELECT d.department_name, SUM(e.salary) as total_salary
 FROM employees e
 JOIN departments d ON e.department_id = d.department_id
 GROUP BY d.department_name;
+
 ```
 
 ---
 
-## Q25. Aggregate functions in SQL
+## Q25. 🔧 Aggregate functions in SQL
 
 Use HAVING clause after GROUP BY to filter groups based on aggregate function results, unlike WHERE which filters individual rows. HAVING executes after GROUP BY and aggregate calculations, and you can combine multiple conditions with AND/OR.
 
@@ -133,11 +137,12 @@ SELECT department_id, AVG(salary) as avg_salary
 FROM employees
 GROUP BY department_id
 HAVING AVG(salary) > 60000;
+
 ```
 
 ---
 
-## Q26. Difference between COUNT(*) and COUNT(column_name)
+## Q26. 🤔 Difference between COUNT(*) and COUNT(column_name)
 
 CASE expressions provide conditional logic similar to if-else statements, useful for data transformation and conditional aggregation. Simple CASE compares an expression to multiple values (like a switch statement), while searched CASE evaluates multiple conditions (like an if-else chain).
 
@@ -162,11 +167,12 @@ SELECT
     SUM(CASE WHEN salary <= 50000 THEN 1 ELSE 0 END) as low_earners
 FROM employees
 GROUP BY department_id;
+
 ```
 
 ---
 
-## Q27. Using conditional aggregation with CASE statements
+## Q27. 📊 Using conditional aggregation with CASE statements
 
 Window functions perform calculations across a set of rows related to the current row, while aggregate functions collapse rows into a single result. Window functions keep all rows and require an OVER clause that defines the window frame, while aggregate functions reduce rows to one per group.
 
@@ -181,11 +187,12 @@ SELECT name, salary, department_id,
        AVG(salary) OVER (PARTITION BY department_id) as dept_avg_salary,
        SUM(salary) OVER (ORDER BY salary ROWS UNBOUNDED PRECEDING) as running_total
 FROM employees;
+
 ```
 
 ---
 
-## Q28. Window functions and how to use them
+## Q28. 🔧 Window functions and how to use them
 
 ROW_NUMBER assigns unique sequential numbers (always unique, no ties), RANK assigns ranks with gaps for ties (skips next ranks), and DENSE_RANK assigns ranks without gaps for ties. ROW_NUMBER is useful for pagination and top-N queries, RANK for competition rankings, and DENSE_RANK for percentile calculations.
 
@@ -217,11 +224,12 @@ FROM (
     FROM employees
 ) ranked
 WHERE row_num <= 3;
+
 ```
 
 ---
 
-## Q29. Difference between ROW_NUMBER, RANK, and DENSE_RANK
+## Q29. 🤔 Difference between ROW_NUMBER, RANK, and DENSE_RANK
 
 LEAD() accesses data from following rows (looks forward), while LAG() accesses data from preceding rows (looks backward), both useful for comparing current row with adjacent rows. You can specify an offset parameter to look multiple rows ahead/behind, and provide a default value when no previous/next row exists.
 
@@ -243,11 +251,12 @@ SELECT name, salary,
        LEAD(salary) OVER (ORDER BY salary) - salary as salary_increase
 FROM employees
 ORDER BY salary;
+
 ```
 
 ---
 
-## Q30. Creating pivot tables in SQL
+## Q30. 🗄️ Creating pivot tables in SQL
 
 A pivot table transforms rows into columns, converting data from long format to wide format, useful for creating cross-tabulations and summary reports. You can use CASE statements with GROUP BY (universal approach) or the PIVOT operator (SQL Server, Oracle) for cleaner code.
 
@@ -274,7 +283,14 @@ FROM (
 PIVOT (
     COUNT(hire_year) FOR hire_year IN ([2020], [2021], [2022])
 ) pvt;
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Querying & Joins](2%29%20Querying%20%26%20Joins.md)** | **[Next: Database Design, Indexing & Performance →](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md)**
+
+</div>
 

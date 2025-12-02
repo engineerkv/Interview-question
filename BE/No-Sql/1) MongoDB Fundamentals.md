@@ -4,11 +4,11 @@
 
 </div>
 
-# 1. MongoDB Fundamentals (Q1–16)
+# 🍃 1. MongoDB Fundamentals (Q1–16)
 
 ---
 
-## Q1. MongoDB and what type of NoSQL database it is
+## Q1. 🗄️ MongoDB and what type of NoSQL database it is
 
 MongoDB is a document-oriented NoSQL database that stores data as flexible BSON documents in collections, allowing each record to have different fields without requiring schema changes. Unlike relational databases with fixed tables, MongoDB allows documents to evolve independently, making it perfect for handling varied or rapidly changing data structures.
 
@@ -23,11 +23,12 @@ Example:
   age: 30,
   address: { city: "NYC", country: "USA" }
 }
+
 ```
 
 ---
 
-## Q2. Key differences between MongoDB and relational databases like MySQL
+## Q2. 🗄️ Key differences between MongoDB and relational databases like MySQL
 
 MongoDB stores flexible JSON-like documents in collections without fixed schemas, while MySQL uses structured tables with fixed rows and columns. MongoDB queries with JSON-like syntax and scales horizontally through sharding, while MySQL uses SQL with JOINs and typically scales vertically. MongoDB allows you to embed related data in documents or reference other documents via ObjectIds, while MySQL enforces foreign keys and automatic JOINs.
 
@@ -42,11 +43,12 @@ db.users.insertOne({
   address: { city: "NYC", country: "USA" },
   hobbies: ["reading", "gaming"]
 });
+
 ```
 
 ---
 
-## Q3. Collections and documents in MongoDB
+## Q3. 💡 Collections and documents in MongoDB
 
 Collections are logical groupings of documents (equivalent to tables) with no fixed schema, and documents are BSON objects (equivalent to rows) stored within collections, so structures can differ per document.
 
@@ -59,11 +61,12 @@ db.users.insertMany([
   { name: "Alice", email: "alice@example.com" },
   { name: "Bob", phone: "123-456-7890", address: { city: "LA" } }
 ]);
+
 ```
 
 ---
 
-## Q4. BSON and how it differs from JSON
+## Q4. 🔧 BSON and how it differs from JSON
 
 BSON is MongoDB's binary JSON that adds data types such as ObjectId, Date, and Decimal128, enabling faster parsing and richer data than plain JSON strings.
 
@@ -78,11 +81,12 @@ Example:
   date: new Date("2023-12-01T10:30:00Z"),
   _id: ObjectId("507f1f77bcf86cd799439011")
 }
+
 ```
 
 ---
 
-## Q5. What it means for MongoDB to be schema-less
+## Q5. ❓ What it means for MongoDB to be schema-less
 
 Schema-less stores don't force predefined columns, so you can insert documents with new fields anytime, accelerating prototyping and heterogeneous data ingestion.
 
@@ -95,11 +99,12 @@ db.products.insertMany([
   { name: "Laptop", price: 999.99, specs: { ram: "16GB" } },
   { name: "Book", price: 19.99, author: "John Smith" }
 ]);
+
 ```
 
 ---
 
-## Q6. Difference between embedded(denormalized) and referenced(normalized) data models
+## Q6. 🤔 Difference between embedded(denormalized) and referenced(normalized) data models
 
 Embedded (denormalized) documents store related data inside a single document for fast reads, while referenced (normalized) models link to other documents via ObjectIds.
 
@@ -113,11 +118,12 @@ Example:
 
 // Referenced
 { name: "John", addressId: ObjectId("...") }
+
 ```
 
 ---
 
-## Q7. CRUD operations in MongoDB
+## Q7. 💡 CRUD operations in MongoDB
 
 CRUD maps to insertOne/insertMany for create, find/findOne for read, updateOne/updateMany for update, and deleteOne/deleteMany for delete—all using JSON-like filters. `insertOne()` inserts a single document and returns the inserted document's `_id`, `insertMany()` inserts multiple documents and returns an array of `_id`s, while `insert()` is deprecated. `updateOne()` updates the first matching document, `updateMany()` updates all matches, while `update()` is deprecated. `deleteOne()` deletes the first match, `deleteMany()` deletes all matches, while `delete()` is deprecated.
 
@@ -144,11 +150,12 @@ db.users.updateMany({ age: { $lt: 18 } }, { $set: { status: "minor" } });
 // Delete
 db.users.deleteOne({ name: "John" });
 db.users.deleteMany({ age: { $lt: 18 } });
+
 ```
 
 ---
 
-## Q8. MongoDB operators and their types
+## Q8. 📝 MongoDB operators and their types
 
 MongoDB operators are special keywords prefixed with `$` that perform specific operations—query operators filter documents (`$lt`, `$gt`, `$in`, `$exists`), update operators modify fields (`$set`, `$inc`, `$push`, `$pull`), logical operators combine conditions (`$and`, `$or`, `$not`), and array operators manipulate arrays (`$addToSet`, `$pop`, `$slice`).
 
@@ -175,11 +182,12 @@ db.users.updateOne({ name: "John" }, { $push: { hobbies: "reading" } });  // Add
 db.users.updateOne({ name: "John" }, { $pull: { hobbies: "gaming" } });  // Remove from array
 db.users.updateOne({ name: "John" }, { $unset: { tempField: "" } });  // Remove field
 db.users.updateOne({ name: "John" }, { $addToSet: { tags: "vip" } });  // Add unique to array
+
 ```
 
 ---
 
-## Q9. How MongoDB ensures data consistency
+## Q9. 🔧 How MongoDB ensures data consistency
 
 Consistency comes from application-side validation, built-in JSON schema validators, and disciplined data modeling—MongoDB enforces whatever rules you configure.
 
@@ -200,11 +208,12 @@ db.createCollection("users", {
     }
   }
 });
+
 ```
 
 ---
 
-## Q10. Capped collections in MongoDB
+## Q10. 💡 Capped collections in MongoDB
 
 Capped collections are fixed-size, circular buffers that overwrite the oldest documents when reaching their byte or count limit—perfect for logs and real-time feeds.
 
@@ -218,11 +227,12 @@ db.createCollection("logs", {
   size: 1_000_000,
   max: 1000
 });
+
 ```
 
 ---
 
-## Q11. Difference between `findOne()`, `find()`, and aggregation
+## Q11. 📊 Difference between `findOne()`, `find()`, and aggregation
 
 `findOne()` fetches a single document, `find()` returns a cursor you can iterate, and aggregation pipelines process documents through multiple stages that filter, group, reshape, and transform data.
 
@@ -237,11 +247,12 @@ db.users.aggregate([
   { $match: { age: { $gte: 25 } } },
   { $group: { _id: "$department", count: { $sum: 1 } } }
 ]);
+
 ```
 
 ---
 
-## Q12. Mongoose and how it works with MongoDB
+## Q12. 🔧 Mongoose and how it works with MongoDB
 
 Mongoose is an ODM (Object Document Mapper) for MongoDB in Node.js that provides schema-based modeling, validation, middleware hooks, and type casting, making it easier to work with MongoDB in JavaScript applications.
 
@@ -256,11 +267,12 @@ const userSchema = new mongoose.Schema({
   age: { type: Number, min: 0 }
 });
 const User = mongoose.model('User', userSchema);
+
 ```
 
 ---
 
-## Q13. Connecting to MongoDB using Mongoose
+## Q13. 💡 Connecting to MongoDB using Mongoose
 
 Mongoose connects to MongoDB using `mongoose.connect()` with a connection string, and manages connection state, retries, and connection pooling automatically.
 
@@ -275,11 +287,12 @@ mongoose.connect('mongodb://localhost:27017/myapp', {
 });
 mongoose.connection.on('connected', () => console.log('Connected'));
 mongoose.connection.on('error', (err) => console.error(err));
+
 ```
 
 ---
 
-## Q14. Connection pooling in MongoDB
+## Q14. 💡 Connection pooling in MongoDB
 
 Connection pooling maintains a cache of database connections that can be reused across multiple requests, avoiding the overhead of creating and destroying connections for each operation. MongoDB drivers automatically manage connection pools, allowing you to configure pool size, max idle time, and connection timeouts.
 
@@ -303,11 +316,12 @@ const client = new MongoClient('mongodb://localhost:27017', {
   minPoolSize: 2,
   maxIdleTimeMS: 30000
 });
+
 ```
 
 ---
 
-## Q15. Mongoose schemas and models
+## Q15. 💡 Mongoose schemas and models
 
 Schemas define the structure, types, and validation rules for documents, while models are constructors compiled from schemas that provide methods to interact with MongoDB collections.
 
@@ -323,11 +337,12 @@ const userSchema = new mongoose.Schema({
 });
 const User = mongoose.model('User', userSchema);
 const user = new User({ name: 'John', email: 'john@example.com' });
+
 ```
 
 ---
 
-## Q16. Mongoose CRUD operations
+## Q16. 💡 Mongoose CRUD operations
 
 Mongoose provides instance methods (`save()`, `remove()`) for document operations and static methods (`create()`, `find()`, `findOne()`, `updateOne()`, `deleteOne()`) for collection operations, all with built-in validation and type casting.
 
@@ -345,7 +360,14 @@ const user = await User.findOne({ email: 'john@example.com' });
 await User.updateOne({ name: 'John' }, { $set: { age: 31 } });
 // Delete
 await User.deleteOne({ name: 'John' });
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: README](../README.md)** | **[Next: Indexing & Query Optimization →](2%29%20Indexing%20%26%20Query%20Optimization.md)**
+
+</div>
 

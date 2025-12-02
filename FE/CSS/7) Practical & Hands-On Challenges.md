@@ -4,11 +4,11 @@
 
 </div>
 
-# 6. Practical & Hands-On Challenges (Q59–68)
+# 🛠️ 6. Practical & Hands-On Challenges (Q59–68)
 
 ---
 
-## Q59. Creating a responsive navigation menu
+## Q59. 🧭 Creating a responsive navigation menu
 
 Build a responsive navigation that adapts to different screen sizes using CSS Grid for overall layout and Flexbox for menu items and alignment - combining Grid and Flexbox creates flexible, responsive navigation. Use CSS Grid for overall container structure, Flexbox for menu items and centering.
 
@@ -32,11 +32,12 @@ Example:
 @media (max-width: 768px) { 
   .nav-menu { display: none; } 
 }
+
 ```
 
 ---
 
-## Q60. Creating a CSS-only carousel
+## Q60. 🎨 Creating a CSS-only carousel
 
 Build a carousel component using only CSS with smooth slide transitions, navigation controls, and responsive design - CSS-only carousels use radio buttons for navigation. Use `transform: translateX()` for smooth slide effects.
 
@@ -59,11 +60,12 @@ Example:
 .carousel-item { 
   flex: 0 0 100%; 
 }
+
 ```
 
 ---
 
-## Q61. Creating a CSS-only modal
+## Q61. 🎨 Creating a CSS-only modal
 
 Create a modal dialog using only CSS with backdrop blur effect, smooth animations, and proper focus management - modals require focus management and keyboard navigation. Use `backdrop-filter: blur()` for modern glassmorphism effects.
 
@@ -90,11 +92,12 @@ Example:
   padding: 2rem; 
   border-radius: 8px; 
 }
+
 ```
 
 ---
 
-## Q62. Creating a CSS-only tooltip
+## Q62. 🎨 Creating a CSS-only tooltip
 
 Build a tooltip component using only CSS with proper positioning, smooth animations, and responsive behavior - tooltips should work on all screen sizes. Use absolute positioning with transform for precise placement.
 
@@ -117,11 +120,12 @@ Example:
 .tooltip-container:hover .tooltip { 
   opacity: 1; 
 }
+
 ```
 
 ---
 
-## Q63. Creating a CSS-only accordion
+## Q63. 🎨 Creating a CSS-only accordion
 
 Build an accordion component using only CSS with smooth expand/collapse animations and proper accessibility features - CSS-only accordions use checkbox inputs for state. Use `max-height` for smooth expand/collapse effects.
 
@@ -143,11 +147,12 @@ Example:
 .accordion-input:checked + .accordion-label + .accordion-content { 
   max-height: 500px; 
 }
+
 ```
 
 ---
 
-## Q64. Creating a CSS-only tabs component
+## Q64. 🧩 Creating a CSS-only tabs component
 
 Create a tab component using only CSS with smooth content transitions, active states, and responsive design - CSS-only tabs require proper keyboard navigation. Use radio buttons for single-selection tab behavior.
 
@@ -176,11 +181,12 @@ Example:
 .tab-input:checked + .tab-label + .tab-content { 
   display: block; 
 }
+
 ```
 
 ---
 
-## Q65. Creating a CSS-only dropdown menu
+## Q65. 🎨 Creating a CSS-only dropdown menu
 
 Create a dropdown menu using only CSS with smooth animations, proper positioning, and accessibility features - CSS-only dropdowns require proper focus management. Use `position: absolute` for proper dropdown placement.
 
@@ -204,11 +210,12 @@ Example:
   opacity: 1; 
   visibility: visible; 
 }
+
 ```
 
 ---
 
-## Q66. Creating a CSS-only loading spinner
+## Q66. 🎨 Creating a CSS-only loading spinner
 
 Create a loading spinner using only CSS with smooth rotation animations, customizable colors, and different sizes - GPU-accelerated properties ensure smooth animations. Use `transform: rotate()` for smooth spinning effects.
 
@@ -230,11 +237,12 @@ Example:
   0% { transform: rotate(0deg); } 
   100% { transform: rotate(360deg); } 
 }
+
 ```
 
 ---
 
-## Q67. Creating a CSS-only progress bar
+## Q67. 🎨 Creating a CSS-only progress bar
 
 Build a progress bar using only CSS with smooth animations, customizable colors, and different states - CSS progress bars use animations or transitions for smooth updates. Use `width` transitions or animations for smooth progress updates.
 
@@ -262,11 +270,12 @@ Example:
 @keyframes progress { 
   to { width: 100%; } 
 }
+
 ```
 
 ---
 
-## Q68. Creating a CSS-only card component
+## Q68. 🧩 Creating a CSS-only card component
 
 Create a reusable card component with smooth hover animations, transitions, and responsive design using modern CSS features - hover effects should work with keyboard navigation. Use `transform` and `box-shadow` for smooth, performant animations.
 
@@ -286,6 +295,13 @@ Example:
   box-shadow: 0 4px 16px rgba(0,0,0,0.2); 
   transform: translateY(-4px); 
 }
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Performance & Optimization](5%29%20Performance%20%26%20Optimization.md)** | **[Next: Question List →](question.md)**
+
+</div>

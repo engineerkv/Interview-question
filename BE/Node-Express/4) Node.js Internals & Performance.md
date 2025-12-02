@@ -1,6 +1,12 @@
-# 4. Node.js Internals & Performance (Q40–50)
+<div align="center">
 
-## Q40. Libuv and how it works with Node.js
+**[← Previous: Streams & Buffers](3%29%20Streams%20%26%20Buffers.md)** | **[Next: Express.js Core Concepts →](5%29%20Express.js%20Core%20Concepts.md)**
+
+</div>
+
+# ⚙️ 4. Node.js Internals & Performance (Q40–50)
+
+## Q40. 🔧 Libuv and how it works with Node.js
 
 **libuv** is a multi-platform C library that provides the event loop and handles all asynchronous I/O operations for Node.js - it's the foundation that makes Node.js's non-blocking, event-driven architecture possible. libuv abstracts away platform-specific differences and provides a unified API for file system operations, network I/O, timers, and thread pool management across Windows, macOS, and Linux.
 
@@ -55,6 +61,7 @@ JavaScript Code (V8)
   OS Kernel (epoll/kqueue/IOCP)
         ↓
   Hardware I/O
+
 ```
 
 **The Flow:**
@@ -105,11 +112,12 @@ http.createServer((req, res) => {
 
 // All these operations are managed by libuv
 // JavaScript thread never blocks waiting for I/O
+
 ```
 
 ---
 
-## Q41. Thread Pool: what it is and how it works in Node.js
+## Q41. ❓ Thread Pool: what it is and how it works in Node.js
 
 **Thread Pool** is a collection of worker threads managed by libuv that handle blocking or CPU-intensive operations that can't be done asynchronously - it prevents these operations from blocking the main JavaScript thread, allowing Node.js to remain responsive while performing heavy work in the background.
 
@@ -162,6 +170,7 @@ Operation Completes
 Callback Queued in Event Loop
     ↓
 JavaScript Callback Executes
+
 ```
 
 **The Flow:**
@@ -176,12 +185,15 @@ JavaScript Callback Executes
 ### **Thread Pool Configuration:**
 
 **Default Size**: 4 threads
+
 ```javascript
 // Check current thread pool size
 console.log(process.env.UV_THREADPOOL_SIZE); // undefined (default: 4)
+
 ```
 
 **Changing Thread Pool Size**:
+
 ```javascript
 // Set before any async operations
 process.env.UV_THREADPOOL_SIZE = 8; // Increase to 8 threads
@@ -189,6 +201,7 @@ process.env.UV_THREADPOOL_SIZE = 8; // Increase to 8 threads
 // Must be set before Node.js starts
 // Set via environment variable:
 // UV_THREADPOOL_SIZE=8 node app.js
+
 ```
 
 **When to Increase Thread Pool Size:**
@@ -260,9 +273,10 @@ console.log('Main thread is free to do other work');
 // If thread pool is busy, operations queue up
 // If you have 4 threads and 10 file operations,
 // 4 run immediately, 6 wait for available thread
+
 ```
 
-## Q42. Clustering in Node.js and how to implement it
+## Q42. 🔧 Clustering in Node.js and how to implement it
 
 The Cluster module allows Node.js to create multiple processes (workers) that share the same port, enabling utilization of all CPU cores for better performance - it creates separate processes for each CPU core, workers share the same port using round-robin load balancing, and master process manages worker lifecycle. Workers can be restarted on failure, improving performance for CPU-intensive applications.
 
@@ -291,9 +305,10 @@ if (cluster.isMaster || cluster.isPrimary) {
   // Worker process - run your app
   require('./app.js');
 }
+
 ```
 
-## Q43. Worker Threads and when to use them
+## Q43. 👷 Worker Threads and when to use them
 
 Worker Threads create separate threads within the same process for CPU-intensive tasks with shared memory (better performance than clusters for CPU-bound work). Use worker threads for CPU-intensive tasks that need shared memory and faster communication, while clusters are better for web servers and better fault tolerance.
 
@@ -328,9 +343,10 @@ if (isMainThread) {
   
   parentPort.postMessage({ sum });
 }
+
 ```
 
-## Q44. Implementing IPC (Inter-Process Communication)
+## Q44. 🔧 Implementing IPC (Inter-Process Communication)
 
 IPC enables communication between different Node.js processes, allowing them to exchange messages, share data, and coordinate operations - it uses message passing for data exchange, supports JSON-serializable data only, and is essential for cluster and child process coordination. Can be used for distributed computing scenarios.
 
@@ -359,9 +375,10 @@ process.on('message', (data) => {
   // Send result back
   process.send({ result });
 });
+
 ```
 
-## Q45. Identifying and fixing memory leaks in Node.js
+## Q45. 💡 Identifying and fixing memory leaks in Node.js
 
 Memory leaks occur when objects are not properly garbage collected, and can be detected using heap snapshots, monitoring tools, and proper coding practices - use process.memoryUsage() to monitor memory, take heap snapshots with --inspect flag, avoid global variables and closures, clear timers and event listeners, and use weak references for large objects.
 
@@ -411,9 +428,10 @@ function createLeak() {
     console.log(largeData.length);
   };
 }
+
 ```
 
-## Q46. Using Node.js Inspector for debugging
+## Q46. 🐛 Using Node.js Inspector for debugging
 
 The Node.js Inspector is a debugging interface that allows you to debug Node.js applications using Chrome DevTools, providing breakpoints, profiling, and memory analysis - start with --inspect or --inspect-brk flags, connect Chrome DevTools to debugger, set breakpoints and step through code, profile CPU and memory usage, and debug async code and promises.
 
@@ -429,11 +447,12 @@ function processData(data) {
   debugger;
   return data.map(item => item * 2);
 }
+
 ```
 
 ---
 
-## Q47. Profiling Node.js applications
+## Q47. 💡 Profiling Node.js applications
 
 Use profiling tools like the built-in profiler, Chrome DevTools, and monitoring libraries to identify CPU-intensive operations and optimize performance - use --prof flag for CPU profiling, analyze with --prof-process flag, use Chrome DevTools for visual profiling, monitor event loop lag, and identify hot spots and optimize algorithms.
 
@@ -455,11 +474,12 @@ function cpuIntensiveTask() {
 
 // Profile this function
 cpuIntensiveTask();
+
 ```
 
 ---
 
-## Q48. Generating diagnostic reports in Node.js
+## Q48. 💡 Generating diagnostic reports in Node.js
 
 Diagnostic reports are detailed snapshots of Node.js application state that help debug issues in production by capturing memory, CPU, and system information - they capture application state at specific moments, include memory usage, CPU usage, and stack traces, and can be triggered on errors or signals. Use for post-mortem analysis.
 
@@ -483,9 +503,10 @@ process.report.reportOnUncaughtException = true;
 
 // Set report filename pattern
 process.report.filename = 'report-{pid}-{date}.json';
+
 ```
 
-## Q49. Optimizing Node.js for latency vs throughput
+## Q49. 🤔 Optimizing Node.js for latency vs throughput
 
 Latency optimization focuses on reducing response time for individual requests, while throughput optimization focuses on maximizing requests processed per second - latency optimization uses single-threaded processing, avoids blocking operations, and prioritizes quick responses, while throughput optimization uses clustering, parallel processing, and batch operations. Choose based on your application's needs - real-time apps prioritize latency, batch processing prioritizes throughput.
 
@@ -517,9 +538,10 @@ if (cluster.isPrimary) {
     cluster.fork(); // Multiple workers for higher throughput
   }
 }
+
 ```
 
-## Q50. Performance characteristics of Node.js
+## Q50. ⚡ Performance characteristics of Node.js
 
 Node.js performance characteristics include single-threaded event loop for I/O operations, non-blocking I/O for high concurrency, thread pool for blocking operations, and V8 engine optimizations - it excels at I/O-intensive tasks with thousands of concurrent connections, but CPU-intensive tasks can block the event loop. Performance is optimized for high concurrency and low latency I/O operations, making it ideal for web servers, APIs, and real-time applications.
 
@@ -548,4 +570,5 @@ function cpuIntensive() {
   }
   return sum;
 }
+
 ```

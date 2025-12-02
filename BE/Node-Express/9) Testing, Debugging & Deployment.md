@@ -4,9 +4,9 @@
 
 </div>
 
-# 9. Testing, Debugging & Deployment (Q90–99)
+# 🧪 9. Testing, Debugging & Deployment (Q90–99)
 
-## Q90. Writing unit tests with Jest or Mocha
+## Q90. 🧪 Writing unit tests with Jest or Mocha
 
 Testing frameworks provide tools for writing and running tests - Jest is popular for React/Node.js with built-in mocking, Mocha is flexible with many plugins, and Supertest is specialized for HTTP API testing. Choose based on project requirements and team preferences, and consider testing pyramid: unit > integration > e2e.
 
@@ -39,9 +39,10 @@ describe('User API', () => {
     expect(response.body.name).toBe(userData.name);
   });
 });
+
 ```
 
-## Q91. Testing API endpoints with Supertest
+## Q91. 🧪 Testing API endpoints with Supertest
 
 Supertest allows testing Express applications by making HTTP requests and asserting responses - test middleware in isolation, test both success and error cases, use proper HTTP status code assertions, test request/response modifications, and consider edge cases and error scenarios. Tests both routes and middleware behavior.
 
@@ -88,9 +89,10 @@ describe('Auth Middleware', () => {
       .expect(401);
   });
 });
+
 ```
 
-## Q92. Mocking API calls in tests
+## Q92. 🧪 Mocking API calls in tests
 
 Mocking external API calls prevents tests from making real network requests - mock external dependencies to isolate units under test, use jest.mock() for automatic mocking, test both success and error scenarios, verify mock calls with correct parameters, and consider using MSW for more realistic API mocking. Makes tests faster, more reliable, and independent of external services.
 
@@ -135,9 +137,10 @@ describe('Weather Service', () => {
     await expect(getWeatherData('London')).rejects.toThrow('API Error');
   });
 });
+
 ```
 
-## Q93. Debugging Node.js applications with VS Code
+## Q93. 🐛 Debugging Node.js applications with VS Code
 
 Debugging Node.js applications involves setting breakpoints, inspecting variables, and stepping through code - use --inspect flag to enable debugging, set breakpoints in VS Code or Chrome DevTools, use debugger statement for programmatic breakpoints, inspect variables and call stack, and debug async code and promises. Use integrated debuggers in VS Code or Chrome DevTools.
 
@@ -169,9 +172,10 @@ function getUserById(id) {
   debugger;
   return { id, name: 'John Doe' };
 }
+
 ```
 
-## Q94. Debugging with Chrome DevTools
+## Q94. 🐛 Debugging with Chrome DevTools
 
 CI/CD pipelines automate testing, building, and deploying Node.js applications - automate testing on every commit, test against multiple Node.js versions, run linting and security checks, deploy only after successful tests, and use environment-specific configurations. Ensures code quality and consistent deployments.
 
@@ -219,9 +223,10 @@ jobs:
     - name: Deploy to production
       run: |
         echo "Deploying to production..."
+
 ```
 
-## Q95. Implementing CI/CD for Node.js applications
+## Q95. 🔧 Implementing CI/CD for Node.js applications
 
 Docker containers package Node.js applications with their dependencies - use multi-stage builds for smaller images, use .dockerignore to exclude unnecessary files, run as non-root user for security, implement health checks, and use specific Node.js versions for consistency. Ensures consistent deployment across different environments.
 
@@ -250,9 +255,10 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:3000/health || exit 1
 
 CMD ["npm", "start"]
+
 ```
 
-## Q96. Containerizing Node.js applications with Docker
+## Q96. 💡 Containerizing Node.js applications with Docker
 
 Docker containerization packages Node.js applications with all dependencies into portable containers - create Dockerfile with Node.js base image, copy application files, install dependencies, expose ports, and set startup command. Enables consistent deployments across environments and simplifies deployment process.
 
@@ -289,6 +295,7 @@ HEALTHCHECK --interval=30s --timeout=3s \
 
 # Start application
 CMD ["node", "app.js"]
+
 ```
 
 ```dockerfile
@@ -298,6 +305,7 @@ npm-debug.log
 .git
 .env
 coverage
+
 ```
 
 ```bash
@@ -321,9 +329,10 @@ COPY --from=builder /app/dist ./dist
 COPY package*.json ./
 RUN npm ci --only=production
 CMD ["node", "dist/app.js"]
+
 ```
 
-## Q97. Implementing graceful shutdowns in production
+## Q97. 🔧 Implementing graceful shutdowns in production
 
 Graceful shutdowns ensure applications close properly by handling termination signals, cleaning up resources, and finishing ongoing requests - handle SIGTERM and SIGINT signals, close HTTP server and database connections, set timeout for forced shutdown, log shutdown process for debugging, and test graceful shutdown in production.
 
@@ -366,9 +375,10 @@ process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 server = app.listen(3000, () => {
   console.log('Server running on port 3000');
 });
+
 ```
 
-## Q98. Handling environment configurations
+## Q98. 💡 Handling environment configurations
 
 Environment-specific configurations ensure applications behave correctly across different environments - use environment variables for sensitive data, provide default values for development, validate required environment variables, use different configurations per environment, and never commit secrets to version control. Use environment variables and configuration files.
 
@@ -417,9 +427,10 @@ requiredEnvVars.forEach(varName => {
 
 const env = process.env.NODE_ENV || 'development';
 module.exports = config[env];
+
 ```
 
-## Q99. Deploying Node.js applications to the cloud
+## Q99. 💡 Deploying Node.js applications to the cloud
 
 Cloud deployment involves packaging applications, configuring infrastructure, and using platform-specific services - choose platform based on requirements, configure environment variables, set up proper build and start commands, consider serverless vs traditional hosting, and implement health checks and monitoring. For hosting Node.js applications.
 
@@ -499,4 +510,5 @@ process.on('uncaughtException', (error) => {
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection:', reason);
 });
+
 ```

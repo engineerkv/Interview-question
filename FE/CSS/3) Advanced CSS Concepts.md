@@ -4,11 +4,11 @@
 
 </div>
 
-# 3. Advanced CSS Concepts (Q33–40)
+# 🚀 3. Advanced CSS Concepts (Q33–40)
 
 ---
 
-## Q33. CSS containment: what it is and how it improves performance
+## Q33. ⚡ CSS containment: what it is and how it improves performance
 
 CSS containment is a performance optimization that isolates parts of the DOM tree, preventing layout and style recalculations from affecting other parts of the page - containment is essential for performance optimization in complex UIs. Layout containment prevents layout changes from affecting elements outside the container.
 
@@ -23,11 +23,12 @@ Example:
   height: 200px;
   background: #f0f0f0;
 }
+
 ```
 
 ---
 
-## Q34. CSS logical properties: what they are and their benefits
+## Q34. 🎨 CSS logical properties: what they are and their benefits
 
 CSS logical properties provide direction-agnostic styling that automatically adapts to different writing modes and text directions (LTR/RTL) - logical properties are future-proof for internationalization. Automatically adapts to LTR, RTL, and vertical writing modes.
 
@@ -42,11 +43,12 @@ Example:
   border-inline-start: 2px solid #333;
   padding-inline-start: 16px;
 }
+
 ```
 
 ---
 
-## Q35. CSS container queries: what they are and how they work
+## Q35. 🎨 CSS container queries: what they are and how they work
 
 CSS container queries allow elements to respond to their container's size rather than the viewport size, enabling component-based responsive design - container queries are modern feature with growing support, requires fallbacks. Enables responsive design at the component level, not just page level.
 
@@ -66,11 +68,12 @@ Example:
     flex-direction: row; 
   }
 }
+
 ```
 
 ---
 
-## Q36. CSS subgrid: what it is and its use cases
+## Q36. 🎨 CSS subgrid: what it is and its use cases
 
 CSS subgrid allows grid items to participate in their parent's grid layout, enabling complex nested grid structures with consistent alignment - subgrid has limited support, requires fallbacks for older browsers. Allows child grids to inherit parent grid structure and alignment.
 
@@ -89,11 +92,12 @@ Example:
   grid-template-columns: subgrid; 
   grid-column: 1 / -1; 
 }
+
 ```
 
 ---
 
-## Q37. CSS Houdini: what it is and how it works
+## Q37. 🎨 CSS Houdini: what it is and how it works
 
 CSS Houdini is a collection of APIs that expose parts of the CSS engine, allowing developers to extend CSS with custom properties, functions, and layout algorithms - Houdini is experimental but powerful for extending CSS. Custom Properties (type-safe with syntax validation), Paint Worklets (custom painting functions).
 
@@ -108,6 +112,7 @@ CSS.registerProperty({
   inherits: false,
   initialValue: 'transparent'
 });
+
 ```
 
 ```css
@@ -115,11 +120,12 @@ CSS.registerProperty({
   --my-color: #ff6b6b; 
   background-image: paint(my-paint); 
 }
+
 ```
 
 ---
 
-## Q38. CSS layers: what they are and how they work
+## Q38. 🎨 CSS layers: what they are and how they work
 
 CSS layers provide explicit control over the cascade order, allowing developers to organize styles into logical layers with predictable precedence - layers are modern feature with good support, requires fallbacks. Layers provide predictable cascade order regardless of source order.
 
@@ -135,11 +141,12 @@ Example:
 @layer base { 
   body { font-family: Arial, sans-serif; } 
 }
+
 ```
 
 ---
 
-## Q39. CSS anchor positioning
+## Q39. 🎨 CSS anchor positioning
 
 CSS anchor positioning allows elements to be positioned relative to other elements (anchors) without JavaScript, enabling tooltips, popovers, and floating elements - anchor positioning is experimental feature with limited support, requires fallbacks. Use `anchor-name` to create named anchor points, `anchor` property references the anchor.
 
@@ -157,11 +164,12 @@ Example:
   anchor: --my-anchor; 
   top: anchor(bottom); 
 }
+
 ```
 
 ---
 
-## Q40. CSS `color-mix()` function: what it is and its usage
+## Q40. 🔧 CSS `color-mix()` function: what it is and its usage
 
 The `color-mix()` function allows you to blend two colors in a specified color space, giving you more control than traditional CSS - perfect for creating color variations and theming, color-mix() is modern feature for advanced color manipulation. Blends two colors in specified color space (srgb, display-p3, etc.).
 
@@ -181,6 +189,13 @@ Example:
     var(--secondary) 30%
   ); 
 }
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Intermediate Level CSS](2%29%20Intermediate%20Level%20CSS.md)** | **[Next: CSS Architecture & Design Systems →](4%29%20CSS%20Architecture%20%26%20Design%20Systems.md)**
+
+</div>

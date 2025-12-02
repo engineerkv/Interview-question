@@ -8,7 +8,7 @@
 
 ---
 
-## Q61. Microsoft CodePush and how it works
+## Q61. 📲 Microsoft CodePush and how it works
 
 CodePush is a service that allows updating React Native apps over-the-air without going through app stores - built-in analytics and crash reporting. Update apps without app store approval (over-the-air updates).
 
@@ -30,11 +30,12 @@ function App() {
     });
   }, []);
 }
+
 ```
 
 ---
 
-## Q62. Integrating CodePush in React Native
+## Q62. 📱 Integrating CodePush in React Native
 
 Install the CodePush SDK, configure it in the app, and set up deployment keys for different environments - choose appropriate update strategy. Install CodePush SDK and native dependencies (SDK installation).
 
@@ -51,11 +52,12 @@ const codePushOptions = {
 };
 
 export default codePush(codePushOptions)(App);
+
 ```
 
 ---
 
-## Q63. Limitations of CodePush
+## Q63. 📲 Limitations of CodePush
 
 CodePush cannot update native code, change app permissions, or modify core app functionality - limited to JavaScript and asset updates (JavaScript only). Cannot update native code or modules (native code).
 
@@ -70,11 +72,12 @@ Example:
 // - Modify Info.plist or AndroidManifest.xml
 // - Change app icon or splash screen
 // - Update native dependencies
+
 ```
 
 ---
 
-## Q64. Implementing rollbacks with CodePush
+## Q64. 📲 Implementing rollbacks with CodePush
 
 Use CodePush's rollback features and version checking to handle failed updates and version conflicts - monitor update success and failure rates (monitoring). CodePush automatically rolls back failed updates (automatic rollback).
 
@@ -99,11 +102,12 @@ function App() {
     });
   }, []);
 }
+
 ```
 
 ---
 
-## Q65. Handling version mismatches with CodePush
+## Q65. 📲 Handling version mismatches with CodePush
 
 Use proper authentication, code signing, and testing strategies to ensure secure and stable updates - monitor update success and stability (monitoring). Use proper authentication for updates (authentication).
 
@@ -120,11 +124,12 @@ const secureCodePushOptions = {
     mandatoryUpdateMessage: 'Security update required'
   }
 };
+
 ```
 
 ---
 
-## Q66. Securing CodePush deployments
+## Q66. 🚀 Securing CodePush deployments
 
 CodePush is for bare React Native apps, while EAS OTA is for Expo-managed apps with different deployment strategies - choose based on your React Native setup. CodePush for bare React Native apps, EAS OTA for Expo-managed apps.
 
@@ -138,11 +143,12 @@ import codePush from 'react-native-code-push';
 
 // EAS OTA (Expo managed)
 import { Updates } from 'expo';
+
 ```
 
 ---
 
-## Q67. Difference between CodePush and Expo EAS OTA
+## Q67. 📲 Difference between CodePush and Expo EAS OTA
 
 Integrate crash reporting tools to monitor app stability and error rates after OTA updates - use crash rates to trigger rollbacks (rollback triggers). Use Sentry or Firebase for crash reporting (crash reporting).
 
@@ -166,11 +172,12 @@ codePush.sync({
     title: 'Update available'
   }
 });
+
 ```
 
 ---
 
-## Q68. Monitoring crashes and errors with CodePush
+## Q68. 📲 Monitoring crashes and errors with CodePush
 
 Test thoroughly, use staged rollouts, monitor metrics, and have rollback strategies in place - communicate updates to users (user communication). Thoroughly test updates before deployment (testing).
 
@@ -189,6 +196,7 @@ const codePushOptions = {
     mandatoryUpdateMessage: 'Update is required'
   }
 };
+
 ```
 
 ---

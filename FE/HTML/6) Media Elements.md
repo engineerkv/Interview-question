@@ -4,11 +4,11 @@
 
 </div>
 
-# 6. Media Elements (Q76–85)
+# 🎬 6. Media Elements (Q76–85)
 
 ---
 
-## Q76. Embedding videos in HTML
+## Q76. 📄 Embedding videos in HTML
 
 Use `<video>` element with controls and multiple source formats for cross-browser compatibility - each element has specific use cases and attributes. Each element serves specific media types (images, video, audio, iframes).
 
@@ -25,11 +25,12 @@ Example:
 <audio controls>
   <source src="audio.mp3" type="audio/mpeg">
 </audio>
+
 ```
 
 ---
 
-## Q77. Creating responsive images
+## Q77. 💡 Creating responsive images
 
 Use `srcset` and `sizes` attributes to provide different image sizes for different screen densities and viewport widths - responsive images improve performance and user experience. `srcset` provides multiple image sources, `sizes` tells browser which size to use.
 
@@ -42,11 +43,12 @@ Example:
      srcset="image-320w.jpg 320w, image-640w.jpg 640w, image-1280w.jpg 1280w"
      sizes="(max-width: 600px) 320px, (max-width: 1200px) 640px, 1280px"
      alt="Responsive image">
+
 ```
 
 ---
 
-## Q78. `<img>` vs `<picture>`
+## Q78. 🤔 `<img>` vs `<picture>`
 
 `<img>` displays a single image, while `<picture>` provides multiple image sources with media queries for different conditions - `<picture>` is for art direction, `<img>` is for responsive sizing. `<img>` is simpler for basic responsive images, `<picture>` enables art direction.
 
@@ -64,11 +66,12 @@ Example:
   <source media="(min-width: 601px)" srcset="hero-desktop.jpg">
   <img src="hero.jpg" alt="Hero image">
 </picture>
+
 ```
 
 ---
 
-## Q79. Creating accessible videos
+## Q79. 🎥 Creating accessible videos
 
 Use proper video structure with captions, transcripts, and controls for accessibility - accessible video is required by WCAG guidelines. Always provide captions for audio content, use `poster` attribute for thumbnail.
 
@@ -83,11 +86,12 @@ Example:
   <track kind="captions" src="captions.vtt" srclang="en" label="English" default>
   <track kind="subtitles" src="subtitles.vtt" srclang="es" label="Spanish">
 </video>
+
 ```
 
 ---
 
-## Q80. Different video formats
+## Q80. 📝 Different video formats
 
 Different video formats offer varying compression, quality, and browser support trade-offs - multiple formats ensure cross-browser compatibility. MP4/H.264 (best browser support), WebM/VP9 (better compression), AV1 (next-gen).
 
@@ -100,11 +104,12 @@ Example:
   <source src="video.mp4" type="video/mp4; codecs=avc1.42E01E">
   <source src="video.webm" type="video/webm; codecs=vp9">
 </video>
+
 ```
 
 ---
 
-## Q81. Creating audio players
+## Q81. 🔊 Creating audio players
 
 Use `<audio>` element with controls and multiple source formats for cross-browser compatibility - audio element is simpler than video, but similar principles apply. `controls` shows default player, `preload` controls when audio loads.
 
@@ -119,11 +124,12 @@ Example:
   <source src="audio.wav" type="audio/wav">
   <p>Your browser does not support the audio element.</p>
 </audio>
+
 ```
 
 ---
 
-## Q82. Purpose of the `<source>` element
+## Q82. 💡 Purpose of the `<source>` element
 
 `<source>` provides alternative media sources for `<video>`, `<audio>`, and `<picture>` elements - browser tries sources in order until it finds one it supports. Provide fallback sources for unsupported formats, ensure cross-browser compatibility.
 
@@ -137,11 +143,12 @@ Example:
   <source src="video.webm" type="video/webm">
   <source src="video.ogv" type="video/ogg">
 </video>
+
 ```
 
 ---
 
-## Q83. Adding subtitles to videos
+## Q83. 🎥 Adding subtitles to videos
 
 Use `<track>` elements with WebVTT files to provide subtitles and captions for video content - WebVTT is the standard format, required for accessibility. WebVTT is the standard format for captions and subtitles.
 
@@ -156,11 +163,12 @@ Example:
   <track kind="captions" src="captions.vtt" srclang="en" label="English Captions">
   <track kind="chapters" src="chapters.vtt" srclang="en">
 </video>
+
 ```
 
 ---
 
-## Q84. Different image formats
+## Q84. 📝 Different image formats
 
 Different image formats offer various compression, quality, and feature trade-offs for different use cases - format choice affects file size, quality, and browser support. JPEG (photos), PNG (transparency), WebP (better compression), SVG (scalable).
 
@@ -173,11 +181,12 @@ Example:
 <img src="logo.png" alt="Company logo">
 <img src="image.webp" alt="Modern image" type="image/webp">
 <img src="icon.svg" alt="Icon" width="24" height="24">
+
 ```
 
 ---
 
-## Q85. Optimizing media for web
+## Q85. 🎬 Optimizing media for web
 
 Optimize media through proper sizing, compression, lazy loading, and modern formats to improve page performance - media optimization significantly improves page load performance. Use `loading="lazy"` for below-fold images, provide appropriate sizes.
 
@@ -192,5 +201,13 @@ Example:
      sizes="(max-width: 600px) 320px, 640px" 
      alt="Responsive">
 <link rel="preload" as="image" href="hero-image.jpg">
+
 ```
 
+---
+
+<div align="center">
+
+**[← Previous: HTML5 Features & APIs](5%29%20HTML5%20Features%20%26%20APIs.md)** | **[Next: Performance & SEO →](7%29%20Performance%20%26%20SEO.md)**
+
+</div>

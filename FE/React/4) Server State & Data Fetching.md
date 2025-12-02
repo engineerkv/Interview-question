@@ -4,11 +4,11 @@
 
 </div>
 
-# 4. Server State & Data Fetching (Q46–55)
+# 🌐 4. Server State & Data Fetching (Q46–55)
 
 ---
 
-## Q46. Server state and how to manage it
+## Q46. 📊 Server state and how to manage it
 
 Server state comes from external APIs or databases - it's separate from client state and needs caching and synchronization to stay fresh and consistent. Server state is data from external sources that needs to stay in sync with server.
 
@@ -28,9 +28,10 @@ function UserProfile({ userId }) {
   if (loading) return <div>Loading...</div>;
   return <div>{user?.name}</div>;
 }
+
 ```
 
-## Q47. React Query and how to use it
+## Q47. 🔍 React Query and how to use it
 
 React Query automatically caches and synchronizes server state - it handles loading, errors, and data freshness without manual management, eliminating boilerplate. Automatic caching, background updates, and error handling eliminate boilerplate.
 
@@ -61,11 +62,12 @@ const {
   onError: err => console.error(err),
   onSuccess: data => console.log('Success', data),
 });
+
 ```
 
 ---
 
-## Q48. RTK Query and how it works
+## Q48. 🔍 RTK Query and how it works
 
 RTK Query is Redux Toolkit's solution for server state - it integrates with Redux store and provides automatic caching, similar to React Query but Redux-specific. RTK Query requires Redux, React Query works with any framework.
 
@@ -82,11 +84,12 @@ const api = createApi({
   })
 });
 const { data: user, isLoading } = api.useGetUserQuery(userId);
+
 ```
 
 ---
 
-## Q49. REST vs GraphQL
+## Q49. 🌐 REST vs GraphQL
 
 REST uses multiple endpoints with fixed data structures, while GraphQL uses one endpoint with flexible queries that fetch exactly what you need. REST has multiple endpoints, GraphQL has one endpoint with queries.
 
@@ -109,11 +112,12 @@ const fetchGraphQLUser = async (id) => {
   });
   return (await res.json()).data.user;
 };
+
 ```
 
 ---
 
-## Q50. Apollo Client and how to use it
+## Q50. 🔧 Apollo Client and how to use it
 
 Apollo Client is a GraphQL client with caching, state management, and real-time subscriptions for React - it manages GraphQL complexity automatically. Apollo Client manages GraphQL queries, caching, and subscriptions in React apps.
 
@@ -132,11 +136,12 @@ function User({ id }) {
   if (loading) return <div>Loading...</div>;
   return <div>{data?.user?.name}</div>;
 }
+
 ```
 
 ---
 
-## Q51. Implementing optimistic updates
+## Q51. 🔄 Implementing optimistic updates
 
 Optimistic updates change UI immediately before server confirmation - they improve UX but need rollback for failures to keep data consistent. Instant UI feedback makes apps feel more responsive.
 
@@ -161,11 +166,12 @@ function TodoList() {
   };
   return <button onClick={() => addTodo('Task')}>Add</button>;
 }
+
 ```
 
 ---
 
-## Q52. Handling caching in React applications
+## Q52. 💾 Handling caching in React applications
 
 React Query caches data by query key - configure staleTime and cacheTime to control freshness and retention, balancing performance with data freshness. Query keys identify cached data, must be unique and stable.
 
@@ -181,11 +187,12 @@ const { data: user, isLoading } = useQuery({
   cacheTime: 300000
 });
 return isLoading ? <div>Loading...</div> : <div>{user?.name}</div>;
+
 ```
 
 ---
 
-## Q53. Implementing query invalidation
+## Q53. 🔍 Implementing query invalidation
 
 Query invalidation marks cached data as stale, triggering refetches - use it after mutations to keep data fresh and synchronized with the server. Invalidation keeps cache in sync with server after mutations.
 
@@ -213,11 +220,12 @@ return (
     Update
   </button>
 );
+
 ```
 
 ---
 
-## Q54. Implementing background fetching
+## Q54. 🔧 Implementing background fetching
 
 Background fetching updates data silently while showing cached data - configure staleTime to control when data becomes stale and triggers background updates. Shows cached data immediately, fetches fresh data in background.
 
@@ -236,11 +244,12 @@ return (
   isLoading ? <div>Loading...</div> : 
   <div>{user?.name}{isStale ? ' (stale)' : ''}</div>
 );
+
 ```
 
 ---
 
-## Q55. Implementing pagination and infinite scrolling
+## Q55. 🔧 Implementing pagination and infinite scrolling
 
 Use useInfiniteQuery for infinite scrolling - it automatically manages pages and caches each page separately, simplifying pagination logic. useInfiniteQuery handles paginated data with automatic page management.
 
@@ -270,7 +279,14 @@ return (
     </button>
   </div>
 );
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: State Management](3%29%20State%20Management.md)** | **[Next: React Latest Features →](5%29%20React%20Latest%20Features.md)**
+
+</div>
 

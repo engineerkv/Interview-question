@@ -8,7 +8,7 @@
 
 ---
 
-## Q21. AndroidManifest.xml and how to configure it
+## Q21. 🔧 AndroidManifest.xml and how to configure it
 
 AndroidManifest.xml defines app metadata, permissions, activities, and services for Android applications - handles deep links and app launching (intent filters). Defines app name, version, and package (app metadata).
 
@@ -24,11 +24,12 @@ Example:
         <activity android:name=".MainActivity" />
     </application>
 </manifest>
+
 ```
 
 ---
 
-## Q22. Info.plist and how to configure it
+## Q22. 🔧 Info.plist and how to configure it
 
 Info.plist contains app configuration, permissions, and metadata for iOS applications - must be properly configured for App Store (required by Apple). Defines app settings and behavior (app configuration).
 
@@ -45,11 +46,12 @@ Example:
     <key>NSCameraUsageDescription</key>
     <string>We need camera access to take photos</string>
 </dict>
+
 ```
 
 ---
 
-## Q23. Difference between MainActivity.java and MainApplication.java
+## Q23. 🤔 Difference between MainActivity.java and MainApplication.java
 
 MainActivity.java is the main entry point for the app, while MainApplication.java initializes the React Native host - both are required for React Native apps. MainActivity is entry point, handles app lifecycle; MainApplication initializes React Native, registers packages.
 
@@ -71,11 +73,12 @@ public class MainApplication extends Application implements ReactApplication {
         return mReactNativeHost;
     }
 }
+
 ```
 
 ---
 
-## Q24. How the Android lifecycle works in React Native
+## Q24. 📱 How the Android lifecycle works in React Native
 
 Android lifecycle manages app states (created, started, resumed, paused, stopped, destroyed), while React Native lifecycle manages component states - both lifecycles work together. Android lifecycle: onCreate, onStart, onResume, onPause, onStop, onDestroy; React Native lifecycle: componentDidMount, componentDidUpdate, componentWillUnmount.
 
@@ -95,11 +98,12 @@ function MyComponent() {
     return () => subscription.remove();
   }, []);
 }
+
 ```
 
 ---
 
-## Q25. App Delegates in iOS and how they work
+## Q25. 🔧 App Delegates in iOS and how they work
 
 App Delegates handle app lifecycle events in iOS, with React Native using them to initialize the bridge and manage app states - manages React Native bridge lifecycle (bridge initialization). Handles app launch, background, foreground events (app lifecycle).
 
@@ -120,11 +124,12 @@ Example:
 }
 
 @end
+
 ```
 
 ---
 
-## Q26. Configuring app permissions for both platforms
+## Q26. 📝 Configuring app permissions for both platforms
 
 Configure permissions in platform-specific files and request them at runtime using appropriate libraries and APIs - follow platform-specific permission guidelines (app store guidelines). Different permission systems for iOS and Android (platform differences).
 
@@ -143,11 +148,12 @@ const requestLocationPermission = async () => {
   const result = await request(permission);
   return result === RESULTS.GRANTED;
 };
+
 ```
 
 ---
 
-## Q27. Setting up app icons and splash screens
+## Q27. 💡 Setting up app icons and splash screens
 
 Use platform-specific tools and configurations to set app icons and splash screens for both iOS and Android - smooth transition from splash to app (user experience). Different sizes for different devices and contexts (app icons).
 
@@ -163,11 +169,12 @@ function App() {
     SplashScreen.hide();
   }, []);
 }
+
 ```
 
 ---
 
-## Q28. Difference between Gradle and Xcode build systems
+## Q28. 🏗️ Difference between Gradle and Xcode build systems
 
 Gradle is Android's build system using Groovy/Kotlin, while Xcode is iOS's IDE and build system using Objective-C/Swift - both are required for React Native development. Gradle (Android build system, uses Groovy/Kotlin), Xcode (iOS IDE and build system, uses Objective-C/Swift).
 
@@ -184,11 +191,12 @@ android {
         minSdkVersion 21
     }
 }
+
 ```
 
 ---
 
-## Q29. Creating debug vs release builds
+## Q29. 🐛 Creating debug vs release builds
 
 Debug builds include debugging symbols and are unoptimized, while release builds are optimized and minified for production - always test release builds before distribution. Debug builds include debugging symbols, unoptimized; Release builds are optimized, minified, production-ready.
 
@@ -204,11 +212,12 @@ function MyComponent() {
     console.log('Debug mode - extra logging enabled');
   }
 }
+
 ```
 
 ---
 
-## Q30. Handling app signing and provisioning
+## Q30. 💡 Handling app signing and provisioning
 
 Use platform-specific tools to manage code signing, certificates, and provisioning profiles for app distribution - secure key storage is critical for production. Android keystore used for signing Android apps; iOS certificates used for signing iOS apps.
 
@@ -221,6 +230,7 @@ Example:
 keytool -genkey -v -keystore my-release-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
 
 # iOS provisioning - Use Xcode to manage certificates and provisioning profiles
+
 ```
 
 ---

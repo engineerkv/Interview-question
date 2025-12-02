@@ -4,11 +4,11 @@
 
 </div>
 
-# 5. Architecture & Best Practices (Q38–48)
+# 🏗️ 5. Architecture & Best Practices (Q38–48)
 
 ---
 
-## Q38. Structuring a scalable Next.js project
+## Q38. 💡 Structuring a scalable Next.js project
 
 Organize with `app/` directory, co-located components, and proper separation of concerns - structure for growth and maintenance (scalability). Use `app/` for modern Next.js structure (app directory).
 
@@ -25,11 +25,12 @@ Example:
 //   ├── dashboard/
 //   │   └── page.js
 //   └── components/
+
 ```
 
 ---
 
-## Q39. Implementing authentication in Next.js
+## Q39. 🔐 Implementing authentication in Next.js
 
 Use NextAuth.js for authentication, middleware for protection, and secure cookies for sessions - support for multiple authentication providers. NextAuth.js is popular authentication library for Next.js.
 
@@ -57,11 +58,12 @@ export const authOptions = {
 };
 
 export default NextAuth(authOptions);
+
 ```
 
 ---
 
-## Q40. Handling global state management
+## Q40. 📊 Handling global state management
 
 Use Context for simple state, Zustand for complex state, and React Query for server state - choose based on state complexity. Context (good for simple, rarely changing state), Zustand (lightweight state management library), React Query (excellent for server state management).
 
@@ -83,11 +85,12 @@ export function ThemeProvider({ children }) {
     </ThemeContext.Provider>
   );
 }
+
 ```
 
 ---
 
-## Q41. Implementing error handling and error boundaries
+## Q41. ⚠️ Implementing error handling and error boundaries
 
 Use `error.tsx` for route-level errors and error boundaries for component errors - log errors for debugging. `error.tsx` handles route-level error handling.
 
@@ -106,11 +109,12 @@ export default function Error({ error, reset }) {
     </div>
   );
 }
+
 ```
 
 ---
 
-## Q42. Handling side effects in Next.js
+## Q42. 💡 Handling side effects in Next.js
 
 Use Server Components for data fetching, client components for user interactions, and hooks for side effects - handle side effects appropriately based on context. Server Components for data fetching, client components for interactions.
 
@@ -133,11 +137,12 @@ function ClientComponent() {
   }, []);
   return <button>Click me</button>;
 }
+
 ```
 
 ---
 
-## Q43. Implementing role-based access control
+## Q43. 🔧 Implementing role-based access control
 
 Use middleware to check authentication and roles before allowing access to routes - additional protection in components (client-side). First line of defense for route protection (middleware).
 
@@ -162,11 +167,12 @@ export default withAuth(
 export const config = {
   matcher: ['/admin/:path*']
 };
+
 ```
 
 ---
 
-## Q44. Integrating GraphQL with Next.js
+## Q44. 🔀 Integrating GraphQL with Next.js
 
 Use GraphQL in Server Components for initial data and client components for mutations - GraphQL integrates well with Next.js. Server components use for initial data fetching.
 
@@ -192,11 +198,12 @@ async function ServerComponent() {
   const { data } = await client.query({ query: GET_POSTS });
   return <PostsList posts={data.posts} />;
 }
+
 ```
 
 ---
 
-## Q45. Securing API routes and Server Actions
+## Q45. 🔌 Securing API routes and Server Actions
 
 Implement CSRF protection, validate authentication, and sanitize inputs - use security headers for protection. Always validate user sessions (authentication).
 
@@ -215,11 +222,12 @@ export async function GET(request) {
   }
   return Response.json({ data: 'Protected data' });
 }
+
 ```
 
 ---
 
-## Q46. Implementing middleware vs edge functions
+## Q46. 🔧 Implementing middleware vs edge functions
 
 Middleware runs on every request, while edge functions run on specific routes - choose based on use case. Middleware runs on every request, good for global logic; Edge functions run on specific routes, good for API endpoints.
 
@@ -241,11 +249,12 @@ export function middleware(request) {
 export const config = {
   matcher: '/admin/:path*'
 };
+
 ```
 
 ---
 
-## Q47. Implementing hybrid rendering strategies
+## Q47. 🔧 Implementing hybrid rendering strategies
 
 Use different rendering strategies for different parts of the application based on data requirements - choose rendering strategy per component. SSR (for dynamic, user-specific content), ISR (for content that changes occasionally), CSR (for interactive, client-side features).
 
@@ -270,11 +279,12 @@ export default function HybridPage() {
     </div>
   );
 }
+
 ```
 
 ---
 
-## Q48. Common Next.js anti-patterns to avoid
+## Q48. 🎯 Common Next.js anti-patterns to avoid
 
 Avoid mixing Pages and App Router, overusing client components, and blocking SSR calls - follow Next.js best practices for optimal performance. Avoid mixing Pages and App Router, overusing client components, blocking SSR calls.
 
@@ -298,7 +308,14 @@ async function Page() {
   const data = await fetch('https://api.example.com/data');
   return <div>{data}</div>;
 }
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Performance & Optimization](4%29%20Performance%20%26%20Optimization.md)** | **[Next: Deployment & Tooling →](6%29%20Deployment%20%26%20Tooling.md)**
+
+</div>
 

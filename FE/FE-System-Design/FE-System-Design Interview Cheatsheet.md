@@ -1,1624 +1,563 @@
 # 🎨 Front-End System Design Interview Cheatsheet
 
-> **⏱️ Review Time: 25-30 minutes** | **Priority: ⭐⭐⭐ Critical** | Quick reference for front-end system design interviews
-> 
-> **Coverage: Q1-Q150** (150 questions across 12 topics)
+> **⏱️ Review Time: 30-40 minutes** | **Priority: ⭐⭐⭐ Critical** | Quick reference for front-end system design interviews
 
 **Quick Review Checklist:**
-- [ ] Architecture Patterns (Feature-based, Component Design)
-- [ ] Performance Optimization (Core Web Vitals, Code Splitting, Caching)
-- [ ] State Management (Context API, Redux, Custom Hooks)
-- [ ] Micro-Frontends (Module Federation, Communication)
-- [ ] Cross-Platform & Offline Support (Responsive Design, PWA, Service Workers)
-- [ ] Accessibility & UX (ARIA, Focus Management)
-- [ ] Browser Internals (Critical Rendering Path, Event Loop)
-- [ ] Practical Scenarios (News Feed, Chat, E-commerce, etc.)
-- [ ] Networking & APIs (REST, GraphQL, HTTP/2)
-- [ ] Real-time Communication (WebSockets, SSE, Long Polling)
-- [ ] Data & Caching Architecture (Normalization, HTTP Cache, Service Worker)
-- [ ] Security (XSS, CSRF, CORS, Security Headers)
-- [ ] Logging & Monitoring (Telemetry, Alerting, Error Tracking)
+- [ ] Network (DNS, TCP, HTTP, Protocols, REST, GraphQL, gRPC)
+- [ ] High Level Design (Requirements, Scope/MVP, Architecture, Database, Load Balancer, CDN, Middleware, Caching, Queue, Cron, CI/CD)
+- [ ] Communication (Polling, WebSockets, SSE, Webhooks)
+- [ ] Performance + Caching (Monitoring, Tools, Optimization, Storage, HTTP Cache, SW Cache, API Cache, State)
+- [ ] Security (XSS, CSRF, CORS, Security Headers, HTTPS, Dependencies)
+- [ ] Testing (Unit, Integration, E2E, A/B, Performance, Security)
+- [ ] Logging & Monitoring (Telemetry, Alerting, Fixing)
+- [ ] Accessibility (Keyboard, Screen Reader, Focus, Color Contrast, Tools)
+- [ ] Offline Support (Service Workers, PWAs)
+- [ ] Patterns & Anti-Patterns (Rendering Patterns, React Anti-Patterns, JavaScript Anti-Patterns, Node.js Anti-Patterns)
+- [ ] Low Level Design (View Layer, Service Layer, Controller, Data Model, API, State, Error Handling, Performance, Security, Testing)
+- [ ] Browser APIs (DOM, Fetch, Storage, Geolocation, Canvas, Workers, Intersection Observer, Notifications, Media, File, History, WebSocket)
+- [ ] JavaScript Internals (Engine, Execution Context, Memory, Event Loop, Hoisting, Scope, Closures, Prototypes, This, Promises)
+- [ ] React Internals (Architecture, Virtual DOM, Lifecycle, Fiber, State, Events, Rendering, Performance)
+- [ ] Node.js Internals (Architecture, Event Loop, V8, libuv, Modules, Streams, Buffer, Cluster)
 
 ---
 
-## 📋 **Question Coverage**
+## 🧭 Recommended Preparation Path
 
-- **Q1-Q9**: UI/UX Architecture & State Management
-- **Q10-Q23**: Performance & Caching Optimization
-- **Q24-Q33**: Micro-Frontends vs Monolithic SPAs
-- **Q34-Q43**: Cross-Platform Architecture & Offline Support
-- **Q44-Q52**: Accessibility & User Experience
-- **Q53-Q64**: Browser Internals & Rendering
-- **Q65-Q83**: Practical Front-End System Design Scenarios
-- **Q84-Q101**: Networking & APIs
-- **Q102-Q116**: Real-time Communication Protocols
-- **Q117-Q130**: Data & Caching Architecture
-- **Q131-Q145**: Security
-- **Q146-Q150**: Logging & Monitoring
+### 1. Foundation (Q1–20)
+- **Focus**: How the web works, networking, critical rendering path, communication patterns, and how JavaScript, React, Node.js, and React Native work internally.
 
----
+### 2. APIs & Design (Q21–54)
+- **Focus**: Browser APIs, high-level design (requirements, architecture, infrastructure), and low-level design (implementation details).
 
-## 📋 Table of Contents
+### 3. Security & Quality (Q55–74)
+- **Focus**: Security best practices (XSS, CSRF, CORS, etc.) and testing strategies (unit, integration, E2E, A/B, performance, security).
 
-- [Architecture Patterns](#architecture-patterns)
-- [Performance Optimization](#performance-optimization)
-- [State Management](#state-management)
-- [Micro-Frontends](#micro-frontends)
-- [Cross-Platform Development & Offline Support](#cross-platform-development--offline-support)
-- [Accessibility & UX](#accessibility--ux)
-- [Browser Internals](#browser-internals)
-- [Networking & APIs](#networking--apis)
-- [Real-time Communication](#real-time-communication)
-- [Data & Caching Architecture](#data--caching-architecture)
-- [Security](#security)
-- [Logging & Monitoring](#logging--monitoring)
-- [Real-World Scenarios](#real-world-scenarios)
-- [Common Patterns](#common-patterns)
+### 4. Performance & Data (Q75–91)
+- **Focus**: Performance optimization, monitoring, database & caching strategies, and logging & monitoring.
+
+### 5. UX & Reliability (Q92–99)
+- **Focus**: Accessibility (keyboard nav, screen readers, contrast, focus, tools) and offline UX (Service Workers, PWAs).
+
+### 6. Patterns & Best Practices (Q100–103)
+- **Focus**: Rendering patterns, React anti-patterns, JavaScript anti-patterns, and Node.js anti-patterns.
 
 ---
 
-## Architecture Patterns
+## 📋 Question Coverage
 
-### Scalable Front-End Architecture
-```javascript
-// Feature-based architecture
-src/
-  features/
-    auth/
-      components/
-      hooks/
-      services/
-      types/
-  shared/
-    components/
-    hooks/
-    utils/
-    types/
-```
-
-### Component Design Patterns
-```javascript
-// Container vs Presentational
-const UserListContainer = () => {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  
-  useEffect(() => {
-    fetchUsers().then(setUsers).finally(() => setLoading(false));
-  }, []);
-  
-  return <UserList users={users} loading={loading} />;
-};
-
-// Atomic Design
-const Button = ({ variant, size, children }) => (
-  <button className={`btn btn-${variant} btn-${size}`}>
-    {children}
-  </button>
-);
-```
-
-### State Management
-```javascript
-// Context API for global state
-const AppStateContext = createContext();
-
-export const AppStateProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(appReducer, initialState);
-  return (
-    <AppStateContext.Provider value={{ state, dispatch }}>
-      {children}
-    </AppStateContext.Provider>
-  );
-};
-
-// Custom hooks for state logic
-const useAuth = () => {
-  const { state, dispatch } = useContext(AuthContext);
-  const login = (credentials) => dispatch({ type: 'LOGIN', payload: credentials });
-  const logout = () => dispatch({ type: 'LOGOUT' });
-  return { user: state.user, login, logout };
-};
-```
+- **Q1**: How the Web Works
+- **Q2-Q7, Q9-Q10**: Network (includes Payment Gateway Internal Working)
+- **Q8**: Critical Rendering Path
+- **Q11-Q16**: Communication (includes Socket.io Internal Working)
+- **Q17**: How JavaScript Works Internally
+- **Q18**: How React.js Works Internally
+- **Q19**: How Node.js Works Internally
+- **Q20**: How React Native Works Internally
+- **Q21-Q32**: Important Browser APIs (includes WebSocket API, Socket.io)
+- **Q33-Q44**: High Level Design (HLD)
+- **Q45-Q54**: Low Level Design (LLD)
+- **Q55-Q69**: Security (includes Access Token and Refresh Token Management)
+- **Q70-Q74**: Testing
+- **Q75-Q79**: Performance
+- **Q80-Q88**: Database & Caching
+- **Q89-Q91**: Logging & Monitoring
+- **Q92-Q97**: Accessibility
+- **Q98-Q99**: Offline Support
+- **Q100-Q103**: Patterns & Anti-Patterns
 
 ---
 
-## Performance Optimization
+## 🌐 Network
 
-### Core Web Vitals
-```javascript
-// Measuring Core Web Vitals
-import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
+### How the Web Works
+- DNS lookup (cache → ISP → Root → TLD → Authoritative)
+- TCP 3-way handshake (SYN → SYN-ACK → ACK)
+- TLS handshake for HTTPS
+- HTTP request/response
+- Browser rendering (DOM → CSSOM → Render Tree → Paint)
 
-getCLS(console.log);
-getFID(console.log);
-getFCP(console.log);
-getLCP(console.log);
-getTTFB(console.log);
+### Protocols
+- **HTTP/HTTPS**: Web communication
+- **HTTP/3 (QUIC)**: UDP-based, faster
+- **WebSocket**: Real-time bidirectional
+- **Socket.io**: WebSocket with fallbacks, automatic reconnection, room-based messaging
+- **TCP**: Reliable, connection-oriented
+- **UDP**: Fast, connectionless
+- **SMTP**: Email
+- **FTP**: File transfer
 
-// LCP optimization
-const ImageComponent = ({ src, alt }) => {
-  useEffect(() => {
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.as = 'image';
-    link.href = src;
-    document.head.appendChild(link);
-  }, [src]);
-  
-  return <img src={src} alt={alt} loading="eager" />;
-};
-```
+### Payment Gateway
+- **Internal Working**: Customer → Website → Gateway → Processor → Bank → Response
+- **Integration Methods**: Redirect (gateway page) or API (your site)
+- **Security**: PCI-DSS compliance, encryption, tokenization
+- **Webhooks**: Reliable payment status updates
+- **Flow**: Authorization → Capture → Settlement
 
-### Code Splitting & Lazy Loading
-```javascript
-// Route-based code splitting
-const Home = lazy(() => import('./pages/Home'));
-const About = lazy(() => import('./pages/About'));
-
-const App = () => (
-  <Router>
-    <Suspense fallback={<div>Loading...</div>}>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-    </Suspense>
-  </Router>
-);
-
-// Component-based code splitting
-const LazyComponent = lazy(() => import('./HeavyComponent'));
-
-const ParentComponent = () => (
-  <Suspense fallback={<div>Loading...</div>}>
-    <LazyComponent />
-  </Suspense>
-);
-```
-
-### Caching Strategies
-```javascript
-// Service Worker caching
-self.addEventListener('fetch', event => {
-  const { request } = event;
-  const url = new URL(request.url);
-  
-  if (url.pathname.startsWith('/api/')) {
-    event.respondWith(networkFirst(request));
-  } else if (url.pathname.startsWith('/static/')) {
-    event.respondWith(cacheFirst(request));
-  } else {
-    event.respondWith(staleWhileRevalidate(request));
-  }
-});
-
-// Client-side caching
-const cache = new Map();
-
-const fetchWithCache = async (url) => {
-  if (cache.has(url)) {
-    return cache.get(url);
-  }
-  
-  const response = await fetch(url);
-  const data = await response.json();
-  cache.set(url, data);
-  return data;
-};
-```
-
----
-
-## State Management
-
-### Context API
-```javascript
-// Theme context
-const ThemeContext = createContext();
-
-export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState('light');
-  
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
-  };
-  
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
-};
-
-// Custom hook
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error('useTheme must be used within ThemeProvider');
-  }
-  return context;
-};
-```
-
-### Redux Pattern
-```javascript
-// Redux slice
-const counterSlice = createSlice({
-  name: 'counter',
-  initialState: { value: 0 },
-  reducers: {
-    increment: (state) => { state.value += 1; },
-    decrement: (state) => { state.value -= 1; },
-  },
-});
-
-// Store configuration
-const store = configureStore({
-  reducer: {
-    counter: counterSlice.reducer,
-  },
-});
-
-// Component usage
-const Counter = () => {
-  const count = useSelector(state => state.counter.value);
-  const dispatch = useDispatch();
-  
-  return (
-    <div>
-      <span>{count}</span>
-      <button onClick={() => dispatch(increment())}>+</button>
-      <button onClick={() => dispatch(decrement())}>-</button>
-    </div>
-  );
-};
-```
-
----
-
-## Micro-Frontends
-
-### Module Federation
-```javascript
-// Webpack Module Federation
-const ModuleFederationPlugin = require('@module-federation/webpack');
-
-module.exports = {
-  plugins: [
-    new ModuleFederationPlugin({
-      name: 'shell',
-      remotes: {
-        dashboard: 'dashboard@http://localhost:3001/remoteEntry.js',
-        profile: 'profile@http://localhost:3002/remoteEntry.js'
-      },
-      shared: {
-        react: { singleton: true },
-        'react-dom': { singleton: true }
-      }
-    })
-  ]
-};
-
-// Dynamic loading
-const MicroFrontend = ({ name, host }) => {
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = `${host}/remoteEntry.js`;
-    script.onload = () => {
-      window[name].mount(document.getElementById(`${name}-container`));
-    };
-    document.head.appendChild(script);
-  }, [name, host]);
-  
-  return <div id={`${name}-container`} />;
-};
-```
-
-### Communication
-```javascript
-// Event-based communication
-const EventBus = {
-  events: {},
-  on(event, callback) {
-    if (!this.events[event]) this.events[event] = [];
-    this.events[event].push(callback);
-  },
-  emit(event, data) {
-    if (this.events[event]) {
-      this.events[event].forEach(callback => callback(data));
-    }
-  }
-};
-
-// Shared state
-const SharedState = {
-  state: {},
-  listeners: [],
-  setState(newState) {
-    this.state = { ...this.state, ...newState };
-    this.listeners.forEach(listener => listener(this.state));
-  },
-  subscribe(listener) {
-    this.listeners.push(listener);
-    return () => {
-      this.listeners = this.listeners.filter(l => l !== listener);
-    };
-  }
-};
-```
-
----
-
-## Cross-Platform Development
-
-### Responsive Design
-```javascript
-// Mobile-first approach
-const ResponsiveComponent = () => {
-  const [isMobile, setIsMobile] = useState(false);
-  
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
-  }, []);
-  
-  return (
-    <div className={isMobile ? 'mobile-layout' : 'desktop-layout'}>
-      <Content />
-    </div>
-  );
-};
-
-// CSS Grid responsive
-const responsiveStyles = `
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  @media (min-width: 768px) {
-    .grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-`;
-```
-
-### PWA Features
-```javascript
-// Service Worker registration
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js')
-    .then(registration => console.log('SW registered'))
-    .catch(error => console.log('SW registration failed'));
-}
-
-// Install prompt
-const InstallPrompt = () => {
-  const [deferredPrompt, setDeferredPrompt] = useState(null);
-  
-  useEffect(() => {
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-    });
-  }, []);
-  
-  const handleInstall = async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      console.log(`User response: ${outcome}`);
-      setDeferredPrompt(null);
-    }
-  };
-  
-  return (
-    <button onClick={handleInstall} disabled={!deferredPrompt}>
-      Install App
-    </button>
-  );
-};
-```
-
----
-
-## Accessibility & UX
-
-### ARIA Implementation
-```javascript
-// Accessible modal
-const AccessibleModal = ({ isOpen, onClose, title, children }) => (
-  <div
-    className={`modal ${isOpen ? 'open' : ''}`}
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="modal-title"
-    aria-hidden={!isOpen}
-  >
-    <div className="modal-content">
-      <h2 id="modal-title">{title}</h2>
-      <button
-        onClick={onClose}
-        aria-label="Close modal"
-        className="close-button"
-      >
-        ×
-      </button>
-      {children}
-    </div>
-  </div>
-);
-
-// Keyboard navigation
-const KeyboardNavigableList = ({ items, onSelect }) => {
-  const [selectedIndex, setSelectedIndex] = useState(-1);
-  
-  const handleKeyDown = (e) => {
-    switch (e.key) {
-      case 'ArrowDown':
-        e.preventDefault();
-        setSelectedIndex(prev => Math.min(prev + 1, items.length - 1));
-        break;
-      case 'ArrowUp':
-        e.preventDefault();
-        setSelectedIndex(prev => Math.max(prev - 1, 0));
-        break;
-      case 'Enter':
-        if (selectedIndex >= 0) {
-          onSelect(items[selectedIndex]);
-        }
-        break;
-    }
-  };
-  
-  return (
-    <ul onKeyDown={handleKeyDown} tabIndex={0}>
-      {items.map((item, index) => (
-        <li
-          key={item.id}
-          className={index === selectedIndex ? 'selected' : ''}
-          onClick={() => onSelect(item)}
-        >
-          {item.title}
-        </li>
-      ))}
-    </ul>
-  );
-};
-```
-
-### Focus Management
-```javascript
-// Focus trap hook
-const useFocusTrap = (isActive) => {
-  const containerRef = useRef();
-  
-  useEffect(() => {
-    if (!isActive || !containerRef.current) return;
-    
-    const focusableElements = containerRef.current.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-    
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-    
-    const handleTabKey = (e) => {
-      if (e.key === 'Tab') {
-        if (e.shiftKey) {
-          if (document.activeElement === firstElement) {
-            e.preventDefault();
-            lastElement?.focus();
-          }
-        } else {
-          if (document.activeElement === lastElement) {
-            e.preventDefault();
-            firstElement?.focus();
-          }
-        }
-      }
-    };
-    
-    document.addEventListener('keydown', handleTabKey);
-    firstElement?.focus();
-    
-    return () => document.removeEventListener('keydown', handleTabKey);
-  }, [isActive]);
-  
-  return containerRef;
-};
-```
-
----
-
-## Browser Internals
-
-### Critical Rendering Path
-```javascript
-// Performance optimization
-const optimizeCriticalPath = {
-  // Inline critical CSS
-  criticalCSS: `
-    .hero { display: flex; flex-direction: column; }
-    .hero h1 { font-size: 2rem; color: #333; }
-  `,
-  
-  // Preload important resources
-  preloadResources: () => {
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.href = '/hero-image.jpg';
-    link.as = 'image';
-    document.head.appendChild(link);
-  },
-  
-  // Defer non-critical JavaScript
-  deferJS: () => {
-    const script = document.createElement('script');
-    script.src = 'non-critical.js';
-    script.defer = true;
-    document.head.appendChild(script);
-  }
-};
-```
-
-### Event Loop
-```javascript
-// Event loop demonstration
-const eventLoopDemo = () => {
-  console.log('1. Synchronous code');
-  
-  setTimeout(() => console.log('2. setTimeout'), 0);
-  Promise.resolve().then(() => console.log('3. Promise'));
-  setTimeout(() => console.log('4. setTimeout'), 0);
-  Promise.resolve().then(() => console.log('5. Promise'));
-  
-  console.log('6. Synchronous code');
-  // Output: 1, 6, 3, 5, 2, 4
-};
-
-// Debouncing and throttling
-const debounce = (func, delay) => {
-  let timeoutId;
-  return (...args) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => func.apply(null, args), delay);
-  };
-};
-
-const throttle = (func, delay) => {
-  let lastCall = 0;
-  return (...args) => {
-    const now = Date.now();
-    if (now - lastCall >= delay) {
-      lastCall = now;
-      func.apply(null, args);
-    }
-  };
-};
-```
-
----
-
-## Networking & APIs
-
-### REST API Design
-```javascript
-// RESTful endpoints
-const REST_API = {
-  // Resources
-  GET: '/api/users',              // List users
-  GET: '/api/users/:id',          // Get user
-  POST: '/api/users',             // Create user
-  PUT: '/api/users/:id',          // Replace user
-  PATCH: '/api/users/:id',        // Partial update
-  DELETE: '/api/users/:id',       // Delete user
-};
-
-// HTTP Methods
-const HTTP_METHODS = {
-  GET: 'Retrieve (idempotent, cacheable)',
-  POST: 'Create/action (not idempotent)',
-  PUT: 'Replace (idempotent)',
-  PATCH: 'Partial update (idempotent)',
-  DELETE: 'Remove (idempotent)',
-  HEAD: 'Headers only',
-  OPTIONS: 'CORS preflight',
-};
-
-// Status Codes
-const STATUS_CODES = {
-  // Success
-  200: 'OK',
-  201: 'Created',
-  204: 'No Content',
-  // Redirection
-  301: 'Moved Permanently',
-  302: 'Found',
-  304: 'Not Modified',
-  // Client Error
-  400: 'Bad Request',
-  401: 'Unauthorized',
-  403: 'Forbidden',
-  404: 'Not Found',
-  409: 'Conflict',
-  429: 'Too Many Requests',
-  // Server Error
-  500: 'Internal Server Error',
-  502: 'Bad Gateway',
-  503: 'Service Unavailable',
-};
-
-// Headers
-const HEADERS = {
-  // Request
-  'Content-Type': 'application/json',
-  'Accept': 'application/json',
-  'Authorization': 'Bearer token',
-  'User-Agent': 'Mozilla/5.0...',
-  // Response
-  'Cache-Control': 'max-age=3600',
-  'ETag': 'version-123',
-  'Location': '/new-url',
-};
-```
+### REST APIs
+- Resource-based URLs (nouns)
+- HTTP methods (GET, POST, PUT, DELETE)
+- Stateless, cacheable
+- JSON responses
 
 ### GraphQL
-```javascript
-// GraphQL Query
-const query = `
-  query GetUser($id: ID!) {
-    user(id: $id) {
-      id
-      name
-      email
-      posts {
-        id
-        title
-        comments {
-          id
-          text
-          author {
-            name
-          }
-        }
-      }
-    }
-  }
-`;
-
-// GraphQL Mutation
-const mutation = `
-  mutation CreateUser($name: String!, $email: String!) {
-    createUser(name: $name, email: $email) {
-      id
-      name
-      email
-    }
-  }
-`;
-
-// GraphQL Client
-fetch('/graphql', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ query, variables: { id: '123' } })
-});
-
-// Batching with DataLoader
-const userLoader = new DataLoader(async (userIds) => {
-  const users = await db.users.find({ id: { $in: userIds } });
-  return userIds.map(id => users.find(u => u.id === id));
-});
-```
+- Single endpoint
+- Client specifies fields
+- Reduces over/under-fetching
+- Strong typing
 
 ### gRPC
-```javascript
-// Protocol Buffer Definition (.proto)
-// syntax = "proto3";
-// message User {
-//   int32 id = 1;
-//   string name = 2;
-//   string email = 3;
-// }
-// service UserService {
-//   rpc GetUser(GetUserRequest) returns (User);
-// }
-
-// gRPC Client (generated)
-const client = new UserServiceClient('https://api.example.com');
-const user = await client.getUser({ id: 123 });
-
-// Streaming
-const stream = client.listUsers();
-stream.on('data', (user) => console.log(user));
-stream.on('end', () => console.log('Done'));
-```
-
-### HTTP/2 vs HTTP/1.1
-```javascript
-// HTTP/1.1 Limitations
-// - One request per connection
-// - Headers in plain text
-// - No server push
-fetch('/api/user/1');
-fetch('/api/user/2'); // New connection
-
-// HTTP/2 Advantages (gRPC uses this)
-// - Multiplexing: Multiple requests over single connection
-// - Header compression (HPACK)
-// - Server push
-// - Binary framing
-Promise.all([
-  client.getUser(1),
-  client.getUser(2),
-  client.getUser(3)
-]); // Single connection, parallel
-```
+- High-performance RPC
+- Protocol Buffers (binary)
+- HTTP/2 transport
+- Streaming support
 
 ---
 
-## Real-time Communication
+## 📡 Communication
 
 ### Short Polling
-```javascript
-// Poll every N seconds
-function shortPoll(endpoint, interval = 5000) {
-  setInterval(async () => {
-    const response = await fetch(endpoint);
-    const data = await response.json();
-    if (data.updates) handleUpdates(data.updates);
-  }, interval);
-}
-
-// Pros: Simple, works everywhere
-// Cons: Wastes bandwidth, delayed updates
-```
+- Client requests at fixed intervals
+- Simple, works everywhere
+- Wastes bandwidth
 
 ### Long Polling
-```javascript
-// Hold request open until update or timeout
-async function longPoll(endpoint) {
-  while (true) {
-    try {
-      const response = await fetch(endpoint, {
-        headers: { 'Timeout': '30000' }
-      });
-      if (response.status === 200) {
-        const data = await response.json();
-        handleUpdates(data);
-      }
-    } catch (error) {
-      await sleep(1000); // Retry delay
-    }
-  }
-}
-
-// Pros: Reduces empty responses
-// Cons: Many open connections, timeout handling
-```
+- Server holds request until update
+- Reduces empty responses
+- Many open connections
 
 ### WebSockets
-```javascript
-// WebSocket Client
-const socket = new WebSocket('wss://api.example.com/ws');
-
-socket.onopen = () => {
-  console.log('Connected');
-  socket.send(JSON.stringify({ type: 'subscribe', channel: 'notifications' }));
-};
-
-socket.onmessage = (event) => {
-  const data = JSON.parse(event.data);
-  handleUpdate(data);
-};
-
-socket.onerror = (error) => console.error('Error:', error);
-socket.onclose = () => reconnect();
-
-// Server-side (Node.js)
-const WebSocket = require('ws');
-const wss = new WebSocket.Server({ port: 8080 });
-
-wss.on('connection', (ws) => {
-  ws.on('message', (message) => {
-    const data = JSON.parse(message);
-    // Broadcast to all clients
-    wss.clients.forEach((client) => {
-      if (client !== ws && client.readyState === WebSocket.OPEN) {
-        client.send(message);
-      }
-    });
-  });
-});
-
-// Handshake: Upgrade header
-// GET /ws HTTP/1.1
-// Upgrade: websocket
-// Connection: Upgrade
-// Sec-WebSocket-Key: ...
-```
+- Full-duplex, persistent connection
+- Low latency, real-time
+- Bidirectional communication
 
 ### Server-Sent Events (SSE)
-```javascript
-// Client
-const eventSource = new EventSource('/api/events');
-
-eventSource.onmessage = (event) => {
-  const data = JSON.parse(event.data);
-  handleUpdate(data);
-};
-
-eventSource.addEventListener('notification', (event) => {
-  const notification = JSON.parse(event.data);
-  showNotification(notification);
-});
-
-// Server (Express)
-app.get('/api/events', (req, res) => {
-  res.setHeader('Content-Type', 'text/event-stream');
-  res.setHeader('Cache-Control', 'no-cache');
-  res.setHeader('Connection', 'keep-alive');
-  
-  res.write('data: {"type":"connected"}\n\n');
-  
-  setInterval(() => {
-    res.write(`event: notification\n`);
-    res.write(`data: ${JSON.stringify({ message: 'Update' })}\n\n`);
-  }, 5000);
-});
-
-// Message format:
-// data: Message text\n\n
-// event: notification\n
-// data: {"message":"Hello"}\n\n
-```
+- Server → client only
+- Automatic reconnection
+- Simpler than WebSockets
 
 ### Webhooks
-```javascript
-// Webhook Receiver
-app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
-  // Verify signature
-  const signature = req.headers['x-webhook-signature'];
-  const isValid = verifySignature(req.body, signature, secret);
-  if (!isValid) return res.status(401).send('Invalid');
-  
-  // Parse payload
-  const payload = JSON.parse(req.body.toString());
-  const { event, data } = payload;
-  
-  // Handle event
-  switch (event) {
-    case 'payment.completed':
-      handlePayment(data);
-      break;
-  }
-  
-  res.status(200).json({ received: true });
-});
-
-// Signature verification
-const crypto = require('crypto');
-function verifySignature(payload, signature, secret) {
-  const hmac = crypto.createHmac('sha256', secret);
-  const digest = hmac.update(payload).digest('hex');
-  return crypto.timingSafeEqual(
-    Buffer.from(signature),
-    Buffer.from(`sha256=${digest}`)
-  );
-}
-```
-
-### Decision Matrix
-```javascript
-const communicationChoices = {
-  'Short Polling': 'Low frequency updates, simple implementation',
-  'Long Polling': 'Moderate frequency, better efficiency',
-  'WebSockets': 'Bidirectional, high frequency, low latency',
-  'SSE': 'Server→client only, simpler than WebSockets',
-  'Webhooks': 'Cross-system events, server-to-server',
-};
-```
+- Server-to-server HTTP callbacks
+- Event-driven
+- Requires signature verification
 
 ---
 
-## Data & Caching Architecture
+## 🔐 Security
 
-### Data Normalization
-```javascript
-// Nested API response
-const response = {
-  id: 'post-1',
-  author: { id: 'user-1', name: 'John' },
-  comments: [
-    { id: 'c-1', text: 'Nice', author: { id: 'user-2', name: 'Jane' } }
-  ]
-};
+### XSS (Cross-Site Scripting)
+- Inject malicious scripts
+- Prevent: Input validation, output encoding, CSP
+- React/Vue auto-escape (watch dangerouslySetInnerHTML)
 
-// Normalized state
-const entities = {
-  users: {
-    'user-1': { id: 'user-1', name: 'John' },
-    'user-2': { id: 'user-2', name: 'Jane' }
-  },
-  comments: {
-    'c-1': { id: 'c-1', text: 'Nice', authorId: 'user-2' }
-  },
-  posts: {
-    'post-1': { id: 'post-1', authorId: 'user-1', commentIds: ['c-1'] }
-  }
-};
+### CSRF (Cross-Site Request Forgery)
+- Trick authenticated users
+- Prevent: CSRF tokens, SameSite cookies
+- Double-submit cookie pattern
 
-// Redux Toolkit Entity Adapter
-const usersAdapter = createEntityAdapter();
-const usersSlice = createSlice({
-  name: 'users',
-  initialState: usersAdapter.getInitialState(),
-  reducers: {
-    userAdded: usersAdapter.addOne,
-    userUpdated: usersAdapter.updateOne,
-    usersReceived: usersAdapter.setAll,
-  }
-});
-```
-
-### HTTP Caching
-```javascript
-// Cache-Control headers
-const cacheHeaders = {
-  'public': 'Cacheable by any cache',
-  'private': 'Cacheable only by browser',
-  'max-age=3600': 'Fresh for 1 hour',
-  'no-cache': 'Must revalidate',
-  'no-store': 'Don\'t cache',
-  'stale-while-revalidate=60': 'Serve stale, revalidate in background',
-};
-
-// ETag validation
-const response = await fetch('/api/users', {
-  headers: {
-    'If-None-Match': lastETag
-  }
-});
-if (response.status === 304) {
-  // Use cached version
-}
-
-// CDN caching for static assets
-// /assets/main.abc123.js
-// Cache-Control: max-age=31536000, immutable
-```
-
-### Service Worker Caching
-```javascript
-// Precache static assets
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open('app-v1').then((cache) =>
-      cache.addAll(['/', '/index.html', '/styles.css', '/main.js'])
-    )
-  );
-});
-
-// Cache strategies
-self.addEventListener('fetch', (event) => {
-  const { request } = event;
-  
-  // Network first (for API)
-  if (request.url.includes('/api/')) {
-    event.respondWith(networkFirst(request));
-  }
-  // Cache first (for assets)
-  else if (request.url.includes('/static/')) {
-    event.respondWith(cacheFirst(request));
-  }
-  // Stale while revalidate (for pages)
-  else {
-    event.respondWith(staleWhileRevalidate(request));
-  }
-});
-
-// Network-first strategy
-async function networkFirst(request) {
-  try {
-    const response = await fetch(request);
-    const cache = await caches.open('runtime');
-    cache.put(request, response.clone());
-    return response;
-  } catch {
-    return caches.match(request);
-  }
-}
-```
-
-### Client-side Storage
-```javascript
-// LocalStorage (synchronous, ~5-10MB)
-localStorage.setItem('theme', 'dark');
-const theme = localStorage.getItem('theme');
-localStorage.removeItem('theme');
-localStorage.clear();
-
-// Session Storage (per-tab, cleared on close)
-sessionStorage.setItem('draft', '...');
-const draft = sessionStorage.getItem('draft');
-
-// Cookies (sent with every request, ~4KB limit)
-document.cookie = 'session=abc123; HttpOnly; Secure; SameSite=Lax; Max-Age=3600';
-
-// IndexedDB (async, structured, large storage)
-import { openDB } from 'idb';
-
-const db = await openDB('app-db', 1, {
-  upgrade(db) {
-    db.createObjectStore('todos', { keyPath: 'id' });
-    db.createObjectStore('users', { keyPath: 'id' });
-  }
-});
-
-await db.put('todos', { id: '1', text: 'Learn IndexedDB' });
-const todo = await db.get('todos', '1');
-const allTodos = await db.getAll('todos');
-await db.delete('todos', '1');
-
-// Storage comparison
-const storageOptions = {
-  'LocalStorage': {
-    size: '~5-10MB',
-    sync: true,
-    use: 'Simple preferences, small data',
-  },
-  'Session Storage': {
-    size: '~5-10MB',
-    sync: true,
-    use: 'Per-tab state, temporary data',
-  },
-  'Cookies': {
-    size: '~4KB',
-    sync: true,
-    use: 'Session IDs, small server data',
-  },
-  'IndexedDB': {
-    size: 'Large (hundreds of MBs+)',
-    sync: false,
-    use: 'Structured data, offline storage',
-  },
-};
-```
-
-### Caching Strategy Integration
-```javascript
-// Layered caching architecture
-const cachingLayers = {
-  // 1. CDN/Edge Cache (fastest, global)
-  cdn: 'Static assets, public API responses',
-  
-  // 2. HTTP Cache (browser)
-  http: 'Respects Cache-Control headers',
-  
-  // 3. Service Worker Cache
-  serviceWorker: 'Offline support, custom strategies',
-  
-  // 4. API Client Cache (React Query/RTK Query)
-  apiClient: 'Query cache, normalization',
-  
-  // 5. App State (Redux/Zustand)
-  appState: 'Normalized entities, UI state',
-  
-  // 6. Persistence (LocalStorage/IndexedDB)
-  persistence: 'User preferences, offline data',
-};
-
-// Example: React Query + Service Worker
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 60000, // 1 minute
-      cacheTime: 300000, // 5 minutes
-    },
-  },
-});
-
-// SW handles static assets
-// React Query handles API caching
-// LocalStorage handles persistence
-```
-
----
-
-## Security
-
-### XSS Prevention
-```javascript
-// ❌ Vulnerable - direct innerHTML
-element.innerHTML = userInput; // XSS if userInput = "<img src=x onerror='steal()'>"
-
-// ✅ Safe - textContent or React's automatic escaping
-element.textContent = userInput;
-// React: <div>{userInput}</div> // Automatically escaped
-
-// ✅ Safe - sanitize HTML if you must render it
-import DOMPurify from 'dompurify';
-element.innerHTML = DOMPurify.sanitize(userInput);
-
-// Content Security Policy
-// Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'
-```
-
-### CSRF Protection
-```javascript
-// CSRF Token
-const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
-
-fetch('/api/users', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'X-CSRF-Token': csrfToken
-  },
-  body: JSON.stringify({ name: 'John' })
-});
-
-// SameSite Cookie
-// Set-Cookie: session=abc123; SameSite=Strict; Secure; HttpOnly
-```
-
-### CORS Configuration
-```javascript
-// Server CORS configuration
-app.use(cors({
-  origin: 'https://myapp.com', // Specific origin
-  credentials: true, // Allow cookies
-  methods: ['GET', 'POST', 'PUT'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
-// Client request with credentials
-fetch('https://api.example.com/data', {
-  credentials: 'include', // Send cookies
-  headers: { 'Content-Type': 'application/json' }
-});
-```
+### CORS (Cross-Origin Resource Sharing)
+- Browser security feature
+- Server sets Access-Control-Allow-Origin
+- Preflight requests for complex requests
 
 ### Security Headers
-```javascript
-// Security headers
-const securityHeaders = {
-  'Content-Security-Policy': "default-src 'self'; script-src 'self'",
-  'X-Frame-Options': 'DENY', // Prevent clickjacking
-  'X-Content-Type-Options': 'nosniff',
-  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
-  'Referrer-Policy': 'strict-origin-when-cross-origin',
-  'Permissions-Policy': 'geolocation=(), microphone=()'
-};
-```
+- CSP (Content Security Policy)
+- HSTS (Strict-Transport-Security)
+- X-Frame-Options (clickjacking protection)
+- X-Content-Type-Options (MIME sniffing)
 
-### JWT Security
-```javascript
-// Secure token storage
-// ❌ Don't store in localStorage (XSS vulnerable)
-// ✅ Use httpOnly cookies for refresh tokens
-// ✅ Use memory for access tokens (short-lived)
-
-// Token refresh
-const refreshToken = async () => {
-  const response = await fetch('/api/refresh', {
-    method: 'POST',
-    credentials: 'include' // Send httpOnly cookie
-  });
-  const { accessToken } = await response.json();
-  // Store in memory, not localStorage
-  return accessToken;
-};
-```
+### HTTPS
+- TLS encryption
+- Certificate verification
+- Required for modern features
 
 ---
 
-## Logging & Monitoring
+## 🧪 Testing
 
-### Error Tracking
-```javascript
-// Error boundary
-class ErrorBoundary extends React.Component {
-  componentDidCatch(error, errorInfo) {
-    errorTracker.capture({
-      message: error.message,
-      stack: error.stack,
-      componentStack: errorInfo.componentStack,
-      userId: getUserId()
-    });
-  }
-}
+### Unit Testing
+- Test individual functions/components
+- Fast, isolated
+- Jest, Vitest
 
-// Global error handler
-window.addEventListener('error', (event) => {
-  errorTracker.capture({
-    message: event.message,
-    filename: event.filename,
-    lineno: event.lineno,
-    colno: event.colno
-  });
-});
+### Integration Testing
+- Test component interactions
+- Test API integrations
+- React Testing Library
 
-// Unhandled promise rejection
-window.addEventListener('unhandledrejection', (event) => {
-  errorTracker.capture({
-    message: event.reason?.message || 'Unhandled promise rejection',
-    stack: event.reason?.stack
-  });
-});
-```
+### E2E Testing
+- Test full user flows
+- Cypress, Playwright
+- Slower, more realistic
+
+### A/B Testing
+- Compare variants
+- Statistical significance
+- Feature flags
+
+### Performance Testing
+- Load testing, stress testing
+- Lighthouse, WebPageTest
+- Core Web Vitals
+
+### Security Testing
+- Vulnerability scanning
+- Penetration testing
+- OWASP Top 10
+
+---
+
+## ⚡ Performance
 
 ### Performance Monitoring
-```javascript
-// Core Web Vitals
-import { getCLS, getFID, getLCP } from 'web-vitals';
+- Core Web Vitals (LCP, FID, CLS)
+- Real User Monitoring (RUM)
+- Synthetic monitoring
 
-function sendToAnalytics(metric) {
-  analytics.track({
-    name: metric.name,
-    value: metric.value,
-    id: metric.id,
-    delta: metric.delta,
-    rating: metric.rating
-  });
-}
+### Performance Tools
+- Lighthouse (audits)
+- Chrome DevTools (profiling)
+- WebPageTest (detailed analysis)
+- Bundle analyzers
 
-getCLS(sendToAnalytics);
-getFID(sendToAnalytics);
-getLCP(sendToAnalytics);
+### Network Optimization
+- Compression (gzip, Brotli)
+- HTTP/2, HTTP/3
+- CDN usage
+- Resource hints (preconnect, dns-prefetch)
 
-// Custom performance marks
-performance.mark('app-start');
-performance.mark('data-loaded');
-performance.measure('data-load-time', 'app-start', 'data-loaded');
-```
+### Rendering Patterns
+- CSR (Client-Side Rendering)
+- SSR (Server-Side Rendering)
+- SSG (Static Site Generation)
+- ISR (Incremental Static Regeneration)
+- Streaming SSR
+- Partial Hydration
+
+### Build Optimization
+- Code splitting
+- Tree shaking
+- Minification
+- Dead code elimination
+
+---
+
+## 💾 Database & Caching
+
+### Client Storage
+- **LocalStorage**: ~5-10MB, persistent, sync
+- **SessionStorage**: ~5-10MB, per-tab, sync
+- **Cookies**: ~4KB, sent with requests
+- **IndexedDB**: Large, structured, async
+
+### Normalization
+- Flatten nested data
+- Entity maps keyed by IDs
+- Prevents duplication
+- Redux Toolkit Entity Adapter
+
+### Caching Layers
+- CDN/Edge Cache
+- HTTP Cache (browser)
+- Service Worker Cache
+- API Client Cache (React Query)
+- App State (Redux)
+- Persistence (LocalStorage/IndexedDB)
+
+### State Management
+- Local state (component-level)
+- Global state (shared data)
+- Server cache (React Query/RTK Query)
+- Normalized state
+
+---
+
+## 📊 Logging & Monitoring
 
 ### Telemetry
-```javascript
-// Telemetry collection
-class Telemetry {
-  constructor() {
-    this.events = [];
-    this.batchSize = 10;
-    this.flushInterval = 5000;
-  }
-  
-  track(event, properties) {
-    this.events.push({
-      event,
-      properties,
-      timestamp: Date.now(),
-      userId: getUserId(),
-      sessionId: getSessionId()
-    });
-    
-    if (this.events.length >= this.batchSize) {
-      this.flush();
-    }
-  }
-  
-  flush() {
-    if (this.events.length === 0) return;
-    
-    fetch('/api/telemetry', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ events: this.events })
-    });
-    
-    this.events = [];
-  }
-}
+- Collect metrics, errors, events
+- Batch events
+- Sample high-volume data
+- Respect privacy
 
-// Auto-flush periodically
-setInterval(() => telemetry.flush(), telemetry.flushInterval);
-```
+### Alerting
+- Set thresholds
+- Different severity levels
+- Avoid alert fatigue
+- Actionable alerts only
+
+### Fixing Issues
+- Identify root causes
+- Prioritize by impact
+- Reproduce, isolate, fix, verify
+- Monitor after fixes
 
 ---
 
-## Real-World Scenarios
+## ♿ Accessibility
 
-### News Feed with Infinite Scroll
-```javascript
-const NewsFeed = () => {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-  
-  const loadMorePosts = useCallback(async () => {
-    if (loading || !hasMore) return;
-    setLoading(true);
-    const newPosts = await fetchPosts(posts.length);
-    setPosts(prev => [...prev, ...newPosts]);
-    setHasMore(newPosts.length > 0);
-    setLoading(false);
-  }, [posts.length, loading, hasMore]);
-  
-  return (
-    <VirtualizedList
-      items={posts}
-      onLoadMore={loadMorePosts}
-      renderItem={({ item }) => <PostCard post={item} />}
-    />
-  );
-};
-```
+### Keyboard Accessibility
+- Tab order
+- Keyboard shortcuts
+- Skip links
+- Focus indicators
 
-### Real-time Chat
-```javascript
-const ChatInterface = () => {
-  const [messages, setMessages] = useState([]);
-  const [ws, setWs] = useState(null);
-  
-  useEffect(() => {
-    const websocket = new WebSocket('ws://localhost:8080/chat');
-    
-    websocket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      setMessages(prev => [...prev, data.message]);
-    };
-    
-    setWs(websocket);
-    return () => websocket.close();
-  }, []);
-  
-  const sendMessage = (text) => {
-    if (ws) {
-      ws.send(JSON.stringify({ type: 'message', text }));
-    }
-  };
-  
-  return (
-    <div className="chat">
-      <MessageList messages={messages} />
-      <MessageInput onSend={sendMessage} />
-    </div>
-  );
-};
-```
+### Screen Reader
+- Semantic HTML
+- ARIA attributes
+- Alt text for images
+- ARIA live regions
 
-### E-commerce Cart
-```javascript
-const ShoppingCart = () => {
-  const [cart, setCart] = useState([]);
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
-  
-  useEffect(() => {
-    const savedCart = localStorage.getItem('cart');
-    if (savedCart) {
-      setCart(JSON.parse(savedCart));
-    }
-  }, []);
-  
-  const addToCart = (product) => {
-    const newCart = [...cart, product];
-    setCart(newCart);
-    localStorage.setItem('cart', JSON.stringify(newCart));
-  };
-  
-  const checkout = async () => {
-    try {
-      const order = await createOrder(cart);
-      setCart([]);
-      localStorage.removeItem('cart');
-    } catch (error) {
-      if (!isOnline) {
-        showOfflineMessage();
-      }
-    }
-  };
-  
-  return (
-    <div className="cart">
-      <CartItems items={cart} />
-      <CheckoutButton onClick={checkout} />
-    </div>
-  );
-};
-```
+### Focus Management
+- Focus trapping (modals)
+- Focus restoration
+- Visible focus indicators
+- Logical tab order
+
+### Color Contrast
+- WCAG AA: 4.5:1 (normal text)
+- WCAG AA: 3:1 (large text)
+- Don't rely on color alone
+- Test with color blindness simulators
+
+### Accessibility Tools
+- axe DevTools
+- WAVE
+- Lighthouse
+- Screen readers (NVDA, JAWS, VoiceOver)
 
 ---
 
-## Common Patterns
+## 📱 Offline Support
 
-### Error Boundaries
-```javascript
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-  
-  static getDerivedStateFromError(error) {
-    return { hasError: true };
-  }
-  
-  componentDidCatch(error, errorInfo) {
-    console.error('Error caught by boundary:', error, errorInfo);
-  }
-  
-  render() {
-    if (this.state.hasError) {
-      return <h1>Something went wrong.</h1>;
-    }
-    
-    return this.props.children;
-  }
-}
-```
+### Service Workers
+- Background scripts
+- Intercept network requests
+- Cache resources
+- Enable offline functionality
 
-### Custom Hooks
-```javascript
-// useLocalStorage hook
-const useLocalStorage = (key, initialValue) => {
-  const [storedValue, setStoredValue] = useState(() => {
-    try {
-      const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
-    } catch (error) {
-      return initialValue;
-    }
-  });
-  
-  const setValue = (value) => {
-    try {
-      setStoredValue(value);
-      window.localStorage.setItem(key, JSON.stringify(value));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  
-  return [storedValue, setValue];
-};
-
-// useDebounce hook
-const useDebounce = (value, delay) => {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-  
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-    
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
-  
-  return debouncedValue;
-};
-```
-
-### Performance Monitoring
-```javascript
-// Performance observer
-const PerformanceMonitor = () => {
-  useEffect(() => {
-    const observer = new PerformanceObserver((list) => {
-      list.getEntries().forEach((entry) => {
-        if (entry.entryType === 'longtask') {
-          console.warn('Long task detected:', entry.duration);
-        }
-      });
-    });
-    
-    observer.observe({ entryTypes: ['longtask'] });
-    
-    return () => observer.disconnect();
-  }, []);
-  
-  return null;
-};
-
-// Memory monitoring
-const MemoryMonitor = () => {
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (performance.memory) {
-        const memory = performance.memory;
-        console.log('Memory usage:', {
-          used: Math.round(memory.usedJSHeapSize / 1024 / 1024) + ' MB',
-          total: Math.round(memory.totalJSHeapSize / 1024 / 1024) + ' MB'
-        });
-      }
-    }, 5000);
-    
-    return () => clearInterval(interval);
-  }, []);
-  
-  return null;
-};
-```
+### Progressive Web Apps (PWAs)
+- Service Worker
+- Web App Manifest
+- Installable
+- Push notifications
+- Offline support
 
 ---
 
-## 🎯 Quick Tips
+## 🎯 Patterns & Anti-Patterns
 
-- **Think in systems** - Consider scalability, performance, and maintainability
-- **Draw diagrams** - Visualize architecture and data flow
-- **Consider trade-offs** - Every decision has pros and cons
-- **Focus on user experience** - Performance and accessibility matter
-- **Stay current** - Keep up with modern front-end trends
-- **Test thoroughly** - Use automated and manual testing
-- **Monitor performance** - Use real user monitoring
-- **Plan for scale** - Design for growth from the start
-- **Document decisions** - Explain architectural choices
-- **Iterate and improve** - Continuously optimize and refactor
+### Rendering Patterns
+- **CSR**: Client-side rendering (fast nav, slow initial)
+- **SSR**: Server-side rendering (fast initial, SEO friendly)
+- **SSG**: Static site generation (fastest, pre-rendered)
+- **ISR**: Incremental static regeneration (SSG + updates)
+- **Streaming SSR**: Progressive HTML delivery
+- **Partial Hydration**: Only hydrate interactive parts
+
+### React Anti-Patterns
+- Direct DOM manipulation (use state)
+- Mutating state (create new objects)
+- Index as key (use stable IDs)
+- Functions/objects in render (use useCallback/useMemo)
+- Prop drilling (use Context)
+- Missing useEffect dependencies
+- Not cleaning up effects
+
+### JavaScript Anti-Patterns
+- Using var (use let/const)
+- Not handling async errors (use try/catch)
+- Using == (use ===)
+- Modifying prototypes (create utilities)
+- Verbose null checks (use ?. and ??)
+- Functions in loops (use let or forEach)
+- Not using destructuring
+
+### Node.js Anti-Patterns
+- Blocking event loop (use async/worker threads)
+- Not handling async errors (use try/catch)
+- Callback hell (use async/await)
+- Not using streams (use for large files)
+- Hardcoded config (use env vars)
+- No graceful shutdown (handle signals)
+- No connection pooling (reuse connections)
 
 ---
 
-## 📚 Key Technologies
+## 🏗️ High Level Design (HLD)
 
-| Category | Technology | Use Case |
-|----------|------------|----------|
-| **Frameworks** | React, Vue, Angular | UI development |
-| **State Management** | Redux, Zustand, Context API | Global state |
-| **Routing** | React Router, Vue Router | Client-side routing |
-| **Styling** | CSS-in-JS, Tailwind, Styled Components | Component styling |
-| **Testing** | Jest, React Testing Library, Cypress | Testing |
-| **Build Tools** | Webpack, Vite, Rollup, esbuild | Bundling |
-| **Performance** | Lighthouse, Web Vitals, Bundle Analyzer | Optimization |
-| **Accessibility** | axe, WAVE, Screen Readers | A11y testing |
-| **PWA** | Service Workers, Web App Manifest | Offline functionality |
-| **Micro-Frontends** | Module Federation, Single-SPA | Architecture |
-| **APIs** | REST, GraphQL, gRPC | Backend communication |
-| **Real-time** | WebSockets, SSE, Long Polling | Live updates |
-| **Caching** | HTTP Cache, SW Cache, React Query | Performance |
-| **Storage** | LocalStorage, IndexedDB, Cookies | Client-side data |
-| **Security** | CSP, CORS, XSS/CSRF Protection, JWT | Security |
-| **Monitoring** | Sentry, LogRocket, Web Vitals, Telemetry | Observability |
+### Requirements
+- **Functional**: What system does (features, behaviors)
+- **Non-Functional**: How well it performs (performance, security, scalability, availability)
+
+### Scope & MVP
+- **Scope**: What's included/excluded
+- **Priority**: MoSCoW (Must, Should, Could, Won't)
+- **MVP**: Minimal version that delivers core value
+
+### Architecture Layers
+- **Client**: View, Service, Controller, Data Model
+- **Server**: Web Server, Application Server, Database, Cache
+- **Infrastructure**: Load Balancer, CDN, Middleware, Queue, Cron
+
+### Database
+- **SQL**: Structured, ACID, relationships
+- **NoSQL**: Document (MongoDB), Key-Value (Redis), Column (Cassandra), Graph (Neo4j)
+
+### Caching & Performance
+- **CDN**: Edge caching for static assets
+- **Redis**: In-memory cache, sessions, real-time features
+- **Cache strategies**: Cache-aside, write-through, write-back
+
+### CI/CD
+- **CI**: Automated builds, tests on every commit
+- **CD**: Automated deployment (delivery or deployment)
+- **Tools**: GitHub Actions, GitLab CI, Jenkins
 
 ---
 
-## ⚡ **Last-Minute Review (5 minutes)**
+## 🔧 Low Level Design (LLD)
 
-### **Must-Know Concepts**
-- **Architecture**: Feature-based organization, component composition
-- **Performance**: Core Web Vitals (LCP < 2.5s, FID < 100ms, CLS < 0.1)
-- **State Management**: Context API (simple), Redux (complex), Zustand (modern)
-- **Caching**: HTTP cache, Service Worker, React Query, IndexedDB
-- **Real-time**: WebSockets (bidirectional), SSE (server→client), Long Polling
-- **Security**: XSS prevention, CSRF tokens, CORS, Security headers
-- **Monitoring**: Error tracking, Performance monitoring, Telemetry
+### View Layer
+- **Components**: Atomic design, presentational vs container
+- **Rendering**: CSR, SSR, SSG, ISR
+- **Styling**: CSS Modules, styled-components, Tailwind
 
-### **Quick Code Snippets**
-```javascript
-// Feature-based structure
-src/features/auth/components, hooks, services
+### Service Layer
+- **API Communication**: HTTP requests, data transformation
+- **Error Handling**: Consistent error format
+- **Caching**: Request caching, cache invalidation
 
-// React Query caching
-const { data } = useQuery(['users', id], fetchUser, { staleTime: 60000 });
+### State Management
+- **Local**: Component-level (useState)
+- **Global**: Context API, Redux, Zustand
+- **Server**: React Query, SWR
 
-// Service Worker cache
-event.respondWith(caches.match(request) || fetch(request));
+### Data Models
+- **TypeScript**: Interfaces, types
+- **Normalization**: Flat structure, avoid nesting
+- **Validation**: Zod, runtime validation
 
-// WebSocket
-const ws = new WebSocket('wss://api.example.com');
-ws.onmessage = (e) => handleUpdate(JSON.parse(e.data));
-```
+---
 
-### **Common Patterns**
-- **Micro-frontends**: Module Federation, event-based communication
-- **PWA**: Service Worker, Web App Manifest, offline support
-- **Performance**: Code splitting, lazy loading, virtualization
-- **Accessibility**: ARIA, keyboard navigation, focus management
-- **Security**: Input sanitization, CSP headers, secure token storage
-- **Monitoring**: Error boundaries, performance tracking, telemetry batching
+## 🌐 Important Browser APIs
 
-*This cheatsheet covers the most important concepts for front-end system design interviews. Practice implementing these patterns and understand the underlying principles!*
+### DOM API
+- Select, create, modify elements
+- Event handling, delegation
+- DOM traversal
+
+### Fetch API
+- Modern HTTP requests
+- Promise-based
+- AbortController for cancellation
+
+### Storage APIs
+- **localStorage**: Persistent, ~5-10MB
+- **sessionStorage**: Session-only, ~5-10MB
+- **IndexedDB**: Large structured data, async
+
+### Other APIs
+- **Geolocation**: User location (requires permission)
+- **Canvas**: Graphics and animations
+- **Web Workers**: Background threads
+- **Intersection Observer**: Viewport visibility
+- **Notifications**: System notifications
+- **Media APIs**: Camera, microphone, recording
+- **File API**: Read files, drag & drop
+- **History API**: SPA routing
+- **WebSocket**: Real-time bidirectional communication
+
+---
+
+## ⚙️ JavaScript Internals
+
+### Engine
+- **V8**: Chrome, Node.js
+- **JIT Compilation**: Interpreter + Compiler
+- **Garbage Collection**: Mark-and-sweep
+
+### Execution
+- **Execution Context**: Global, function, eval
+- **Call Stack**: Tracks function calls
+- **Hoisting**: Declarations moved to top
+
+### Memory
+- **Garbage Collection**: Automatic memory management
+- **Memory Leaks**: Global variables, event listeners, timers
+
+### Event Loop
+- **Phases**: Timers, pending, poll, check, close
+- **Priority**: nextTick > microtasks > event loop
+- **Single-threaded**: Uses event loop for concurrency
+
+### Advanced
+- **Scope**: Global, function, block
+- **Closures**: Access outer variables
+- **Prototypes**: Inheritance chain
+- **This Binding**: Depends on call site
+- **Promises**: Async operations, async/await
+
+---
+
+## ⚛️ React Internals
+
+### Architecture
+- **Component-based**: Reusable components
+- **Declarative**: Describe UI, React updates DOM
+- **Virtual DOM**: JavaScript representation of DOM
+
+### Reconciliation
+- **Diffing**: Compare old and new Virtual DOM
+- **Keys**: Identify list items
+- **Fiber**: New reconciliation engine
+
+### Hooks
+- **useState**: Component state
+- **useEffect**: Side effects, lifecycle
+- **useMemo/useCallback**: Memoization
+
+### Performance
+- **Code Splitting**: Lazy loading
+- **Memoization**: React.memo, useMemo, useCallback
+- **Virtualization**: Long lists
+
+---
+
+## 🟢 Node.js Internals
+
+### Architecture
+- **V8**: JavaScript engine
+- **libuv**: Async I/O, event loop
+- **Core Modules**: fs, http, etc.
+
+### Event Loop
+- **Phases**: Timers, pending, poll, check, close
+- **Thread Pool**: Default 4 threads for blocking I/O
+- **Non-blocking**: I/O doesn't block event loop
+
+### Modules
+- **CommonJS**: module.exports, require()
+- **Module Cache**: Cached after first load
+- **Resolution**: Core → local → node_modules
+
+### Other
+- **Streams**: Readable, Writable, Duplex, Transform
+- **Buffer**: Binary data handling
+- **Cluster**: Multiple processes, load balancing
+- **Child Processes**: spawn, exec, fork
+
+---
+
+## ⚡ Quick Tips
+
+- **DNS caching** speeds up requests
+- **TCP ensures reliability**, UDP prioritizes speed
+- **HTTPS required** for modern features
+- **REST is simple**, GraphQL is flexible, gRPC is fast
+- **WebSockets** for real-time, SSE for server→client
+- **XSS prevention**: Validate input, encode output
+- **CSRF prevention**: Tokens + SameSite cookies
+- **Performance**: Monitor Core Web Vitals
+- **Caching**: Multiple layers (CDN → HTTP → SW → API → State)
+- **Accessibility**: Semantic HTML + ARIA + keyboard navigation
+- **Service Workers**: Enable offline-first apps

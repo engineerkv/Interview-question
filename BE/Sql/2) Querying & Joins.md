@@ -4,11 +4,11 @@
 
 </div>
 
-# 2. Querying & Joins (Q11–20)
+# 🔍 2. Querying & Joins (Q11–20)
 
 ---
 
-## Q11. Different types of JOINs in SQL
+## Q11. 🗄️ Different types of JOINs in SQL
 
 Joins combine data from multiple tables based on related columns, with different types returning different sets of matching and non-matching records. INNER JOIN returns only matching records, LEFT JOIN returns all left table records plus matches, RIGHT JOIN returns all right table records plus matches, FULL OUTER JOIN returns all records from both tables, and CROSS JOIN returns the Cartesian product (every row from first table with every row from second).
 
@@ -41,11 +41,12 @@ FULL OUTER JOIN departments d ON e.dept_id = d.dept_id;
 SELECT e.name, d.department_name
 FROM employees e
 CROSS JOIN departments d;
+
 ```
 
 ---
 
-## Q12. Difference between INNER JOIN and LEFT JOIN
+## Q12. 🤔 Difference between INNER JOIN and LEFT JOIN
 
 A self-join is when a table is joined with itself, useful for finding relationships within the same table like employee-manager hierarchies. You use table aliases to reference the same table multiple times, which is perfect for organizational charts, category hierarchies, and parent-child relationships.
 
@@ -60,11 +61,12 @@ SELECT
     e2.employee_name AS manager
 FROM employees e1
 LEFT JOIN employees e2 ON e1.manager_id = e2.employee_id;
+
 ```
 
 ---
 
-## Q13. Self-join and when to use it
+## Q13. ⏰ Self-join and when to use it
 
 INNER JOIN returns only matching records from both tables, while LEFT JOIN returns all records from the left table and matching records from the right table. INNER JOIN excludes records without matches (smaller result set), while LEFT JOIN includes all left table records with NULLs for non-matching right table columns.
 
@@ -82,11 +84,12 @@ INNER JOIN departments d ON e.dept_id = d.dept_id;
 SELECT e.name, d.department_name
 FROM employees e
 LEFT JOIN departments d ON e.dept_id = d.dept_id;
+
 ```
 
 ---
 
-## Q14. Difference between UNION and UNION ALL
+## Q14. 🤔 Difference between UNION and UNION ALL
 
 UNION removes duplicate rows and sorts results, while UNION ALL keeps all rows including duplicates and doesn't sort. UNION ALL is significantly faster because it doesn't need to remove duplicates or sort, so use it when duplicates are acceptable.
 
@@ -109,11 +112,12 @@ SELECT name FROM contractors;
 SELECT name, 'Employee' as type FROM employees
 UNION
 SELECT name, 'Contractor' as type FROM contractors;
+
 ```
 
 ---
 
-## Q15. Subqueries and how to use them
+## Q15. 🔧 Subqueries and how to use them
 
 A subquery is a query nested inside another query. Non-correlated subqueries execute independently (run once, better performance), while correlated subqueries reference columns from the outer query (execute once for each row, can be slower but more flexible).
 
@@ -131,11 +135,12 @@ WHERE salary > (SELECT AVG(salary) FROM employees);
 SELECT e1.name, e1.salary
 FROM employees e1
 WHERE e1.salary > (SELECT AVG(e2.salary) FROM employees e2 WHERE e2.department_id = e1.department_id);
+
 ```
 
 ---
 
-## Q16. Difference between correlated and non-correlated subqueries
+## Q16. 🤔 Difference between correlated and non-correlated subqueries
 
 A CTE is a temporary named result set that exists only for the duration of a single query, useful for complex queries and recursive operations. It makes complex queries more readable and maintainable, and you can define multiple CTEs in a single query.
 
@@ -154,11 +159,12 @@ SELECT h.name, h.salary, d.department_name
 FROM high_earners h
 JOIN departments d ON h.dept_id = d.dept_id
 ORDER BY h.salary DESC;
+
 ```
 
 ---
 
-## Q17. CTEs (Common Table Expressions) and how to use them
+## Q17. 🔧 CTEs (Common Table Expressions) and how to use them
 
 CTEs exist only for the duration of a single query and cannot be referenced multiple times, while temporary tables persist for the session and can be referenced multiple times. CTEs are query-scoped and recalculated each time, while temp tables are session-scoped and materialized.
 
@@ -187,11 +193,12 @@ GROUP BY product_id;
 -- Can reference multiple times
 SELECT * FROM temp_sales_summary WHERE total_sold > 100;
 SELECT COUNT(*) FROM temp_sales_summary;
+
 ```
 
 ---
 
-## Q18. Temporary tables and how to create them
+## Q18. 🔧 Temporary tables and how to create them
 
 Use GROUP BY with HAVING COUNT(*) > 1 to find duplicate records, or window functions like ROW_NUMBER() to identify and remove duplicates. GROUP BY is simple and effective for finding duplicate groups, while window functions are more flexible for complex duplicate detection logic.
 
@@ -210,11 +217,12 @@ HAVING COUNT(*) > 1;
 SELECT name, ROW_NUMBER() OVER (PARTITION BY name ORDER BY id) as rn
 FROM employees
 WHERE ROW_NUMBER() OVER (PARTITION BY name ORDER BY id) > 1;
+
 ```
 
 ---
 
-## Q19. Finding duplicate records in a table
+## Q19. 💡 Finding duplicate records in a table
 
 Use window functions like ROW_NUMBER() or DENSE_RANK(), or subqueries with LIMIT/OFFSET to find the second-highest salary. ROW_NUMBER() assigns unique sequential numbers (skips ranks for ties), while DENSE_RANK() assigns ranks without gaps (same rank for ties).
 
@@ -244,11 +252,12 @@ SELECT salary
 FROM employees
 ORDER BY salary DESC
 LIMIT 1 OFFSET 1;
+
 ```
 
 ---
 
-## Q20. Finding the second-highest salary from a table
+## Q20. 💡 Finding the second-highest salary from a table
 
 Pagination divides large result sets into smaller pages using LIMIT/OFFSET for simple cases, or ROW_NUMBER() for more complex scenarios with consistent ordering. FETCH NEXT is the modern SQL standard and more readable than LIMIT/OFFSET.
 
@@ -277,7 +286,14 @@ FROM employees
 ORDER BY salary DESC
 OFFSET 20 ROWS
 FETCH NEXT 10 ROWS ONLY;
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: SQL Fundamentals](1%29%20SQL%20Fundamentals.md)** | **[Next: Filtering, Grouping & Aggregation →](3%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md)**
+
+</div>
 

@@ -4,11 +4,11 @@
 
 </div>
 
-# 3. Aggregation Framework (Q30–41)
+# 📊 3. Aggregation Framework (Q30–41)
 
 ---
 
-## Q30. MongoDB aggregation pipeline
+## Q30. 📊 MongoDB aggregation pipeline
 
 The aggregation pipeline allows you to process documents through multiple stages that filter, group, reshape, and transform data—MongoDB does all the work on the server side, so you can build complex data transformations without multiple round trips to the database.
 
@@ -24,11 +24,12 @@ db.orders.aggregate([
   { $sort: { total: -1 } },
   { $limit: 10 }
 ]);
+
 ```
 
 ---
 
-## Q31. Main stages in the aggregation pipeline
+## Q31. 📊 Main stages in the aggregation pipeline
 
 `$match` filters early, `$group` aggregates, `$sort` orders, `$project` reshapes fields, `$limit` trims output, and `$unwind` explodes arrays into individual documents.
 
@@ -46,11 +47,12 @@ db.products.aggregate([
   // $group: Aggregate by tag
   { $group: { _id: "$tags", count: { $sum: 1 } } }
 ]);
+
 ```
 
 ---
 
-## Q32. Difference between `$match` and `$group` stages
+## Q32. 🤔 Difference between `$match` and `$group` stages
 
 `$match` filters documents (like WHERE in SQL), while `$group` aggregates documents by grouping them by a key and computing values like sums, averages, or counts—place `$match` early to reduce data before grouping.
 
@@ -69,11 +71,12 @@ db.orders.aggregate([
     orderCount: { $sum: 1 }
   } }
 ]);
+
 ```
 
 ---
 
-## Q33. Using `$sort` and `$limit` in aggregation
+## Q33. 📊 Using `$sort` and `$limit` in aggregation
 
 `$sort` orders documents by specified fields, while `$limit` restricts the number of documents passed to the next stage—use them together to get top N results efficiently, and place `$limit` after `$sort` to avoid sorting unnecessary documents.
 
@@ -92,11 +95,12 @@ db.orders.aggregate([
 
 // For better performance, use index
 db.orders.createIndex({ status: 1, amount: -1 });
+
 ```
 
 ---
 
-## Q34. `$project` stage and how to use it
+## Q34. 🔧 `$project` stage and how to use it
 
 `$project` reshapes documents by including, excluding, or transforming fields—use it to select specific fields, rename them, add computed fields, or reshape the output structure.
 
@@ -127,11 +131,12 @@ db.products.aggregate([
     }
   }
 ]);
+
 ```
 
 ---
 
-## Q35. `$unwind` and when to use it
+## Q35. ⏰ `$unwind` and when to use it
 
 `$unwind` deconstructs an array field, creating one document per array element—use it when you need to process individual array items, filter by array values, or group by array elements.
 
@@ -157,11 +162,12 @@ db.users.aggregate([
 db.users.aggregate([
   { $unwind: { path: "$hobbies", preserveNullAndEmptyArrays: true } }
 ]);
+
 ```
 
 ---
 
-## Q36. `$lookup` and how to perform joins
+## Q36. 🔗 `$lookup` and how to perform joins
 
 `$lookup` performs left-outer joins between collections, matching documents from the "from" collection with the input documents based on specified fields, and adding matched documents as an array field.
 
@@ -197,11 +203,12 @@ db.orders.aggregate([
     }
   }
 ]);
+
 ```
 
 ---
 
-## Q37. `$facet` and how to use it for analytics
+## Q37. 🔧 `$facet` and how to use it for analytics
 
 `$facet` splits the input into multiple sub-pipelines that run in parallel, generating multiple result sets from a single aggregation—ideal for dashboards that need multiple metrics or segments computed from the same dataset.
 
@@ -238,11 +245,12 @@ db.orders.aggregate([
     }
   }
 ]);
+
 ```
 
 ---
 
-## Q38. `$merge` and how to use it for data processing
+## Q38. 🔧 `$merge` and how to use it for data processing
 
 `$merge` allows you to persist aggregation results into a collection (insert, replace, merge, or keep existing), enabling materialized views or nightly rollups without extra client code.
 
@@ -270,11 +278,12 @@ db.orders.aggregate([
     }
   }
 ]);
+
 ```
 
 ---
 
-## Q39. Implementing pagination with aggregation
+## Q39. 📊 Implementing pagination with aggregation
 
 Pagination in aggregation uses `$skip` and `$limit` for offset-based pagination, or cursor-based pagination with `$match` on a sort field for better performance on large datasets.
 
@@ -301,11 +310,12 @@ db.products.aggregate([
   { $sort: { createdAt: -1 } },
   { $limit: 10 }
 ]);
+
 ```
 
 ---
 
-## Q40. Using aggregation with Mongoose models
+## Q40. 📊 Using aggregation with Mongoose models
 
 Mongoose models provide an `aggregate()` method that works exactly like MongoDB's native aggregation, allowing you to build pipelines with the same stages and operators while maintaining Mongoose's connection handling.
 
@@ -319,11 +329,12 @@ const results = await User.aggregate([
   { $group: { _id: '$department', count: { $sum: 1 } } },
   { $sort: { count: -1 } }
 ]);
+
 ```
 
 ---
 
-## Q41. Mongoose aggregation with populate alternative
+## Q41. 📊 Mongoose aggregation with populate alternative
 
 While `populate()` is convenient for simple references, aggregation with `$lookup` is more powerful for complex joins, filtering, and transformations that `populate()` can't handle efficiently.
 
@@ -344,7 +355,14 @@ const orders = await Order.aggregate([
   { $unwind: '$customer' },
   { $match: { 'customer.status': 'active' } }
 ]);
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: Indexing & Query Optimization](2%29%20Indexing%20%26%20Query%20Optimization.md)** | **[Next: Data Modeling & Schema Design →](4%29%20Data%20Modeling%20%26%20Schema%20Design.md)**
+
+</div>
 

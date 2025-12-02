@@ -4,9 +4,9 @@
 
 </div>
 
-# 2. Asynchronous Patterns & Event Emitter (Q20–29)
+# 🔄 2. Asynchronous Patterns & Event Emitter (Q20–29)
 
-## Q20. Callback hell and how to avoid it
+## Q20. 🔧 Callback hell and how to avoid it
 
 Callback hell happens when you nest multiple callbacks inside each other, creating deeply nested code that's really hard to read and debug - it's like a pyramid of doom where each async operation needs another callback. The best way to avoid it is using async/await, which makes your code look like regular synchronous code, or Promises with .then() chains, or breaking things into named functions instead of inline callbacks.
 
@@ -25,9 +25,10 @@ getData((err, data) => {
     });
   });
 });
+
 ```
 
-## Q21. Promises and how to use them in Node.js
+## Q21. ⚡ Promises and how to use them in Node.js
 
 A Promise is a placeholder for a value that you'll get later from an async operation - it can be in three states: pending (waiting), fulfilled (success), or rejected (error). When you create a promise, it runs immediately, and you use .then() to handle success and .catch() for errors - both return new promises so you can chain them together for sequential operations.
 
@@ -42,9 +43,10 @@ const promise = new Promise((resolve, reject) => {
 
 promise.then(result => console.log(result))
        .catch(error => console.error(error));
+
 ```
 
-## Q22. Async/await and how it works
+## Q22. ⚡ Async/await and how it works
 
 async/await provides syntactic sugar over Promises, making asynchronous code look and behave like synchronous code - it eliminates callback nesting and promise chaining, uses try/catch for error handling, and makes code more readable and maintainable. async functions always return promises, and you can use await only inside async functions.
 
@@ -78,9 +80,10 @@ async function fetchUser(id) {
 }
 const userPromise = fetchUser(1); // Returns a Promise
 const user = await fetchUser(1); // Unwraps the Promise
+
 ```
 
-## Q23. Handling errors in async/await
+## Q23. ⚡ Handling errors in async/await
 
 Error handling in async functions should use try/catch blocks around await expressions, proper error propagation, and consider both synchronous and asynchronous errors. Don't forget to throw or return errors, consider error boundaries and global error handlers, and log errors with context for debugging.
 
@@ -115,9 +118,10 @@ process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection:', reason);
   // Log to error tracking service
 });
+
 ```
 
-## Q24. Event Emitter pattern and how to use it
+## Q24. 🔄 Event Emitter pattern and how to use it
 
 Event Emitter is a Node.js pattern that allows objects to emit named events and register listeners for those events - it enables event-driven programming where components communicate through events instead of direct function calls. You use .on() to listen for events, .emit() to trigger events, and .off() to remove listeners - perfect for decoupling components and handling asynchronous events like file reads, HTTP requests, or custom application events.
 
@@ -139,9 +143,10 @@ emitter.on('user-login', (user) => {
 });
 
 emitter.emit('user-login', { id: 1, name: 'John' });
+
 ```
 
-## Q25. Creating custom event emitters
+## Q25. 🔄 Creating custom event emitters
 
 EventEmitter is a Node.js class that enables objects to emit and listen for custom events, providing a foundation for event-driven programming - objects can emit custom events and listen for them, supports multiple listeners for same event, and can pass data with events. Used by many Node.js core modules (fs, http).
 
@@ -158,9 +163,10 @@ myEmitter.on('data', (data) => {
   console.log('Received data:', data);
 });
 myEmitter.emit('data', 'Hello World!');
+
 ```
 
-## Q26. Handling concurrent I/O operations
+## Q26. 💡 Handling concurrent I/O operations
 
 Node.js uses the event loop and non-blocking I/O to handle thousands of concurrent operations with a single thread - I/O operations are non-blocking and delegated to the operating system kernel, and the event loop processes completed operations. Can handle thousands of concurrent connections and is memory efficient compared to thread-per-request model.
 
@@ -179,9 +185,10 @@ operations.forEach(file => {
   });
 });
 console.log('All operations initiated');
+
 ```
 
-## Q27. Async iterators and generators
+## Q27. ⚡ Async iterators and generators
 
 Async iterators and generators provide a way to iterate over asynchronous data sources, useful for processing large datasets or streaming data without loading everything into memory - they process data as it becomes available, are memory efficient for large datasets, and can pause and resume execution. Combine with for-await-of loops.
 
@@ -202,9 +209,10 @@ async function* asyncGenerator() {
     console.log(value);
   }
 })();
+
 ```
 
-## Q28. Implementing retry logic with async/await
+## Q28. ⚡ Implementing retry logic with async/await
 
 Retry logic allows you to automatically retry failed async operations with configurable attempts, delays, and backoff strategies - useful for handling transient failures like network timeouts or temporary service unavailability. You can implement it with a loop that catches errors and retries, or use exponential backoff to gradually increase delay between retries.
 
@@ -236,9 +244,10 @@ async function retryWithBackoff(operation, maxAttempts = 3) {
     }
   }
 }
+
 ```
 
-## Q29. Handling timeouts in async operations
+## Q29. ⚡ Handling timeouts in async operations
 
 Timeouts prevent async operations from hanging indefinitely by rejecting or canceling them after a specified duration - useful for network requests, file operations, or any async task that might take too long. You can implement timeouts using Promise.race() with a timeout promise, or use AbortController for fetch requests.
 
@@ -272,4 +281,5 @@ async function fetchWithAbort(url, timeout = 5000) {
     throw error;
   }
 }
+
 ```

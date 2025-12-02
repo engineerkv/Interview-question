@@ -4,11 +4,11 @@
 
 </div>
 
-# 1. React Fundamentals (Q1–17)
+# ⚛️ 1. React Fundamentals (Q1–17)
 
 ---
 
-## Q1. React and its purpose
+## Q1. 💡 React and its purpose
 
 React is a JavaScript library for building user interfaces using reusable components and a virtual DOM - it simplifies UI development by letting you write declarative code instead of manually manipulating the browser's DOM. React uses a component-based architecture where UI is built by composing reusable pieces, and the virtual DOM compares trees in memory before touching the real DOM, making updates fast and predictable.
 
@@ -20,11 +20,12 @@ Example:
 function App() {
   return <div><h1>Hello, React!</h1></div>;
 }
+
 ```
 
 ---
 
-## Q2. React components: functional vs class components
+## Q2. 🔧 React components: functional vs class components
 
 React components are reusable UI pieces that return JSX - functional components use functions and hooks, while class components use ES6 classes with lifecycle methods. Functional components with hooks are the recommended approach since React 16.8, and most new projects use them for cleaner, simpler code and better optimization.
 
@@ -36,11 +37,12 @@ Example:
 function Welcome({ name }) {
   return <h1>Hello, {name}!</h1>;
 }
+
 ```
 
 ---
 
-## Q3. JSX and how it works
+## Q3. 🔧 JSX and how it works
 
 JSX allows you to write HTML-like syntax in JavaScript - it gets compiled to `React.createElement()` calls by Babel, making React code more readable than raw JavaScript. JSX must have one root element or use Fragments, and JavaScript expressions go inside curly braces.
 
@@ -57,11 +59,12 @@ function UserProfile({ user, isLoggedIn }) {
     </div>
   );
 }
+
 ```
 
 ---
 
-## Q4. Virtual DOM vs Real DOM
+## Q4. 🤔 Virtual DOM vs Real DOM
 
 Virtual DOM is React's lightweight JavaScript representation of the Real DOM - React compares virtual trees to update only what changed, minimizing expensive browser operations. Real DOM is the browser's actual HTML structure that triggers expensive reflows, repaints, and layout recalculations when changed, blocking the main thread. Virtual DOM is fast to compare in JavaScript, Real DOM is slow to change.
 
@@ -85,11 +88,12 @@ function Counter({ count }) {
     </div>
   );
 }
+
 ```
 
 ---
 
-## Q5. Props vs state in React
+## Q5. 📊 Props vs state in React
 
 Props are read-only data passed from parent to child, while state is mutable data inside a component that triggers re-renders when changed - props flow down, events flow up. State belongs to the component that owns it, use props for configuration, state for interactivity and user input.
 
@@ -102,11 +106,12 @@ function App() {
   const [count, setCount] = useState(0);
   return <Counter count={count} onIncrement={() => setCount(count + 1)} />;
 }
+
 ```
 
 ---
 
-## Q6. Keys in React and their importance
+## Q6. 💡 Keys in React and their importance
 
 Keys help React track which list items changed, were added, or removed during reconciliation - they give React stable identity for efficient updates instead of re-rendering everything. Without keys, React re-renders all items when list changes, causing performance issues.
 
@@ -122,11 +127,12 @@ function TodoList({ todos }) {
     </ul>
   );
 }
+
 ```
 
 ---
 
-## Q7. Controlled vs uncontrolled components
+## Q7. 🧩 Controlled vs uncontrolled components
 
 Controlled components use React state for form values, giving React full control, while uncontrolled components use DOM refs to read values, letting the DOM own the state. Controlled means React owns the value, uncontrolled means DOM owns it.
 
@@ -139,11 +145,12 @@ function ControlledForm() {
   const [value, setValue] = useState('');
   return <input value={value} onChange={(e) => setValue(e.target.value)} />;
 }
+
 ```
 
 ---
 
-## Q8. React Fragments and when to use them
+## Q8. ⏰ React Fragments and when to use them
 
 Fragments let you group multiple elements without adding extra DOM nodes - they solve React's "components must return one element" limitation without breaking CSS layouts. Fragments return multiple elements without wrapper divs that break CSS layouts.
 
@@ -160,11 +167,12 @@ function Component() {
     </>
   );
 }
+
 ```
 
 ---
 
-## Q9. Reconciliation in React
+## Q9. 💡 Reconciliation in React
 
 Reconciliation is React's algorithm comparing virtual DOM trees to decide what DOM changes are needed - it uses heuristics and keys to efficiently find differences and update only changed nodes.
 
@@ -182,11 +190,12 @@ function App() {
     </div>
   );
 }
+
 ```
 
 ---
 
-## Q10. Lifecycle methods in class components
+## Q10. 🧩 Lifecycle methods in class components
 
 Class components have lifecycle methods across three phases: mounting (constructor → getDerivedStateFromProps → render → componentDidMount), updating (getDerivedStateFromProps → shouldComponentUpdate → render → getSnapshotBeforeUpdate → componentDidUpdate), and unmounting (componentWillUnmount). Error boundaries use getDerivedStateFromError and componentDidCatch. Deprecated methods include componentWillMount, componentWillReceiveProps, and componentWillUpdate - avoid using them as they cause warnings and will be removed in future React versions.
 
@@ -247,11 +256,12 @@ class UserProfile extends React.Component {
     return this.state.loading ? null : <div>{this.state.user.name}</div>;
   }
 }
+
 ```
 
 ---
 
-## Q11. Converting class components to functional components with hooks
+## Q11. 🔧 Converting class components to functional components with hooks
 
 useEffect replaces lifecycle methods: empty array equals componentDidMount, dependencies equal componentDidUpdate, cleanup return equals componentWillUnmount - one hook handles all lifecycle needs. useEffect([]) equals mount, useEffect([deps]) equals update, return function equals unmount.
 
@@ -268,11 +278,12 @@ function HookComponent() {
   }, []);
   return <div />;
 }
+
 ```
 
 ---
 
-## Q12. React Fiber and how it improves reconciliation
+## Q12. 🔧 React Fiber and how it improves reconciliation
 
 React Fiber is a rewrite of React's reconciliation engine that enables interruptible, prioritized work for better performance - it introduces a virtual call stack that allows work to be split into small units, prioritized, paused, and resumed. Fiber improves reconciliation by enabling incremental rendering, allowing React to split work into chunks and prioritize updates (user input > background updates), which enables concurrent rendering, time-slicing, and keeps UI responsive during heavy operations.
 
@@ -301,11 +312,12 @@ function App() {
     </div>
   );
 }
+
 ```
 
 ---
 
-## Q13. React Portals: what they are and when to use them
+## Q13. ❓ React Portals: what they are and when to use them
 
 React Portals render children into a DOM node outside the parent component - use them for modals, tooltips, and overlays that need to escape parent z-index constraints. Render children into different DOM node while keeping React tree structure.
 
@@ -327,11 +339,12 @@ function Modal({ isOpen, onClose, children }) {
     document.body
   );
 }
+
 ```
 
 ---
 
-## Q14. Error Boundaries: what they are and how to implement them
+## Q14. ⚠️ Error Boundaries: what they are and how to implement them
 
 Error Boundaries catch JavaScript errors in child components and display fallback UI - only class components can be Error Boundaries currently, though hooks support is coming. Catch errors in child component tree and prevent entire app from crashing.
 
@@ -358,11 +371,12 @@ class ErrorBoundary extends React.Component {
     return this.props.children;
   }
 }
+
 ```
 
 ---
 
-## Q15. Higher-Order Components (HOCs) vs Render Props
+## Q15. 🧩 Higher-Order Components (HOCs) vs Render Props
 
 HOCs are functions that take a component and return an enhanced component, while Render Props use a function prop to share code - both are legacy patterns replaced by custom hooks. HOCs enhance components with additional functionality (legacy pattern).
 
@@ -389,11 +403,12 @@ function DataFetcher({ render }) {
   }, []);
   return render(data);
 }
+
 ```
 
 ---
 
-## Q16. Refs and ref forwarding in React
+## Q16. 💡 Refs and ref forwarding in React
 
 Refs access DOM elements directly or component instances - ref forwarding allows parents to access child component refs using forwardRef, enabling imperative operations when declarative isn't enough.
 
@@ -420,11 +435,12 @@ function App() {
     </div>
   );
 }
+
 ```
 
 ---
 
-## Q17. React Profiler API and when to use it
+## Q17. 🔌 React Profiler API and when to use it
 
 React Profiler API measures component rendering performance programmatically - use it to identify slow components and optimize rendering in development or production. Profiler API measures component render times programmatically.
 
@@ -451,7 +467,14 @@ function App() {
     </Profiler>
   );
 }
+
 ```
 
 ---
+
+<div align="center">
+
+**[← Previous: README](../README.md)** | **[Next: React Hooks →](2%29%20React%20Hooks.md)**
+
+</div>
 

@@ -4,11 +4,11 @@
 
 </div>
 
-# 2. Semantic HTML & Structure (Q16–30)
+# 🏗️ 2. Semantic HTML & Structure (Q16–30)
 
 ---
 
-## Q16. Semantic HTML and its importance
+## Q16. 📄 Semantic HTML and its importance
 
 Semantic HTML uses meaningful tags that describe content purpose rather than just appearance - it improves accessibility, SEO, and maintainability by giving meaning to structure. Screen readers use semantic tags to navigate and understand content, and search engines understand content structure better.
 
@@ -24,11 +24,12 @@ Example:
   </header>
   <p>Article content here...</p>
 </article>
+
 ```
 
 ---
 
-## Q17. `<header>` vs `<h1>`
+## Q17. 🤔 `<header>` vs `<h1>`
 
 `<header>` is a semantic container for introductory content that creates a landmark region for screen readers, while `<h1>` is a heading element for the main title. `<header>` can contain multiple elements like title, nav, and logo, and can appear multiple times per page.
 
@@ -46,11 +47,12 @@ Example:
     </ul>
   </nav>
 </header>
+
 ```
 
 ---
 
-## Q18. `<article>` vs `<section>`
+## Q18. 🤔 `<article>` vs `<section>`
 
 `<article>` represents complete standalone content that makes sense on its own, while `<section>` represents thematic grouping within a document. `<article>` can contain multiple `<section>` elements, and `<section>` is used when you need a heading for a thematic group.
 
@@ -68,11 +70,12 @@ Example:
     </section>
   </article>
 </main>
+
 ```
 
 ---
 
-## Q19. Purpose of the `<nav>` element
+## Q19. 💡 Purpose of the `<nav>` element
 
 `<nav>` identifies navigation links and creates a landmark region for screen readers, making it easier for assistive technologies to navigate. Use `aria-label` for descriptive names, and it can appear multiple times per page for main navigation, breadcrumbs, or other navigation links.
 
@@ -87,11 +90,12 @@ Example:
     <li><a href="/about">About</a></li>
   </ul>
 </nav>
+
 ```
 
 ---
 
-## Q20. Document outline and how to create it
+## Q20. 🔧 Document outline and how to create it
 
 Use heading elements (`<h1>` to `<h6>`) in proper hierarchical order to create logical document structure - start with `<h1>` for main title, don't skip heading levels. Screen readers use headings for navigation, and proper heading hierarchy helps search engines understand content structure.
 
@@ -105,11 +109,12 @@ Example:
     <h3>Subsection Title</h3>
     <h3>Another Subsection</h3>
   <h2>Another Section</h2>
+
 ```
 
 ---
 
-## Q21. `<main>` vs `<body>`
+## Q21. 🤔 `<main>` vs `<body>`
 
 `<main>` contains the primary content and creates a landmark region for screen readers, while `<body>` contains all visible content including headers and footers. Use `<main>` to wrap primary content, excluding headers and footers, and only one `<main>` per page.
 
@@ -126,11 +131,12 @@ Example:
   </main>
   <footer>Site footer</footer>
 </body>
+
 ```
 
 ---
 
-## Q22. Purpose of the `<aside>` element
+## Q22. 💡 Purpose of the `<aside>` element
 
 `<aside>` contains content tangentially related to main content, while `<section>` groups thematically related content that's directly part of the main content. Both can have headings and create landmark regions, but `<aside>` is supplementary and `<section>` is part of main content.
 
@@ -149,11 +155,12 @@ Example:
     <p>Sidebar content...</p>
   </aside>
 </main>
+
 ```
 
 ---
 
-## Q23. `<figure>` vs `<img>`
+## Q23. 🤔 `<figure>` vs `<img>`
 
 `<figure>` represents self-contained content like images or code and groups it with its caption for better accessibility, while `<img>` is just the image element. Screen readers associate the caption with content automatically when using `<figure>` with `<figcaption>`.
 
@@ -166,11 +173,12 @@ Example:
   <img src="chart.jpg" alt="Sales data chart">
   <figcaption>Monthly sales data for Q1 2024</figcaption>
 </figure>
+
 ```
 
 ---
 
-## Q24. Purpose of the `<figcaption>` element
+## Q24. 💡 Purpose of the `<figcaption>` element
 
 `<figcaption>` provides a caption for `<figure>` content, improving accessibility by associating descriptive text with images, code, or diagrams. Screen readers associate the caption with content automatically, so use descriptive captions that add context, not just repeat alt text.
 
@@ -183,11 +191,12 @@ Example:
   <img src="chart.jpg" alt="Sales data chart">
   <figcaption>Monthly sales data for Q1 2024</figcaption>
 </figure>
+
 ```
 
 ---
 
-## Q25. `<time>` vs `<date>`
+## Q25. 🤔 `<time>` vs `<date>`
 
 `<time>` represents dates, times, or durations in machine-readable format - there is no `<date>` element in HTML, so use `<time>` for all date/time needs. Screen readers can announce dates properly with machine-readable format, and it enables date-based search and filtering.
 
@@ -199,11 +208,12 @@ Example:
 <time datetime="2024-01-15">January 15, 2024</time>
 <time datetime="2024-01-15T14:30:00">2:30 PM</time>
 <time datetime="PT2H30M">2 hours 30 minutes</time>
+
 ```
 
 ---
 
-## Q26. Purpose of the `<mark>` element
+## Q26. 💡 Purpose of the `<mark>` element
 
 `<mark>` highlights text for reference purposes, like search results or important passages - don't use for emphasis, use `<em>` or `<strong>` instead. Default styling is yellow background, but can be customized with CSS.
 
@@ -214,11 +224,12 @@ Example:
 ```html
 <p>Search results for <mark>JavaScript</mark> programming</p>
 <p>This is <mark>highlighted text</mark> for emphasis</p>
+
 ```
 
 ---
 
-## Q27. Landmark regions and landmark roles and their usage
+## Q27. 💡 Landmark regions and landmark roles and their usage
 
 Use semantic HTML5 elements and ARIA landmark roles to create navigable regions for screen readers - semantic elements automatically create landmarks, and ARIA roles provide explicit landmark identification when needed. Screen readers navigate by landmarks, which improves user experience.
 
@@ -239,11 +250,12 @@ Example:
   <aside role="complementary">Sidebar</aside>
   <footer role="contentinfo">Site footer</footer>
 </body>
+
 ```
 
 ---
 
-## Q28. `<address>` vs `<footer>`
+## Q28. 🤔 `<address>` vs `<footer>`
 
 `<address>` contains contact information for the nearest article or body, while `<footer>` contains footer content for its nearest sectioning element - both can appear multiple times but serve different semantic purposes. Use `<address>` for author contact information, and `<footer>` for site-wide footer content.
 
@@ -262,11 +274,12 @@ Example:
 <footer>
   <p>&copy; 2024 Company Name</p>
 </footer>
+
 ```
 
 ---
 
-## Q29. Purpose of the `<details>` and `<summary>` elements
+## Q29. 💡 Purpose of the `<details>` and `<summary>` elements
 
 `<details>` creates a disclosure widget that can be expanded or collapsed, while `<summary>` provides the visible summary text - it's a native HTML solution that's accessible by default, perfect for collapsible content without JavaScript. Use for progressive disclosure of information.
 
@@ -279,11 +292,12 @@ Example:
   <summary>Click to expand</summary>
   <p>Hidden content that appears when expanded...</p>
 </details>
+
 ```
 
 ---
 
-## Q30. Creating a proper document structure
+## Q30. 💡 Creating a proper document structure
 
 Use semantic HTML5 elements, proper heading hierarchy, and landmark regions to create a logical document structure that's accessible and SEO-friendly. Start with DOCTYPE, use semantic elements instead of generic divs, and maintain proper heading hierarchy.
 
@@ -311,5 +325,13 @@ Example:
     <footer>Footer</footer>
   </body>
 </html>
+
 ```
 
+---
+
+<div align="center">
+
+**[← Previous: HTML Fundamentals](1%29%20HTML%20Fundamentals.md)** | **[Next: Forms & Input Elements →](3%29%20Forms%20%26%20Input%20Elements.md)**
+
+</div>

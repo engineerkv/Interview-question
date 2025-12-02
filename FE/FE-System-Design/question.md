@@ -1,228 +1,259 @@
-# 🎨 Frontend System Design Interview Questions
-
-151 carefully curated questions covering frontend system design architecture to real-world scenarios.
-
 ## 📋 Quick Navigation
 
 | Section | Topic | Questions | Difficulty |
 |---------|-------|-----------|------------|
-| [1️⃣](#1-ui--ux-architecture--state-management) | UI/UX Architecture & State Management | Q1–9 | ⭐⭐ |
-| [2️⃣](#2-performance--caching-optimization) | Performance & Caching Optimization | Q10–23 | ⭐⭐⭐ |
-| [3️⃣](#3-micro-frontends-vs-monolithic-spas) | Micro-Frontends vs Monolithic SPAs | Q24–33 | ⭐⭐⭐ |
-| [4️⃣](#4-cross-platform-architecture--offline-support) | Cross-Platform Architecture & Offline Support | Q34–43 | ⭐⭐⭐ |
-| [5️⃣](#5-accessibility--user-experience) | Accessibility & User Experience | Q44–52 | ⭐⭐⭐⭐ |
-| [6️⃣](#6-browser-internals--rendering) | Browser Internals & Rendering | Q53–64 | ⭐⭐⭐⭐ |
-| [7️⃣](#7-practical-front-end-system-design-scenarios) | Practical Front-End System Design Scenarios | Q65–83 | ⭐⭐⭐⭐⭐ |
-| [8️⃣](#8-networking--apis) | Networking & APIs | Q84–102 | ⭐⭐⭐ |
-| [9️⃣](#9-real-time-communication-protocols) | Real-time Communication Protocols | Q103–117 | ⭐⭐⭐ |
-| [🔟](#10-data--caching-architecture) | Data & Caching Architecture | Q118–131 | ⭐⭐⭐⭐ |
-| [🔐](#11-security) | Security | Q132–146 | ⭐⭐⭐⭐ |
-| [📊](#12-logging--monitoring) | Logging & Monitoring | Q147–151 | ⭐⭐⭐ |
+| [🌐](#network) | Network | Q1–10 | ⭐⭐⭐ |
+| [📡](#communication) | Communication | Q11–16 | ⭐⭐⭐ |
+| [⚙️](#how-javascript-works-internally) | How JavaScript Works Internally | Q17 | ⭐⭐⭐⭐ |
+| [⚛️](#how-reactjs-works-internally) | How React.js Works Internally | Q18 | ⭐⭐⭐⭐ |
+| [🟢](#how-nodejs-works-internally) | How Node.js Works Internally | Q19 | ⭐⭐⭐⭐ |
+| [📱](#how-react-native-works-internally) | How React Native Works Internally | Q20 | ⭐⭐⭐⭐ |
+| [🌐](#important-browser-apis) | Important Browser APIs | Q21–32 | ⭐⭐⭐ |
+| [🏗️](#high-level-design-hld) | High Level Design (HLD) | Q33–44 | ⭐⭐⭐⭐ |
+| [🔧](#low-level-design-lld) | Low Level Design (LLD) | Q45–54 | ⭐⭐⭐⭐ |
+| [🔐](#security) | Security | Q55–69 | ⭐⭐⭐⭐ |
+| [🧪](#testing) | Testing | Q70–74 | ⭐⭐⭐ |
+| [⚡](#performance) | Performance | Q75–79 | ⭐⭐⭐⭐ |
+| [💾](#database--caching) | Database & Caching | Q80–88 | ⭐⭐⭐⭐ |
+| [📊](#logging--monitoring) | Logging & Monitoring | Q89–91 | ⭐⭐⭐ |
+| [♿](#accessibility) | Accessibility | Q92–97 | ⭐⭐⭐⭐ |
+| [📱](#offline-support) | Offline Support | Q98–99 | ⭐⭐⭐ |
+| [🎯](#patterns--anti-patterns) | Patterns & Anti-Patterns | Q100–103 | ⭐⭐⭐⭐ |
 
-## 🎨 1. UI/UX Architecture & State Management
+---
 
-1. Main principles of scalable front-end architecture
-2. Designing a large React/Vue/Angular app to remain modular over time
-3. Atomic design and how to implement it
-4. Creating and maintaining a design system
-5. Different approaches to global state management
-6. Implementing multi-theme support and dark mode
-7. Implementing feature-based modularity in frontend apps
-8. Best practices for component composition
-9. Handling internationalization (i18n) in large applications
+# 🎨 Frontend System Design Interview Questions
 
-## ⚡ 2. Performance & Caching Optimization
+---
 
-10. Performance overview
-11. Performance importance
-12. Performance monitoring
-13. Performance tools
-14. Network optimization
-15. Build optimization
-16. Core Web Vitals and how to optimize them
-17. Implementing code splitting and lazy loading
-18. Optimizing images for web performance
-19. Optimizing bundle size
-20. Implementing resource hints
-21. Optimizing font loading
-22. Implementing CDN caching
-23. Optimizing critical rendering path
+## 🧭 Recommended Preparation Order
 
-## 🏗️ 3. Micro-Frontends vs Monolithic SPAs
+### 1. Foundation (Q1–20)
+- **What to cover**: Networking, communication patterns, and how JavaScript, React, Node.js, and React Native work internally.
 
-24. Micro-frontends and when to use them
-25. Trade-offs between micro-frontends and monolithic SPAs
-26. Implementing shared dependencies in micro-frontends
-27. Achieving seamless navigation between micro-frontends
-28. Implementing independent deployment of micro-frontends
-29. Tools and frameworks that support micro-frontend architecture
-30. Handling authentication and routing in micro-frontends
-31. Migrating from a monolithic SPA to micro-frontends
-32. Ensuring consistent UI/UX across micro-frontends
-33. Debugging and monitoring micro-frontend applications
+### 2. APIs & Design (Q21–54)
+- **What to cover**: Browser APIs, high-level design (requirements, architecture, infrastructure), and low-level design (implementation details).
 
-## 📱 4. Cross-Platform Architecture & Offline Support
+### 3. Security & Quality (Q55–74)
+- **What to cover**: Security best practices (XSS, CSRF, CORS, etc.) and testing strategies (unit, integration, E2E, A/B, performance, security).
 
-34. Designing responsive and mobile-first architectures
-35. Differences between adaptive and fluid layouts
-36. Implementing code sharing between web and mobile
-37. Structuring projects for web, mobile, and desktop
-38. Differences between React Native, Flutter, and Cordova
-39. Handling platform-specific rendering and performance
-40. Trade-offs between different cross-platform solutions
-41. Choosing the right platform for your application
-42. Service workers and offline functionality
-43. Progressive Web Applications (PWAs)
+### 4. Performance & Data (Q75–91)
+- **What to cover**: Performance optimization, monitoring, database & caching strategies, and logging & monitoring.
 
-## ♿ 5. Accessibility & User Experience
+### 5. UX & Reliability (Q92–99)
+- **What to cover**: Accessibility basics (keyboard, screen reader, contrast, focus) and offline-ready UX (Service Workers + PWAs).
 
-44. Accessibility overview
-45. Keyboard accessibility
-46. Screen reader
-47. Focus management
-48. Color contrast and visual accessibility
-49. Accessibility tools
-50. Fixing accessibility issues
-51. Implementing ARIA attributes and semantic HTML
-52. Creating inclusive user experiences
+### 6. Patterns & Best Practices (Q100–103)
+- **What to cover**: Rendering patterns (CSR, SSR, SSG, ISR), React anti-patterns, JavaScript anti-patterns, and Node.js anti-patterns.
 
-## 🌐 6. Browser Internals & Rendering
+---
 
-53. How the browser processes a URL to render a page
-54. Critical Rendering Path and how to optimize it
-55. Differences between reflow and repaint
-56. Optimizing compositing layers for performance
-57. How the browser event loop works with JavaScript
-58. Preventing JavaScript from blocking the main thread
-59. Differences between debouncing and throttling
-60. Using web workers and service workers effectively
-61. Handling memory management and garbage collection
-62. Optimizing paint and layout performance
-63. Rendering patterns (CSR, SSR, SSG, ISR, Streaming SSR, Partial Hydration, Islands Architecture)
-64. Main components of a browser architecture and how they work together
+## 🌐 Network
 
-## 🎯 7. Practical Front-End System Design Scenarios
+1. How the Web Works
+2. TCP/UDP
+3. TCP Handshake + TLS Handshake
+4. HTTP vs HTTPS
+5. What are REST APIs
+6. What are GraphQL
+7. What are gRPC
+8. Critical Rendering Path
+9. SMTP/FTP
+10. Payment Gateway Internal Working
 
-65. Designing a news feed UI like Facebook or Twitter
-66. Designing an autocomplete search component
-67. Designing a large data table with sorting and filtering
-68. Designing a real-time chat interface
-69. Designing a media gallery with lazy loading
-70. Designing an e-commerce shopping cart
-71. Designing a collaborative text editor
-72. Designing a map-based interface with markers
-73. Designing a dashboard with real-time data
-74. Designing a dynamic micro-frontend architecture
-75. Designing a high-performance image carousel
-76. Designing an accessible UI component library
-77. Designing a global theme switching system
-78. Designing a routing architecture for a large SPA
-79. Designing a file upload system with progress tracking
-80. Designing a feature flag and A/B testing system
-81. Designing a notification system for web apps
-82. Designing a search results UI with faceted search
-83. Designing a live streaming video interface
+---
 
-## 🌐 8. Networking & APIs
+## 📡 Communication
 
-84. How the internet works and how DNS and IP addresses work together
-85. HTTP and how it works
-86. HTTP methods and when to use each
-87. HTTP status codes and what they mean
-88. HTTP headers and how to use them
-89. Differences between HTTP/1.1 and HTTP/2
-90. REST and how to design RESTful APIs
-91. GraphQL and how it differs from REST
-92. gRPC and when to use it
-93. Handling API authentication and authorization
-94. Implementing API rate limiting
-95. Handling API versioning
-96. API documentation and how to create it
-97. Handling API errors and retries
-98. API pagination and how to implement it
-99. Optimizing API performance
-100. API caching and how to implement it
-101. Monitoring and debugging API calls
-102. Best practices for API design
+11. Short Polling
+12. Long Polling
+13. WebSockets
+14. Server-Sent Events (SSE)
+15. Webhooks
+16. Socket.io Internal Working
 
-## 📡 9. Real-time Communication Protocols
+---
 
-103. Short polling and its advantages and disadvantages
-104. Long polling and how it works
-105. WebSockets and how they work
-106. Server-Sent Events (SSE) and how they work
-107. Webhooks and how to use them
-108. Choosing between different real-time communication methods
-109. Implementing WebSocket reconnection logic
-110. Handling WebSocket message queuing
-111. Implementing WebSocket heartbeat/ping-pong
-112. Handling WebSocket authentication and authorization
-113. Implementing WebSocket room/channel subscriptions
-114. Handling WebSocket message ordering and delivery guarantees
-115. Implementing WebSocket compression
-116. Handling WebSocket scaling and load balancing
-117. Implementing WebSocket fallback strategies
+## ⚙️ How JavaScript Works Internally
 
-## 💾 10. Data & Caching Architecture
+17. How JavaScript Works Internally
 
-118. Data normalization in frontend apps and why it's important
-119. Local Storage
-120. Session Storage
-121. Cookie Storage
-122. IndexedDB
-123. LocalStorage vs Session Storage vs IndexedDB
-124. API caching strategies
-125. State management in frontend applications
-126. Handling cache invalidation
-127. Implementing caching layers in frontend applications
-128. Best practices for data caching
-129. Optimizing data fetching and caching strategies
-130. Storage quotas and eviction policies
-131. Integrating normalization, HTTP caching, SW caching, API caching, state, and storage into a cohesive architecture
+---
 
-## 🔐 11. Security
+## ⚛️ How React.js Works Internally
 
-132. Security overview
-133. XSS (Cross-Site Scripting)
-134. CSRF (Cross-Site Request Forgery)
-135. CORS
-136. Clickjacking (iFrame Protection)
-137. Security headers
-138. Client-side security
-139. Secure communication (HTTPS)
-140. Dependency security
-141. Compliance and regulation
-142. Input validation and sanitization
-143. Server-Side Request Forgery (SSRF)
-144. Server-side JavaScript Injection (SSJI)
-145. Feature Policy (Permissions-Policy)
-146. Subresource Integrity (SRI)
+18. How React.js Works Internally
 
-## 📊 12. Logging & Monitoring
+---
 
-147. Logging and monitoring overview
-148. Telemetry
-149. Alerting
-150. Fixing performance and error issues
-151. Performance monitoring and error tracking
+## 🟢 How Node.js Works Internally
+
+19. How Node.js Works Internally
+
+---
+
+## 📱 How React Native Works Internally
+
+20. How React Native Works Internally
+
+---
+
+## 🌐 Important Browser APIs
+
+21. DOM API
+22. Fetch API
+23. Web Storage APIs
+24. Geolocation API
+25. Canvas API
+26. Web Workers API
+27. Intersection Observer API
+28. Notification API
+29. Media APIs
+30. File API
+31. History API
+32. WebSocket API
+
+---
+
+## 🏗️ High Level Design (HLD)
+
+33. Requirements (Functional & Non-Functional)
+34. Scope, Priority & MVP
+35. Client Architecture
+36. Server Architecture
+37. Database Design (SQL/No-SQL)
+38. Load Balancer
+39. CDN (Content Delivery Network)
+40. Middleware
+41. Caching & Redis
+42. Queue System
+43. Cron Jobs
+44. CI/CD Pipeline
+
+---
+
+## 🔧 Low Level Design (LLD)
+
+45. View Layer Implementation
+46. Service Layer Implementation
+47. Controller/Business Logic Implementation
+48. Data Model Implementation
+49. API/GraphQL Implementation
+50. State Management Implementation
+51. Error Handling & Validation
+52. Performance Optimization Implementation
+53. Security Implementation
+54. Testing Implementation
+
+---
+
+## 🔐 Security
+
+55. Cross-Site Scripting (XSS)
+56. iframe Protection (Clickjacking)
+57. Security Headers
+58. Client-Side Security
+59. Secure Communication (HTTPS)
+60. Dependency Security
+61. Compliance and Regulations
+62. Input Validation and Sanitization
+63. Server-Side Request Forgery (SSRF)
+64. Server-Side JavaScript Injection (SSJI)
+65. Feature Policy / Permissions Policy
+66. Subresource Integrity (SRI)
+67. Cross-Origin Resource Sharing (CORS)
+68. Cross-Site Request Forgery (CSRF)
+69. Access Token and Refresh Token Management
+
+---
+
+## 🧪 Testing
+
+70. Unit and Integration Testing
+71. E2E and Automation Testing
+72. A/B Testing
+73. Performance Testing
+74. Security Testing
+
+---
+
+## ⚡ Performance
+
+75. Performance Monitoring
+76. Performance Tools
+77. Network Optimization
+78. Rendering Patterns
+79. Build Optimization
+
+---
+
+## 💾 Database & Caching
+
+80. Local Storage
+81. Session Storage
+82. Cookie Storage
+83. IndexedDB
+84. Normalization
+85. HTTP Caching
+86. Service Worker Caching
+87. API Caching
+88. State Management
+
+---
+
+## 📊 Logging & Monitoring
+
+89. Telemetry
+90. Alerting
+91. Fixing Performance and Error Issues
+
+---
+
+## ♿ Accessibility
+
+92. Keyboard Accessibility
+93. Screen Reader
+94. Focus Management
+95. Color Contrast
+96. Accessibility Tools
+97. How to Fix Accessibility Issues
+
+---
+
+## 📱 Offline Support
+
+98. Service Workers
+99. Progressive Web Applications (PWAs)
+
+---
+
+## 🎯 Patterns & Anti-Patterns
+
+100. Rendering Patterns
+101. Anti-React Patterns
+102. Anti-JavaScript Patterns
+103. Anti-Node.js Patterns
 
 ---
 
 ## 📖 Complete Answer Guide
 
-- [1) UI-UX Architecture & State Management](1%29%20UI-UX%20Architecture%20%26%20State%20Management.md) - Q1-9
-- [2) Performance & Caching Optimization](2%29%20Performance%20%26%20Caching%20Optimization.md) - Q10-23
-- [3) Micro-Frontends vs Monolithic SPAs](3%29%20Micro-Frontends%20vs%20Monolithic%20SPAs.md) - Q24-33
-- [4) Cross-Platform Architecture & Offline Support](4%29%20Cross-Platform%20Architecture%20%26%20Offline%20Support.md) - Q34-43
-- [5) Accessibility & User Experience](5%29%20Accessibility%20%26%20User%20Experience.md) - Q44-52
-- [6) Browser Internals & Rendering](6%29%20Browser%20Internals%20%26%20Rendering.md) - Q53-64
-- [7) Practical Front-End System Design Scenarios](7%29%20Practical%20Front-End%20System%20Design%20Scenarios.md) - Q65-83
-- [8) Networking & APIs](8%29%20Networking%20%26%20APIs.md) - Q84-102
-- [9) Real-time Communication Protocols](9%29%20Real-time%20Communication%20Protocols.md) - Q103-117
-- [10) Data & Caching Architecture](10%29%20Data%20%26%20Caching%20Architecture.md) - Q118-131
-- [11) Security](11%29%20Security.md) - Q132-146
-- [12) Logging & Monitoring](12%29%20Logging%20%26%20Monitoring.md) - Q147-151
-
-## 📝 Cheatsheet
-
-[FE-System-Design Interview Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md) - Quick reference guide
+- [00) How the Web Works](00%29%20How%20the%20Web%20Works.md) - Q1
+- [01) Networking](01%29%20Networking.md) - Q2-7, Q9-10 (includes Payment Gateway)
+- [02) Critical Rendering Path](02%29%20Critical%20Rendering%20Path.md) - Q8
+- [Communication](question.md#communication) - Q11-16 (includes Socket.io)
+- [03) How JavaScript Works Internally](03%29%20How%20JavaScript%20Works%20Internally.md) - Q17
+- [04) How React.js Works Internally](04%29%20How%20React.js%20Works%20Internally.md) - Q18
+- [05) How Node.js Works Internally](05%29%20How%20Node.js%20Works%20Internally.md) - Q19
+- [06) How React Native Works Internally](06%29%20How%20React%20Native%20Works%20Internally.md) - Q20
+- [07) Important Browser APIs](07%29%20Important%20Browser%20APIs.md) - Q21-32
+- [08) High Level Design (HLD)](08%29%20High%20Level%20Design%20%28HLD%29.md) - Q33-44
+- [09) Low Level Design (LLD)](09%29%20Low%20Level%20Design%20%28LLD%29.md) - Q45-54
+- [10) Security](10%29%20Security.md) - Q55-69 (includes Access Token and Refresh Token Management)
+- [11) Testing](11%29%20Testing.md) - Q70-74
+- [12) Performance](12%29%20Performance.md) - Q75-79
+- [13) Database & Caching](13%29%20Database%20%26%20Caching.md) - Q80-88
+- [14) Logging & Monitoring](14%29%20Logging%20%26%20Monitoring.md) - Q89-91
+- [15) Accessibility](15%29%20Accessibility.md) - Q92-97
+- [16) Offline Support](16%29%20Offline%20Support.md) - Q98-99
+- [17) Patterns & Anti-Patterns](17%29%20Patterns%20%26%20Anti-Patterns.md) - Q100-103

@@ -4,11 +4,11 @@
 
 </div>
 
-# 5. HTML5 Features & APIs (Q61–75)
+# 🚀 5. HTML5 Features & APIs (Q61–75)
 
 ---
 
-## Q61. New semantic elements in HTML5
+## Q61. 📄 New semantic elements in HTML5
 
 HTML5 introduced semantic elements that provide meaning to document structure, improving accessibility and SEO - semantic HTML5 elements replace generic divs with meaningful structure. header, nav, main, article, section, aside, footer provide semantic meaning.
 
@@ -37,11 +37,12 @@ Example:
     <p>Copyright 2024</p>
   </footer>
 </body>
+
 ```
 
 ---
 
-## Q62. Canvas API: what it is and how to use it
+## Q62. 🔌 Canvas API: what it is and how to use it
 
 Canvas API provides a 2D drawing surface for creating graphics, animations, and interactive content - canvas is for pixel-based graphics, SVG is for vector graphics. 2D drawing surface for graphics, animations, games, or visualizations.
 
@@ -57,11 +58,12 @@ const ctx = canvas.getContext('2d');
 ctx.fillStyle = 'blue';
 ctx.fillRect(10, 10, 100, 50);
 </script>
+
 ```
 
 ---
 
-## Q63. Drag and Drop API
+## Q63. 🔌 Drag and Drop API
 
 HTML5 Drag and Drop API allows elements to be draggable and provides events for drop handling - drag and drop requires JavaScript event handling. Set `draggable="true"`, handle `dragstart`, `dragover`, and `drop` events.
 
@@ -84,11 +86,12 @@ function drop(e) {
   var data = e.dataTransfer.getData('text'); 
 }
 </script>
+
 ```
 
 ---
 
-## Q64. Geolocation API
+## Q64. 🔌 Geolocation API
 
 Geolocation API provides access to device location information with user permission - geolocation requires HTTPS in production, respects user privacy. Get user's geographic location with permission.
 
@@ -109,11 +112,12 @@ function getLocation() {
   }
 }
 </script>
+
 ```
 
 ---
 
-## Q65. Web Storage (localStorage and sessionStorage)
+## Q65. 💡 Web Storage (localStorage and sessionStorage)
 
 Web Storage API provides local storage (persistent) and session storage (temporary) for client-side data - localStorage is synchronous, sessionStorage is tab-specific. `localStorage` persists across sessions, `sessionStorage` clears when tab closes.
 
@@ -133,11 +137,12 @@ function loadData() {
   document.getElementById('username').value = localStorage.getItem('username') || ''; 
 }
 </script>
+
 ```
 
 ---
 
-## Q66. History API
+## Q66. 🔌 History API
 
 History API allows manipulation of browser history for single-page applications and custom navigation - history API enables SPAs with proper browser navigation. Manipulate browser history without page reloads.
 
@@ -161,11 +166,12 @@ window.addEventListener('popstate', (e) => {
   document.getElementById('content').textContent = e.state?.page + ' Page Content';
 });
 </script>
+
 ```
 
 ---
 
-## Q67. Offline Web Apps
+## Q67. 💡 Offline Web Apps
 
 Use Service Workers and Cache API to create web applications that work offline by caching resources - service workers require HTTPS, enable offline-first apps. Service Workers run in background, Cache API stores resources.
 
@@ -181,11 +187,12 @@ if ('serviceWorker' in navigator) {
     .catch(err => console.log('SW registration failed'));
 }
 </script>
+
 ```
 
 ---
 
-## Q68. Web Workers
+## Q68. 👷 Web Workers
 
 Web Workers allow JavaScript to run in background threads, preventing UI blocking for heavy computations - web workers are for CPU-intensive tasks, not DOM manipulation. Run JavaScript in background threads, keep UI responsive.
 
@@ -205,11 +212,12 @@ function startWorker() {
   worker.postMessage('start');
 }
 </script>
+
 ```
 
 ---
 
-## Q69. Intersection Observer API
+## Q69. 🔌 Intersection Observer API
 
 Intersection Observer API efficiently detects when elements enter or exit the viewport - intersection observer is better than scroll events for performance. Efficiently detect when elements enter or exit viewport.
 
@@ -231,11 +239,12 @@ document.querySelectorAll('.section').forEach(section =>
   observer.observe(section)
 );
 </script>
+
 ```
 
 ---
 
-## Q70. Web Components
+## Q70. 🧩 Web Components
 
 Web Components are a set of web platform APIs that allow creating reusable custom elements - web components are the native browser standard for components. Custom Elements, Shadow DOM, HTML Templates.
 
@@ -255,11 +264,12 @@ class MyButton extends HTMLElement {
 }
 customElements.define('my-button', MyButton);
 </script>
+
 ```
 
 ---
 
-## Q71. Custom Elements
+## Q71. 💡 Custom Elements
 
 Custom elements extend HTML with new tags that have their own behavior and styling - custom elements are the foundation of Web Components. Extend HTMLElement class, use Shadow DOM, define with customElements.define().
 
@@ -282,11 +292,12 @@ class UserCard extends HTMLElement {
 }
 customElements.define('user-card', UserCard);
 </script>
+
 ```
 
 ---
 
-## Q72. Shadow DOM
+## Q72. 💡 Shadow DOM
 
 Shadow DOM provides encapsulation for DOM and CSS, creating isolated components - shadow DOM is essential for component encapsulation. Encapsulate DOM and CSS, prevent style conflicts.
 
@@ -308,11 +319,12 @@ class MyWidget extends HTMLElement {
 }
 customElements.define('my-widget', MyWidget);
 </script>
+
 ```
 
 ---
 
-## Q73. WebRTC
+## Q73. 💡 WebRTC
 
 WebRTC enables real-time communication between browsers for video, audio, and data sharing - WebRTC is for peer-to-peer communication, not server-based. Peer-to-peer real-time communication for video, audio, and data.
 
@@ -333,11 +345,12 @@ async function startCall() {
   document.getElementById('localVideo').srcObject = stream;
 }
 </script>
+
 ```
 
 ---
 
-## Q74. Service Workers
+## Q74. 👷 Service Workers
 
 Service Workers are background scripts that act as network proxies, enabling offline functionality and push notifications - service workers require HTTPS, enable PWAs. Background scripts that act as network proxies.
 
@@ -355,11 +368,12 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+
 ```
 
 ---
 
-## Q75. Progressive Web Apps (PWAs)
+## Q75. 💡 Progressive Web Apps (PWAs)
 
 PWAs combine web technologies with native app features like offline functionality, push notifications, and app-like experience - PWAs bridge web and native apps, require Service Worker. HTTPS, Service Worker, Web App Manifest.
 
@@ -371,5 +385,13 @@ Example:
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
+
 ```
 
+---
+
+<div align="center">
+
+**[← Previous: Accessibility (A11y)](4%29%20Accessibility%20%28A11y%29.md)** | **[Next: Media Elements →](6%29%20Media%20Elements.md)**
+
+</div>
