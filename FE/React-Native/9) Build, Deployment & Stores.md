@@ -1,10 +1,18 @@
+# 9. Build, Deployment & Stores (Q79–90)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Debugging & Testing](8%29%20Debugging%20%26%20Testing.md)** | **[Next: Push Notifications & Messaging →](10%29%20Push%20Notifications%20%26%20Messaging.md)**
+[Debugging & Testing](8%29%20Debugging%20%26%20Testing.md) • [Home: README](../README.md) • [Push Notifications & Messaging →](10%29%20Push%20Notifications%20%26%20Messaging.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 9. Build, Deployment & Stores (Q79–90)
+---
 
 ---
 
@@ -51,11 +59,17 @@ Configure code signing in Xcode, create provisioning profiles, and archive the a
 Example:
 
 ```bash
+
 # iOS build process
+
 # 1. Open project in Xcode
+
 # 2. Configure signing & capabilities
+
 # 3. Select provisioning profile
+
 # 4. Archive the app
+
 # 5. Distribute to App Store
 
 ```
@@ -167,7 +181,9 @@ Use CI/CD tools to automate the build, test, and deployment process - automation
 Example:
 
 ```ruby
+
 # Fastfile
+
 platform :android do
   desc "Build and upload to Play Store"
   lane :deploy do
@@ -246,7 +262,7 @@ function App() {
   useEffect(() => {
     analytics().logAppOpen();
   }, []);
-  
+
   const trackEvent = (eventName, params) => {
     analytics().logEvent(eventName, params);
   };
@@ -265,7 +281,9 @@ Use proper certificate management, secure signing practices, and automated relea
 Example:
 
 ```bash
+
 # Android keystore management
+
 keytool -genkey -v -keystore my-release-key.keystore \
         -alias my-key-alias -keyalg RSA -keysize 2048 \
         -validity 10000
@@ -285,7 +303,9 @@ Configure automated pipelines for building, testing, and deploying React Native 
 Example:
 
 ```yaml
+
 # .github/workflows/deploy.yml
+
 name: Deploy
 on:
   push:
@@ -305,3 +325,16 @@ jobs:
 
 ---
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Debugging & Testing](8%29%20Debugging%20%26%20Testing.md) • [Home: README](../README.md) • [Push Notifications & Messaging →](10%29%20Push%20Notifications%20%26%20Messaging.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
+
+</div>
+
+---

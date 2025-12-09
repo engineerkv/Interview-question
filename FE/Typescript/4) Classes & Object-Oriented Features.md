@@ -1,10 +1,18 @@
+# 🏛️ 4. Classes & Object-Oriented Features (Q32–39)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Functions & Advanced Type Features](3%29%20Functions%20%26%20Advanced%20Type%20Features.md)** | **[Next: Advanced TypeScript Internals →](5%29%20Advanced%20TypeScript%20Internals.md)**
+[← Previous: Functions & Advanced Type Features](3%29%20Functions%20%26%20Advanced%20Type%20Features.md) • [Home: README](../README.md) • [Next: Advanced TypeScript Internals →](5%29%20Advanced%20TypeScript%20Internals.md)
+
+[📋 Cheatsheet](TypeScript%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 🏛️ 4. Classes & Object-Oriented Features (Q32–39)
+---
 
 ---
 
@@ -210,9 +218,14 @@ const user = new TimestampedUser();
 
 ---
 
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Functions & Advanced Type Features](3%29%20Functions%20%26%20Advanced%20Type%20Features.md)** | **[Next: Advanced TypeScript Internals →](5%29%20Advanced%20TypeScript%20Internals.md)**
+[← Previous: Functions & Advanced Type Features](3%29%20Functions%20%26%20Advanced%20Type%20Features.md) • [Home: README](../README.md) • [Next: Advanced TypeScript Internals →](5%29%20Advanced%20TypeScript%20Internals.md)
+
+[📋 Cheatsheet](TypeScript%20Interview%20Cheatsheet.md)
 
 </div>
 
+---

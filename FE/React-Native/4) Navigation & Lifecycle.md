@@ -1,10 +1,18 @@
+# 4. Navigation & Lifecycle (Q31–40)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Android & iOS Platform Internals](3%29%20Android%20%26%20iOS%20Platform%20Internals.md)** | **[Next: Performance Optimization & Measurement →](5%29%20Performance%20Optimization%20%26%20Measurement.md)**
+[Android & iOS Platform Internals](3%29%20Android%20%26%20iOS%20Platform%20Internals.md) • [Home: README](../README.md) • [Performance Optimization & Measurement →](5%29%20Performance%20Optimization%20%26%20Measurement.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 4. Navigation & Lifecycle (Q31–40)
+---
 
 ---
 
@@ -151,7 +159,7 @@ import { AppState } from 'react-native';
 
 function App() {
   const [appState, setAppState] = useState(AppState.currentState);
-  
+
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
       setAppState(nextAppState);
@@ -177,7 +185,7 @@ import { useFocusEffect } from '@react-navigation/native';
 
 function ProfileScreen() {
   const [user, setUser] = useState(null);
-  
+
   useFocusEffect(
     useCallback(() => {
       fetchUser().then(setUser);
@@ -234,16 +242,16 @@ const PERSISTENCE_KEY = 'NAVIGATION_STATE';
 function App() {
   const [isReady, setIsReady] = useState(false);
   const [initialState, setInitialState] = useState();
-  
+
   useEffect(() => {
     AsyncStorage.getItem(PERSISTENCE_KEY).then(savedState => {
       setInitialState(savedState ? JSON.parse(savedState) : undefined);
       setIsReady(true);
     });
   }, []);
-  
+
   if (!isReady) return null;
-  
+
   return (
     <NavigationContainer
       initialState={initialState}
@@ -258,3 +266,16 @@ function App() {
 
 ---
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Android & iOS Platform Internals](3%29%20Android%20%26%20iOS%20Platform%20Internals.md) • [Home: README](../README.md) • [Performance Optimization & Measurement →](5%29%20Performance%20Optimization%20%26%20Measurement.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
+
+</div>
+
+---

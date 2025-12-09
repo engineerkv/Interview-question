@@ -1,12 +1,20 @@
+# 🚂 5. Express.js Core Concepts (Q50–59)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Node.js Internals & Performance](4%29%20Node.js%20Internals%20%26%20Performance.md)** | **[Next: REST APIs & Practical Server Scenarios →](6%29%20REST%20APIs%20%26%20Practical%20Server%20Scenarios.md)**
+[← Previous: Node.js Internals & Performance](4%29%20Node.js%20Internals%20%26%20Performance.md) • [Home: Question List](question.md) • [Next: REST APIs & Practical Server Scenarios →](6%29%20REST%20APIs%20%26%20Practical%20Server%20Scenarios.md)
+
+[📋 Cheatsheet](Node-Express%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 🚂 5. Express.js Core Concepts (Q51–60)
+---
 
-## Q51. ❓ Express.js: what it is and how it works
+## Q50. ❓ Express.js and how it works
 
 Express.js is a minimal, unopinionated web framework for Node.js that provides essential features for building web applications and APIs - it's built on top of Node.js HTTP module, provides routing, middleware, and templating, has a large ecosystem of middleware and plugins, and is easy to learn and quick to set up. Popular due to its simplicity and flexibility.
 
@@ -28,11 +36,11 @@ app.listen(3000, () => {
 
 ```
 
-## Q52. ❓ Middleware: what it is and how to use it
+## Q51. ❓ Middleware and how to use it
 
-Middleware are functions that execute during the request-response cycle, with access to request, response, and next function - they run between request and response, execute in order they are defined, can modify request/response objects, and must call next() to continue or send response to end. Allows you to modify requests, responses, or end the cycle.
+Middleware are functions that execute during the request-response cycle, with access to request, response, and next function - these run between request and response, execute in order these are defined, can modify request/response objects, and must call next() to continue or send response to end. Allows you to modify requests, responses, or end the cycle.
 
-- **Trade-offs**: Functions that run between request and response - access to req, res, and next parameters. Execute in order they are defined - can modify request/response objects. Must call next() to continue or send response to end - powerful for cross-cutting concerns, but watch out - middleware order matters, so place them carefully.
+- **Trade-offs**: Functions that run between request and response - access to req, res, and next parameters. Execute in order these are defined - can modify request/response objects. Must call next() to continue or send response to end - powerful for cross-cutting concerns, but watch out - middleware order matters, so place these carefully.
 
 Example:
 
@@ -51,7 +59,7 @@ app.get('/', (req, res) => {
 
 ```
 
-## Q53. 🔧 `next()` function in middleware
+## Q52. 🔧 `next()` function in middleware
 
 The next() function passes control to the next middleware in the stack, allowing middleware to be chained together and enabling conditional execution flow - it must be called to continue request processing, can pass errors to error handling middleware (optional parameter for error handling), and not calling next() ends the request-response cycle.
 
@@ -77,7 +85,7 @@ app.get('/protected', (req, res) => {
 
 ```
 
-## Q54. 🤔 `app.use()` vs `app.METHOD()`
+## Q53. 🤔 `app.use()` vs `app.METHOD()`
 
 app.use() applies middleware to all routes or specific paths, while app.METHOD() (get, post, etc.) defines route handlers for specific HTTP methods and paths - middleware runs before route handlers, you can chain multiple middleware with app.use(), and route handlers are also middleware functions.
 
@@ -105,7 +113,7 @@ app.post('/users', (req, res) => {
 
 ```
 
-## Q55. 🛣️ Implementing routing in Express.js
+## Q54. 🛣️ Implementing routing in Express.js
 
 Organize routes into separate modules using Express Router, creating a clean, maintainable structure with route-specific middleware and handlers - use Express Router for modular route organization, separate routes into different files, apply middleware at router level, mount routers with app.use(), and keep route handlers focused and single-purpose.
 
@@ -132,7 +140,7 @@ app.use('/api/users', userRoutes);
 
 ```
 
-## Q56. 💡 Serving static files with Express.js
+## Q55. 💡 Serving static files with Express.js
 
 Use express.static() middleware to serve static files like HTML, CSS, JavaScript, and images from a specified directory - it serves files from root path by default, can specify custom mount path, serves files in order of middleware definition, and automatically handles MIME types and caching headers.
 
@@ -152,7 +160,7 @@ app.use(express.static('uploads'));
 
 ```
 
-## Q57. 📝 Parsing JSON and form data in Express.js
+## Q56. 📝 Parsing JSON and form data in Express.js
 
 Express v5 includes built-in JSON and form data parsing middleware, eliminating the need for body-parser dependency - express.json() parses JSON request bodies, express.urlencoded() parses form data, extended: true allows nested objects, and it's built-in middleware in Express v5.
 
@@ -174,7 +182,7 @@ app.post('/api/data', (req, res) => {
 
 ```
 
-## Q58. ⚠️ Handling errors in Express.js
+## Q57. ⚠️ Handling errors in Express.js
 
 Error handling middleware has four parameters (err, req, res, next) and should be defined after all other middleware and routes to catch errors - it can handle both sync and async errors, use next(error) to pass errors to error handler, and you can have multiple error handling middleware.
 
@@ -205,7 +213,7 @@ app.get('/async-route', async (req, res, next) => {
 
 ```
 
-## Q59. 🤔 Application-level vs router-level middleware
+## Q58. 🤔 Application-level vs router-level middleware
 
 Application-level middleware applies to all routes, while router-level middleware applies only to routes defined on that specific router instance - router middleware runs after app middleware, you can have different middleware for different route groups, and it's useful for organizing related routes with shared middleware.
 
@@ -236,7 +244,7 @@ app.use('/api', router);
 
 ```
 
-## Q60. 🧩 Integrating Express.js with the HTTP module
+## Q59. 🧩 Integrating Express.js with the HTTP module
 
 Express.js is built on top of Node's HTTP module, providing a higher-level abstraction with routing, middleware, and request/response enhancements - Express wraps Node.js HTTP module, provides higher-level API for web development, adds routing, middleware, and templating, enhances request and response objects, and maintains compatibility with Node.js HTTP features.
 
@@ -260,3 +268,17 @@ app.get('/', (req, res) => {
 });
 
 ```
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[4) Node.js Internals & Performance.md](4%29%20Node.js%20Internals%20&%20Performance.md) • [Home: Question List](question.md) • [6) REST APIs & Practical Server Scenarios.md →](6%29%20REST%20APIs%20&%20Practical%20Server%20Scenarios.md)
+
+[📋 Cheatsheet](Node-Express%20Interview%20Cheatsheet.md]
+
+</div>
+
+---

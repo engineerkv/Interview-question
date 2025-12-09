@@ -1,10 +1,18 @@
+# 📝 1. HTML Fundamentals (Q1–15)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: README](../README.md)** | **[Next: Semantic HTML & Structure →](2%29%20Semantic%20HTML%20%26%20Structure.md)**
+[Home: README](../README.md) • [Next: Semantic HTML & Structure →](2%29%20Semantic%20HTML%20%26%20Structure.md)
+
+[📋 Cheatsheet](HTML%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 📝 1. HTML Fundamentals (Q1–15)
+---
 
 ---
 
@@ -309,8 +317,16 @@ Example:
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: README](../README.md)** | **[Next: Semantic HTML & Structure →](2%29%20Semantic%20HTML%20%26%20Structure.md)**
+[Home: README](../README.md) • [Next: Semantic HTML & Structure →](2%29%20Semantic%20HTML%20%26%20Structure.md)
+
+[📋 Cheatsheet](HTML%20Interview%20Cheatsheet.md)
 
 </div>
+
+---

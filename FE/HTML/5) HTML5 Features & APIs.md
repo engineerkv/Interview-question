@@ -1,10 +1,18 @@
+# 🚀 5. HTML5 Features & APIs (Q61–75)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Accessibility (A11y)](4%29%20Accessibility%20%28A11y%29.md)** | **[Next: Media Elements →](6%29%20Media%20Elements.md)**
+[Accessibility (A11y)](4%29%20Accessibility%20%28A11y%29.md) • [Home: README](../README.md) • [Media Elements →](6%29%20Media%20Elements.md)
+
+[📋 Cheatsheet](HTML%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 🚀 5. HTML5 Features & APIs (Q61–75)
+---
 
 ---
 
@@ -42,7 +50,7 @@ Example:
 
 ---
 
-## Q62. 🔌 Canvas API: what it is and how to use it
+## Q62. 🔌 Canvas API and how to use it
 
 Canvas API provides a 2D drawing surface for creating graphics, animations, and interactive content - canvas is for pixel-based graphics, SVG is for vector graphics. 2D drawing surface for graphics, animations, games, or visualizations.
 
@@ -75,15 +83,15 @@ Example:
 <div id="drag-source" draggable="true" ondragstart="dragStart(event)">Drag me!</div>
 <div id="drop-target" ondrop="drop(event)" ondragover="allowDrop(event)">Drop here</div>
 <script>
-function dragStart(e) { 
-  e.dataTransfer.setData('text', e.target.id); 
+function dragStart(e) {
+  e.dataTransfer.setData('text', e.target.id);
 }
-function allowDrop(e) { 
-  e.preventDefault(); 
+function allowDrop(e) {
+  e.preventDefault();
 }
-function drop(e) { 
-  e.preventDefault(); 
-  var data = e.dataTransfer.getData('text'); 
+function drop(e) {
+  e.preventDefault();
+  var data = e.dataTransfer.getData('text');
 }
 </script>
 
@@ -106,7 +114,7 @@ Example:
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((pos) => {
-      document.getElementById('location').textContent = 
+      document.getElementById('location').textContent =
         `Lat: ${pos.coords.latitude}, Lon: ${pos.coords.longitude}`;
     });
   }
@@ -130,11 +138,11 @@ Example:
 <button onclick="saveData()">Save</button>
 <button onclick="loadData()">Load</button>
 <script>
-function saveData() { 
-  localStorage.setItem('username', document.getElementById('username').value); 
+function saveData() {
+  localStorage.setItem('username', document.getElementById('username').value);
 }
-function loadData() { 
-  document.getElementById('username').value = localStorage.getItem('username') || ''; 
+function loadData() {
+  document.getElementById('username').value = localStorage.getItem('username') || '';
 }
 </script>
 
@@ -159,8 +167,8 @@ function goToPage(page) {
   history.pushState({page}, '', page);
   document.getElementById('content').textContent = page + ' Page Content';
 }
-function goBack() { 
-  history.back(); 
+function goBack() {
+  history.back();
 }
 window.addEventListener('popstate', (e) => {
   document.getElementById('content').textContent = e.state?.page + ' Page Content';
@@ -207,7 +215,7 @@ Example:
 let worker;
 function startWorker() {
   worker = new Worker('worker.js');
-  worker.onmessage = (e) => 
+  worker.onmessage = (e) =>
     document.getElementById('result').textContent = e.data;
   worker.postMessage('start');
 }
@@ -231,11 +239,11 @@ Example:
 <script>
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) 
+    if (entry.isIntersecting)
       entry.target.style.backgroundColor = 'yellow';
   });
 }, { threshold: 0.5 });
-document.querySelectorAll('.section').forEach(section => 
+document.querySelectorAll('.section').forEach(section =>
   observer.observe(section)
 );
 </script>
@@ -258,7 +266,7 @@ Example:
 class MyButton extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' }).innerHTML = 
+    this.attachShadow({ mode: 'open' }).innerHTML =
       `<button style="color: ${this.getAttribute('color')}">${this.getAttribute('text')}</button>`;
   }
 }
@@ -283,7 +291,7 @@ Example:
 class UserCard extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' }).innerHTML = 
+    this.attachShadow({ mode: 'open' }).innerHTML =
       `<div>
         <h3>${this.getAttribute('name')}</h3>
         <p>${this.getAttribute('email')}</p>
@@ -312,7 +320,7 @@ class MyWidget extends HTMLElement {
   constructor() {
     super();
     const shadow = this.attachShadow({ mode: 'open' });
-    shadow.innerHTML = 
+    shadow.innerHTML =
       `<style>div { color: blue; }</style>
        <div>Widget Content</div>`;
   }
@@ -338,9 +346,9 @@ Example:
 <button onclick="startCall()">Start Call</button>
 <script>
 async function startCall() {
-  const stream = await navigator.mediaDevices.getUserMedia({ 
-    video: true, 
-    audio: true 
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video: true,
+    audio: true
   });
   document.getElementById('localVideo').srcObject = stream;
 }
@@ -390,8 +398,16 @@ Example:
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Accessibility (A11y)](4%29%20Accessibility%20%28A11y%29.md)** | **[Next: Media Elements →](6%29%20Media%20Elements.md)**
+[Accessibility (A11y)](4%29%20Accessibility%20%28A11y%29.md) • [Home: README](../README.md) • [Media Elements →](6%29%20Media%20Elements.md)
+
+[📋 Cheatsheet](HTML%20Interview%20Cheatsheet.md)
 
 </div>
+
+---

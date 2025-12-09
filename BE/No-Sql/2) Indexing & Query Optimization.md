@@ -1,10 +1,18 @@
+# ⚡ 2. Indexing & Query Optimization (Q17–29)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: MongoDB Fundamentals](1%29%20MongoDB%20Fundamentals.md)** | **[Next: Aggregation Framework →](3%29%20Aggregation%20Framework.md)**
+[MongoDB Fundamentals](1%29%20MongoDB%20Fundamentals.md) • [Home: Question List](question.md) • [Aggregation Framework →](3%29%20Aggregation%20Framework.md)
+
+[📋 Cheatsheet](MongoDB%20Interview%20Cheatsheet.md]
 
 </div>
 
-# ⚡ 2. Indexing & Query Optimization (Q17–29)
+---
 
 ---
 
@@ -205,7 +213,7 @@ db.users.createIndex({ name: 1, age: 1 });
 
 TTL (Time-To-Live) indexes automatically delete documents after a specified age by monitoring a Date field—ideal for session tokens, logs, cache entries, or any data that expires naturally.
 
-- **Trade-offs**: Cleanup runs every ~60 seconds and only works on Date fields; don't rely on TTL when you might need data later, because deletions are irreversible. TTL indexes are single-field indexes, so they can't be combined with other fields in compound indexes.
+- **Trade-offs**: Cleanup runs every ~60 seconds and only works on Date fields; don't rely on TTL when you might need data later, because deletions are irreversible. TTL indexes are single-field indexes, so these can't be combined with other fields in compound indexes.
 
 Example:
 
@@ -256,7 +264,7 @@ db.users.find({ name: "John" }).hint({ name: 1 }).explain("executionStats");
 
 Mongoose allows you to define indexes directly in schema definitions using the `index` option or `schema.index()`, and automatically creates them when the model is first used.
 
-- **Trade-offs**: Schema-level indexes are declarative and easy to maintain, but the catch is they're created on every application startup which can slow initial connections. Use `autoIndex: false` in production to disable automatic index creation, and create indexes manually or via migrations—always monitor index creation time on large collections.
+- **Trade-offs**: Schema-level indexes are declarative and easy to maintain, but the catch is these are created on every application startup which can slow initial connections. Use `autoIndex: false` in production to disable automatic index creation, and create indexes manually or via migrations—always monitor index creation time on large collections.
 
 Example:
 
@@ -314,9 +322,16 @@ userSchema.post('find', function(docs) {
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: MongoDB Fundamentals](1%29%20MongoDB%20Fundamentals.md)** | **[Next: Aggregation Framework →](3%29%20Aggregation%20Framework.md)**
+[MongoDB Fundamentals](1%29%20MongoDB%20Fundamentals.md) • [Home: Question List](question.md) • [Aggregation Framework →](3%29%20Aggregation%20Framework.md)
+
+[📋 Cheatsheet](MongoDB%20Interview%20Cheatsheet.md]
 
 </div>
 
+---

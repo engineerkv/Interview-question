@@ -1,14 +1,22 @@
-<div align="center">
-
-**[← Previous: Forms & Input Elements](3%29%20Forms%20%26%20Input%20Elements.md)** | **[Next: HTML5 Features & APIs →](5%29%20HTML5%20Features%20%26%20APIs.md)**
-
-</div>
-
 # ♿ 4. Accessibility (A11y) (Q46–60)
 
 ---
 
-## Q46. ♿ Accessibility: what it is and why it's important
+## 📍 Navigation
+
+<div align="center">
+
+[Forms & Input Elements](3%29%20Forms%20%26%20Input%20Elements.md) • [Home: README](../README.md) • [HTML5 Features & APIs →](5%29%20HTML5%20Features%20%26%20APIs.md)
+
+[📋 Cheatsheet](HTML%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
+---
+
+## Q46. ♿ Accessibility and why it's important
 
 Web accessibility ensures websites are usable by people with disabilities - it follows WCAG guidelines for inclusive design and benefits everyone, not just people with disabilities. Make websites usable by people with disabilities (visual, motor, cognitive, hearing).
 
@@ -24,7 +32,7 @@ Example:
 
 ---
 
-## Q47. ❓ ARIA attributes: what they are and how to use them
+## Q47. ❓ ARIA attributes and how to use them
 
 ARIA attributes provide additional information to screen readers when semantic HTML isn't sufficient - ARIA supplements HTML, doesn't replace semantic HTML. Enhance accessibility when semantic HTML isn't enough.
 
@@ -165,7 +173,7 @@ Example:
 
 ---
 
-## Q54. ❓ Live regions: what they are and how to use them
+## Q54. ❓ Live regions and how to use them
 
 ARIA live regions announce dynamic content changes to screen readers without interrupting current reading - live regions announce dynamic content to screen readers. `polite` (announces when user finishes), `assertive` (interrupts immediately), `off` (no announcements).
 
@@ -257,7 +265,7 @@ Example:
 
 Semantic HTML5 elements like `<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, `<aside>`, and `<footer>` provide meaning to content structure - they improve accessibility by helping screen readers understand page layout and navigation. These elements create a clear document outline and make content more accessible to assistive technologies.
 
-- **Trade-offs**: The catch is using semantic elements improves SEO and accessibility automatically - screen readers can navigate by landmarks, but you still need ARIA labels for complex interactions. Semantic elements provide built-in accessibility benefits, but watch out - they don't replace proper ARIA attributes for dynamic content.
+- **Trade-offs**: The catch is using semantic elements improves SEO and accessibility automatically - screen readers can navigate by landmarks, but you still need ARIA labels for complex interactions. Semantic elements provide built-in accessibility benefits, but watch out - these don't replace proper ARIA attributes for dynamic content.
 
 Example:
 
@@ -311,8 +319,16 @@ Example:
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Forms & Input Elements](3%29%20Forms%20%26%20Input%20Elements.md)** | **[Next: HTML5 Features & APIs →](5%29%20HTML5%20Features%20%26%20APIs.md)**
+[Forms & Input Elements](3%29%20Forms%20%26%20Input%20Elements.md) • [Home: README](../README.md) • [HTML5 Features & APIs →](5%29%20HTML5%20Features%20%26%20APIs.md)
+
+[📋 Cheatsheet](HTML%20Interview%20Cheatsheet.md)
 
 </div>
+
+---

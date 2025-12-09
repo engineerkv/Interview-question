@@ -1,10 +1,18 @@
+# 🎯 3. Objects, Prototypes & Inheritance (Q26–44)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Functions, Closures & Execution Context](2%29%20Functions%2C%20Closures%20%26%20Execution%20Context.md)** | **[Next: ES6+ Features →](4%29%20ES6%2B%20Features.md)**
+[Functions, Closures & Execution Context](2%29%20Functions%2C%20Closures%20%26%20Execution%20Context.md) • [Home: README](../README.md) • [ES6+ Features →](4%29%20ES6%2B%20Features.md)
+
+[📋 Cheatsheet](JavaScript%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 🎯 3. Objects, Prototypes & Inheritance (Q26–44)
+---
 
 ---
 
@@ -30,7 +38,7 @@ console.log(person.greet()); // "Hi, I'm John"
 
 ## Q27. 🔗 Prototype in JavaScript
 
-A prototype is an object that provides fallback properties and methods when they're not found on the current object - property lookup follows the prototype chain. Every object has a `[[Prototype]]` internal slot, and `Object.prototype` is the root of all chains.
+A prototype is an object that provides fallback properties and methods when these are not found on the current object - property lookup follows the prototype chain. Every object has a `[Prototype]` internal slot, and `Object.prototype` is the root of all chains.
 
 - **Trade-offs**: Prototypes enable inheritance in JavaScript through the prototype chain, but the tricky part is `__proto__` is deprecated - use `Object.getPrototypeOf` instead. Functions have a `prototype` property for `new` instances, which can be confusing if you're not careful.
 
@@ -48,7 +56,7 @@ console.log(obj.b); // 2 (from prototype)
 
 ## Q28. 💡 `__proto__` in JavaScript
 
-`__proto__` is a hidden link inside every object that points to another object—its prototype, but modern code should avoid it and use `Object.getPrototypeOf` instead. It exposes the internal [[Prototype]] slot and can be used to read or set prototype links.
+`__proto__` is a hidden link inside every object that points to another object—its prototype, but modern code should avoid it and use `Object.getPrototypeOf` instead. It exposes the internal [Prototype] slot and can be used to read or set prototype links.
 
 - **Trade-offs**: The catch is `__proto__` is deprecated for better compatibility - use `Object.getPrototypeOf`/`Object.setPrototypeOf` or `Object.create` instead. `Object.create` is the preferred way to set prototypes, and it's cleaner than using `__proto__`.
 
@@ -85,7 +93,7 @@ console.log(arr.toString); // from Object.prototype
 
 `__proto__` is an object's link to its parent, while `prototype` is a function's blueprint for creating new objects - only functions have `prototype`. When you use `new` with a function, the instance's `__proto__` points to the function's `prototype`.
 
-- **Trade-offs**: The catch is confusing `__proto__` and `prototype` properties - `__proto__` is the actual link, `prototype` is only on functions. Arrow functions don't have `prototype` property, which is why they can't be used as constructors. Understanding this difference is key to understanding how inheritance works in JavaScript.
+- **Trade-offs**: The catch is confusing `__proto__` and `prototype` properties - `__proto__` is the actual link, `prototype` is only on functions. Arrow functions don't have `prototype` property, which is why these can't be used as constructors. Understanding this difference is key to understanding how inheritance works in JavaScript.
 
 Example:
 
@@ -215,7 +223,7 @@ Example:
 const obj = { a: 1, b: 2 };
 console.log(Object.keys(obj)); // ['a', 'b']
 console.log(Object.values(obj)); // [1, 2]
-console.log(Object.entries(obj)); // [['a', 1], ['b', 2]]
+console.log(Object.entries(obj)); // ['a', 1], ['b', 2]
 
 ```
 
@@ -277,7 +285,7 @@ const Named = class Inner {}; // named expression
 
 ---
 
-## Q40. ❓ `extends` keyword: what it is and how it works
+## Q40. ❓ `extends` keyword and how it works
 
 `extends` allows one class to inherit from another class, giving it access to all the parent's properties and methods - it creates a prototype chain between classes. `super` is lexically bound, not dynamic, which means it always refers to the parent class in the same lexical scope.
 
@@ -297,7 +305,7 @@ class Dog extends Animal {
 
 ---
 
-## Q41. ❓ `super()`: what it is and when to use it
+## Q41. ❓ `super()` and when to use it
 
 `super()` calls the parent class constructor and must be called before using `this` in a child constructor - it initializes parent properties in child constructors. `super()` returns the current instance, not the parent, which can be confusing.
 
@@ -322,7 +330,7 @@ class Child extends Parent {
 
 Static methods and properties belong to the class itself, not to individual instances, and are called directly on the class - they're useful for utility functions and constants. Static members are inherited by subclasses, so child classes can access parent static methods.
 
-- **Trade-offs**: The catch is trying to access `this` in static methods - `this` refers to the class, not an instance. Static members are great for utility functions, constants, and factory methods, but watch out - they can't access instance properties or methods.
+- **Trade-offs**: The catch is trying to access `this` in static methods - `this` refers to the class, not an instance. Static members are great for utility functions, constants, and factory methods, but watch out - these can't access instance properties or methods.
 
 Example:
 
@@ -378,8 +386,16 @@ const p2 = new Person('Bob');
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Functions, Closures & Execution Context](2%29%20Functions%2C%20Closures%20%26%20Execution%20Context.md)** | **[Next: ES6+ Features →](4%29%20ES6%2B%20Features.md)**
+[Functions, Closures & Execution Context](2%29%20Functions%2C%20Closures%20%26%20Execution%20Context.md) • [Home: README](../README.md) • [ES6+ Features →](4%29%20ES6%2B%20Features.md)
+
+[📋 Cheatsheet](JavaScript%20Interview%20Cheatsheet.md]
 
 </div>
+
+---

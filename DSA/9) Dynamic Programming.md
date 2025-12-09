@@ -1,5 +1,19 @@
 # Dynamic Programming
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Graphs](8%20Graphs.md) • [Home: README](README.md) • [Recursion & Backtracking →](10%20Recursion%20&%20Backtracking.md)
+
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+
+</div>
+
+---
+
 ## Q160. Fibonacci (Memo & Tabulation)
 
 **Problem:** Calculate the nth Fibonacci number. The Fibonacci sequence is defined as F(0) = 0, F(1) = 1, and F(n) = F(n-1) + F(n-2) for n > 1.
@@ -7,54 +21,59 @@
 **Approach:** Use dynamic programming to avoid recalculating overlapping subproblems. Can use memoization (top-down) or tabulation (bottom-up).
 
 ### Solution 1: Tabulation (Bottom-Up) (Optimal)
+
 ```javascript
 function fib(n) {
   if (n <= 1) return n;
-  
+
   const dp = new Array(n + 1).fill(0);
   dp[0] = 0;
   dp[1] = 1;
-  
+
   for (let i = 2; i <= n; i++) {
     dp[i] = dp[i - 1] + dp[i - 2];
   }
-  
+
   return dp[n];
 }
+
 ```
 
 ### Solution 2: Space-Optimized Tabulation
+
 ```javascript
 function fib(n) {
   if (n <= 1) return n;
-  
+
   let prev2 = 0;
   let prev1 = 1;
-  
+
   for (let i = 2; i <= n; i++) {
     const curr = prev1 + prev2;
     prev2 = prev1;
     prev1 = curr;
   }
-  
+
   return prev1;
 }
+
 ```
 
 ### Solution 3: Memoization (Top-Down)
+
 ```javascript
 function fib(n) {
   const memo = new Map();
-  
+
   function helper(n) {
     if (n <= 1) return n;
     if (memo.has(n)) return memo.get(n);
-    
+
     const result = helper(n - 1) + helper(n - 2);
     memo.set(n, result);
     return result;
   }
-  
+
   return helper(n);
 }
 
@@ -70,16 +89,23 @@ function fib(n) {
 
 // Input: n = 10
 // Output: 55
+
 ```
 
-**Time Complexity:** 
+**Time Complexity:**
+
 - Tabulation: O(n) - Single pass through array
+
 - Space-Optimized: O(n) time, O(1) space
+
 - Memoization: O(n) - Each subproblem computed once
 
 **Space Complexity:**
+
 - Tabulation: O(n) - DP array
+
 - Space-Optimized: O(1) - Only two variables
+
 - Memoization: O(n) - Recursion stack + memo map
 
 ## Q161. Climbing Stairs
@@ -89,39 +115,43 @@ function fib(n) {
 **Approach:** This is identical to Fibonacci. Ways to reach step n = ways to reach step (n-1) + ways to reach step (n-2).
 
 ### Solution 1: Tabulation (Bottom-Up) (Optimal)
+
 ```javascript
 function climbStairs(n) {
   if (n === 1) return 1;
   if (n === 2) return 2;
-  
+
   const dp = new Array(n + 1).fill(0);
   dp[1] = 1;
   dp[2] = 2;
-  
+
   for (let i = 3; i <= n; i++) {
     dp[i] = dp[i - 1] + dp[i - 2];
   }
 
   return dp[n];
 }
+
 ```
 
 ### Solution 2: Space-Optimized
+
 ```javascript
 function climbStairs(n) {
   if (n <= 2) return n;
-  
+
   let prev2 = 1;  // Ways to reach step 1
   let prev1 = 2;  // Ways to reach step 2
-  
+
   for (let i = 3; i <= n; i++) {
     const curr = prev1 + prev2;
     prev2 = prev1;
     prev1 = curr;
   }
-  
+
   return prev1;
 }
+
 ```
 
 // Test Cases:
@@ -136,9 +166,10 @@ function climbStairs(n) {
 
 // Input: n = 5
 // Output: 8
+
 ```
 
-**Time Complexity:** O(n) - Single pass through steps  
+**Time Complexity:** O(n) - Single pass through steps
 **Space Complexity:** O(1) with optimization, O(n) with DP array
 
 ## Q162. Coin Change
@@ -148,11 +179,12 @@ function climbStairs(n) {
 **Approach:** Use dynamic programming. For each amount, try all coins and take minimum. dp[amount] = min(dp[amount], dp[amount - coin] + 1).
 
 ### Solution 1: Tabulation (Bottom-Up) (Optimal)
+
 ```javascript
 function coinChange(coins, amount) {
   const dp = new Array(amount + 1).fill(Infinity);
   dp[0] = 0;  // Base case: 0 coins needed for amount 0
-  
+
   // For each coin
   for (const coin of coins) {
     // For each amount from coin to target
@@ -160,9 +192,10 @@ function coinChange(coins, amount) {
       dp[currAmount] = Math.min(dp[currAmount], dp[currAmount - coin] + 1);
     }
   }
-  
+
   return dp[amount] === Infinity ? -1 : dp[amount];
 }
+
 ```
 
 // Test Cases:
@@ -180,48 +213,52 @@ function coinChange(coins, amount) {
 // Input: coins = [1, 3, 4], amount = 6
 // Output: 2
 // Explanation: 6 = 3 + 3
+
 ```
 
-**Time Complexity:** O(n × amount) - n coins, amount values  
+**Time Complexity:** O(n × amount) - n coins, amount values
 **Space Complexity:** O(amount) - DP array
 
 ## Q163. 0-1 Knapsack
 
 **Problem:** Given a knapsack with capacity `W` and `n` items, each with weight `wt[i]` and value `val[i]`, determine the maximum value that can be obtained by selecting items such that each item can be used at most once and the total weight doesn't exceed `W`.
 
-**Approach:** Use dynamic programming with 1D array. Iterate backwards on weight to ensure each item is used at most once. dp[w] = max(dp[w], dp[w - wt[i]] + val[i]).
+**Approach:** Use dynamic programming with 1D array. Iterate backwards on weight to ensure each item is used at most once. dp[w] = max(dp[w], dp[w - wt[i] + val[i]).
 
 ### Solution 1: 1D DP with Backward Iteration (Optimal)
+
 ```javascript
 function knap01(W, wt, val) {
   const dp = new Array(W + 1).fill(0);
-  
+
   // For each item
   for (let i = 0; i < wt.length; i++) {
     // Iterate backwards to avoid using item twice
     for (let w = W; w >= wt[i]; w--) {
       // Take max of: not taking item, or taking item
-      dp[w] = Math.max(dp[w], dp[w - wt[i]] + val[i]);
+      dp[w] = Math.max(dp[w], dp[w - wt[i] + val[i]);
     }
   }
-  
+
   return dp[W];
 }
+
 ```
 
 ### Solution 2: 2D DP (More Intuitive)
+
 ```javascript
 function knap01(W, wt, val) {
   const n = wt.length;
   const dp = Array.from({ length: n + 1 }, () => new Array(W + 1).fill(0));
-  
+
   for (let i = 1; i <= n; i++) {
     for (let w = 1; w <= W; w++) {
       if (wt[i - 1] <= w) {
         // Can take item: max of taking or not taking
         dp[i][w] = Math.max(
           dp[i - 1][w],  // Not take
-          dp[i - 1][w - wt[i - 1]] + val[i - 1]  // Take
+          dp[i - 1][w - wt[i - 1] + val[i - 1]  // Take
         );
       } else {
         // Cannot take item
@@ -229,9 +266,10 @@ function knap01(W, wt, val) {
       }
     }
   }
-  
+
   return dp[n][W];
 }
+
 ```
 
 // Test Cases:
@@ -246,9 +284,10 @@ function knap01(W, wt, val) {
 // Input: W = 8, wt = [2, 3, 4, 5], val = [1, 2, 5, 6]
 // Output: 8
 // Explanation: Take items with weight 3 and 5 (value 2 + 6 = 8)
+
 ```
 
-**Time Complexity:** O(n × W) - n items, W capacity  
+**Time Complexity:** O(n × W) - n items, W capacity
 **Space Complexity:** O(W) with 1D, O(n × W) with 2D
 
 ## Q164. Longest Increasing Subsequence
@@ -258,15 +297,16 @@ function knap01(W, wt, val) {
 **Approach:** Use patience sorting with binary search. Maintain a `tails` array where `tails[i]` is the smallest tail element of all increasing subsequences of length `i+1`. Use binary search to find the correct position to insert/update.
 
 ### Solution 1: Patience Sorting with Binary Search (Optimal)
+
 ```javascript
 function lengthOfLIS(nums) {
   const tails = [];
-  
+
   for (const num of nums) {
     // Binary search for insertion position
     let left = 0;
     let right = tails.length;
-    
+
     while (left < right) {
       const mid = Math.floor((left + right) / 2);
       if (tails[mid] < num) {
@@ -275,7 +315,7 @@ function lengthOfLIS(nums) {
         right = mid;
       }
     }
-    
+
     // Insert or replace at position left
     if (left === tails.length) {
       tails.push(num);
@@ -283,17 +323,19 @@ function lengthOfLIS(nums) {
     tails[left] = num;
   }
   }
-  
+
   return tails.length;
 }
+
 ```
 
 ### Solution 2: DP with O(n²) Time
+
 ```javascript
 function lengthOfLIS(nums) {
   const n = nums.length;
   const dp = new Array(n).fill(1);
-  
+
   for (let i = 1; i < n; i++) {
     for (let j = 0; j < i; j++) {
       if (nums[j] < nums[i]) {
@@ -301,9 +343,10 @@ function lengthOfLIS(nums) {
       }
     }
   }
-  
+
   return Math.max(...dp);
 }
+
 ```
 
 // Test Cases:
@@ -320,10 +363,13 @@ function lengthOfLIS(nums) {
 
 // Input: nums = [1]
 // Output: 1
+
 ```
 
-**Time Complexity:** 
+**Time Complexity:**
+
 - Solution 1: O(n log n) - Binary search for each element
+
 - Solution 2: O(n²) - Nested loops
 
 **Space Complexity:** O(n) - tails/dp array
@@ -335,12 +381,13 @@ function lengthOfLIS(nums) {
 **Approach:** Use 2D dynamic programming. If characters match, extend LCS from diagonal. If not, take maximum from top or left.
 
 ### Solution 1: 2D DP (Optimal)
+
 ```javascript
 function longestCommonSubsequence(text1, text2) {
   const m = text1.length;
   const n = text2.length;
   const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
-  
+
   for (let i = 1; i <= m; i++) {
     for (let j = 1; j <= n; j++) {
       if (text1[i - 1] === text2[j - 1]) {
@@ -352,24 +399,26 @@ function longestCommonSubsequence(text1, text2) {
       }
     }
   }
-  
+
   return dp[m][n];
 }
+
 ```
 
 ### Solution 2: Space-Optimized (O(min(m,n)))
+
 ```javascript
 function longestCommonSubsequence(text1, text2) {
   // Use shorter string for DP array
   if (text1.length < text2.length) {
     [text1, text2] = [text2, text1];
   }
-  
+
   const m = text1.length;
   const n = text2.length;
   let prev = new Array(n + 1).fill(0);
   let curr = new Array(n + 1).fill(0);
-  
+
   for (let i = 1; i <= m; i++) {
     for (let j = 1; j <= n; j++) {
       if (text1[i - 1] === text2[j - 1]) {
@@ -380,9 +429,10 @@ function longestCommonSubsequence(text1, text2) {
     }
     [prev, curr] = [curr, prev];
   }
-  
+
   return prev[n];
 }
+
 ```
 
 // Test Cases:
@@ -399,9 +449,10 @@ function longestCommonSubsequence(text1, text2) {
 
 // Input: text1 = "bl", text2 = "yby"
 // Output: 1
+
 ```
 
-**Time Complexity:** O(m × n) - Fill DP table  
+**Time Complexity:** O(m × n) - Fill DP table
 **Space Complexity:** O(m × n) with 2D, O(min(m,n)) with optimization
 
 ## Q166. Edit Distance (Levenshtein Distance)
@@ -411,6 +462,7 @@ function longestCommonSubsequence(text1, text2) {
 **Approach:** Use 2D dynamic programming. If characters match, no operation needed. If not, take minimum of insert, delete, or replace operations.
 
 ### Solution 1: 2D DP (Optimal)
+
 ```javascript
 function minDistance(word1, word2) {
   const m = word1.length;
@@ -441,9 +493,10 @@ function minDistance(word1, word2) {
       }
     }
   }
-  
+
   return dp[m][n];
 }
+
 ```
 
 // Test Cases:
@@ -459,9 +512,10 @@ function minDistance(word1, word2) {
 
 // Input: word1 = "abc", word2 = "abc"
 // Output: 0
+
 ```
 
-**Time Complexity:** O(m × n) - Fill DP table  
+**Time Complexity:** O(m × n) - Fill DP table
 **Space Complexity:** O(m × n) - DP table (can optimize to O(min(m,n)))
 
 ## Q167. Rod Cutting
@@ -471,10 +525,11 @@ function minDistance(word1, word2) {
 **Approach:** This is an unbounded knapsack problem. For each length, try all possible cuts and take the maximum value. dp[i] = max(dp[i], price[len-1] + dp[i-len]).
 
 ### Solution 1: Unbounded Knapsack DP (Optimal)
+
 ```javascript
 function rodCutting(price, rodLength) {
   const dp = new Array(rodLength + 1).fill(0);
-  
+
   // For each possible rod length
   for (let i = 1; i <= rodLength; i++) {
     // Try all possible cuts
@@ -482,9 +537,10 @@ function rodCutting(price, rodLength) {
       dp[i] = Math.max(dp[i], price[len - 1] + dp[i - len]);
     }
   }
-  
+
   return dp[rodLength];
 }
+
 ```
 
 // Test Cases:
@@ -502,9 +558,10 @@ function rodCutting(price, rodLength) {
 
 // Input: price = [1], n = 1
 // Output: 1
+
 ```
 
-**Time Complexity:** O(n²) - For each length, try all cuts  
+**Time Complexity:** O(n²) - For each length, try all cuts
 **Space Complexity:** O(n) - DP array
 
 ## Q168. Partition Equal Subset Sum
@@ -514,17 +571,18 @@ function rodCutting(price, rodLength) {
 **Approach:** This reduces to subset sum problem. If total sum is odd, return false. Otherwise, check if we can reach sum/2 using subset sum. Use 1D boolean DP with backward iteration (0-1 knapsack style).
 
 ### Solution 1: Subset Sum DP (Optimal)
+
 ```javascript
 function canPartition(nums) {
   const sum = nums.reduce((acc, num) => acc + num, 0);
-  
+
   // If sum is odd, cannot partition equally
   if (sum % 2 !== 0) return false;
-  
+
   const target = sum / 2;
   const dp = new Array(target + 1).fill(false);
   dp[0] = true;  // Base case: sum 0 is always achievable
-  
+
   // For each number (0-1 knapsack: each number used once)
   for (const num of nums) {
     // Iterate backwards to avoid using same number twice
@@ -532,9 +590,10 @@ function canPartition(nums) {
       dp[j] = dp[j] || dp[j - num];
     }
   }
-  
+
   return dp[target];
 }
+
 ```
 
 // Test Cases:
@@ -552,9 +611,10 @@ function canPartition(nums) {
 
 // Input: nums = [1, 1]
 // Output: true
+
 ```
 
-**Time Complexity:** O(n × sum) - n numbers, sum/2 target  
+**Time Complexity:** O(n × sum) - n numbers, sum/2 target
 **Space Complexity:** O(sum) - DP array
 
 ## Q169. House Robber
@@ -564,41 +624,45 @@ function canPartition(nums) {
 **Approach:** Use dynamic programming. For each house, decide whether to rob it (use previous best from 2 houses back) or skip it (use previous best). dp[i] = max(dp[i-1], dp[i-2] + nums[i]).
 
 ### Solution 1: DP Array (Optimal)
+
 ```javascript
 function rob(nums) {
   if (nums.length === 0) return 0;
   if (nums.length === 1) return nums[0];
-  
+
   const dp = new Array(nums.length).fill(0);
   dp[0] = nums[0];
   dp[1] = Math.max(nums[0], nums[1]);
-  
+
   for (let i = 2; i < nums.length; i++) {
     // Max of: skip current (dp[i-1]) or rob current (dp[i-2] + nums[i])
     dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
   }
-  
+
   return dp[nums.length - 1];
 }
+
 ```
 
 ### Solution 2: Space-Optimized
+
 ```javascript
 function rob(nums) {
   if (nums.length === 0) return 0;
   if (nums.length === 1) return nums[0];
-  
+
   let prev2 = nums[0];  // Best from 2 houses back
   let prev1 = Math.max(nums[0], nums[1]);  // Best from 1 house back
-  
+
   for (let i = 2; i < nums.length; i++) {
     const curr = Math.max(prev1, prev2 + nums[i]);
     prev2 = prev1;
     prev1 = curr;
   }
-  
+
   return prev1;
 }
+
 ```
 
 // Test Cases:
@@ -619,9 +683,10 @@ function rob(nums) {
 
 // Input: nums = []
 // Output: 0
+
 ```
 
-**Time Complexity:** O(n) - Single pass through houses  
+**Time Complexity:** O(n) - Single pass through houses
 **Space Complexity:** O(n) with DP array, O(1) with optimization
 
 ## Q170. House Robber II
@@ -631,25 +696,26 @@ function rob(nums) {
 **Approach:** Since houses are in a circle, the first and last houses are adjacent. Solve two linear subproblems: rob houses 0 to n-2, or rob houses 1 to n-1, and take the maximum.
 
 ### Solution 1: Dynamic Programming (Optimal)
+
 ```javascript
 function rob2(nums) {
   if (nums.length === 1) return nums[0];
-  
+
   const robLinear = arr => {
     if (arr.length === 0) return 0;
     if (arr.length === 1) return arr[0];
-    
+
     const dp = new Array(arr.length).fill(0);
     dp[0] = arr[0];
     dp[1] = Math.max(arr[0], arr[1]);
-    
+
     for (let i = 2; i < arr.length; i++) {
       dp[i] = Math.max(dp[i - 1], dp[i - 2] + arr[i]);
     }
-    
+
     return dp[arr.length - 1];
   };
-  
+
   return Math.max(robLinear(nums.slice(0, -1)), robLinear(nums.slice(1)));
 }
 
@@ -668,9 +734,10 @@ function rob2(nums) {
 
 // Input: nums = [1]
 // Output: 1
+
 ```
 
-**Time Complexity:** O(n) - Two linear robberies  
+**Time Complexity:** O(n) - Two linear robberies
 **Space Complexity:** O(n) - DP array (can optimize to O(1))
 
 ## Q171. Decode Ways
@@ -680,34 +747,36 @@ function rob2(nums) {
 **Approach:** Use dynamic programming. For each position, check if one-digit or two-digit decode is valid. dp[i] = ways to decode up to position i.
 
 ### Solution 1: DP Array (Optimal)
+
 ```javascript
 function numDecodings(s) {
   if (!s || s[0] === '0') return 0;
-  
+
   const n = s.length;
   const dp = new Array(n + 1).fill(0);
   dp[0] = 1;  // Empty string has 1 way
   dp[1] = s[0] !== '0' ? 1 : 0;
-  
+
   for (let i = 2; i <= n; i++) {
     // Check one-digit decode
     const oneDigit = s[i - 1];
     if (oneDigit !== '0') {
       dp[i] += dp[i - 1];
     }
-    
+
     // Check two-digit decode
     const twoDigits = s.slice(i - 2, i);
     if (twoDigits[0] !== '0' && parseInt(twoDigits) <= 26) {
       dp[i] += dp[i - 2];
     }
-    
+
     // If no valid decode, return 0
     if (dp[i] === 0) return 0;
   }
-  
+
   return dp[n];
 }
+
 ```
 
 // Test Cases:
@@ -729,32 +798,36 @@ function numDecodings(s) {
 // Input: s = "27"
 // Output: 1
 // Explanation: "27" can only be decoded as "BG" (2 7)
+
 ```
 
-**Time Complexity:** O(n) - Single pass through string  
+**Time Complexity:** O(n) - Single pass through string
 **Space Complexity:** O(n) - DP array (can optimize to O(1))
 
 ## Q172. DP on Grid — Min Path Sum / Unique Paths
 
-**Problem:** 
+**Problem:**
+
 1. **Min Path Sum:** Given a `m x n` grid filled with non-negative numbers, find a path from top-left to bottom-right which minimizes the sum of all numbers along its path. You can only move down or right.
+
 2. **Unique Paths:** A robot is located at the top-left corner of a `m x n` grid. The robot can only move either down or right at any point in time. How many unique paths are there to reach the bottom-right corner?
 
 **Approach:** Use grid DP. For each cell, compute value from top or left. Min Path Sum: take minimum cost. Unique Paths: sum paths from top and left.
 
 ### Solution 1: Min Path Sum
+
 ```javascript
 function minPathSum(grid) {
   const m = grid.length;
   const n = grid[0].length;
   const dp = new Array(n).fill(0);
-  
+
   // Initialize first row
   dp[0] = grid[0][0];
   for (let j = 1; j < n; j++) {
     dp[j] = dp[j - 1] + grid[0][j];
   }
-  
+
   // Fill remaining rows
   for (let i = 1; i < m; i++) {
     dp[0] += grid[i][0];  // First column
@@ -762,34 +835,37 @@ function minPathSum(grid) {
       dp[j] = grid[i][j] + Math.min(dp[j], dp[j - 1]);
     }
   }
-  
+
   return dp[n - 1];
 }
+
 ```
 
 ### Solution 2: Unique Paths
+
 ```javascript
 function uniquePaths(m, n) {
   const dp = new Array(n).fill(1);
-  
+
   for (let i = 1; i < m; i++) {
     for (let j = 1; j < n; j++) {
       dp[j] += dp[j - 1];  // Paths from top + paths from left
     }
   }
-  
+
   return dp[n - 1];
 }
+
 ```
 
 // Test Cases:
 //
 // minPathSum:
-// Input: grid = [[1,3,1],[1,5,1],[4,2,1]]
+// Input: grid = [1,3,1],[1,5,1],[4,2,1]
 // Output: 7
 // Explanation: Path 1 -> 3 -> 1 -> 1 -> 1 has minimum sum = 7
 
-// Input: grid = [[1,2,3],[4,5,6]]
+// Input: grid = [1,2,3],[4,5,6]
 // Output: 12
 // Explanation: Path 1 -> 2 -> 3 -> 6 has minimum sum = 12
 //
@@ -805,9 +881,10 @@ function uniquePaths(m, n) {
 
 // Input: m = 3, n = 3
 // Output: 6
+
 ```
 
-**Time Complexity:** O(m × n) - Visit each cell once  
+**Time Complexity:** O(m × n) - Visit each cell once
 **Space Complexity:** O(n) - Space optimized DP array
 
 ## Q173. Palindromic Substrings
@@ -817,10 +894,11 @@ function uniquePaths(m, n) {
 **Approach:** Expand around centers. For each position, expand for odd-length (center at i) and even-length (center between i and i+1) palindromes.
 
 ### Solution 1: Expand Around Centers (Optimal)
+
 ```javascript
 function countSubstrings(s) {
   let count = 0;
-  
+
   function expandAroundCenter(left, right) {
     while (left >= 0 && right < s.length && s[left] === s[right]) {
       count++;
@@ -828,14 +906,15 @@ function countSubstrings(s) {
       right++;
     }
   }
-  
+
   for (let i = 0; i < s.length; i++) {
     expandAroundCenter(i, i);      // Odd-length palindromes
     expandAroundCenter(i, i + 1);  // Even-length palindromes
   }
-  
+
   return count;
 }
+
 ```
 
 // Test Cases:
@@ -855,9 +934,10 @@ function countSubstrings(s) {
 
 // Input: s = "a"
 // Output: 1
+
 ```
 
-**Time Complexity:** O(n²) - Expand around 2n-1 centers  
+**Time Complexity:** O(n²) - Expand around 2n-1 centers
 **Space Complexity:** O(1) - Only counter variable
 
 ## Q174. Burst Balloons
@@ -867,13 +947,14 @@ function countSubstrings(s) {
 **Approach:** Use interval DP. For each interval, try all possible last balloons to burst. dp[left][right] = maximum coins from bursting balloons in (left, right) with last balloon k.
 
 ### Solution 1: Interval DP (Optimal)
+
 ```javascript
 function maxCoins(nums) {
   // Add boundary balloons with value 1
   const arr = [1, ...nums, 1];
   const n = arr.length;
   const dp = Array.from({ length: n }, () => Array(n).fill(0));
-  
+
   // Length of interval
   for (let len = 2; len < n; len++) {
     // Left boundary
@@ -888,9 +969,10 @@ function maxCoins(nums) {
       }
     }
   }
-  
+
   return dp[0][n - 1];
 }
+
 ```
 
 // Test Cases:
@@ -908,9 +990,10 @@ function maxCoins(nums) {
 
 // Input: nums = [1, 2, 3, 4]
 // Output: 40
+
 ```
 
-**Time Complexity:** O(n³) - Three nested loops  
+**Time Complexity:** O(n³) - Three nested loops
 **Space Complexity:** O(n²) - DP table
 
 ## Q175. Maximum Profit in Job Scheduling
@@ -920,26 +1003,27 @@ function maxCoins(nums) {
 **Approach:** Sort jobs by end time. Use DP with binary search. For each job, find the last non-overlapping job and take maximum of: skipping current job or taking current job + best from previous.
 
 ### Solution 1: DP with Binary Search (Optimal)
+
 ```javascript
 function jobScheduling(startTime, endTime, profit) {
   const n = startTime.length;
   const jobs = [];
-  
+
   // Create job array
   for (let i = 0; i < n; i++) {
-    jobs.push([startTime[i], endTime[i], profit[i]]);
+    jobs.push([startTime[i], endTime[i], profit[i]);
   }
-  
+
   // Sort by end time
   jobs.sort((a, b) => a[1] - b[1]);
   const ends = jobs.map(job => job[1]);
-  
+
   const dp = new Array(n).fill(0);
   dp[0] = jobs[0][2];
-  
+
   for (let i = 1; i < n; i++) {
     const [start, end, profitVal] = jobs[i];
-    
+
     // Binary search for last non-overlapping job
     let left = 0, right = i - 1, pos = -1;
     while (left <= right) {
@@ -951,16 +1035,17 @@ function jobScheduling(startTime, endTime, profit) {
         right = mid - 1;
       }
     }
-    
+
     // Max of: skip current or take current + best from previous
     dp[i] = Math.max(
       dp[i - 1],
       profitVal + (pos >= 0 ? dp[pos] : 0)
     );
   }
-  
+
   return dp[n - 1];
 }
+
 ```
 
 // Test Cases:
@@ -973,15 +1058,18 @@ function jobScheduling(startTime, endTime, profit) {
 
 // Input: startTime = [1, 1, 1], endTime = [2, 3, 4], profit = [5, 6, 4]
 // Output: 6
+
 ```
 
-**Time Complexity:** O(n log n) - Sorting + binary search per job  
+**Time Complexity:** O(n log n) - Sorting + binary search per job
 **Space Complexity:** O(n) - Jobs array and DP array
 
 ## Q176. Wildcard Matching
 
 **Problem:** Given an input string `s` and a pattern `p`, implement wildcard pattern matching with support for `'?'` and `'*'` where:
+
 - `'?'` matches any single character
+
 - `'*'` matches any sequence of characters (including empty sequence)
 
 Return `true` if the pattern matches the entire input string, `false` otherwise.
@@ -989,20 +1077,21 @@ Return `true` if the pattern matches the entire input string, `false` otherwise.
 **Approach:** Use 2D dynamic programming. `'*'` can match empty sequence (use dp[i][j-1]) or match one or more characters (use dp[i-1][j]). `'?'` matches single character.
 
 ### Solution 1: 2D DP (Optimal)
+
 ```javascript
 function isMatch(s, p) {
   const m = s.length;
   const n = p.length;
   const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(false));
   dp[0][0] = true;  // Empty string matches empty pattern
-  
+
   // Handle '*' matching empty sequence
   for (let j = 1; j <= n; j++) {
     if (p[j - 1] === '*') {
       dp[0][j] = dp[0][j - 1];
     }
   }
-  
+
   for (let i = 1; i <= m; i++) {
     for (let j = 1; j <= n; j++) {
       if (p[j - 1] === '*') {
@@ -1014,9 +1103,10 @@ function isMatch(s, p) {
       }
     }
   }
-  
+
   return dp[m][n];
 }
+
 ```
 
 // Test Cases:
@@ -1034,9 +1124,10 @@ function isMatch(s, p) {
 
 // Input: s = "adceb", p = "*a*b"
 // Output: true
+
 ```
 
-**Time Complexity:** O(m × n) - Fill DP table  
+**Time Complexity:** O(m × n) - Fill DP table
 **Space Complexity:** O(m × n) - DP table (can optimize to O(min(m,n)))
 
 ## Q177. Subset Sum
@@ -1046,20 +1137,22 @@ function isMatch(s, p) {
 **Approach:** Use boolean DP with 0-1 knapsack pattern. Iterate backwards on target to ensure each number used once. dp[target] = true if target is achievable.
 
 ### Solution 1: Boolean DP (0-1 Knapsack) (Optimal)
+
 ```javascript
 function subsetSum(nums, target) {
   const dp = new Array(target + 1).fill(false);
   dp[0] = true;  // Base case: sum 0 always achievable
-  
+
   for (const num of nums) {
     // Iterate backwards to avoid using same number twice
     for (let t = target; t >= num; t--) {
       dp[t] = dp[t] || dp[t - num];
     }
   }
-  
+
   return dp[target];
 }
+
 ```
 
 // Test Cases:
@@ -1076,32 +1169,35 @@ function subsetSum(nums, target) {
 
 // Input: nums = [1], target = 1
 // Output: true
+
 ```
 
-**Time Complexity:** O(n × target) - n numbers, target values  
+**Time Complexity:** O(n × target) - n numbers, target values
 **Space Complexity:** O(target) - DP array
 
 ## Q178. Unbounded Knapsack
 
 **Problem:** Given a knapsack with capacity `W` and `n` items, each with weight `wt[i]` and value `val[i]`, determine the maximum value that can be obtained. Unlike 0-1 knapsack, each item can be used unlimited times.
 
-**Approach:** Use dynamic programming with forward iteration on weight. Forward iteration allows reusing items. dp[w] = max(dp[w], dp[w - wt[i]] + val[i]).
+**Approach:** Use dynamic programming with forward iteration on weight. Forward iteration allows reusing items. dp[w] = max(dp[w], dp[w - wt[i] + val[i]).
 
 ### Solution 1: Forward Iteration DP (Optimal)
+
 ```javascript
 function unboundedKnapsack(W, wt, val) {
   const dp = new Array(W + 1).fill(0);
-  
+
   // For each item
   for (let i = 0; i < wt.length; i++) {
     // Forward iteration allows reuse
     for (let w = wt[i]; w <= W; w++) {
-      dp[w] = Math.max(dp[w], dp[w - wt[i]] + val[i]);
+      dp[w] = Math.max(dp[w], dp[w - wt[i] + val[i]);
     }
   }
-  
+
   return dp[W];
 }
+
 ```
 
 // Test Cases:
@@ -1116,9 +1212,10 @@ function unboundedKnapsack(W, wt, val) {
 // Input: W = 10, wt = [5], val = [10]
 // Output: 20
 // Explanation: Take 2 items of weight 5 (value 10 each) = 20
+
 ```
 
-**Time Complexity:** O(n × W) - n items, W capacity  
+**Time Complexity:** O(n × W) - n items, W capacity
 **Space Complexity:** O(W) - DP array
 
 ## Q179. Maximal Rectangle
@@ -1128,33 +1225,34 @@ function unboundedKnapsack(W, wt, val) {
 **Approach:** For each row, build a histogram of consecutive `1`'s from top. Use largest rectangle in histogram algorithm (monotonic stack) to find maximum area for each row.
 
 ### Solution 1: Histogram + Monotonic Stack (Optimal)
+
 ```javascript
 function maximalRectangle(matrix) {
   if (!matrix.length || !matrix[0].length) return 0;
-  
+
   const m = matrix.length;
   const n = matrix[0].length;
   const heights = new Array(n).fill(0);
   let maxArea = 0;
-  
+
   // Largest rectangle in histogram
   function largestRectangleArea(heights) {
     const stack = [];
     const arrWithSentinel = [...heights, 0];
     let maxArea = 0;
-    
+
     for (let i = 0; i < arrWithSentinel.length; i++) {
-      while (stack.length && arrWithSentinel[i] < arrWithSentinel[stack[stack.length - 1]]) {
+      while (stack.length && arrWithSentinel[i] < arrWithSentinel[stack[stack.length - 1]) {
         const height = arrWithSentinel[stack.pop()];
         const left = stack.length ? stack[stack.length - 1] + 1 : 0;
         maxArea = Math.max(maxArea, height * (i - left));
       }
       stack.push(i);
     }
-  
+
     return maxArea;
   }
-  
+
   // For each row, build histogram and find max area
   for (let row = 0; row < m; row++) {
     for (let col = 0; col < n; col++) {
@@ -1162,27 +1260,29 @@ function maximalRectangle(matrix) {
     }
     maxArea = Math.max(maxArea, largestRectangleArea(heights));
   }
-  
+
   return maxArea;
 }
+
 ```
 
 // Test Cases:
-// Input: matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
+// Input: matrix = ["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]
 // Output: 6
 // Explanation: Maximal rectangle has area 6
 
-// Input: matrix = [["0"]]
+// Input: matrix = ["0"]
 // Output: 0
 
-// Input: matrix = [["1"]]
+// Input: matrix = ["1"]
 // Output: 1
 
-// Input: matrix = [["1","1"],["1","1"]]
+// Input: matrix = ["1","1"],["1","1"]
 // Output: 4
+
 ```
 
-**Time Complexity:** O(m × n) - Build histogram for each row, stack operations O(n)  
+**Time Complexity:** O(m × n) - Build histogram for each row, stack operations O(n)
 **Space Complexity:** O(n) - Heights array and stack
 
 ## Q180. Trapping Rain Water
@@ -1192,43 +1292,46 @@ function maximalRectangle(matrix) {
 **Approach:** Precompute leftMax and rightMax arrays. Water trapped at position i = min(leftMax[i], rightMax[i]) - height[i].
 
 ### Solution 1: Precompute Arrays (DP) (Optimal)
+
 ```javascript
 function trap(height) {
   const n = height.length;
   if (n === 0) return 0;
-  
+
   const leftMax = new Array(n);
   const rightMax = new Array(n);
-  
+
   // Compute leftMax: maximum height from left
   leftMax[0] = height[0];
   for (let i = 1; i < n; i++) {
     leftMax[i] = Math.max(leftMax[i - 1], height[i]);
   }
-  
+
   // Compute rightMax: maximum height from right
   rightMax[n - 1] = height[n - 1];
   for (let i = n - 2; i >= 0; i--) {
     rightMax[i] = Math.max(rightMax[i + 1], height[i]);
   }
-  
+
   // Calculate trapped water
   let water = 0;
   for (let i = 0; i < n; i++) {
     water += Math.min(leftMax[i], rightMax[i]) - height[i];
   }
-  
+
   return water;
 }
+
 ```
 
 ### Solution 2: Two Pointers (Space Optimized)
+
 ```javascript
 function trap(height) {
   let left = 0, right = height.length - 1;
   let leftMax = 0, rightMax = 0;
   let water = 0;
-  
+
   while (left < right) {
     if (height[left] < height[right]) {
       if (height[left] >= leftMax) {
@@ -1246,9 +1349,10 @@ function trap(height) {
       right--;
     }
   }
-  
+
   return water;
 }
+
 ```
 
 // Test Cases:
@@ -1264,9 +1368,10 @@ function trap(height) {
 
 // Input: height = [3, 0, 2, 0, 4]
 // Output: 7
+
 ```
 
-**Time Complexity:** O(n) - Single pass for precompute, single pass for calculation  
+**Time Complexity:** O(n) - Single pass for precompute, single pass for calculation
 **Space Complexity:** O(n) with precompute, O(1) with two pointers
 
 ## Q181. Super Egg Drop
@@ -1276,11 +1381,12 @@ function trap(height) {
 **Approach:** Use optimized DP. Instead of dp[k][m] = floors solvable, use dp[k] = floors solvable with current moves. Increase moves until dp[k] >= n.
 
 ### Solution 1: Optimized DP (Optimal)
+
 ```javascript
 function superEggDrop(k, n) {
   const dp = new Array(k + 1).fill(0);
   let moves = 0;
-  
+
   while (dp[k] < n) {
     moves++;
     // Update backwards to use previous values
@@ -1290,9 +1396,10 @@ function superEggDrop(k, n) {
       dp[eggs] = dp[eggs] + dp[eggs - 1] + 1;
     }
   }
-  
+
   return moves;
 }
+
 ```
 
 // Test Cases:
@@ -1308,9 +1415,10 @@ function superEggDrop(k, n) {
 
 // Input: k = 2, n = 1
 // Output: 1
+
 ```
 
-**Time Complexity:** O(k × m) - m moves, k eggs (m << n typically)  
+**Time Complexity:** O(k × m) - m moves, k eggs (m << n typically)
 **Space Complexity:** O(k) - DP array
 
 ## Q182. Matrix Chain Multiplication
@@ -1320,18 +1428,19 @@ function superEggDrop(k, n) {
 **Approach:** Use interval DP. For each interval, try all possible split points and take minimum cost. dp[i][j] = minimum cost to multiply matrices from i to j.
 
 ### Solution 1: Interval DP (Optimal)
+
 ```javascript
 function matrixChainMultiplication(p) {
   const n = p.length - 1;  // Number of matrices
   const dp = Array.from({ length: n }, () => Array(n).fill(0));
-  
+
   // Length of chain
   for (let len = 2; len <= n; len++) {
     // Starting index
     for (let i = 0; i + len - 1 < n; i++) {
       const j = i + len - 1;
       dp[i][j] = Infinity;
-      
+
       // Try all split points
       for (let k = i; k < j; k++) {
         // Cost = cost of left chain + cost of right chain + cost of multiplying them
@@ -1340,9 +1449,10 @@ function matrixChainMultiplication(p) {
       }
     }
   }
-  
+
   return dp[0][n - 1];
 }
+
 ```
 
 // Test Cases:
@@ -1358,9 +1468,10 @@ function matrixChainMultiplication(p) {
 
 // Input: p = [1, 2, 3]
 // Output: 6
+
 ```
 
-**Time Complexity:** O(n³) - Three nested loops  
+**Time Complexity:** O(n³) - Three nested loops
 **Space Complexity:** O(n²) - DP table
 
 ## Q183. Min Cost Climbing Stairs
@@ -1370,38 +1481,42 @@ function matrixChainMultiplication(p) {
 **Approach:** Use dynamic programming similar to Climbing Stairs, but include cost. dp[i] = minimum cost to reach step i. Can start from step 0 or 1 (both cost 0).
 
 ### Solution 1: DP Array (Optimal)
+
 ```javascript
 function minCostClimbingStairs(cost) {
   const n = cost.length;
   const dp = new Array(n + 1).fill(0);
   dp[0] = 0;  // Can start from step 0
   dp[1] = 0;  // Can start from step 1
-  
+
   for (let i = 2; i <= n; i++) {
     // Min cost to reach step i = min of:
     // - Coming from step i-1: dp[i-1] + cost[i-1]
     // - Coming from step i-2: dp[i-2] + cost[i-2]
     dp[i] = Math.min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
   }
-  
+
   return dp[n];
 }
+
 ```
 
 ### Solution 2: Space-Optimized
+
 ```javascript
 function minCostClimbingStairs(cost) {
   let prev2 = 0;  // Cost to reach step 0
   let prev1 = 0;  // Cost to reach step 1
-  
+
   for (let i = 2; i <= cost.length; i++) {
     const curr = Math.min(prev1 + cost[i - 1], prev2 + cost[i - 2]);
     prev2 = prev1;
     prev1 = curr;
   }
-  
+
   return prev1;
 }
+
 ```
 
 // Test Cases:
@@ -1418,39 +1533,43 @@ function minCostClimbingStairs(cost) {
 
 // Input: cost = [0, 0, 0, 0]
 // Output: 0
+
 ```
 
-**Time Complexity:** O(n) - Single pass through steps  
+**Time Complexity:** O(n) - Single pass through steps
 **Space Complexity:** O(n) with DP array, O(1) with optimization
 
 ## Q184. Best Time to Buy and Sell Stock with Cooldown
 
 **Problem:** You are given an array `prices` where `prices[i]` is the price of a given stock on the `i`th day. Find the maximum profit you can achieve. You may complete as many transactions as you like (buy one and sell one share of the stock multiple times) with the following constraints:
+
 - After you sell your stock, you cannot buy stock on the next day (cooldown period).
 
 **Approach:** Track two states: `hold` (holding stock) and `cash` (not holding stock). With cooldown, when buying, use cash from 2 days ago.
 
 ### Solution 1: State DP (Optimal)
+
 ```javascript
 function maxProfit(prices) {
   if (prices.length === 0) return 0;
-  
+
   const n = prices.length;
   const hold = new Array(n + 1).fill(0);
   const cash = new Array(n + 1).fill(0);
-  
+
   hold[0] = -Infinity;  // Cannot hold stock initially
   cash[0] = 0;          // No cash initially
-  
+
   for (let i = 1; i <= n; i++) {
     // cash[i] = max of: keep cash or sell stock
     cash[i] = Math.max(cash[i - 1], hold[i - 1] + prices[i - 1]);
     // hold[i] = max of: keep holding or buy (with cooldown: use cash[i-2])
     hold[i] = Math.max(hold[i - 1], (i >= 2 ? cash[i - 2] : 0) - prices[i - 1]);
   }
-  
+
   return cash[n];
 }
+
 ```
 
 // Test Cases:
@@ -1468,11 +1587,11 @@ function maxProfit(prices) {
 
 // Input: prices = [3, 3, 5, 0, 0, 3, 1, 4]
 // Output: 6
+
 ```
 
-**Time Complexity:** O(n) - Single pass through prices  
+**Time Complexity:** O(n) - Single pass through prices
 **Space Complexity:** O(n) - DP arrays (can optimize to O(1))
-
 
 ## Q185. Word Break
 
@@ -1481,12 +1600,13 @@ function maxProfit(prices) {
 **Approach:** Use dynamic programming. dp[i] = true if s[0..i) can be segmented. For each position, check all possible prefixes that form valid words.
 
 ### Solution 1: DP (Optimal)
+
 ```javascript
 function wordBreak(s, wordDict) {
   const wordSet = new Set(wordDict);
   const dp = new Array(s.length + 1).fill(false);
   dp[0] = true;  // Empty string can always be segmented
-  
+
   for (let i = 1; i <= s.length; i++) {
     for (let j = 0; j < i; j++) {
       // Check if s[0..j) can be segmented and s[j..i) is a word
@@ -1496,9 +1616,10 @@ function wordBreak(s, wordDict) {
       }
     }
   }
-  
+
   return dp[s.length];
 }
+
 ```
 
 // Input: s = "leetcode", wordDict = ["leet","code"]
@@ -1512,11 +1633,11 @@ function wordBreak(s, wordDict) {
 // Input: s = "catsandog", wordDict = ["cats","dog","sand","and","cat"]
 // Output: false
 // Explanation: Cannot be segmented
+
 ```
 
-**Time Complexity:** O(n² × m) - n string length, m average word length  
+**Time Complexity:** O(n² × m) - n string length, m average word length
 **Space Complexity:** O(n) - DP array
-
 
 ## Q186. Triangle
 
@@ -1525,12 +1646,13 @@ function wordBreak(s, wordDict) {
 **Approach:** Use bottom-up dynamic programming. Start from bottom row and work upward, choosing minimum from adjacent positions below.
 
 ### Solution 1: Bottom-Up DP (Optimal)
+
 ```javascript
 function minimumTotal(triangle) {
   const n = triangle.length;
   // Start with bottom row
-  const dp = [...triangle[n - 1]];
-  
+  const dp = [...triangle[n - 1];
+
   // Work upward
   for (let i = n - 2; i >= 0; i--) {
     for (let j = 0; j <= i; j++) {
@@ -1538,25 +1660,26 @@ function minimumTotal(triangle) {
       dp[j] = triangle[i][j] + Math.min(dp[j], dp[j + 1]);
     }
   }
-  
+
   return dp[0];
 }
+
 ```
 
-// Input: triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]
+// Input: triangle = [2],[3,4],[6,5,7],[4,1,8,3]
 // Output: 11
 // Explanation: Path 2 -> 3 -> 5 -> 1 = 11
 
-// Input: triangle = [[-10]]
+// Input: triangle = [-10]
 // Output: -10
 
-// Input: triangle = [[2],[3,4],[6,5,9],[4,1,8,3]]
+// Input: triangle = [2],[3,4],[6,5,9],[4,1,8,3]
 // Output: 14
+
 ```
 
-**Time Complexity:** O(n²) - n rows, each row has n elements  
+**Time Complexity:** O(n²) - n rows, each row has n elements
 **Space Complexity:** O(n) - DP array (reuses last row)
-
 
 ## Q187. Unique Paths II
 
@@ -1565,17 +1688,18 @@ function minimumTotal(triangle) {
 **Approach:** Use dynamic programming similar to Unique Paths, but skip obstacles. If a cell is an obstacle, set paths to 0.
 
 ### Solution 1: Space-Optimized DP (Optimal)
+
 ```javascript
 function uniquePathsWithObstacles(obstacleGrid) {
   const m = obstacleGrid.length;
   const n = obstacleGrid[0].length;
-  
+
   // Obstacle at start or end
   if (obstacleGrid[0][0] === 1 || obstacleGrid[m - 1][n - 1] === 1) return 0;
-  
+
   const dp = new Array(n).fill(0);
   dp[0] = 1;  // Starting position
-  
+
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < n; j++) {
       if (obstacleGrid[i][j] === 1) {
@@ -1585,56 +1709,62 @@ function uniquePathsWithObstacles(obstacleGrid) {
       }
     }
   }
-  
+
   return dp[n - 1];
 }
+
 ```
 
-// Input: obstacleGrid = [[0,0,0],[0,1,0],[0,0,0]]
+// Input: obstacleGrid = [0,0,0],[0,1,0],[0,0,0]
 // Output: 2
 // Explanation: Two paths avoiding obstacle at (1,1)
 
-// Input: obstacleGrid = [[0,1],[0,0]]
+// Input: obstacleGrid = [0,1],[0,0]
 // Output: 1
 
-// Input: obstacleGrid = [[1,0]]
+// Input: obstacleGrid = [1,0]
 // Output: 0
+
 ```
 
-**Time Complexity:** O(m × n) - Visit each cell once  
+**Time Complexity:** O(m × n) - Visit each cell once
 **Space Complexity:** O(n) - Space optimized DP array
-
 
 ## Q188. Interleaving String
 
 **Problem:** Given strings `s1`, `s2`, and `s3`, find whether `s3` is formed by an interleaving of `s1` and `s2`. An interleaving of two strings `s` and `t` is a configuration where `s` and `t` are divided into `n` and `m` non-empty substrings respectively, such that:
+
 - `s = s1 + s2 + ... + sn`
+
 - `t = t1 + t2 + ... + tm`
+
 - `|n - m| <= 1`
+
 - The interleaving is `s1 + t1 + s2 + t2 + ...` or `t1 + s1 + t2 + s2 + ...`
 
 **Approach:** Use 2D dynamic programming. dp[i][j] = true if s1[0..i) and s2[0..j) can form s3[0..i+j).
 
 ### Solution 1: 2D DP (Optimal)
+
 ```javascript
 function isInterleave(s1, s2, s3) {
   if (s1.length + s2.length !== s3.length) return false;
-  
+
   const m = s1.length;
   const n = s2.length;
   const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(false));
   dp[0][0] = true;  // Empty strings form empty interleaving
-  
+
   // Initialize first row: s2 only
   for (let j = 1; j <= n; j++) {
     dp[0][j] = dp[0][j - 1] && s2[j - 1] === s3[j - 1];
   }
-  
+
   // Initialize first column: s1 only
   for (let i = 1; i <= m; i++) {
     dp[i][0] = dp[i - 1][0] && s1[i - 1] === s3[i - 1];
   }
-  
+
   // Fill DP table
   for (let i = 1; i <= m; i++) {
     for (let j = 1; j <= n; j++) {
@@ -1648,9 +1778,10 @@ function isInterleave(s1, s2, s3) {
       }
     }
   }
-  
+
   return dp[m][n];
 }
+
 ```
 
 // Input: s1 = "aabcc", s2 = "dbbca", s3 = "aadbbcbcac"
@@ -1661,11 +1792,11 @@ function isInterleave(s1, s2, s3) {
 
 // Input: s1 = "", s2 = "", s3 = ""
 // Output: true
+
 ```
 
-**Time Complexity:** O(m × n) - Fill DP table  
+**Time Complexity:** O(m × n) - Fill DP table
 **Space Complexity:** O(m × n) - DP table (can optimize to O(min(m,n)))
-
 
 ## Q189. Best Time to Buy and Sell Stock III
 
@@ -1674,22 +1805,23 @@ function isInterleave(s1, s2, s3) {
 **Approach:** Track four states: buy1, sell1, buy2, sell2 representing the maximum profit after first buy, first sell, second buy, and second sell. Update states greedily to maximize profit at each transaction.
 
 ### Solution 1: State Tracking (Optimal)
+
 ```javascript
 function maxProfit(prices) {
   if (prices.length === 0) return 0;
-  
+
   let buy1 = -prices[0];
   let sell1 = 0;
   let buy2 = -prices[0];
   let sell2 = 0;
-  
+
   for (let i = 1; i < prices.length; i++) {
     buy1 = Math.max(buy1, -prices[i]);
     sell1 = Math.max(sell1, buy1 + prices[i]);
     buy2 = Math.max(buy2, sell1 - prices[i]);
     sell2 = Math.max(sell2, buy2 + prices[i]);
   }
-  
+
   return sell2;
 }
 
@@ -1701,9 +1833,10 @@ function maxProfit(prices) {
 
 // Input: prices = [7,6,4,3,1]
 // Output: 0
+
 ```
 
-**Time Complexity:** O(n) - Single pass through prices  
+**Time Complexity:** O(n) - Single pass through prices
 **Space Complexity:** O(1) - Constant extra space
 
 ---
@@ -1715,12 +1848,13 @@ function maxProfit(prices) {
 **Approach:** Use dynamic programming to track states for k transactions. If k >= n/2, treat as unlimited transactions (greedy approach). Otherwise, use DP table to track maximum profit for each transaction.
 
 ### Solution 1: Dynamic Programming (Optimal)
+
 ```javascript
 function maxProfit(k, prices) {
   if (prices.length === 0 || k === 0) return 0;
-  
+
   const n = prices.length;
-  
+
   // If k >= n/2, can make unlimited transactions
   if (k >= Math.floor(n / 2)) {
     let profit = 0;
@@ -1731,9 +1865,9 @@ function maxProfit(k, prices) {
     }
     return profit;
   }
-  
+
   const dp = Array.from({length: k + 1}, () => new Array(n).fill(0));
-  
+
   for (let i = 1; i <= k; i++) {
     let maxDiff = -prices[0];
     for (let j = 1; j < n; j++) {
@@ -1741,7 +1875,7 @@ function maxProfit(k, prices) {
       maxDiff = Math.max(maxDiff, dp[i - 1][j] - prices[j]);
     }
   }
-  
+
   return dp[k][n - 1];
 }
 
@@ -1753,9 +1887,10 @@ function maxProfit(k, prices) {
 
 // Input: k = 0, prices = [1,2]
 // Output: 0
+
 ```
 
-**Time Complexity:** O(n×k) - Fill DP table  
+**Time Complexity:** O(n×k) - Fill DP table
 **Space Complexity:** O(n×k) - DP table, can optimize to O(n)
 
 ---
@@ -1767,15 +1902,16 @@ function maxProfit(k, prices) {
 **Approach:** Use dynamic programming where `dp[i][j]` represents the side length of the largest square ending at position (i,j). For each '1', take the minimum of three neighbors (top, left, top-left) plus 1 to ensure square shape.
 
 ### Solution 1: Dynamic Programming (Optimal)
+
 ```javascript
 function maximalSquare(matrix) {
   if (matrix.length === 0) return 0;
-  
+
   const m = matrix.length;
   const n = matrix[0].length;
   const dp = Array.from({length: m}, () => new Array(n).fill(0));
   let maxSide = 0;
-  
+
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < n; j++) {
       if (matrix[i][j] === '1') {
@@ -1788,22 +1924,23 @@ function maximalSquare(matrix) {
       }
     }
   }
-  
+
   return maxSide * maxSide;
 }
 
-// Input: matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
+// Input: matrix = ["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]
 // Output: 4
 // Explanation: Largest square of side 2 (area 4)
 
-// Input: matrix = [["0","1"],["1","0"]]
+// Input: matrix = ["0","1"],["1","0"]
 // Output: 1
 
-// Input: matrix = [["0"]]
+// Input: matrix = ["0"]
 // Output: 0
+
 ```
 
-**Time Complexity:** O(m×n) - Visit each cell once  
+**Time Complexity:** O(m×n) - Visit each cell once
 **Space Complexity:** O(m×n) - DP table, can optimize to O(n)
 
 ---
@@ -1815,6 +1952,7 @@ function maximalSquare(matrix) {
 **Approach:** Use Kadane's algorithm for both wrapped and unwrapped cases. The maximum can be either the maximum subarray sum (unwrapped) or total sum minus minimum subarray sum (wrapped). Handle the case where all numbers are negative.
 
 ### Solution 1: Kadane's Algorithm (Optimal)
+
 ```javascript
 function maxSubarraySumCircular(nums) {
   let total = 0;
@@ -1822,7 +1960,7 @@ function maxSubarraySumCircular(nums) {
   let minSum = nums[0];
   let currMax = 0;
   let currMin = 0;
-  
+
   for (const num of nums) {
     total += num;
     currMax = Math.max(currMax + num, num);
@@ -1830,7 +1968,7 @@ function maxSubarraySumCircular(nums) {
     maxSum = Math.max(maxSum, currMax);
     minSum = Math.min(minSum, currMin);
   }
-  
+
   return maxSum > 0 ? Math.max(maxSum, total - minSum) : maxSum;
 }
 
@@ -1843,9 +1981,22 @@ function maxSubarraySumCircular(nums) {
 
 // Input: nums = [-3,-2,-3]
 // Output: -2
+
 ```
 
-**Time Complexity:** O(n) - Single pass through array  
+**Time Complexity:** O(n) - Single pass through array
 **Space Complexity:** O(1) - Constant extra space
 
 - **Interview Tip:** Explain two cases clearly; emphasize circular wraparound; mention Kadane's algorithm
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Graphs](8%20Graphs.md) • [Home: README](README.md) • [Recursion & Backtracking →](10%20Recursion%20&%20Backtracking.md)
+
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+
+</div>

@@ -1,10 +1,18 @@
+# 🛠️ 6. Practical & Hands-On Challenges (Q59–68)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Performance & Optimization](5%29%20Performance%20%26%20Optimization.md)**
+[Performance & Optimization](5%29%20Performance%20%26%20Optimization.md) • [Home: README](../README.md)
+
+[📋 Cheatsheet](CSS%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 🛠️ 6. Practical & Hands-On Challenges (Q59–68)
+---
 
 ---
 
@@ -17,20 +25,20 @@ Build a responsive navigation that adapts to different screen sizes using CSS Gr
 Example:
 
 ```css
-.nav-container { 
-  display: grid; 
-  grid-template-columns: auto 1fr auto; 
-  align-items: center; 
-  padding: 1rem; 
-  background: #333; 
+.nav-container {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  padding: 1rem;
+  background: #333;
 }
-.nav-menu { 
-  display: flex; 
-  gap: 1rem; 
-  list-style: none; 
+.nav-menu {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
 }
-@media (max-width: 768px) { 
-  .nav-menu { display: none; } 
+@media (max-width: 768px) {
+  .nav-menu { display: none; }
 }
 
 ```
@@ -46,19 +54,19 @@ Build a carousel component using only CSS with smooth slide transitions, navigat
 Example:
 
 ```css
-.carousel { 
-  position: relative; 
-  width: 100%; 
-  max-width: 800px; 
-  margin: 0 auto; 
-  overflow: hidden; 
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: hidden;
 }
-.carousel-track { 
-  display: flex; 
-  transition: transform 0.3s ease; 
+.carousel-track {
+  display: flex;
+  transition: transform 0.3s ease;
 }
-.carousel-item { 
-  flex: 0 0 100%; 
+.carousel-item {
+  flex: 0 0 100%;
 }
 
 ```
@@ -74,23 +82,23 @@ Create a modal dialog using only CSS with backdrop blur effect, smooth animation
 Example:
 
 ```css
-.modal-overlay { 
-  position: fixed; 
-  top: 0; 
-  left: 0; 
-  right: 0; 
-  bottom: 0; 
-  background: rgba(0,0,0,0.5); 
-  backdrop-filter: blur(5px); 
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(5px);
 }
-.modal { 
-  position: absolute; 
-  top: 50%; 
-  left: 50%; 
-  transform: translate(-50%, -50%); 
-  background: white; 
-  padding: 2rem; 
-  border-radius: 8px; 
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
 }
 
 ```
@@ -106,19 +114,19 @@ Build a tooltip component using only CSS with proper positioning, smooth animati
 Example:
 
 ```css
-.tooltip-container { 
-  position: relative; 
-  display: inline-block; 
+.tooltip-container {
+  position: relative;
+  display: inline-block;
 }
-.tooltip { 
-  position: absolute; 
-  bottom: 100%; 
-  opacity: 0; 
-  transition: opacity 0.3s; 
-  pointer-events: none; 
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
 }
-.tooltip-container:hover .tooltip { 
-  opacity: 1; 
+.tooltip-container:hover .tooltip {
+  opacity: 1;
 }
 
 ```
@@ -134,18 +142,18 @@ Build an accordion component using only CSS with smooth expand/collapse animatio
 Example:
 
 ```css
-.accordion { 
-  border: 1px solid #ddd; 
-  border-radius: 8px; 
-  overflow: hidden; 
+.accordion {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
 }
-.accordion-content { 
-  max-height: 0; 
-  overflow: hidden; 
-  transition: max-height 0.3s ease; 
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
 }
-.accordion-input:checked + .accordion-label + .accordion-content { 
-  max-height: 500px; 
+.accordion-input:checked + .accordion-label + .accordion-content {
+  max-height: 500px;
 }
 
 ```
@@ -161,25 +169,25 @@ Create a tab component using only CSS with smooth content transitions, active st
 Example:
 
 ```css
-.tabs { 
-  max-width: 800px; 
-  margin: 0 auto; 
-  border: 1px solid #ddd; 
-  border-radius: 8px; 
-  overflow: hidden; 
+.tabs {
+  max-width: 800px;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
 }
-.tab-button { 
-  padding: 1rem; 
-  border: none; 
-  background: #f0f0f0; 
-  cursor: pointer; 
+.tab-button {
+  padding: 1rem;
+  border: none;
+  background: #f0f0f0;
+  cursor: pointer;
 }
-.tab-content { 
-  display: none; 
-  padding: 1rem; 
+.tab-content {
+  display: none;
+  padding: 1rem;
 }
-.tab-input:checked + .tab-label + .tab-content { 
-  display: block; 
+.tab-input:checked + .tab-label + .tab-content {
+  display: block;
 }
 
 ```
@@ -195,20 +203,20 @@ Create a dropdown menu using only CSS with smooth animations, proper positioning
 Example:
 
 ```css
-.dropdown { 
-  position: relative; 
-  display: inline-block; 
+.dropdown {
+  position: relative;
+  display: inline-block;
 }
-.dropdown-menu { 
-  position: absolute; 
-  top: 100%; 
-  opacity: 0; 
-  visibility: hidden; 
-  transition: all 0.3s; 
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
 }
-.dropdown-input:checked + .dropdown-label + .dropdown-menu { 
-  opacity: 1; 
-  visibility: visible; 
+.dropdown-input:checked + .dropdown-label + .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
 }
 
 ```
@@ -224,18 +232,18 @@ Create a loading spinner using only CSS with smooth rotation animations, customi
 Example:
 
 ```css
-.spinner { 
-  display: inline-block; 
-  width: 40px; 
-  height: 40px; 
-  border: 4px solid #f3f3f3; 
-  border-top: 4px solid #007bff; 
-  border-radius: 50%; 
-  animation: spin 1s linear infinite; 
+.spinner {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
-@keyframes spin { 
-  0% { transform: rotate(0deg); } 
-  100% { transform: rotate(360deg); } 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 ```
@@ -251,24 +259,24 @@ Build a progress bar using only CSS with smooth animations, customizable colors,
 Example:
 
 ```css
-.progress-container { 
-  width: 100%; 
-  height: 8px; 
-  background: #f0f0f0; 
-  border-radius: 4px; 
-  overflow: hidden; 
+.progress-container {
+  width: 100%;
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
 }
-.progress-bar { 
-  height: 100%; 
-  background: #007bff; 
-  transition: width 0.3s ease; 
-  width: 0%; 
+.progress-bar {
+  height: 100%;
+  background: #007bff;
+  transition: width 0.3s ease;
+  width: 0%;
 }
-.progress-bar.animate { 
-  animation: progress 2s ease-in-out; 
+.progress-bar.animate {
+  animation: progress 2s ease-in-out;
 }
-@keyframes progress { 
-  to { width: 100%; } 
+@keyframes progress {
+  to { width: 100%; }
 }
 
 ```
@@ -284,24 +292,32 @@ Create a reusable card component with smooth hover animations, transitions, and 
 Example:
 
 ```css
-.card { 
-  background: white; 
-  border-radius: 12px; 
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
-  overflow: hidden; 
-  transition: all 0.3s ease; 
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
-.card:hover { 
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2); 
-  transform: translateY(-4px); 
+.card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  transform: translateY(-4px);
 }
 
 ```
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Performance & Optimization](5%29%20Performance%20%26%20Optimization.md)** | **[Next: Question List →](question.md)**
+[Performance & Optimization](5%29%20Performance%20%26%20Optimization.md) • [Home: README](../README.md)
+
+[📋 Cheatsheet](CSS%20Interview%20Cheatsheet.md]
 
 </div>
+
+---

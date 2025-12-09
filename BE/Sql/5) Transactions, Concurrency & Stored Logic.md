@@ -1,10 +1,18 @@
+# 🔄 5. Transactions, Concurrency & Stored Logic (Q41–50)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Database Design, Indexing & Performance](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md)** | **[Next: Question List →](question.md)**
+[← Previous: Database Design, Indexing & Performance](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md) • [Home: Question List](question.md)
+
+[📋 Cheatsheet](SQL%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 🔄 5. Transactions, Concurrency & Stored Logic (Q41–50)
+---
 
 ---
 
@@ -12,7 +20,7 @@
 
 A transaction is a sequence of operations treated as a single unit that ensures data consistency and reliability through ACID properties. Atomicity means all operations succeed or all fail (all-or-nothing), Consistency ensures the database remains in a valid state, Isolation prevents concurrent transactions from interfering, and Durability ensures committed changes persist even after system failure.
 
-- **Trade-offs**: Transactions provide data integrity and reliability, but they can lock resources and reduce concurrency. BEGIN, COMMIT, and ROLLBACK define transaction scope—keep transactions short to minimize lock time and improve performance. The ACID properties ensure data reliability but come with performance costs.
+- **Trade-offs**: Transactions provide data integrity and reliability, but these can lock resources and reduce concurrency. BEGIN, COMMIT, and ROLLBACK define transaction scope—keep transactions short to minimize lock time and improve performance. The ACID properties ensure data reliability but come with performance costs.
 
 Example:
 
@@ -142,7 +150,7 @@ Example:
 
 ```sql
 -- Optimistic Locking (using version/timestamp)
-UPDATE products 
+UPDATE products
 SET name = 'New Name', version = version + 1
 WHERE product_id = 1 AND version = 5; -- Check version hasn't changed
 
@@ -161,7 +169,7 @@ COMMIT;
 
 A trigger is a stored procedure that automatically executes in response to specific database events (INSERT, UPDATE, DELETE) on a table, useful for audit trails and business logic. Triggers fire automatically on specified events and are perfect for tracking data changes and maintaining history.
 
-- **Trade-offs**: Triggers are great for audit trails and enforcing business rules at the database level, but they can slow down DML operations and can be difficult to debug and maintain. Use them sparingly—they're hidden logic that can surprise developers, so prefer application-level logic when possible. Use triggers for audit trails, data validation, and maintaining denormalized data.
+- **Trade-offs**: Triggers are great for audit trails and enforcing business rules at the database level, but these can slow down DML operations and can be difficult to debug and maintain. Use them sparingly—these are hidden logic that can surprise developers, so prefer application-level logic when possible. Use triggers for audit trails, data validation, and maintaining denormalized data.
 
 Example:
 
@@ -176,7 +184,7 @@ BEGIN
     SELECT 'INSERT', inserted.id, NULL, inserted.salary, GETDATE()
     FROM inserted
     WHERE NOT EXISTS (SELECT 1 FROM deleted);
-    
+
     -- Handle UPDATE operations
     INSERT INTO employee_audit (action, employee_id, old_salary, new_salary, change_date)
     SELECT 'UPDATE', inserted.id, deleted.salary, inserted.salary, GETDATE()
@@ -244,10 +252,10 @@ AS
 BEGIN
     DECLARE @price DECIMAL(10,2);
     SELECT @price = price FROM products WHERE product_id = @product_id;
-    
+
     INSERT INTO orders (customer_id, product_id, quantity, total_price)
     VALUES (@customer_id, @product_id, @quantity, @price * @quantity);
-    
+
     UPDATE products SET stock = stock - @quantity WHERE product_id = @product_id;
 END;
 
@@ -295,3 +303,16 @@ ORDER BY e.name;
 
 ---
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[4) Database Design, Indexing & Performance.md](4%29%20Database%20Design,%20Indexing%20&%20Performance.md) • [Home: Question List](question.md)
+
+[📋 Cheatsheet](SQL%20Interview%20Cheatsheet.md]
+
+</div>
+
+---

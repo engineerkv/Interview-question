@@ -1,10 +1,18 @@
+# 2. Native Modules & Platform Integrations (Q11–20)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: React Native Fundamentals](1%29%20React%20Native%20Fundamentals.md)** | **[Next: Android & iOS Platform Internals →](3%29%20Android%20%26%20iOS%20Platform%20Internals.md)**
+[React Native Fundamentals](1%29%20React%20Native%20Fundamentals.md) • [Home: README](../README.md) • [Android & iOS Platform Internals →](3%29%20Android%20%26%20iOS%20Platform%20Internals.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 2. Native Modules & Platform Integrations (Q11–20)
+---
 
 ---
 
@@ -217,8 +225,8 @@ import { Platform } from 'react-native';
 import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
 const requestCameraPermission = async () => {
-  const permission = Platform.OS === 'ios' 
-    ? PERMISSIONS.IOS.CAMERA 
+  const permission = Platform.OS === 'ios'
+    ? PERMISSIONS.IOS.CAMERA
     : PERMISSIONS.ANDROID.CAMERA;
   const result = await request(permission);
   return result === RESULTS.GRANTED;
@@ -228,3 +236,14 @@ const requestCameraPermission = async () => {
 
 ---
 
+## 📍 Navigation
+
+<div align="center">
+
+[React Native Fundamentals](1%29%20React%20Native%20Fundamentals.md) • [Home: README](../README.md) • [Android & iOS Platform Internals →](3%29%20Android%20%26%20iOS%20Platform%20Internals.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
+
+</div>
+
+---

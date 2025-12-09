@@ -1,10 +1,18 @@
+# ⚡ 4. ES6+ Features (Q45–54)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Objects, Prototypes & Inheritance](3%29%20Objects%2C%20Prototypes%20%26%20Inheritance.md)** | **[Next: Promises, Async/Await & Event Loop →](5%29%20Promises%2C%20Async-Await%20%26%20Event%20Loop.md)**
+[Objects, Prototypes & Inheritance](3%29%20Objects%2C%20Prototypes%20%26%20Inheritance.md) • [Home: README](../README.md) • [Promises, Async-Await & Event Loop →](5%29%20Promises%2C%20Async-Await%20%26%20Event%20Loop.md)
+
+[📋 Cheatsheet](JavaScript%20Interview%20Cheatsheet.md]
 
 </div>
 
-# ⚡ 4. ES6+ Features (Q45–54)
+---
 
 ---
 
@@ -25,7 +33,7 @@ const { data: user } = { data: { id: 1 } };
 
 ---
 
-## Q46. ❓ Spread operator: what it is and how to use it
+## Q46. ❓ Spread operator and how to use it
 
 Spread (`...`) expands arrays and objects, letting you copy arrays, merge objects, and pass array elements as separate arguments to functions. Object spread creates new objects, which is useful for immutable updates.
 
@@ -43,7 +51,7 @@ Math.max(...numbers);
 
 ---
 
-## Q47. 🌐 Rest parameter: what it is and how to use it
+## Q47. 🌐 Rest parameter and how to use it
 
 Rest (`...`) collects remaining function arguments into an array, letting you handle variable numbers of arguments cleanly. It must be the last parameter in a function signature.
 
@@ -59,7 +67,7 @@ const [first, ...rest] = [1, 2, 3, 4];
 
 ---
 
-## Q48. ❓ Template literals: what they are and how to use them
+## Q48. ❓ Template literals and how to use them
 
 Template literals use backticks (`) instead of quotes and let you put variables and expressions directly inside strings using `${}` syntax. They support multi-line strings and tagged templates let you process strings with custom functions.
 
@@ -93,7 +101,7 @@ const obj = { x: 1 }; obj.x = 2; // ok
 
 ---
 
-## Q50. 🧩 ES modules: what they are and how to use them
+## Q50. 🧩 ES modules and how to use them
 
 ES modules let you split your code into separate files and import/export functions, classes, and variables between them - use `export` to share things and `import` to use them. Default exports are values, named exports are references.
 
@@ -113,7 +121,7 @@ import Calculator, { add } from './math.js';
 
 ---
 
-## Q51. ❓ Generators: what they are and how to use them
+## Q51. ❓ Generators and how to use them
 
 Generators are special functions that can pause and resume, giving you one value at a time when you ask for it - use `function*` and `yield` to create them. They're great for processing large datasets without loading everything into memory and creating infinite sequences efficiently.
 
@@ -157,11 +165,11 @@ for await (const page of fetchPages()) {
 
 ---
 
-## Q53. ❓ Symbols: what they are and how to use them
+## Q53. ❓ Symbols and how to use them
 
-Symbols are unique values that you can use as object property keys to create truly private properties - every symbol is unique, even if they have the same description. They don't appear in `Object.keys()` or `for...in` loops, making them useful for hidden properties.
+Symbols are unique values that you can use as object property keys to create truly private properties - every symbol is unique, even if these have the same description. These don't appear in `Object.keys()` or `for...in` loops, making them useful for hidden properties.
 
-- **Trade-offs**: The catch is thinking symbols with the same description are equal - they're always unique, even with the same description. They're perfect for creating private object properties and special object behaviors like `Symbol.iterator` for making objects work with `for...of` loops, but watch out for debugging - symbols can be harder to inspect.
+- **Trade-offs**: The catch is thinking symbols with the same description are equal - these are always unique, even with the same description. These are perfect for creating private object properties and special object behaviors like `Symbol.iterator` for making objects work with `for...of` loops, but watch out for debugging - symbols can be harder to inspect.
 
 Example:
 
@@ -178,12 +186,12 @@ Object.keys(obj); // ['name'] - symbols hidden
 
 Maps store key-value pairs with any keys (including objects), Sets store unique values, and Weak versions help with memory management by allowing garbage collection of keys. Maps are better than objects when you need object keys or better key handling, Sets are great for removing duplicates.
 
-- **Trade-offs**: The catch is using objects as Maps when you need better key handling - Maps support any key type and have better size tracking. WeakMap keys must be objects and don't prevent garbage collection, which is great for cleanup, but watch out - you can't iterate over WeakMaps or WeakSets, and they don't have a size property.
+- **Trade-offs**: The catch is using objects as Maps when you need better key handling - Maps support any key type and have better size tracking. WeakMap keys must be objects and don't prevent garbage collection, which is great for cleanup, but watch out - you can't iterate over WeakMaps or WeakSets, and these don't have a size property.
 
 Example:
 
 ```js
-const map = new Map([['a', 1]]);
+const map = new Map(['a', 1]);
 map.set('b', 2);
 console.log(map.get('a')); // 1
 
@@ -194,8 +202,16 @@ console.log(set.size); // 3 (duplicates removed)
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Objects, Prototypes & Inheritance](3%29%20Objects%2C%20Prototypes%20%26%20Inheritance.md)** | **[Next: Promises, Async/Await & Event Loop →](5%29%20Promises%2C%20Async-Await%20%26%20Event%20Loop.md)**
+[Objects, Prototypes & Inheritance](3%29%20Objects%2C%20Prototypes%20%26%20Inheritance.md) • [Home: README](../README.md) • [Promises, Async-Await & Event Loop →](5%29%20Promises%2C%20Async-Await%20%26%20Event%20Loop.md)
+
+[📋 Cheatsheet](JavaScript%20Interview%20Cheatsheet.md]
 
 </div>
+
+---

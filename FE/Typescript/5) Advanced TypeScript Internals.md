@@ -1,10 +1,18 @@
+# 🔬 5. Advanced TypeScript Internals (Q40–53)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Classes & Object-Oriented Features](4%29%20Classes%20%26%20Object-Oriented%20Features.md)** | **[Next: Question List →](question.md)**
+[← Previous: Classes & Object-Oriented Features](4%29%20Classes%20%26%20Object-Oriented%20Features.md) • [Home: README](../README.md)
+
+[📋 Cheatsheet](TypeScript%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 🔬 5. Advanced TypeScript Internals (Q40–53)
+---
 
 ---
 
@@ -290,9 +298,14 @@ Example:
 
 ---
 
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Classes & Object-Oriented Features](4%29%20Classes%20%26%20Object-Oriented%20Features.md)** | **[Next: Question List →](question.md)**
+[← Previous: Classes & Object-Oriented Features](4%29%20Classes%20%26%20Object-Oriented%20Features.md) • [Home: README](../README.md)
+
+[📋 Cheatsheet](TypeScript%20Interview%20Cheatsheet.md)
 
 </div>
 
+---

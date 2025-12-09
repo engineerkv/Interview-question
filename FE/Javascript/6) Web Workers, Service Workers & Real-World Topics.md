@@ -1,10 +1,18 @@
+# 🔌 6. Web Workers, Service Workers & Real-World Topics (Q170–189)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Promises, Async-Await & Event Loop](5%29%20Promises%2C%20Async-Await%20%26%20Event%20Loop.md)** | **[Next: Practical JavaScript Questions →](7%29%20Practical%20JavaScript%20Questions.md)**
+[Promises, Async-Await & Event Loop](5%29%20Promises%2C%20Async-Await%20%26%20Event%20Loop.md) • [Home: README](../README.md) • [Practical JavaScript Questions →](7%29%20Practical%20JavaScript%20Questions.md)
+
+[📋 Cheatsheet](JavaScript%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 🔌 6. Web Workers, Service Workers & Real-World Topics (Q170–189)
+---
 
 ---
 
@@ -53,8 +61,8 @@ Example:
 
 ```js
 worker.postMessage({ type: 'CALCULATE', data: numbers });
-worker.onmessage = e => { 
-  if (e.data.type === 'RESULT') console.log(e.data.result); 
+worker.onmessage = e => {
+  if (e.data.type === 'RESULT') console.log(e.data.result);
 };
 worker.onerror = e => console.error('Worker error:', e);
 
@@ -89,7 +97,7 @@ Example:
 
 ```js
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open('v1').then(cache => 
+  e.waitUntil(caches.open('v1').then(cache =>
     cache.addAll(['/', '/styles.css', '/script.js'])));
 });
 
@@ -134,10 +142,10 @@ Example:
 
 ```js
 self.addEventListener('fetch', e => {
-  e.respondWith(caches.match(e.request).then(response => 
+  e.respondWith(caches.match(e.request).then(response =>
     response || fetch(e.request).then(fetchResponse => {
-      caches.open('v1').then(cache => 
-        cache.put(e.request, fetchResponse.clone())); 
+      caches.open('v1').then(cache =>
+        cache.put(e.request, fetchResponse.clone()));
       return fetchResponse;
     })));
 });
@@ -175,12 +183,12 @@ Use Service Worker events for background sync and push notifications when the ap
 Example:
 
 ```js
-self.addEventListener('sync', e => { 
-  if (e.tag === 'background-sync') e.waitUntil(doBackgroundWork()); 
+self.addEventListener('sync', e => {
+  if (e.tag === 'background-sync') e.waitUntil(doBackgroundWork());
 });
-self.addEventListener('push', e => { 
-  const data = e.data.json(); 
-  self.registration.showNotification(data.title, { body: data.body }); 
+self.addEventListener('push', e => {
+  const data = e.data.json();
+  self.registration.showNotification(data.title, { body: data.body });
 });
 
 ```
@@ -196,7 +204,7 @@ Use `navigator.serviceWorker.getRegistrations()` to find and unregister Service 
 Example:
 
 ```js
-navigator.serviceWorker.getRegistrations().then(regs => 
+navigator.serviceWorker.getRegistrations().then(regs =>
   regs.forEach(reg => reg.unregister()));
 
 ```
@@ -387,19 +395,27 @@ Example:
 
 ```js
 // Tail recursive function
-const factorial = (n, acc = 1) => 
+const factorial = (n, acc = 1) =>
   n <= 1 ? acc : factorial(n - 1, n * acc);
 
 // Non-tail recursive (not optimized)
-const factorialBad = n => 
+const factorialBad = n =>
   n <= 1 ? 1 : n * factorialBad(n - 1);
 
 ```
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Promises, Async-Await & Event Loop](5%29%20Promises%2C%20Async-Await%20%26%20Event%20Loop.md)** | **[Next: Practical JavaScript Questions →](7%29%20Practical%20JavaScript%20Questions.md)**
+[Promises, Async-Await & Event Loop](5%29%20Promises%2C%20Async-Await%20%26%20Event%20Loop.md) • [Home: README](../README.md) • [Practical JavaScript Questions →](7%29%20Practical%20JavaScript%20Questions.md)
+
+[📋 Cheatsheet](JavaScript%20Interview%20Cheatsheet.md]
 
 </div>
+
+---

@@ -1,18 +1,26 @@
+# ⚛️ 1. React Fundamentals (Q1–17)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: README](../README.md)** | **[Next: React Hooks →](2%29%20React%20Hooks.md)**
+[Home: README](../README.md) • [Next: React Hooks →](2%29%20React%20Hooks.md)
+
+[📋 Cheatsheet](React%20Interview%20Cheatsheet.md)
 
 </div>
 
-# ⚛️ 1. React Fundamentals (Q1–17)
+---
 
 ---
 
 ## Q1. 💡 React and its purpose
 
-React is a JavaScript library for building user interfaces using reusable components and a virtual DOM - it simplifies UI development by letting you write declarative code instead of manually manipulating the browser's DOM. React uses a component-based architecture where UI is built by composing reusable pieces, and the virtual DOM compares trees in memory before touching the real DOM, making updates fast and predictable.
+React is a JavaScript library for building user interfaces using reusable components and a virtual DOM - it simplifies UI development by allowing you to write declarative code instead of manually manipulating the browser's DOM. React uses a component-based architecture where UI is built by composing reusable pieces, and the virtual DOM compares trees in memory before touching the real DOM, making updates fast and predictable.
 
-- **Trade-offs**: The catch is trying to manipulate DOM directly defeats React's purpose - let React handle updates through state changes. React's declarative approach simplifies UI updates compared to imperative DOM manipulation, especially in complex apps, but it trades direct DOM control for predictable, maintainable UI development at scale.
+- **Trade-offs**: The catch is trying to manipulate DOM directly defeats React's purpose - allow React to handle updates through state changes. React's declarative approach simplifies UI updates compared to imperative DOM manipulation, especially in complex apps, but it trades direct DOM control for predictable, maintainable UI development at scale.
 
 Example:
 
@@ -136,7 +144,7 @@ function TodoList({ todos }) {
 
 Controlled components use React state for form values, giving React full control, while uncontrolled components use DOM refs to read values, letting the DOM own the state. Controlled means React owns the value, uncontrolled means DOM owns it.
 
-- **Trade-offs**: The catch is mixing controlled and uncontrolled patterns in the same form - prefer controlled components, they're easier to test, validate, and integrate with React's ecosystem. Controlled components give React full control, making forms predictable and testable, but watch out - they require more code and state management compared to uncontrolled components.
+- **Trade-offs**: The catch is mixing controlled and uncontrolled patterns in the same form - prefer controlled components, these are easier to test, validate, and integrate with React's ecosystem. Controlled components give React full control, making forms predictable and testable, but watch out - these require more code and state management compared to uncontrolled components.
 
 Example:
 
@@ -154,7 +162,7 @@ function ControlledForm() {
 
 Fragments let you group multiple elements without adding extra DOM nodes - they solve React's "components must return one element" limitation without breaking CSS layouts. Fragments return multiple elements without wrapper divs that break CSS layouts.
 
-- **Trade-offs**: The catch is wrapping everything in divs when Fragments would preserve layout - use React.Fragment with key prop for lists, `<>` doesn't support keys. Fragments solve the "one element" limitation elegantly without polluting the DOM, but watch out - you can't style or add event handlers to Fragments since they don't render anything.
+- **Trade-offs**: The catch is wrapping everything in divs when Fragments would preserve layout - use React.Fragment with key prop for lists, `<>` doesn't support keys. Fragments solve the "one element" limitation elegantly without polluting the DOM, but watch out - you can't style or add event handlers to Fragments since these don't render anything.
 
 Example:
 
@@ -209,46 +217,46 @@ class UserProfile extends React.Component {
     super(props);
     this.state = { user: null, loading: true };
   }
-  
+
   static getDerivedStateFromProps(props, state) {
     // Update state based on props
     return null;
   }
-  
+
   shouldComponentUpdate(nextProps, nextState) {
     // Return false to prevent re-render
     return nextState.loading !== this.state.loading;
   }
-  
+
   componentDidMount() {
     fetch('/api/user')
       .then(r => r.json())
       .then(user => this.setState({ user, loading: false }));
   }
-  
+
   getSnapshotBeforeUpdate(prevProps, prevState) {
     // Capture info before DOM updates
     return null;
   }
-  
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     // Run after update completes
   }
-  
+
   componentWillUnmount() {
     // Cleanup subscriptions, timers
   }
-  
+
   static getDerivedStateFromError(error) {
     // Update state to show error UI
     return { hasError: true };
   }
-  
+
   componentDidCatch(error, errorInfo) {
     // Log error to error reporting service
     console.error('Error caught:', error, errorInfo);
   }
-  
+
   render() {
     if (this.state.hasError) {
       return <div>Something went wrong</div>;
@@ -296,14 +304,14 @@ function App() {
   const [isPending, startTransition] = useTransition();
   const [input, setInput] = useState('');
   const [list, setList] = useState([]);
-  
+
   const handleChange = (e) => {
     setInput(e.target.value); // Urgent update
     startTransition(() => {
       setList(expensiveFilter(e.target.value)); // Non-urgent update
     });
   };
-  
+
   return (
     <div>
       <input value={input} onChange={handleChange} />
@@ -317,7 +325,7 @@ function App() {
 
 ---
 
-## Q13. ❓ React Portals: what they are and when to use them
+## Q13. ❓ React Portals and when to use them
 
 React Portals render children into a DOM node outside the parent component - use them for modals, tooltips, and overlays that need to escape parent z-index constraints. Render children into different DOM node while keeping React tree structure.
 
@@ -344,7 +352,7 @@ function Modal({ isOpen, onClose, children }) {
 
 ---
 
-## Q14. ⚠️ Error Boundaries: what they are and how to implement them
+## Q14. ⚠️ Error Boundaries and how to implement them
 
 Error Boundaries catch JavaScript errors in child components and display fallback UI - only class components can be Error Boundaries currently, though hooks support is coming. Catch errors in child component tree and prevent entire app from crashing.
 
@@ -472,9 +480,16 @@ function App() {
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: README](../README.md)** | **[Next: React Hooks →](2%29%20React%20Hooks.md)**
+[Home: README](../README.md) • [Next: React Hooks →](2%29%20React%20Hooks.md)
+
+[📋 Cheatsheet](React%20Interview%20Cheatsheet.md]
 
 </div>
 
+---

@@ -1,10 +1,18 @@
+# ⚡ 3. Functions & Advanced Type Features (Q22–31)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Type System & Interfaces](2%29%20Type%20System%20%26%20Interfaces.md)** | **[Next: Classes & Object-Oriented Features →](4%29%20Classes%20%26%20Object-Oriented%20Features.md)**
+[← Previous: Type System & Interfaces](2%29%20Type%20System%20%26%20Interfaces.md) • [Home: README](../README.md) • [Next: Classes & Object-Oriented Features →](4%29%20Classes%20%26%20Object-Oriented%20Features.md)
+
+[📋 Cheatsheet](TypeScript%20Interview%20Cheatsheet.md)
 
 </div>
 
-# ⚡ 3. Functions & Advanced Type Features (Q22–31)
+---
 
 ---
 
@@ -163,8 +171,8 @@ Example:
 ```typescript
 type IsString<T> = T extends string ? true : false;
 
-type ApiResponse<T> = T extends string 
-  ? { message: T } 
+type ApiResponse<T> = T extends string
+  ? { message: T }
   : { data: T };
 
 ```
@@ -239,9 +247,14 @@ type UserAddress = User["address"]; // { street: string; city: string; }
 
 ---
 
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Type System & Interfaces](2%29%20Type%20System%20%26%20Interfaces.md)** | **[Next: Classes & Object-Oriented Features →](4%29%20Classes%20%26%20Object-Oriented%20Features.md)**
+[← Previous: Type System & Interfaces](2%29%20Type%20System%20%26%20Interfaces.md) • [Home: README](../README.md) • [Next: Classes & Object-Oriented Features →](4%29%20Classes%20%26%20Object-Oriented%20Features.md)
+
+[📋 Cheatsheet](TypeScript%20Interview%20Cheatsheet.md)
 
 </div>
 
+---

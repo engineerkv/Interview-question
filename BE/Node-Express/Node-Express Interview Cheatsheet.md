@@ -1,49 +1,75 @@
 # 🚀 Node.js + Express.js Interview Cheatsheet
 
 > **⏱️ Review Time: 20-25 minutes** | **Priority: ⭐⭐⭐ Critical** | Essential Node.js and Express.js concepts for interviews
-> 
-> **Coverage: Q1-Q100** (100 questions across 10 topics)
+>
+> **Coverage: Q1-Q98** (98 questions across 9 topics)
 
 **Quick Review Checklist:**
+
 - [ ] Node.js Fundamentals (Event Loop, V8, Non-blocking I/O)
+
 - [ ] Modules & Architecture (CommonJS vs ES Modules, Project Structure)
+
 - [ ] Asynchronous Patterns (Promises, Async/Await, Event Emitter)
+
 - [ ] Streams & Buffers (Types, Backpressure, Piping)
+
 - [ ] Express.js Core (Middleware, Routing, Error Handling)
+
 - [ ] REST APIs (Validation, Pagination, File Uploads)
+
 - [ ] Security & Authentication (JWT, OAuth, CORS, Helmet)
+
 - [ ] Performance & Optimization (Clustering, Caching, Monitoring)
+
 - [ ] Testing & Debugging (Jest, Supertest, Chrome DevTools)
+
 - [ ] Deployment (Docker, CI/CD, Cloud Deployment)
 
 ---
 
 ## 📋 **Question Coverage**
 
-- **Q1-Q10**: Node.js Fundamentals
-- **Q11-Q20**: Modules and Project Architecture
-- **Q21-Q30**: Asynchronous Patterns & Event Emitter
-- **Q31-Q40**: Streams & Buffers
-- **Q41-Q50**: Node.js Internals & Performance
-- **Q51-Q60**: Express.js Core Concepts
-- **Q61-Q70**: REST APIs & Practical Server Scenarios
-- **Q71-Q80**: Authentication, Security & Encryption
-- **Q81-Q90**: Performance, Optimization, Scaling & Monitoring
-- **Q91-Q100**: Testing, Debugging & Deployment
+- **Q1-Q18**: Node.js Fundamentals & Modules
+
+- **Q19-Q28**: Asynchronous Patterns & Event Emitter
+
+- **Q29-Q38**: Streams & Buffers
+
+- **Q39-Q49**: Node.js Internals & Performance
+
+- **Q50-Q59**: Express.js Core Concepts
+
+- **Q60-Q69**: REST APIs & Practical Server Scenarios
+
+- **Q70-Q79**: Authentication, Security & Encryption
+
+- **Q80-Q88**: Performance, Optimization, Scaling & Monitoring
+
+- **Q89-Q98**: Testing, Debugging & Deployment
 
 ---
 
 ## 📋 Table of Contents
 
 - [Node.js Fundamentals](#nodejs-fundamentals)
+
 - [Modules & Architecture](#modules--architecture)
+
 - [Asynchronous Patterns](#asynchronous-patterns)
+
 - [Streams & Buffers](#streams--buffers)
+
 - [Express.js Core](#expressjs-core)
+
 - [REST APIs](#rest-apis)
+
 - [Security & Authentication](#security--authentication)
+
 - [Performance & Optimization](#performance--optimization)
+
 - [Testing & Deployment](#testing--deployment)
+
 - [Common Patterns](#common-patterns)
 
 ---
@@ -51,6 +77,9 @@
 ## Node.js Fundamentals
 
 ### Event Loop Phases
+
+**Definition:** Node.js event loop processes callbacks in six phases: timers, pending callbacks, idle/prepare, poll, check, and close callbacks, enabling non-blocking I/O.
+
 ```javascript
 // 1. Timers (setTimeout, setInterval)
 // 2. Pending callbacks (I/O callbacks)
@@ -58,9 +87,13 @@
 // 4. Poll (fetch new I/O events)
 // 5. Check (setImmediate callbacks)
 // 6. Close callbacks (close events)
+
 ```
 
 ### Process vs Worker Threads
+
+**Definition:** Clusters create separate processes with isolated memory; worker threads share memory within the same process, ideal for CPU-intensive tasks.
+
 ```javascript
 // Clusters - separate processes
 const cluster = require('cluster');
@@ -73,9 +106,13 @@ if (cluster.isMaster) {
 // Worker Threads - same process
 const { Worker } = require('worker_threads');
 const worker = new Worker('./cpu-task.js');
+
 ```
 
 ### Memory Management
+
+**Definition:** Node.js uses V8's garbage collector to manage heap memory; monitor RSS and heap usage to detect memory leaks and optimize performance.
+
 ```javascript
 // Monitor memory usage
 const usage = process.memoryUsage();
@@ -86,6 +123,7 @@ console.log({
 
 // Force garbage collection (if enabled)
 if (global.gc) global.gc();
+
 ```
 
 ---
@@ -93,6 +131,9 @@ if (global.gc) global.gc();
 ## Modules & Architecture
 
 ### CommonJS vs ES Modules
+
+**Definition:** CommonJS uses require/module.exports for synchronous loading; ES modules use import/export for static analysis and tree-shaking.
+
 ```javascript
 // CommonJS
 const fs = require('fs');
@@ -101,19 +142,28 @@ module.exports = { readFile: fs.readFile };
 // ES Modules
 import fs from 'fs';
 export { readFile: fs.readFile };
+
 ```
 
 ### Module Resolution
+
+**Definition:** Node.js resolves modules in order: core modules, local files, node_modules, and package.json main field, enabling organized code structure.
+
 ```javascript
 // Resolution order:
 // 1. Core modules (fs, http, path)
 // 2. Local files (./utils, ../config)
 // 3. node_modules directories
 // 4. package.json main field
+
 ```
 
 ### Project Structure
+
+**Definition:** Organize code into controllers (handlers), models (data), services (business logic), middleware, routes, utils, and config for maintainability.
+
 ```
+
 src/
   controllers/     # Route handlers
   models/         # Data models
@@ -122,6 +172,7 @@ src/
   routes/         # Route definitions
   utils/          # Helper functions
   config/         # Configuration
+
 ```
 
 ---
@@ -129,6 +180,9 @@ src/
 ## Asynchronous Patterns
 
 ### Promises
+
+**Definition:** Promises represent eventual completion of async operations with .then() for success, .catch() for errors, and .finally() for cleanup.
+
 ```javascript
 // Promise creation
 const promise = new Promise((resolve, reject) => {
@@ -140,9 +194,13 @@ promise
   .then(result => console.log(result))
   .catch(error => console.error(error))
   .finally(() => console.log('Done'));
+
 ```
 
 ### Async/Await
+
+**Definition:** Syntactic sugar over promises that makes asynchronous code look synchronous, improving readability and error handling with try/catch.
+
 ```javascript
 async function fetchData() {
   try {
@@ -154,9 +212,13 @@ async function fetchData() {
     throw error;
   }
 }
+
 ```
 
 ### Event Emitter
+
+**Definition:** Pattern for emitting and listening to custom events, enabling decoupled communication between components using .on() and .emit().
+
 ```javascript
 const EventEmitter = require('events');
 class MyEmitter extends EventEmitter {}
@@ -166,6 +228,7 @@ myEmitter.on('data', (data) => {
   console.log('Received:', data);
 });
 myEmitter.emit('data', 'Hello World!');
+
 ```
 
 ---
@@ -173,6 +236,9 @@ myEmitter.emit('data', 'Hello World!');
 ## Streams & Buffers
 
 ### Stream Types
+
+**Definition:** Streams process data in chunks: Readable (source), Writable (destination), Transform (modify), and Duplex (bidirectional) for efficient I/O.
+
 ```javascript
 const { Readable, Writable, Transform } = require('stream');
 
@@ -196,9 +262,13 @@ const transform = new Transform({
     callback();
   }
 });
+
 ```
 
 ### File Streaming
+
+**Definition:** Process large files efficiently by reading/writing in chunks using streams, reducing memory usage and enabling real-time processing.
+
 ```javascript
 const fs = require('fs');
 
@@ -211,9 +281,13 @@ const zlib = require('zlib');
 fs.createReadStream('input.txt')
   .pipe(zlib.createGzip())
   .pipe(fs.createWriteStream('output.txt.gz'));
+
 ```
 
 ### Buffer Operations
+
+**Definition:** Buffers handle binary data in Node.js; convert between encodings (UTF-8, base64, hex) and manipulate raw bytes efficiently.
+
 ```javascript
 // Create buffer
 const buffer = Buffer.from('Hello World', 'utf8');
@@ -223,6 +297,7 @@ buffer.toString('base64');
 buffer.toString('hex');
 buffer.length;
 buffer.slice(0, 5);
+
 ```
 
 ---
@@ -230,6 +305,9 @@ buffer.slice(0, 5);
 ## Express.js Core
 
 ### Basic Setup
+
+**Definition:** Express.js minimal web framework setup with JSON/URL-encoded middleware, route handlers, and server listening on a port.
+
 ```javascript
 const express = require('express');
 const app = express();
@@ -246,9 +324,13 @@ app.get('/', (req, res) => {
 app.listen(3000, () => {
   console.log('Server running on port 3000');
 });
+
 ```
 
 ### Middleware
+
+**Definition:** Functions that execute between request and response, enabling logging, authentication, error handling, and request modification.
+
 ```javascript
 // Custom middleware
 function logger(req, res, next) {
@@ -265,9 +347,13 @@ app.use((err, req, res, next) => {
 // Router-level middleware
 const router = express.Router();
 router.use(logger);
+
 ```
 
 ### Route Parameters
+
+**Definition:** Extract dynamic values from URL paths (:id) and query strings (?page=1) to handle variable route segments and filtering.
+
 ```javascript
 // Route parameters
 app.get('/users/:id', (req, res) => {
@@ -280,6 +366,7 @@ app.get('/search', (req, res) => {
   const { q, page = 1, limit = 10 } = req.query;
   res.json({ query: q, page, limit });
 });
+
 ```
 
 ---
@@ -287,6 +374,9 @@ app.get('/search', (req, res) => {
 ## REST APIs
 
 ### HTTP Methods
+
+**Definition:** RESTful operations: GET (read), POST (create), PUT (update/replace), DELETE (remove) following REST principles for API design.
+
 ```javascript
 // GET - Read
 app.get('/api/users', (req, res) => {
@@ -311,9 +401,13 @@ app.delete('/api/users/:id', (req, res) => {
   const { id } = req.params;
   res.status(204).send();
 });
+
 ```
 
 ### Status Codes
+
+**Definition:** HTTP status codes indicate request outcome: 2xx (success), 4xx (client errors), 5xx (server errors) for proper API communication.
+
 ```javascript
 // Success
 res.status(200).json(data);  // OK
@@ -328,9 +422,13 @@ res.status(404).json({ error: 'Not Found' });
 
 // Server Errors
 res.status(500).json({ error: 'Internal Server Error' });
+
 ```
 
 ### Input Validation
+
+**Definition:** Validate and sanitize user input using express-validator to prevent injection attacks, ensure data integrity, and provide clear error messages.
+
 ```javascript
 const { body, validationResult } = require('express-validator');
 
@@ -346,6 +444,7 @@ const validateUser = [
     next();
   }
 ];
+
 ```
 
 ---
@@ -353,6 +452,9 @@ const validateUser = [
 ## Security & Authentication
 
 ### JWT Authentication
+
+**Definition:** Stateless authentication using JSON Web Tokens (JWT) containing user claims, signed with a secret, enabling secure API access without sessions.
+
 ```javascript
 const jwt = require('jsonwebtoken');
 
@@ -367,18 +469,22 @@ const token = jwt.sign(
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
-  
+
   if (!token) return res.sendStatus(401);
-  
+
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) return res.sendStatus(403);
     req.user = user;
     next();
   });
 }
+
 ```
 
 ### Password Hashing
+
+**Definition:** Hash passwords with bcrypt using salt rounds to prevent rainbow table attacks and ensure passwords are never stored in plain text.
+
 ```javascript
 const bcrypt = require('bcrypt');
 
@@ -388,9 +494,13 @@ const hashedPassword = await bcrypt.hash(password, saltRounds);
 
 // Verify password
 const isValid = await bcrypt.compare(password, hashedPassword);
+
 ```
 
 ### Security Headers
+
+**Definition:** Use Helmet for security headers, CORS for cross-origin control, and rate limiting to protect against common web vulnerabilities and abuse.
+
 ```javascript
 const helmet = require('helmet');
 app.use(helmet());
@@ -409,6 +519,7 @@ const limiter = rateLimit({
   max: 100 // limit each IP to 100 requests per windowMs
 });
 app.use('/api/', limiter);
+
 ```
 
 ---
@@ -416,6 +527,9 @@ app.use('/api/', limiter);
 ## Performance & Optimization
 
 ### Caching
+
+**Definition:** Store frequently accessed data in memory (Map) or Redis to reduce database queries, improve response times, and lower server load.
+
 ```javascript
 // In-memory cache
 const cache = new Map();
@@ -424,7 +538,7 @@ app.get('/api/data', (req, res) => {
   if (cache.has(cacheKey)) {
     return res.json(cache.get(cacheKey));
   }
-  
+
   const data = fetchData();
   cache.set(cacheKey, data);
   res.json(data);
@@ -437,18 +551,22 @@ const client = redis.createClient();
 app.get('/api/users/:id', async (req, res) => {
   const userId = req.params.id;
   const cached = await client.get(`user:${userId}`);
-  
+
   if (cached) {
     return res.json(JSON.parse(cached));
   }
-  
+
   const user = await getUserById(userId);
   await client.setex(`user:${userId}`, 300, JSON.stringify(user));
   res.json(user);
 });
+
 ```
 
 ### Database Optimization
+
+**Definition:** Use connection pooling to reuse database connections, implement pagination with LIMIT/OFFSET, and optimize queries with proper indexing.
+
 ```javascript
 // Connection pooling
 const mysql = require('mysql2/promise');
@@ -464,17 +582,21 @@ const pool = mysql.createPool({
 app.get('/api/users', async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
   const offset = (page - 1) * limit;
-  
+
   const [rows] = await pool.execute(
     'SELECT id, name, email FROM users WHERE active = ? LIMIT ? OFFSET ?',
     [1, limit, offset]
   );
-  
+
   res.json({ users: rows });
 });
+
 ```
 
 ### Clustering
+
+**Definition:** Fork multiple Node.js processes (one per CPU core) to utilize all cores, improve performance, and increase application reliability.
+
 ```javascript
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
@@ -483,7 +605,7 @@ if (cluster.isMaster) {
   for (let i = 0; i < numCPUs; i++) {
     cluster.fork();
   }
-  
+
   cluster.on('exit', (worker) => {
     console.log(`Worker ${worker.process.pid} died`);
     cluster.fork();
@@ -491,6 +613,7 @@ if (cluster.isMaster) {
 } else {
   require('./app.js');
 }
+
 ```
 
 ---
@@ -498,6 +621,9 @@ if (cluster.isMaster) {
 ## Testing & Deployment
 
 ### Unit Testing
+
+**Definition:** Test API endpoints with Supertest and Jest to verify routes, status codes, response bodies, and error handling for reliable applications.
+
 ```javascript
 const request = require('supertest');
 const app = require('../app');
@@ -507,23 +633,27 @@ describe('User API', () => {
     const response = await request(app)
       .get('/api/users')
       .expect(200);
-    
+
     expect(response.body).toHaveProperty('users');
   });
-  
+
   test('POST /api/users should create user', async () => {
     const userData = { name: 'John', email: 'john@example.com' };
     const response = await request(app)
       .post('/api/users')
       .send(userData)
       .expect(201);
-    
+
     expect(response.body).toHaveProperty('id');
   });
 });
+
 ```
 
 ### Docker
+
+**Definition:** Containerize applications with Docker using multi-stage builds, minimal base images, and non-root users for secure, portable deployments.
+
 ```dockerfile
 FROM node:18-alpine
 WORKDIR /app
@@ -533,9 +663,13 @@ COPY . .
 USER node
 EXPOSE 3000
 CMD ["npm", "start"]
+
 ```
 
 ### Environment Configuration
+
+**Definition:** Manage environment-specific settings (dev, staging, production) using environment variables and configuration objects for flexible deployments.
+
 ```javascript
 const config = {
   development: {
@@ -550,6 +684,7 @@ const config = {
 
 const env = process.env.NODE_ENV || 'development';
 module.exports = config[env];
+
 ```
 
 ---
@@ -557,6 +692,9 @@ module.exports = config[env];
 ## Common Patterns
 
 ### Error Handling
+
+**Definition:** Implement global error handlers and try/catch blocks to gracefully handle errors, log issues, and return appropriate HTTP status codes.
+
 ```javascript
 // Global error handler
 app.use((err, req, res, next) => {
@@ -576,20 +714,24 @@ app.get('/api/data', async (req, res, next) => {
     next(error);
   }
 });
+
 ```
 
 ### Graceful Shutdown
+
+**Definition:** Handle SIGTERM/SIGINT signals to close server connections, finish processing requests, and clean up resources before termination.
+
 ```javascript
 let server;
 
 function gracefulShutdown(signal) {
   console.log(`Received ${signal}. Starting graceful shutdown...`);
-  
+
   server.close(() => {
     console.log('HTTP server closed');
     process.exit(0);
   });
-  
+
   setTimeout(() => {
     console.error('Could not close connections in time');
     process.exit(1);
@@ -598,9 +740,13 @@ function gracefulShutdown(signal) {
 
 process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
 process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+
 ```
 
 ### Health Check
+
+**Definition:** Endpoint that reports application status, uptime, and memory usage for monitoring, load balancers, and orchestration systems.
+
 ```javascript
 app.get('/health', (req, res) => {
   const health = {
@@ -609,9 +755,10 @@ app.get('/health', (req, res) => {
     uptime: process.uptime(),
     memory: process.memoryUsage()
   };
-  
+
   res.json(health);
 });
+
 ```
 
 ---
@@ -619,14 +766,23 @@ app.get('/health', (req, res) => {
 ## 🎯 Quick Tips
 
 - **Always use async/await** for better error handling
+
 - **Implement proper logging** for debugging
+
 - **Use environment variables** for configuration
+
 - **Validate input data** to prevent security issues
+
 - **Implement rate limiting** to prevent abuse
+
 - **Use connection pooling** for database connections
+
 - **Monitor memory usage** to prevent leaks
+
 - **Test error scenarios** not just happy paths
+
 - **Use HTTPS** in production
+
 - **Keep dependencies updated** for security
 
 ---

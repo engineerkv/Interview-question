@@ -1,10 +1,18 @@
+# 🎯 2. Type System & Interfaces (Q10–21)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: TypeScript Fundamentals](1%29%20TypeScript%20Fundamentals.md)** | **[Next: Functions & Advanced Type Features →](3%29%20Functions%20%26%20Advanced%20Type%20Features.md)**
+[← Previous: TypeScript Fundamentals](1%29%20TypeScript%20Fundamentals.md) • [Home: README](../README.md) • [Next: Functions & Advanced Type Features →](3%29%20Functions%20%26%20Advanced%20Type%20Features.md)
+
+[📋 Cheatsheet](TypeScript%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 🎯 2. Type System & Interfaces (Q10–21)
+---
 
 ---
 
@@ -301,9 +309,14 @@ type PersonEmployee = Person & Employee; // Must have all properties
 
 ---
 
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: TypeScript Fundamentals](1%29%20TypeScript%20Fundamentals.md)** | **[Next: Functions & Advanced Type Features →](3%29%20Functions%20%26%20Advanced%20Type%20Features.md)**
+[← Previous: TypeScript Fundamentals](1%29%20TypeScript%20Fundamentals.md) • [Home: README](../README.md) • [Next: Functions & Advanced Type Features →](3%29%20Functions%20%26%20Advanced%20Type%20Features.md)
+
+[📋 Cheatsheet](TypeScript%20Interview%20Cheatsheet.md)
 
 </div>
 
+---

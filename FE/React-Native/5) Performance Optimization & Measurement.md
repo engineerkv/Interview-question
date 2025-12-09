@@ -1,10 +1,18 @@
+# 5. Performance Optimization & Measurement (Q41–50)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Navigation & Lifecycle](4%29%20Navigation%20%26%20Lifecycle.md)** | **[Next: State Management & Data Handling →](6%29%20State%20Management%20%26%20Data%20Handling.md)**
+[Navigation & Lifecycle](4%29%20Navigation%20%26%20Lifecycle.md) • [Home: README](../README.md) • [State Management & Data Handling →](6%29%20State%20Management%20%26%20Data%20Handling.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 5. Performance Optimization & Measurement (Q41–50)
+---
 
 ---
 
@@ -109,7 +117,7 @@ function VirtualizedList({ data }) {
       <Text>{item.title}</Text>
     </View>
   ), []);
-  
+
   return (
     <FlatList
       data={data}
@@ -175,7 +183,7 @@ function OptimizedFlatList({ data }) {
     offset: ITEM_HEIGHT * index,
     index,
   }), []);
-  
+
   return (
     <FlatList
       data={data}
@@ -204,7 +212,7 @@ const ListItem = React.memo(({ item, onPress }) => {
   const handlePress = useCallback(() => {
     onPress(item.id);
   }, [item.id, onPress]);
-  
+
   return (
     <TouchableOpacity onPress={handlePress}>
       <Text>{item.title}</Text>
@@ -229,7 +237,7 @@ function PaginatedList() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-  
+
   const loadMoreData = useCallback(async () => {
     if (loading) return;
     setLoading(true);
@@ -238,7 +246,7 @@ function PaginatedList() {
     setPage(prev => prev + 1);
     setLoading(false);
   }, [page, loading]);
-  
+
   return (
     <FlatList
       data={data}
@@ -289,12 +297,12 @@ Example:
 // Fabric enables synchronous rendering
 function FabricComponent() {
   const [count, setCount] = useState(0);
-  
+
   const handlePress = () => {
     setCount(count + 1);
     // UI updates synchronously with Fabric
   };
-  
+
   return (
     <View>
       <Text>{count}</Text>
@@ -307,3 +315,16 @@ function FabricComponent() {
 
 ---
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Navigation & Lifecycle](4%29%20Navigation%20%26%20Lifecycle.md) • [Home: README](../README.md) • [State Management & Data Handling →](6%29%20State%20Management%20%26%20Data%20Handling.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
+
+</div>
+
+---

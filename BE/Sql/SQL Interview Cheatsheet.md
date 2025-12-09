@@ -1,14 +1,19 @@
 # 🧠 SQL Interview Cheatsheet
 
 > **⏱️ Review Time: 15-20 minutes** | **Priority: ⭐⭐⭐ Critical** | Essential SQL concepts for interviews
-> 
+>
 > **Coverage: Q1-Q50** (50 questions across 5 topics)
 
 **Quick Review Checklist:**
+
 - [ ] SQL Fundamentals (DDL, DML, DCL, TCL, Constraints)
+
 - [ ] Querying & Joins (INNER, LEFT, RIGHT, FULL, CROSS, Subqueries, CTEs)
+
 - [ ] Filtering & Aggregation (WHERE, HAVING, GROUP BY, Window Functions)
+
 - [ ] Database Design (Normalization, Indexing, Query Optimization)
+
 - [ ] Transactions & Concurrency (ACID, Isolation Levels, Deadlocks, Stored Procedures)
 
 ---
@@ -16,9 +21,13 @@
 ## 📋 **Question Coverage**
 
 - **Q1-Q10**: SQL Fundamentals
+
 - **Q11-Q20**: Querying & Joins
+
 - **Q21-Q30**: Filtering, Grouping & Aggregation
+
 - **Q31-Q40**: Database Design, Indexing & Performance
+
 - **Q41-Q50**: Transactions, Concurrency & Stored Logic
 
 ---
@@ -115,32 +124,48 @@
 ## 🎨 **Common Query Patterns**
 
 ### **Find Duplicates**
+
+**Definition:** Identify duplicate records by grouping on columns and filtering groups with COUNT(*) > 1 using HAVING clause.
+
 ```sql
 SELECT column, COUNT(*)
 FROM table
 GROUP BY column
 HAVING COUNT(*) > 1;
+
 ```
 
 ### **Second Highest Value**
+
+**Definition:** Find the second maximum value using subquery to exclude the maximum, then select the new maximum from remaining values.
+
 ```sql
 SELECT MAX(column)
 FROM table
 WHERE column < (SELECT MAX(column) FROM table);
+
 ```
 
 ### **Pagination**
+
+**Definition:** Retrieve subset of results using LIMIT for page size and OFFSET to skip previous pages, enabling efficient data browsing.
+
 ```sql
 SELECT * FROM table
 ORDER BY column
 LIMIT 10 OFFSET 20;
+
 ```
 
 ### **Running Total**
+
+**Definition:** Calculate cumulative sum using window functions with ROWS UNBOUNDED PRECEDING to sum values from start to current row.
+
 ```sql
 SELECT column,
        SUM(column) OVER (ORDER BY id ROWS UNBOUNDED PRECEDING) as running_total
 FROM table;
+
 ```
 
 ---
@@ -148,21 +173,37 @@ FROM table;
 ## ⚡ **Performance Tips**
 
 ### **Index Best Practices**
+
+**Definition:** Create indexes on frequently queried columns, foreign keys, and WHERE/JOIN conditions to speed up queries while balancing write performance.
+
 - Create indexes on frequently queried columns
+
 - Use composite indexes for multi-column queries
+
 - Most selective columns first in composite indexes
+
 - Avoid indexes on frequently updated columns
 
 ### **Query Optimization**
+
+**Definition:** Improve query performance by using indexes, avoiding SELECT *, limiting result sets, and analyzing execution plans with EXPLAIN.
+
 - Use `INNER JOIN` instead of `WHERE` clauses
+
 - Avoid `SELECT *` - specify needed columns
+
 - Use `EXISTS` instead of `IN` for subqueries
+
 - Use `LIMIT` to restrict result sets
 
 ### **Common Anti-patterns**
+
 - Functions on indexed columns in WHERE clauses
+
 - Correlated subqueries in SELECT statements
+
 - Missing WHERE clauses causing full table scans
+
 - Using `!=` or `<>` instead of `NOT IN`
 
 ---
@@ -170,16 +211,25 @@ FROM table;
 ## 🔍 **Query Analysis**
 
 ### **EXPLAIN Keywords**
+
 - **Seq Scan**: Full table scan (slow)
+
 - **Index Scan**: Using index (fast)
+
 - **Hash Join**: Hash-based join
+
 - **Nested Loop**: Nested loop join
+
 - **Sort**: Sorting operation
 
 ### **Performance Metrics**
+
 - **Cost**: Estimated execution cost
+
 - **Rows**: Number of rows processed
+
 - **Width**: Average row size
+
 - **Time**: Actual execution time
 
 ---
@@ -187,21 +237,33 @@ FROM table;
 ## 🛠️ **Useful Functions**
 
 ### **String Functions**
+
 - `CONCAT()` - Concatenate strings
+
 - `SUBSTRING()` - Extract substring
+
 - `UPPER()`, `LOWER()` - Case conversion
+
 - `TRIM()` - Remove whitespace
 
 ### **Date Functions**
+
 - `NOW()` - Current timestamp
+
 - `DATE()` - Extract date part
+
 - `YEAR()`, `MONTH()`, `DAY()` - Extract date components
+
 - `DATEDIFF()` - Calculate difference
 
 ### **NULL Handling**
+
 - `IS NULL`, `IS NOT NULL` - Check for NULL
+
 - `COALESCE()` - First non-NULL value
+
 - `NULLIF()` - Convert to NULL
+
 - `IFNULL()` - Replace NULL with value
 
 ---
@@ -209,6 +271,7 @@ FROM table;
 ## 📝 **Quick Reference Commands**
 
 ### **Data Manipulation**
+
 ```sql
 -- Insert
 INSERT INTO table (col1, col2) VALUES (val1, val2);
@@ -221,9 +284,11 @@ DELETE FROM table WHERE condition;
 
 -- Select
 SELECT col1, col2 FROM table WHERE condition;
+
 ```
 
 ### **Table Management**
+
 ```sql
 -- Create table
 CREATE TABLE table (col1 INT, col2 VARCHAR(50));
@@ -236,9 +301,11 @@ DROP TABLE table;
 
 -- Create index
 CREATE INDEX idx_name ON table (column);
+
 ```
 
 ### **Transaction Control**
+
 ```sql
 -- Begin transaction
 BEGIN TRANSACTION;
@@ -254,6 +321,7 @@ SAVEPOINT sp1;
 
 -- Rollback to savepoint
 ROLLBACK TO sp1;
+
 ```
 
 ---
@@ -261,22 +329,35 @@ ROLLBACK TO sp1;
 ## 🎯 **Interview Tips**
 
 ### **Common Questions**
+
 1. **Explain normalization** - 1NF, 2NF, 3NF, BCNF
+
 2. **Difference between WHERE and HAVING** - Row vs group filtering
+
 3. **Types of joins** - INNER, LEFT, RIGHT, FULL, CROSS
+
 4. **ACID properties** - Transaction reliability
+
 5. **Index types** - Clustered vs non-clustered
 
 ### **Performance Questions**
+
 1. **Query optimization** - Indexing, query structure
+
 2. **Deadlock prevention** - Lock ordering
+
 3. **Isolation levels** - Concurrency control
+
 4. **Stored procedures vs functions** - When to use each
 
 ### **Practical Questions**
+
 1. **Find duplicates** - GROUP BY with HAVING
+
 2. **Second highest value** - Window functions or subqueries
+
 3. **Pagination** - LIMIT/OFFSET or ROW_NUMBER()
+
 4. **Running totals** - Window functions with OVER clause
 
 ---

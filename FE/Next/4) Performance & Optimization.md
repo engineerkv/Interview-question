@@ -1,18 +1,26 @@
-<div align="center">
-
-**[← Previous: Routing & Navigation](3%29%20Routing%20%26%20Navigation.md)** | **[Next: Architecture & Best Practices →](5%29%20Architecture%20%26%20Best%20Practices.md)**
-
-</div>
-
-# ⚡ 4. Performance & Optimization (Q28–37)
+# ⚡ 4. Performance & Optimization (Q34–43)
 
 ---
 
-## Q28. 💡 Optimizing images with `next/image`
+## 📍 Navigation
 
-`next/image` provides automatic optimization, lazy loading, and responsive images - next/image significantly improves performance. Automatic optimization converts images to modern formats, lazy loading loads images only when in viewport.
+<div align="center">
 
-- **Trade-offs**: The catch is above-fold images load immediately (priority) - shows blur while loading (placeholder). Next-image significantly improves performance, but watch out - serves appropriate size for device (responsive).
+[← Previous: Routing & Navigation](3%29%20Routing%20%26%20Navigation.md) • [Home: README](../README.md) • [Next: Architecture & Best Practices →](5%29%20Architecture%20%26%20Best%20Practices.md)
+
+[📋 Cheatsheet](Next.js%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
+---
+
+## Q34. Optimizing images with `next/image`
+
+`next/image` provides automatic optimization (converts to modern formats), lazy loading (loads only when in viewport), and responsive images (serves appropriate size for device) - significantly improves performance. Use `priority` for above-fold images to load immediately, and `placeholder="blur"` to show blur while loading.
+
+- **Trade-offs**: The catch is `next/image` significantly improves performance with automatic optimization and lazy loading, but watch out - you need to provide width and height for proper layout, and external images need to be configured in `next.config.js`.
 
 Example:
 
@@ -36,11 +44,11 @@ export default function OptimizedImage() {
 
 ---
 
-## Q29. 🔧 Implementing code splitting and lazy loading
+## Q35. Implementing code splitting and lazy loading
 
-`next/dynamic` enables code splitting and lazy loading of components - reduces initial bundle size (performance). Automatically splits code into chunks (code splitting).
+`next/dynamic` enables code splitting (automatically splits code into chunks) and lazy loading of components (loads only when needed) - reduces initial bundle size and improves performance. You can disable SSR for client-only components with `ssr: false`, and show loading UI while component loads.
 
-- **Trade-offs**: The catch is can disable SSR for client-only components - show loading UI while component loads (loading states). Reduces initial bundle size (performance), but watch out - components load only when needed (lazy loading).
+- **Trade-offs**: The catch is code splitting reduces initial bundle size and components load only when needed, but watch out - you need to provide loading states for better UX, and disabling SSR means the component won't be server-rendered.
 
 Example:
 
@@ -56,11 +64,11 @@ const LazyComponent = dynamic(() => import('./HeavyComponent'), {
 
 ---
 
-## Q30. 💡 Using `next/script` for third-party scripts
+## Q36. Using `next/script` for third-party scripts
 
-`next/script` optimizes third-party script loading with different strategies - choose strategy based on script importance. `afterInteractive` (loads after page becomes interactive), `beforeInteractive` (loads before page becomes interactive), `lazyOnload` (loads when browser is idle).
+`next/script` optimizes third-party script loading with different strategies - `afterInteractive` (loads after page becomes interactive), `beforeInteractive` (loads before page becomes interactive), `lazyOnload` (loads when browser is idle), or `worker` (loads in web worker). Choose strategy based on script importance.
 
-- **Trade-offs**: The catch is optimizes script loading for better performance - different strategies for different use cases. Choose strategy based on script importance, but watch out - `worker` strategy loads in web worker.
+- **Trade-offs**: The catch is `next/script` optimizes script loading for better performance with different strategies for different use cases, but watch out - `beforeInteractive` can block page rendering, so use it sparingly for critical scripts only.
 
 Example:
 
@@ -82,11 +90,11 @@ export default function Page() {
 
 ---
 
-## Q31. ⚡ Core Web Vitals and how to optimize them
+## Q37. Core Web Vitals and how to optimize them
 
-Optimize LCP with images and fonts, FID with code splitting, and CLS with proper sizing - Core Web Vitals affect SEO and user experience. LCP (optimize largest content element, usually images), FID (reduce JavaScript execution time), CLS (prevent layout shifts with proper sizing).
+Optimize LCP (Largest Contentful Paint) with `next/image` and `next/font`, FID (First Input Delay) with code splitting to reduce JavaScript execution time, and CLS (Cumulative Layout Shift) with proper sizing and loading states - Core Web Vitals affect SEO and user experience. Load critical resources first with `priority`, and show loading states to prevent layout shifts.
 
-- **Trade-offs**: The catch is show loading states to prevent shifts (skeleton) - use next/image and next/font for optimization. Core Web Vitals affect SEO and user experience, but watch out - load critical resources first (priority).
+- **Trade-offs**: The catch is Core Web Vitals affect SEO and user experience, and you should use `next/image` and `next/font` for optimization, but watch out - monitor Core Web Vitals in production and set performance budgets to track improvements.
 
 Example:
 
@@ -111,11 +119,11 @@ export default function Hero() {
 
 ---
 
-## Q32. ⚡ How SWC improves build performance
+## Q38. How SWC improves build performance
 
-SWC is a fast Rust-based compiler that replaces Babel for faster builds - significantly faster builds (performance). Rust-based compiler, much faster than Babel.
+SWC is a fast Rust-based compiler that replaces Babel for faster builds - significantly faster builds and better minification than Terser. Enabled by default in Next.js 12+, and supports SWC plugins for customization.
 
-- **Trade-offs**: The catch is better minification than Terser - supports SWC plugins. Significantly faster builds (performance), but watch out - enabled by default in Next.js 12+.
+- **Trade-offs**: The catch is SWC provides significantly faster builds and better minification, but watch out - it's enabled by default, so you don't need to configure it, but if you need custom Babel plugins, you might need to use SWC plugins instead.
 
 Example:
 
@@ -129,11 +137,11 @@ const nextConfig = {
 
 ---
 
-## Q33. 🌊 Implementing streaming in SSR
+## Q39. Implementing streaming in SSR
 
-Streaming sends HTML chunks as they're ready, improving Time to First Byte - better perceived performance. Sends HTML chunks as they're ready (streaming).
+Streaming sends HTML chunks as they're ready, improving Time to First Byte (TTFB) and providing better perceived performance - page loads progressively. Use Suspense with fallbacks to enable streaming, allowing slow components to load separately.
 
-- **Trade-offs**: The catch is enables streaming with fallbacks (Suspense) - page loads progressively. Better perceived performance, but watch out - improves Time to First Byte (TTFB).
+- **Trade-offs**: The catch is streaming improves TTFB and provides better perceived performance with progressive loading, but watch out - you need to wrap slow components in Suspense with fallbacks, and not all components can be streamed (client components need hydration).
 
 Example:
 
@@ -155,11 +163,11 @@ export default async function Page() {
 
 ---
 
-## Q34. 💾 Different caching strategies in Next.js
+## Q40. Different caching strategies in Next.js
 
-Use ISR for static content with revalidation and edge caching for global performance - caching improves performance significantly. ISR (Incremental Static Regeneration for static content), Edge caching (cache at edge locations for global performance).
+Use ISR (Incremental Static Regeneration) for static content with revalidation, edge caching for global performance, and revalidation tags for targeted cache invalidation - caching improves performance significantly. Control caching behavior with headers, and update cache at specified intervals with revalidation.
 
-- **Trade-offs**: The catch is target specific cache entries for invalidation (tags) - control caching behavior with headers. Caching improves performance significantly, but watch out - update cache at specified intervals (revalidation).
+- **Trade-offs**: The catch is caching improves performance significantly, and you can target specific cache entries for invalidation with tags, but watch out - you need to understand when to use each strategy (ISR for static content, edge caching for global performance, tags for targeted invalidation).
 
 Example:
 
@@ -168,7 +176,7 @@ Example:
 export async function getStaticProps() {
   const posts = await fetch('https://api.example.com/posts');
   const data = await posts.json();
-  
+
   return {
     props: { data },
     revalidate: 60
@@ -179,11 +187,11 @@ export async function getStaticProps() {
 
 ---
 
-## Q35. 🎨 Optimizing fonts and CSS in Next.js
+## Q41. Optimizing fonts and CSS in Next.js
 
-Use `next/font` for font optimization and critical CSS for faster rendering - reduces layout shifts and improves loading (performance). `next/font` optimizes Google Fonts automatically.
+Use `next/font` for font optimization (optimizes Google Fonts automatically) and inline critical CSS for faster rendering - reduces layout shifts and improves loading performance. Preload important fonts, and control font loading behavior with `font-display` option.
 
-- **Trade-offs**: The catch is inline critical CSS for faster rendering - preload important fonts. Reduces layout shifts and improves loading (performance), but watch out - controls font loading behavior (font-display).
+- **Trade-offs**: The catch is `next/font` reduces layout shifts and improves loading performance, but watch out - you need to configure `font-display` properly (use 'swap' for better UX), and inline critical CSS can increase HTML size slightly.
 
 Example:
 
@@ -207,11 +215,11 @@ export default function RootLayout({ children }) {
 
 ---
 
-## Q36. ⚡ Monitoring performance in Next.js applications
+## Q42. Monitoring performance in Next.js applications
 
-Use Vercel Analytics for Core Web Vitals and Sentry for error monitoring - performance monitoring is essential for optimization. Vercel Analytics (built-in Core Web Vitals monitoring), Google Analytics (comprehensive web analytics), Sentry (error tracking and performance monitoring).
+Use Vercel Analytics for Core Web Vitals monitoring, Google Analytics for comprehensive web analytics, and Sentry for error tracking and performance monitoring - performance monitoring is essential for optimization. Set and monitor performance targets (performance budgets), and track actual user experience with real user monitoring.
 
-- **Trade-offs**: The catch is set and monitor performance targets (performance budgets) - monitor Core Web Vitals in production. Performance monitoring is essential for optimization, but watch out - track actual user experience (real user monitoring).
+- **Trade-offs**: The catch is performance monitoring is essential for optimization, and you should monitor Core Web Vitals in production, but watch out - different tools provide different insights, so choose based on your needs (Vercel Analytics for Next.js-specific metrics, Sentry for errors and performance).
 
 Example:
 
@@ -233,11 +241,11 @@ export default function RootLayout({ children }) {
 
 ---
 
-## Q37. ⚡ Common performance anti-patterns to avoid
+## Q43. Common performance anti-patterns to avoid
 
-Avoid blocking SSR calls, large bundles, and unnecessary client-side JavaScript - avoid these patterns for better performance. Blocking SSR (avoid slow server-side operations), large bundles (use code splitting for heavy libraries).
+Avoid blocking SSR calls (use streaming with Suspense), large bundles (use code splitting for heavy libraries), unnecessary client-side JavaScript (use Server Components when possible), and unnecessary re-renders (optimize with React.memo and useMemo) - monitor bundle size and performance metrics with performance budgets.
 
-- **Trade-offs**: The catch is unnecessary re-renders (optimize with React.memo and useMemo) - monitor bundle size and performance metrics (performance budgets). Avoid these patterns for better performance, but watch out - use Server Components when possible (reduce client-side JS).
+- **Trade-offs**: The catch is avoid these patterns for better performance, and use Server Components when possible to reduce client-side JS, but watch out - over-optimization can make code harder to maintain, so optimize based on actual performance metrics, not assumptions.
 
 Example:
 
@@ -255,9 +263,16 @@ export async function getServerSideProps() {
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Routing & Navigation](3%29%20Routing%20%26%20Navigation.md)** | **[Next: Architecture & Best Practices →](5%29%20Architecture%20%26%20Best%20Practices.md)**
+[3) Routing & Navigation.md](3%29%20Routing%20&%20Navigation.md) • [Home: README](../README.md) • [5) Architecture & Best Practices.md →](5%29%20Architecture%20&%20Best%20Practices.md)
+
+[📋 Cheatsheet](Next.js%20Interview%20Cheatsheet.md]
 
 </div>
 
+---

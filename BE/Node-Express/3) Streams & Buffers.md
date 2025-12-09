@@ -1,12 +1,20 @@
+# 🌊 3. Streams & Buffers (Q29–38)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Asynchronous Patterns & Event Emitter](2%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md)** | **[Next: Node.js Internals & Performance →](4%29%20Node.js%20Internals%20%26%20Performance.md)**
+[← Previous: Asynchronous Patterns & Event Emitter](2%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md) • [Home: Question List](question.md) • [Next: Node.js Internals & Performance →](4%29%20Node.js%20Internals%20%26%20Performance.md)
+
+[📋 Cheatsheet](Node-Express%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 🌊 3. Streams & Buffers (Q30–39)
+---
 
-## Q30. 🌊 Streams in Node.js and why they're useful
+## Q29. 🌊 Streams in Node.js and why they're useful
 
 Streams are objects that allow you to read data from a source or write data to a destination in a continuous fashion, enabling efficient processing of large datasets without loading everything into memory - they process data in chunks instead of loading entire file, are memory efficient for large files or datasets, and can process data as it arrives (real-time). Foundation for many Node.js APIs (HTTP, file system).
 
@@ -22,7 +30,7 @@ readStream.pipe(writeStream);
 
 ```
 
-## Q31. 🌊 Different types of streams
+## Q30. 🌊 Different types of streams
 
 Node.js has four stream types: Readable (data source like files, HTTP requests), Writable (data destination like files, HTTP responses), Duplex (both readable and writable like TCP sockets), and Transform (duplex that modifies data as it flows through like compression, encryption). Each type has specific methods and events.
 
@@ -46,7 +54,7 @@ const writable = new Writable({
 
 ```
 
-## Q32. 🔧 Backpressure and how to handle it
+## Q31. 🔧 Backpressure and how to handle it
 
 Backpressure occurs when data is produced faster than it can be consumed, causing memory issues - it's handled by pausing the readable stream when the writable stream is overwhelmed. Node.js automatically handles backpressure with .pipe(), but you can use .pause() and .resume() for manual control, and monitor 'drain' event to know when to resume.
 
@@ -76,7 +84,7 @@ readable.pipe(writable);
 
 ```
 
-## Q33. 💾 Buffers and how to use them
+## Q32. 💾 Buffers and how to use them
 
 A Buffer is a fixed-size memory allocation for handling binary data in Node.js - it's a fixed-size binary data container that represents raw binary data, similar to arrays but for bytes. Buffers are immutable once created, can be created from strings, arrays, or other buffers, and are used when working with binary data like file operations, network protocols, or image processing.
 
@@ -96,7 +104,7 @@ stream.on('data', (chunk) => {
 
 ```
 
-## Q34. 🌊 Piping streams together
+## Q33. 🌊 Piping streams together
 
 Piping connects streams together so data flows from a readable stream to a writable stream - .pipe() connects readable to writable streams, returns the destination stream for chaining, handles backpressure automatically, and propagates errors from source to destination. Can chain multiple transform streams.
 
@@ -114,7 +122,7 @@ fs.createReadStream('input.txt')
 
 ```
 
-## Q35. 🌊 Handling file operations with streams
+## Q34. 🌊 Handling file operations with streams
 
 Use readable and writable streams with piping to copy large files efficiently, processing data in chunks rather than loading the entire file into memory - it's memory efficient for files larger than available RAM, processes data in chunks (default 64KB), and has automatic backpressure handling. Much faster than readFile/writeFile for large files.
 
@@ -138,7 +146,7 @@ copyFile('large-file.txt', 'copy.txt');
 
 ```
 
-## Q36. 🌊 Implementing compression with streams
+## Q35. 🌊 Implementing compression with streams
 
 Use transform streams like zlib to compress or decompress data as it flows through the stream pipeline - zlib provides compression/decompression streams, can compress any data stream (not just files), has different compression levels available, and is useful for reducing bandwidth and storage. Can be chained with other transform streams.
 
@@ -160,7 +168,7 @@ fs.createReadStream('input.txt.gz')
 
 ```
 
-## Q37. 🌊 Handling encoding and decoding with streams
+## Q36. 🌊 Handling encoding and decoding with streams
 
 Buffers store binary data and need encoding specification when converting to/from strings, while streams can specify encoding in their options - common encodings are utf8, ascii, base64, hex, default encoding is utf8 for strings. Buffers are always binary, strings need encoding, and wrong encoding can corrupt data.
 
@@ -177,7 +185,7 @@ const writeStream = fs.createWriteStream('output.txt', { encoding: 'utf8' });
 
 ```
 
-## Q38. 🌊 `highWaterMark` option in streams
+## Q37. 🌊 `highWaterMark` option in streams
 
 highWaterMark is a threshold that controls when streams pause/resume, affecting memory usage and performance by determining how much data can be buffered - it controls internal buffer size for streams, default is 64KB for most streams. Higher values use more memory but may improve performance, lower values use less memory but may reduce performance.
 
@@ -196,7 +204,7 @@ const customStream = fs.createReadStream('file.txt', {
 
 ```
 
-## Q39. 🌊 Creating custom streams
+## Q38. 🌊 Creating custom streams
 
 Custom streams are created by extending the base stream classes (Readable, Writable, Duplex, or Transform) and implementing their required methods - you extend the appropriate stream class, implement methods like _read() for Readable or _write() for Writable, and can add custom logic for data transformation or processing. Useful for creating reusable stream components with specific behavior.
 
@@ -236,3 +244,17 @@ const uppercase = new UppercaseTransform();
 generator.pipe(uppercase).pipe(process.stdout);
 
 ```
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[2) Asynchronous Patterns & Event Emitter.md](2%29%20Asynchronous%20Patterns%20&%20Event%20Emitter.md) • [Home: Question List](question.md) • [4) Node.js Internals & Performance.md →](4%29%20Node.js%20Internals%20&%20Performance.md)
+
+[📋 Cheatsheet](Node-Express%20Interview%20Cheatsheet.md]
+
+</div>
+
+---

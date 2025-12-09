@@ -1,5 +1,19 @@
 # Math
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Bit Manipulation](15%20Bit%20Manipulation.md) • [Home: README](README.md)
+
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+
+</div>
+
+---
+
 ## Q224. Palindrome Number
 
 **Problem:** Given an integer `x`, return `true` if `x` is a palindrome, and `false` otherwise.
@@ -7,19 +21,20 @@
 **Approach:** Reverse half of the number and compare with remaining half. Stop when reversed >= original.
 
 ### Solution 1: Half Reversal (Optimal)
+
 ```javascript
 function isPalindrome(x) {
   // Negative numbers and multiples of 10 (except 0) are not palindromes
   if (x < 0 || (x !== 0 && x % 10 === 0)) return false;
-  
+
   let reversed = 0;
-  
+
   // Reverse half of number
   while (x > reversed) {
     reversed = reversed * 10 + x % 10;
     x = Math.floor(x / 10);
   }
-  
+
   // Compare: x === reversed (even digits) or x === reversed/10 (odd digits)
   return x === reversed || x === Math.floor(reversed / 10);
 }
@@ -39,11 +54,11 @@ function isPalindrome(x) {
 
 // Input: x = -101
 // Output: false
+
 ```
 
-**Time Complexity:** O(log n) - Number of digits  
+**Time Complexity:** O(log n) - Number of digits
 **Space Complexity:** O(1) - Constant extra space
-
 
 ## Q225. Plus One
 
@@ -52,6 +67,7 @@ function isPalindrome(x) {
 **Approach:** Add one from right to left. If digit < 9, increment and return. If digit = 9, set to 0 and continue. If all 9s, add new digit at front.
 
 ### Solution 1: Carry Propagation (Optimal)
+
 ```javascript
 function plusOne(digits) {
   for (let i = digits.length - 1; i >= 0; i--) {
@@ -61,7 +77,7 @@ function plusOne(digits) {
     }
     digits[i] = 0;  // Carry propagation
   }
-  
+
   // All 9s, need to add new digit at front
   digits.unshift(1);
   return digits;
@@ -83,11 +99,11 @@ function plusOne(digits) {
 // Input: digits = [9,9,9]
 // Output: [1,0,0,0]
 // Explanation: 999 + 1 = 1000
+
 ```
 
-**Time Complexity:** O(n) - Worst case traverse all digits  
+**Time Complexity:** O(n) - Worst case traverse all digits
 **Space Complexity:** O(1) - Excluding result array
-
 
 ## Q226. Factorial Trailing Zeroes
 
@@ -96,16 +112,17 @@ function plusOne(digits) {
 **Approach:** Count factors of 5 in n!. Each 5 contributes a trailing zero (paired with a 2). Count powers of 5 repeatedly.
 
 ### Solution 1: Factor 5 Counting (Optimal)
+
 ```javascript
 function trailingZeroes(n) {
   let count = 0;
-  
+
   // Count factors of 5 (including powers: 25, 125, etc.)
   while (n >= 5) {
     count += Math.floor(n / 5);
     n = Math.floor(n / 5);
   }
-  
+
   return count;
 }
 
@@ -124,11 +141,11 @@ function trailingZeroes(n) {
 // Input: n = 25
 // Output: 6
 // Explanation: 25! has 6 trailing zeroes (5, 10, 15, 20, 25 contribute; 25 contributes 2)
+
 ```
 
-**Time Complexity:** O(log n) - Base 5 logarithm  
+**Time Complexity:** O(log n) - Base 5 logarithm
 **Space Complexity:** O(1) - Constant extra space
-
 
 ## Q227. Sqrt(x)
 
@@ -137,16 +154,17 @@ function trailingZeroes(n) {
 **Approach:** Use binary search to find largest number whose square <= x. Search in range [2, x/2].
 
 ### Solution 1: Binary Search (Optimal)
+
 ```javascript
 function mySqrt(x) {
   if (x < 2) return x;
-  
+
   let left = 2, right = Math.floor(x / 2);
-  
+
   while (left <= right) {
     const mid = Math.floor((left + right) / 2);
     const square = mid * mid;
-    
+
     if (square === x) {
       return mid;
     } else if (square < x) {
@@ -155,7 +173,7 @@ function mySqrt(x) {
       right = mid - 1;
     }
   }
-  
+
   return right;  // Largest number whose square <= x
 }
 
@@ -172,11 +190,11 @@ function mySqrt(x) {
 
 // Input: x = 1
 // Output: 1
+
 ```
 
-**Time Complexity:** O(log x) - Binary search  
+**Time Complexity:** O(log x) - Binary search
 **Space Complexity:** O(1) - Constant extra space
-
 
 ## Q228. Pow(x, n)
 
@@ -185,6 +203,7 @@ function mySqrt(x) {
 **Approach:** Use binary exponentiation. If n is odd, multiply result by x. Square x and halve n. Handle negative n by inverting x.
 
 ### Solution 1: Binary Exponentiation (Optimal)
+
 ```javascript
 function myPow(x, n) {
   if (n === 0) return 1;
@@ -192,9 +211,9 @@ function myPow(x, n) {
     x = 1 / x;
     n = -n;
   }
-  
+
   let result = 1;
-  
+
   while (n > 0) {
     // If n is odd, multiply result by x
     if (n % 2 === 1) {
@@ -204,7 +223,7 @@ function myPow(x, n) {
     x *= x;
     n = Math.floor(n / 2);
   }
-  
+
   return result;
 }
 
@@ -218,11 +237,11 @@ function myPow(x, n) {
 // Input: x = 2.00000, n = -2
 // Output: 0.25000
 // Explanation: 2^-2 = 1/2^2 = 1/4 = 0.25
+
 ```
 
-**Time Complexity:** O(log n) - Binary exponentiation  
+**Time Complexity:** O(log n) - Binary exponentiation
 **Space Complexity:** O(1) - Constant extra space
-
 
 ## Q229. Max Points on a Line
 
@@ -231,20 +250,21 @@ function myPow(x, n) {
 **Approach:** For each point, calculate slopes to all other points. Normalize slopes using GCD. Count points with same normalized slope. Handle duplicate points separately.
 
 ### Solution 1: Slope Normalization (Optimal)
+
 ```javascript
 function maxPoints(points) {
   if (points.length <= 2) return points.length;
-  
+
   let max = 2;
-  
+
   for (let i = 0; i < points.length; i++) {
     const slopes = new Map();
     let same = 1;  // Count duplicate points
-    
+
     for (let j = i + 1; j < points.length; j++) {
       const [x1, y1] = points[i];
       const [x2, y2] = points[j];
-      
+
       // Handle duplicate points
       if (x1 === x2 && y1 === y2) {
         same++;
@@ -257,7 +277,7 @@ function maxPoints(points) {
         slopes.set(key, (slopes.get(key) || 0) + 1);
       }
     }
-    
+
     // Find max points on same line
     let currentMax = same;
     for (const count of slopes.values()) {
@@ -265,7 +285,7 @@ function maxPoints(points) {
     }
     max = Math.max(max, currentMax);
   }
-  
+
   return max;
 }
 
@@ -277,14 +297,25 @@ function gcd(a, b) {
 }
 
 // Test Cases:
-// Input: points = [[1,1],[2,2],[3,3]]
+// Input: points = [1,1],[2,2],[3,3]
 // Output: 3
 
-// Input: points = [[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]
+// Input: points = [1,1],[3,2],[5,3],[4,1],[2,3],[1,4]
 // Output: 4
+
 ```
 
-**Time Complexity:** O(n²) - For each point, check all other points  
+**Time Complexity:** O(n²) - For each point, check all other points
 **Space Complexity:** O(n) - Slope map per point
 
+---
 
+## 📍 Navigation
+
+<div align="center">
+
+[Bit Manipulation](15%20Bit%20Manipulation.md) • [Home: README](README.md)
+
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+
+</div>

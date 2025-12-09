@@ -1,10 +1,18 @@
+# 10. Push Notifications & Messaging (Q91–95)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Build, Deployment & Stores](9%29%20Build%2C%20Deployment%20%26%20Stores.md)** | **[Next: Question List →](question.md)**
+[Build, Deployment & Stores](9%29%20Build%2C%20Deployment%20%26%20Stores.md) • [Home: README](../README.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 10. Push Notifications & Messaging (Q91–95)
+---
 
 ---
 
@@ -81,10 +89,10 @@ import { AppState } from 'react-native';
 
 function NotificationHandler() {
   const [appState, setAppState] = useState(AppState.currentState);
-  
+
   useEffect(() => {
     const unsubscribe = AppState.addEventListener('change', setAppState);
-    
+
     // Foreground notification handler
     const unsubscribeForeground = messaging().onMessage(async remoteMessage => {
       if (appState === 'active') {
@@ -92,12 +100,12 @@ function NotificationHandler() {
         console.log('Foreground notification:', remoteMessage);
       }
     });
-    
+
     // Background notification handler
     messaging().setBackgroundMessageHandler(async remoteMessage => {
       console.log('Background notification:', remoteMessage);
     });
-    
+
     return () => {
       unsubscribe();
       unsubscribeForeground();
@@ -151,23 +159,33 @@ Example:
 ```jsx
 const validateNotificationPayload = (payload) => {
   const requiredFields = ['title', 'body', 'data'];
-  
+
   for (const field of requiredFields) {
     if (!payload[field]) {
       throw new Error(`Missing required field: ${field}`);
     }
   }
-  
+
   // Validate data types
   if (typeof payload.title !== 'string') {
     throw new Error('Title must be a string');
   }
-  
+
   return true;
 };
 
 ```
 
 ---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Build, Deployment & Stores](9%29%20Build%2C%20Deployment%20%26%20Stores.md) • [Home: README](../README.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
+
+</div>
 
 ---

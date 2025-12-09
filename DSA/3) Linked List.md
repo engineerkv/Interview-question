@@ -1,25 +1,48 @@
 # Linked List
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[← Previous: Strings](2%20Strings.md) • [Home: README](README.md) • [Next: Stacks & Queues →](4%20Stacks%20&%20Queues.md)
+
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
 ## Q56. Reverse Linked List
 
 **Problem:** Given the head of a singly linked list, reverse the list, and return the reversed list.
 
-**Approach:** Use three pointers: `prev`, `cur`, and `next`. Iteratively re-point each node's `next` to the previous node.
+**Problem Explanation:** We need to reverse the direction of all pointers in a linked list. For example, if the list is `1 -> 2 -> 3 -> 4 -> 5`, after reversal it becomes `5 -> 4 -> 3 -> 2 -> 1`. The head of the original list becomes the tail, and the tail becomes the new head.
+
+**Approach:** Use three pointers to track the previous node, current node, and next node. As we traverse, we reverse the link by pointing the current node's `next` to the previous node. We must save the next node before reversing to avoid losing the reference. This iterative approach processes one node at a time.
+
+**Why this works:** By maintaining references to previous, current, and next nodes, we can safely reverse each link without losing track of the rest of the list. The previous pointer eventually becomes the new head.
 
 ### Solution 1: Iterative (Optimal)
+
 ```javascript
 function reverseList(head) {
-  let prev = null;
-  let cur = head;
-  
-  while (cur) {
-    const next = cur.next;  // Save next node
-    cur.next = prev;        // Reverse pointer
-    prev = cur;             // Move prev forward
-    cur = next;             // Move cur forward
+  let previousNode = null;  // Previous node (starts as null since first node will point to null)
+  let currentNode = head;   // Current node being processed
+
+  while (currentNode !== null) {
+    const nextNode = currentNode.next;  // Save reference to next node before reversing
+    
+    // Reverse the link: point current node to previous
+    currentNode.next = previousNode;
+    
+    // Move pointers forward
+    previousNode = currentNode;  // Previous becomes current
+    currentNode = nextNode;      // Current moves to saved next
   }
-  
-  return prev;  // prev is now the new head
+
+  return previousNode;  // Previous is now the new head (last node processed)
 }
 
 // Test Cases:
@@ -31,52 +54,73 @@ function reverseList(head) {
 
 // Input: head = []
 // Output: []
+
 ```
 
-**Time Complexity:** O(n) - Single pass through all nodes  
+**Time Complexity:** O(n) - Single pass through all nodes
 **Space Complexity:** O(1) - Only using constant extra variables
 
 ### Solution 2: Recursive (Alternative)
+
 ```javascript
 function reverseListRecursive(head) {
-  if (!head || !head.next) return head;
+  // Base case: empty list or single node (already reversed)
+  if (head === null || head.next === null) {
+    return head;
+  }
+
+  // Recursively reverse the rest of the list
+  // This returns the new head of the reversed sublist
+  const newHead = reverseListRecursive(head.next);
   
-  const reversed = reverseListRecursive(head.next);
+  // Reverse the link: make next node point back to current
   head.next.next = head;
-  head.next = null;
   
-  return reversed;
+  // Current node becomes tail, so its next should be null
+  head.next = null;
+
+  return newHead;  // Return the new head (original tail)
 }
+
 ```
 
-**Time Complexity:** O(n) - Recursive calls for each node  
-**Space Complexity:** O(n) - Recursion stack
+**Time Complexity:** O(n) - Recursive calls for each of the n nodes
+**Space Complexity:** O(n) - Recursion stack depth equals the number of nodes
 
+**When to use:** Recursive approach is more elegant and easier to understand conceptually, but uses O(n) extra space for the call stack. Use when code clarity is preferred and stack depth is not a concern.
 
 ## Q57. Linked List Cycle
 
 **Problem:** Given `head`, the head of a linked list, determine if the linked list has a cycle in it. There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the `next` pointer. Internally, `pos` is used to denote the index of the node that tail's `next` pointer is connected to. Note that `pos` is not passed as a parameter. Return `true` if there is a cycle in the linked list. Otherwise, return `false`.
 
-**Approach:** Use Floyd's Tortoise and Hare algorithm (two pointers). Fast pointer moves at 2x speed. If cycle exists, pointers will meet.
+**Problem Explanation:** A cycle exists when a node's `next` pointer points back to a previous node, creating a loop. For example, if we have `1 -> 2 -> 3 -> 4 -> 2` (where 4 points back to 2), there's a cycle. We need to detect this without modifying the list or using extra space proportional to list length.
+
+**Approach:** Use Floyd's Cycle Detection Algorithm (also called "Tortoise and Hare"). Use two pointers moving at different speeds: slow pointer moves one step at a time, fast pointer moves two steps. If there's a cycle, the fast pointer will eventually "lap" the slow pointer and they'll meet. If there's no cycle, the fast pointer will reach the end (null).
+
+**Why this works:** In a cycle, the fast pointer gains one step on the slow pointer per iteration. Eventually, the fast pointer will catch up to the slow pointer, proving a cycle exists. This is mathematically guaranteed.
 
 ### Solution 1: Floyd's Cycle Detection (Optimal)
+
 ```javascript
 function hasCycle(head) {
-  if (!head || !head.next) return false;
-  
-  let slow = head;
-  let fast = head;
-  
-  while (fast && fast.next) {
-    slow = slow.next;       // Move 1 step
-    fast = fast.next.next;  // Move 2 steps
-    
-    if (slow === fast) {
-      return true;  // Cycle detected
+  // Edge cases: empty list or single node (no cycle possible)
+  if (head === null || head.next === null) return false;
+
+  let slowPointer = head;  // Tortoise: moves 1 step at a time
+  let fastPointer = head;  // Hare: moves 2 steps at a time
+
+  while (fastPointer !== null && fastPointer.next !== null) {
+    slowPointer = slowPointer.next;        // Move slow pointer 1 step
+    fastPointer = fastPointer.next.next;   // Move fast pointer 2 steps
+
+    // If pointers meet, cycle exists
+    if (slowPointer === fastPointer) {
+      return true;
     }
   }
-  
-  return false;  // No cycle
+
+  // Fast pointer reached end, no cycle
+  return false;
 }
 
 // Test Cases:
@@ -91,60 +135,76 @@ function hasCycle(head) {
 
 // Input: head = []
 // Output: false
+
 ```
 
-**Time Complexity:** O(n) - Single pass with fast/slow pointers  
+**Time Complexity:** O(n) - Single pass with fast/slow pointers
 **Space Complexity:** O(1) - Only using constant extra variables
 
 ### Solution 2: Hash Set (Alternative)
+
 ```javascript
 function hasCycleHashSet(head) {
-  const seen = new Set();
-  let cur = head;
-  
-  while (cur) {
-    if (seen.has(cur)) {
+  const visitedNodes = new Set(); // Track nodes we've seen
+  let currentNode = head;
+
+  while (currentNode !== null) {
+    // If we've seen this node before, cycle exists
+    if (visitedNodes.has(currentNode)) {
       return true;
     }
-    seen.add(cur);
-    cur = cur.next;
+    
+    // Mark current node as visited
+    visitedNodes.add(currentNode);
+    currentNode = currentNode.next;
   }
-  
+
+  // Reached end of list, no cycle
   return false;
 }
+
 ```
 
-**Time Complexity:** O(n) - Single pass  
-**Space Complexity:** O(n) - Hash set storage
+**Time Complexity:** O(n) - Visit each node at most once
+**Space Complexity:** O(n) - Hash set stores up to n nodes
 
+**When to use:** This approach is more intuitive and easier to understand, but requires O(n) extra space. Use when space is not a constraint and code clarity is important.
+
+**Time Complexity:** O(n) - Single pass
+**Space Complexity:** O(n) - Hash set storage
 
 ## Q58. Remove Nth Node From End of List
 
 **Problem:** Given the head of a linked list, remove the `n`th node from the end of the list and return its head.
 
-**Approach:** Use two pointers with a gap of `n` nodes. Use a dummy head to handle edge cases (like removing the head node).
+**Problem Explanation:** We need to remove a node that is `n` positions from the end. For example, in `[1, 2, 3, 4, 5]` with n=2, we remove node 4 (2nd from end). The challenge is finding this node in one pass without knowing the list length.
+
+**Approach:** Use two pointers with a gap of `n` nodes. Move the fast pointer `n` steps ahead, then move both pointers together. When fast reaches the end, slow is at the node before the one to remove. Use a dummy head to handle edge cases (like removing the head node).
+
+**Why this works:** By maintaining a gap of `n` nodes between the pointers, when the fast pointer reaches the end, the slow pointer is exactly `n` positions from the end. The dummy head simplifies edge cases where we need to remove the head.
 
 ### Solution 1: Two Pointers with Gap (Optimal)
+
 ```javascript
 function removeNthFromEnd(head, n) {
   const dummy = { next: head };  // Dummy head handles edge cases
   let slow = dummy;
   let fast = dummy;
-  
+
   // Move fast pointer n steps ahead
   for (let i = 0; i < n; i++) {
     fast = fast.next;
   }
-  
+
   // Move both pointers until fast reaches end
   while (fast.next) {
     slow = slow.next;
     fast = fast.next;
   }
-  
+
   // Remove nth node from end
   slow.next = slow.next.next;
-  
+
   return dummy.next;
 }
 
@@ -164,11 +224,11 @@ function removeNthFromEnd(head, n) {
 // Input: head = [1, 2], n = 2
 // Output: [2]
 // Explanation: Remove first node (nth from end = head)
+
 ```
 
-**Time Complexity:** O(n) - Single pass with two pointers  
+**Time Complexity:** O(n) - Single pass with two pointers
 **Space Complexity:** O(1) - Only using constant extra variables (dummy node)
-
 
 ## Q59. Merge Two Sorted Lists
 
@@ -177,11 +237,12 @@ function removeNthFromEnd(head, n) {
 **Approach:** Use a dummy head and tail pointer. Compare heads of both lists, append the smaller one to the tail. Continue until one list is exhausted, then append the remaining list.
 
 ### Solution 1: Iterative Merge (Optimal)
+
 ```javascript
 function mergeTwoLists(list1, list2) {
   const dummy = { next: null };
   let tail = dummy;
-  
+
   while (list1 && list2) {
     if (list1.val <= list2.val) {
       tail.next = list1;
@@ -192,10 +253,10 @@ function mergeTwoLists(list1, list2) {
     }
     tail = tail.next;
   }
-  
+
   // Append remaining list
   tail.next = list1 || list2;
-  
+
   return dummy.next;
 }
 
@@ -211,17 +272,19 @@ function mergeTwoLists(list1, list2) {
 
 // Input: list1 = [1], list2 = [2]
 // Output: [1, 2]
+
 ```
 
-**Time Complexity:** O(m + n) - Merge pass through both lists where m and n are list lengths  
+**Time Complexity:** O(m + n) - Merge pass through both lists where m and n are list lengths
 **Space Complexity:** O(1) - Only using constant extra variables (dummy node)
 
 ### Solution 2: Recursive (Alternative)
+
 ```javascript
 function mergeTwoListsRecursive(list1, list2) {
   if (!list1) return list2;
   if (!list2) return list1;
-  
+
   if (list1.val <= list2.val) {
     list1.next = mergeTwoListsRecursive(list1.next, list2);
     return list1;
@@ -230,11 +293,11 @@ function mergeTwoListsRecursive(list1, list2) {
     return list2;
   }
 }
+
 ```
 
-**Time Complexity:** O(m + n) - Recursive calls  
+**Time Complexity:** O(m + n) - Recursive calls
 **Space Complexity:** O(m + n) - Recursion stack
-
 
 ## Q60. Middle of the Linked List
 
@@ -243,16 +306,17 @@ function mergeTwoListsRecursive(list1, list2) {
 **Approach:** Use fast and slow pointers. Fast pointer moves at 2x speed. When fast reaches the end, slow is at the middle.
 
 ### Solution 1: Fast/Slow Pointers (Optimal)
+
 ```javascript
 function middleNode(head) {
   let slow = head;
   let fast = head;
-  
+
   while (fast && fast.next) {
     slow = slow.next;       // Move 1 step
     fast = fast.next.next;  // Move 2 steps
   }
-  
+
   return slow;  // Slow is at middle
 }
 
@@ -272,11 +336,11 @@ function middleNode(head) {
 // Input: head = [1, 2]
 // Output: [2]
 // Explanation: Second middle node (even length)
+
 ```
 
-**Time Complexity:** O(n) - Single pass through list  
+**Time Complexity:** O(n) - Single pass through list
 **Space Complexity:** O(1) - Only using constant extra variables
-
 
 ## Q61. Palindrome Linked List
 
@@ -285,6 +349,7 @@ function middleNode(head) {
 **Approach:** Find the middle node, reverse the second half, then compare the two halves. If original list should be preserved, restore it after comparison.
 
 ### Solution 1: Find Middle + Reverse + Compare (Optimal)
+
 ```javascript
 function isPalindrome(head) {
   if (!head || !head.next) return true;
@@ -320,7 +385,7 @@ function isPalindrome(head) {
     second = second.next;
     first = first.next;
   }
-  
+
   return true;
 }
 
@@ -340,13 +405,13 @@ function isPalindrome(head) {
 // Input: head = [1, 2, 3, 2, 1]
 // Output: true
 // Explanation: Palindrome verified
+
 ```
 
-**Time Complexity:** O(n) - Finding middle + reversing + comparing (all O(n))  
+**Time Complexity:** O(n) - Finding middle + reversing + comparing (all O(n))
 **Space Complexity:** O(1) - In-place reversal, constant extra space
 
 **Note:** If original list must be preserved, restore it by reversing the second half again after comparison.
-
 
 ## Q62. Flatten a Multilevel Doubly Linked List
 
@@ -355,36 +420,37 @@ function isPalindrome(head) {
 **Approach:** Use iterative DFS with a stack to remember deferred `next` nodes when processing `child` pointers. Process children first (pre-order style).
 
 ### Solution 1: Iterative DFS with Stack (Optimal)
+
 ```javascript
 function flatten(head) {
   if (!head) return head;
-  
+
   const stack = [];
   let cur = head;
-  
+
   while (cur) {
     if (cur.child) {
       // Save next node if exists
       if (cur.next) {
         stack.push(cur.next);
       }
-      
+
       // Flatten child list
       cur.next = cur.child;
       cur.child.prev = cur;
       cur.child = null;
     }
-    
+
     // If no next and stack has deferred nodes
     if (!cur.next && stack.length > 0) {
       const next = stack.pop();
       cur.next = next;
       next.prev = cur;
     }
-    
+
     cur = cur.next;
   }
-  
+
   return head;
 }
 
@@ -398,11 +464,11 @@ function flatten(head) {
 
 // Input: head = []
 // Output: []
+
 ```
 
-**Time Complexity:** O(n) - Single pass through all nodes  
+**Time Complexity:** O(n) - Single pass through all nodes
 **Space Complexity:** O(k) - Stack stores deferred nodes (k is number of child branches)
-
 
 ## Q63. Intersection of Two Linked Lists
 
@@ -411,13 +477,14 @@ function flatten(head) {
 **Approach:** Use two pointers that switch heads when reaching the end. This equalizes path lengths—both pointers traverse the same total distance (m + n), meeting at the intersection if it exists.
 
 ### Solution 1: Switch Heads Technique (Optimal)
+
 ```javascript
 function getIntersectionNode(headA, headB) {
   if (!headA || !headB) return null;
-  
+
   let p = headA;
   let q = headB;
-  
+
   // Both pointers traverse m + n nodes total
   // If intersection exists, they meet at intersection
   // If no intersection, both become null simultaneously
@@ -425,7 +492,7 @@ function getIntersectionNode(headA, headB) {
     p = p ? p.next : headB;  // Switch to headB when p reaches end
     q = q ? q.next : headA;  // Switch to headA when q reaches end
   }
-  
+
   return p;  // p === q (either intersection node or null)
 }
 
@@ -441,11 +508,11 @@ function getIntersectionNode(headA, headB) {
 
 // Input: listA = [], listB = []
 // Output: null
+
 ```
 
-**Time Complexity:** O(m + n) - Both pointers traverse m + n nodes total  
+**Time Complexity:** O(m + n) - Both pointers traverse m + n nodes total
 **Space Complexity:** O(1) - Only using constant extra variables
-
 
 ## Q64. Add Two Numbers
 
@@ -454,6 +521,7 @@ function getIntersectionNode(headA, headB) {
 **Approach:** Add digits from both lists along with carry, building the result list from least significant digit. Create new nodes for the result.
 
 ### Solution 1: Digit-wise Addition with Carry (Optimal)
+
 ```javascript
 function addTwoNumbers(l1, l2) {
   const dummy = { next: null };
@@ -464,14 +532,14 @@ function addTwoNumbers(l1, l2) {
     const sum = (l1 ? l1.val : 0) + (l2 ? l2.val : 0) + carry;
     const digit = sum % 10;
     carry = Math.floor(sum / 10);
-    
+
     tail.next = { val: digit, next: null };
     tail = tail.next;
-    
+
     if (l1) l1 = l1.next;
     if (l2) l2 = l2.next;
   }
-  
+
   return dummy.next;
 }
 
@@ -487,11 +555,11 @@ function addTwoNumbers(l1, l2) {
 // Input: l1 = [9, 9, 9, 9, 9, 9, 9], l2 = [9, 9, 9, 9]
 // Output: [8, 9, 9, 9, 0, 0, 0, 1]
 // Explanation: 9999999 + 9999 = 10009998
+
 ```
 
-**Time Complexity:** O(max(m, n)) - Process all digits from longer list  
+**Time Complexity:** O(max(m, n)) - Process all digits from longer list
 **Space Complexity:** O(max(m, n)) - Result list storage (excluding input)
-
 
 ## Q65. Sort List
 
@@ -500,6 +568,7 @@ function addTwoNumbers(l1, l2) {
 **Approach:** Use merge sort: find middle, recursively sort both halves, then merge the sorted halves.
 
 ### Solution 1: Merge Sort (Optimal)
+
 ```javascript
 function sortList(head) {
   // Base case: empty or single node
@@ -509,13 +578,13 @@ function sortList(head) {
   let slow = head;
   let fast = head;
   let prev = null;
-  
+
   while (fast && fast.next) {
     prev = slow;
     slow = slow.next;
     fast = fast.next.next;
   }
-  
+
   prev.next = null;  // Split list
 
   // Step 2: Recursively sort halves
@@ -529,7 +598,7 @@ function sortList(head) {
 function merge(list1, list2) {
   const dummy = { next: null };
   let tail = dummy;
-  
+
   while (list1 && list2) {
     if (list1.val <= list2.val) {
       tail.next = list1;
@@ -540,7 +609,7 @@ function merge(list1, list2) {
     }
     tail = tail.next;
   }
-  
+
   tail.next = list1 || list2;
   return dummy.next;
 }
@@ -557,11 +626,11 @@ function merge(list1, list2) {
 
 // Input: head = [1]
 // Output: [1]
+
 ```
 
-**Time Complexity:** O(n log n) - Merge sort complexity  
+**Time Complexity:** O(n log n) - Merge sort complexity
 **Space Complexity:** O(log n) - Recursion stack space
-
 
 ## Q66. Copy List with Random Pointer
 
@@ -570,6 +639,7 @@ function merge(list1, list2) {
 **Approach:** Use three-pass approach: interleave cloned nodes, set random pointers, then detach cloned list.
 
 ### Solution 1: Three-Pass Interleaving (Optimal)
+
 ```javascript
 function copyRandomList(head) {
   if (!head) return null;
@@ -608,37 +678,39 @@ function copyRandomList(head) {
 }
 
 // Test Cases:
-// Input: head = [[7, null], [13, 0], [11, 4], [10, 2], [1, 0]]
+// Input: head = [7, null], [13, 0], [11, 4], [10, 2], [1, 0]
 // (First value is node value, second is random pointer index)
 // Output: Deep copy with same structure and random pointers
 
-// Input: head = [[1, 1], [2, 1]]
+// Input: head = [1, 1], [2, 1]
 // Output: Deep copy with random pointers
 
-// Input: head = [[3, null], [3, 0], [3, null]]
+// Input: head = [3, null], [3, 0], [3, null]
 // Output: Deep copy
 
 // Input: head = []
 // Output: null
+
 ```
 
-**Time Complexity:** O(n) - Three passes through list  
+**Time Complexity:** O(n) - Three passes through list
 **Space Complexity:** O(1) - Only using constant extra variables (excluding result)
 
 ### Solution 2: Hash Map (Alternative)
+
 ```javascript
 function copyRandomListHashMap(head) {
   if (!head) return null;
-  
+
   const map = new Map();
   let curr = head;
-  
+
   // First pass: create all nodes
   while (curr) {
     map.set(curr, new Node(curr.val));
     curr = curr.next;
   }
-  
+
   // Second pass: set next and random pointers
   curr = head;
   while (curr) {
@@ -647,14 +719,14 @@ function copyRandomListHashMap(head) {
     copy.random = map.get(curr.random) || null;
     curr = curr.next;
   }
-  
+
   return map.get(head);
 }
+
 ```
 
-**Time Complexity:** O(n) - Two passes  
+**Time Complexity:** O(n) - Two passes
 **Space Complexity:** O(n) - Hash map storage
-
 
 ## Q67. Reverse Nodes in k-Group
 
@@ -663,6 +735,7 @@ function copyRandomListHashMap(head) {
 **Approach:** Check if `k` nodes exist. If yes, reverse the group in-place. Continue for each group. Leave partial groups unchanged.
 
 ### Solution 1: Group-by-Group Reversal (Optimal)
+
 ```javascript
 function reverseKGroup(head, k) {
   const dummy = { next: head };
@@ -674,28 +747,28 @@ function reverseKGroup(head, k) {
     for (let i = 0; i < k && kth; i++) {
       kth = kth.next;
     }
-    
+
     if (!kth) break;  // Less than k nodes remaining
-    
+
     const groupNext = kth.next;  // Save node after group
-    
+
     // Reverse the k-length group
     let prev = groupNext;
     let cur = groupPrev.next;
-    
+
     while (cur !== groupNext) {
       const next = cur.next;
       cur.next = prev;
       prev = cur;
       cur = next;
     }
-    
+
     // Update groupPrev to point to reversed group
     const tmp = groupPrev.next;
     groupPrev.next = kth;  // kth is now head of reversed group
     groupPrev = tmp;  // Move to next group
   }
-  
+
   return dummy.next;
 }
 
@@ -714,11 +787,11 @@ function reverseKGroup(head, k) {
 
 // Input: head = [1], k = 1
 // Output: [1]
+
 ```
 
-**Time Complexity:** O(n) - Each node visited at most twice  
+**Time Complexity:** O(n) - Each node visited at most twice
 **Space Complexity:** O(1) - Only using constant extra variables
-
 
 ## Q68. Rotate List
 
@@ -727,6 +800,7 @@ function reverseKGroup(head, k) {
 **Approach:** Connect tail to head to form a circle, find the new tail position (len - k from start), then break the circle.
 
 ### Solution 1: Circle Technique (Optimal)
+
 ```javascript
 function rotateRight(head, k) {
   if (!head || !head.next || k === 0) return head;
@@ -774,23 +848,28 @@ function rotateRight(head, k) {
 // Input: head = [1, 2, 3], k = 0
 // Output: [1, 2, 3]
 // Explanation: k=0 means no rotation
+
 ```
 
-**Time Complexity:** O(n) - Get length + find new tail  
+**Time Complexity:** O(n) - Get length + find new tail
 **Space Complexity:** O(1) - Only using constant extra variables
-
 
 ## Q69. Delete Node in a Linked List
 
 **Problem:** There is a singly-linked list `head` and we want to delete a node `node` in it. You are given the node to be deleted directly. You will not be given access to the first node of `head`. All the values of the linked list are unique, and it is guaranteed that the given node `node` is not the last node in the linked list. Delete the given node. Note that by deleting the node, we do not mean removing it from memory. We mean:
+
 - The value of the given node should not exist in the linked list.
+
 - The number of nodes in the linked list should decrease by one.
+
 - All the values before `node` should be in the same order.
+
 - All the values after `node` should be in the same order.
 
 **Approach:** Since we can't access the previous node, copy the next node's value to the current node, then bypass the next node.
 
 ### Solution 1: Copy Value and Bypass (Optimal)
+
 ```javascript
 function deleteNode(node) {
   // Copy next node's value to current node
@@ -810,11 +889,11 @@ function deleteNode(node) {
 
 // Note: The input node is the node itself (not a value), and it's guaranteed
 // that the node is not the tail node of the list.
+
 ```
 
-**Time Complexity:** O(1) - Constant time operation  
+**Time Complexity:** O(1) - Constant time operation
 **Space Complexity:** O(1) - Only using constant extra variables
-
 
 ## Q70. Linked List Cycle II
 
@@ -823,23 +902,24 @@ function deleteNode(node) {
 **Approach:** First detect cycle using Floyd's algorithm. If cycle exists, move one pointer to head and step both pointers at same speed—they meet at cycle start.
 
 ### Solution 1: Floyd's Algorithm Extension (Optimal)
+
 ```javascript
 function detectCycle(head) {
   if (!head || !head.next) return null;
-  
+
   // Step 1: Detect cycle using Floyd's algorithm
   let slow = head;
   let fast = head;
-  
+
   while (fast && fast.next) {
     slow = slow.next;
     fast = fast.next.next;
     if (slow === fast) break;  // Cycle detected
   }
-  
+
   // No cycle found
   if (!fast || !fast.next) return null;
-  
+
   // Step 2: Find cycle start
   // Move slow to head, step both at same speed
   slow = head;
@@ -847,7 +927,7 @@ function detectCycle(head) {
     slow = slow.next;
     fast = fast.next;
   }
-  
+
   return slow;  // Meeting point is cycle start
 }
 
@@ -863,11 +943,11 @@ function detectCycle(head) {
 
 // Input: head = []
 // Output: null
+
 ```
 
-**Time Complexity:** O(n) - Detect cycle + find start  
+**Time Complexity:** O(n) - Detect cycle + find start
 **Space Complexity:** O(1) - Only using constant extra variables
-
 
 ## Q71. Reverse Linked List II
 
@@ -876,16 +956,17 @@ function detectCycle(head) {
 **Approach:** Use a dummy node to handle edge cases. Reverse nodes one by one by inserting the next node at the front of the reversed portion.
 
 ### Solution 1: Insert at Front Technique (Optimal)
+
 ```javascript
 function reverseBetween(head, left, right) {
   const dummy = { next: head };
-  
+
   // Step 1: Move to node before left position
   let prev = dummy;
   for (let i = 0; i < left - 1; i++) {
     prev = prev.next;
   }
-  
+
   // Step 2: Reverse nodes from left to right
   let curr = prev.next;
   for (let i = 0; i < right - left; i++) {
@@ -894,7 +975,7 @@ function reverseBetween(head, left, right) {
     next.next = prev.next;      // Insert next at front of reversed portion
     prev.next = next;           // Update prev to point to new front
   }
-  
+
   return dummy.next;
 }
 
@@ -910,11 +991,11 @@ function reverseBetween(head, left, right) {
 // Input: head = [1,2,3,4,5], left = 1, right = 5
 // Output: [5,4,3,2,1]
 // Explanation: Reverse entire list
+
 ```
 
-**Time Complexity:** O(n) - Traverse to right position  
+**Time Complexity:** O(n) - Traverse to right position
 **Space Complexity:** O(1) - Constant extra space
-
 
 ## Q72. Remove Duplicates from Sorted List II
 
@@ -923,12 +1004,13 @@ function reverseBetween(head, left, right) {
 **Approach:** Use a dummy head. When duplicates are found, skip all nodes with that value. Only move `prev` when a unique node is found.
 
 ### Solution 1: Skip Duplicates (Optimal)
+
 ```javascript
 function deleteDuplicates(head) {
   const dummy = { next: head };
   let prev = dummy;
   let curr = head;
-  
+
   while (curr && curr.next) {
     if (curr.val === curr.next.val) {
       // Duplicate found - skip all nodes with this value
@@ -944,7 +1026,7 @@ function deleteDuplicates(head) {
       curr = curr.next;
     }
   }
-  
+
   return dummy.next;
 }
 
@@ -964,11 +1046,11 @@ function deleteDuplicates(head) {
 // Input: head = [1,1,1]
 // Output: []
 // Explanation: All nodes are duplicates
+
 ```
 
-**Time Complexity:** O(n) - Single pass through list  
+**Time Complexity:** O(n) - Single pass through list
 **Space Complexity:** O(1) - Constant extra space
-
 
 ## Q73. Partition List
 
@@ -977,13 +1059,14 @@ function deleteDuplicates(head) {
 **Approach:** Use two dummy lists: one for nodes < x, one for nodes >= x. Traverse the list, appending nodes to appropriate list. Merge lists at the end.
 
 ### Solution 1: Two-List Approach (Optimal)
+
 ```javascript
 function partition(head, x) {
   const beforeDummy = { next: null };
   const afterDummy = { next: null };
   let before = beforeDummy;
   let after = afterDummy;
-  
+
   let curr = head;
   while (curr) {
     if (curr.val < x) {
@@ -995,11 +1078,11 @@ function partition(head, x) {
     }
     curr = curr.next;
   }
-  
+
   // Connect lists and terminate
   after.next = null;  // Terminate after list
   before.next = afterDummy.next;  // Connect before to after
-  
+
   return beforeDummy.next;
 }
 
@@ -1015,17 +1098,20 @@ function partition(head, x) {
 // Input: head = [1,4,3,2,5,2], x = 0
 // Output: [1,4,3,2,5,2]
 // Explanation: All nodes >= 0, so no change
+
 ```
 
-**Time Complexity:** O(n) - Single pass through list  
+**Time Complexity:** O(n) - Single pass through list
 **Space Complexity:** O(1) - Constant extra space (dummy nodes)
-
 
 ## Q74. LRU Cache
 
 **Problem:** Design a data structure that follows the constraints of a Least Recently Used (LRU) cache. Implement the `LRUCache` class:
+
 - `LRUCache(int capacity)` Initialize the LRU cache with positive size `capacity`.
+
 - `int get(int key)` Return the value of the `key` if the key exists, otherwise return `-1`.
+
 - `void put(int key, int value)` Update the value of the `key` if the `key` exists. Otherwise, add the `key-value` pair to the cache. If the number of keys exceeds the `capacity` from this operation, evict the least recently used key.
 
 The functions `get` and `put` must each run in `O(1)` average time complexity.
@@ -1033,6 +1119,7 @@ The functions `get` and `put` must each run in `O(1)` average time complexity.
 **Approach:** Use a doubly linked list to maintain order (most recent at head, least recent at tail) and a hash map for O(1) lookup. Move accessed nodes to head, remove tail when capacity exceeded.
 
 ### Solution 1: Doubly Linked List + Hash Map (Optimal)
+
 ```javascript
 class LRUCache {
   constructor(capacity) {
@@ -1046,7 +1133,7 @@ class LRUCache {
 
   get(key) {
     if (!this.map.has(key)) return -1;
-    
+
     const node = this.map.get(key);
     this.moveToHead(node);
     return node.value;
@@ -1101,9 +1188,9 @@ class Node {
 }
 
 // Test Cases:
-// Input: ["LRUCache","put","put","get","put","get","put","get","get","get"], [[2],[1,1],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]
+// Input: ["LRUCache","put","put","get","put","get","put","get","get","get"], [2],[1,1],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]
 // Output: [null,null,null,1,null,-1,null,-1,3,4]
-// Explanation: 
+// Explanation:
 // LRUCache lRUCache = new LRUCache(2);
 // lRUCache.put(1, 1); // cache: {1=1}
 // lRUCache.put(2, 2); // cache: {1=1, 2=2}
@@ -1114,8 +1201,30 @@ class Node {
 // lRUCache.get(1);    // returns -1 (not found)
 // lRUCache.get(3);    // returns 3
 // lRUCache.get(4);    // returns 4
+
 ```
 
-**Time Complexity:** O(1) - All operations average case  
+**Time Complexity:** O(1) - All operations average case
 **Space Complexity:** O(capacity) - Map and doubly linked list storage
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[← Previous: Strings](2%20Strings.md) • [Home: README](README.md) • [Next: Stacks & Queues →](4%20Stacks%20&%20Queues.md)
+
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md)
+
+</div>
+
+## 📍 Navigation
+
+<div align="center">
+
+[← Previous: Strings](2%20Strings.md) • [Home: README](README.md) • [Next: Stacks & Queues →](4%20Stacks%20&%20Queues.md)
+
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md)
+
+</div>

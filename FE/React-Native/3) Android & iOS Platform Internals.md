@@ -1,10 +1,18 @@
+# 3. Android & iOS Platform Internals (Q21–30)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Native Modules & Platform Integrations](2%29%20Native%20Modules%20%26%20Platform%20Integrations.md)** | **[Next: Navigation & Lifecycle →](4%29%20Navigation%20%26%20Lifecycle.md)**
+[Native Modules & Platform Integrations](2%29%20Native%20Modules%20%26%20Platform%20Integrations.md) • [Home: README](../README.md) • [Navigation & Lifecycle →](4%29%20Navigation%20%26%20Lifecycle.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 3. Android & iOS Platform Internals (Q21–30)
+---
 
 ---
 
@@ -118,8 +126,8 @@ Example:
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge moduleName:@"MyApp" initialProperties:nil];
+  RCTBridge *bridge = [RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+  RCTRootView *rootView = [RCTRootView alloc] initWithBridge:bridge moduleName:@"MyApp" initialProperties:nil];
   return YES;
 }
 
@@ -142,7 +150,7 @@ import { Platform } from 'react-native';
 import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
 const requestLocationPermission = async () => {
-  const permission = Platform.OS === 'ios' 
+  const permission = Platform.OS === 'ios'
     ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
     : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION;
   const result = await request(permission);
@@ -226,7 +234,9 @@ Use platform-specific tools to manage code signing, certificates, and provisioni
 Example:
 
 ```bash
+
 # Android signing
+
 keytool -genkey -v -keystore my-release-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
 
 # iOS provisioning - Use Xcode to manage certificates and provisioning profiles
@@ -235,3 +245,16 @@ keytool -genkey -v -keystore my-release-key.keystore -alias my-key-alias -keyalg
 
 ---
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Native Modules & Platform Integrations](2%29%20Native%20Modules%20%26%20Platform%20Integrations.md) • [Home: README](../README.md) • [Navigation & Lifecycle →](4%29%20Navigation%20%26%20Lifecycle.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
+
+</div>
+
+---

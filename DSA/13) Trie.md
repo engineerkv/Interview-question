@@ -1,16 +1,35 @@
 # Trie
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Matrix](12%20Matrix.md) • [Home: README](README.md) • [Binary Search →](14%20Binary%20Search.md)
+
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+
+</div>
+
+---
+
 ## Q208. Implement Trie (Prefix Tree)
 
 **Problem:** A trie (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker. Implement the Trie class:
+
 - `Trie()` Initializes the trie object.
+
 - `void insert(String word)` Inserts the string `word` into the trie.
+
 - `boolean search(String word)` Returns `true` if the string `word` is in the trie (i.e., was inserted before), and `false` otherwise.
+
 - `boolean startsWith(String prefix)` Returns `true` if there is a previously inserted string `word` that has the prefix `prefix`, and `false` otherwise.
 
 **Approach:** Each node stores children in a map/dict and has an `isEnd` flag. Traverse character by character, creating nodes as needed.
 
 ### Solution 1: Trie Implementation (Optimal)
+
 ```javascript
 class Trie {
   constructor() {
@@ -50,12 +69,13 @@ class Trie {
     return true;  // Prefix exists
   }
 }
+
 ```
 
 // Test Cases:
-// Input: ["Trie", "insert", "search", "search", "startsWith", "insert", "search"], [[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]]
+// Input: ["Trie", "insert", "search", "search", "startsWith", "insert", "search"], [], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]
 // Output: [null, null, true, false, true, null, true]
-// Explanation: 
+// Explanation:
 //   Trie trie = new Trie();
 //   trie.insert("apple");
 //   trie.search("apple");   // returns true
@@ -63,22 +83,26 @@ class Trie {
 //   trie.startsWith("app");  // returns true
 //   trie.insert("app");
 //   trie.search("app");      // returns true
+
 ```
 
-**Time Complexity:** O(m) - Per insert/search/startsWith where m is word length  
+**Time Complexity:** O(m) - Per insert/search/startsWith where m is word length
 **Space Complexity:** O(n × m) - n words of average length m
-
 
 ## Q209. Design Add and Search Words Data Structure
 
 **Problem:** Design a data structure that supports adding new words and finding if a string matches any previously added string. Implement the `WordDictionary` class:
+
 - `WordDictionary()` Initializes the object.
+
 - `void addWord(word)` Adds `word` to the data structure, it can be matched later.
+
 - `bool search(word)` Returns `true` if there is any string in the data structure that matches `word` or `false` otherwise. `word` may contain dots `'.'` where dots can be matched with any letter.
 
 **Approach:** Use Trie structure. For wildcard `'.'`, recursively try all children. For regular characters, traverse normally.
 
 ### Solution 1: Trie with DFS (Optimal)
+
 ```javascript
 class WordDictionary {
   constructor() {
@@ -107,7 +131,7 @@ class WordDictionary {
     }
 
     const char = word[index];
-    
+
     if (char === '.') {
       // Wildcard: try all children (skip 'isEnd')
       for (const key in node) {
@@ -125,12 +149,13 @@ class WordDictionary {
     }
   }
 }
+
 ```
 
 // Test Cases:
-// Input: ["WordDictionary","addWord","addWord","addWord","search","search","search","search"], [[],["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]]
+// Input: ["WordDictionary","addWord","addWord","addWord","search","search","search","search"], [],["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]
 // Output: [null,null,null,null,false,true,true,true]
-// Explanation: 
+// Explanation:
 //   WordDictionary wordDictionary = new WordDictionary();
 //   wordDictionary.addWord("bad");
 //   wordDictionary.addWord("dad");
@@ -139,11 +164,11 @@ class WordDictionary {
 //   wordDictionary.search("bad");  // returns true
 //   wordDictionary.search(".ad");  // returns true ('.' matches 'b' or 'd' or 'm')
 //   wordDictionary.search("b.."); // returns true ('.' matches any character)
+
 ```
 
-**Time Complexity:** O(m) for exact match, O(26^m) worst case for m wildcards  
+**Time Complexity:** O(m) for exact match, O(26^m) worst case for m wildcards
 **Space Complexity:** O(n × m) - n words of average length m
-
 
 ## Q210. Word Search II
 
@@ -152,6 +177,7 @@ class WordDictionary {
 **Approach:** Build Trie from words. Use DFS with backtracking on board. Mark visited cells and remove found words from Trie to avoid duplicates.
 
 ### Solution 1: Trie + DFS (Optimal)
+
 ```javascript
 function findWords(board, words) {
   const trie = new Trie();
@@ -167,10 +193,10 @@ function findWords(board, words) {
   function dfs(i, j, node) {
     const char = board[i][j];
     const nextNode = node[char];
-    
+
     // No path in Trie
     if (!nextNode) return;
-    
+
     // Word found
     if (nextNode.word) {
       result.push(nextNode.word);
@@ -182,7 +208,7 @@ function findWords(board, words) {
     board[i][j] = '#';
 
     // Explore 4 directions
-    const directions = [[-1,0],[1,0],[0,-1],[0,1]];
+    const directions = [-1,0],[1,0],[0,-1],[0,1];
     for (const [di, dj] of directions) {
       const ni = i + di, nj = j + dj;
       if (ni >= 0 && ni < m && nj >= 0 && nj < n && board[ni][nj] !== '#') {
@@ -220,20 +246,21 @@ class Trie {
     node.word = word; // Store word at end node
   }
 }
+
 ```
 
 // Test Cases:
-// Input: board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]],
+// Input: board = ["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"],
 // words = ["oath","pea","eat","rain"]
 // Output: ["eat","oath"]
 
-// Input: board = [["a","b"],["c","d"]], words = ["abcb"]
+// Input: board = ["a","b"],["c","d"], words = ["abcb"]
 // Output: []
+
 ```
 
-**Time Complexity:** O(mn × 4^L) - L is max word length, 4 directions per cell  
+**Time Complexity:** O(mn × 4^L) - L is max word length, 4 directions per cell
 **Space Complexity:** O(n × m) - Trie for n words, DFS recursion depth up to m
-
 
 ---
 
@@ -298,9 +325,20 @@ class Trie {
 // trie.insert("a");
 // trie.search("a");        // Output: true
 // trie.startsWith("a");    // Output: true
+
 ```
 
-**Time Complexity:** O(L) - Each operation processes word length L  
+**Time Complexity:** O(L) - Each operation processes word length L
 **Space Complexity:** O(AL) - Storage for all words where A is alphabet size
 
+---
 
+## 📍 Navigation
+
+<div align="center">
+
+[Matrix](12%20Matrix.md) • [Home: README](README.md) • [Binary Search →](14%20Binary%20Search.md)
+
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+
+</div>

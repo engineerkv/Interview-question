@@ -1,14 +1,22 @@
-<div align="center">
-
-**[← Previous: Advanced CSS Concepts](3%29%20Advanced%20CSS%20Concepts.md)** | **[Next: Performance & Optimization →](5%29%20Performance%20%26%20Optimization.md)**
-
-</div>
-
 # 🏗️ 4. CSS Architecture & Design Systems (Q41–48)
 
 ---
 
-## Q41. 📝 BEM methodology: what it is and how it works
+## 📍 Navigation
+
+<div align="center">
+
+[Advanced CSS Concepts](3%29%20Advanced%20CSS%20Concepts.md) • [Home: README](../README.md) • [Performance & Optimization →](5%29%20Performance%20%26%20Optimization.md)
+
+[📋 Cheatsheet](CSS%20Interview%20Cheatsheet.md]
+
+</div>
+
+---
+
+---
+
+## Q41. 📝 BEM methodology and how it works
 
 BEM (Block, Element, Modifier) is a CSS naming convention that creates clear, maintainable, and scalable CSS by establishing a strict naming structure - BEM prevents specificity wars and improves maintainability. Block (independent component), Element (part of block), Modifier (variation or state).
 
@@ -17,18 +25,18 @@ BEM (Block, Element, Modifier) is a CSS naming convention that creates clear, ma
 Example:
 
 ```css
-.card { 
-  background: white; 
-  border-radius: 8px; 
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
-  padding: 20px; 
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 20px;
 }
-.card__header { 
-  font-size: 24px; 
-  font-weight: bold; 
+.card__header {
+  font-size: 24px;
+  font-weight: bold;
 }
-.card--featured { 
-  border: 2px solid gold; 
+.card--featured {
+  border: 2px solid gold;
 }
 
 ```
@@ -44,25 +52,25 @@ OOCSS separates structure from skin, creating reusable CSS objects that can be c
 Example:
 
 ```css
-.media { 
-  display: flex; 
-  align-items: flex-start; 
-  gap: 15px; 
+.media {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
 }
-.media__image { 
-  width: 100px; 
-  height: 100px; 
-  border-radius: 50%; 
+.media__image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
 }
-.media__content { 
-  flex: 1; 
+.media__content {
+  flex: 1;
 }
 
 ```
 
 ---
 
-## Q43. 🎨 SMACSS (Scalable and Modular CSS): what it is and its principles
+## Q43. 🎨 SMACSS (Scalable and Modular CSS) and its principles
 
 SMACSS organizes CSS into five categories (Base, Layout, Module, State, Theme) to create scalable and maintainable stylesheets - SMACSS provides structure for large CSS codebases. Base (default styles), Layout (major structure, prefixed with `l-`), Module (reusable components, prefixed with `m-`), State (element states, prefixed with `is-` or `has-`), Theme (visual themes, prefixed with `t-`).
 
@@ -71,33 +79,33 @@ SMACSS organizes CSS into five categories (Base, Layout, Module, State, Theme) t
 Example:
 
 ```css
-html, body { 
-  margin: 0; 
-  padding: 0; 
-  font-family: Arial, sans-serif; 
-  line-height: 1.6; 
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
 }
-.l-header { 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
+.l-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.m-button { 
-  padding: 10px 20px; 
-  border: none; 
-  border-radius: 4px; 
-  cursor: pointer; 
+.m-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
-.is-active { 
-  background-color: #007bff; 
-  color: white; 
+.is-active {
+  background-color: #007bff;
+  color: white;
 }
 
 ```
 
 ---
 
-## Q44. 🎨 CSS-in-JS: what it is and its benefits
+## Q44. 🎨 CSS-in-JS and its benefits
 
 CSS-in-JS allows you to write CSS styles in JavaScript, providing component-scoped styles, dynamic styling, and better integration with modern frameworks - CSS-in-JS improves component isolation and dynamic styling. Styles are automatically scoped to components, no global pollution.
 
@@ -120,7 +128,7 @@ const Button = styled.button`
 
 ---
 
-## Q45. 🎨 CSS Modules: what it is and how it works
+## Q45. 🎨 CSS Modules and how it works
 
 CSS Modules automatically scope CSS classes to components, preventing style conflicts and enabling modular CSS architecture - CSS Modules provide automatic scoping without JavaScript runtime. Classes are automatically prefixed with unique identifiers, preventing style conflicts.
 
@@ -130,15 +138,15 @@ Example:
 
 ```css
 /* Button.module.css */
-.button { 
-  background-color: #007bff; 
-  color: white; 
-  padding: 8px 16px; 
-  border: none; 
+.button {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
 }
-.button--large { 
-  padding: 12px 24px; 
-  font-size: 18px; 
+.button--large {
+  padding: 12px 24px;
+  font-size: 18px;
 }
 
 ```
@@ -147,7 +155,7 @@ Example:
 import styles from './Button.module.css';
 function Button({ children, size }) {
   const className = [
-    styles.button, 
+    styles.button,
     size === 'large' && styles['button--large']
   ].filter(Boolean).join(' ');
   return <button className={className}>{children}</button>;
@@ -157,7 +165,7 @@ function Button({ children, size }) {
 
 ---
 
-## Q46. 🎨 CSS architecture: what it is and how to organize large stylesheets
+## Q46. 🎨 CSS architecture and how to organize large stylesheets
 
 CSS custom properties enable consistent theming and design tokens in design systems, allowing dynamic theme switching and centralized style management - CSS variables are essential for modern design systems. Centralized values for colors, spacing, typography, and other design elements.
 
@@ -207,13 +215,13 @@ Example:
 $primary-color: #007bff;
 $secondary-color: #6c757d;
 $breakpoints: (
-  mobile: 768px, 
-  tablet: 1024px, 
+  mobile: 768px,
+  tablet: 1024px,
   desktop: 1200px
 );
 @mixin responsive($breakpoint) {
-  @media (min-width: map-get($breakpoints, $breakpoint)) { 
-    @content; 
+  @media (min-width: map-get($breakpoints, $breakpoint)) {
+    @content;
   }
 }
 
@@ -221,8 +229,16 @@ $breakpoints: (
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Advanced CSS Concepts](3%29%20Advanced%20CSS%20Concepts.md)** | **[Next: Performance & Optimization →](5%29%20Performance%20%26%20Optimization.md)**
+[Advanced CSS Concepts](3%29%20Advanced%20CSS%20Concepts.md) • [Home: README](../README.md) • [Performance & Optimization →](5%29%20Performance%20%26%20Optimization.md)
+
+[📋 Cheatsheet](CSS%20Interview%20Cheatsheet.md]
 
 </div>
+
+---

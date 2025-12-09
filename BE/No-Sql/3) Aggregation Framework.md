@@ -1,10 +1,18 @@
+# 📊 3. Aggregation Framework (Q30–41)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Indexing & Query Optimization](2%29%20Indexing%20%26%20Query%20Optimization.md)** | **[Next: Data Modeling & Schema Design →](4%29%20Data%20Modeling%20%26%20Schema%20Design.md)**
+[Indexing & Query Optimization](2%29%20Indexing%20%26%20Query%20Optimization.md) • [Home: Question List](question.md) • [Data Modeling & Schema Design →](4%29%20Data%20Modeling%20%26%20Schema%20Design.md)
+
+[📋 Cheatsheet](MongoDB%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 📊 3. Aggregation Framework (Q30–41)
+---
 
 ---
 
@@ -41,7 +49,7 @@ Example:
 db.products.aggregate([
   // $match: Filter documents
   { $match: { category: "electronics", price: { $gte: 100 } } },
-  
+
   // $unwind: Deconstruct array
   { $unwind: "$tags" },
   // $group: Aggregate by tag
@@ -65,8 +73,8 @@ db.orders.aggregate([
   // $match: Filter documents early
   { $match: { status: "completed", amount: { $gte: 100 } } },
   // $group: Aggregate by customer
-  { $group: { 
-    _id: "$customerId", 
+  { $group: {
+    _id: "$customerId",
     totalSpent: { $sum: "$amount" },
     orderCount: { $sum: 1 }
   } }
@@ -223,17 +231,17 @@ db.orders.aggregate([
     $facet: {
       // Sales by month
       monthlySales: [
-        { $group: { 
-          _id: { $month: "$date" }, 
-          total: { $sum: "$amount" } 
+        { $group: {
+          _id: { $month: "$date" },
+          total: { $sum: "$amount" }
         } },
         { $sort: { _id: 1 } }
       ],
       // Top customers
       topCustomers: [
-        { $group: { 
-          _id: "$customerId", 
-          total: { $sum: "$amount" } 
+        { $group: {
+          _id: "$customerId",
+          total: { $sum: "$amount" }
         } },
         { $sort: { total: -1 } },
         { $limit: 5 }
@@ -303,7 +311,7 @@ db.products.aggregate([
 // Cursor-based pagination (better performance)
 const lastCreatedAt = new Date("2023-12-01");
 db.products.aggregate([
-  { $match: { 
+  { $match: {
     category: "electronics",
     createdAt: { $lt: lastCreatedAt }  // Cursor
   } },
@@ -360,9 +368,16 @@ const orders = await Order.aggregate([
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Indexing & Query Optimization](2%29%20Indexing%20%26%20Query%20Optimization.md)** | **[Next: Data Modeling & Schema Design →](4%29%20Data%20Modeling%20%26%20Schema%20Design.md)**
+[Indexing & Query Optimization](2%29%20Indexing%20%26%20Query%20Optimization.md) • [Home: Question List](question.md) • [Data Modeling & Schema Design →](4%29%20Data%20Modeling%20%26%20Schema%20Design.md)
+
+[📋 Cheatsheet](MongoDB%20Interview%20Cheatsheet.md]
 
 </div>
 
+---

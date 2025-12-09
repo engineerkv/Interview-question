@@ -1,10 +1,18 @@
+# 📋 3. Forms & Input Elements (Q31–45)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Semantic HTML & Structure](2%29%20Semantic%20HTML%20%26%20Structure.md)** | **[Next: Accessibility (A11y) →](4%29%20Accessibility%20%28A11y%29.md)**
+[Semantic HTML & Structure](2%29%20Semantic%20HTML%20%26%20Structure.md) • [Home: README](../README.md) • [Accessibility (A11y) →](4%29%20Accessibility%20%28A11y%29.md)
+
+[📋 Cheatsheet](HTML%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 📋 3. Forms & Input Elements (Q31–45)
+---
 
 ---
 
@@ -322,8 +330,16 @@ Example:
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Semantic HTML & Structure](2%29%20Semantic%20HTML%20%26%20Structure.md)** | **[Next: Accessibility (A11y) →](4%29%20Accessibility%20%28A11y%29.md)**
+[Semantic HTML & Structure](2%29%20Semantic%20HTML%20%26%20Structure.md) • [Home: README](../README.md) • [Accessibility (A11y) →](4%29%20Accessibility%20%28A11y%29.md)
+
+[📋 Cheatsheet](HTML%20Interview%20Cheatsheet.md)
 
 </div>
+
+---

@@ -5,6 +5,7 @@
 ## 📚 Preparation Order (Recommended Learning Path)
 
 ### **Phase 1: Web Fundamentals** ⭐ Foundation
+
 Master the core web technologies that every frontend developer must know.
 
 1. **[HTML Fundamentals](HTML/)** - Q1-111
@@ -23,6 +24,7 @@ Master the core web technologies that every frontend developer must know.
    - **Priority**: ⭐⭐⭐ Critical
 
 ### **Phase 2: TypeScript** ⭐ Recommended
+
 Type-safe JavaScript for large-scale applications.
 
 4. **[TypeScript](Typescript/)** - Q1-53
@@ -31,6 +33,7 @@ Type-safe JavaScript for large-scale applications.
    - **Priority**: ⭐⭐ Medium (Required for many companies)
 
 ### **Phase 3: React Ecosystem** ⭐ Essential
+
 The most popular frontend framework and its ecosystem.
 
 5. **[React Fundamentals](React/)** - Q1-100
@@ -44,6 +47,7 @@ The most popular frontend framework and its ecosystem.
    - **Priority**: ⭐⭐ High (If applying to companies using Next.js)
 
 ### **Phase 4: Mobile Development** ⭐ Optional
+
 Cross-platform mobile development.
 
 7. **[React Native](React-Native/)** - Q1-95
@@ -52,6 +56,7 @@ Cross-platform mobile development.
    - **Priority**: ⭐⭐ Medium (If applying for mobile roles)
 
 ### **Phase 5: System Design** ⭐ Senior Level
+
 Architecture and design patterns for large-scale applications.
 
 8. **[Frontend System Design](FE-System-Design/)** - Q1-142
@@ -80,18 +85,27 @@ Architecture and design patterns for large-scale applications.
 ## 🎯 Preparation Strategy
 
 ### **For Junior/Mid-Level Roles:**
+
 Focus on: HTML → CSS → JavaScript → React
+
 - **Time**: 2-3 weeks
+
 - **Coverage**: ~70% of questions
 
 ### **For Senior Roles:**
+
 Complete all phases + System Design
+
 - **Time**: 4-6 weeks
+
 - **Coverage**: 100% of questions
 
 ### **For Mobile Roles:**
+
 Add React Native after React
+
 - **Time**: 5-7 weeks
+
 - **Coverage**: 100% + Mobile specific
 
 ---
@@ -99,9 +113,13 @@ Add React Native after React
 ## 📖 Study Tips
 
 1. **Start with fundamentals** - Don't skip HTML/CSS/JS basics
+
 2. **Practice coding** - Implement solutions, don't just read
+
 3. **Use cheatsheets** - Quick reference before interviews
+
 4. **Focus on understanding** - Not just memorization
+
 5. **Build projects** - Apply knowledge in real scenarios
 
 ---
@@ -109,12 +127,19 @@ Add React Native after React
 ## 🔗 Quick Links
 
 - [HTML Questions](HTML/question.md)
+
 - [CSS Questions](CSS/question.md)
+
 - [JavaScript Questions](Javascript/question.md)
+
 - [TypeScript Questions](Typescript/question.md)
+
 - [React Questions](React/question.md)
+
 - [Next.js Questions](Next/question.md)
+
 - [React Native Questions](React-Native/question.md)
+
 - [System Design Questions](FE-System-Design/question.md)
 
 ---
@@ -122,11 +147,13 @@ Add React Native after React
 ## 📝 Notes
 
 - All questions follow the standardized format (Concept, Example, Deep Insights, Senior Takeaway)
+
 - Each section has a cheatsheet for quick review
+
 - Questions are numbered sequentially within each technology
+
 - Difficulty ratings help prioritize study time
 
 ---
 
 **Good luck with your interview preparation! 🚀**
-

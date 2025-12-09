@@ -1,22 +1,39 @@
 # Graphs
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Heaps & Priority Queue](7%20Heaps%20&%20Priority%20Queue.md) • [Home: README](README.md) • [Dynamic Programming →](9%20Dynamic%20Programming.md)
+
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+
+</div>
+
+---
+
 ## Q136. DFS and BFS Traversal
 
 **Problem:** Implement Depth-First Search (DFS) and Breadth-First Search (BFS) algorithms to traverse a graph starting from a given node.
 
-**Approach:** 
+**Approach:**
+
 - **DFS:** Use stack (recursion) to explore deeply before backtracking
+
 - **BFS:** Use queue to explore level by level
 
 ### Solution 1: BFS (Breadth-First Search)
+
 ```javascript
 function bfs(graph, start) {
   const queue = [start];
   const visited = new Set([start]);
-  
+
   while (queue.length) {
     const node = queue.shift();
-    
+
     // Process neighbors
     for (const neighbor of graph[node] || []) {
       if (!visited.has(neighbor)) {
@@ -25,19 +42,21 @@ function bfs(graph, start) {
       }
     }
   }
-  
+
   return visited;
 }
+
 ```
 
 ### Solution 2: DFS (Depth-First Search) - Recursive
+
 ```javascript
 function dfs(graph, start) {
   const visited = new Set();
-  
+
   function traverse(node) {
     visited.add(node);
-    
+
     // Process neighbors
     for (const neighbor of graph[node] || []) {
       if (!visited.has(neighbor)) {
@@ -45,21 +64,23 @@ function dfs(graph, start) {
       }
     }
   }
-  
+
   traverse(start);
   return visited;
 }
+
 ```
 
 ### Solution 3: DFS (Depth-First Search) - Iterative
+
 ```javascript
 function dfsIterative(graph, start) {
   const stack = [start];
   const visited = new Set([start]);
-  
+
   while (stack.length) {
     const node = stack.pop();
-    
+
     // Process neighbors
     for (const neighbor of graph[node] || []) {
       if (!visited.has(neighbor)) {
@@ -68,7 +89,7 @@ function dfsIterative(graph, start) {
       }
     }
   }
-  
+
   return visited;
 }
 
@@ -84,27 +105,31 @@ function dfsIterative(graph, start) {
 // Input: g = {0: []}, s = 0
 // BFS Output: Set {0}
 //   DFS Output: Set {0}
+
 ```
 
-**Time Complexity:** O(V + E) - Visit each vertex and edge once  
+**Time Complexity:** O(V + E) - Visit each vertex and edge once
 **Space Complexity:** O(V) - Store visited set and queue/stack
 
 ## Q137. Detect Cycle in Directed and Undirected Graph
 
 **Problem:** Detect if a cycle exists in a directed graph and an undirected graph.
 
-**Approach:** 
+**Approach:**
+
 - **Directed:** Use DFS with color tracking (0=unvisited, 1=visiting, 2=visited). Back edge (gray to gray) indicates cycle.
+
 - **Undirected:** Use DFS tracking parent. If visited neighbor is not parent, cycle exists.
 
 ### Solution 1: Detect Cycle in Directed Graph
+
 ```javascript
 function hasCycleDirected(graph) {
   const color = {};  // 0: unvisited, 1: visiting, 2: visited
 
   function dfs(node) {
     color[node] = 1;  // Mark as visiting
-    
+
     for (const neighbor of graph[node] || []) {
       if (color[neighbor] === 1) {
         // Back edge found (gray to gray)
@@ -114,7 +139,7 @@ function hasCycleDirected(graph) {
         return true;
       }
     }
-    
+
     color[node] = 2;  // Mark as visited
     return false;
   }
@@ -124,19 +149,21 @@ function hasCycleDirected(graph) {
       return true;
     }
   }
-  
+
   return false;
 }
+
 ```
 
 ### Solution 2: Detect Cycle in Undirected Graph
+
 ```javascript
 function hasCycleUndirected(graph) {
   const visited = new Set();
 
   function dfs(node, parent) {
     visited.add(node);
-    
+
     for (const neighbor of graph[node] || []) {
       if (neighbor !== parent) {
         if (visited.has(neighbor) || dfs(neighbor, node)) {
@@ -144,7 +171,7 @@ function hasCycleUndirected(graph) {
         }
       }
     }
-    
+
     return false;
   }
 
@@ -153,7 +180,7 @@ function hasCycleUndirected(graph) {
       return true;
     }
   }
-  
+
   return false;
 }
 
@@ -172,9 +199,10 @@ function hasCycleUndirected(graph) {
 
 // Input: g = {0: [1], 1: []} (no cycle)
 // Output: false
+
 ```
 
-**Time Complexity:** O(V + E) - Visit each vertex and edge once  
+**Time Complexity:** O(V + E) - Visit each vertex and edge once
 **Space Complexity:** O(V) - Store color/visited information
 
 ## Q138. Topological Sort
@@ -184,11 +212,12 @@ function hasCycleUndirected(graph) {
 **Approach:** Use Kahn's algorithm: compute indegrees, start with nodes having indegree 0, process them and decrement neighbors' indegrees.
 
 ### Solution 1: Kahn's Algorithm (Optimal)
+
 ```javascript
 function topologicalSort(graph) {
   const indegree = {};
   const queue = [];
-  
+
   // Initialize indegree for all nodes
   for (const node in graph) {
     if (!(node in indegree)) {
@@ -199,20 +228,20 @@ function topologicalSort(graph) {
       indegree[neighbor] = (indegree[neighbor] || 0) + 1;
     }
   }
-  
+
   // Add nodes with indegree 0 to queue
   for (const node in indegree) {
     if (indegree[node] === 0) {
       queue.push(node);
     }
   }
-  
+
   const order = [];
-  
+
   while (queue.length) {
     const node = queue.shift();
     order.push(node);
-    
+
     // Decrement indegree of neighbors
     for (const neighbor of graph[node] || []) {
       indegree[neighbor]--;
@@ -221,7 +250,7 @@ function topologicalSort(graph) {
       }
     }
   }
-  
+
   // If all nodes processed, return order; else cycle exists
   return order.length === Object.keys(indegree).length ? order : [];
 }
@@ -238,9 +267,10 @@ function topologicalSort(graph) {
 
 // Input: g = {0: [1, 2], 1: [3], 2: [3], 3: []}
 // Output: Valid topological order like [0, 1, 2, 3]
+
 ```
 
-**Time Complexity:** O(V + E) - Visit each vertex and edge once  
+**Time Complexity:** O(V + E) - Visit each vertex and edge once
 **Space Complexity:** O(V) - Store indegree and queue
 
 ## Q139. Number of Islands
@@ -250,27 +280,28 @@ function topologicalSort(graph) {
 **Approach:** Count connected components of '1's using DFS or BFS. Mark visited cells to avoid recounting.
 
 ### Solution 1: DFS (Optimal)
+
 ```javascript
 function numIslands(grid) {
   if (!grid || grid.length === 0) return 0;
-  
+
   const m = grid.length;
   const n = grid[0].length;
   const visited = Array.from({ length: m }, () => Array(n).fill(false));
-  const directions = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+  const directions = [1, 0], [-1, 0], [0, 1], [0, -1];
   let count = 0;
 
   function dfs(row, col) {
     visited[row][col] = true;
-    
+
     // Explore all 4 directions
     for (const [dr, dc] of directions) {
       const newRow = row + dr;
       const newCol = col + dc;
-      
-      if (newRow >= 0 && newRow < m && 
+
+      if (newRow >= 0 && newRow < m &&
           newCol >= 0 && newCol < n &&
-          grid[newRow][newCol] === '1' && 
+          grid[newRow][newCol] === '1' &&
           !visited[newRow][newCol]) {
         dfs(newRow, newCol);
       }
@@ -286,25 +317,26 @@ function numIslands(grid) {
       }
     }
   }
-  
+
   return count;
 }
 
 // Test Cases:
-// Input: grid = [["1","1","1","1","0"],["1","1","0","1","0"],["1","1","0","0","0"],["0","0","0","0","0"]]
+// Input: grid = ["1","1","1","1","0"],["1","1","0","1","0"],["1","1","0","0","0"],["0","0","0","0","0"]
 // Output: 1
 // Explanation: One island of connected 1s
 
-// Input: grid = [["1","1","0","0","0"],["1","1","0","0","0"],["0","0","1","0","0"],["0","0","0","1","1"]]
+// Input: grid = ["1","1","0","0","0"],["1","1","0","0","0"],["0","0","1","0","0"],["0","0","0","1","1"]
 // Output: 3
 // Explanation: Three separate islands
 
-// Input: grid = [["1","1","1"],["0","1","0"],["1","1","1"]]
+// Input: grid = ["1","1","1"],["0","1","0"],["1","1","1"]
 // Output: 1
 // Explanation: One island with hole in center
+
 ```
 
-**Time Complexity:** O(m × n) - Visit each cell once  
+**Time Complexity:** O(m × n) - Visit each cell once
 **Space Complexity:** O(m × n) - Visited array; O(m × n) recursion stack worst case
 
 ## Q140. Clone Graph
@@ -314,17 +346,18 @@ function numIslands(grid) {
 **Approach:** Use BFS/DFS to traverse graph. Create new nodes using a map (old → new). Wire edges as nodes are discovered.
 
 ### Solution 1: BFS with Mapping (Optimal)
+
 ```javascript
 function cloneGraph(node) {
   if (!node) return null;
-  
+
   const map = new Map();  // old -> new mapping
   const queue = [node];
   map.set(node, { val: node.val, neighbors: [] });
 
   while (queue.length) {
     const oldNode = queue.shift();
-    
+
     for (const neighbor of oldNode.neighbors) {
       // Create new node if not exists
       if (!map.has(neighbor)) {
@@ -335,33 +368,37 @@ function cloneGraph(node) {
       map.get(oldNode).neighbors.push(map.get(neighbor));
     }
   }
-  
+
   return map.get(node);
 }
 
 // Test Cases:
-// Input: adjList = [[2,4],[1,3],[2,4],[1,3]]
+// Input: adjList = [2,4],[1,3],[2,4],[1,3]
 // (Node 1 connects to 2,4; Node 2 connects to 1,3; etc.)
 // Output: Deep copy with same structure
 
-// Input: adjList = [[]]
+// Input: adjList = []
 // Output: Deep copy of single node with no neighbors
 
 // Input: adjList = []
 // Output: null
 
-// Input: adjList = [[2],[1]]
+// Input: adjList = [2],[1]
 // Output: Deep copy of two connected nodes
+
 ```
 
-**Time Complexity:** O(V + E) - Visit each vertex and edge once  
+**Time Complexity:** O(V + E) - Visit each vertex and edge once
 **Space Complexity:** O(V) - Map stores all nodes
 
 ## Q141. Rotting Oranges
 
 **Problem:** You are given an `m x n` grid where each cell can have one of three values:
+
 - `0` representing an empty cell,
+
 - `1` representing a fresh orange,
+
 - `2` representing a rotten orange.
 
 Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten. Return the minimum number of minutes that must elapse until no cell has a fresh orange. If this is impossible, return `-1`.
@@ -369,16 +406,17 @@ Every minute, any fresh orange that is 4-directionally adjacent to a rotten oran
 **Approach:** Multi-source BFS from all rotten oranges. Time equals the number of levels until no fresh oranges remain.
 
 ### Solution 1: Multi-Source BFS (Optimal)
+
 ```javascript
 function orangesRotting(grid) {
   if (!grid || grid.length === 0) return 0;
-  
+
   const m = grid.length;
   const n = grid[0].length;
   const queue = [];
   let freshCount = 0;
   let time = 0;
-  
+
   // Add all rotten oranges to queue and count fresh
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < n; j++) {
@@ -389,24 +427,24 @@ function orangesRotting(grid) {
       }
     }
   }
-  
-  const directions = [[1, 0], [-1, 0], [0, 1], [0, -1]];
-  
+
+  const directions = [1, 0], [-1, 0], [0, 1], [0, -1];
+
   // Process level by level
   while (queue.length && freshCount > 0) {
     const levelSize = queue.length;
     time++;
-    
+
     for (let k = 0; k < levelSize; k++) {
       const [row, col] = queue.shift();
-      
+
       // Check all 4 directions
       for (const [dr, dc] of directions) {
         const newRow = row + dr;
         const newCol = col + dc;
-        
-        if (newRow >= 0 && newRow < m && 
-            newCol >= 0 && newCol < n && 
+
+        if (newRow >= 0 && newRow < m &&
+            newCol >= 0 && newCol < n &&
             grid[newRow][newCol] === 1) {
           grid[newRow][newCol] = 2;  // Rot the orange
           freshCount--;
@@ -415,12 +453,13 @@ function orangesRotting(grid) {
       }
     }
   }
-  
+
   return freshCount === 0 ? time : -1;
 }
+
 ```
 
-**Time Complexity:** O(m × n) - Visit each cell once  
+**Time Complexity:** O(m × n) - Visit each cell once
 **Space Complexity:** O(m × n) - Queue stores cells
 
 ## Q142. Course Schedule
@@ -430,6 +469,7 @@ function orangesRotting(grid) {
 **Approach:** Build directed graph from prerequisites. Detect cycle using Kahn's algorithm (topological sort). If all courses processed, no cycle exists.
 
 ### Solution 1: Kahn's Algorithm (Topological Sort) (Optimal)
+
 ```javascript
 function canFinish(numCourses, prerequisites) {
   // Build graph
@@ -437,7 +477,7 @@ function canFinish(numCourses, prerequisites) {
   for (const [course, prereq] of prerequisites) {
     graph[prereq].push(course);
   }
-  
+
   // Calculate indegrees
   const indegree = new Array(numCourses).fill(0);
   for (const neighbors of graph) {
@@ -445,7 +485,7 @@ function canFinish(numCourses, prerequisites) {
       indegree[neighbor]++;
     }
   }
-  
+
   // Start with courses having no prerequisites
   const queue = [];
   for (let i = 0; i < numCourses; i++) {
@@ -453,13 +493,13 @@ function canFinish(numCourses, prerequisites) {
       queue.push(i);
     }
   }
-  
+
   let processed = 0;
-  
+
   while (queue.length) {
     const course = queue.shift();
     processed++;
-    
+
     // Decrement indegree of neighbors
     for (const neighbor of graph[course]) {
       indegree[neighbor]--;
@@ -468,26 +508,27 @@ function canFinish(numCourses, prerequisites) {
       }
     }
   }
-  
+
   // If all courses processed, no cycle
   return processed === numCourses;
 }
 
 // Test Cases:
-// Input: numCourses = 2, prerequisites = [[1,0]]
+// Input: numCourses = 2, prerequisites = [1,0]
 // Output: true
 
-// Input: numCourses = 2, prerequisites = [[1,0],[0,1]]
+// Input: numCourses = 2, prerequisites = [1,0],[0,1]
 // Output: false
 
-// Input: numCourses = 3, prerequisites = [[1,0],[2,1]]
+// Input: numCourses = 3, prerequisites = [1,0],[2,1]
 // Output: true
 
-// Input: numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]
+// Input: numCourses = 4, prerequisites = [1,0],[2,0],[3,1],[3,2]
 // Output: true
+
 ```
 
-**Time Complexity:** O(V + E) - V courses, E prerequisites  
+**Time Complexity:** O(V + E) - V courses, E prerequisites
 **Space Complexity:** O(V + E) - Graph and indegree arrays
 
 ## Q143. Is Graph Bipartite?
@@ -497,6 +538,7 @@ function canFinish(numCourses, prerequisites) {
 **Approach:** Use BFS to 2-color the graph. If adjacent nodes have the same color (conflict), graph has odd cycle and is not bipartite.
 
 ### Solution 1: BFS with 2-Coloring (Optimal)
+
 ```javascript
 function isBipartite(graph) {
   const n = graph.length;
@@ -507,10 +549,10 @@ function isBipartite(graph) {
       // Start BFS from uncolored node
       color[start] = 1;
       const queue = [start];
-      
+
       while (queue.length) {
         const node = queue.shift();
-        
+
         for (const neighbor of graph[node]) {
           if (color[neighbor] === 0) {
             // Color neighbor with opposite color
@@ -524,25 +566,26 @@ function isBipartite(graph) {
       }
     }
   }
-  
+
   return true;
 }
 
 // Test Cases:
-// Input: graph = [[1,2,3],[0,2],[0,1,3],[0,2]]
+// Input: graph = [1,2,3],[0,2],[0,1,3],[0,2]
 // Output: false
 
-// Input: graph = [[1,3],[0,2],[1,3],[0,2]]
+// Input: graph = [1,3],[0,2],[1,3],[0,2]
 // Output: true
 
-// Input: graph = [[1],[0]]
+// Input: graph = [1],[0]
 // Output: true
 
-// Input: graph = [[],[],[],[]]
+// Input: graph = [],[],[],[]
 // Output: true
+
 ```
 
-**Time Complexity:** O(V + E) - Visit each vertex and edge once  
+**Time Complexity:** O(V + E) - Visit each vertex and edge once
 **Space Complexity:** O(V) - Color array and queue
 
 ## Q144. Dijkstra's Algorithm
@@ -552,6 +595,7 @@ function isBipartite(graph) {
 **Approach:** Use min-heap (priority queue) to always process the node with minimum distance. Relax edges to update distances.
 
 ### Solution 1: Min-Heap Implementation (Optimal)
+
 ```javascript
 function dijkstra(n, edges, src) {
   // Build graph
@@ -561,20 +605,20 @@ function dijkstra(n, edges, src) {
     // For undirected graph, also add reverse edge
     // graph[v].push([u, w]);
   }
-  
+
   const dist = new Array(n).fill(Infinity);
   dist[src] = 0;
-  
+
   // Min-heap: [distance, node]
   const heap = new Heap((a, b) => a[0] < b[0]);
   heap.push([0, src]);
-  
+
   while (heap.size()) {
     const [d, u] = heap.pop();
-    
+
     // Skip if outdated (lazy deletion)
     if (d !== dist[u]) continue;
-    
+
     // Relax edges
     for (const [v, w] of graph[u]) {
       if (dist[u] + w < dist[v]) {
@@ -583,12 +627,13 @@ function dijkstra(n, edges, src) {
       }
     }
   }
-  
+
   return dist;
 }
+
 ```
 
-**Time Complexity:** O((V + E) log V) - Each vertex and edge processed, heap operations O(log V)  
+**Time Complexity:** O((V + E) log V) - Each vertex and edge processed, heap operations O(log V)
 **Space Complexity:** O(V + E) - Graph and heap
 
 ## Q145. Bellman-Ford Algorithm
@@ -598,11 +643,12 @@ function dijkstra(n, edges, src) {
 **Approach:** Relax all edges V-1 times. If distances can still be improved in V-th pass, negative cycle exists.
 
 ### Solution 1: Bellman-Ford (Optimal)
+
 ```javascript
 function bellmanFord(n, edges, src) {
   const dist = new Array(n).fill(Infinity);
   dist[src] = 0;
-  
+
   // Relax edges V-1 times
   for (let i = 0; i < n - 1; i++) {
     for (const [u, v, w] of edges) {
@@ -611,19 +657,20 @@ function bellmanFord(n, edges, src) {
       }
     }
   }
-  
+
   // Check for negative cycles (V-th pass)
   for (const [u, v, w] of edges) {
     if (dist[u] !== Infinity && dist[u] + w < dist[v]) {
       return null; // Negative cycle detected
     }
   }
-  
+
   return dist;
 }
+
 ```
 
-**Time Complexity:** O(V × E) - Relax edges V-1 times  
+**Time Complexity:** O(V × E) - Relax edges V-1 times
 **Space Complexity:** O(V) - Distance array
 
 ## Q146. Floyd-Warshall Algorithm
@@ -633,10 +680,11 @@ function bellmanFord(n, edges, src) {
 **Approach:** Dynamic programming over intermediate nodes. For each intermediate node k, update shortest path between i and j using k.
 
 ### Solution 1: Floyd-Warshall (Optimal)
+
 ```javascript
 function floydWarshall(dist) {
   const n = dist.length;
-  
+
   // For each intermediate node k
   for (let k = 0; k < n; k++) {
     // For each source i
@@ -650,44 +698,48 @@ function floydWarshall(dist) {
       }
     }
   }
-  
+
   return dist;
 }
+
 ```
 
-**Time Complexity:** O(V³) - Three nested loops over V vertices  
+**Time Complexity:** O(V³) - Three nested loops over V vertices
 **Space Complexity:** O(V²) - Distance matrix
 
 ## Q147. Minimum Spanning Tree (Kruskal's & Prim's)
 
 **Problem:** Find the minimum spanning tree (MST) of a connected, undirected, weighted graph. The MST is a subset of edges that connects all vertices with minimum total weight.
 
-**Approach:** 
+**Approach:**
+
 - **Kruskal's:** Sort edges by weight, use union-find to join safe edges (don't create cycles)
+
 - **Prim's:** Start from any vertex, grow MST using priority queue to add minimum-weight edges
 
 ### Solution 1: Kruskal's Algorithm
+
 ```javascript
 function kruskalMST(n, edges) {
   // Sort edges by weight
   edges.sort((a, b) => a[2] - b[2]);
-  
+
   // Union-Find data structure
   const parent = Array.from({ length: n }, (_, i) => i);
   const rank = new Array(n).fill(0);
-  
+
   function find(x) {
     if (parent[x] !== x) {
       parent[x] = find(parent[x]); // Path compression
     }
     return parent[x];
   }
-  
+
   function union(a, b) {
     a = find(a);
     b = find(b);
     if (a === b) return false; // Same component
-    
+
     // Union by rank
     if (rank[a] < rank[b]) {
       [a, b] = [b, a];
@@ -698,22 +750,24 @@ function kruskalMST(n, edges) {
     }
     return true;
   }
-  
+
   let cost = 0;
   const mst = [];
-  
+
   for (const [u, v, w] of edges) {
     if (union(u, v)) {
       cost += w;
       mst.push([u, v, w]);
     }
   }
-  
+
   return { cost, mst };
 }
+
 ```
 
 ### Solution 2: Prim's Algorithm
+
 ```javascript
 function primMST(n, edges) {
   // Build graph
@@ -722,26 +776,26 @@ function primMST(n, edges) {
     graph[u].push([v, w]);
     graph[v].push([u, w]);
   }
-  
+
   const heap = new Heap((a, b) => a[0] < b[0]); // Min-heap: [weight, node]
   const visited = new Set();
   let cost = 0;
   const mst = [];
-  
+
   // Start from node 0
   heap.push([0, 0, -1]); // [weight, node, parent]
-  
+
   while (heap.size() && visited.size < n) {
     const [w, u, parent] = heap.pop();
-    
+
     if (visited.has(u)) continue;
-    
+
     visited.add(u);
     cost += w;
     if (parent !== -1) {
       mst.push([parent, u, w]);
     }
-    
+
     // Add neighbors to heap
     for (const [v, weight] of graph[u]) {
       if (!visited.has(v)) {
@@ -749,12 +803,13 @@ function primMST(n, edges) {
       }
     }
   }
-  
+
   return { cost, mst };
 }
+
 ```
 
-**Time Complexity:** Kruskal: O(E log E), Prim: O(E log V)  
+**Time Complexity:** Kruskal: O(E log E), Prim: O(E log V)
 **Space Complexity:** O(V + E) - Graph and union-find/heap
 
 ## Q148. Bridges in Graph
@@ -764,6 +819,7 @@ function primMST(n, edges) {
 **Approach:** Use Tarjan's algorithm with DFS. Track discovery time (tin) and low-link value. Edge (u,v) is a bridge if low[v] > tin[u].
 
 ### Solution 1: Tarjan's Algorithm (Optimal)
+
 ```javascript
 function findBridges(n, graph) {
   const tin = new Array(n).fill(-1);  // Discovery time
@@ -773,10 +829,10 @@ function findBridges(n, graph) {
 
   function dfs(u, parent) {
     tin[u] = low[u] = time++;
-    
+
     for (const v of graph[u] || []) {
       if (v === parent) continue;  // Skip parent
-      
+
       if (tin[v] !== -1) {
         // Back edge: update low-link
         low[u] = Math.min(low[u], tin[v]);
@@ -784,7 +840,7 @@ function findBridges(n, graph) {
         // Tree edge: explore
         dfs(v, u);
         low[u] = Math.min(low[u], low[v]);
-        
+
         // Bridge condition: low[v] > tin[u]
         if (low[v] > tin[u]) {
           bridges.push([u, v]);
@@ -798,12 +854,13 @@ function findBridges(n, graph) {
       dfs(i, -1);
     }
   }
-  
+
   return bridges;
 }
+
 ```
 
-**Time Complexity:** O(V + E) - Visit each vertex and edge once  
+**Time Complexity:** O(V + E) - Visit each vertex and edge once
 **Space Complexity:** O(V) - Arrays and recursion stack
 
 ## Q149. Articulation Points (Cut Vertices)
@@ -813,6 +870,7 @@ function findBridges(n, graph) {
 **Approach:** Use Tarjan's algorithm. Node u is articulation point if: (1) root with >1 DFS children, or (2) non-root with child v where low[v] >= tin[u].
 
 ### Solution 1: Tarjan's Algorithm (Optimal)
+
 ```javascript
 function findArticulationPoints(n, graph) {
   const tin = new Array(n).fill(-1);  // Discovery time
@@ -823,10 +881,10 @@ function findArticulationPoints(n, graph) {
   function dfs(u, parent) {
     tin[u] = low[u] = time++;
     let children = 0;
-    
+
     for (const v of graph[u] || []) {
       if (v === parent) continue;
-      
+
       if (tin[v] !== -1) {
         // Back edge: update low-link
         low[u] = Math.min(low[u], tin[v]);
@@ -835,14 +893,14 @@ function findArticulationPoints(n, graph) {
         children++;
         dfs(v, u);
         low[u] = Math.min(low[u], low[v]);
-        
+
         // Articulation point condition: low[v] >= tin[u]
         if (parent !== -1 && low[v] >= tin[u]) {
           isArticulation[u] = true;
         }
       }
     }
-    
+
     // Root special case: >1 children
     if (parent === -1 && children > 1) {
       isArticulation[u] = true;
@@ -854,12 +912,13 @@ function findArticulationPoints(n, graph) {
       dfs(i, -1);
     }
   }
-  
+
   return isArticulation.map((is, i) => is ? i : null).filter(v => v !== null);
 }
+
 ```
 
-**Time Complexity:** O(V + E) - Visit each vertex and edge once  
+**Time Complexity:** O(V + E) - Visit each vertex and edge once
 **Space Complexity:** O(V) - Arrays and recursion stack
 
 ## Q150. Shortest Path in DAG
@@ -869,31 +928,32 @@ function findArticulationPoints(n, graph) {
 **Approach:** First perform topological sort to get linear ordering. Then relax edges once in topological order.
 
 ### Solution 1: Topological Sort + Edge Relaxation (Optimal)
+
 ```javascript
 function dagShortestPath(n, edges, src) {
   // Build graph and calculate indegree
   const graph = Array.from({ length: n }, () => []);
   const indegree = new Array(n).fill(0);
-  
+
   for (const [u, v, w] of edges) {
     graph[u].push([v, w]);
     indegree[v]++;
   }
-  
+
   // Topological sort using Kahn's algorithm
   const queue = [];
   const order = [];
-  
+
   for (let i = 0; i < n; i++) {
     if (indegree[i] === 0) {
       queue.push(i);
     }
   }
-  
+
   while (queue.length) {
     const u = queue.shift();
     order.push(u);
-    
+
     for (const [v, w] of graph[u]) {
       indegree[v]--;
       if (indegree[v] === 0) {
@@ -901,24 +961,25 @@ function dagShortestPath(n, edges, src) {
       }
     }
   }
-  
+
   // Relax edges in topological order
   const dist = new Array(n).fill(Infinity);
   dist[src] = 0;
-  
+
   for (const u of order) {
     if (dist[u] === Infinity) continue;
-    
+
     for (const [v, w] of graph[u]) {
       dist[v] = Math.min(dist[v], dist[u] + w);
     }
   }
-  
+
   return dist;
 }
+
 ```
 
-**Time Complexity:** O(V + E) - Topological sort + edge relaxation  
+**Time Complexity:** O(V + E) - Topological sort + edge relaxation
 **Space Complexity:** O(V + E) - Graph and distance array
 
 ## Q151. Detect Cycle in Directed Graph (DAG Check)
@@ -928,17 +989,18 @@ function dagShortestPath(n, edges, src) {
 **Approach:** Use topological sort (Kahn's algorithm). If all nodes processed, graph is DAG. If not all nodes processed, cycle exists.
 
 ### Solution 1: Kahn's Algorithm (Topological Sort) (Optimal)
+
 ```javascript
 function isDAG(n, edges) {
   // Build graph
   const graph = Array.from({ length: n }, () => []);
   const indegree = new Array(n).fill(0);
-  
+
   for (const [u, v] of edges) {
     graph[u].push(v);
     indegree[v]++;
   }
-  
+
   // Kahn's algorithm
   const queue = [];
   for (let i = 0; i < n; i++) {
@@ -946,13 +1008,13 @@ function isDAG(n, edges) {
       queue.push(i);
     }
   }
-  
+
   let processed = 0;
-  
+
   while (queue.length) {
     const u = queue.shift();
     processed++;
-    
+
     for (const v of graph[u]) {
       indegree[v]--;
       if (indegree[v] === 0) {
@@ -960,21 +1022,26 @@ function isDAG(n, edges) {
       }
     }
   }
-  
+
   // If all nodes processed, no cycle (DAG)
   return processed === n;
 }
+
 ```
 
-**Time Complexity:** O(V + E) - Visit each vertex and edge once  
+**Time Complexity:** O(V + E) - Visit each vertex and edge once
 **Space Complexity:** O(V + E) - Graph and indegree arrays
 
 ## Q152. Word Ladder
 
 **Problem:** A transformation sequence from word `beginWord` to word `endWord` using a dictionary `wordList` is a sequence of words such that:
+
 - The first word in the sequence is `beginWord`
+
 - The last word in the sequence is `endWord`
+
 - Only one letter can be changed at a time
+
 - Each transformed word must exist in `wordList`
 
 Given two words, `beginWord` and `endWord`, and a dictionary `wordList`, return the number of words in the shortest transformation sequence from `beginWord` to `endWord`, or `0` if no such sequence exists.
@@ -982,14 +1049,15 @@ Given two words, `beginWord` and `endWord`, and a dictionary `wordList`, return 
 **Approach:** Use BFS with pattern matching. Generate patterns with wildcards (*) to find neighbors efficiently. Track steps (level) until target is reached.
 
 ### Solution 1: BFS with Pattern Matching (Optimal)
+
 ```javascript
 function ladderLength(beginWord, endWord, wordList) {
   const wordSet = new Set(wordList);
   if (!wordSet.has(endWord)) return 0;
-  
+
   // Build pattern map: pattern -> words
   const patternMap = new Map();
-  
+
   function addPattern(word, index) {
     const pattern = word.slice(0, index) + '*' + word.slice(index + 1);
     if (!patternMap.has(pattern)) {
@@ -997,27 +1065,27 @@ function ladderLength(beginWord, endWord, wordList) {
     }
     patternMap.get(pattern).push(word);
   }
-  
+
   // Build pattern map for all words
   for (const word of wordSet) {
     for (let i = 0; i < word.length; i++) {
       addPattern(word, i);
     }
   }
-  
+
   // BFS
-  const queue = [[beginWord, 1]];
+  const queue = [beginWord, 1];
   const visited = new Set([beginWord]);
-  
+
   while (queue.length) {
     const [word, steps] = queue.shift();
-    
+
     if (word === endWord) return steps;
-    
+
     // Generate all patterns for current word
     for (let i = 0; i < word.length; i++) {
       const pattern = word.slice(0, i) + '*' + word.slice(i + 1);
-      
+
       // Get neighbors from pattern
       for (const neighbor of patternMap.get(pattern) || []) {
         if (!visited.has(neighbor)) {
@@ -1027,12 +1095,13 @@ function ladderLength(beginWord, endWord, wordList) {
       }
     }
   }
-  
+
   return 0;
 }
+
 ```
 
-**Time Complexity:** O(N × L²) - N words, L length, pattern generation O(L)  
+**Time Complexity:** O(N × L²) - N words, L length, pattern generation O(L)
 **Space Complexity:** O(N × L) - Pattern map and queue
 
 ## Q153. Snakes and Ladders
@@ -1042,11 +1111,12 @@ function ladderLength(beginWord, endWord, wordList) {
 **Approach:** Use BFS on board indices. For each square, try all 6 dice moves. Apply snake/ladder mapping if present.
 
 ### Solution 1: BFS with Board Mapping (Optimal)
+
 ```javascript
 function snakesAndLadders(board) {
   const n = board.length;
   const target = n * n;
-  
+
   // Convert square number to board coordinates
   function getCoordinates(square) {
     const row = Math.floor((square - 1) / n);
@@ -1057,37 +1127,38 @@ function snakesAndLadders(board) {
     const c = row % 2 === 0 ? col : n - 1 - col;
     return [r, c];
   }
-  
-  const queue = [[1, 0]];  // [square, moves]
+
+  const queue = [1, 0];  // [square, moves]
   const visited = new Set([1]);
-  
+
   while (queue.length) {
     const [square, moves] = queue.shift();
-    
+
     if (square === target) return moves;
-    
+
     // Try all 6 dice moves
     for (let k = 1; k <= 6 && square + k <= target; k++) {
       let nextSquare = square + k;
-      
+
       // Check for snake or ladder
       const [r, c] = getCoordinates(nextSquare);
       if (board[r][c] !== -1) {
         nextSquare = board[r][c];
       }
-      
+
       if (!visited.has(nextSquare)) {
         visited.add(nextSquare);
         queue.push([nextSquare, moves + 1]);
       }
     }
   }
-  
+
   return -1;
 }
+
 ```
 
-**Time Complexity:** O(n²) - Visit each square at most once  
+**Time Complexity:** O(n²) - Visit each square at most once
 **Space Complexity:** O(n²) - Queue and visited set
 
 ## Q154. Disjoint Set Union (Union-Find)
@@ -1097,13 +1168,14 @@ function snakesAndLadders(board) {
 **Approach:** Use parent array and rank array. Path compression flattens tree during find. Union by rank attaches smaller tree to larger tree.
 
 ### Solution 1: Union-Find with Optimizations (Optimal)
+
 ```javascript
 class DSU {
   constructor(n) {
     this.parent = Array.from({ length: n }, (_, i) => i);
     this.rank = new Array(n).fill(0);
   }
-  
+
   find(x) {
     // Path compression
     if (this.parent[x] !== x) {
@@ -1111,35 +1183,36 @@ class DSU {
     }
     return this.parent[x];
   }
-  
+
   union(a, b) {
     a = this.find(a);
     b = this.find(b);
-    
+
     if (a === b) return false;  // Already in same set
-    
+
     // Union by rank: attach smaller tree to larger
     if (this.rank[a] < this.rank[b]) {
       [a, b] = [b, a];
     }
-    
+
     this.parent[b] = a;
-    
+
     // Increase rank if ranks are equal
     if (this.rank[a] === this.rank[b]) {
       this.rank[a]++;
     }
-    
+
     return true;
   }
-  
+
   connected(a, b) {
     return this.find(a) === this.find(b);
   }
 }
+
 ```
 
-**Time Complexity:** O(α(n)) amortized - Inverse Ackermann function (nearly constant)  
+**Time Complexity:** O(α(n)) amortized - Inverse Ackermann function (nearly constant)
 **Space Complexity:** O(n) - Parent and rank arrays
 
 ## Q155. Tarjan's Algorithm for Strongly Connected Components
@@ -1149,6 +1222,7 @@ class DSU {
 **Approach:** Use Tarjan's algorithm with DFS. Track discovery time (id) and low-link value. Use stack to track current DFS path. When low[u] === id[u], pop stack to form SCC.
 
 ### Solution 1: Tarjan's Algorithm (Optimal)
+
 ```javascript
 function tarjansSCC(n, graph) {
   const id = new Array(n).fill(-1);      // Discovery time
@@ -1162,7 +1236,7 @@ function tarjansSCC(n, graph) {
     id[u] = low[u] = currentId++;
     stack.push(u);
     onStack[u] = true;
-    
+
     for (const v of graph[u] || []) {
       if (id[v] === -1) {
         // Unvisited: explore
@@ -1173,7 +1247,7 @@ function tarjansSCC(n, graph) {
         low[u] = Math.min(low[u], id[v]);
       }
     }
-    
+
     // Root of SCC: pop stack to form component
     if (low[u] === id[u]) {
       const component = [];
@@ -1192,14 +1266,14 @@ function tarjansSCC(n, graph) {
       dfs(i);
     }
   }
-  
+
   return components;
 }
+
 ```
 
-**Time Complexity:** O(V + E) - Visit each vertex and edge once  
+**Time Complexity:** O(V + E) - Visit each vertex and edge once
 **Space Complexity:** O(V) - Arrays and stack
-
 
 ## Q156. Surrounded Regions
 
@@ -1208,28 +1282,29 @@ function tarjansSCC(n, graph) {
 **Approach:** Mark all 'O' cells connected to border using DFS/BFS. Then flip remaining 'O' to 'X'. Restore marked cells back to 'O'.
 
 ### Solution 1: DFS from Borders (Optimal)
+
 ```javascript
 function solve(board) {
   if (!board.length || !board[0].length) return;
-  
+
   const m = board.length;
   const n = board[0].length;
-  
+
   // Mark border-connected 'O' with DFS
   function dfs(row, col) {
     if (row < 0 || row >= m || col < 0 || col >= n || board[row][col] !== 'O') {
       return;
     }
-    
+
     board[row][col] = '#';  // Mark as border-connected
-    
+
     // Explore 4 directions
     dfs(row + 1, col);
     dfs(row - 1, col);
     dfs(row, col + 1);
     dfs(row, col - 1);
   }
-  
+
   // Mark from all borders
   for (let i = 0; i < m; i++) {
     if (board[i][0] === 'O') dfs(i, 0);
@@ -1239,7 +1314,7 @@ function solve(board) {
     if (board[0][j] === 'O') dfs(0, j);
     if (board[m - 1][j] === 'O') dfs(m - 1, j);
   }
-  
+
   // Flip remaining 'O' to 'X', restore '#' to 'O'
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < n; j++) {
@@ -1253,17 +1328,17 @@ function solve(board) {
 }
 
 // Test Cases:
-// Input: board = [["X","X","X","X"],["X","O","O","X"],["X","X","O","X"],["X","O","X","X"]]
-// Output: [["X","X","X","X"],["X","X","X","X"],["X","X","X","X"],["X","O","X","X"]]
+// Input: board = ["X","X","X","X"],["X","O","O","X"],["X","X","O","X"],["X","O","X","X"]
+// Output: ["X","X","X","X"],["X","X","X","X"],["X","X","X","X"],["X","O","X","X"]
 // Explanation: Border-connected 'O' at (3,1) remains; others flipped
 
-// Input: board = [["X"]]
-// Output: [["X"]]
+// Input: board = ["X"]
+// Output: ["X"]
+
 ```
 
-**Time Complexity:** O(m × n) - Visit each cell once  
+**Time Complexity:** O(m × n) - Visit each cell once
 **Space Complexity:** O(m × n) - DFS recursion depth (worst case)
-
 
 ## Q157. Evaluate Division
 
@@ -1274,34 +1349,35 @@ Return the answers to all queries. If a single answer cannot be determined, retu
 **Approach:** Build weighted directed graph from equations. Use DFS/BFS to find path from numerator to denominator, multiplying values along path.
 
 ### Solution 1: Graph Construction + DFS (Optimal)
+
 ```javascript
 function calcEquation(equations, values, queries) {
   // Build graph: node -> {neighbor: value}
   const graph = new Map();
-  
+
   for (let i = 0; i < equations.length; i++) {
     const [a, b] = equations[i];
     const val = values[i];
-    
+
     if (!graph.has(a)) graph.set(a, new Map());
     if (!graph.has(b)) graph.set(b, new Map());
-    
+
     // a / b = val, so edge a->b has weight val
     graph.get(a).set(b, val);
     // b / a = 1/val, so edge b->a has weight 1/val
     graph.get(b).set(a, 1 / val);
   }
-  
+
   // DFS to find path and compute result
   function dfs(start, end, visited) {
     // Nodes don't exist
     if (!graph.has(start) || !graph.has(end)) return -1.0;
-    
+
     // Same node
     if (start === end) return 1.0;
-    
+
     visited.add(start);
-    
+
     // Explore neighbors
     for (const [neighbor, value] of graph.get(start)) {
       if (!visited.has(neighbor)) {
@@ -1312,33 +1388,33 @@ function calcEquation(equations, values, queries) {
         }
       }
     }
-    
+
     visited.delete(start);
     return -1.0;
   }
-  
+
   // Process all queries
   const results = [];
   for (const [start, end] of queries) {
     results.push(dfs(start, end, new Set()));
   }
-  
+
   return results;
 }
 
 // Test Cases:
-// Input: equations = [["a","b"],["b","c"]], values = [2.0,3.0], 
-// queries = [["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]]
+// Input: equations = ["a","b"],["b","c"], values = [2.0,3.0],
+// queries = ["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]
 // Output: [6.00000,0.50000,-1.00000,1.00000,-1.00000]
-// Explanation: 
+// Explanation:
 // a / b = 2.0, b / c = 3.0
 // a / c = 6.0, b / a = 0.5
 // a / e = -1.0 (not found), a / a = 1.0, x / x = -1.0 (not found)
+
 ```
 
-**Time Complexity:** O(n × q) - n equations, q queries, each query may visit all nodes  
+**Time Complexity:** O(n × q) - n equations, q queries, each query may visit all nodes
 **Space Complexity:** O(n) - Graph storage
-
 
 ## Q158. Course Schedule II
 
@@ -1347,17 +1423,18 @@ function calcEquation(equations, values, queries) {
 **Approach:** Use topological sort (Kahn's algorithm). If all courses processed, return order. If not all processed, cycle exists—return empty array.
 
 ### Solution 1: Kahn's Algorithm (Topological Sort) (Optimal)
+
 ```javascript
 function findOrder(numCourses, prerequisites) {
   // Build graph
   const graph = Array.from({ length: numCourses }, () => []);
   const indegree = new Array(numCourses).fill(0);
-  
+
   for (const [course, prereq] of prerequisites) {
     graph[prereq].push(course);
     indegree[course]++;
   }
-  
+
   // Kahn's algorithm
   const queue = [];
   for (let i = 0; i < numCourses; i++) {
@@ -1365,13 +1442,13 @@ function findOrder(numCourses, prerequisites) {
       queue.push(i);
     }
   }
-  
+
   const result = [];
-  
+
   while (queue.length) {
     const course = queue.shift();
     result.push(course);
-    
+
     for (const next of graph[course]) {
       indegree[next]--;
       if (indegree[next] === 0) {
@@ -1379,27 +1456,27 @@ function findOrder(numCourses, prerequisites) {
       }
     }
   }
-  
+
   // If all courses processed, return order; else cycle exists
   return result.length === numCourses ? result : [];
 }
 
 // Test Cases:
-// Input: numCourses = 2, prerequisites = [[1,0]]
+// Input: numCourses = 2, prerequisites = [1,0]
 // Output: [0,1]
 // Explanation: Take course 0 then course 1
 
-// Input: numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]
+// Input: numCourses = 4, prerequisites = [1,0],[2,0],[3,1],[3,2]
 // Output: [0,2,1,3]
 // Explanation: Valid order: 0, then 1 or 2, then 3
 
 // Input: numCourses = 1, prerequisites = []
 // Output: [0]
+
 ```
 
-**Time Complexity:** O(V + E) - Build graph + Kahn's algorithm  
+**Time Complexity:** O(V + E) - Build graph + Kahn's algorithm
 **Space Complexity:** O(V + E) - Graph and indegree arrays
-
 
 ## Q159. Minimum Genetic Mutation
 
@@ -1408,28 +1485,29 @@ function findOrder(numCourses, prerequisites) {
 **Approach:** Use BFS to find shortest path. Generate all valid mutations (one character change) and check if in bank.
 
 ### Solution 1: BFS with Mutation Generation (Optimal)
+
 ```javascript
 function minMutation(start, end, bank) {
   const bankSet = new Set(bank);
   if (!bankSet.has(end)) return -1;
-  
+
   const choices = ['A', 'C', 'G', 'T'];
-  const queue = [[start, 0]];  // [gene, mutations]
+  const queue = [start, 0];  // [gene, mutations]
   const visited = new Set([start]);
-  
+
   while (queue.length) {
     const [current, mutations] = queue.shift();
-    
+
     if (current === end) return mutations;
-    
+
     // Generate all possible mutations
     for (let i = 0; i < current.length; i++) {
       for (const choice of choices) {
         if (choice === current[i]) continue;  // Skip same character
-        
+
         // Create mutation
         const next = current.substring(0, i) + choice + current.substring(i + 1);
-        
+
         // Check if valid and not visited
         if (bankSet.has(next) && !visited.has(next)) {
           visited.add(next);
@@ -1438,7 +1516,7 @@ function minMutation(start, end, bank) {
       }
     }
   }
-  
+
   return -1;
 }
 
@@ -1452,7 +1530,20 @@ function minMutation(start, end, bank) {
 
 // Input: start = "AAAAACCC", end = "AACCCCCC", bank = ["AAAACCCC","AAACCCCC","AACCCCCC"]
 // Output: 3
+
 ```
 
-**Time Complexity:** O(bank.length × gene_length × 4) - BFS through valid mutations  
+**Time Complexity:** O(bank.length × gene_length × 4) - BFS through valid mutations
 **Space Complexity:** O(bank.length) - Queue and visited set
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Heaps & Priority Queue](7%20Heaps%20&%20Priority%20Queue.md) • [Home: README](README.md) • [Dynamic Programming →](9%20Dynamic%20Programming.md)
+
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+
+</div>

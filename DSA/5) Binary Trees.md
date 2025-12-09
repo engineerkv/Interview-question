@@ -1,12 +1,29 @@
 # Binary Trees
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Stacks & Queues](4%20Stacks%20&%20Queues.md) • [Home: README](README.md) • [Binary Search Tree →](6%20Binary%20Search%20Tree.md)
+
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+
+</div>
+
+---
+
 ## Q87. Binary Tree Traversals (DFS/BFS)
 
 **Problem:** Implement the fundamental binary tree traversal algorithms: Preorder, Inorder, Postorder (DFS), and Level-order (BFS). Understand when to use each traversal based on problem requirements.
 
-**Approach:** 
+**Approach:**
+
 - **DFS Traversals:** Use recursion or explicit stack. Preorder: root → left → right. Inorder: left → root → right. Postorder: left → right → root.
+
 - **BFS Traversal:** Use queue for level-order traversal.
+
 ```javascript
 // Preorder: root, left, right
 function preorder(root) {
@@ -119,21 +136,22 @@ function levelOrder(root) {
 
 // Test Cases:
 // Input: root = [1, null, 2, 3]
-// Output: Preorder: [1, 2, 3], Inorder: [1, 3, 2], Postorder: [3, 2, 1], Level Order: [[1], [2], [3]]
+// Output: Preorder: [1, 2, 3], Inorder: [1, 3, 2], Postorder: [3, 2, 1], Level Order: [1], [2], [3]
 // Explanation: All traversals (recursive and iterative) produce same results
 
 // Input: root = [3, 9, 20, null, null, 15, 7]
-// Output: Preorder: [3, 9, 20, 15, 7], Inorder: [9, 3, 15, 20, 7], Postorder: [9, 15, 7, 20, 3], Level Order: [[3], [9, 20], [15, 7]]
+// Output: Preorder: [3, 9, 20, 15, 7], Inorder: [9, 3, 15, 20, 7], Postorder: [9, 15, 7, 20, 3], Level Order: [3], [9, 20], [15, 7]
 // Explanation: All traversals (recursive and iterative) produce same results
 
 // Input: root = [1]
-// Output: All outputs: [1] or [[1]] for level order (same for recursive and iterative)
+// Output: All outputs: [1] or [1] for level order (same for recursive and iterative)
 
 // Input: root = []
 // Output: All outputs: [] (same for recursive and iterative)
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once  
+**Time Complexity:** O(n) - Visit each node once
 **Space Complexity:** O(h) for recursive, O(n) worst-case for iterative - h is tree height, n is number of nodes
 
 ## Q88. Maximum Depth of Binary Tree
@@ -143,6 +161,7 @@ function levelOrder(root) {
 **Approach:** Height is 1 + max(depth(left), depth(right)). Handle null as 0. DFS recursion is simplest.
 
 ### Solution 1: Recursive DFS (Optimal)
+
 ```javascript
 function maxDepth(root) {
   if (!root) return 0;
@@ -161,35 +180,38 @@ function maxDepth(root) {
 
 // Input: root = [1]
 // Output: 1
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once  
+**Time Complexity:** O(n) - Visit each node once
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
 ### Solution 2: Iterative BFS (Alternative)
+
 ```javascript
 function maxDepthBFS(root) {
   if (!root) return 0;
-  
+
   let depth = 0;
   const queue = [root];
-  
+
   while (queue.length) {
     const size = queue.length;
     depth++;
-    
+
     for (let i = 0; i < size; i++) {
       const node = queue.shift();
       if (node.left) queue.push(node.left);
       if (node.right) queue.push(node.right);
     }
   }
-  
+
   return depth;
 }
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once  
+**Time Complexity:** O(n) - Visit each node once
 **Space Complexity:** O(n) - Queue storage (worst case: last level)
 
 ## Q89. Diameter of Binary Tree
@@ -199,23 +221,24 @@ function maxDepthBFS(root) {
 **Approach:** Longest path through any node = leftHeight + rightHeight. Track global best during post-order traversal.
 
 ### Solution 1: Post-Order with Global Tracking (Optimal)
+
 ```javascript
 function diameterOfBinaryTree(root) {
   let maxDiameter = 0;
-  
+
   function height(node) {
     if (!node) return 0;
-    
+
     const leftHeight = height(node.left);
     const rightHeight = height(node.right);
-    
+
     // Update diameter: path through current node
     maxDiameter = Math.max(maxDiameter, leftHeight + rightHeight);
-    
+
     // Return height of subtree
     return 1 + Math.max(leftHeight, rightHeight);
   }
-  
+
   height(root);
   return maxDiameter;
 }
@@ -234,9 +257,10 @@ function diameterOfBinaryTree(root) {
 
 // Input: root = []
 // Output: 0
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once  
+**Time Complexity:** O(n) - Visit each node once
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
 ## Q90. Balanced Binary Tree
@@ -246,24 +270,25 @@ function diameterOfBinaryTree(root) {
 **Approach:** Use -1 as sentinel value to propagate unbalanced status. Check balance at each node during post-order traversal.
 
 ### Solution 1: Post-Order with Sentinel (Optimal)
+
 ```javascript
 function isBalanced(root) {
   function height(node) {
     if (!node) return 0;
-    
+
     const leftHeight = height(node.left);
     if (leftHeight === -1) return -1;  // Propagate unbalanced
-    
+
     const rightHeight = height(node.right);
     if (rightHeight === -1) return -1;  // Propagate unbalanced
-    
+
     // Check if current node is balanced
     if (Math.abs(leftHeight - rightHeight) > 1) return -1;
-    
+
     // Return height if balanced
     return 1 + Math.max(leftHeight, rightHeight);
   }
-  
+
   return height(root) >= 0;
 }
 
@@ -279,9 +304,10 @@ function isBalanced(root) {
 
 // Input: root = [1, 2, 2, 3, null, null, 3, 4, null, null, 4]
 // Output: false
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once  
+**Time Complexity:** O(n) - Visit each node once
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
 ## Q91. Invert Binary Tree
@@ -291,19 +317,20 @@ function isBalanced(root) {
 **Approach:** Swap left and right children recursively or iteratively. Mirror the tree structure.
 
 ### Solution 1: Recursive (Optimal)
+
 ```javascript
 function invertTree(root) {
   if (!root) return null;
-  
+
   // Swap left and right
   const temp = root.left;
   root.left = root.right;
   root.right = temp;
-  
+
   // Recursively invert subtrees
   invertTree(root.left);
   invertTree(root.right);
-  
+
   return root;
 }
 
@@ -319,31 +346,34 @@ function invertTree(root) {
 
 // Input: root = [1]
 // Output: [1]
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once  
+**Time Complexity:** O(n) - Visit each node once
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
 ### Solution 2: Iterative BFS (Alternative)
+
 ```javascript
 function invertTreeIterative(root) {
   if (!root) return null;
-  
+
   const queue = [root];
   while (queue.length) {
     const node = queue.shift();
-    
+
     // Swap children
     const temp = node.left;
     node.left = node.right;
     node.right = temp;
-    
+
     if (node.left) queue.push(node.left);
     if (node.right) queue.push(node.right);
   }
-  
+
   return root;
 }
+
 ```
 
 ## Q92. Symmetric Tree
@@ -353,10 +383,11 @@ function invertTreeIterative(root) {
 **Approach:** Compare left and right subtrees as mirror images. Check `left.left` vs `right.right` and `left.right` vs `right.left` recursively.
 
 ### Solution 1: Recursive Mirror Comparison (Optimal)
+
 ```javascript
 function isSymmetric(root) {
   if (!root) return true;
-  
+
   function isMirror(left, right) {
     // Both null
     if (!left && !right) return true;
@@ -367,7 +398,7 @@ function isSymmetric(root) {
            isMirror(left.left, right.right) &&
            isMirror(left.right, right.left);
   }
-  
+
   return isMirror(root.left, root.right);
 }
 
@@ -383,9 +414,10 @@ function isSymmetric(root) {
 
 // Input: root = [1]
 // Output: true
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once  
+**Time Complexity:** O(n) - Visit each node once
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
 ## Q93. Path Sum
@@ -395,15 +427,16 @@ function isSymmetric(root) {
 **Approach:** Subtract current node value from target as we traverse. Check if leaf node and remaining sum equals 0.
 
 ### Solution 1: Recursive DFS (Optimal)
+
 ```javascript
 function hasPathSum(root, targetSum) {
   if (!root) return false;
-  
+
   // Leaf node: check if sum matches
   if (!root.left && !root.right) {
     return root.val === targetSum;
   }
-  
+
   // Subtract current value and recurse
   const remaining = targetSum - root.val;
   return hasPathSum(root.left, remaining) || hasPathSum(root.right, remaining);
@@ -422,9 +455,10 @@ function hasPathSum(root, targetSum) {
 
 // Input: root = [1, 2], targetSum = 1
 // Output: false
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once  
+**Time Complexity:** O(n) - Visit each node once
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
 ## Q94. Lowest Common Ancestor of a Binary Tree
@@ -434,18 +468,19 @@ function hasPathSum(root, targetSum) {
 **Approach:** If both nodes are in different subtrees, current node is LCA. Otherwise, pass non-null child up. Post-order returns match or null.
 
 ### Solution 1: Post-Order Traversal (Optimal)
+
 ```javascript
 function lowestCommonAncestor(root, p, q) {
   // Base case: found node or null
   if (!root || root === p || root === q) return root;
-  
+
   // Search in left and right subtrees
   const left = lowestCommonAncestor(root.left, p, q);
   const right = lowestCommonAncestor(root.right, p, q);
-  
+
   // If both found in different subtrees, current is LCA
   if (left && right) return root;
-  
+
   // Otherwise, pass up the non-null result
   return left || right;
 }
@@ -464,9 +499,10 @@ function lowestCommonAncestor(root, p, q) {
 
 // Input: root = [1], p = 1, q = 1
 // Output: 1
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once in worst case  
+**Time Complexity:** O(n) - Visit each node once in worst case
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
 ## Q95. Serialize and Deserialize Binary Tree
@@ -476,10 +512,11 @@ function lowestCommonAncestor(root, p, q) {
 **Approach:** Use preorder traversal with null markers. Join values with delimiter for serialization. Rebuild tree using index counter during deserialization.
 
 ### Solution 1: Preorder with Null Markers (Optimal)
+
 ```javascript
 function serialize(root) {
   const result = [];
-  
+
   function preorder(node) {
     if (!node) {
       result.push('#');
@@ -489,7 +526,7 @@ function serialize(root) {
     preorder(node.left);
     preorder(node.right);
   }
-  
+
   preorder(root);
   return result.join(',');
 }
@@ -497,21 +534,21 @@ function serialize(root) {
 function deserialize(data) {
   const values = data.split(',');
   let index = 0;
-  
+
   function build() {
     if (values[index] === '#') {
       index++;
       return null;
     }
-    
+
     const node = new TreeNode(parseInt(values[index]));
     index++;
     node.left = build();
     node.right = build();
-    
+
     return node;
   }
-  
+
   return build();
 }
 
@@ -532,9 +569,10 @@ function deserialize(data) {
 // Input: root = [1]
 // serialize Output: "1,#,#"
 // deserialize Output: [1]
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once for both serialize and deserialize  
+**Time Complexity:** O(n) - Visit each node once for both serialize and deserialize
 **Space Complexity:** O(n) - Serialized string and recursion stack
 
 ## Q96. Binary Tree Level Order Traversal
@@ -544,47 +582,49 @@ function deserialize(data) {
 **Approach:** Use BFS with queue. Process nodes level by level, collecting values for each level.
 
 ### Solution 1: BFS Queue (Optimal)
+
 ```javascript
 function levelOrder(root) {
   const result = [];
   if (!root) return result;
-  
+
   const queue = [root];
-  
+
   while (queue.length) {
     const levelSize = queue.length;
     const level = [];
-    
+
     // Process all nodes at current level
     for (let i = 0; i < levelSize; i++) {
       const node = queue.shift();
       level.push(node.val);
-      
+
       if (node.left) queue.push(node.left);
       if (node.right) queue.push(node.right);
     }
-    
+
     result.push(level);
   }
-  
+
   return result;
 }
 
 // Test Cases:
 // Input: root = [3, 9, 20, null, null, 15, 7]
-// Output: [[3], [9, 20], [15, 7]]
+// Output: [3], [9, 20], [15, 7]
 
 // Input: root = [1]
-// Output: [[1]]
+// Output: [1]
 
 // Input: root = []
 // Output: []
 
 // Input: root = [1, 2, 3, 4, 5, 6, 7]
-// Output: [[1], [2, 3], [4, 5, 6, 7]]
+// Output: [1], [2, 3], [4, 5, 6, 7]
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once  
+**Time Complexity:** O(n) - Visit each node once
 **Space Complexity:** O(w) - Queue stores nodes at widest level, w is maximum width
 
 ## Q97. Binary Tree Zigzag Level Order Traversal
@@ -594,54 +634,56 @@ function levelOrder(root) {
 **Approach:** Use BFS to process levels. Reverse level array for odd-indexed levels (1-indexed) or use a flag to alternate direction.
 
 ### Solution 1: BFS with Level Reversal (Optimal)
+
 ```javascript
 function zigzagLevelOrder(root) {
   const result = [];
   if (!root) return result;
-  
+
   const queue = [root];
   let reverse = false;
-  
+
   while (queue.length) {
     const levelSize = queue.length;
     const level = [];
-    
+
     // Process all nodes at current level
     for (let i = 0; i < levelSize; i++) {
       const node = queue.shift();
       level.push(node.val);
-      
+
       if (node.left) queue.push(node.left);
       if (node.right) queue.push(node.right);
     }
-    
+
     // Reverse level for zigzag pattern
     if (reverse) {
       level.reverse();
     }
-    
+
     result.push(level);
     reverse = !reverse;  // Toggle direction
   }
-  
+
   return result;
 }
 
 // Test Cases:
 // Input: root = [3, 9, 20, null, null, 15, 7]
-// Output: [[3], [20, 9], [15, 7]]
+// Output: [3], [20, 9], [15, 7]
 
 // Input: root = [1]
-// Output: [[1]]
+// Output: [1]
 
 // Input: root = []
 // Output: []
 
 // Input: root = [1, 2, 3, 4, null, null, 5]
-// Output: [[1], [3, 2], [4, 5]]
+// Output: [1], [3, 2], [4, 5]
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once  
+**Time Complexity:** O(n) - Visit each node once
 **Space Complexity:** O(w) - Queue stores nodes at widest level, w is maximum width
 
 ## Q98. Binary Tree Right Side View
@@ -651,30 +693,31 @@ function zigzagLevelOrder(root) {
 **Approach:** Use BFS to process levels. Capture the last node (rightmost) at each level for right view, or first node (leftmost) for left view.
 
 ### Solution 1: BFS Level Processing (Optimal)
+
 ```javascript
 function rightSideView(root) {
   const result = [];
   if (!root) return result;
-  
+
   const queue = [root];
-  
+
   while (queue.length) {
     const levelSize = queue.length;
-    
+
     // Process all nodes at current level
     for (let i = 0; i < levelSize; i++) {
       const node = queue.shift();
-      
+
       // Capture rightmost node (last in level)
       if (i === levelSize - 1) {
         result.push(node.val);
       }
-      
+
       if (node.left) queue.push(node.left);
       if (node.right) queue.push(node.right);
     }
   }
-  
+
   return result;
 }
 
@@ -682,25 +725,25 @@ function rightSideView(root) {
 function leftSideView(root) {
   const result = [];
   if (!root) return result;
-  
+
   const queue = [root];
-  
+
   while (queue.length) {
     const levelSize = queue.length;
-    
+
     for (let i = 0; i < levelSize; i++) {
       const node = queue.shift();
-      
+
       // Capture leftmost node (first in level)
       if (i === 0) {
         result.push(node.val);
       }
-      
+
       if (node.left) queue.push(node.left);
       if (node.right) queue.push(node.right);
     }
   }
-  
+
   return result;
 }
 
@@ -720,9 +763,10 @@ function leftSideView(root) {
 // Note: leftSideView (variant - take i === 0):
 // Input: root = [1, 2, 3, null, 5, null, 4]
 // Output: [1, 2, 5]
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once  
+**Time Complexity:** O(n) - Visit each node once
 **Space Complexity:** O(w) - Queue stores nodes at widest level, w is maximum width
 
 ## Q99. Boundary Traversal of Binary Tree
@@ -732,6 +776,7 @@ function leftSideView(root) {
 **Approach:** Process in four parts: root (if not leaf), left boundary (excluding leaves), all leaves, right boundary (excluding leaves, reversed).
 
 ### Solution 1: Four-Part Boundary (Optimal)
+
 ```javascript
 function boundaryOfBinaryTree(root) {
   if (!root) return [];
@@ -802,9 +847,10 @@ function boundaryOfBinaryTree(root) {
 
 // Input: root = [1, 2, 3]
 // Output: [1, 2, 3]
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once  
+**Time Complexity:** O(n) - Visit each node once
 **Space Complexity:** O(h) - Recursion stack for leaves, h is tree height
 
 ## Q100. Iterative DFS Traversals (Pre/In/Post Order)
@@ -814,27 +860,28 @@ function boundaryOfBinaryTree(root) {
 **Approach:** Use explicit stack to simulate recursion. Different orderings require different stack manipulation strategies.
 
 ### Solution 1: Iterative Inorder (Optimal)
+
 ```javascript
 function inorderIterative(root) {
   const result = [];
   const stack = [];
   let current = root;
-  
+
   while (current || stack.length) {
     // Go left until null
     while (current) {
       stack.push(current);
       current = current.left;
     }
-    
+
     // Process node
     current = stack.pop();
     result.push(current.val);
-    
+
     // Go right
     current = current.right;
   }
-  
+
   return result;
 }
 
@@ -856,55 +903,60 @@ function inorderIterative(root) {
 //
 // Note: For preorder, push right then left before pushing node.
 //   For postorder, use two stacks or tagged nodes.
+
 ```
 
 ### Solution 2: Iterative Preorder
+
 ```javascript
 function preorderIterative(root) {
   if (!root) return [];
-  
+
   const result = [];
   const stack = [root];
-  
+
   while (stack.length) {
     const node = stack.pop();
     result.push(node.val);
-    
+
     // Push right first, then left (stack is LIFO)
     if (node.right) stack.push(node.right);
     if (node.left) stack.push(node.left);
   }
-  
+
   return result;
 }
+
 ```
 
 ### Solution 3: Iterative Postorder
+
 ```javascript
 function postorderIterative(root) {
   if (!root) return [];
-  
+
   const result = [];
   const stack1 = [root];
   const stack2 = [];
-  
+
   while (stack1.length) {
     const node = stack1.pop();
     stack2.push(node);
-    
+
     if (node.left) stack1.push(node.left);
     if (node.right) stack1.push(node.right);
   }
-  
+
   while (stack2.length) {
     result.push(stack2.pop().val);
   }
-  
+
   return result;
 }
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once  
+**Time Complexity:** O(n) - Visit each node once
 **Space Complexity:** O(h) - Stack stores nodes along path, h is tree height
 
 ## Q101. Construct Binary Tree from Preorder and Inorder Traversal
@@ -914,6 +966,7 @@ function postorderIterative(root) {
 **Approach:** Preorder gives root. Use root to split inorder into left and right subtrees. Recurse for subtrees. Use index map for O(1) lookups.
 
 ### Solution 1: Recursive with Index Map (Optimal)
+
 ```javascript
 function buildTree(preorder, inorder) {
   // Create map: value -> index in inorder
@@ -921,26 +974,26 @@ function buildTree(preorder, inorder) {
   for (let i = 0; i < inorder.length; i++) {
     map.set(inorder[i], i);
   }
-  
+
   let preIndex = 0;
-  
+
   function build(left, right) {
     if (left > right) return null;
-    
+
     // Root is first element in preorder
     const rootVal = preorder[preIndex++];
     const root = new TreeNode(rootVal);
-    
+
     // Find root position in inorder
     const mid = map.get(rootVal);
-    
+
     // Build left and right subtrees
     root.left = build(left, mid - 1);
     root.right = build(mid + 1, right);
-    
+
     return root;
   }
-  
+
   return build(0, inorder.length - 1);
 }
 
@@ -956,9 +1009,10 @@ function buildTree(preorder, inorder) {
 
 // Input: preorder = [1, 2, 3], inorder = [2, 1, 3]
 // Output: [1, 2, 3]
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once during construction  
+**Time Complexity:** O(n) - Visit each node once during construction
 **Space Complexity:** O(n) - Hash map stores inorder positions, recursion stack O(h)
 
 ## Q102. Morris Inorder Traversal
@@ -968,11 +1022,12 @@ function buildTree(preorder, inorder) {
 **Approach:** Thread right pointers temporarily to create links back to ancestors. Process nodes and restore tree structure after visiting.
 
 ### Solution 1: Morris Threading (Optimal Space)
+
 ```javascript
 function morrisInorder(root) {
   const result = [];
   let current = root;
-  
+
   while (current) {
     if (!current.left) {
       // No left subtree, visit current and go right
@@ -984,7 +1039,7 @@ function morrisInorder(root) {
       while (predecessor.right && predecessor.right !== current) {
         predecessor = predecessor.right;
       }
-      
+
       if (!predecessor.right) {
         // Create thread and go left
         predecessor.right = current;
@@ -997,7 +1052,7 @@ function morrisInorder(root) {
       }
     }
   }
-  
+
   return result;
 }
 
@@ -1015,9 +1070,10 @@ function morrisInorder(root) {
 // Output: [2, 4, 1, 5, 3]
 //
 // Note: O(1) space complexity, tree structure is restored after traversal
+
 ```
 
-**Time Complexity:** O(n) - Visit each node at most twice (once to create thread, once to remove)  
+**Time Complexity:** O(n) - Visit each node at most twice (once to create thread, once to remove)
 **Space Complexity:** O(1) - Only uses existing tree pointers, no extra space
 
 ## Q103. Binary Tree Maximum Path Sum
@@ -1027,27 +1083,28 @@ function morrisInorder(root) {
 **Approach:** Path can bend at any node. For each node, compute maximum path sum with node as highest point. Use post-order traversal. Return upward only single-branch contribution.
 
 ### Solution 1: Post-Order with Global Tracking (Optimal)
+
 ```javascript
 function maxPathSum(root) {
   let maxSum = -Infinity;
-  
+
   function dfs(node) {
     if (!node) return 0;
-    
+
     // Only take positive contributions from children
     const left = Math.max(dfs(node.left), 0);
     const right = Math.max(dfs(node.right), 0);
-    
+
     // Compute max path using this node as highest point (bending path)
     const pathSum = node.val + left + right;
-    
+
     // Update global maximum
     maxSum = Math.max(maxSum, pathSum);
-    
+
     // Return best single-branch path upward (for parent)
     return node.val + Math.max(left, right);
   }
-  
+
   dfs(root);
   return maxSum;
 }
@@ -1066,9 +1123,10 @@ function maxPathSum(root) {
 
 // Input: root = [2, -1]
 // Output: 2
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once  
+**Time Complexity:** O(n) - Visit each node once
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
 
 ## Q104. Vertical Order Traversal of a Binary Tree
@@ -1078,54 +1136,56 @@ function maxPathSum(root) {
 **Approach:** Use BFS to assign column and row indices. Sort nodes by column, then row, then value. Group by column.
 
 ### Solution 1: BFS with Sorting (Optimal)
+
 ```javascript
 function verticalTraversal(root) {
   if (!root) return [];
-  
+
   const nodes = [];  // Store [col, row, val]
-  const queue = [[root, 0, 0]];  // [node, col, row]
-  
+  const queue = [root, 0, 0];  // [node, col, row]
+
   // BFS to collect all nodes with positions
   while (queue.length) {
     const [node, col, row] = queue.shift();
     nodes.push([col, row, node.val]);
-    
+
     if (node.left) queue.push([node.left, col - 1, row + 1]);
     if (node.right) queue.push([node.right, col + 1, row + 1]);
   }
-  
+
   // Sort by: column asc, row asc, value asc
   nodes.sort((a, b) => {
     if (a[0] !== b[0]) return a[0] - b[0];  // Column
     if (a[1] !== b[1]) return a[1] - b[1];  // Row
     return a[2] - b[2];  // Value
   });
-  
+
   // Group by column
   const map = new Map();
   for (const [col, row, val] of nodes) {
     if (!map.has(col)) map.set(col, []);
     map.get(col).push(val);
   }
-  
+
   return Array.from(map.values());
 }
 
 // Test Cases:
 // Input: root = [3, 9, 20, null, null, 15, 7]
-// Output: [[9], [3, 15], [20], [7]]
+// Output: [9], [3, 15], [20], [7]
 
 // Input: root = [3, 9, 8, 4, 0, 1, 7]
-// Output: [[4], [9], [3, 0, 1], [8], [7]]
+// Output: [4], [9], [3, 0, 1], [8], [7]
 
 // Input: root = [1]
-// Output: [[1]]
+// Output: [1]
 
 // Input: root = []
 // Output: []
+
 ```
 
-**Time Complexity:** O(n log n) - Visit each node once, then sort n nodes  
+**Time Complexity:** O(n log n) - Visit each node once, then sort n nodes
 **Space Complexity:** O(n) - Store all nodes with positions, map stores column groups
 
 ## Q105. Count Complete Tree Nodes
@@ -1135,6 +1195,7 @@ function verticalTraversal(root) {
 **Approach:** Use left/right heights to detect perfect subtrees. If heights equal, use formula 2^h - 1. Otherwise, recurse on incomplete side.
 
 ### Solution 1: Height-Based Optimization (Optimal)
+
 ```javascript
 function countNodes(root) {
   if (!root) return 0;
@@ -1183,9 +1244,10 @@ function countNodes(root) {
 // Output: 12
 //
 // Note: Assumes complete binary tree for optimization
+
 ```
 
-**Time Complexity:** O(log² n) - Average case for complete tree, O(n) worst case for skewed tree  
+**Time Complexity:** O(log² n) - Average case for complete tree, O(n) worst case for skewed tree
 **Space Complexity:** O(log n) - Recursion stack depth for complete tree
 
 ## Q106. Convert Binary Search Tree to Sorted Doubly Linked List
@@ -1195,41 +1257,42 @@ function countNodes(root) {
 **Approach:** Use inorder traversal to link nodes as doubly linked list in-place. Keep prev pointer across recursive calls.
 
 ### Solution 1: Inorder with Prev Pointer (Optimal)
+
 ```javascript
 function treeToDoublyList(root) {
   if (!root) return null;
-  
+
   let head = null;
   let prev = null;
-  
+
   function inorder(node) {
     if (!node) return;
-    
+
     inorder(node.left);
-    
+
     // Set head to first node (leftmost)
     if (!head) {
       head = node;
     }
-    
+
     // Link previous node to current
     if (prev) {
       prev.right = node;
       node.left = prev;
     }
-    
+
     prev = node;
     inorder(node.right);
   }
-  
+
   inorder(root);
-  
+
   // Make circular (optional)
   if (head && prev) {
     head.left = prev;
     prev.right = head;
   }
-  
+
   return head;
 }
 
@@ -1248,11 +1311,11 @@ function treeToDoublyList(root) {
 //
 // Note: For BST, this creates a sorted doubly linked list.
 //   If circular required, uncomment the last two lines.
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once during inorder traversal  
+**Time Complexity:** O(n) - Visit each node once during inorder traversal
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
-
 
 ## Q107. Same Tree
 
@@ -1261,17 +1324,18 @@ function treeToDoublyList(root) {
 **Approach:** Check if two binary trees are identical using recursive comparison. Compare values and structure recursively.
 
 ### Solution 1: Recursive Comparison (Optimal)
+
 ```javascript
 function isSameTree(p, q) {
   // Both null
   if (!p && !q) return true;
-  
+
   // One null
   if (!p || !q) return false;
-  
+
   // Values different
   if (p.val !== q.val) return false;
-  
+
   // Recursively check subtrees
   return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
 }
@@ -1287,11 +1351,11 @@ function isSameTree(p, q) {
 // Input: p = [1,2,1], q = [1,1,2]
 // Output: false
 // Explanation: Trees have different values
+
 ```
 
-**Time Complexity:** O(min(m,n)) - Visit minimum nodes between two trees  
+**Time Complexity:** O(min(m,n)) - Visit minimum nodes between two trees
 **Space Complexity:** O(min(h1,h2)) - Recursion stack depth
-
 
 ## Q108. Construct Binary Tree from Inorder and Postorder Traversal
 
@@ -1300,6 +1364,7 @@ function isSameTree(p, q) {
 **Approach:** Postorder last element is root. Find root in inorder to split into left and right subtrees. Recurse for subtrees.
 
 ### Solution 1: Recursive with Index Map (Optimal)
+
 ```javascript
 function buildTree(inorder, postorder) {
   // Create map: value -> index in inorder
@@ -1307,26 +1372,26 @@ function buildTree(inorder, postorder) {
   for (let i = 0; i < inorder.length; i++) {
     map.set(inorder[i], i);
   }
-  
+
   let postIndex = postorder.length - 1;
-  
+
   function build(left, right) {
     if (left > right) return null;
-    
+
     // Root is last element in postorder
     const rootVal = postorder[postIndex--];
     const root = new TreeNode(rootVal);
-    
+
     // Find root position in inorder
     const mid = map.get(rootVal);
-    
+
     // Build right subtree first (postorder processes right before left)
     root.right = build(mid + 1, right);
     root.left = build(left, mid - 1);
-    
+
     return root;
   }
-  
+
   return build(0, inorder.length - 1);
 }
 
@@ -1337,11 +1402,11 @@ function buildTree(inorder, postorder) {
 // Input: inorder = [-1], postorder = [-1]
 // Output: [-1]
 // Explanation: Single node tree
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once during construction  
+**Time Complexity:** O(n) - Visit each node once during construction
 **Space Complexity:** O(n) - Hash map stores inorder positions, recursion stack O(h)
-
 
 ## Q109. Populating Next Right Pointers in Each Node II
 
@@ -1350,16 +1415,17 @@ function buildTree(inorder, postorder) {
 **Approach:** Use level-by-level traversal with dummy node. Connect children of current level using next pointers from previous level.
 
 ### Solution 1: Level-by-Level with Dummy Node (Optimal)
+
 ```javascript
 function connect(root) {
   if (!root) return root;
-  
+
   let head = root;  // Head of current level
-  
+
   while (head) {
     const dummy = new Node(0);  // Dummy node for next level
     let current = dummy;
-    
+
     // Connect children of current level
     while (head) {
       if (head.left) {
@@ -1372,10 +1438,10 @@ function connect(root) {
       }
       head = head.next;  // Move to next node in current level
     }
-    
+
     head = dummy.next;  // Move to next level
   }
-  
+
   return root;
 }
 
@@ -1385,11 +1451,11 @@ function connect(root) {
 
 // Input: root = []
 // Output: []
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once  
+**Time Complexity:** O(n) - Visit each node once
 **Space Complexity:** O(1) - Constant extra space (only dummy node)
-
 
 ## Q110. Flatten Binary Tree to Linked List
 
@@ -1398,25 +1464,26 @@ function connect(root) {
 **Approach:** Use postorder traversal (right, left, root). Link nodes in reverse order, then reverse the links.
 
 ### Solution 1: Postorder Traversal (Optimal)
+
 ```javascript
 function flatten(root) {
   if (!root) return;
-  
+
   let prev = null;
-  
+
   function postorder(node) {
     if (!node) return;
-    
+
     // Process right first, then left (reverse order)
     postorder(node.right);
     postorder(node.left);
-    
+
     // Link current node to previous
     node.right = prev;
     node.left = null;
     prev = node;
   }
-  
+
   postorder(root);
 }
 
@@ -1426,11 +1493,11 @@ function flatten(root) {
 
 // Input: root = []
 // Output: []
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once  
+**Time Complexity:** O(n) - Visit each node once
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
-
 
 ## Q111. Sum Root to Leaf Numbers
 
@@ -1439,27 +1506,28 @@ function flatten(root) {
 **Approach:** Use DFS with path sum tracking. Multiply by 10 and add current value as we traverse. Accumulate sum at leaf nodes.
 
 ### Solution 1: DFS with Path Sum (Optimal)
+
 ```javascript
 function sumNumbers(root) {
   let totalSum = 0;
-  
+
   function dfs(node, pathSum) {
     if (!node) return;
-    
+
     // Build number: multiply by 10 and add current value
     pathSum = pathSum * 10 + node.val;
-    
+
     // Leaf node: add to total sum
     if (!node.left && !node.right) {
       totalSum += pathSum;
       return;
     }
-    
+
     // Recurse on children
     dfs(node.left, pathSum);
     dfs(node.right, pathSum);
   }
-  
+
   dfs(root, 0);
   return totalSum;
 }
@@ -1474,11 +1542,11 @@ function sumNumbers(root) {
 
 // Input: root = [1]
 // Output: 1
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once  
+**Time Complexity:** O(n) - Visit each node once
 **Space Complexity:** O(h) - Recursion stack depth, h is tree height
-
 
 ## Q112. Binary Tree Right Side View
 
@@ -1487,30 +1555,31 @@ function sumNumbers(root) {
 **Approach:** Use BFS to process levels. Capture the last node (rightmost) at each level.
 
 ### Solution 1: BFS Level Processing (Optimal)
+
 ```javascript
 function rightSideView(root) {
   if (!root) return [];
-  
+
   const result = [];
   const queue = [root];
-  
+
   while (queue.length) {
     const levelSize = queue.length;
-    
+
     // Process all nodes at current level
     for (let i = 0; i < levelSize; i++) {
       const node = queue.shift();
-      
+
       // Capture rightmost node (last in level)
       if (i === levelSize - 1) {
         result.push(node.val);
       }
-      
+
       if (node.left) queue.push(node.left);
       if (node.right) queue.push(node.right);
     }
   }
-  
+
   return result;
 }
 
@@ -1523,11 +1592,11 @@ function rightSideView(root) {
 
 // Input: root = []
 // Output: []
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once  
+**Time Complexity:** O(n) - Visit each node once
 **Space Complexity:** O(w) - Queue stores nodes at widest level, w is maximum width
-
 
 ## Q113. Average of Levels in Binary Tree
 
@@ -1536,30 +1605,31 @@ function rightSideView(root) {
 **Approach:** Use BFS level-order traversal. Sum values at each level and divide by level size.
 
 ### Solution 1: BFS with Level Sum (Optimal)
+
 ```javascript
 function averageOfLevels(root) {
   if (!root) return [];
-  
+
   const result = [];
   const queue = [root];
-  
+
   while (queue.length) {
     const levelSize = queue.length;
     let sum = 0;
-    
+
     // Sum all values at current level
     for (let i = 0; i < levelSize; i++) {
       const node = queue.shift();
       sum += node.val;
-      
+
       if (node.left) queue.push(node.left);
       if (node.right) queue.push(node.right);
     }
-    
+
     // Calculate and store average
     result.push(sum / levelSize);
   }
-  
+
   return result;
 }
 
@@ -1572,9 +1642,22 @@ function averageOfLevels(root) {
 
 // Input: root = [1]
 // Output: [1.0]
+
 ```
 
-**Time Complexity:** O(n) - Visit each node once  
+**Time Complexity:** O(n) - Visit each node once
 **Space Complexity:** O(w) - Queue stores nodes at widest level, w is maximum width
 
 - **Interview Tip:** Explain BFS approach clearly; mention level tracking; ask about integer overflow for large sums
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Stacks & Queues](4%20Stacks%20&%20Queues.md) • [Home: README](README.md) • [Binary Search Tree →](6%20Binary%20Search%20Tree.md)
+
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+
+</div>

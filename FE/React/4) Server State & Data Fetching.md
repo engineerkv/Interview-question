@@ -1,10 +1,18 @@
+# 🌐 4. Server State & Data Fetching (Q46–55)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: State Management](3%29%20State%20Management.md)** | **[Next: React Latest Features →](5%29%20React%20Latest%20Features.md)**
+[← Previous: State Management](3%29%20State%20Management.md) • [Home: README](../README.md) • [Next: React Latest Features →](5%29%20React%20Latest%20Features.md)
+
+[📋 Cheatsheet](React%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 🌐 4. Server State & Data Fetching (Q46–55)
+---
 
 ---
 
@@ -99,7 +107,7 @@ Example:
 
 ```jsx
 // REST
-const fetchUser = async (id) => 
+const fetchUser = async (id) =>
   (await fetch(`/api/users/${id}`)).json();
 
 // GraphQL
@@ -156,9 +164,9 @@ function TodoList() {
     const newTodo = { id: Date.now(), text, done: false };
     setTodos(prev => [newTodo, ...prev]);
     try {
-      await fetch('/api/todos', { 
-        method: 'POST', 
-        body: JSON.stringify(newTodo) 
+      await fetch('/api/todos', {
+        method: 'POST',
+        body: JSON.stringify(newTodo)
       });
     } catch (e) {
       setTodos(prev => prev.filter(t => t.id !== newTodo.id));
@@ -207,12 +215,12 @@ const { data: user } = useQuery({
   queryFn: () => fetch(`/api/users/${userId}`).then(r => r.json())
 });
 const updateUser = useMutation({
-  mutationFn: (payload) => 
-    fetch(`/api/users/${userId}`, { 
-      method: 'PUT', 
-      body: JSON.stringify(payload) 
+  mutationFn: (payload) =>
+    fetch(`/api/users/${userId}`, {
+      method: 'PUT',
+      body: JSON.stringify(payload)
     }),
-  onSuccess: () => 
+  onSuccess: () =>
     queryClient.invalidateQueries({ queryKey: ['user', userId] })
 });
 return (
@@ -241,7 +249,7 @@ const { data: user, isLoading, isStale } = useQuery({
   refetchOnWindowFocus: true
 });
 return (
-  isLoading ? <div>Loading...</div> : 
+  isLoading ? <div>Loading...</div> :
   <div>{user?.name}{isStale ? ' (stale)' : ''}</div>
 );
 
@@ -258,23 +266,23 @@ Use useInfiniteQuery for infinite scrolling - it automatically manages pages and
 Example:
 
 ```jsx
-const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = 
+const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
   useInfiniteQuery({
     queryKey: ['posts'],
-    queryFn: ({ pageParam = 1 }) => 
+    queryFn: ({ pageParam = 1 }) =>
       fetch(`/api/posts?page=${pageParam}`).then(r => r.json()),
     getNextPageParam: (lastPage) => lastPage.nextPage ?? false
   });
 return (
   <div>
-    {data?.pages.flatMap(p => p.items).map(post => 
+    {data?.pages.flatMap(p => p.items).map(post =>
       <div key={post.id}>{post.title}</div>
     )}
-    <button 
-      disabled={!hasNextPage || isFetchingNextPage} 
+    <button
+      disabled={!hasNextPage || isFetchingNextPage}
       onClick={() => fetchNextPage()}
     >
-      {isFetchingNextPage ? 'Loading...' : 
+      {isFetchingNextPage ? 'Loading...' :
        hasNextPage ? 'Load More' : 'No More'}
     </button>
   </div>
@@ -284,9 +292,16 @@ return (
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: State Management](3%29%20State%20Management.md)** | **[Next: React Latest Features →](5%29%20React%20Latest%20Features.md)**
+[3) State Management.md](3%29%20State%20Management.md) • [Home: README](../README.md) • [5) React Latest Features.md →](5%29%20React%20Latest%20Features.md)
+
+[📋 Cheatsheet](React%20Interview%20Cheatsheet.md]
 
 </div>
 
+---

@@ -1,10 +1,18 @@
+# 🔍 2. Querying & Joins (Q11–20)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: SQL Fundamentals](1%29%20SQL%20Fundamentals.md)** | **[Next: Filtering, Grouping & Aggregation →](3%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md)**
+[SQL Fundamentals](1%29%20SQL%20Fundamentals.md) • [Home: Question List](question.md) • [Filtering, Grouping & Aggregation →](3%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md)
+
+[📋 Cheatsheet](SQL%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 🔍 2. Querying & Joins (Q11–20)
+---
 
 ---
 
@@ -56,7 +64,7 @@ Example:
 
 ```sql
 -- Find employees and their managers
-SELECT 
+SELECT
     e1.employee_name AS employee,
     e2.employee_name AS manager
 FROM employees e1
@@ -291,9 +299,16 @@ FETCH NEXT 10 ROWS ONLY;
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: SQL Fundamentals](1%29%20SQL%20Fundamentals.md)** | **[Next: Filtering, Grouping & Aggregation →](3%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md)**
+[SQL Fundamentals](1%29%20SQL%20Fundamentals.md) • [Home: Question List](question.md) • [Filtering, Grouping & Aggregation →](3%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md)
+
+[📋 Cheatsheet](SQL%20Interview%20Cheatsheet.md]
 
 </div>
 
+---

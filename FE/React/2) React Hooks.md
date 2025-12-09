@@ -1,10 +1,18 @@
+# 🎣 2. React Hooks (Q18–38)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: React Fundamentals](1%29%20React%20Fundamentals.md)** | **[Next: State Management →](3%29%20State%20Management.md)**
+[← Previous: React Fundamentals](1%29%20React%20Fundamentals.md) • [Home: README](../README.md) • [Next: State Management →](3%29%20State%20Management.md)
+
+[📋 Cheatsheet](React%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 🎣 2. React Hooks (Q18–38)
+---
 
 ---
 
@@ -53,7 +61,7 @@ return (
 
 ## Q20. 🔧 `useEffect` and how to use it
 
-useEffect runs side effects after render - the dependency array controls when it runs: empty means once on mount, missing means every render, with dependencies means when they change. Effect runs after DOM updates complete, not during render.
+useEffect runs side effects after render - the dependency array controls when it runs: empty means once on mount, missing means every render, with dependencies means when these change. Effect runs after DOM updates complete, not during render.
 
 - **Trade-offs**: The catch is missing dependencies causes stale closures and bugs - return function from effect to clean up subscriptions, timers, or listeners. useEffect is "componentDidMount + componentDidUpdate + componentWillUnmount" in one hook, but watch out - the dependency array is easy to get wrong, which can cause bugs.
 
@@ -92,7 +100,7 @@ useLayoutEffect(() => {
 
 ## Q22. 🔧 `useRef` and how to use it
 
-useRef returns a mutable object that persists across renders - use it for DOM access and values that don't need re-renders when they change. Changing `.current` doesn't trigger re-renders, unlike state.
+useRef returns a mutable object that persists across renders - use it for DOM access and values that don't need re-renders when these change. Changing `.current` doesn't trigger re-renders, unlike state.
 
 - **Trade-offs**: The catch is using refs for values that should trigger UI updates - use state instead. Refs are perfect for values that change but don't need to re-render component, but watch out - refs are "state that doesn't cause re-renders" for DOM access and mutable values, so don't use them when you need UI updates.
 
@@ -158,7 +166,7 @@ Example:
 
 ```jsx
 const filteredItems = useMemo(() => {
-  return items.filter(item => 
+  return items.filter(item =>
     item.name.toLowerCase().includes(filter.toLowerCase())
   );
 }, [items, filter]);
@@ -179,9 +187,9 @@ Example:
 ```jsx
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'increment': 
+    case 'increment':
       return { ...state, count: state.count + state.step };
-    default: 
+    default:
       return state;
   }
 };
@@ -295,7 +303,7 @@ function useApi(url) {
 
 useTransition marks updates as non-urgent, useDeferredValue defers value updates - both keep UI responsive during heavy updates by prioritizing user interactions. These hooks keep UI responsive during heavy updates by marking them as low priority.
 
-- **Trade-offs**: The catch is using for urgent updates - they're meant for non-urgent background work, allows React to interrupt heavy work and respond to user input. These hooks enable concurrent rendering in React 18+ by prioritizing user interactions, but watch out - they're only available in React 18+, so make sure you're using the right version.
+- **Trade-offs**: The catch is using for urgent updates - these are meant for non-urgent background work, allows React to interrupt heavy work and respond to user input. These hooks enable concurrent rendering in React 18+ by prioritizing user interactions, but watch out - these are only available in React 18+, so make sure you're using the right version.
 
 Example:
 
@@ -348,8 +356,8 @@ function useLocalStorage(key, defaultValue) {
       window.addEventListener('storage', callback);
       return () => window.removeEventListener('storage', callback);
     },
-    () => localStorage.getItem(key) 
-      ? JSON.parse(localStorage.getItem(key)) 
+    () => localStorage.getItem(key)
+      ? JSON.parse(localStorage.getItem(key))
       : defaultValue,
     () => defaultValue
   );
@@ -440,7 +448,7 @@ async function submitForm(prevState, formData) {
 
 function ContactForm() {
   const [state, formAction, isPending] = useActionState(submitForm, null);
-  
+
   return (
     <form action={formAction}>
       <input name="name" placeholder="Name" />
@@ -468,7 +476,7 @@ Example:
 ```jsx
 function SubmitButton() {
   const { pending, data } = useFormStatus();
-  
+
   return (
     <button type="submit" disabled={pending}>
       {pending ? 'Submitting...' : 'Submit'}
@@ -483,7 +491,7 @@ function ContactForm() {
       body: formData
     });
   }
-  
+
   return (
     <form action={handleSubmit}>
       <input name="email" type="email" />
@@ -510,11 +518,11 @@ function TodoList({ todos }) {
     todos,
     (state, newTodo) => [...state, { ...newTodo, id: 'temp-' + Date.now() }]
   );
-  
+
   async function addTodo(formData) {
     const newTodo = { text: formData.get('text') };
     addOptimisticTodo(newTodo);
-    
+
     try {
       const response = await fetch('/api/todos', {
         method: 'POST',
@@ -526,7 +534,7 @@ function TodoList({ todos }) {
       // Revert optimistic update on error
     }
   }
-  
+
   return (
     <div>
       {optimisticTodos.map(todo => (
@@ -544,9 +552,16 @@ function TodoList({ todos }) {
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: React Fundamentals](1%29%20React%20Fundamentals.md)** | **[Next: State Management →](3%29%20State%20Management.md)**
+[1) React Fundamentals.md](1%29%20React%20Fundamentals.md) • [Home: README](../README.md) • [3) State Management.md →](3%29%20State%20Management.md)
+
+[📋 Cheatsheet](React%20Interview%20Cheatsheet.md]
 
 </div>
 
+---

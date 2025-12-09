@@ -1,16 +1,24 @@
+# 🔄 5. Promises, Async/Await & Event Loop (Q55–80)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: ES6+ Features](4%29%20ES6%2B%20Features.md)** | **[Next: Web Workers, Service Workers & Real-World Topics →](6%29%20Web%20Workers%2C%20Service%20Workers%20%26%20Real-World%20Topics.md)**
+[ES6+ Features](4%29%20ES6%2B%20Features.md) • [Home: README](../README.md) • [Web Workers, Service Workers & Real-World Topics →](6%29%20Web%20Workers%2C%20Service%20Workers%20%26%20Real-World%20Topics.md)
+
+[📋 Cheatsheet](JavaScript%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 🔄 5. Promises, Async/Await & Event Loop (Q55–80)
+---
 
 ---
 
 ## Q55. ⚡ Promises in JavaScript
 
-A Promise is a placeholder for a future value that can be pending, fulfilled, or rejected - it helps handle async operations cleanly without callback nesting. Promises have three states: pending (initial state), fulfilled (success), or rejected (failure) - once settled, they can't change state. Perfect for API calls, file operations, and async data loading.
+A Promise is a placeholder for a future value that can be pending, fulfilled, or rejected - it helps handle async operations cleanly without callback nesting. Promises have three states: pending (initial state), fulfilled (success), or rejected (failure) - once settled, these can't change state. Perfect for API calls, file operations, and async data loading.
 
 - **Trade-offs**: Promise handlers run as microtasks in the event loop - they execute after the current code but before the next macrotask, which ensures predictable execution order, but too many microtasks can starve the browser's rendering and make the UI feel unresponsive.
 
@@ -75,9 +83,9 @@ fetch('/user')
 
 ---
 
-## Q58. ⚡ Async/await: what it is and how it works
+## Q58. ⚡ Async/await and how it works
 
-`async/await` is syntactic sugar on top of promises that lets you write asynchronous steps in a top-to-bottom style. Marking a function as `async` makes it return a promise automatically, and every `await` pauses the function until the awaited promise settles, then resumes with the resolved value (or throws if it rejected).
+`async/await` is syntactic sugar on top of promises that allows you to write asynchronous steps in a top-to-bottom style. Marking a function as `async` makes it return a promise automatically, and every `await` pauses the function until the awaited promise settles, then resumes with the resolved value (or throws if it rejected).
 
 - **Trade-offs**: `await` does not block the thread—it schedules the rest of the function as a microtask. Forgetting to use `await` is the most common mistake; you end up passing raw promises around. Mix async/await for sequential flows and fall back to promise combinators when you truly need parallelism.
 
@@ -133,7 +141,7 @@ fetch('/api/data')
 
 ---
 
-## Q61. ❓ Callback hell: what it is and how to avoid it
+## Q61. ❓ Callback hell and how to avoid it
 
 “Callback hell” is the messy pyramid created when you nest callbacks for every async step (`doA(() => doB(() => doC(...)))`). Control flow and error handling become unreadable. Flatten the code by returning promises, using async/await, or breaking the work into named functions.
 
@@ -214,7 +222,7 @@ const [user, posts] = await Promise.all([
 
 ---
 
-## Q65. ⚡ `Promise.all()`: what it is and when to use it
+## Q65. ⚡ `Promise.all()` and when to use it
 
 `Promise.all(iterable)` waits for every promise to fulfill and resolves with an array of results in the same order as the inputs. If any promise rejects, the whole thing rejects immediately with that reason—perfect when you need every result or want to fail fast.
 
@@ -232,7 +240,7 @@ const [user, posts] = await Promise.all([
 
 ---
 
-## Q66. ⚡ `Promise.race()`: what it is and when to use it
+## Q66. ⚡ `Promise.race()` and when to use it
 
 `Promise.race(iterable)` settles as soon as the first promise settles (fulfills or rejects) and adopts that outcome. Use it for implementing timeouts, picking the fastest mirror, or reacting to whichever async task finishes first.
 
@@ -250,7 +258,7 @@ const result = await Promise.race([fetch('/data'), timeout]);
 
 ---
 
-## Q67. ⚡ `Promise.allSettled()`: what it is and when to use it
+## Q67. ⚡ `Promise.allSettled()` and when to use it
 
 `Promise.allSettled(iterable)` waits for every promise to settle (fulfilled or rejected) and always resolves with an array of result objects `{ status, value | reason }`. It never rejects, so you can inspect successes and failures together.
 
@@ -270,7 +278,7 @@ const successes = results.filter(r => r.status === 'fulfilled');
 
 ---
 
-## Q68. ⚡ `Promise.any()`: what it is and when to use it
+## Q68. ⚡ `Promise.any()` and when to use it
 
 `Promise.any(iterable)` resolves with the first fulfilled promise and ignores rejections until every promise fails. It’s ideal for failover scenarios—race multiple services and take the first successful response.
 
@@ -312,7 +320,7 @@ const retry = async (fn, attempts = 3, delay = 200) => {
 
 ---
 
-## Q70. ⚡ Promise cancellation: what it is and how to implement it
+## Q70. ⚡ Promise cancellation and how to implement it
 
 Promises themselves can’t be forcefully stopped, so cancellation is cooperative. For browser `fetch`, use `AbortController`; for custom async work, pass a token or signal that code checks periodically and bails out if cancellation was requested.
 
@@ -371,7 +379,7 @@ const process = async (items, onProgress) => {
 
 ---
 
-## Q73. ⚡ `Promise.finally()`: what it is and when to use it
+## Q73. ⚡ `Promise.finally()` and when to use it
 
 `promise.finally(handler)` runs after a promise settles regardless of whether it fulfilled or rejected—perfect for cleanup tasks like hiding loaders or releasing resources. It passes through the original result/rejection unchanged.
 
@@ -533,8 +541,16 @@ fetch('/api/user')
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: ES6+ Features](4%29%20ES6%2B%20Features.md)** | **[Next: Web Workers, Service Workers & Real-World Topics →](6%29%20Web%20Workers%2C%20Service%20Workers%20%26%20Real-World%20Topics.md)**
+[ES6+ Features](4%29%20ES6%2B%20Features.md) • [Home: README](../README.md) • [Web Workers, Service Workers & Real-World Topics →](6%29%20Web%20Workers%2C%20Service%20Workers%20%26%20Real-World%20Topics.md)
+
+[📋 Cheatsheet](JavaScript%20Interview%20Cheatsheet.md]
 
 </div>
+
+---

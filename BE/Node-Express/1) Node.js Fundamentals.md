@@ -1,10 +1,18 @@
+# 🚀 1. Node.js Fundamentals & Modules (Q1–18)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: README](../README.md)** | **[Next: Asynchronous Patterns & Event Emitter →](2%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md)**
+[Home: Question List](question.md) • [Next: Asynchronous Patterns & Event Emitter →](2%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md)
+
+[📋 Cheatsheet](Node-Express%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 🚀 1. Node.js Fundamentals & Modules (Q1–19)
+---
 
 ---
 
@@ -26,25 +34,7 @@ server.listen(3000, () => console.log('Server running on port 3000'));
 
 ```
 
-## Q2. 🔄 Why Node.js is single-threaded and how it handles concurrency
-
-Node.js uses a single-threaded event loop to avoid context switching overhead and memory issues - it handles concurrency through non-blocking I/O operations and the event loop, allowing the thread to handle other requests while waiting for I/O to complete.
-
-- **Trade-offs**: Single thread eliminates thread synchronization complexity - event loop processes multiple operations concurrently. Non-blocking I/O allows thread to handle other requests while waiting - worker threads available for CPU-intensive tasks. Memory efficient compared to traditional thread-per-request model, but watch out - CPU-intensive tasks can block the event loop.
-
-Example:
-
-```javascript
-const fs = require('fs');
-console.log('Start');
-fs.readFile('large-file.txt', (err, data) => {
-  console.log('File read complete');
-});
-console.log('End');
-
-```
-
-## Q3. ⚡ Event Loop: its role and how it processes asynchronous tasks
+## Q2. ⚡ Event Loop: its role and how it processes asynchronous tasks
 
 The Event Loop is Node.js's core mechanism that continuously monitors the call stack and callback queue, executing callbacks when the stack is empty - it has six phases (timers, pending callbacks, idle/prepare, poll, check, close callbacks) that process different types of operations. Enables non-blocking behavior in single-threaded environment.
 
@@ -53,48 +43,75 @@ The Event Loop is Node.js's core mechanism that continuously monitors the call s
 ### **The Six Phases (In Order):**
 
 **1. Timers Phase** ⏰
+
 - Executes `setTimeout()` and `setInterval()` callbacks
+
 - Only runs callbacks whose time has come
+
 - *Remember*: "Timers first - scheduled tasks"
 
 **2. Pending Callbacks Phase** ⏳
+
 - Executes I/O callbacks that were deferred from the previous loop
+
 - Handles leftover callbacks that couldn't run before
+
 - *Remember*: "Pending - catching up on missed work"
 
 **3. Idle/Prepare Phase** 🔧
+
 - Internal Node.js operations (you don't use this directly)
+
 - Node.js does its own housekeeping
+
 - *Remember*: "Idle - Node.js internal stuff"
 
 **4. Poll Phase** 📡 (Most Important!)
+
 - Fetches new I/O events (file reads, network requests)
+
 - Executes I/O callbacks - **this is where most of your code runs**
+
 - If queue is empty, waits for new events or moves to next timer
+
 - *Remember*: "Poll - where the action happens"
 
 **5. Check Phase** ✅
+
 - Executes `setImmediate()` callbacks
+
 - Runs right after poll phase completes
+
 - *Remember*: "Check - immediate tasks after I/O"
 
 **6. Close Callbacks Phase** 🔒
+
 - Executes cleanup callbacks (e.g., `socket.on('close')`)
+
 - Handles closing connections and cleanup
+
 - *Remember*: "Close - cleanup time"
 
 ### **Microtasks (Between Every Phase):**
 
 After **each phase**, Node.js processes microtasks before moving to the next phase:
+
 - `process.nextTick()` - **Highest priority** (runs first)
+
 - Promise callbacks - Second priority
+
 - *Remember*: "Microtasks run between every phase, nextTick beats Promises"
 
 **Execution Order Priority:**
+
 1. `process.nextTick()` (highest)
+
 2. Promise callbacks
+
 3. Timers (`setTimeout`)
+
 4. I/O callbacks
+
 5. `setImmediate()`
 
 - **Trade-offs**: Microtasks (process.nextTick, Promises) have higher priority than macrotasks - poll phase handles I/O events and timers. Event loop continues until no more callbacks to execute, but watch out - too many microtasks can starve the event loop and block I/O operations.
@@ -111,7 +128,7 @@ console.log('5');
 
 ```
 
-## Q4. ❓ V8 engine: what it is and how it works with Node.js
+## Q3. ❓ V8 engine and how it works with Node.js
 
 V8 is Google's open-source JavaScript engine written in C++ that compiles and executes JavaScript code - it's the same engine that powers Chrome browser. Node.js uses V8 to run JavaScript on the server-side, giving you the same JavaScript runtime in both browser and server environments.
 
@@ -120,40 +137,63 @@ V8 is Google's open-source JavaScript engine written in C++ that compiles and ex
 ### **How V8 Works:**
 
 **1. Parsing & Compilation** 📝
+
 - **Parser**: Converts JavaScript source code into Abstract Syntax Tree (AST)
+
 - **Ignition Interpreter**: Generates bytecode from AST (fast startup)
+
 - **TurboFan Compiler**: Optimizes hot code (frequently executed) into machine code (fast execution)
+
 - *Remember*: "Parse → Bytecode → Optimize hot code"
 
 **2. Execution Model** ⚡
+
 - **Just-In-Time (JIT) Compilation**: Code is compiled during execution, not before
+
 - **Hot Code Optimization**: Frequently used code gets optimized to machine code
+
 - **Deoptimization**: If assumptions change, optimized code falls back to bytecode
+
 - *Remember*: "JIT - compile as you go, optimize what's hot"
 
 **3. Memory Management** 🧠
+
 - **Heap**: Stores objects, functions, and variables (managed by garbage collector)
+
 - **Call Stack**: Tracks function calls (LIFO - Last In, First Out)
+
 - **Garbage Collection**: Automatically frees unused memory (Mark-and-Sweep algorithm)
+
 - *Remember*: "Heap stores data, Stack tracks calls, GC cleans up"
 
 ### **V8 Components:**
 
 **Call Stack** 📚
+
 - Tracks function execution (LIFO structure)
+
 - Each function call creates a stack frame
+
 - When function returns, frame is popped
+
 - *Example*: `main() → funcA() → funcB()` (funcB executes first, then funcA, then main)
 
 **Heap** 💾
+
 - Stores objects, arrays, closures, and variables
+
 - Managed by garbage collector
+
 - Two generations: Young (new objects) and Old (long-lived objects)
 
 **Event Loop Integration** 🔄
+
 - V8 executes JavaScript code synchronously
+
 - When async operations occur, V8 hands them to Node.js (libuv)
+
 - Node.js event loop manages I/O and calls back to V8 when ready
+
 - *Remember*: "V8 runs JS, Node.js handles I/O, Event Loop connects them"
 
 ### **How V8 Works with Node.js:**
@@ -170,16 +210,25 @@ JavaScript Code → V8 Engine → Machine Code
 ```
 
 **The Flow:**
+
 1. **V8 compiles** your JavaScript to machine code
+
 2. **V8 executes** synchronous code on the call stack
+
 3. **Node.js (libuv)** handles async I/O operations
+
 4. **Event Loop** schedules callbacks back to V8
+
 5. **V8 executes** the callbacks when called
 
 **Key Features:**
+
 - **Fast Startup**: Ignition interpreter starts quickly
+
 - **Fast Execution**: TurboFan optimizes hot code
+
 - **Memory Efficient**: Generational garbage collection
+
 - **Cross-Platform**: Works on Windows, macOS, Linux
 
 - **Trade-offs**: V8 provides fast JavaScript execution with JIT compilation - hot code gets optimized to near-native speed. Garbage collection is automatic but can cause pauses - V8 uses generational GC to minimize impact. V8 is single-threaded for JavaScript execution, but Node.js uses worker threads for CPU-intensive tasks. The catch is V8's optimization assumptions can break, causing deoptimization and performance drops.
@@ -203,7 +252,7 @@ setTimeout(() => {
 
 ```
 
-## Q5. ❓ Non-blocking I/O: what it is and how it works in Node.js
+## Q4. ❓ Non-blocking I/O and how it works in Node.js
 
 **Non-blocking I/O** is a programming model where I/O operations (file reads, network requests, database queries) don't block the execution thread - instead, the program initiates the operation and continues executing other code immediately, then handles the result via callbacks when the operation completes. This is the core mechanism that makes Node.js highly scalable and performant.
 
@@ -212,10 +261,15 @@ setTimeout(() => {
 ### **Complete Definition:**
 
 **Non-blocking I/O** means:
+
 - **Initiate and Continue**: Start an I/O operation and immediately move to the next line of code
+
 - **No Waiting**: Don't pause execution while waiting for I/O to complete
+
 - **Asynchronous**: Handle results later through callbacks, promises, or async/await
+
 - **Kernel Delegation**: I/O operations are handled by the operating system kernel
+
 - **Event-Driven**: Results are delivered via events when ready
 
 ### **How It Works in Node.js:**
@@ -223,12 +277,19 @@ setTimeout(() => {
 **1. The Flow** 🔄
 
 ```text
+
 1. JavaScript code initiates I/O (e.g., fs.readFile)
+
 2. Node.js delegates to libuv (C++ library)
+
 3. libuv uses OS kernel for actual I/O operation
+
 4. JavaScript thread continues executing other code
+
 5. When I/O completes, kernel notifies libuv
+
 6. libuv queues callback in event loop
+
 7. Event loop executes callback when ready
 
 ```
@@ -236,21 +297,33 @@ setTimeout(() => {
 **2. Key Components** 🧩
 
 **libuv (C++ Library)**
+
 - Handles all I/O operations (file system, network, timers)
+
 - Uses OS-specific APIs (epoll on Linux, kqueue on macOS, IOCP on Windows)
+
 - Manages thread pool for blocking operations
+
 - *Remember*: "libuv is Node.js's I/O engine"
 
 **Event Loop**
+
 - Monitors I/O completion
+
 - Executes callbacks when I/O is ready
+
 - Keeps single thread free for JavaScript execution
+
 - *Remember*: "Event loop connects I/O completion to callbacks"
 
 **Thread Pool** (for blocking operations)
+
 - Used for CPU-intensive or blocking operations (crypto, file compression)
+
 - Default: 4 threads (configurable)
+
 - Prevents blocking the main thread
+
 - *Remember*: "Thread pool handles blocking work"
 
 ### **Blocking vs Non-Blocking:**
@@ -279,22 +352,30 @@ console.log('This runs immediately, not waiting');
 ### **Why Non-Blocking I/O Matters:**
 
 **Scalability** 📈
+
 - Single thread can handle thousands of concurrent connections
+
 - No thread creation overhead per request
+
 - Memory efficient (no per-connection thread stack)
 
 **Performance** ⚡
+
 - No thread blocking = better CPU utilization
+
 - Perfect for I/O-heavy applications (APIs, web servers)
+
 - Can handle many requests with minimal resources
 
 **Real-World Example:**
 
 ```text
 Traditional (Blocking): 1 thread per request
+
 - 1000 requests = 1000 threads = High memory usage
 
 Node.js (Non-Blocking): 1 thread for all requests
+
 - 1000 requests = 1 thread = Low memory usage
 
 ```
@@ -354,7 +435,7 @@ http.get('http://api.example.com/data', (res) => {
 });
 
 console.log('This also runs immediately');
-// Output order: 
+// Output order:
 // "This runs immediately, not waiting for file read"
 // "This also runs immediately"
 // "File content: ..." (when file is ready)
@@ -362,46 +443,68 @@ console.log('This also runs immediately');
 
 ```
 
-## Q6. 📦 Process object: what it is in Node.js
+## Q5. 📦 Process object in Node.js
 
 The `process` object is a global Node.js object that provides information about the current Node.js process and allows interaction with the operating system - it gives you access to process ID, environment variables, command line arguments, memory usage, current working directory, and process control methods. Essential for process management, configuration, and system interaction.
 
-**Simple Mental Model**: Think of the `process` object as Node.js's "control panel" - it gives you information about the current running process and lets you control it, just like a dashboard shows you system info and lets you manage it.
+**Simple Mental Model**: Think of the `process` object as Node.js's "control panel" - it gives you information about the current running process and allows you to control it, just like a dashboard shows you system info and allows you to manage it.
 
 ### **Complete Definition:**
 
 **process** is:
+
 - **Global Object**: Available in all Node.js modules without requiring
+
 - **Process Information**: Provides details about the current Node.js process
+
 - **System Interaction**: Allows interaction with the operating system
+
 - **Environment Access**: Provides access to environment variables
+
 - **Process Control**: Methods to control process lifecycle
 
 ### **Key Properties:**
 
 **1. Process Identification** 🆔
+
 - `process.pid` - Process ID (unique identifier)
+
 - `process.ppid` - Parent process ID
+
 - `process.versions` - Node.js and dependency versions
+
 - *Remember*: "PID identifies the process"
 
 **2. Environment & Configuration** ⚙️
+
 - `process.env` - Environment variables object
+
 - `process.argv` - Command line arguments array
+
 - `process.cwd()` - Current working directory
+
 - `process.platform` - Operating system platform
+
 - *Remember*: "env for environment, argv for arguments"
 
 **3. Memory & Performance** 💾
+
 - `process.memoryUsage()` - Memory consumption information
+
 - `process.uptime()` - Process uptime in seconds
+
 - `process.cpuUsage()` - CPU usage information
+
 - *Remember*: "Memory and CPU usage tracking"
 
 **4. Process Control** 🎛️
+
 - `process.exit()` - Terminate the process
+
 - `process.kill()` - Send signal to process
+
 - `process.nextTick()` - Schedule callback
+
 - *Remember*: "Control process lifecycle"
 
 ### **Common Use Cases:**
@@ -503,7 +606,7 @@ process.on('exit', (code) => {
 
 ---
 
-## Q7. 🤔 `process.exit()` vs `process.kill()`
+## Q6. 🤔 `process.exit()` vs `process.kill()`
 
 `process.exit()` terminates the current Node.js process with an exit code (0 for success, non-zero for failure), while `process.kill()` sends a signal to another process by PID. `process.exit()` is for graceful shutdown of current process, `process.kill()` is for inter-process communication and controlling other processes.
 
@@ -542,7 +645,7 @@ process.kill(process.pid, 'SIGTERM');
 
 ---
 
-## Q8. 🎬 `process.nextTick()`, `setImmediate()`, and `setTimeout()`: differences
+## Q7. 🎬 `process.nextTick()`, `setImmediate()`, and `setTimeout()`: differences
 
 process.nextTick() executes in the current phase (highest priority), setImmediate() executes in the check phase (after I/O events), and setTimeout() executes in the timers phase (minimum 1ms delay) - they have different priorities and timing, with process.nextTick having highest priority.
 
@@ -560,7 +663,7 @@ process.nextTick(() => console.log('process.nextTick'));
 
 ---
 
-## Q9. 🧩 CommonJS vs ES Modules
+## Q8. 🧩 CommonJS vs ES Modules
 
 CommonJS uses `require()` and `module.exports` for synchronous loading (runtime resolution, dynamic imports), while ES Modules use `import`/`export` for asynchronous loading with static analysis capabilities (compile-time resolution, static imports). ES Modules support tree-shaking and better optimization.
 
@@ -581,7 +684,7 @@ export { readFile: fs.readFile };
 
 ---
 
-## Q10. ⚠️ Handling errors in Node.js applications
+## Q9. ⚠️ Handling errors in Node.js applications
 
 Error handling in Node.js should use try/catch blocks for synchronous code, error-first callbacks for async operations, proper error propagation, and global error handlers. Handle both synchronous and asynchronous errors, use error boundaries, log errors with context, and prevent unhandled promise rejections from crashing the application.
 
@@ -631,7 +734,7 @@ process.on('unhandledRejection', (reason, promise) => {
 
 ---
 
-## Q11. 🔧 How `require()` works in Node.js
+## Q10. 🔧 How `require()` works in Node.js
 
 Node.js follows a specific algorithm to resolve module paths: checks core modules first (fs, http, path), then looks for local files with extensions (.js, .json, .node), then searches node_modules directories up the directory tree. Checks package.json main field for entry point and handles index.js as default when directory is required.
 
@@ -661,7 +764,7 @@ require('lodash'); // Loads from package.json "main" field
 
 ---
 
-## Q12. 🤔 `import` vs `require()`
+## Q11. 🤔 `import` vs `require()`
 
 require() is CommonJS synchronous loading (runtime resolution, dynamic), while import is ES Modules asynchronous loading with static analysis and better tree-shaking capabilities (compile-time resolution, static). ES Modules support tree-shaking for smaller bundles and have better optimization.
 
@@ -692,7 +795,7 @@ import { readFile } from 'fs';
 
 ---
 
-## Q13. 🤔 `exports` vs `module.exports`
+## Q12. 🤔 `exports` vs `module.exports`
 
 exports is a reference to module.exports, but reassigning exports breaks the reference - module.exports is the actual object returned by require(). You can mix both but exports must come first, and the common mistake is that `exports = {}` doesn't work.
 
@@ -725,7 +828,7 @@ module.exports = { name: 'John' };
 
 ---
 
-## Q14. 💡 Handling circular dependencies in Node.js
+## Q13. 💡 Handling circular dependencies in Node.js
 
 Circular dependencies occur when two or more modules require each other directly or indirectly, which can cause undefined exports during module loading - Node.js handles them but exports may be incomplete. Solution: restructure code to avoid mutual dependencies, use dependency injection or event emitters, or extract shared functionality to separate modules.
 
@@ -766,7 +869,7 @@ module.exports = { sharedData: 'value' };
 
 ---
 
-## Q15. ⭐ Structuring a Node.js project and best practices
+## Q14. ⭐ Structuring a Node.js project and best practices
 
 Large Node.js projects should follow modular architecture with clear separation of concerns (controllers, models, services, middleware), organized folder structure, and proper dependency management. Use barrel files for clean imports, implement dependency injection, follow consistent naming conventions, use environment-based configuration, proper error handling, logging, and testing structure. Balance structure with practicality - avoid over-engineering while maintaining maintainability.
 
@@ -828,7 +931,7 @@ module.exports = {
 
 ---
 
-## Q16. 💡 Handling environment variables in Node.js
+## Q15. 💡 Handling environment variables in Node.js
 
 Environment-based configuration allows applications to use different settings for different environments (development, staging, production) using environment variables and .env files - .env files store environment variables locally, and process.env provides access to them. Never commit .env files to version control, and use libraries like dotenv for .env file loading.
 
@@ -866,7 +969,7 @@ requiredVars.forEach(varName => {
 
 ---
 
-## Q17. 💡 Managing secrets and configuration in Node.js
+## Q16. 💡 Managing secrets and configuration in Node.js
 
 Secrets should be stored in environment variables, never in code, with proper access controls, encryption for sensitive data, and secure key management practices. Use different secrets for different environments, consider using secret management services (AWS Secrets Manager), encrypt sensitive data at rest and in transit, and rotate secrets regularly.
 
@@ -907,7 +1010,7 @@ function encrypt(text) {
 
 ---
 
-## Q18. 📝 Implementing logging in Node.js applications
+## Q17. 📝 Implementing logging in Node.js applications
 
 Logging in Node.js should use structured logging with appropriate log levels (error, warn, info, debug), include timestamps and context, use logging libraries (winston, pino, bunyan), and implement log rotation and storage. Log to files, console, or external services, and use different log levels for different environments.
 
@@ -948,7 +1051,7 @@ logger.info({ userId: 123, ip: '192.168.1.1' }, 'User logged in');
 
 ---
 
-## Q19. 💡 Handling graceful shutdown in Node.js
+## Q18. 💡 Handling graceful shutdown in Node.js
 
 Graceful shutdown ensures applications close properly by handling termination signals, cleaning up resources, and finishing ongoing requests - handle SIGTERM and SIGINT signals, close HTTP server and database connections, set timeout for forced shutdown, log shutdown process for debugging, and test graceful shutdown in production.
 
@@ -964,10 +1067,10 @@ let server;
 
 function gracefulShutdown(signal) {
   console.log(`Received ${signal}. Starting graceful shutdown...`);
-  
+
   server.close(() => {
     console.log('HTTP server closed');
-    
+
     if (db) {
       db.close(() => {
         console.log('Database connection closed');
@@ -977,7 +1080,7 @@ function gracefulShutdown(signal) {
       process.exit(0);
     }
   });
-  
+
   // Force shutdown after timeout
   setTimeout(() => {
     console.error('Could not close connections in time, forcefully shutting down');
@@ -996,9 +1099,16 @@ server = app.listen(3000, () => {
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: README](../README.md)** | **[Next: Asynchronous Patterns & Event Emitter →](2%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md)**
+[Home: Question List](question.md) • [2) Asynchronous Patterns & Event Emitter.md →](2%29%20Asynchronous%20Patterns%20&%20Event%20Emitter.md)
+
+[📋 Cheatsheet](Node-Express%20Interview%20Cheatsheet.md]
 
 </div>
 
+---

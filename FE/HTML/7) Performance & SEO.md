@@ -1,10 +1,18 @@
+# ⚡ 7. Performance & SEO (Q86–101)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Media Elements](6%29%20Media%20Elements.md)** | **[Next: Advanced HTML Concepts →](8%29%20Advanced%20HTML%20Concepts.md)**
+[Media Elements](6%29%20Media%20Elements.md) • [Home: README](../README.md) • [Advanced HTML Concepts →](8%29%20Advanced%20HTML%20Concepts.md)
+
+[📋 Cheatsheet](HTML%20Interview%20Cheatsheet.md)
 
 </div>
 
-# ⚡ 7. Performance & SEO (Q86–101)
+---
 
 ---
 
@@ -56,7 +64,7 @@ Example:
 
 ## Q88. 🔧 Implementing lazy loading
 
-Lazy loading defers image loading until they're needed, improving initial page load performance - lazy loading is essential for pages with many images. `loading="lazy"` provides native lazy loading, JavaScript solution offers more control.
+Lazy loading defers image loading until these are needed, improving initial page load performance - lazy loading is essential for pages with many images. `loading="lazy"` provides native lazy loading, JavaScript solution offers more control.
 
 - **Trade-offs**: The catch is lazy loading above-fold images (should be eager) - use Intersection Observer for better performance than scroll listeners. Lazy loading is essential for pages with many images, but watch out - improves initial page load time, reduces bandwidth usage.
 
@@ -68,11 +76,11 @@ Example:
 <script>
 document.querySelectorAll('.lazy').forEach(img => {
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { 
-      if (entry.isIntersecting) { 
-        img.src = img.dataset.src; 
-        observer.unobserve(img); 
-      } 
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        img.src = img.dataset.src;
+        observer.unobserve(img);
+      }
     });
   });
   observer.observe(img);
@@ -115,8 +123,8 @@ Example:
 </head>
 <body>
   <button style="min-width: 44px; min-height: 44px;">Touch Target</button>
-  <img src="mobile-image.jpg" alt="Mobile image" 
-       srcset="mobile-320w.jpg 320w, mobile-640w.jpg 640w" 
+  <img src="mobile-image.jpg" alt="Mobile image"
+       srcset="mobile-320w.jpg 320w, mobile-640w.jpg 640w"
        sizes="100vw">
 </body>
 </html>
@@ -157,7 +165,7 @@ Example:
 
 ---
 
-## Q92. ❓ Meta tags: what they are and how to use them
+## Q92. ❓ Meta tags and how to use them
 
 Meta tags provide information about the page to search engines and social media platforms - meta tags are essential for SEO and social sharing. Title should be 50-60 characters, description should be 150-160 characters.
 
@@ -242,7 +250,7 @@ Example:
 
 ---
 
-## Q96. ⚡ Resource hints: what they are and how to use them to optimize page performance
+## Q96. ⚡ Resource hints and how to use them to optimize page performance
 
 Resource hints instruct the browser to perform actions ahead of time to improve loading performance - resource hints improve perceived performance by doing work early. preconnect (opens connection), dns-prefetch (DNS lookup), preload (critical resources), prefetch (future pages).
 
@@ -253,7 +261,7 @@ Example:
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="dns-prefetch" href="https://api.example.com">
-<link rel="preload" href="/lcp-image.jpg" as="image" 
+<link rel="preload" href="/lcp-image.jpg" as="image"
       imagesrcset="image-320w.jpg 320w, image-640w.jpg 640w">
 <link rel="prefetch" href="/next-page.css" as="style">
 
@@ -261,7 +269,7 @@ Example:
 
 ---
 
-## Q97. ⚡ `fetchpriority`: what it is and how to use it to optimize resource loading
+## Q97. ⚡ `fetchpriority` and how to use it to optimize resource loading
 
 `fetchpriority` is an HTML attribute that controls the relative priority of resource fetches, helping browsers prioritize critical resources - fetchpriority is modern browser feature for resource prioritization. `high` for LCP images and critical CSS/JS, `low` for below-the-fold content.
 
@@ -279,7 +287,7 @@ Example:
 
 ---
 
-## Q98. ⚡ SEO: what it is and how to optimize it
+## Q98. ⚡ SEO and how to optimize it
 
 SEO is the practice of improving website visibility in search engine results through on-page, technical, and off-page optimizations - SEO is ongoing process requiring technical and content optimization. On-page (title tags, meta descriptions, headings), technical (Core Web Vitals, structured data), off-page (backlinks).
 
@@ -317,7 +325,7 @@ Example:
 
 ---
 
-## Q99. ❓ `sitemap.xml`: what it is and how to create it
+## Q99. ❓ `sitemap.xml` and how to create it
 
 A sitemap.xml is an XML file that lists all pages on a website, helping search engines discover and index content efficiently - sitemaps are essential for large sites with many pages. Helps search engines discover all pages, especially deep pages not linked internally.
 
@@ -340,9 +348,9 @@ Example:
 
 ---
 
-## Q100. ❓ `robots.txt`: what it is and how to use it
+## Q100. ❓ `robots.txt` and how to use it
 
-robots.txt is a text file in the root directory that instructs web crawlers which pages or directories they can or cannot access - robots.txt is a guideline, not security (bad bots may ignore it). Control crawler access, prevent crawling of sensitive or duplicate content.
+robots.txt is a text file in the root directory that instructs web crawlers which pages or directories crawlers can or cannot access - robots.txt is a guideline, not security (bad bots may ignore it). Control crawler access, prevent crawling of sensitive or duplicate content.
 
 - **Trade-offs**: The catch is using robots.txt for security (it's publicly accessible), not testing syntax - use specific rules for different bots, reference sitemap location. robots.txt is a guideline, not security (bad bots may ignore it), but watch out - block `/admin/`, `/api/`, query strings, prevent duplicate content indexing.
 
@@ -359,7 +367,7 @@ Sitemap: https://example.com/sitemap.xml
 
 ---
 
-## Q101. ❓ Open Graph tags: what they are and how to use them
+## Q101. ❓ Open Graph tags and how to use them
 
 Open Graph tags are HTML meta tags that control how content appears when shared on social media platforms - Open Graph tags improve social sharing appearance and engagement. Control how links appear when shared on social platforms, creates rich previews.
 
@@ -380,8 +388,16 @@ Example:
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Media Elements](6%29%20Media%20Elements.md)** | **[Next: Advanced HTML Concepts →](8%29%20Advanced%20HTML%20Concepts.md)**
+[Media Elements](6%29%20Media%20Elements.md) • [Home: README](../README.md) • [Advanced HTML Concepts →](8%29%20Advanced%20HTML%20Concepts.md)
+
+[📋 Cheatsheet](HTML%20Interview%20Cheatsheet.md)
 
 </div>
+
+---

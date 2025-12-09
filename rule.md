@@ -770,6 +770,322 @@ Q#. [Question]
 - ✅ **Natural flow** - Should sound like explaining to a colleague
 - ✅ **Code comments** - Use conversational comments in code examples
 
+### Project Document Template Structure (MANDATORY)
+
+**All project system design documents must follow this exact structure:**
+
+```markdown
+# [Project Name]
+
+> **Project Type:** [Full-Stack Web Application / Mobile App / Backend Service / etc.]
+> **Scale:** [Scale requirements, e.g., Handle 100M+ requests per day, 10:1 read/write ratio]
+> **Tech Stack:** [Primary technologies, e.g., React.js, Node.js, Express.js, MongoDB, Redis, CDN]
+
+# 1) Problem Statement
+
+[Problem statement in bullet points covering:]
+- Core Functionality
+- Scale Requirements
+- Performance Requirements
+- Feature Requirements
+- Availability Requirements
+- Scalability Requirements
+- Data Persistence Requirements
+
+---
+
+# 2) High Level Design (HLD)
+
+## a) Requirements
+
+### i) Functional Requirements
+- [List of functional requirements]
+
+### ii) Non-Functional Requirements
+- [List of non-functional requirements]
+
+---
+
+## b) Scope and Priority
+
+### Phase 1: MVP (Must Have) - Priority 1
+- [Core features for MVP]
+
+### Phase 2: Enhanced Features - Priority 2
+- [Additional features for future releases]
+
+---
+
+## c) Technology Choices
+
+[Explain technology choices with "why" explanations using conversational language and analogies]
+
+### Backend Framework
+- [Technology choice with reasoning]
+
+### Database
+- [Database choice with reasoning]
+
+### Caching
+- [Caching solution with reasoning]
+
+### [Other technology choices...]
+
+---
+
+## d) Capacity Estimation
+
+### Throughput Requirements
+- [Calculations for requests per second, peak traffic, etc.]
+
+### Storage Estimation
+- [Storage calculations per record, total storage requirements]
+
+### Bandwidth Estimation
+- [Bandwidth calculations for data transfer]
+
+### Caching Estimation
+- [Cache sizing based on 80-20 rule or similar]
+
+### Infrastructure Sizing
+- [Server, database, cache node requirements]
+
+---
+
+## e) Architecture Overview
+
+[Comprehensive architecture explanation including:]
+
+### Frontend Architecture
+- Frontend Layers (Presentation, State Management, API Integration, Routing, Build & Deployment)
+- Frontend Request Flow
+- Component Structure
+- Frontend Deployment
+
+### Backend Architecture
+- Backend Layers (API Gateway, API Server, Application Service, Cache, Database, Message Queue)
+- Complete Request Flow (for each major operation)
+- Architecture Diagram (ASCII or text-based)
+
+### Key Components
+- [Detailed explanation of each major component]
+
+---
+
+# 3) Low Level Design (LLD)
+
+## a) Frontend
+
+### i) Component Architecture
+- Component hierarchy and structure
+- Key React/UI components with code examples
+- Component relationships
+
+### ii) State Management
+- State management strategy
+- Local state, server state, global state
+- Implementation with code examples
+
+### iii) Implementation Details
+- Data flow
+- Event handling
+- UI/UX considerations
+
+---
+
+## b) Backend
+
+### i) Services
+- Core service classes with code examples
+- Service responsibilities
+- Service interactions
+
+### ii) Server Structure
+- Directory structure
+- File organization
+- Module organization
+
+### iii) Implementation Details
+- Key implementation approaches
+- Algorithm choices
+- Design patterns used
+
+---
+
+# 4) Algorithms
+
+[Each algorithm section must include:]
+
+## [Algorithm Name]
+
+**Purpose:** [What the algorithm does]
+
+**Algorithm:** [Step-by-step explanation]
+
+**Implementation:**
+```typescript
+// Complete code implementation
+```
+
+**Complexity:**
+- Time: [Big O notation with explanation]
+- Space: [Big O notation with explanation]
+- [Additional notes if needed]
+
+---
+
+# 5) Data Models
+
+## [Collection/Table Name] (MongoDB/SQL)
+
+[Schema definition with:]
+- Field names and types
+- Indexes
+- Relationships
+- Constraints
+
+[Include both MongoDB collections and SQL schema alternatives if applicable]
+
+---
+
+# 6) Database Transactions and Consistency
+
+### [Database] Transactions
+- Transaction usage scenarios
+- Code examples with transaction handling
+
+### Consistency Strategies
+- Data consistency approaches
+- Cache consistency
+- Conflict resolution
+
+---
+
+# 7) Protocols
+
+### [Protocol Name]
+- Protocol description
+- Data format
+- HTTP methods (if applicable)
+- Status codes (if applicable)
+
+---
+
+# 8) API Design
+
+### [HTTP Method] [Endpoint Path]
+- **URL:** [Full endpoint path]
+- **Method:** [HTTP method]
+- **Request Body:** [Request structure with example]
+- **Response:** [Response structure with example]
+- **Status Codes:** [List of status codes]
+- **Backend Implementation:** [Code example]
+
+[Repeat for each API endpoint]
+
+---
+
+# 9) Caching Strategy
+
+### [Cache Solution]
+- Cache strategy description
+- Key format
+- Value structure
+- TTL configuration
+- Eviction policy
+- Cache patterns (Cache-Aside, Write-Through, etc.)
+- Cache warming strategies
+
+---
+
+# 10) Error Handling
+
+### Error Scenarios and Responses
+- [List of error scenarios with HTTP status codes]
+- Error response format
+- Edge cases handling
+- Conflict resolution strategies
+
+---
+
+# 11) Deployment and DevOps
+
+### Scalability
+- API layer scaling
+- Database sharding strategy
+- Caching distribution
+- Read replicas
+
+### Availability
+- Replication strategy
+- Failover mechanisms
+- Geo-distributed deployment
+
+### Frontend Deployment
+- Build process
+- Deployment platforms
+- CDN configuration
+
+### Backend Deployment
+- Server setup
+- CI/CD pipeline
+- Container orchestration
+
+### Database Deployment
+- Database setup
+- Backup strategy
+- Indexing strategy
+- Sharding configuration
+
+---
+
+# 12) Security Considerations
+
+### Rate Limiting
+- Rate limiting strategy
+- Implementation approach
+
+### Input Validation
+- Validation rules
+- Sanitization approach
+
+### HTTPS/TLS
+- Security protocols
+- Certificate management
+
+### Monitoring and Alerts
+- Security monitoring
+- Alert configuration
+- Audit logging
+
+---
+
+# 13) Interview Answers
+
+[Exactly 5 interview questions with conversational, senior-level answers]
+
+## Q1. [Question Title]
+
+[Answer in conversational STAR format or detailed technical explanation with:]
+- The Challenge/Problem
+- My Approach/Solution
+- Implementation details
+- Results/Outcomes
+- Key Insights
+
+[Repeat for Q2-Q5]
+
+---
+
+**Template Rules:**
+- ✅ **All sections must be present** - Follow the exact structure above
+- ✅ **Numbering consistency** - Use consistent numbering (1, 2, 3... and a, b, c... and i, ii, iii...)
+- ✅ **Conversational language** - All content must follow conversational language rules
+- ✅ **Code examples** - Include practical code examples in relevant sections
+- ✅ **Interview Answers** - Exactly 5 questions, each with comprehensive, senior-level answers
+- ✅ **No duplicates** - Ensure no duplicate content across sections
+- ✅ **Logical order** - Sections should flow logically from high-level to low-level details
+
 ---
 
 ## Section 4: Cheatsheet Format Rules

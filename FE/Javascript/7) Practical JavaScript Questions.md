@@ -1,10 +1,18 @@
+# 💼 7. Practical JavaScript Questions (Q81–127)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Web Workers, Service Workers & Real-World Topics](6%29%20Web%20Workers%2C%20Service%20Workers%20%26%20Real-World%20Topics.md)** | **[Next: JavaScript Output Questions →](8%29%20JavaScript%20Output%20Questions.md)**
+[Web Workers, Service Workers & Real-World Topics](6%29%20Web%20Workers%2C%20Service%20Workers%20%26%20Real-World%20Topics.md) • [Home: README](../README.md) • [JavaScript Output Questions →](8%29%20JavaScript%20Output%20Questions.md)
+
+[📋 Cheatsheet](JavaScript%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 💼 7. Practical JavaScript Questions (Q81–127)
+---
 
 ---
 
@@ -77,7 +85,7 @@ function greet(greeting, punctuation) {
 }
 
 // Using call() - arguments passed individually
-console.log(greet.call(person1, 'Hello', '!')); 
+console.log(greet.call(person1, 'Hello', '!'));
 // "Hello, I'm John!"
 
 // Method borrowing example
@@ -117,7 +125,7 @@ function greet(greeting, punctuation) {
 }
 
 // Using apply() - arguments passed as array
-console.log(greet.apply(person2, ['Hi', '.'])); 
+console.log(greet.apply(person2, ['Hi', '.']));
 // "Hi, I'm Jane."
 
 // Method borrowing example
@@ -231,7 +239,7 @@ Example:
 ```js
 Promise.allSettled = function(promises) {
   return Promise.all(
-    promises.map(p => 
+    promises.map(p =>
       Promise.resolve(p)
         .then(value => ({ status: 'fulfilled', value }))
         .catch(reason => ({ status: 'rejected', reason }))
@@ -289,9 +297,9 @@ Recursively flatten arrays to any depth, handling nested structures. Use recursi
 Example:
 
 ```js
-const flatten = arr => arr.reduce((acc, val) => 
+const flatten = arr => arr.reduce((acc, val) =>
   Array.isArray(val) ? acc.concat(flatten(val)) : acc.concat(val), []);
-flatten([1, [2, [3, 4]], 5]); // [1, 2, 3, 4, 5]
+flatten([1, [2, [3, 4], 5]); // [1, 2, 3, 4, 5]
 
 ```
 
@@ -350,12 +358,12 @@ Retry failed operations with exponential backoff and maximum attempt limits. Use
 Example:
 
 ```js
-const retry = (fn, maxAttempts = 3, delay = 1000) => 
-  fn().catch(err => 
-    maxAttempts > 0 ? 
-      new Promise(resolve => 
+const retry = (fn, maxAttempts = 3, delay = 1000) =>
+  fn().catch(err =>
+    maxAttempts > 0 ?
+      new Promise(resolve =>
         setTimeout(() => resolve(retry(fn, maxAttempts - 1, delay * 2)), delay)
-      ) : 
+      ) :
       Promise.reject(err)
   );
 
@@ -456,14 +464,41 @@ Example:
 
 ```js
 const limitConcurrency = (tasks, limit) => {
-  const results = []; let running = 0, index = 0;
-  return new Promise(resolve => {
+  const results = [];
+  let running = 0;
+  let index = 0;
+
+  return new Promise((resolve, reject) => {
     const runNext = () => {
-      if (index >= tasks.length && running === 0) return resolve(results);
-      if (running >= limit || index >= tasks.length) return;
-      running++; const task = tasks[index++];
-      task().then(result => { results[index - 1] = result; running--; runNext(); });
-    }; runNext();
+      // Check if all tasks are done
+      if (index >= tasks.length && running === 0) {
+        return resolve(results);
+      }
+
+      // Start new tasks up to the limit
+      while (running < limit && index < tasks.length) {
+        const currentIndex = index++;
+        running++;
+
+        Promise.resolve(tasks[currentIndex]())
+          .then(result => {
+            results[currentIndex] = result;
+            running--;
+            runNext();
+          })
+          .catch(error => {
+            running--;
+            reject(error);
+          });
+      }
+    };
+
+    if (tasks.length === 0) {
+      resolve([]);
+      return;
+    }
+
+    runNext();
   });
 };
 
@@ -542,7 +577,7 @@ const shuffle = arr => {
   const result = [...arr];
   for (let i = result.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
+    [result[i], result[j] = [result[j], result[i];
   }
   return result;
 };
@@ -639,7 +674,7 @@ const createUseCallbackDirect = () => {
   let cachedFn = null;
   let cachedDeps = null;
   return (fn, deps = []) => {
-    const unchanged = cachedDeps && deps.length === cachedDeps.length && 
+    const unchanged = cachedDeps && deps.length === cachedDeps.length &&
                       deps.every((dep, i) => dep === cachedDeps[i]);
     if (!unchanged) {
       cachedFn = fn;
@@ -722,9 +757,9 @@ Proxies allow you to intercept and customize operations performed on objects, en
 Example:
 
 ```js
-const handler = { 
-  get: (t, p) => (console.log(`Accessing: ${p}`), t[p]), 
-  set: (t, p, v) => (t[p] = v, true) 
+const handler = {
+  get: (t, p) => (console.log(`Accessing: ${p}`), t[p]),
+  set: (t, p, v) => (t[p] = v, true)
 };
 const proxy = new Proxy({}, handler);
 proxy.name = 'John'; console.log(proxy.name); // Logs then "John"
@@ -742,8 +777,8 @@ Various tools help measure and analyze JavaScript performance, from browser dev 
 Example:
 
 ```js
-const start = performance.now(); 
-/* ... operation ... */ 
+const start = performance.now();
+/* ... operation ... */
 const end = performance.now();
 console.log(`Operation took ${end - start}ms`);
 console.log(performance.memory);
@@ -752,7 +787,7 @@ console.log(performance.memory);
 
 ---
 
-## Q111. ❓ Explain the concept of a microtask queue?
+## Q111. ❓ Microtask queue
 
 The microtask queue processes high-priority tasks that should execute before the next task in the main queue, including Promise callbacks and queueMicrotask. Microtasks have higher priority than macrotasks.
 
@@ -804,10 +839,10 @@ Example:
 ```js
 const elements = document.querySelectorAll('.item');
 const fragment = document.createDocumentFragment();
-items.forEach(item => { 
-  const li = document.createElement('li'); 
-  li.textContent = item.name; 
-  fragment.appendChild(li); 
+items.forEach(item => {
+  const li = document.createElement('li');
+  li.textContent = item.name;
+  fragment.appendChild(li);
 });
 list.appendChild(fragment);
 
@@ -828,7 +863,7 @@ const promiseAllWithLimit = (taskFns, limit) => new Promise((resolve, reject) =>
   const results = Array(taskFns.length);
   let nextIndex = 0;
   let active = 0;
-  
+
   const launchNext = () => {
     if (nextIndex === taskFns.length && active === 0) {
       resolve(results);
@@ -847,7 +882,7 @@ const promiseAllWithLimit = (taskFns, limit) => new Promise((resolve, reject) =>
         .catch(err => reject(err));
     }
   };
-  
+
   if (taskFns.length === 0) resolve([]);
   else launchNext();
 });
@@ -873,18 +908,18 @@ const deepClone = (obj, visited = new WeakMap()) => {
   if (obj === null || typeof obj !== 'object') return obj;
   if (obj instanceof Date) return new Date(obj);
   if (obj instanceof RegExp) return new RegExp(obj);
-  
+
   if (visited.has(obj)) return visited.get(obj);
-  
+
   const clone = Array.isArray(obj) ? [] : {};
   visited.set(obj, clone);
-  
+
   for (const key in obj) {
     if (obj.hasOwnProperty(key)) {
       clone[key] = deepClone(obj[key], visited);
     }
   }
-  
+
   return clone;
 };
 
@@ -945,7 +980,7 @@ class LRUCache {
     this.capacity = capacity;
     this.cache = new Map();
   }
-  
+
   get(key) {
     if (!this.cache.has(key)) return -1;
     const value = this.cache.get(key);
@@ -953,7 +988,7 @@ class LRUCache {
     this.cache.set(key, value);
     return value;
   }
-  
+
   put(key, value) {
     if (this.cache.has(key)) {
       this.cache.delete(key);
@@ -995,7 +1030,7 @@ class TaskSchedulerWithDependencies {
 
     const dfs = (taskId) => {
       if (visited.has(taskId)) return;
-      
+
       if (visiting.has(taskId)) {
         throw new Error(`Cycle detected involving task: ${taskId}`);
       }
@@ -1030,24 +1065,24 @@ class TaskScheduler {
     this.graph = new Map();
     this.inDegree = new Map();
   }
-  
+
   addTask(task, dependencies = []) {
     this.graph.set(task, dependencies);
     this.inDegree.set(task, dependencies.length);
   }
-  
+
   schedule() {
     const queue = [];
     const result = [];
-    
+
     for (const [task, degree] of this.inDegree) {
       if (degree === 0) queue.push(task);
     }
-    
+
     while (queue.length) {
       const task = queue.shift();
       result.push(task);
-      
+
       for (const [t, deps] of this.graph) {
         if (deps.includes(task)) {
           const newDegree = this.inDegree.get(t) - 1;
@@ -1056,11 +1091,11 @@ class TaskScheduler {
         }
       }
     }
-    
+
     if (result.length !== this.graph.size) {
       throw new Error('Circular dependency detected');
     }
-    
+
     return result;
   }
 }
@@ -1103,7 +1138,7 @@ function chunkArray(arr, n) {
 }
 
 const result = chunkArray([1, 2, 3], 5);
-console.log('result ->', result); // [[1, 2, 3]]
+console.log('result ->', result); // [1, 2, 3]
 module.exports = chunkArray;
 
 ```
@@ -1178,7 +1213,7 @@ function flattenObject(obj, parentKey, ans = {}) {
     if (obj.hasOwnProperty(key)) {
       const value = obj[key];
       const fullKey = parentKey ? `${parentKey}.${key}` : `${key}`;
-      
+
       if (typeof value === 'object' && value != null && !Array.isArray(value)) {
         flattenObject(value, fullKey, ans);
       } else {
@@ -1209,7 +1244,7 @@ Example:
 ```js
 function garbageCollector(graph, roots) {
     const visited = new Set();
-    
+
     function dfs(node) {
         if (!graph[node] || visited.has(node)) return;
         visited.add(node);
@@ -1217,16 +1252,16 @@ function garbageCollector(graph, roots) {
             dfs(dep);
         }
     }
-    
+
     for (let r of roots) {
         dfs(r);
     }
-    
+
     const reachable = {};
     for (let node of visited) {
         reachable[node] = graph[node];
     }
-    
+
     return reachable;
 }
 
@@ -1306,13 +1341,13 @@ Example:
 ```js
 function deepOmit(obj, keysToOmit) {
     if (!obj || typeof obj != 'object') return obj;
-    
+
     if (Array.isArray(obj)) {
         return obj.map((item) => {
             return deepOmit(item, keysToOmit);
         });
     }
-    
+
     const ans = {};
     for (let key in obj) {
         if (!keysToOmit.includes(key)) {
@@ -1470,19 +1505,19 @@ function customAssign(target, ...sources) {
     if (target == null) {
         throw new TypeError('Cannot convert undefined or null to object');
     }
-    
+
     const result = Object(target);
-    
+
     for (const source of sources) {
         if (source == null) continue;
-        
+
         for (const key in source) {
             if (Object.prototype.hasOwnProperty.call(source, key)) {
                 result[key] = source[key];
             }
         }
     }
-    
+
     return result;
 }
 
@@ -1495,9 +1530,16 @@ module.exports = customAssign;
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Web Workers, Service Workers & Real-World Topics](6%29%20Web%20Workers%2C%20Service%20Workers%20%26%20Real-World%20Topics.md)** | **[Next: JavaScript Output Questions →](8%29%20JavaScript%20Output%20Questions.md)**
+[Web Workers, Service Workers & Real-World Topics](6%29%20Web%20Workers%2C%20Service%20Workers%20%26%20Real-World%20Topics.md) • [Home: README](../README.md) • [JavaScript Output Questions →](8%29%20JavaScript%20Output%20Questions.md)
+
+[📋 Cheatsheet](JavaScript%20Interview%20Cheatsheet.md]
 
 </div>
 
+---

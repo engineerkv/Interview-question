@@ -1,10 +1,18 @@
+# 8. Debugging & Testing (Q69–78)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: CodePush & OTA Updates](7%29%20CodePush%20%26%20OTA%20Updates.md)** | **[Next: Build, Deployment & Stores →](9%29%20Build%2C%20Deployment%20%26%20Stores.md)**
+[CodePush & OTA Updates](7%29%20CodePush%20%26%20OTA%20Updates.md) • [Home: README](../README.md) • [Build, Deployment & Stores →](9%29%20Build%2C%20Deployment%20%26%20Stores.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 8. Debugging & Testing (Q69–78)
+---
 
 ---
 
@@ -110,7 +118,7 @@ describe('Login Flow', () => {
   beforeAll(async () => {
     await device.launchApp();
   });
-  
+
   it('should login successfully', async () => {
     await element(by.id('email-input')).typeText('user@example.com');
     await element(by.id('password-input')).typeText('password');
@@ -158,12 +166,12 @@ Example:
 ```jsx
 test('fetches user data', async () => {
   const mockUser = { id: 1, name: 'John Doe' };
-  
+
   global.fetch = jest.fn().mockResolvedValue({
     ok: true,
     json: async () => mockUser
   });
-  
+
   const user = await fetchUser(1);
   expect(user).toEqual(mockUser);
 });
@@ -241,3 +249,16 @@ Sentry.init({
 
 ---
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[CodePush & OTA Updates](7%29%20CodePush%20%26%20OTA%20Updates.md) • [Home: README](../README.md) • [Build, Deployment & Stores →](9%29%20Build%2C%20Deployment%20%26%20Stores.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
+
+</div>
+
+---

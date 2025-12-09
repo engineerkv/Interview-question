@@ -4,39 +4,28 @@ Interview questions about complex problems solved in real projects, following ST
 
 ## 📋 Projects
 
-| Project | Type | Questions | Files |
-|---------|------|-----------|-------|
-| [iGamio Fantasy Sports Platform](#igamio-fantasy-sports-platform) | React.js Web App | Q1-Q10 | HLD + LLD |
-| [Real-Time Poker Game](#real-time-poker-game) | Real-time Multiplayer Game | Q11-Q20 | HLD + LLD |
-| [Rate Limiter](#rate-limiter) | Backend System Component | Q21-Q25 | HLD + LLD |
-| [Notification System](#notification-system) | Backend System Component | Q26-Q30 | HLD + LLD |
-| [E-commerce App](#e-commerce-app) | Full-Stack (MERN) | Q31-Q40 | HLD + LLD |
-| [Youtube](#youtube) | Full-Stack (MERN) | Q41-Q50 | HLD + LLD |
-| [News Media Feed](#news-media-feed) | Full-Stack (MERN) | Q51-Q60 | HLD + LLD |
-
----
-
-## 🏏 iGamio Fantasy Sports Platform
-
-**Project Overview:**
-High-performance cross-platform mobile app (Android, iOS, Web) using React Native, enabling users and B2B customers to join real-money cricket, football, and kabaddi contests, view scheduled, live, and completed matches, create and update teams, and securely participate using the integrated Cashfree payment gateway for deposits, transactions, and KYC verification for bank accounts and PAN cards.
-
-**Team Size:** 2-person team  
-**Built:** From scratch  
-**Tech Stack:** React.js, TypeScript, React Router, Redux Toolkit, Axios, Material-UI, REST APIs, Cashfree Payment Gateway
-
-### Interview Questions
-
-1. **What was the most complex technical challenge you faced while building iGamio?**
-2. **How did you handle real-time match updates and live scores?**
-3. **Describe how you implemented the payment gateway integration with Cashfree.**
-4. **How did you manage state across multiple screens for team creation and contest joining?**
-5. **What was your approach to handling KYC verification for bank accounts and PAN cards?**
-6. **How did you optimize the app for performance across Android, iOS, and Web?**
-7. **Describe how you handled the B2B customer features differently from B2C users.**
-8. **What was your strategy for handling multiple sports (cricket, football, kabaddi) in a single app?**
-9. **How did you ensure data consistency when users create/update teams during live matches?**
-10. **What was the biggest scalability challenge you solved in this project?**
+| # | Project | Type | Questions | Files |
+|---|---------|------|-----------|-------|
+| 1 | [URL Shortener](#url-shortener) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
+| 2 | [Rate Limiter](#rate-limiter) | Full-Stack System Component | Q1-Q5 | HLD + LLD + Answers |
+| 3 | [E-commerce App](#e-commerce-app) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
+| 4 | [Social Media Feed](#social-media-feed) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
+| 5 | [Video Streaming Platform](#video-streaming-platform) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
+| 6 | [Chat Messaging System](#chat-messaging-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
+| 7 | [Notification System](#notification-system) | Full-Stack System Component | Q1-Q5 | HLD + LLD + Answers |
+| 8 | [Time-Limited Content System](#time-limited-content-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
+| 9 | [Real-Time Collaboration System](#real-time-collaboration-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
+| 10 | [Ride-Sharing System](#ride-sharing-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
+| 11 | [Food Delivery System](#food-delivery-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
+| 12 | [Payment System](#payment-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
+| 13 | [File Storage System](#file-storage-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
+| 14 | [Search System](#search-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
+| 15 | [API Gateway](#api-gateway) | System Design | Q1-Q5 | HLD + LLD + Answers |
+| 16 | [Scaling REST API](#scaling-rest-api) | System Design | Q1-Q5 | HLD + LLD + Answers |
+| 17 | [Ticket Booking System](#ticket-booking-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
+| 18 | [Monitoring Logging System](#monitoring-logging-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
+| 19 | [iGamio Fantasy Sports Platform](#igamio-fantasy-sports-platform) | Full-Stack MERN | Q1-Q15 | HLD + LLD + Answers |
+| 20 | [Real-Time Poker Game](#real-time-poker-game) | Full-Stack MERN | Q1-Q10 | HLD + LLD + Answers |
 
 ---
 
@@ -45,20 +34,29 @@ High-performance cross-platform mobile app (Android, iOS, Web) using React Nativ
 **Project Overview:**
 High-quality multiplayer poker card game built with React.js and TypeScript, featuring real-time communication via Socket.io and integrated REST APIs. The game includes advanced animations, immersive gameplay, smooth user experiences, and high retention rates. Performance optimizations include code-splitting, React.lazy, and reduced re-renders to deliver a seamless gaming experience.
 
-**Tech Stack:** React.js, TypeScript, Socket.io, REST APIs  
+**Tech Stack:** React.js, TypeScript, Socket.io, REST APIs
 **Key Features:** Real-time multiplayer, advanced animations, performance optimization
 
 ### Interview Questions
 
 1. **What was the most complex technical challenge you faced while building the Real-Time Poker Game?**
+
 2. **How did you handle real-time multiplayer synchronization using Socket.io?**
+
 3. **Describe your approach to managing game state across multiple players in real-time.**
+
 4. **How did you handle network latency and ensure fair gameplay for all players?**
+
 5. **What was your strategy for handling player disconnections and reconnections during active games?**
+
 6. **How did you implement the poker game logic and rules validation on both client and server?**
+
 7. **Describe your approach to anti-cheating measures and game security.**
+
 8. **How did you optimize the game for different network conditions and ensure smooth gameplay?**
+
 9. **What was your strategy for handling concurrent game sessions and room management?**
+
 10. **What was the biggest performance challenge you solved, and how did code-splitting and React.lazy help?**
 
 ---
@@ -68,21 +66,108 @@ High-quality multiplayer poker card game built with React.js and TypeScript, fea
 **Project Overview:**
 Design and implement a rate limiting system to prevent API abuse and ensure fair resource usage. The system supports multiple rate limiting algorithms (fixed window, sliding window, token bucket), distributed rate limiting using Redis, and configurable limits per endpoint and user.
 
-**Tech Stack:** Node.js, Express.js, Redis, TypeScript  
+**Tech Stack:** Node.js, Express.js, Redis, TypeScript
 **Key Features:** Multiple algorithms, distributed rate limiting, configurable limits, monitoring
 
 ### Interview Questions
 
 1. **What was the most complex technical challenge you faced while building the rate limiter?**
+
 2. **How did you handle distributed rate limiting across multiple servers?**
+
 3. **Describe the different rate limiting algorithms you implemented and when to use each.**
+
 4. **How did you ensure the rate limiter doesn't slow down API requests significantly?**
+
 5. **What was your approach to handling rate limiter failures (fail-open vs fail-closed)?**
-6. **How did you implement per-endpoint and per-user rate limiting?**
-7. **Describe how you handled rate limit violations and what information you return to clients.**
-8. **What was your strategy for monitoring and alerting on rate limit hits?**
-9. **How did you implement whitelist and blacklist functionality?**
-10. **What was the biggest scalability challenge you solved in this system?**
+
+---
+
+## 🛒 E-commerce App
+
+**Project Overview:**
+Full-stack e-commerce platform with product catalog, shopping cart, checkout, payment gateway integration, order management, and product search capabilities.
+
+**Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, Elasticsearch, Payment Gateway
+**Key Features:** Product search, shopping cart, payment processing, order management
+
+### Interview Questions
+
+1. **What was the most complex technical challenge you faced while building this e-commerce platform?**
+
+2. **How did you implement product search with Elasticsearch?**
+
+3. **How did you design the shopping cart to persist across sessions?**
+
+4. **How did you handle payment gateway integration?**
+
+5. **How did you implement inventory management and prevent overselling?**
+
+---
+
+## 📱 Social Media Feed
+
+**Project Overview:**
+Design a social media feed system that generates personalized, ranked feeds with real-time updates, handling billions of users and posts.
+
+**Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, Socket.io, Message Queue
+**Key Features:** Feed generation, ranking algorithm, real-time updates, fan-out pattern
+
+### Interview Questions
+
+1. **How would you design a social media feed?**
+
+2. **How do you handle users with millions of followers (celebrities)?**
+
+3. **How do you rank posts in the feed?**
+
+4. **How do you handle real-time feed updates?**
+
+5. **How do you scale the feed generation system?**
+
+---
+
+## 📺 Video Streaming Platform
+
+**Project Overview:**
+Design a video streaming platform that handles video upload, processing, adaptive bitrate streaming, content recommendation, and global delivery via CDN.
+
+**Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, AWS S3, CDN, FFmpeg
+**Key Features:** Video upload, transcoding, adaptive streaming, recommendations
+
+### Interview Questions
+
+1. **How would you design a video streaming platform?**
+
+2. **How do you handle video upload and processing?**
+
+3. **How do you implement content recommendation?**
+
+4. **How do you handle adaptive bitrate streaming?**
+
+5. **How do you scale video delivery globally?**
+
+---
+
+## 💬 Chat Messaging System
+
+**Project Overview:**
+Design a real-time messaging system that handles billions of messages per day with low latency and reliable delivery.
+
+**Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, Socket.io, WebSocket, Message Queue
+**Key Features:** Real-time messaging, offline handling, group messaging, message delivery
+
+### Interview Questions
+
+1. **How would you design a chat/messaging system?**
+
+2. **How do you ensure message delivery when recipient is offline?**
+
+3. **How do you handle group messaging with 256 members?**
+
+4. **How do you implement message read receipts?**
+
+5. **How do you scale the messaging system for millions of users?**
 
 ---
 
@@ -91,72 +176,402 @@ Design and implement a rate limiting system to prevent API abuse and ensure fair
 **Project Overview:**
 Design and implement a notification system to send real-time notifications to users across multiple channels (in-app, email, push, SMS). The system includes user preferences, delivery tracking, batching, and retry mechanisms for reliable notification delivery.
 
-**Tech Stack:** Node.js, Express.js, Socket.io, Redis, RabbitMQ, React.js  
+**Tech Stack:** Node.js, Express.js, Socket.io, Redis, RabbitMQ, React.js
 **Key Features:** Multi-channel notifications, real-time delivery, user preferences, delivery tracking
 
 ### Interview Questions
 
 1. **What was the most complex technical challenge you faced while building the notification system?**
+
 2. **How did you handle real-time in-app notifications using WebSocket?**
+
 3. **Describe your approach to managing user notification preferences.**
+
 4. **How did you ensure notifications are delivered reliably even if a service fails?**
+
 5. **What was your strategy for batching notifications for users who prefer batched mode?**
-6. **How did you implement delivery tracking and read receipts?**
-7. **Describe how you handled retry logic for failed notifications.**
-8. **What was your approach to preventing notification spam and respecting user preferences?**
-9. **How did you scale the notification system to handle millions of notifications per day?**
-10. **What was the biggest reliability challenge you solved in this system?**
 
 ---
 
-## 📖 Design Documents
+## ⏱️ Time-Limited Content System
 
-### Rate Limiter
+**Project Overview:**
+Design a system for content that expires after a configurable duration, handling billions of users and automatic expiration.
 
-- **[High Level Design (HLD)](3%20Rate%20Limiter%20-%20HLD.md)** - Requirements, Scope, Tech Choices, Architecture
-- **[Low Level Design (LLD)](3%20Rate%20Limiter%20-%20LLD.md)** - Algorithms, Implementation, Redis Integration
+**Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, CDN
+**Key Features:** Content expiration, TTL storage, automatic cleanup
 
-### Notification System
+### Interview Questions
 
-- **[High Level Design (HLD)](4%20Notification%20System%20-%20HLD.md)** - Requirements, Scope, Tech Choices, Architecture (Full-Stack MERN)
-- **[Low Level Design (LLD)](4%20Notification%20System%20-%20LLD.md)** - Components, Workers, WebSocket, Delivery Tracking (Full-Stack MERN)
+1. **How would you design a time-limited content system?**
 
-### E-commerce App
+2. **How do you handle content expiration?**
 
-- **[High Level Design (HLD)](5%20E-commerce%20App%20-%20HLD.md)** - Requirements, Scope, Tech Choices, Architecture (Full-Stack MERN)
-- **[Low Level Design (LLD)](5%20E-commerce%20App%20-%20LLD.md)** - Component Architecture, Data Models, APIs, Backend Implementation (Full-Stack MERN)
+3. **How do you implement real-time content updates?**
 
-### Youtube
+4. **How do you handle content reactions and engagement?**
 
-- **[High Level Design (HLD)](6%20Youtube%20-%20HLD.md)** - Requirements, Scope, Tech Choices, Architecture (Full-Stack MERN)
-- **[Low Level Design (LLD)](6%20Youtube%20-%20LLD.md)** - Component Architecture, Data Models, APIs, Backend Implementation (Full-Stack MERN)
-
-### News Media Feed
-
-- **[High Level Design (HLD)](7%20News%20Media%20Feed%20-%20HLD.md)** - Requirements, Scope, Tech Choices, Architecture (Full-Stack MERN)
-- **[Low Level Design (LLD)](7%20News%20Media%20Feed%20-%20LLD.md)** - Component Architecture, Data Models, APIs, Backend Implementation (Full-Stack MERN)
+5. **How do you scale the system for billions of users?**
 
 ---
 
-### iGamio Fantasy Sports Platform
+## 📝 Real-Time Collaboration System
 
-- **[High Level Design (HLD)](1%20iGamio%20Fantasy%20Sports%20Platform%20-%20HLD.md)** - Requirements, Scope, Tech Choices, Architecture (Full-Stack MERN)
-- **[Low Level Design (LLD)](1%20iGamio%20Fantasy%20Sports%20Platform%20-%20LLD.md)** - Component Architecture, Data Models, APIs, Backend Implementation (Full-Stack MERN)
-- **[Interview Answers](1%20iGamio%20Fantasy%20Sports%20Platform%20-%20Answers.md)** - Complete answers to all interview questions
+**Project Overview:**
+Design a real-time collaborative editing system where multiple users can edit simultaneously with conflict resolution.
 
-### Real-Time Poker Game
+**Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, Socket.io, Operational Transformation/CRDT
+**Key Features:** Real-time editing, conflict resolution, version control
 
-- **[High Level Design (HLD)](2%20Real-Time%20Poker%20Game%20-%20HLD.md)** - Requirements, Scope, Tech Choices, Architecture (Full-Stack MERN)
-- **[Low Level Design (LLD)](2%20Real-Time%20Poker%20Game%20-%20LLD.md)** - Component Architecture, Data Models, APIs, Backend Implementation (Full-Stack MERN)
-- **[Interview Answers](2%20Real-Time%20Poker%20Game%20-%20Answers.md)** - Complete answers to all interview questions
+### Interview Questions
+
+1. **How would you design a real-time collaboration system?**
+
+2. **How do you handle conflicts when two users edit the same position?**
+
+3. **How do you implement operational transformation?**
+
+4. **How do you handle user presence and cursors?**
+
+5. **How do you scale the system for thousands of concurrent editors?**
+
+---
+
+## 🚗 Ride-Sharing System
+
+**Project Overview:**
+Design a ride-sharing system that matches riders with nearest available drivers in real-time with location tracking.
+
+**Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, Socket.io, Geo-spatial DB
+**Key Features:** Ride matching, location tracking, ETA calculation, real-time updates
+
+### Interview Questions
+
+1. **How would you design a ride-sharing system?**
+
+2. **How do you find the nearest available driver?**
+
+3. **How do you handle real-time location tracking?**
+
+4. **How do you calculate ETA accurately?**
+
+5. **How do you handle ride cancellation and refunds?**
+
+---
+
+## 💳 Payment System
+
+**Project Overview:**
+Design a payment processing system that handles billions of transactions per day with high reliability and fraud detection.
+
+**Tech Stack:** React.js, Node.js, Express.js, MongoDB/PostgreSQL, Redis, Payment Gateway SDKs
+**Key Features:** Payment processing, idempotency, webhooks, fraud detection
+
+### Interview Questions
+
+1. **How would you design a payment system?**
+
+2. **How do you ensure idempotency in payment processing?**
+
+3. **How do you handle payment webhooks?**
+
+4. **How do you implement payment retry logic?**
+
+5. **How do you handle payment refunds?**
+
+---
+
+## 📁 File Storage System
+
+**Project Overview:**
+Design a file storage system with upload, download, synchronization, versioning, and sharing capabilities.
+
+**Tech Stack:** React.js, Node.js, Express.js, MongoDB, AWS S3, CDN
+**Key Features:** File upload, chunking, deduplication, versioning, sync
+
+### Interview Questions
+
+1. **How would you design a file storage system?**
+
+2. **How do you implement file deduplication?**
+
+3. **How do you handle file synchronization across devices?**
+
+4. **How do you handle large file uploads?**
+
+5. **How do you implement file sharing and permissions?**
+
+---
+
+## 🚪 API Gateway
+
+**Project Overview:**
+Design an API Gateway that routes requests to microservices with authentication, rate limiting, and monitoring.
+
+**Tech Stack:** Node.js, Load Balancer, Service Discovery, Redis
+**Key Features:** Request routing, authentication, rate limiting, circuit breaker
+
+### Interview Questions
+
+1. **How would you design an API Gateway?**
+
+2. **How do you implement service discovery?**
+
+3. **How do you handle circuit breaker pattern?**
+
+---
+
+## 🔍 Search System
+
+**Project Overview:**
+Design a search system that handles billions of documents with fast search latency and relevance ranking.
+
+**Tech Stack:** React.js, Node.js, Express.js, MongoDB, Elasticsearch, Redis
+**Key Features:** Full-text search, autocomplete, ranking, faceted search
+
+### Interview Questions
+
+1. **How would you design a search system?**
+
+2. **How do you implement autocomplete/suggestions?**
+
+3. **How do you rank search results by relevance?**
+
+4. **How do you handle search indexing?**
+
+5. **How do you scale search for billions of documents?**
+
+---
+
+## ⚡ Scaling REST API
+
+**Project Overview:**
+Design strategies to scale a REST API to handle billions of requests per day while maintaining low latency.
+
+**Tech Stack:** Load Balancer, Caching, Database Scaling, CDN
+**Key Features:** Horizontal scaling, caching, database optimization, load balancing
+
+### Interview Questions
+
+1. **How would you scale a REST API to handle 1B+ requests per day?**
+
+2. **How do you handle database scaling?**
+
+3. **How do you handle traffic spikes?**
+
+4. **How do you implement caching strategies?**
+
+5. **How do you monitor and optimize API performance?**
+
+---
+
+## 🎫 Ticket Booking System
+
+**Project Overview:**
+Design a ticket booking system that prevents double booking, handles concurrent seat selection, and processes high volumes of bookings.
+
+**Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, Message Queue
+**Key Features:** Seat locking, booking flow, payment processing, conflict prevention
+
+### Interview Questions
+
+1. **How would you design a ticket booking system?**
+
+2. **How do you prevent double booking of the same seat?**
+
+3. **How do you handle concurrent seat selection?**
+
+4. **How do you handle payment processing in bookings?**
+
+5. **How do you scale the system for high-traffic events?**
+
+---
+
+## 🍔 Food Delivery System
+
+**Project Overview:**
+Design a food delivery system with order management, delivery partner assignment, and real-time tracking.
+
+**Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, Socket.io, Geo-spatial DB
+**Key Features:** Order management, delivery assignment, real-time tracking, ETA calculation
+
+### Interview Questions
+
+1. **How would you design a food delivery system?**
+
+2. **How do you assign delivery partners to orders?**
+
+3. **How do you track orders in real-time?**
+
+4. **How do you handle order cancellation and refunds?**
+
+5. **How do you optimize delivery routes?**
+
+---
+
+## 📊 Monitoring Logging System
+
+**Project Overview:**
+Design a monitoring and logging system that collects logs and metrics from multiple services with real-time alerting.
+
+**Tech Stack:** React.js, Node.js, Express.js, MongoDB, Prometheus, Grafana, ELK Stack
+**Key Features:** Log collection, metrics collection, dashboards, alerting
+
+### Interview Questions
+
+1. **How would you design a monitoring and logging system?**
+
+2. **How do you handle high-volume log ingestion?**
+
+3. **How do you implement real-time alerting?**
+
+4. **How do you build dashboards for metrics visualization?**
+
+5. **How do you scale the system for billions of log entries?**
+
+---
+
+## 🏏 iGamio Fantasy Sports Platform
+
+**Project Overview:**
+High-performance cross-platform mobile app (Android, iOS, Web) using React Native, enabling users and B2B customers to join real-money cricket, football, and kabaddi contests, view scheduled, live, and completed matches, create and update teams, and securely participate using the integrated Cashfree payment gateway for deposits, transactions, and KYC verification for bank accounts and PAN cards.
+
+**Tech Stack:** React.js, TypeScript, React Router, Redux Toolkit, Axios, Material-UI, REST APIs, Cashfree Payment Gateway
+
+### Interview Questions
+
+1. **What was the most complex technical challenge you faced while building iGamio?**
+
+2. **How did you design the frontend architecture using React.js for scalability and maintainability?**
+
+3. **How did you design the backend architecture using Node.js and Express.js to handle high traffic?**
+
+4. **How did you implement real-time match updates using Socket.io on both frontend and backend?**
+
+5. **How did you handle state management complexity using Redux Toolkit in React.js?**
+
+6. **How did you optimize MongoDB queries and database performance in Node.js?**
+
+7. **How did you implement payment gateway integration with proper error handling and security?**
+
+8. **How did you handle scalability challenges during peak traffic (10,000+ concurrent users)?**
+
+9. **How did you ensure data consistency and handle race conditions in a multi-user environment?**
+
+10. **How did you implement authentication and authorization using JWT in the MERN stack?**
+
+11. **How did you handle file uploads (KYC documents) securely in the MERN stack?**
+
+12. **How did you implement caching strategies using Redis in Node.js for performance?**
+
+13. **How did you handle error handling and logging across the MERN stack?**
+
+14. **How did you ensure the system is production-ready with monitoring, logging, and deployment?**
+
+15. **What was the biggest scalability challenge and how did you solve it?**
+
+---
+
+## 🔗 URL Shortener
+
+**Project Overview:**
+Design a URL shortener that can shorten billions of URLs, handle high traffic with minimal latency, and provide analytics.
+
+**Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, CDN
+**Key Features:** URL encoding, redirect handling, analytics, caching
+
+### Interview Questions
+
+1. **How would you design a URL shortener?**
+
+2. **How do you handle URL collisions and ensure uniqueness?**
+
+3. **How do you scale the database for billions of URLs?**
+
+4. **How do you handle expired URLs and cleanup?**
+
+5. **How do you implement URL analytics and tracking?**
+
+---
+
+## 🚦 Rate Limiter
+
+**Project Overview:**
+Design and implement a rate limiting system to prevent API abuse and ensure fair resource usage. The system supports multiple rate limiting algorithms (fixed window, sliding window, token bucket), distributed rate limiting using Redis, and configurable limits per endpoint and user.
+
+**Tech Stack:** Node.js, Express.js, Redis, TypeScript
+**Key Features:** Multiple algorithms, distributed rate limiting, configurable limits, monitoring
+
+### Interview Questions
+
+1. **What was the most complex technical challenge you faced while building the rate limiter?**
+
+2. **How did you handle distributed rate limiting across multiple servers?**
+
+3. **Describe the different rate limiting algorithms you implemented and when to use each.**
+
+4. **How did you ensure the rate limiter doesn't slow down API requests significantly?**
+
+5. **What was your approach to handling rate limiter failures (fail-open vs fail-closed)?**
+
+---
+
+## 🎴 Real-Time Poker Game
+
+**Project Overview:**
+High-quality multiplayer poker card game built with React.js and TypeScript, featuring real-time communication via Socket.io and integrated REST APIs. The game includes advanced animations, immersive gameplay, smooth user experiences, and high retention rates. Performance optimizations include code-splitting, React.lazy, and reduced re-renders to deliver a seamless gaming experience.
+
+**Tech Stack:** React.js, TypeScript, Socket.io, REST APIs
+**Key Features:** Real-time multiplayer, advanced animations, performance optimization
+
+### Interview Questions
+
+1. **What was the most complex technical challenge you faced while building the Real-Time Poker Game?**
+
+2. **How did you handle real-time multiplayer synchronization using Socket.io?**
+
+3. **Describe your approach to managing game state across multiple players in real-time.**
+
+4. **How did you handle network latency and ensure fair gameplay for all players?**
+
+5. **What was your strategy for handling player disconnections and reconnections during active games?**
+
+6. **How did you implement the poker game logic and rules validation on both client and server?**
+
+7. **Describe your approach to anti-cheating measures and game security.**
+
+8. **How did you optimize the game for different network conditions and ensure smooth gameplay?**
+
+9. **What was your strategy for handling concurrent game sessions and room management?**
+
+10. **What was the biggest performance challenge you solved, and how did code-splitting and React.lazy help?**
+
+---
 
 ## 📝 Answer Format
 
 All project questions follow the **STAR method**:
 
 - **Situation**: What happened, explained simply
+
 - **Action**: What you did, in plain language
+
 - **Result**: Impact - numbers, feedback, outcomes
+
 - **Takeaway**: What you learned, easy to remember
 
 See `rule.md` - Section 3 for complete format rules.
+
+---
+
+## 📖 Design Documents
+
+All projects include:
+
+- **[High Level Design (HLD)](README.md#high-level-design-hld)** - Requirements, Scope, Tech Choices, Architecture
+
+- **[Low Level Design (LLD)](README.md#low-level-design-lld)** - Component Architecture, Data Models, APIs, Implementation
+
+- **[Interview Answers](README.md#interview-answers)** - Complete STAR method answers to all interview questions
+
+See [README.md](README.md) for detailed structure and file references.

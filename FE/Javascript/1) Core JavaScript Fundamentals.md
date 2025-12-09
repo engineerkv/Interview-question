@@ -1,16 +1,24 @@
+# 🚀 1. Core JavaScript Fundamentals (Q1–15)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: README](../README.md)** | **[Next: Functions, Closures & Execution Context →](2%29%20Functions%2C%20Closures%20%26%20Execution%20Context.md)**
+[Home: README](../README.md) • [Functions, Closures & Execution Context →](2%29%20Functions%2C%20Closures%20%26%20Execution%20Context.md)
+
+[📋 Cheatsheet](JavaScript%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 🚀 1. Core JavaScript Fundamentals (Q1–15)
+---
 
 ---
 
 ## Q1. 📝 Data types in JavaScript
 
-JavaScript has primitives (immutable values like numbers, strings, booleans, null, undefined, bigint, symbols) and objects (reference types like arrays, functions, dates). When you assign primitives, they're copied by value - so `let a = 5; let b = a; b = 10;` leaves `a` as 5 because it's a copy. Objects are copied by reference, so both variables point to the same object in memory.
+JavaScript has primitives (immutable values like numbers, strings, booleans, null, undefined, bigint, symbols) and objects (reference types like arrays, functions, dates). When you assign primitives, you're copying the value - so `let a = 5; let b = a; b = 10;` leaves `a` as 5 because it's a copy. Objects are copied by reference, so both variables point to the same object in memory.
 
 - **Trade-offs**: Primitives are immutable - modifying them creates a new value, which is safe but can use more memory. Objects are mutable and shared by reference, which is efficient but can cause surprise bugs when you modify something you didn't mean to.
 
@@ -81,7 +89,7 @@ let b = 2;
 
 ## Q5. 🔍 Scope: global, local, and block
 
-Scope determines where variables are visible. Global scope spans the entire program, function scope is inside a function, and block scope is within curly braces. `let` and `const` are block-scoped, so they only exist inside the block where they're declared, while `var` is function-scoped and can leak outside blocks.
+Scope determines where variables are visible. Global scope spans the entire program, function scope is inside a function, and block scope is within curly braces. `let` and `const` are block-scoped, so these only exist inside the block where these are declared, while `var` is function-scoped and can leak outside blocks.
 
 - **Trade-offs**: Block scope with `let`/`const` prevents accidental variable leaks and makes code more predictable, but shadowing (using the same name in nested scopes) can be confusing. Modules have their own top-level scope, so variables don't leak to global unless you explicitly export them.
 
@@ -89,9 +97,9 @@ Example:
 
 ```js
 let x = 1; // global (module/global)
-function f() { 
-  let y = 2; 
-  if (true) { let z = 3; } 
+function f() {
+  let y = 2;
+  if (true) { let z = 3; }
 }
 // x visible everywhere; y in f; z only inside block
 
@@ -136,9 +144,9 @@ const sub = (a, b) => a - b; // arrow expression
 
 ## Q8. 🔧 Arrow functions vs regular functions
 
-Arrow functions are a shorter syntax for writing functions with lexical `this` binding - they inherit `this` from their enclosing scope instead of having their own. They don't have their own `this`, `arguments`, or `super`, and can't be used as constructors or with `new`.
+Arrow functions are a shorter syntax for writing functions with lexical `this` binding - these inherit `this` from their enclosing scope instead of having their own. These don't have their own `this`, `arguments`, or `super`, and can't be used as constructors or with `new`.
 
-- **Trade-offs**: Arrow functions are perfect for callbacks and array methods like `map` and `filter`, but watch out - they can't be used when methods need their own `this` binding. They also can't be used with `new` and don't have a `prototype` property.
+- **Trade-offs**: Arrow functions are perfect for callbacks and array methods like `map` and `filter`, but watch out - these can't be used when methods need their own `this` binding. These also can't be used with `new` and don't have a `prototype` property.
 
 Example:
 
@@ -156,7 +164,7 @@ obj.arrow(); // global/window (lexical this)
 
 ## Q9. 🔧 First-class functions in JavaScript
 
-Functions are first-class citizens - they can be assigned to variables, passed as arguments, and returned from other functions just like any other value. This enables higher-order programming patterns like map, filter, and function composition, where you pass behavior as data.
+Functions are first-class citizens - you can assign these to variables, pass these as arguments, and return these from other functions just like any other value. This enables higher-order programming patterns like map, filter, and function composition, where you pass behavior as data.
 
 - **Trade-offs**: First-class functions enable powerful abstractions and make code more expressive, but over-abstraction can make simple code harder to read - balance elegance with clarity. Closures retain access to outer variables, making functions stateful and reusable.
 
@@ -211,7 +219,7 @@ console.log(isNaN("hello")); // true (coerces first)
 
 ## Q12. 🔍 `[2] == [2]` return value and why
 
-`[2] == [2]` returns `false` because arrays are objects, and objects are compared by reference, not by value. Even though both arrays contain the same value, they're two different objects in memory, so the references don't match.
+`[2] == [2]` returns `false` because arrays are objects, and objects are compared by reference, not by value. Even though both arrays contain the same value, these are two different objects in memory, so the references don't match.
 
 - **Trade-offs**: Arrays are objects, so both `==` and `===` compare by reference, not content. The weird part is `==` performs type coercion, so `[2] == "2"` is true due to array-to-string conversion. For simple arrays, `JSON.stringify()` works for comparison, but beware of order and type issues - use libraries like Lodash for deep comparison.
 
@@ -284,8 +292,16 @@ const obj5 = new PersonClass('John'); // class
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: README](../README.md)** | **[Next: Functions, Closures & Execution Context →](2%29%20Functions%2C%20Closures%20%26%20Execution%20Context.md)**
+[Home: README](../README.md) • [Functions, Closures & Execution Context →](2%29%20Functions%2C%20Closures%20%26%20Execution%20Context.md)
+
+[📋 Cheatsheet](JavaScript%20Interview%20Cheatsheet.md]
 
 </div>
+
+---

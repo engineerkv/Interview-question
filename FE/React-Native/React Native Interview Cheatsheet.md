@@ -1,17 +1,25 @@
 # ⚛️ React Native Interview Cheatsheet
 
 > **⏱️ Review Time: 15-20 minutes** | **Priority: ⭐⭐ Medium** | Quick reference for React Native interviews
-> 
+>
 > **Coverage: Q1-Q95** (95 questions across 10 topics)
 
 **Quick Review Checklist:**
+
 - [ ] React Native Basics (Components, JSX, Bridge)
+
 - [ ] Native Modules (Android, iOS, JSI)
+
 - [ ] Platform Configuration (AndroidManifest, Info.plist)
+
 - [ ] Navigation (React Navigation, Deep Linking)
+
 - [ ] Performance (FlatList Optimization, Memoization)
+
 - [ ] State Management (Redux, AsyncStorage)
+
 - [ ] Testing (Jest, Detox E2E)
+
 - [ ] Build & Deployment (Release Builds, CodePush)
 
 ---
@@ -19,14 +27,23 @@
 ## 📋 **Question Coverage**
 
 - **Q1-Q10**: React Native Fundamentals
+
 - **Q11-Q20**: Native Modules & Platform Integrations
+
 - **Q21-Q30**: Android & iOS Platform Internals
+
 - **Q31-Q40**: Navigation & Lifecycle
+
 - **Q41-Q50**: Performance Optimization & Measurement
+
 - **Q51-Q60**: State Management & Data Handling
+
 - **Q61-Q68**: CodePush & OTA Updates
+
 - **Q69-Q78**: Debugging & Testing
+
 - **Q79-Q90**: Build, Deployment & Stores
+
 - **Q91-Q95**: Push Notifications & Messaging
 
 ---
@@ -46,6 +63,9 @@
 ## 🔌 **Native Modules**
 
 ### **Creating Native Modules**
+
+**Definition:** Native modules bridge JavaScript and native code (Java/Kotlin for Android, Objective-C/Swift for iOS) to access platform-specific APIs and features.
+
 ```jsx
 // JavaScript side
 import { NativeModules } from 'react-native';
@@ -54,9 +74,11 @@ const { MyNativeModule } = NativeModules;
 MyNativeModule.doSomething('Hello')
   .then(result => console.log(result))
   .catch(error => console.error(error));
+
 ```
 
 ### **Android Native Module**
+
 ```java
 // MyNativeModule.java
 public class MyNativeModule extends ReactContextBaseJavaModule {
@@ -70,9 +92,11 @@ public class MyNativeModule extends ReactContextBaseJavaModule {
         }
     }
 }
+
 ```
 
 ### **iOS Native Module**
+
 ```objc
 // MyNativeModule.m
 RCT_EXPORT_METHOD(doSomething:(NSString *)message
@@ -82,6 +106,7 @@ RCT_EXPORT_METHOD(doSomething:(NSString *)message
     NSString *result = [NSString stringWithFormat:@"iOS: %@", message];
     resolve(result);
 }
+
 ```
 
 ---
@@ -89,16 +114,17 @@ RCT_EXPORT_METHOD(doSomething:(NSString *)message
 ## 📱 **Platform Configuration**
 
 ### **Android Manifest**
+
 ```xml
 <!-- android/app/src/main/AndroidManifest.xml -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-    
+
     <application
         android:name=".MainApplication"
         android:label="@string/app_name">
-        
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -110,9 +136,11 @@ RCT_EXPORT_METHOD(doSomething:(NSString *)message
         </activity>
     </application>
 </manifest>
+
 ```
 
 ### **iOS Info.plist**
+
 ```xml
 <!-- ios/MyApp/Info.plist -->
 <dict>
@@ -123,6 +151,7 @@ RCT_EXPORT_METHOD(doSomething:(NSString *)message
     <key>NSCameraUsageDescription</key>
     <string>This app needs camera access</string>
 </dict>
+
 ```
 
 ---
@@ -130,6 +159,9 @@ RCT_EXPORT_METHOD(doSomething:(NSString *)message
 ## ⚙️ **Navigation**
 
 ### **React Navigation**
+
+**Definition:** React Navigation provides stack, tab, and drawer navigators for React Native apps, handling navigation state, deep linking, and screen transitions.
+
 ```jsx
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -146,9 +178,11 @@ function App() {
     </NavigationContainer>
   );
 }
+
 ```
 
 ### **Deep Linking**
+
 ```jsx
 import { Linking } from 'react-native';
 
@@ -159,10 +193,11 @@ useEffect(() => {
       navigation.navigate('Product', { productId });
     }
   };
-  
+
   Linking.addEventListener('url', handleDeepLink);
   return () => Linking.removeEventListener('url', handleDeepLink);
 }, []);
+
 ```
 
 ---
@@ -170,12 +205,15 @@ useEffect(() => {
 ## 🚀 **Performance Optimization**
 
 ### **FlatList Optimization**
+
+**Definition:** Optimize FlatList performance with getItemLayout, keyExtractor, removeClippedSubviews, maxToRenderPerBatch, and windowSize props to handle large lists efficiently.
+
 ```jsx
 function OptimizedList({ data }) {
   const renderItem = useCallback(({ item }) => (
     <ListItem item={item} />
   ), []);
-  
+
   return (
     <FlatList
       data={data}
@@ -193,9 +231,11 @@ function OptimizedList({ data }) {
     />
   );
 }
+
 ```
 
 ### **Memoization**
+
 ```jsx
 // React.memo for components
 const ExpensiveComponent = React.memo(({ data }) => {
@@ -211,6 +251,7 @@ const expensiveValue = useMemo(() => {
 const handlePress = useCallback(() => {
   doSomething();
 }, [dependency]);
+
 ```
 
 ---
@@ -218,6 +259,7 @@ const handlePress = useCallback(() => {
 ## 🧩 **State Management**
 
 ### **Redux Toolkit**
+
 ```jsx
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 
@@ -239,9 +281,11 @@ function Counter() {
   const dispatch = useDispatch();
   return <Button title={count} onPress={() => dispatch(increment())} />;
 }
+
 ```
 
 ### **AsyncStorage**
+
 ```jsx
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -261,6 +305,7 @@ const getData = async (key) => {
     console.error('Error retrieving data:', error);
   }
 };
+
 ```
 
 ---
@@ -268,6 +313,7 @@ const getData = async (key) => {
 ## ⚡ **CodePush & OTA Updates**
 
 ### **CodePush Setup**
+
 ```jsx
 import codePush from 'react-native-code-push';
 
@@ -278,14 +324,16 @@ function App() {
       installMode: codePush.InstallMode.IMMEDIATE
     });
   }, []);
-  
+
   return <MainApp />;
 }
 
 export default codePush(App);
+
 ```
 
 ### **OTA Update Handling**
+
 ```jsx
 const codePushOptions = {
   checkFrequency: codePush.CheckFrequency.ON_APP_START,
@@ -295,6 +343,7 @@ const codePushOptions = {
     maxRetryAttempts: 3
   }
 };
+
 ```
 
 ---
@@ -302,6 +351,7 @@ const codePushOptions = {
 ## 🧪 **Testing**
 
 ### **Jest Testing**
+
 ```jsx
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 
@@ -313,24 +363,27 @@ test('renders correctly', () => {
 test('handles button press', async () => {
   const { getByText } = render(<MyComponent />);
   fireEvent.press(getByText('Press Me'));
-  
+
   await waitFor(() => {
     expect(getByText('Button Pressed')).toBeTruthy();
   });
 });
+
 ```
 
 ### **Detox E2E Testing**
+
 ```jsx
 describe('Login Flow', () => {
   it('should login successfully', async () => {
     await element(by.id('email-input')).typeText('user@example.com');
     await element(by.id('password-input')).typeText('password123');
     await element(by.id('login-button')).tap();
-    
+
     await expect(element(by.id('welcome-message'))).toBeVisible();
   });
 });
+
 ```
 
 ---
@@ -338,6 +391,7 @@ describe('Login Flow', () => {
 ## 🏗 **Build & Deployment**
 
 ### **Android Release Build**
+
 ```gradle
 // android/app/build.gradle
 android {
@@ -357,16 +411,21 @@ android {
         }
     }
 }
+
 ```
 
 ### **iOS Release Build**
+
 ```bash
+
 # Archive iOS app
+
 xcodebuild -workspace MyApp.xcworkspace \
            -scheme MyApp \
            -configuration Release \
            -archivePath MyApp.xcarchive \
            archive
+
 ```
 
 ---
@@ -374,6 +433,7 @@ xcodebuild -workspace MyApp.xcworkspace \
 ## 📳 **Push Notifications**
 
 ### **FCM Setup**
+
 ```jsx
 import messaging from '@react-native-firebase/messaging';
 
@@ -394,6 +454,7 @@ const getFCMToken = async () => {
 messaging().onMessage(async remoteMessage => {
   console.log('Foreground notification:', remoteMessage);
 });
+
 ```
 
 ---
@@ -401,6 +462,7 @@ messaging().onMessage(async remoteMessage => {
 ## 🔧 **Common Patterns**
 
 ### **Permission Handling**
+
 ```jsx
 import { PermissionsAndroid, Platform } from 'react-native';
 
@@ -413,15 +475,17 @@ const requestCameraPermission = async () => {
   }
   return true; // iOS handled by Info.plist
 };
+
 ```
 
 ### **App State Handling**
+
 ```jsx
 import { AppState } from 'react-native';
 
 function App() {
   const [appState, setAppState] = useState(AppState.currentState);
-  
+
   useEffect(() => {
     const handleAppStateChange = (nextAppState) => {
       if (appState.match(/inactive|background/) && nextAppState === 'active') {
@@ -429,11 +493,12 @@ function App() {
       }
       setAppState(nextAppState);
     };
-    
+
     AppState.addEventListener('change', handleAppStateChange);
     return () => AppState.removeEventListener('change', handleAppStateChange);
   }, [appState]);
 }
+
 ```
 
 ---
@@ -441,24 +506,39 @@ function App() {
 ## 🎯 **Interview Tips**
 
 ### **Common Questions**
+
 1. **React Native vs React** - Mobile vs web differences
+
 2. **Native Modules** - How to create and use native modules
+
 3. **Performance** - How to optimize React Native apps
+
 4. **Platform Differences** - iOS vs Android specific implementations
+
 5. **Navigation** - How to handle navigation in mobile apps
 
 ### **Key Concepts**
+
 - **Bridge Communication**: How JS communicates with native code
+
 - **Platform APIs**: Accessing device features through native modules
+
 - **Performance**: Optimization techniques for mobile apps
+
 - **State Management**: Managing state in mobile applications
+
 - **Testing**: Testing strategies for mobile apps
 
 ### **Best Practices**
+
 - Use FlatList for large lists
+
 - Optimize images and assets
+
 - Handle platform differences
+
 - Test on real devices
+
 - Monitor app performance
 
 ---
@@ -466,13 +546,19 @@ function App() {
 ## ⚡ **Last-Minute Review (5 minutes)**
 
 ### **Must-Know Concepts**
+
 - **Bridge**: JS ↔ Native communication layer
+
 - **Native Modules**: Access platform APIs (camera, GPS, etc.)
+
 - **Platform Differences**: Use `Platform.OS` for iOS/Android specific code
+
 - **FlatList**: Use for large lists (not ScrollView)
+
 - **Navigation**: React Navigation for routing
 
 ### **Quick Code Snippets**
+
 ```jsx
 // Platform Check
 if (Platform.OS === 'ios') { /* iOS code */ }
@@ -487,12 +573,17 @@ if (Platform.OS === 'ios') { /* iOS code */ }
 // Native Module
 import { NativeModules } from 'react-native';
 NativeModules.MyModule.doSomething();
+
 ```
 
 ### **Common Gotchas**
+
 - Use `View` instead of `div`, `Text` instead of `span`
+
 - FlatList for performance, ScrollView for small lists
+
 - Handle platform differences (iOS vs Android)
+
 - Test on real devices, not just simulators
 
 *Remember: Practice with real devices, understand platform differences, and focus on performance optimization!*

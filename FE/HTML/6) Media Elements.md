@@ -1,10 +1,18 @@
+# 🎬 6. Media Elements (Q76–85)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: HTML5 Features & APIs](5%29%20HTML5%20Features%20%26%20APIs.md)** | **[Next: Performance & SEO →](7%29%20Performance%20%26%20SEO.md)**
+[HTML5 Features & APIs](5%29%20HTML5%20Features%20%26%20APIs.md) • [Home: README](../README.md) • [Performance & SEO →](7%29%20Performance%20%26%20SEO.md)
+
+[📋 Cheatsheet](HTML%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 🎬 6. Media Elements (Q76–85)
+---
 
 ---
 
@@ -39,7 +47,7 @@ Use `srcset` and `sizes` attributes to provide different image sizes for differe
 Example:
 
 ```html
-<img src="image-320w.jpg" 
+<img src="image-320w.jpg"
      srcset="image-320w.jpg 320w, image-640w.jpg 640w, image-1280w.jpg 1280w"
      sizes="(max-width: 600px) 320px, (max-width: 1200px) 640px, 1280px"
      alt="Responsive image">
@@ -57,8 +65,8 @@ Example:
 Example:
 
 ```html
-<img src="hero.jpg" alt="Hero image" 
-     srcset="hero-320w.jpg 320w, hero-640w.jpg 640w" 
+<img src="hero.jpg" alt="Hero image"
+     srcset="hero-320w.jpg 320w, hero-640w.jpg 640w"
      sizes="(max-width: 600px) 320px, 640px">
 
 <picture>
@@ -196,9 +204,9 @@ Example:
 
 ```html
 <img src="placeholder.jpg" data-src="actual-image.jpg" loading="lazy" alt="Description">
-<img src="image-320w.jpg" 
-     srcset="image-320w.jpg 320w, image-640w.jpg 640w" 
-     sizes="(max-width: 600px) 320px, 640px" 
+<img src="image-320w.jpg"
+     srcset="image-320w.jpg 320w, image-640w.jpg 640w"
+     sizes="(max-width: 600px) 320px, 640px"
      alt="Responsive">
 <link rel="preload" as="image" href="hero-image.jpg">
 
@@ -206,8 +214,16 @@ Example:
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: HTML5 Features & APIs](5%29%20HTML5%20Features%20%26%20APIs.md)** | **[Next: Performance & SEO →](7%29%20Performance%20%26%20SEO.md)**
+[HTML5 Features & APIs](5%29%20HTML5%20Features%20%26%20APIs.md) • [Home: README](../README.md) • [Performance & SEO →](7%29%20Performance%20%26%20SEO.md)
+
+[📋 Cheatsheet](HTML%20Interview%20Cheatsheet.md)
 
 </div>
+
+---

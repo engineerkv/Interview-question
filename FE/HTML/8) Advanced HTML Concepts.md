@@ -1,10 +1,18 @@
+# 🔧 8. Advanced HTML Concepts (Q102–110)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Performance & SEO](7%29%20Performance%20%26%20SEO.md)** | **[Next: Question List →](question.md)**
+[← Previous: Performance & SEO](7%29%20Performance%20%26%20SEO.md) • [Home: README](../README.md)
+
+[📋 Cheatsheet](HTML%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 🔧 8. Advanced HTML Concepts (Q102–110)
+---
 
 ---
 
@@ -276,8 +284,16 @@ Example:
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Performance & SEO](7%29%20Performance%20%26%20SEO.md)** | **[Next: Question List →](question.md)**
+[← Previous: Performance & SEO](7%29%20Performance%20%26%20SEO.md) • [Home: README](../README.md)
+
+[📋 Cheatsheet](HTML%20Interview%20Cheatsheet.md)
 
 </div>
+
+---

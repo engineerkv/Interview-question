@@ -1,10 +1,18 @@
+# 📊 3. Filtering, Grouping & Aggregation (Q21–30)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Querying & Joins](2%29%20Querying%20%26%20Joins.md)** | **[Next: Database Design, Indexing & Performance →](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md)**
+[Querying & Joins](2%29%20Querying%20%26%20Joins.md) • [Home: Question List](question.md) • [Database Design, Indexing & Performance →](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md)
+
+[📋 Cheatsheet](SQL%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 📊 3. Filtering, Grouping & Aggregation (Q21–30)
+---
 
 ---
 
@@ -146,14 +154,14 @@ HAVING AVG(salary) > 60000;
 
 CASE expressions provide conditional logic similar to if-else statements, useful for data transformation and conditional aggregation. Simple CASE compares an expression to multiple values (like a switch statement), while searched CASE evaluates multiple conditions (like an if-else chain).
 
-- **Trade-offs**: CASE is powerful for conditional counting and summing in aggregations, and it's great for creating derived columns and categories. The catch is CASE expressions are evaluated for each row, so they can impact performance on large datasets—use them when you need conditional logic, but be mindful of the cost.
+- **Trade-offs**: CASE is powerful for conditional counting and summing in aggregations, and it's great for creating derived columns and categories. The catch is CASE expressions are evaluated for each row, so these can impact performance on large datasets—use them when you need conditional logic, but be mindful of the cost.
 
 Example:
 
 ```sql
 -- Searched CASE expression (if-else chain)
 SELECT name, salary,
-       CASE 
+       CASE
            WHEN salary > 80000 THEN 'High'
            WHEN salary > 50000 THEN 'Medium'
            ELSE 'Low'
@@ -161,7 +169,7 @@ SELECT name, salary,
 FROM employees;
 
 -- CASE in aggregation (conditional counting)
-SELECT 
+SELECT
     department_id,
     SUM(CASE WHEN salary > 50000 THEN 1 ELSE 0 END) as high_earners,
     SUM(CASE WHEN salary <= 50000 THEN 1 ELSE 0 END) as low_earners
@@ -176,7 +184,7 @@ GROUP BY department_id;
 
 Window functions perform calculations across a set of rows related to the current row, while aggregate functions collapse rows into a single result. Window functions keep all rows and require an OVER clause that defines the window frame, while aggregate functions reduce rows to one per group.
 
-- **Trade-offs**: Window functions are powerful for ranking, running totals, and comparing rows without losing detail, but they can be expensive on large datasets. PARTITION BY divides rows into groups, ORDER BY defines ordering, and ROWS/RANGE specifies which rows to include—use them when you need row-level calculations without grouping.
+- **Trade-offs**: Window functions are powerful for ranking, running totals, and comparing rows without losing detail, but these can be expensive on large datasets. PARTITION BY divides rows into groups, ORDER BY defines ordering, and ROWS/RANGE specifies which rows to include—use them when you need row-level calculations without grouping.
 
 Example:
 
@@ -233,7 +241,7 @@ WHERE row_num <= 3;
 
 LEAD() accesses data from following rows (looks forward), while LAG() accesses data from preceding rows (looks backward), both useful for comparing current row with adjacent rows. You can specify an offset parameter to look multiple rows ahead/behind, and provide a default value when no previous/next row exists.
 
-- **Trade-offs**: LAG is great for trend analysis and calculating differences (like month-over-month growth), while LEAD is useful for forecasting and gap analysis. They're perfect for time series analysis, but remember they require ORDER BY in the OVER clause—use them when you need to compare rows with their neighbors.
+- **Trade-offs**: LAG is great for trend analysis and calculating differences (like month-over-month growth), while LEAD is useful for forecasting and gap analysis. These are perfect for time series analysis, but remember these require ORDER BY in the OVER clause—use them when you need to compare rows with their neighbors.
 
 Example:
 
@@ -266,7 +274,7 @@ Example:
 
 ```sql
 -- Using CASE statements for pivot (universal approach)
-SELECT 
+SELECT
     department_id,
     SUM(CASE WHEN EXTRACT(YEAR FROM hire_date) = 2020 THEN 1 ELSE 0 END) as hires_2020,
     SUM(CASE WHEN EXTRACT(YEAR FROM hire_date) = 2021 THEN 1 ELSE 0 END) as hires_2021,
@@ -288,9 +296,16 @@ PIVOT (
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Querying & Joins](2%29%20Querying%20%26%20Joins.md)** | **[Next: Database Design, Indexing & Performance →](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md)**
+[Querying & Joins](2%29%20Querying%20%26%20Joins.md) • [Home: Question List](question.md) • [Database Design, Indexing & Performance →](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md)
+
+[📋 Cheatsheet](SQL%20Interview%20Cheatsheet.md]
 
 </div>
 
+---

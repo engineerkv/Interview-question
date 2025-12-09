@@ -1,10 +1,18 @@
+# 🔧 2. Functions, Closures & Execution Context (Q16–24)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Core JavaScript Fundamentals](1%29%20Core%20JavaScript%20Fundamentals.md)** | **[Next: Objects, Prototypes & Inheritance →](3%29%20Objects%2C%20Prototypes%20%26%20Inheritance.md)**
+[Core JavaScript Fundamentals](1%29%20Core%20JavaScript%20Fundamentals.md) • [Home: README](../README.md) • [Objects, Prototypes & Inheritance →](3%29%20Objects%2C%20Prototypes%20%26%20Inheritance.md)
+
+[📋 Cheatsheet](JavaScript%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 🔧 2. Functions, Closures & Execution Context (Q16–24)
+---
 
 ---
 
@@ -37,9 +45,9 @@ A higher-order function either takes functions as input or returns a function - 
 Example:
 
 ```js
-const times = n => f => x => { 
-  while (n--) x = f(x); 
-  return x; 
+const times = n => f => x => {
+  while (n--) x = f(x);
+  return x;
 };
 const double = x => x * 2;
 const eightTimes = times(3)(double);
@@ -49,7 +57,7 @@ eightTimes(1); // 8
 
 ---
 
-## Q18. 🔧 Function currying: what it is and how to implement it
+## Q18. 🔧 Function currying and how to implement it
 
 Function currying breaks a function that takes multiple arguments into a chain of functions, where each function takes one argument at a time. This enables partial application and composition - you can call it like `curry(sum3)(1)(2)(3)` instead of `sum3(1, 2, 3)`.
 
@@ -71,7 +79,7 @@ curry(sum3)(1)(2)(3); // 6
 
 An IIFE is a function that runs right away and creates its own private scope - it's useful for avoiding variable leaks to the outer scope. You wrap a function in parentheses and call it immediately, like `(() => { ... })()`.
 
-- **Trade-offs**: IIFEs provide privacy and were great before modules existed, but today prefer ES modules and block scope - they're cleaner alternatives. Still handy for one-off isolated execution though.
+- **Trade-offs**: IIFEs provide privacy and were great before modules existed, but today prefer ES modules and block scope - these are cleaner alternatives. Still handy for one-off isolated execution though.
 
 Example:
 
@@ -177,8 +185,16 @@ add5(2); // 7
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Core JavaScript Fundamentals](1%29%20Core%20JavaScript%20Fundamentals.md)** | **[Next: Objects, Prototypes & Inheritance →](3%29%20Objects%2C%20Prototypes%20%26%20Inheritance.md)**
+[Core JavaScript Fundamentals](1%29%20Core%20JavaScript%20Fundamentals.md) • [Home: README](../README.md) • [Objects, Prototypes & Inheritance →](3%29%20Objects%2C%20Prototypes%20%26%20Inheritance.md)
+
+[📋 Cheatsheet](JavaScript%20Interview%20Cheatsheet.md]
 
 </div>
+
+---

@@ -1,10 +1,18 @@
+# 🧪 7. Testing & Debugging (Q77–102)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Performance Optimization](6%29%20Performance%20Optimization.md)** | **[Next: Architecture & Best Practices →](8%29%20Architecture%20%26%20Best%20Practices.md)**
+[← Previous: Performance Optimization](6%29%20Performance%20Optimization.md) • [Home: README](../README.md) • [Next: Architecture & Best Practices →](8%29%20Architecture%20%26%20Best%20Practices.md)
+
+[📋 Cheatsheet](React%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 🧪 7. Testing & Debugging (Q77–102)
+---
 
 ---
 
@@ -64,10 +72,10 @@ import userEvent from '@testing-library/user-event';
 test('user can submit form', async () => {
   const user = userEvent.setup();
   render(<ContactForm />);
-  
+
   await user.type(screen.getByLabelText(/name/i), 'John');
   await user.click(screen.getByRole('button', { name: /submit/i }));
-  
+
   expect(screen.getByText('Form submitted!')).toBeInTheDocument();
 });
 
@@ -89,13 +97,13 @@ import { useCounter } from './useCounter';
 
 test('useCounter hook', () => {
   const { result } = renderHook(() => useCounter(0));
-  
+
   expect(result.current.count).toBe(0);
-  
+
   act(() => {
     result.current.increment();
   });
-  
+
   expect(result.current.count).toBe(1);
 });
 
@@ -120,9 +128,9 @@ test('fetches user data on mount', async () => {
     ok: true,
     json: async () => mockUser
   });
-  
+
   render(<UserProfile userId={1} />);
-  
+
   await waitFor(() => {
     expect(screen.getByText('John Doe')).toBeInTheDocument();
   });
@@ -147,10 +155,10 @@ import userEvent from '@testing-library/user-event';
 test('form input changes update state', async () => {
   const user = userEvent.setup();
   render(<ContactForm />);
-  
+
   const input = screen.getByLabelText(/email/i);
   await user.type(input, 'test@example.com');
-  
+
   expect(input).toHaveValue('test@example.com');
 });
 
@@ -192,7 +200,7 @@ test('displays user after loading', async () => {
   );
 
   render(<UserProfile userId={1} />);
-  
+
   await waitFor(() => {
     expect(screen.getByText('John Doe')).toBeInTheDocument();
   });
@@ -207,7 +215,7 @@ test('finds user with findBy', async () => {
   );
 
   render(<UserProfile userId={1} />);
-  
+
   const userName = await screen.findByText('Jane Smith');
   expect(userName).toBeInTheDocument();
 });
@@ -248,7 +256,7 @@ Example:
 ```jsx
 function UserProfile({ userId }) {
   const [user, setUser] = useState(null);
-  
+
   useEffect(() => {
     console.log('Fetching user:', userId);
     fetch(`/api/users/${userId}`)
@@ -256,7 +264,7 @@ function UserProfile({ userId }) {
       .then(setUser)
       .catch(err => console.error('Error:', err));
   }, [userId]);
-  
+
   return <div>{user ? user.name : 'Loading...'}</div>;
 }
 
@@ -276,10 +284,10 @@ Example:
 test('user can complete form flow', async () => {
   const user = userEvent.setup();
   render(<ContactForm />);
-  
+
   await user.type(screen.getByLabelText(/name/i), 'John');
   await user.click(screen.getByRole('button', { name: /submit/i }));
-  
+
   expect(await screen.findByText('Success!')).toBeInTheDocument();
 });
 
@@ -287,3 +295,16 @@ test('user can complete form flow', async () => {
 
 ---
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[6) Performance Optimization.md](6%29%20Performance%20Optimization.md) • [Home: README](../README.md) • [8) Architecture & Best Practices.md →](8%29%20Architecture%20&%20Best%20Practices.md)
+
+[📋 Cheatsheet](React%20Interview%20Cheatsheet.md]
+
+</div>
+
+---

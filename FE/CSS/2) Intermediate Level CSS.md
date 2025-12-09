@@ -1,10 +1,18 @@
+# 🎯 2. Intermediate Level CSS (Q13–32)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Beginner Level CSS](1%29%20Beginner%20Level%20CSS.md)** | **[Next: Advanced CSS Concepts →](3%29%20Advanced%20CSS%20Concepts.md)**
+[Beginner Level CSS](1%29%20Beginner%20Level%20CSS.md) • [Home: README](../README.md) • [Advanced CSS Concepts →](3%29%20Advanced%20CSS%20Concepts.md)
+
+[📋 Cheatsheet](CSS%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 🎯 2. Intermediate Level CSS (Q13–32)
+---
 
 ---
 
@@ -33,15 +41,15 @@ Example:
 Example:
 
 ```css
-.layer1 { 
-  position: relative; 
-  z-index: 1; 
-  background-color: red; 
+.layer1 {
+  position: relative;
+  z-index: 1;
+  background-color: red;
 }
-.layer2 { 
-  position: relative; 
-  z-index: 2; 
-  background-color: blue; 
+.layer2 {
+  position: relative;
+  z-index: 2;
+  background-color: blue;
 }
 
 ```
@@ -58,10 +66,10 @@ Example:
 
 ```css
 .element { position: static; }
-.box { 
-  width: 200px; 
-  height: 100px; 
-  background-color: blue; 
+.box {
+  width: 200px;
+  height: 100px;
+  background-color: blue;
 }
 
 ```
@@ -88,7 +96,7 @@ body {
 
 ---
 
-## Q17. ❓ Vendor prefixes: what they are and why they're used
+## Q17. ❓ Vendor prefixes and why they're used
 
 Vendor prefixes are browser-specific prefixes added to CSS properties during experimental or early implementation phases - vendor prefixes are for experimental features, standard property comes last. `-webkit-` (Chrome, Safari, newer Edge), `-moz-` (Firefox), `-ms-` (Internet Explorer, older Edge), `-o-` (Opera, legacy).
 
@@ -116,11 +124,11 @@ Shorthand properties allow setting multiple related CSS properties in a single d
 Example:
 
 ```css
-.element { 
-  margin-top: 10px; 
-  margin-right: 20px; 
-  margin-bottom: 10px; 
-  margin-left: 20px; 
+.element {
+  margin-top: 10px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  margin-left: 20px;
 }
 .element { margin: 10px 20px; }
 
@@ -150,7 +158,7 @@ Example:
 
 ---
 
-## Q20. 🎨 CSS Flexbox: what it is and how it works
+## Q20. 🎨 CSS Flexbox and how it works
 
 Flexbox helps you lay out items in one direction (row or column) with flexible sizing and easy alignment - use it when you need to distribute space or center content. Flexbox works on two axes—main (flex-direction) and cross (perpendicular).
 
@@ -170,7 +178,7 @@ Example:
 
 ---
 
-## Q21. 🎨 CSS Grid: what it is and its key features
+## Q21. 🎨 CSS Grid and its key features
 
 Grid allows you to create layouts with both rows and columns at once, giving you precise control over where items go - perfect for complex page layouts. Unlike Flexbox, Grid handles both rows and columns simultaneously.
 
@@ -183,9 +191,9 @@ Example:
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  grid-template-areas: 
-    "header header header" 
-    "sidebar content content" 
+  grid-template-areas:
+    "header header header"
+    "sidebar content content"
     "footer footer footer";
 }
 
@@ -202,22 +210,22 @@ Grid handles 2D layouts (both rows and columns), while Flexbox handles 1D (row O
 Example:
 
 ```css
-.page-layout { 
-  display: grid; 
-  grid-template-columns: 200px 1fr 200px; 
-  min-height: 100vh; 
+.page-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  min-height: 100vh;
 }
-.card { 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 ```
 
 ---
 
-## Q23. 🎨 CSS transitions: what they are and how to use them
+## Q23. 🎨 CSS transitions and how to use them
 
 Transitions make property changes smooth over time instead of instant - great for hover effects and user feedback, different properties can have different durations and timing functions. Can target specific properties or use `all` for multiple properties.
 
@@ -226,20 +234,20 @@ Transitions make property changes smooth over time instead of instant - great fo
 Example:
 
 ```css
-.button { 
-  background-color: #007bff; 
-  transition: all 0.3s ease-in-out; 
+.button {
+  background-color: #007bff;
+  transition: all 0.3s ease-in-out;
 }
-.button:hover { 
-  background-color: #0056b3; 
-  transform: scale(1.05); 
+.button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
 }
 
 ```
 
 ---
 
-## Q24. 🎨 CSS animations: what they are and how to create them
+## Q24. 🎨 CSS animations and how to create them
 
 Animations let you create complex, multi-step effects using @keyframes to define what happens at different points - use them for loading spinners or page entrances. Multiple keyframes (0%, 25%, 50%, 100%) create complex animation sequences.
 
@@ -258,7 +266,7 @@ Example:
 
 ---
 
-## Q25. 🎨 CSS cascade: what it is and how it works
+## Q25. 🎨 CSS cascade and how it works
 
 The cascade is CSS's priority system—it decides which styles win based on order, specificity, and !important - later styles override earlier ones when specificity is equal. Later styles override earlier ones when specificity is equal (source order).
 
@@ -275,7 +283,7 @@ Example:
 
 ---
 
-## Q26. 🎨 CSS combinators: what they are and how to use them
+## Q26. 🎨 CSS combinators and how to use them
 
 Combinators let you target elements based on their relationship to other elements—like children, siblings, or descendants - useful for styling nested structures. Descendant (space) targets any descendant, child (>) targets only direct children.
 
@@ -303,11 +311,11 @@ Example:
 
 ```css
 /* Transition */
-.button { 
-  transition: background-color 0.3s; 
+.button {
+  transition: background-color 0.3s;
 }
-.button:hover { 
-  background-color: blue; 
+.button:hover {
+  background-color: blue;
 }
 
 /* Animation */
@@ -315,8 +323,8 @@ Example:
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-20px); }
 }
-.element { 
-  animation: bounce 1s infinite; 
+.element {
+  animation: bounce 1s infinite;
 }
 
 ```
@@ -337,15 +345,15 @@ Example:
   50% { opacity: 0.5; }
   100% { transform: translateX(0); opacity: 1; }
 }
-.element { 
-  animation: slideIn 0.5s ease-in-out 0.2s infinite alternate; 
+.element {
+  animation: slideIn 0.5s ease-in-out 0.2s infinite alternate;
 }
 
 ```
 
 ---
 
-## Q29. 🎬 Media queries: what they are and how to use them
+## Q29. 🎬 Media queries and how to use them
 
 Media queries let you apply different styles based on device features like screen width - essential for making websites work on phones, tablets, and desktops. Common breakpoints are 768px (tablet), 1024px (desktop), 1200px (large desktop).
 
@@ -358,8 +366,8 @@ Example:
 @media (min-width: 768px) {
   .container { width: 750px; padding: 20px; }
 }
-@media (min-width: 1024px) { 
-  .container { width: 1200px; 
+@media (min-width: 1024px) {
+  .container { width: 1200px;
 }
 
 ```
@@ -375,12 +383,12 @@ Use relative units (rem, em), viewport units (vw, vh), or `clamp()` for responsi
 Example:
 
 ```css
-h1 { 
-  font-size: clamp(1.5rem, 4vw, 3rem); 
+h1 {
+  font-size: clamp(1.5rem, 4vw, 3rem);
 }
-p { 
-  font-size: 1rem; 
-  line-height: 1.6; 
+p {
+  font-size: 1rem;
+  line-height: 1.6;
 }
 @media (min-width: 768px) {
   p { font-size: 1.125rem; }
@@ -390,7 +398,7 @@ p {
 
 ---
 
-## Q31. 🎨 CSS variables (custom properties): what they are, how to use them, and their role in design systems
+## Q31. 🎨 CSS variables (custom properties), how to use them, and their role in design systems
 
 CSS variables let you store values like colors or spacing that you can reuse anywhere and even change with JavaScript - perfect for theming and maintaining consistent design tokens. Variables inherit and can be overridden at different levels (root, element, pseudo-class).
 
@@ -445,8 +453,16 @@ $primary-color: #007bff;
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Beginner Level CSS](1%29%20Beginner%20Level%20CSS.md)** | **[Next: Advanced CSS Concepts →](3%29%20Advanced%20CSS%20Concepts.md)**
+[Beginner Level CSS](1%29%20Beginner%20Level%20CSS.md) • [Home: README](../README.md) • [Advanced CSS Concepts →](3%29%20Advanced%20CSS%20Concepts.md)
+
+[📋 Cheatsheet](CSS%20Interview%20Cheatsheet.md]
 
 </div>
+
+---

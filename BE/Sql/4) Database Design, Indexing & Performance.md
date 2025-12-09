@@ -1,10 +1,18 @@
+# ⚡ 4. Database Design, Indexing & Performance (Q31–40)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Filtering, Grouping & Aggregation](3%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md)** | **[Next: Transactions, Concurrency & Stored Logic →](5%29%20Transactions%2C%20Concurrency%20%26%20Stored%20Logic.md)**
+[Filtering, Grouping & Aggregation](3%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md) • [Home: Question List](question.md) • [Transactions, Concurrency & Stored Logic →](5%29%20Transactions%2C%20Concurrency%20%26%20Stored%20Logic.md)
+
+[📋 Cheatsheet](SQL%20Interview%20Cheatsheet.md]
 
 </div>
 
-# ⚡ 4. Database Design, Indexing & Performance (Q31–40)
+---
 
 ---
 
@@ -120,7 +128,7 @@ SELECT * FROM employees WHERE name = 'John Doe';
 
 Clustered indexes determine the physical order of data storage and there can only be one per table, while non-clustered indexes are separate structures that point to data and multiple can exist per table. The clustered index is the table itself (very fast for primary key lookups), while non-clustered indexes are separate structures (require index lookup plus table access).
 
-- **Trade-offs**: Clustered indexes are fastest for primary key lookups and range scans because data is physically ordered, but they can become fragmented affecting performance. Non-clustered indexes are slower for range queries but you can have multiple—the primary key automatically creates a clustered index in most databases, so choose it wisely.
+- **Trade-offs**: Clustered indexes are fastest for primary key lookups and range scans because data is physically ordered, but these can become fragmented affecting performance. Non-clustered indexes are slower for range queries but you can have multiple—the primary key automatically creates a clustered index in most databases, so choose it wisely.
 
 Example:
 
@@ -173,7 +181,7 @@ SELECT * FROM employees WHERE salary > 50000;  -- Won't use index
 
 A covering index includes all columns needed for a query, eliminating the need to access the actual table data and significantly improving query performance. It includes all columns needed for SELECT, WHERE, and ORDER BY clauses, making it the fastest possible query execution.
 
-- **Trade-offs**: Covering indexes eliminate table lookups and are significantly faster than regular indexes, but they require more storage space due to additional columns and have higher overhead for INSERT, UPDATE, DELETE operations. Use them for frequently executed queries with specific column requirements—they're perfect when you know exactly which columns you'll query.
+- **Trade-offs**: Covering indexes eliminate table lookups and are significantly faster than regular indexes, but these require more storage space due to additional columns and have higher overhead for INSERT, UPDATE, DELETE operations. Use them for frequently executed queries with specific column requirements—these are perfect when you know exactly which columns you'll query.
 
 Example:
 
@@ -201,7 +209,7 @@ Example:
 
 ```sql
 -- Check index fragmentation (SQL Server)
-SELECT 
+SELECT
     object_name(ips.object_id) as table_name,
     i.name as index_name,
     ips.avg_fragmentation_in_percent,
@@ -269,9 +277,16 @@ ORDER BY e.name;
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Filtering, Grouping & Aggregation](3%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md)** | **[Next: Transactions, Concurrency & Stored Logic →](5%29%20Transactions%2C%20Concurrency%20%26%20Stored%20Logic.md)**
+[Filtering, Grouping & Aggregation](3%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md) • [Home: Question List](question.md) • [Transactions, Concurrency & Stored Logic →](5%29%20Transactions%2C%20Concurrency%20%26%20Stored%20Logic.md)
+
+[📋 Cheatsheet](SQL%20Interview%20Cheatsheet.md]
 
 </div>
 
+---

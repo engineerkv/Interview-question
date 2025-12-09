@@ -1,10 +1,18 @@
+# 🏗️ 8. Architecture & Best Practices (Q87–96)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Testing & Debugging](7%29%20Testing%20%26%20Debugging.md)** | **[Next: Question List →](question.md)**
+[← Previous: Testing & Debugging](7%29%20Testing%20%26%20Debugging.md) • [Home: README](../README.md)
+
+[📋 Cheatsheet](React%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 🏗️ 8. Architecture & Best Practices (Q87–96)
+---
 
 ---
 
@@ -17,6 +25,7 @@ Organize by features, separate concerns, use consistent naming, and manage depen
 Example:
 
 ```
+
 src/
 ├── components/           # Reusable UI components
 │   ├── Button/
@@ -93,7 +102,7 @@ Example:
 function UserListContainer() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     fetch('/api/users')
       .then(r => r.json())
@@ -159,7 +168,7 @@ function useApi(url) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   useEffect(() => {
     let active = true;
     (async () => {
@@ -197,9 +206,9 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => { setLoading(false); }, []);
-  const login = async (creds) => { 
-    /* auth */ 
-    setUser({ id: 1, name: 'User' }); 
+  const login = async (creds) => {
+    /* auth */
+    setUser({ id: 1, name: 'User' });
   };
   const logout = () => setUser(null);
   return (
@@ -312,15 +321,15 @@ Example:
 function usePerformanceMonitor(componentName) {
   const renderCount = useRef(0);
   const startTime = useRef();
-  
+
   useEffect(() => {
     renderCount.current += 1;
     startTime.current = performance.now();
     return () => {
       const duration = performance.now() - startTime.current;
-      console.log(componentName, { 
-        renders: renderCount.current, 
-        duration 
+      console.log(componentName, {
+        renders: renderCount.current,
+        duration
       });
     };
   });
@@ -331,9 +340,16 @@ function usePerformanceMonitor(componentName) {
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Testing & Debugging](7%29%20Testing%20%26%20Debugging.md)** | **[Next: Question List →](question.md)**
+[7) Testing & Debugging.md](7%29%20Testing%20&%20Debugging.md) • [Home: README](../README.md)
+
+[📋 Cheatsheet](React%20Interview%20Cheatsheet.md]
 
 </div>
 
+---

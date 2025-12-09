@@ -1,10 +1,18 @@
+# 🏗️ 4. Data Modeling & Schema Design (Q42–57)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Aggregation Framework](3%29%20Aggregation%20Framework.md)** | **[Next: Question List →](question.md)**
+[Aggregation Framework](3%29%20Aggregation%20Framework.md) • [Home: Question List](question.md)
+
+[📋 Cheatsheet](MongoDB%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 🏗️ 4. Data Modeling & Schema Design (Q42–57)
+---
 
 ---
 
@@ -107,7 +115,7 @@ Example:
 
 Many-to-many relationships in MongoDB are modeled using arrays of ObjectIds in both documents, or more commonly with a separate junction/join collection that stores pairs of references. Use arrays when relationships are simple and bounded, use junction collections when relationships have attributes or need to scale.
 
-- **Trade-offs**: Arrays of references are simple and work well for small, bounded relationships (like user tags), but they can grow large and make queries complex. Junction collections scale better, allow relationship attributes (like quantity, date), and enable efficient queries in both directions—use junction collections for e-commerce (users-products), social networks (users-friends), or any relationship with metadata.
+- **Trade-offs**: Arrays of references are simple and work well for small, bounded relationships (like user tags), but these can grow large and make queries complex. Junction collections scale better, allow relationship attributes (like quantity, date), and enable efficient queries in both directions—use junction collections for e-commerce (users-products), social networks (users-friends), or any relationship with metadata.
 
 Example:
 
@@ -124,9 +132,9 @@ Example:
 // products collection
 { _id: ObjectId("..."), name: "Laptop" }
 // user_products collection (junction)
-{ 
-  userId: ObjectId("..."), 
-  productId: ObjectId("..."), 
+{
+  userId: ObjectId("..."),
+  productId: ObjectId("..."),
   quantity: 2,
   addedAt: new Date()
 }
@@ -309,8 +317,8 @@ Example:
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
   age: { type: Number, min: 0, max: 120 },
-  email: { 
-    type: String, 
+  email: {
+    type: String,
     required: true,
     match: /^[\w.%+-]+@[\w.-]+\.[A-Za-z]{2,}$/
   },
@@ -325,7 +333,7 @@ const userSchema = new mongoose.Schema({
 
 Virtuals are document properties that aren't stored in MongoDB but computed on-the-fly from other fields, useful for formatting, combining fields, or creating derived values without duplicating data.
 
-- **Trade-offs**: Virtuals keep your data normalized while providing convenient computed properties, but the catch is they're not queryable (can't use them in `find()` filters) and add slight overhead. Use them for display formatting, full names, or calculated fields—remember to include them in JSON output with `toJSON: { virtuals: true }` if needed.
+- **Trade-offs**: Virtuals keep your data normalized while providing convenient computed properties, but the catch is these are not queryable (can't use them in `find()` filters) and add slight overhead. Use them for display formatting, full names, or calculated fields—remember to include them in JSON output with `toJSON: { virtuals: true }` if needed.
 
 Example:
 
@@ -345,7 +353,7 @@ console.log(user.fullName); // "John Doe"
 
 Instance methods are defined on the schema and called on document instances (e.g., `user.save()`), while static methods are called on the model itself (e.g., `User.findByEmail()`), allowing you to encapsulate business logic within your models.
 
-- **Trade-offs**: Methods keep logic close to data and improve code organization, but the catch is they're only available when using Mongoose (not with raw MongoDB queries). Instance methods work on single documents, static methods work on collections—use instance methods for document-specific logic, static methods for collection-level operations or custom finders.
+- **Trade-offs**: Methods keep logic close to data and improve code organization, but the catch is these are only available when using Mongoose (not with raw MongoDB queries). Instance methods work on single documents, static methods work on collections—use instance methods for document-specific logic, static methods for collection-level operations or custom finders.
 
 Example:
 
@@ -367,7 +375,7 @@ const age = user.getAge();
 
 Mongoose middleware hooks allow you to execute functions before or after specific operations (save, validate, remove, init) on documents, enabling cross-cutting concerns like password hashing, timestamps, or logging.
 
-- **Trade-offs**: Middleware provides powerful hooks for common operations, but the catch is they can make code harder to debug and add overhead if overused. Pre hooks can modify documents or cancel operations, post hooks run after operations complete—use them for authentication, logging, or data transformation, but avoid complex async operations that could slow down saves.
+- **Trade-offs**: Middleware provides powerful hooks for common operations, but the catch is these can make code harder to debug and add overhead if overused. Pre hooks can modify documents or cancel operations, post hooks run after operations complete—use them for authentication, logging, or data transformation, but avoid complex async operations that could slow down saves.
 
 Example:
 
@@ -428,9 +436,16 @@ const userSchema = new mongoose.Schema({
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Aggregation Framework](3%29%20Aggregation%20Framework.md)** | **[Next: Question List →](question.md)**
+[Aggregation Framework](3%29%20Aggregation%20Framework.md) • [Home: Question List](question.md)
+
+[📋 Cheatsheet](MongoDB%20Interview%20Cheatsheet.md]
 
 </div>
 
+---

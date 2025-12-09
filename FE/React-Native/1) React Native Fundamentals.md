@@ -1,10 +1,18 @@
+# 1. React Native Fundamentals (Q1–10)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: README](../README.md)** | **[Next: Native Modules & Platform Integrations →](2%29%20Native%20Modules%20%26%20Platform%20Integrations.md)**
+[Home: README](../README.md) • [Native Modules & Platform Integrations →](2%29%20Native%20Modules%20%26%20Platform%20Integrations.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 1. React Native Fundamentals (Q1–10)
+---
 
 ---
 
@@ -203,7 +211,7 @@ Example:
 ```jsx
 function Counter() {
   const [count, setCount] = useState(0);
-  
+
   return (
     <View>
       <Text>Count: {count}</Text>
@@ -279,3 +287,16 @@ const styles = StyleSheet.create({
 
 ---
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](../README.md) • [Native Modules & Platform Integrations →](2%29%20Native%20Modules%20%26%20Platform%20Integrations.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
+
+</div>
+
+---

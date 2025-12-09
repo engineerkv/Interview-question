@@ -2,15 +2,20 @@
 
 | Section | Topic | Questions | Difficulty |
 |---------|-------|-----------|------------|
+| [📚](#introduction) | Introduction | Q0–4 | ⭐⭐⭐ |
 | [🌐](#network) | Network | Q1–10 | ⭐⭐⭐ |
 | [📡](#communication) | Communication | Q11–16 | ⭐⭐⭐ |
-| [⚙️](#how-javascript-works-internally) | How JavaScript Works Internally | Q17 | ⭐⭐⭐⭐ |
-| [⚛️](#how-reactjs-works-internally) | How React.js Works Internally | Q18 | ⭐⭐⭐⭐ |
-| [🟢](#how-nodejs-works-internally) | How Node.js Works Internally | Q19 | ⭐⭐⭐⭐ |
-| [📱](#how-react-native-works-internally) | How React Native Works Internally | Q20 | ⭐⭐⭐⭐ |
-| [🌐](#important-browser-apis) | Important Browser APIs | Q21–32 | ⭐⭐⭐ |
-| [🏗️](#high-level-design-hld) | High Level Design (HLD) | Q33–44 | ⭐⭐⭐⭐ |
-| [🔧](#low-level-design-lld) | Low Level Design (LLD) | Q45–54 | ⭐⭐⭐⭐ |
+| [📄](#html-internals) | HTML Internals | Q8.5 | ⭐⭐⭐⭐ |
+| [🎨](#css-internals) | CSS Internals | Q8.6 | ⭐⭐⭐⭐ |
+| [⚙️](#javascript-internals) | JavaScript Internals | Q17 | ⭐⭐⭐⭐ |
+| [🔷](#typescript-internals) | TypeScript Internals | Q17.5 | ⭐⭐⭐⭐ |
+| [⚛️](#react-internals) | React Internals | Q18 | ⭐⭐⭐⭐ |
+| [⚡](#nextjs-internals) | Next.js Internals | Q18.5 | ⭐⭐⭐⭐ |
+| [🟢](#nodejs-internals) | Node.js Internals | Q19 | ⭐⭐⭐⭐ |
+| [📱](#react-native-internals) | React Native Internals | Q20 | ⭐⭐⭐⭐ |
+| [🌐](#browser-apis) | Browser APIs | Q21–32 | ⭐⭐⭐ |
+| [🏗️](#high-level-design) | High Level Design | Q33–44 | ⭐⭐⭐⭐ |
+| [🔧](#low-level-design) | Low Level Design | Q45–54 | ⭐⭐⭐⭐ |
 | [🔐](#security) | Security | Q55–69 | ⭐⭐⭐⭐ |
 | [🧪](#testing) | Testing | Q70–74 | ⭐⭐⭐ |
 | [⚡](#performance) | Performance | Q75–79 | ⭐⭐⭐⭐ |
@@ -18,7 +23,8 @@
 | [📊](#logging--monitoring) | Logging & Monitoring | Q89–91 | ⭐⭐⭐ |
 | [♿](#accessibility) | Accessibility | Q92–97 | ⭐⭐⭐⭐ |
 | [📱](#offline-support) | Offline Support | Q98–99 | ⭐⭐⭐ |
-| [🎯](#patterns--anti-patterns) | Patterns & Anti-Patterns | Q100–103 | ⭐⭐⭐⭐ |
+| [🎯](#patterns) | Patterns | Q100–103 | ⭐⭐⭐⭐ |
+| [🏗️](#microfrontend) | Microfrontend | Q104 | ⭐⭐⭐⭐ |
 
 ---
 
@@ -28,37 +34,74 @@
 
 ## 🧭 Recommended Preparation Order
 
+### 0. Introduction (Q0–4)
+
+- **What to cover**: Framework comparisons (React vs Vue/Angular/Svelte), bundling tools (Webpack vs Vite/Rollup), backend comparisons (Node.js vs Python/Go/Java), database choices (SQL vs NoSQL), and mobile frameworks (React Native vs Flutter vs Cordova).
+
 ### 1. Foundation (Q1–20)
-- **What to cover**: Networking, communication patterns, and how JavaScript, React, Node.js, and React Native work internally.
+
+- **What to cover**: Networking, communication patterns, HTML/CSS/JavaScript/TypeScript internals, and how React, Next.js, Node.js, and React Native work internally.
 
 ### 2. APIs & Design (Q21–54)
+
 - **What to cover**: Browser APIs, high-level design (requirements, architecture, infrastructure), and low-level design (implementation details).
 
 ### 3. Security & Quality (Q55–74)
+
 - **What to cover**: Security best practices (XSS, CSRF, CORS, etc.) and testing strategies (unit, integration, E2E, A/B, performance, security).
 
 ### 4. Performance & Data (Q75–91)
+
 - **What to cover**: Performance optimization, monitoring, database & caching strategies, and logging & monitoring.
 
 ### 5. UX & Reliability (Q92–99)
+
 - **What to cover**: Accessibility basics (keyboard, screen reader, contrast, focus) and offline-ready UX (Service Workers + PWAs).
 
-### 6. Patterns & Best Practices (Q100–103)
+### 6. Patterns (Q100–103)
+
 - **What to cover**: Rendering patterns (CSR, SSR, SSG, ISR), React anti-patterns, JavaScript anti-patterns, and Node.js anti-patterns.
+
+### 7. Advanced Architecture (Q104)
+
+- **What to cover**: Microfrontend architecture, patterns, implementation approaches, communication strategies, and deployment.
+
+---
+
+## 📚 Introduction
+
+0. React vs Other Frameworks
+
+1. Webpack vs Other Bundling Tools
+
+2. Node.js vs Other Frameworks
+
+3. SQL vs No-SQL
+
+4. React Native vs Flutter vs Cordova
 
 ---
 
 ## 🌐 Network
 
-1. How the Web Works
+1. Web Works
+
 2. TCP/UDP
+
 3. TCP Handshake + TLS Handshake
+
 4. HTTP vs HTTPS
-5. What are REST APIs
-6. What are GraphQL
-7. What are gRPC
-8. Critical Rendering Path
+
+5. REST APIs
+
+6. GraphQL
+
+7. gRPC
+
+8. Rendering Path
+
 9. SMTP/FTP
+
 10. Payment Gateway Internal Working
 
 ---
@@ -66,83 +109,143 @@
 ## 📡 Communication
 
 11. Short Polling
+
 12. Long Polling
+
 13. WebSockets
+
 14. Server-Sent Events (SSE)
+
 15. Webhooks
+
 16. Socket.io Internal Working
 
 ---
 
-## ⚙️ How JavaScript Works Internally
+## 📄 HTML Internals
 
-17. How JavaScript Works Internally
-
----
-
-## ⚛️ How React.js Works Internally
-
-18. How React.js Works Internally
+8.5. HTML Internals
 
 ---
 
-## 🟢 How Node.js Works Internally
+## 🎨 CSS Internals
 
-19. How Node.js Works Internally
-
----
-
-## 📱 How React Native Works Internally
-
-20. How React Native Works Internally
+8.6. CSS Internals
 
 ---
 
-## 🌐 Important Browser APIs
+## ⚙️ JavaScript Internals
+
+17. JavaScript Internals
+
+---
+
+## 🔷 TypeScript Internals
+
+17.5. TypeScript Internals
+
+---
+
+## ⚛️ React Internals
+
+18. React Internals
+
+---
+
+## ⚡ Next.js Internals
+
+18.5. Next.js Internals
+
+---
+
+## 🟢 Node.js Internals
+
+19. Node.js Internals
+
+---
+
+## 📱 React Native Internals
+
+20. React Native Internals
+
+---
+
+## 🌐 Browser APIs
 
 21. DOM API
+
 22. Fetch API
+
 23. Web Storage APIs
+
 24. Geolocation API
+
 25. Canvas API
+
 26. Web Workers API
+
 27. Intersection Observer API
+
 28. Notification API
+
 29. Media APIs
+
 30. File API
+
 31. History API
+
 32. WebSocket API
 
 ---
 
-## 🏗️ High Level Design (HLD)
+## 🏗️ High Level Design
 
 33. Requirements (Functional & Non-Functional)
+
 34. Scope, Priority & MVP
+
 35. Client Architecture
+
 36. Server Architecture
+
 37. Database Design (SQL/No-SQL)
+
 38. Load Balancer
+
 39. CDN (Content Delivery Network)
+
 40. Middleware
+
 41. Caching & Redis
+
 42. Queue System
+
 43. Cron Jobs
+
 44. CI/CD Pipeline
 
 ---
 
-## 🔧 Low Level Design (LLD)
+## 🔧 Low Level Design
 
 45. View Layer Implementation
+
 46. Service Layer Implementation
+
 47. Controller/Business Logic Implementation
+
 48. Data Model Implementation
+
 49. API/GraphQL Implementation
+
 50. State Management Implementation
+
 51. Error Handling & Validation
+
 52. Performance Optimization Implementation
+
 53. Security Implementation
+
 54. Testing Implementation
 
 ---
@@ -150,19 +253,33 @@
 ## 🔐 Security
 
 55. Cross-Site Scripting (XSS)
+
 56. iframe Protection (Clickjacking)
+
 57. Security Headers
+
 58. Client-Side Security
+
 59. Secure Communication (HTTPS)
+
 60. Dependency Security
+
 61. Compliance and Regulations
+
 62. Input Validation and Sanitization
+
 63. Server-Side Request Forgery (SSRF)
+
 64. Server-Side JavaScript Injection (SSJI)
+
 65. Feature Policy / Permissions Policy
+
 66. Subresource Integrity (SRI)
+
 67. Cross-Origin Resource Sharing (CORS)
+
 68. Cross-Site Request Forgery (CSRF)
+
 69. Access Token and Refresh Token Management
 
 ---
@@ -170,9 +287,13 @@
 ## 🧪 Testing
 
 70. Unit and Integration Testing
+
 71. E2E and Automation Testing
+
 72. A/B Testing
+
 73. Performance Testing
+
 74. Security Testing
 
 ---
@@ -180,9 +301,13 @@
 ## ⚡ Performance
 
 75. Performance Monitoring
+
 76. Performance Tools
+
 77. Network Optimization
+
 78. Rendering Patterns
+
 79. Build Optimization
 
 ---
@@ -190,13 +315,21 @@
 ## 💾 Database & Caching
 
 80. Local Storage
+
 81. Session Storage
+
 82. Cookie Storage
+
 83. IndexedDB
+
 84. Normalization
+
 85. HTTP Caching
+
 86. Service Worker Caching
+
 87. API Caching
+
 88. State Management
 
 ---
@@ -204,7 +337,9 @@
 ## 📊 Logging & Monitoring
 
 89. Telemetry
+
 90. Alerting
+
 91. Fixing Performance and Error Issues
 
 ---
@@ -212,10 +347,15 @@
 ## ♿ Accessibility
 
 92. Keyboard Accessibility
+
 93. Screen Reader
+
 94. Focus Management
+
 95. Color Contrast
+
 96. Accessibility Tools
+
 97. How to Fix Accessibility Issues
 
 ---
@@ -223,37 +363,77 @@
 ## 📱 Offline Support
 
 98. Service Workers
+
 99. Progressive Web Applications (PWAs)
 
 ---
 
-## 🎯 Patterns & Anti-Patterns
+## 🎯 Patterns
 
 100. Rendering Patterns
+
 101. Anti-React Patterns
+
 102. Anti-JavaScript Patterns
+
 103. Anti-Node.js Patterns
+
+---
+
+## 🏗️ Microfrontend
+
+104. Microfrontend Architecture
 
 ---
 
 ## 📖 Complete Answer Guide
 
-- [00) How the Web Works](00%29%20How%20the%20Web%20Works.md) - Q1
-- [01) Networking](01%29%20Networking.md) - Q2-7, Q9-10 (includes Payment Gateway)
-- [02) Critical Rendering Path](02%29%20Critical%20Rendering%20Path.md) - Q8
+- [01) Introduction](01%29%20Introduction.md) - Q0-4 (React vs Frameworks, Webpack vs Bundlers, Node.js vs Frameworks, SQL vs NoSQL, React Native vs Flutter/Cordova)
+
+- [02) Web Works](02%29%20Web%20Works.md) - Q1
+
+- [03) Networking](03%29%20Networking.md) - Q2-7, Q9-10 (includes Payment Gateway)
+
+- [04) Rendering Path](04%29%20Rendering%20Path.md) - Q8
+
 - [Communication](question.md#communication) - Q11-16 (includes Socket.io)
-- [03) How JavaScript Works Internally](03%29%20How%20JavaScript%20Works%20Internally.md) - Q17
-- [04) How React.js Works Internally](04%29%20How%20React.js%20Works%20Internally.md) - Q18
-- [05) How Node.js Works Internally](05%29%20How%20Node.js%20Works%20Internally.md) - Q19
-- [06) How React Native Works Internally](06%29%20How%20React%20Native%20Works%20Internally.md) - Q20
-- [07) Important Browser APIs](07%29%20Important%20Browser%20APIs.md) - Q21-32
-- [08) High Level Design (HLD)](08%29%20High%20Level%20Design%20%28HLD%29.md) - Q33-44
-- [09) Low Level Design (LLD)](09%29%20Low%20Level%20Design%20%28LLD%29.md) - Q45-54
-- [10) Security](10%29%20Security.md) - Q55-69 (includes Access Token and Refresh Token Management)
-- [11) Testing](11%29%20Testing.md) - Q70-74
-- [12) Performance](12%29%20Performance.md) - Q75-79
-- [13) Database & Caching](13%29%20Database%20%26%20Caching.md) - Q80-88
-- [14) Logging & Monitoring](14%29%20Logging%20%26%20Monitoring.md) - Q89-91
-- [15) Accessibility](15%29%20Accessibility.md) - Q92-97
-- [16) Offline Support](16%29%20Offline%20Support.md) - Q98-99
-- [17) Patterns & Anti-Patterns](17%29%20Patterns%20%26%20Anti-Patterns.md) - Q100-103
+
+- [05) HTML Internals](05%29%20HTML%20Internals.md) - Q8.5
+
+- [06) CSS Internals](06%29%20CSS%20Internals.md) - Q8.6
+
+- [07) JavaScript Internals](07%29%20JavaScript%20Internals.md) - Q17
+
+- [08) TypeScript Internals](08%29%20TypeScript%20Internals.md) - Q17.5
+
+- [09) React Internals](09%29%20React%20Internals.md) - Q18
+
+- [10) Next.js Internals](10%29%20Next.js%20Internals.md) - Q18.5
+
+- [11) Node.js Internals](11%29%20Node.js%20Internals.md) - Q19
+
+- [12) React Native Internals](12%29%20React%20Native%20Internals.md) - Q20
+
+- [13) Browser APIs](13%29%20Browser%20APIs.md) - Q21-32
+
+- [14) High Level Design](14%29%20High%20Level%20Design.md) - Q33-44
+
+- [15) Low Level Design](15%29%20Low%20Level%20Design.md) - Q45-54
+
+- [16) Security](16%29%20Security.md) - Q55-69 (includes Access Token and Refresh Token Management)
+
+- [17) Testing](17%29%20Testing.md) - Q70-74
+
+- [18) Performance](18%29%20Performance.md) - Q75-79
+
+- [19) Database & Caching](19%29%20Database%20%26%20Caching.md) - Q80-88
+
+- [20) Logging & Monitoring](20%29%20Logging%20%26%20Monitoring.md) - Q89-91
+
+- [21) Accessibility](21%29%20Accessibility.md) - Q92-97
+
+- [22) Offline Support](22%29%20Offline%20Support.md) - Q98-99
+
+- [23) Patterns](23%29%20Patterns.md) - Q100-103
+
+- [24) Microfrontend](24%29%20Microfrontend.md) - Q104

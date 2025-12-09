@@ -1,10 +1,18 @@
+# 🍃 1. MongoDB Fundamentals (Q1–16)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: README](../README.md)** | **[Next: Indexing & Query Optimization →](2%29%20Indexing%20%26%20Query%20Optimization.md)**
+[Home: Question List](question.md) • [Indexing & Query Optimization →](2%29%20Indexing%20%26%20Query%20Optimization.md)
+
+[📋 Cheatsheet](MongoDB%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 🍃 1. MongoDB Fundamentals (Q1–16)
+---
 
 ---
 
@@ -365,9 +373,16 @@ await User.deleteOne({ name: 'John' });
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: README](../README.md)** | **[Next: Indexing & Query Optimization →](2%29%20Indexing%20%26%20Query%20Optimization.md)**
+[Home: Question List](question.md) • [Indexing & Query Optimization →](2%29%20Indexing%20%26%20Query%20Optimization.md)
+
+[📋 Cheatsheet](MongoDB%20Interview%20Cheatsheet.md]
 
 </div>
 
+---

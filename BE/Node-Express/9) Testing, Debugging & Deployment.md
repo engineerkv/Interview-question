@@ -1,12 +1,20 @@
+# 🧪 9. Testing, Debugging & Deployment (Q89–98)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Performance, Optimization, Scaling & Monitoring](8%29%20Performance%2C%20Optimization%2C%20Scaling%20%26%20Monitoring.md)** | **[Next: Question List →](question.md)**
+[← Previous: Performance, Optimization, Scaling & Monitoring](8%29%20Performance%2C%20Optimization%2C%20Scaling%20%26%20Monitoring.md) • [Home: Question List](question.md)
+
+[📋 Cheatsheet](Node-Express%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 🧪 9. Testing, Debugging & Deployment (Q90–99)
+---
 
-## Q90. 🧪 Writing unit tests with Jest or Mocha
+## Q89. 🧪 Writing unit tests with Jest or Mocha
 
 Testing frameworks provide tools for writing and running tests - Jest is popular for React/Node.js with built-in mocking, Mocha is flexible with many plugins, and Supertest is specialized for HTTP API testing. Choose based on project requirements and team preferences, and consider testing pyramid: unit > integration > e2e.
 
@@ -23,18 +31,18 @@ describe('User API', () => {
     const response = await request(app)
       .get('/api/users')
       .expect(200);
-    
+
     expect(response.body).toHaveProperty('users');
     expect(Array.isArray(response.body.users)).toBe(true);
   });
-  
+
   test('POST /api/users should create user', async () => {
     const userData = { name: 'John', email: 'john@example.com' };
     const response = await request(app)
       .post('/api/users')
       .send(userData)
       .expect(201);
-    
+
     expect(response.body).toHaveProperty('id');
     expect(response.body.name).toBe(userData.name);
   });
@@ -42,7 +50,7 @@ describe('User API', () => {
 
 ```
 
-## Q91. 🧪 Testing API endpoints with Supertest
+## Q90. 🧪 Testing API endpoints with Supertest
 
 Supertest allows testing Express applications by making HTTP requests and asserting responses - test middleware in isolation, test both success and error cases, use proper HTTP status code assertions, test request/response modifications, and consider edge cases and error scenarios. Tests both routes and middleware behavior.
 
@@ -69,21 +77,21 @@ describe('Auth Middleware', () => {
     app.get('/protected', authMiddleware, (req, res) => {
       res.json({ user: req.user });
     });
-    
+
     const response = await request(app)
       .get('/protected')
       .set('Authorization', 'Bearer token')
       .expect(200);
-    
+
     expect(response.body.user).toBeDefined();
   });
-  
+
   test('should reject access without token', async () => {
     const app = express();
     app.get('/protected', authMiddleware, (req, res) => {
       res.json({ user: req.user });
     });
-    
+
     await request(app)
       .get('/protected')
       .expect(401);
@@ -92,7 +100,7 @@ describe('Auth Middleware', () => {
 
 ```
 
-## Q92. 🧪 Mocking API calls in tests
+## Q91. 🧪 Mocking API calls in tests
 
 Mocking external API calls prevents tests from making real network requests - mock external dependencies to isolate units under test, use jest.mock() for automatic mocking, test both success and error scenarios, verify mock calls with correct parameters, and consider using MSW for more realistic API mocking. Makes tests faster, more reliable, and independent of external services.
 
@@ -111,36 +119,36 @@ describe('Weather Service', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
-  
+
   test('should fetch weather data', async () => {
     const mockWeatherData = {
       temperature: 25,
       condition: 'sunny'
     };
-    
+
     mockedAxios.get.mockResolvedValue({
       data: mockWeatherData
     });
-    
+
     const result = await getWeatherData('London');
-    
+
     expect(mockedAxios.get).toHaveBeenCalledWith(
       'https://api.weather.com/v1/current',
       { params: { city: 'London' } }
     );
     expect(result).toEqual(mockWeatherData);
   });
-  
+
   test('should handle API errors', async () => {
     mockedAxios.get.mockRejectedValue(new Error('API Error'));
-    
+
     await expect(getWeatherData('London')).rejects.toThrow('API Error');
   });
 });
 
 ```
 
-## Q93. 🐛 Debugging Node.js applications with VS Code
+## Q92. 🐛 Debugging Node.js applications with VS Code
 
 Debugging Node.js applications involves setting breakpoints, inspecting variables, and stepping through code - use --inspect flag to enable debugging, set breakpoints in VS Code or Chrome DevTools, use debugger statement for programmatic breakpoints, inspect variables and call stack, and debug async code and promises. Use integrated debuggers in VS Code or Chrome DevTools.
 
@@ -154,17 +162,17 @@ const app = express();
 
 app.get('/api/users', (req, res) => {
   const userId = req.query.id;
-  
+
   debugger;
-  
+
   if (!userId) {
     return res.status(400).json({ error: 'User ID required' });
   }
-  
+
   console.log('User ID:', userId);
-  
+
   const user = getUserById(userId);
-  
+
   res.json({ user });
 });
 
@@ -175,7 +183,7 @@ function getUserById(id) {
 
 ```
 
-## Q94. 🐛 Debugging with Chrome DevTools
+## Q93. 🐛 Debugging with Chrome DevTools
 
 CI/CD pipelines automate testing, building, and deploying Node.js applications - automate testing on every commit, test against multiple Node.js versions, run linting and security checks, deploy only after successful tests, and use environment-specific configurations. Ensures code quality and consistent deployments.
 
@@ -213,7 +221,7 @@ jobs:
       run: npm run lint
     - name: Build application
       run: npm run build
-    
+
   deploy:
     needs: test
     runs-on: ubuntu-latest
@@ -226,7 +234,7 @@ jobs:
 
 ```
 
-## Q95. 🔧 Implementing CI/CD for Node.js applications
+## Q94. 🔧 Implementing CI/CD for Node.js applications
 
 Docker containers package Node.js applications with their dependencies - use multi-stage builds for smaller images, use .dockerignore to exclude unnecessary files, run as non-root user for security, implement health checks, and use specific Node.js versions for consistency. Ensures consistent deployment across different environments.
 
@@ -258,7 +266,7 @@ CMD ["npm", "start"]
 
 ```
 
-## Q96. 💡 Containerizing Node.js applications with Docker
+## Q95. 💡 Containerizing Node.js applications with Docker
 
 Docker containerization packages Node.js applications with all dependencies into portable containers - create Dockerfile with Node.js base image, copy application files, install dependencies, expose ports, and set startup command. Enables consistent deployments across environments and simplifies deployment process.
 
@@ -267,39 +275,50 @@ Docker containerization packages Node.js applications with all dependencies into
 Example:
 
 ```dockerfile
+
 # Dockerfile
+
 FROM node:18-alpine
 
 WORKDIR /app
 
 # Copy package files
+
 COPY package*.json ./
 
 # Install dependencies
+
 RUN npm ci --only=production
 
 # Copy application files
+
 COPY . .
 
 # Create non-root user
+
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nodejs -u 1001
 USER nodejs
 
 # Expose port
+
 EXPOSE 3000
 
 # Health check
+
 HEALTHCHECK --interval=30s --timeout=3s \
   CMD node healthcheck.js
 
 # Start application
+
 CMD ["node", "app.js"]
 
 ```
 
 ```dockerfile
+
 # .dockerignore
+
 node_modules
 npm-debug.log
 .git
@@ -309,13 +328,17 @@ coverage
 ```
 
 ```bash
+
 # Build image
+
 docker build -t myapp:latest .
 
 # Run container
+
 docker run -p 3000:3000 --env-file .env myapp:latest
 
 # Multi-stage build for smaller images
+
 FROM node:18-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
@@ -332,7 +355,7 @@ CMD ["node", "dist/app.js"]
 
 ```
 
-## Q97. 🔧 Implementing graceful shutdowns in production
+## Q96. 🔧 Implementing graceful shutdowns in production
 
 Graceful shutdowns ensure applications close properly by handling termination signals, cleaning up resources, and finishing ongoing requests - handle SIGTERM and SIGINT signals, close HTTP server and database connections, set timeout for forced shutdown, log shutdown process for debugging, and test graceful shutdown in production.
 
@@ -348,10 +371,10 @@ let server;
 
 function gracefulShutdown(signal) {
   console.log(`Received ${signal}. Starting graceful shutdown...`);
-  
+
   server.close(() => {
     console.log('HTTP server closed');
-    
+
     if (db) {
       db.close(() => {
         console.log('Database connection closed');
@@ -361,7 +384,7 @@ function gracefulShutdown(signal) {
       process.exit(0);
     }
   });
-  
+
   // Force shutdown after timeout
   setTimeout(() => {
     console.error('Could not close connections in time, forcefully shutting down');
@@ -378,7 +401,7 @@ server = app.listen(3000, () => {
 
 ```
 
-## Q98. 💡 Handling environment configurations
+## Q97. 💡 Handling environment configurations
 
 Environment-specific configurations ensure applications behave correctly across different environments - use environment variables for sensitive data, provide default values for development, validate required environment variables, use different configurations per environment, and never commit secrets to version control. Use environment variables and configuration files.
 
@@ -402,7 +425,7 @@ const config = {
       expiresIn: '24h'
     }
   },
-  
+
   production: {
     port: process.env.PORT,
     db: {
@@ -430,7 +453,7 @@ module.exports = config[env];
 
 ```
 
-## Q99. 💡 Deploying Node.js applications to the cloud
+## Q98. 💡 Deploying Node.js applications to the cloud
 
 Cloud deployment involves packaging applications, configuring infrastructure, and using platform-specific services - choose platform based on requirements, configure environment variables, set up proper build and start commands, consider serverless vs traditional hosting, and implement health checks and monitoring. For hosting Node.js applications.
 
@@ -487,18 +510,18 @@ app.get('/health', (req, res) => {
     memory: process.memoryUsage(),
     version: process.version
   };
-  
+
   res.json(health);
 });
 
 app.use((req, res, next) => {
   const start = Date.now();
-  
+
   res.on('finish', () => {
     const duration = Date.now() - start;
     console.log(`${req.method} ${req.url} ${res.statusCode} ${duration}ms`);
   });
-  
+
   next();
 });
 
@@ -512,3 +535,17 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 ```
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[8) Performance, Optimization, Scaling & Monitoring.md](8%29%20Performance,%20Optimization,%20Scaling%20&%20Monitoring.md) • [Home: Question List](question.md)
+
+[📋 Cheatsheet](Node-Express%20Interview%20Cheatsheet.md]
+
+</div>
+
+---

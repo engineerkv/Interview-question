@@ -1,10 +1,18 @@
+# 🧠 1. TypeScript Fundamentals (Q1–9)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: README](../README.md)** | **[Next: Type System & Interfaces →](2%29%20Type%20System%20%26%20Interfaces.md)**
+[Home: README](../README.md) • [Next: Type System & Interfaces →](2%29%20Type%20System%20%26%20Interfaces.md)
+
+[📋 Cheatsheet](TypeScript%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 🧠 1. TypeScript Fundamentals (Q1–9)
+---
 
 ---
 
@@ -209,9 +217,14 @@ Example:
 
 ---
 
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: README](../README.md)** | **[Next: Type System & Interfaces →](2%29%20Type%20System%20%26%20Interfaces.md)**
+[Home: README](../README.md) • [Next: Type System & Interfaces →](2%29%20Type%20System%20%26%20Interfaces.md)
+
+[📋 Cheatsheet](TypeScript%20Interview%20Cheatsheet.md)
 
 </div>
 
+---

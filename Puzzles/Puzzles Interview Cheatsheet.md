@@ -13,10 +13,15 @@
 **Solution:** 17 minutes
 
 **Explanation:**
+
 1. A and B cross together (2 minutes) - Total: 2 min
+
 2. A returns with flashlight (1 minute) - Total: 3 min
+
 3. C and D cross together (10 minutes) - Total: 13 min
+
 4. B returns with flashlight (2 minutes) - Total: 15 min
+
 5. A and B cross together again (2 minutes) - Total: 17 min
 
 **Key Insight:** Always have the two slowest people cross together to minimize their total crossing time, and use the fastest people to shuttle the flashlight back.
@@ -29,20 +34,23 @@
 
 **Approach:** Divide and conquer - split coins into groups and use the balance scale strategically to narrow down possibilities.
 
-**Solution:** 
+**Solution:**
 **First weighing:** Weigh coins 1,2,3,4 vs 5,6,7,8
+
 - **If equal:** Fake is in {9,10,11,12}
   - **Second weighing:** Weigh 9,10 vs 11,1 (1 is known good)
     - If equal: 12 is fake (weigh 12 vs 1 to determine if lighter/heavier)
     - If 9,10 heavier: Either 9 or 10 is heavy, or 11 is light
     - If 9,10 lighter: Either 9 or 10 is light, or 11 is heavy
   - **Third weighing:** Weigh 9 vs 10 to determine which is fake
+
 - **If 1,2,3,4 heavier:** Fake is in {1,2,3,4} (heavy) or {5,6,7,8} (light)
   - **Second weighing:** Weigh 1,2,5 vs 3,6,9 (9 is known good)
     - If equal: Either 4 is heavy or 7 or 8 is light
     - If 1,2,5 heavier: Either 1 or 2 is heavy, or 6 is light
     - If 1,2,5 lighter: Either 3 is heavy, or 5 is light
   - **Third weighing:** Based on second result, compare suspects with known good coin
+
 - **If 1,2,3,4 lighter:** Same as above, but roles reversed
 
 **Explanation:** The key is to eliminate possibilities systematically. Each weighing can give you 3 outcomes (left heavier, right heavier, equal), so 3 weighings can distinguish 3³ = 27 possibilities, which is more than enough for 12 coins (each could be fake and lighter or heavier = 24 possibilities). The strategy uses known good coins from previous weighings to narrow down suspects.
@@ -80,9 +88,13 @@
 **Approach:** The goat is the key constraint - it can't be left alone with either the wolf or the cabbage. Take the goat first, then return and take either the wolf or cabbage, but bring the goat back, then take the other item, and finally return for the goat.
 
 **Solution:**
+
 1. Take goat across, return alone
+
 2. Take wolf across, bring goat back
+
 3. Take cabbage across, return alone
+
 4. Take goat across
 
 **Explanation:** The goat must be transported first and last. The middle two trips ensure that the goat is never left alone with either the wolf or the cabbage on either side of the river.
@@ -96,9 +108,13 @@
 **Approach:** Use a two-pointer approach. Start with two people, eliminate one based on the "knows" relationship, and continue until one candidate remains. Then verify if that candidate is the celebrity.
 
 **Solution:**
+
 1. Pick two people (A and B)
+
 2. If A knows B, A cannot be celebrity (eliminate A), else B cannot be celebrity (eliminate B)
+
 3. Continue with remaining people and the candidate
+
 4. Verify the final candidate knows nobody and everyone knows them
 
 **Explanation:** The key insight is that if A knows B, A cannot be the celebrity (celebrities know nobody). If A doesn't know B, B cannot be the celebrity (everyone knows the celebrity). This elimination process takes O(n) comparisons, and verification takes O(n), giving O(n) total time.
@@ -124,11 +140,17 @@
 **Approach:** Use the difference between jug capacities. Fill the larger jug, pour into smaller jug until it's full, empty the smaller jug, pour remaining from larger to smaller, then refill larger jug.
 
 **Solution:**
+
 1. Fill 5L jug
+
 2. Pour from 5L to 3L (5L has 2L left, 3L is full)
+
 3. Empty 3L jug
+
 4. Pour 2L from 5L to 3L (3L has 2L, 5L is empty)
+
 5. Fill 5L jug
+
 6. Pour from 5L to 3L until 3L is full (5L now has 4L)
 
 **Explanation:** This uses the fact that 5 - 3 = 2, and 2 + 2 = 4. The general approach for measuring n liters with jugs of capacity a and b (where gcd(a,b) divides n) involves using the Euclidean algorithm principles.
@@ -168,6 +190,7 @@
 **Solution:** 2 weighings
 
 **Explanation:**
+
 1. Weigh 3 vs 3 coins
    - If equal: Fake is in the remaining 3 (weigh 1 vs 1 to find it)
    - If unequal: Fake is in the lighter group of 3 (weigh 1 vs 1 to find it)
@@ -229,9 +252,13 @@
 **Approach:** Pick from the jar labeled "mix" - since all are mislabeled, this jar must contain only one type of fruit.
 
 **Solution:**
+
 1. Pick one fruit from jar labeled "mix"
+
 2. If it's an apple, this jar contains only apples
+
 3. The jar labeled "oranges" must contain the mix (since it can't contain oranges)
+
 4. The jar labeled "apples" must contain oranges
 
 **Explanation:** Since all jars are mislabeled, the jar labeled "mix" cannot contain a mix - it must contain only apples or only oranges. Once you identify what it contains, you can deduce the contents of the other two jars.
@@ -321,8 +348,11 @@
 **Explanation:** The key invariant is the **parity (odd/even) of blue balls modulo 2**. Initially: 20 blue balls (even = 0 mod 2).
 
 Let's analyze each operation:
+
 - **Remove 2 blue, add 1 blue:** Blue count: 20 → 19 (even → odd, so 0 → 1 mod 2)
-- **Remove 2 red, add 1 blue:** Blue count: 20 → 21 (even → odd, so 0 → 1 mod 2)  
+
+- **Remove 2 red, add 1 blue:** Blue count: 20 → 21 (even → odd, so 0 → 1 mod 2)
+
 - **Remove 1 blue + 1 red, add 1 red:** Blue count: 20 → 19 (even → odd, so 0 → 1 mod 2)
 
 **Key observation:** Every operation changes the blue count by an odd number (-1, +1, or -1), which flips the parity from even to odd.
@@ -365,11 +395,16 @@ Starting with 20 blue (even), after the first operation we have odd blue. Since 
 
 **Solution:** 3 support planes (plus the plane making the trip = 4 total planes)
 
-**Explanation:** 
+**Explanation:**
+
 - **All 4 planes start together** with full tanks
+
 - **At 1/8 circumference:** One support plane transfers 1/4 tank to each of the other 3 planes, then returns (uses 1/4 tank to get there, 1/4 to return, transfers 1/2 tank). The other 3 planes now have full tanks again.
+
 - **At 1/4 circumference:** Another support plane transfers fuel to the remaining 2 planes, then returns. Now 2 planes remain with full tanks.
+
 - **At 1/2 circumference:** The last support plane transfers all remaining fuel to the main plane, giving it a full tank, then returns. The main plane now has a full tank at the halfway point.
+
 - **Main plane continues** with full tank for the remaining 1/2 circumference to complete the journey.
 
 The key insight: planes rendezvous at strategic points, transfer fuel, and support planes return while the main plane continues. This requires careful fuel management to ensure all planes can reach their rendezvous and return points.
@@ -433,8 +468,11 @@ The key insight: planes rendezvous at strategic points, transfer fuel, and suppo
 **Solution:** Many solutions exist. One systematic approach: Label vertices and follow a pattern that ensures all are visited.
 
 **Example solution (one of many):**
+
 - Start at any vertex (say vertex 1)
+
 - Follow edges visiting vertices: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 → 12 → 13 → 14 → 15 → 16 → 17 → 18 → 19 → 20 → back to 1
+
 - The exact path depends on the vertex labeling, but the pattern ensures each vertex is visited exactly once before returning
 
 **Explanation:** The dodecahedron has 20 vertices, each with degree 3 (connected to 3 neighbors). A Hamiltonian cycle visits all 20 vertices exactly once and returns to the start. The dodecahedral graph is Hamiltonian (all Platonic solids have Hamiltonian cycles), so such a cycle always exists. The solution involves systematic traversal: at each step, choose an unvisited neighbor, ensuring you don't get stuck and can eventually return to the start after visiting all vertices.
@@ -498,6 +536,7 @@ The key insight: planes rendezvous at strategic points, transfer fuel, and suppo
 **Solution:** Approximately 3838 km worth of fuel (more precisely, the optimal solution uses multiple cache points)
 
 **Detailed Strategy:**
+
 1. **First cache at 200 km:** Make multiple trips to establish a cache
    - Trip 1: Drive 200 km, cache 300 km fuel, return (uses 400 km total, leaves 300 km at cache)
    - Trip 2: Drive 200 km, pick up 100 km from cache, cache 200 km more, return (leaves 500 km total at 200 km)
@@ -545,11 +584,16 @@ The key insight: planes rendezvous at strategic points, transfer fuel, and suppo
 
 **Solution:** Pirate 5 proposes: (98, 0, 1, 0, 1) - giving 98 to self, 1 to pirate 3, 1 to pirate 1, 0 to others.
 
-**Explanation:** 
+**Explanation:**
+
 - If only pirate 1: gets 100
+
 - If pirates 1,2: pirate 2 needs 1 vote (self), proposes (0, 100)
+
 - If pirates 1,2,3: pirate 3 needs 1 more vote, offers (1, 0, 99) - pirate 1 prefers 1 coin to 0
+
 - If pirates 1,2,3,4: pirate 4 offers (0, 1, 0, 99) - pirate 2 prefers 1 to 0
+
 - If all 5: pirate 5 offers (1, 0, 1, 0, 98) - pirates 1 and 3 prefer 1 coin to risking 0
 
 ---
@@ -573,10 +617,13 @@ The key insight: planes rendezvous at strategic points, transfer fuel, and suppo
 **Approach:** The center must be 5 (average of 1-9). Place pairs that sum to 10 around it.
 
 **Solution:**
+
 ```
+
 8 1 6
 3 5 7
 4 9 2
+
 ```
 
 **Explanation:** Center = 5. Pairs summing to 10: (1,9), (2,8), (3,7), (4,6). Place these in opposite positions. The magic constant for 1-9 is 15 (sum 45 ÷ 3 rows).
@@ -591,11 +638,16 @@ The key insight: planes rendezvous at strategic points, transfer fuel, and suppo
 
 **Solution:** E[max length] = n × H_{k+1} / (k+1), where H_{k+1} = 1 + 1/2 + 1/3 + ... + 1/(k+1) is the (k+1)th harmonic number
 
-**Explanation:** 
+**Explanation:**
+
 - For k random cuts on a stick of length n, we get k+1 pieces
+
 - The lengths follow a Dirichlet distribution (since they sum to n)
+
 - The expected value of the maximum piece is n × H_{k+1} / (k+1)
+
 - For large k, H_{k+1} ≈ ln(k+1) + γ (where γ ≈ 0.577 is Euler's constant)
+
 - So for large k: E[max] ≈ n × (ln(k+1) + 0.577) / (k+1)
 
 **Example:** For n=1, k=2 (3 pieces): H₃ = 1 + 1/2 + 1/3 = 11/6, so E[max] = 1 × (11/6) / 3 = 11/18 ≈ 0.611
@@ -621,14 +673,23 @@ The key insight: planes rendezvous at strategic points, transfer fuel, and suppo
 **Approach:** Similar to wolf-goat-cabbage. The constraint is that no woman can be alone with another woman's husband. We need to ensure that whenever a woman is on a side with a man, her own husband is also present.
 
 **Solution:**
+
 1. **W1 and W2 cross** (right side: W1, W2; left side: H1, H2, H3, W3)
+
 2. **W1 returns** (right side: W2; left side: H1, H2, H3, W1, W3)
+
 3. **W2 and W3 cross** (right side: W2, W3; left side: H1, H2, H3, W1)
+
 4. **W2 returns** (right side: W3; left side: H1, H2, H3, W1, W2)
+
 5. **H1 and H2 cross** (right side: H1, H2, W3; left side: H3, W1, W2)
+
 6. **H1 and W1 return** (right side: H2, W3; left side: H1, H2, H3, W1, W2)
+
 7. **H1 and H3 cross** (right side: H1, H2, H3, W3; left side: W1, W2)
+
 8. **W2 returns** (right side: H1, H2, H3, W2, W3; left side: W1)
+
 9. **W1 and W2 cross** (right side: H1, H2, H3, W1, W2, W3; left side: empty)
 
 **Explanation:** The key is ensuring that whenever a woman is on a side with a man, her husband is also present. The solution first moves all women across (safely, since no men are present), then brings the men across in pairs, using women to shuttle the boat back while maintaining the constraint. The final step brings the remaining women across to join their husbands.
@@ -643,13 +704,20 @@ The key insight: planes rendezvous at strategic points, transfer fuel, and suppo
 
 **Solution:** Cut into pieces: 1/7, 2/7, 4/7 of the bar.
 
-**Explanation:** 
+**Explanation:**
+
 - Day 1: Give 1/7
+
 - Day 2: Give 2/7, take back 1/7
+
 - Day 3: Give 1/7
+
 - Day 4: Give 4/7, take back 1/7 and 2/7
+
 - Day 5: Give 1/7
+
 - Day 6: Give 2/7, take back 1/7
+
 - Day 7: Give 1/7
 
 This works because 1, 2, 4 can represent any number 1-7 in binary.
@@ -677,15 +745,23 @@ This works because 1, 2, 4 can represent any number 1-7 in binary.
 **Solution:** Minimum sum is 12 (each of the 5 lines sums to 12)
 
 **One possible arrangement:**
+
 - Outer points (pentagon vertices): 1, 3, 5, 7, 9
+
 - Inner points (star intersections): 2, 4, 6, 8, 10
+
 - Arrange so each line (connecting outer to inner to outer) sums to 12
 
 **Example arrangement:**
+
 - Line 1: 1 + 10 + 1 = 12 (but this repeats 1, so need different)
+
 - Actually, each line uses 3 points: one outer vertex appears in 2 lines, inner points appear in 2 lines
+
 - With careful placement: Outer vertices {1,3,5,7,9}, Inner {2,4,6,8,10}
+
 - Arrange so: 1-2-3 = 12, 3-4-5 = 12, 5-6-7 = 12, 7-8-9 = 12, 9-10-1 = 12
+
 - This gives: 1+2+3=6, 3+4+5=12, 5+6+7=18, etc. (doesn't work)
 
 **Correct approach:** The minimum sum is achieved when numbers are arranged optimally. With numbers 1-10, the minimum line sum is 12, achieved through careful placement ensuring each of the 5 lines sums to exactly 12.
@@ -713,12 +789,19 @@ This works because 1, 2, 4 can represent any number 1-7 in binary.
 **Solution:** 7 races
 
 **Explanation:**
+
 1. Race 1-5: Get top 3 (A1, A2, A3)
+
 2. Race 6-10: Get top 3 (B1, B2, B3)
+
 3. Race 11-15: Get top 3 (C1, C2, C3)
+
 4. Race 16-20: Get top 3 (D1, D2, D3)
+
 5. Race 21-25: Get top 3 (E1, E2, E3)
+
 6. Race winners: A1, B1, C1, D1, E1 → get overall fastest (say A1)
+
 7. Race for 2nd/3rd: A2, A3, B1, B2, C1 → get 2nd and 3rd fastest
 
 ---
@@ -729,29 +812,36 @@ This works because 1, 2, 4 can represent any number 1-7 in binary.
 
 **Approach:** Use the first prisoner to communicate parity information (even/odd count of red hats) about all the hats behind them. Each subsequent prisoner can then deduce their own hat color.
 
-**Solution:** 
+**Solution:**
+
 - **Prisoner 1 (last in line, sees all 99 hats in front):** Counts the number of red hats they see. If the count is even, they say "red". If odd, they say "black". (This encodes the parity of red hats in positions 2-100)
+
 - **Prisoner 2 (sees 98 hats in front):** Counts red hats they see (positions 3-100). They know from prisoner 1's statement what the parity of red hats in positions 2-100 should be. If their count matches the expected parity, their own hat (position 2) must be black. If it doesn't match, their hat must be red.
+
 - **Prisoner 3 (sees 97 hats in front):** Counts red hats they see (positions 4-100). They know from previous prisoners what positions 2-3 should have. They can deduce their own hat color.
+
 - **Continue this process** for all remaining prisoners.
 
-**Explanation:** 
+**Explanation:**
+
 - Prisoner 1's guess may be wrong (50% chance), but their statement encodes the parity of red hats in positions 2-100
+
 - Prisoner 2 sees hats in positions 3-100, counts red hats, and compares to the expected parity from prisoner 1
   - If prisoner 2 sees an even number of red hats, and prisoner 1 said "red" (meaning even parity in 2-100), then position 2 must have a black hat
   - If prisoner 2 sees an odd number of red hats, and prisoner 1 said "red" (even parity expected), then position 2 must have a red hat to make the total even
+
 - Each subsequent prisoner uses the information from all previous prisoners to deduce their own hat color
+
 - **Result:** 99 prisoners are guaranteed to be correct (they can deduce their hat), and 1 prisoner (the first) has a 50% chance of being correct. Minimum success rate: 99% (99 out of 100 correct)
 
 ---
 
 ## 📊 Summary
 
-**Total Puzzles:** 50  
-**Categories:** Logic, Optimization, Probability, Game Theory, Graph Theory, Mathematics  
+**Total Puzzles:** 50
+**Categories:** Logic, Optimization, Probability, Game Theory, Graph Theory, Mathematics
 **Key Techniques:** Systematic elimination, working backwards, invariants, binary representation, constraint satisfaction, dynamic programming, probability calculations
 
 ---
 
 **Happy puzzling! 🧩🚀**
-

@@ -1,14 +1,19 @@
 # 🍃 MongoDB Interview Cheatsheet
 
 > **⏱️ Review Time: 15-20 minutes** | **Priority: ⭐⭐⭐ High** | Essential MongoDB concepts for interviews
-> 
+>
 > **Coverage: Q1-Q57** (57 questions across 4 topics + Mongoose + Connection Pooling)
 
 **Quick Review Checklist:**
+
 - [ ] MongoDB Fundamentals (Documents, Collections, BSON, CRUD)
+
 - [ ] Indexing & Query Optimization (Single, Compound, Multikey, Text, Geospatial)
+
 - [ ] Aggregation Framework (Pipeline Stages, $match, $group, $lookup)
+
 - [ ] Data Modeling (Embedding vs Referencing, Sharding, Replication)
+
 - [ ] Mongoose ODM (Schemas, Models, Validation, Middleware, Population)
 
 ---
@@ -16,8 +21,11 @@
 ## 📋 **Question Coverage**
 
 - **Q1-Q16**: MongoDB Fundamentals (includes Q12-16 Mongoose Basics & Connection Pooling)
+
 - **Q17-Q29**: Indexing & Query Optimization (includes Q27-29 Mongoose Indexing)
+
 - **Q30-Q41**: Aggregation Framework (includes Q40-41 Mongoose Aggregation)
+
 - **Q42-Q57**: Data Modeling & Schema Design (includes Q52-57 Mongoose Schema Design)
 
 ---
@@ -36,6 +44,9 @@
 ## 🔧 **CRUD Operations**
 
 ### **Create**
+
+**Definition:** Insert documents into collections using insertOne() for single documents or insertMany() for batch inserts with automatic _id generation.
+
 ```javascript
 // Insert single document
 db.users.insertOne({ name: "John", age: 30 });
@@ -45,9 +56,13 @@ db.users.insertMany([
   { name: "Alice", age: 25 },
   { name: "Bob", age: 35 }
 ]);
+
 ```
 
 ### **Read**
+
+**Definition:** Query documents using find() for multiple results or findOne() for single document, with optional projection to select specific fields.
+
 ```javascript
 // Find single document
 db.users.findOne({ name: "John" });
@@ -57,9 +72,13 @@ db.users.find({ age: { $gte: 25 } });
 
 // Find with projection
 db.users.find({}, { name: 1, age: 1, _id: 0 });
+
 ```
 
 ### **Update**
+
+**Definition:** Modify documents using updateOne() for single document or updateMany() for multiple, with $set operator to update specific fields.
+
 ```javascript
 // Update single document
 db.users.updateOne(
@@ -72,15 +91,20 @@ db.users.updateMany(
   { age: { $lt: 18 } },
   { $set: { status: "minor" } }
 );
+
 ```
 
 ### **Delete**
+
+**Definition:** Remove documents using deleteOne() for single document or deleteMany() for multiple documents matching filter criteria.
+
 ```javascript
 // Delete single document
 db.users.deleteOne({ name: "John" });
 
 // Delete multiple documents
 db.users.deleteMany({ age: { $lt: 18 } });
+
 ```
 
 ---
@@ -105,6 +129,9 @@ db.users.deleteMany({ age: { $lt: 18 } });
 ## 🔎 **Text Search Queries**
 
 ### **Text Index & Search**
+
+**Definition:** Create text indexes on string fields to enable full-text search with $text operator, supporting relevance scoring and language-specific search.
+
 ```javascript
 // Create text index
 db.articles.createIndex({ title: "text", content: "text" });
@@ -113,11 +140,11 @@ db.articles.createIndex({ title: "text", content: "text" });
 db.articles.find({ $text: { $search: "mongodb tutorial" } });
 
 // Text search with language
-db.articles.find({ 
-  $text: { 
+db.articles.find({
+  $text: {
     $search: "mongodb tutorial",
     $language: "en"
-  } 
+  }
 });
 
 // Text search with score
@@ -128,9 +155,11 @@ db.articles.find(
 
 // Text search with case sensitivity (using regex)
 db.articles.find({ title: { $regex: /MongoDB/i } });
+
 ```
 
 ### **Text Search Operators**
+
 | Operator | Description | Example |
 |----------|-------------|---------|
 | **$text** | Full-text search | `{ $text: { $search: "mongodb" } }` |
@@ -142,6 +171,9 @@ db.articles.find({ title: { $regex: /MongoDB/i } });
 ## 📄 **Pagination**
 
 ### **Offset-Based Pagination**
+
+**Definition:** Use skip() and limit() to paginate results, but becomes slow for large offsets; better for small datasets or early pages.
+
 ```javascript
 // Basic pagination
 const page = 2;
@@ -160,15 +192,19 @@ db.products.aggregate([
   { $skip: 20 },
   { $limit: 10 }
 ]);
+
 ```
 
 ### **Cursor-Based Pagination (Better Performance)**
+
+**Definition:** Use _id or indexed field as cursor to fetch next page, providing consistent performance regardless of page position.
+
 ```javascript
 // Cursor-based pagination
 const lastId = ObjectId("...");
 const limit = 10;
 
-db.products.find({ 
+db.products.find({
   _id: { $gt: lastId },
   category: "electronics"
 })
@@ -183,9 +219,11 @@ db.products.find({
 })
 .sort({ createdAt: -1 })
 .limit(10);
+
 ```
 
 ### **Pagination with Aggregation**
+
 ```javascript
 db.products.aggregate([
   { $match: { category: "electronics" } },
@@ -195,6 +233,7 @@ db.products.aggregate([
     data: [{ $skip: 20 }, { $limit: 10 }]
   }}
 ]);
+
 ```
 
 ---
@@ -202,6 +241,9 @@ db.products.aggregate([
 ## ⚡ **Optimization Techniques**
 
 ### **Query Optimization**
+
+**Definition:** Improve query performance by creating appropriate indexes, using projection to limit returned fields, and analyzing queries with explain().
+
 ```javascript
 // 1. Use indexes for filtered queries
 db.users.find({ email: "john@example.com" }); // Requires index on email
@@ -223,9 +265,13 @@ db.users.find({ name: "John" }).hint({ name: 1, age: -1 });
 
 // 6. Use lean() in Mongoose for faster queries
 const users = await User.find().lean();
+
 ```
 
 ### **Index Optimization**
+
+**Definition:** Create indexes on frequently queried fields, use compound indexes for multi-field queries, and monitor index usage to optimize performance.
+
 ```javascript
 // 1. Create compound indexes for common query patterns
 db.orders.createIndex({ customerId: 1, createdAt: -1 });
@@ -244,9 +290,11 @@ db.orders.aggregate([{ $indexStats: {} }]);
 
 // 5. Remove unused indexes
 db.users.dropIndex({ unusedField: 1 });
+
 ```
 
 ### **Aggregation Optimization**
+
 ```javascript
 // 1. Use $match early to reduce documents
 db.orders.aggregate([
@@ -268,9 +316,11 @@ db.orders.aggregate([
 
 // 4. Use indexes on $match stages
 db.orders.createIndex({ status: 1, date: 1 });
+
 ```
 
 ### **Write Optimization**
+
 ```javascript
 // 1. Use bulk operations
 db.products.insertMany([...], { ordered: false });
@@ -286,9 +336,11 @@ db.orders.insertOne(
   { orderId: "ORD001" },
   { writeConcern: { w: 1 } } // Faster, less durable
 );
+
 ```
 
 ### **Connection & Pooling Optimization**
+
 ```javascript
 // 1. Configure connection pool size
 mongoose.connect('mongodb://localhost:27017/myapp', {
@@ -302,6 +354,7 @@ db.orders.find().readPref("secondary");
 
 // 3. Use connection string options
 mongodb://host:27017/db?maxPoolSize=10&minPoolSize=2
+
 ```
 
 ---
@@ -309,6 +362,7 @@ mongodb://host:27017/db?maxPoolSize=10&minPoolSize=2
 ## 📊 **Aggregation Pipeline**
 
 ### **Common Stages**
+
 ```javascript
 db.orders.aggregate([
   { $match: { status: "completed" } },    // Filter
@@ -317,9 +371,11 @@ db.orders.aggregate([
   { $limit: 10 },                         // Limit
   { $project: { customerId: "$_id", total: 1 } } // Project
 ]);
+
 ```
 
 ### **Key Operators**
+
 | Operator | Description | Example |
 |----------|-------------|---------|
 | **$sum** | Sum values | `{ $sum: "$amount" }` |
@@ -335,6 +391,7 @@ db.orders.aggregate([
 ## 🗂️ **Indexing**
 
 ### **Index Types**
+
 ```javascript
 // Single field index
 db.users.createIndex({ email: 1 });
@@ -350,9 +407,11 @@ db.locations.createIndex({ location: "2dsphere" });
 
 // TTL index
 db.sessions.createIndex({ createdAt: 1 }, { expireAfterSeconds: 3600 });
+
 ```
 
 ### **Index Properties**
+
 | Property | Description | Example |
 |----------|-------------|---------|
 | **1** | Ascending | `{ name: 1 }` |
@@ -365,6 +424,9 @@ db.sessions.createIndex({ createdAt: 1 }, { expireAfterSeconds: 3600 });
 ## 🏗️ **Schema Design Patterns**
 
 ### **Embedding vs Referencing**
+
+**Definition:** Embed documents for one-to-few relationships and frequent access; reference documents for one-to-many relationships and independent access patterns.
+
 ```javascript
 // Embedded (denormalized)
 {
@@ -382,9 +444,11 @@ db.sessions.createIndex({ createdAt: 1 }, { expireAfterSeconds: 3600 });
   name: "John",
   addressId: ObjectId("...")
 }
+
 ```
 
 ### **One-to-Many Relationships**
+
 ```javascript
 // Small arrays: Embed
 {
@@ -402,16 +466,17 @@ db.sessions.createIndex({ createdAt: 1 }, { expireAfterSeconds: 3600 });
   name: "John",
   orderIds: [ObjectId("..."), ObjectId("...")]
 }
+
 ```
 
 ---
-
 
 ---
 
 ## 📈 **Aggregation Examples**
 
 ### **Sales Analysis**
+
 ```javascript
 db.orders.aggregate([
   { $match: { status: "completed" } },
@@ -422,9 +487,11 @@ db.orders.aggregate([
   }},
   { $sort: { _id: 1 } }
 ]);
+
 ```
 
 ### **Top Customers**
+
 ```javascript
 db.orders.aggregate([
   { $group: {
@@ -435,6 +502,7 @@ db.orders.aggregate([
   { $sort: { totalSpent: -1 } },
   { $limit: 10 }
 ]);
+
 ```
 
 ---
@@ -442,6 +510,7 @@ db.orders.aggregate([
 ## 🔐 **Replication & Sharding**
 
 ### **Replica Set**
+
 ```javascript
 // Write concern
 db.orders.insertOne(
@@ -451,15 +520,18 @@ db.orders.insertOne(
 
 // Read preference
 db.orders.find().readPref("secondary");
+
 ```
 
 ### **Sharding**
+
 ```javascript
 // Enable sharding
 sh.enableSharding("myapp");
 
 // Shard collection
 sh.shardCollection("myapp.orders", { customerId: 1, createdAt: 1 });
+
 ```
 
 ---
@@ -467,6 +539,7 @@ sh.shardCollection("myapp.orders", { customerId: 1, createdAt: 1 });
 ## 🛠️ **Common Commands**
 
 ### **Database Operations**
+
 ```javascript
 // Show databases
 show dbs
@@ -479,9 +552,11 @@ show collections
 
 // Drop database
 db.dropDatabase()
+
 ```
 
 ### **Collection Operations**
+
 ```javascript
 // Create collection
 db.createCollection("users");
@@ -491,9 +566,11 @@ db.users.drop();
 
 // Rename collection
 db.users.renameCollection("customers");
+
 ```
 
 ### **Index Operations**
+
 ```javascript
 // List indexes
 db.users.getIndexes();
@@ -503,6 +580,7 @@ db.users.dropIndex({ email: 1 });
 
 // Rebuild indexes
 db.users.reIndex();
+
 ```
 
 ---
@@ -510,6 +588,7 @@ db.users.reIndex();
 ## 📊 **Monitoring & Debugging**
 
 ### **Explain Plans**
+
 ```javascript
 // Basic explain
 db.users.find({ name: "John" }).explain();
@@ -519,9 +598,11 @@ db.users.find({ name: "John" }).explain("executionStats");
 
 // All plans
 db.users.find({ name: "John" }).explain("allPlansExecution");
+
 ```
 
 ### **Performance Metrics**
+
 ```javascript
 // Server status
 db.serverStatus();
@@ -531,6 +612,7 @@ db.users.stats();
 
 // Index usage
 db.users.aggregate([{ $indexStats: {} }]);
+
 ```
 
 ---
@@ -538,24 +620,39 @@ db.users.aggregate([{ $indexStats: {} }]);
 ## 🎯 **Interview Tips**
 
 ### **Common Questions**
+
 1. **MongoDB vs SQL** - Document vs relational model
+
 2. **Indexing Strategy** - Single field, compound, multikey indexes
+
 3. **Schema Design** - Embedding vs referencing
+
 4. **Aggregation Pipeline** - Stages and operators
+
 5. **Performance Optimization** - Query analysis and indexing
 
 ### **Key Concepts**
+
 - **Document Model**: Flexible schema, BSON format
+
 - **Indexing**: B-tree indexes, compound indexes, covered queries
+
 - **Aggregation**: Pipeline stages, operators, optimization
+
 - **Sharding**: Horizontal scaling, shard keys
+
 - **Replication**: High availability, write/read concerns
 
 ### **Best Practices**
+
 - Design schemas based on query patterns
+
 - Use proper indexing strategies
+
 - Optimize aggregation pipelines
+
 - Monitor performance metrics
+
 - Plan for scalability and growth
 
 ---
@@ -565,15 +662,18 @@ db.users.aggregate([{ $indexStats: {} }]);
 ## 🍃 **Mongoose ODM**
 
 ### **Connection & Setup**
+
 ```javascript
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/myapp', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+
 ```
 
 ### **Connection Pooling**
+
 ```javascript
 // Mongoose with pool options
 mongoose.connect('mongodb://localhost:27017/myapp', {
@@ -589,9 +689,11 @@ const client = new MongoClient('mongodb://localhost:27017', {
   minPoolSize: 2,
   maxIdleTimeMS: 30000
 });
+
 ```
 
 ### **Schemas & Models**
+
 ```javascript
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -601,9 +703,11 @@ const userSchema = new mongoose.Schema({
   timestamps: true
 });
 const User = mongoose.model('User', userSchema);
+
 ```
 
 ### **CRUD Operations**
+
 ```javascript
 // Create
 const user = await User.create({ name: 'John', email: 'john@example.com' });
@@ -614,45 +718,55 @@ const user = await User.findOne({ email: 'john@example.com' });
 await User.updateOne({ name: 'John' }, { $set: { age: 31 } });
 // Delete
 await User.deleteOne({ name: 'John' });
+
 ```
 
 ### **Indexes in Mongoose**
+
 ```javascript
 userSchema.index({ email: 1, name: 1 }); // Compound index
 userSchema.index({ email: 'text' }); // Text index
+
 ```
 
 ### **Query Methods**
+
 ```javascript
 const users = await User.find({ age: { $gte: 18 } })
   .select('name email')
   .sort({ age: -1 })
   .limit(10)
   .lean(); // Returns plain objects
+
 ```
 
 ### **Validation**
+
 ```javascript
 const userSchema = new mongoose.Schema({
-  email: { 
-    type: String, 
+  email: {
+    type: String,
     required: true,
     match: /^[\w.%+-]+@[\w.-]+\.[A-Za-z]{2,}$/
   },
   age: { type: Number, min: 0, max: 120 },
   role: { type: String, enum: ['user', 'admin'] }
 });
+
 ```
 
 ### **Virtuals**
+
 ```javascript
 userSchema.virtual('fullName').get(function() {
   return `${this.firstName} ${this.lastName}`;
 });
 userSchema.set('toJSON', { virtuals: true });
+
 ```
 
 ### **Methods**
+
 ```javascript
 // Instance method
 userSchema.methods.getAge = function() {
@@ -662,9 +776,11 @@ userSchema.methods.getAge = function() {
 userSchema.statics.findByEmail = function(email) {
   return this.findOne({ email: email.toLowerCase() });
 };
+
 ```
 
 ### **Middleware (Hooks)**
+
 ```javascript
 userSchema.pre('save', async function(next) {
   if (this.isModified('password')) {
@@ -675,22 +791,27 @@ userSchema.pre('save', async function(next) {
 userSchema.post('save', function(doc) {
   console.log(`User ${doc.name} saved`);
 });
+
 ```
 
 ### **Population**
+
 ```javascript
 const orderSchema = new mongoose.Schema({
   customerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
 const order = await Order.findOne().populate('customerId');
+
 ```
 
 ### **Aggregation**
+
 ```javascript
 const results = await User.aggregate([
   { $match: { age: { $gte: 18 } } },
   { $group: { _id: '$department', count: { $sum: 1 } } }
 ]);
+
 ```
 
 ---

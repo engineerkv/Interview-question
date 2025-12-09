@@ -1,5 +1,19 @@
 # Bit Manipulation
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Binary Search](14%20Binary%20Search.md) • [Home: README](README.md) • [Math →](16%20Math.md)
+
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+
+</div>
+
+---
+
 ## Q218. Add Binary
 
 **Problem:** Given two binary strings `a` and `b`, return their sum as a binary string.
@@ -7,6 +21,7 @@
 **Approach:** Add from right to left with carry propagation. Sum = a[i] + b[j] + carry. Result digit = sum % 2, carry = sum / 2.
 
 ### Solution 1: String Addition with Carry (Optimal)
+
 ```javascript
 function addBinary(a, b) {
   let result = '';
@@ -14,8 +29,8 @@ function addBinary(a, b) {
   let i = a.length - 1, j = b.length - 1;
 
   while (i >= 0 || j >= 0 || carry > 0) {
-    const sum = (i >= 0 ? parseInt(a[i]) : 0) + 
-                (j >= 0 ? parseInt(b[j]) : 0) + 
+    const sum = (i >= 0 ? parseInt(a[i]) : 0) +
+                (j >= 0 ? parseInt(b[j]) : 0) +
                 carry;
     result = (sum % 2) + result;
     carry = Math.floor(sum / 2);
@@ -25,6 +40,7 @@ function addBinary(a, b) {
 
   return result;
 }
+
 ```
 
 // Test Cases:
@@ -38,11 +54,11 @@ function addBinary(a, b) {
 
 // Input: a = "0", b = "0"
 // Output: "0"
+
 ```
 
-**Time Complexity:** O(max(m,n)) - Traverse both strings  
+**Time Complexity:** O(max(m,n)) - Traverse both strings
 **Space Complexity:** O(max(m,n)) - Result string
-
 
 ## Q219. Reverse Bits
 
@@ -51,6 +67,7 @@ function addBinary(a, b) {
 **Approach:** Extract bits from right (n & 1), shift result left (result << 1), OR with extracted bit. Repeat for 32 bits.
 
 ### Solution 1: Bit Extraction and Shifting (Optimal)
+
 ```javascript
 function reverseBits(n) {
   let result = 0;
@@ -67,6 +84,7 @@ function reverseBits(n) {
   // Convert to unsigned 32-bit
   return result >>> 0;
 }
+
 ```
 
 // Test Cases:
@@ -76,11 +94,11 @@ function reverseBits(n) {
 
 // Input: n = 0b11111111111111111111111111111101
 // Output: 3221225471 (0b10111111111111111111111111111111)
+
 ```
 
-**Time Complexity:** O(32) - Fixed 32-bit integer  
+**Time Complexity:** O(32) - Fixed 32-bit integer
 **Space Complexity:** O(1) - Constant extra space
-
 
 ## Q220. Number of 1 Bits
 
@@ -89,20 +107,23 @@ function reverseBits(n) {
 **Approach:** Use n & (n-1) trick to remove rightmost set bit. Count iterations until n becomes 0.
 
 ### Solution 1: n & (n-1) Trick (Optimal)
+
 ```javascript
 function hammingWeight(n) {
   let count = 0;
-  
+
   while (n !== 0) {
     n = n & (n - 1); // Remove rightmost set bit
     count++;
   }
-  
+
   return count;
 }
+
 ```
 
 ### Solution 2: Shifting Approach
+
 ```javascript
 function hammingWeight(n) {
   let count = 0;
@@ -112,6 +133,7 @@ function hammingWeight(n) {
   }
   return count;
 }
+
 ```
 
 // Test Cases:
@@ -124,11 +146,11 @@ function hammingWeight(n) {
 
 // Input: n = 4294967293 (0b11111111111111111111111111111101)
 // Output: 31
+
 ```
 
-**Time Complexity:** O(k) - k is number of set bits (optimal), O(32) for shifting  
+**Time Complexity:** O(k) - k is number of set bits (optimal), O(32) for shifting
 **Space Complexity:** O(1) - Constant extra space
-
 
 ## Q221. Single Number
 
@@ -137,6 +159,7 @@ function hammingWeight(n) {
 **Approach:** Use XOR property. XOR all numbers. Duplicates cancel out (a^a=0), single number remains.
 
 ### Solution 1: XOR (Optimal)
+
 ```javascript
 function singleNumber(nums) {
   let result = 0;
@@ -145,6 +168,7 @@ function singleNumber(nums) {
   }
   return result;
 }
+
 ```
 
 // Test Cases:
@@ -156,11 +180,11 @@ function singleNumber(nums) {
 
 // Input: nums = [1]
 // Output: 1
+
 ```
 
-**Time Complexity:** O(n) - Single pass through array  
+**Time Complexity:** O(n) - Single pass through array
 **Space Complexity:** O(1) - Constant extra space
-
 
 ## Q222. Single Number II
 
@@ -169,31 +193,33 @@ function singleNumber(nums) {
 **Approach:** Count set bits at each position modulo 3. The single number's bits appear once (not multiple of 3). Reconstruct number from bit counts.
 
 ### Solution 1: Bit Counting (Optimal)
+
 ```javascript
 function singleNumber(nums) {
   let result = 0;
-  
+
   // Check each bit position
   for (let i = 0; i < 32; i++) {
     let count = 0;
     const bit = 1 << i;  // Bit mask for position i
-    
+
     // Count set bits at position i
     for (const num of nums) {
       if (num & bit) {
         count++;
       }
     }
-    
+
     // If count not multiple of 3, bit is set in result
     if (count % 3 !== 0) {
       result |= bit;
     }
   }
-  
+
   // Convert to unsigned 32-bit
   return result >>> 0;
 }
+
 ```
 
 // Test Cases:
@@ -202,11 +228,11 @@ function singleNumber(nums) {
 
 // Input: nums = [0,1,0,1,0,1,99]
 // Output: 99
+
 ```
 
-**Time Complexity:** O(32n) - 32 bits × n numbers  
+**Time Complexity:** O(32n) - 32 bits × n numbers
 **Space Complexity:** O(1) - Constant extra space
-
 
 ## Q223. Bitwise AND of Numbers Range
 
@@ -215,17 +241,18 @@ function singleNumber(nums) {
 **Approach:** Find common prefix of left and right in binary. Shift right until equal, then shift left by same amount.
 
 ### Solution 1: Common Prefix (Optimal)
+
 ```javascript
 function rangeBitwiseAnd(m, n) {
   let shift = 0;
-  
+
   // Find common prefix by shifting right
   while (m < n) {
     m = m >> 1;
     n = n >> 1;
     shift++;
   }
-  
+
   // Shift left to restore common prefix
   return m << shift;
 }
@@ -248,11 +275,11 @@ function rangeBitwiseAnd(m, n) {
 
 // Input: left = 1, right = 2147483647
 // Output: 0
+
 ```
 
-**Time Complexity:** O(log n) - Shifting until m equals n  
+**Time Complexity:** O(log n) - Shifting until m equals n
 **Space Complexity:** O(1) - Constant extra space
-
 
 ---
 
@@ -285,9 +312,20 @@ function singleNumber(arr) {
 
 // Input: arr = [-1, -2, -1, -2, 3]
 // Output: 3
+
 ```
 
-**Time Complexity:** O(n) - Single pass through array  
+**Time Complexity:** O(n) - Single pass through array
 **Space Complexity:** O(1) - Only using constant extra variables
 
+---
 
+## 📍 Navigation
+
+<div align="center">
+
+[Binary Search](14%20Binary%20Search.md) • [Home: README](README.md) • [Math →](16%20Math.md)
+
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+
+</div>

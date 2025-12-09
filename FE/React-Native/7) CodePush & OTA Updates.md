@@ -1,10 +1,18 @@
+# 7. CodePush & OTA Updates (Q61–68)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: State Management & Data Handling](6%29%20State%20Management%20%26%20Data%20Handling.md)** | **[Next: Debugging & Testing →](8%29%20Debugging%20%26%20Testing.md)**
+[State Management & Data Handling](6%29%20State%20Management%20%26%20Data%20Handling.md) • [Home: README](../README.md) • [Debugging & Testing →](8%29%20Debugging%20%26%20Testing.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 7. CodePush & OTA Updates (Q61–68)
+---
 
 ---
 
@@ -201,3 +209,16 @@ const codePushOptions = {
 
 ---
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[State Management & Data Handling](6%29%20State%20Management%20%26%20Data%20Handling.md) • [Home: README](../README.md) • [Debugging & Testing →](8%29%20Debugging%20%26%20Testing.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
+
+</div>
+
+---

@@ -1,5 +1,19 @@
 # Stacks & Queues
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Linked List](3%20Linked%20List.md) • [Home: README](README.md) • [Binary Trees →](5%20Binary%20Trees.md)
+
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+
+</div>
+
+---
+
 ## Q75. Implement Stack using Queues
 
 **Problem:** Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (`push`, `top`, `pop`, and `empty`).
@@ -7,6 +21,7 @@
 **Approach:** Use one queue. After pushing, rotate elements to bring the newly pushed element to the front, making it available for `pop`/`top` operations.
 
 ### Solution 1: Single Queue with Rotation (Optimal)
+
 ```javascript
 class MyStack {
   constructor() {
@@ -46,9 +61,10 @@ class MyStack {
 // stack.empty(); // Output: false
 // stack.pop();   // Output: 1
 // stack.empty(); // Output: true
+
 ```
 
-**Time Complexity:** O(n) - Push rotates n-1 elements; O(1) for pop/top/empty  
+**Time Complexity:** O(n) - Push rotates n-1 elements; O(1) for pop/top/empty
 **Space Complexity:** O(n) - Queue stores all elements
 
 ## Q76. Implement Queue using Stacks
@@ -58,6 +74,7 @@ class MyStack {
 **Approach:** Use two stacks: `s1` for push operations, `s2` for pop/peek operations. Move elements from `s1` to `s2` only when `s2` is empty (lazy movement).
 
 ### Solution 1: Two Stacks with Lazy Movement (Optimal)
+
 ```javascript
 class MyQueue {
   constructor() {
@@ -98,18 +115,24 @@ class MyQueue {
 // Input: queue operations: push(1), push(2), push(3), peek(), pop(), pop(), empty(), pop(), empty()
 // Output: peek() returns 1, pop() returns 1, pop() returns 2, empty() returns false, pop() returns 3, empty() returns true
 // Explanation: Queue operations performed using two stacks
+
 ```
 
-**Time Complexity:** O(1) amortized - Each element moved at most once  
+**Time Complexity:** O(1) amortized - Each element moved at most once
 **Space Complexity:** O(n) - Stacks store elements
 
 ## Q77. Min Stack
 
 **Problem:** Design a stack that supports push, pop, top, and retrieving the minimum element in constant time. Implement the `MinStack` class:
+
 - `MinStack()` initializes the stack object.
+
 - `void push(int val)` pushes the element `val` onto the stack.
+
 - `void pop()` removes the element on the top of the stack.
+
 - `int top()` gets the top element of the stack.
+
 - `int getMin()` retrieves the minimum element in the stack.
 
 You must implement a solution with `O(1)` time complexity for each function.
@@ -117,6 +140,7 @@ You must implement a solution with `O(1)` time complexity for each function.
 **Approach:** Use an auxiliary stack to track the minimum value at each level. Push the minimum of current min and new value to the auxiliary stack.
 
 ### Solution 1: Auxiliary Stack (Optimal)
+
 ```javascript
 class MinStack {
   constructor() {
@@ -127,8 +151,8 @@ class MinStack {
   push(val) {
     this.stack.push(val);
     // Track minimum at each level
-    const curMin = this.minStack.length 
-      ? Math.min(this.minStack[this.minStack.length - 1], val) 
+    const curMin = this.minStack.length
+      ? Math.min(this.minStack[this.minStack.length - 1], val)
       : val;
     this.minStack.push(curMin);
   }
@@ -157,12 +181,14 @@ class MinStack {
 // minStack.pop();
 // minStack.top();    // Output: 0
 // minStack.getMin(); // Output: -2
+
 ```
 
-**Time Complexity:** O(1) - All operations are constant time  
+**Time Complexity:** O(1) - All operations are constant time
 **Space Complexity:** O(n) - Both stacks store elements
 
 ### Solution 2: Pair Storage (Alternative)
+
 ```javascript
 class MinStackPairs {
   constructor() {
@@ -170,8 +196,8 @@ class MinStackPairs {
   }
 
   push(val) {
-    const curMin = this.stack.length 
-      ? Math.min(this.stack[this.stack.length - 1][1], val) 
+    const curMin = this.stack.length
+      ? Math.min(this.stack[this.stack.length - 1][1], val)
       : val;
     this.stack.push([val, curMin]);
   }
@@ -188,23 +214,28 @@ class MinStackPairs {
     return this.stack[this.stack.length - 1][1];
   }
 }
+
 ```
 
 ## Q78. Valid Parentheses
 
 **Problem:** Given a string `s` containing just the characters `'('`, `')'`, `'{'`, `'}'`, `'['` and `']'`, determine if the input string is valid. An input string is valid if:
+
 1. Open brackets must be closed by the same type of brackets.
+
 2. Open brackets must be closed in the correct order.
+
 3. Every close bracket has a corresponding open bracket of the same type.
 
 **Approach:** Use a stack to track opening brackets. Push openers, pop and match when encountering closers. Stack should be empty at the end.
 
 ### Solution 1: Stack with Mapping (Optimal)
+
 ```javascript
 function isValid(s) {
   const stack = [];
   const map = { ')': '(', ']': '[', '}': '{' };
-  
+
   for (const c of s) {
     if (map[c]) {
       // Closing bracket - check if matches last opener
@@ -214,7 +245,7 @@ function isValid(s) {
       stack.push(c);
     }
   }
-  
+
   return stack.length === 0;  // All brackets matched
 }
 
@@ -240,9 +271,10 @@ function isValid(s) {
 // Input: s = ""
 // Output: true
 // Explanation: Empty string is valid
+
 ```
 
-**Time Complexity:** O(n) - Process each character once  
+**Time Complexity:** O(n) - Process each character once
 **Space Complexity:** O(n) - Stack stores up to n/2 openers
 
 ## Q79. Next Greater Element
@@ -252,12 +284,13 @@ function isValid(s) {
 **Approach:** Use a monotonic decreasing stack. Traverse right-to-left, maintaining elements in decreasing order. For each position, the stack top is the next greater element.
 
 ### Solution 1: Monotonic Stack - Non-Circular (Optimal)
+
 ```javascript
 function nextGreaterElement(nums) {
   const array = new Array(nums.length).fill(-1);
   const stack = [];
   const n = nums.length;
-  
+
   for (let i = n - 1; i >= 0; i--) {
     while (stack.length && stack[stack.length - 1] <= nums[i]) {
       stack.pop();
@@ -285,9 +318,11 @@ function nextGreaterElement(nums) {
 
 // Input: nums = [1]
 // Output: [-1]
+
 ```
 
 ### Solution 2: Monotonic Stack - Circular Array
+
 ```javascript
 function nextGreaterElementsCircular(nums) {
   const array = new Array(nums.length).fill(-1);
@@ -322,9 +357,10 @@ function nextGreaterElementsCircular(nums) {
 
 // Input: nums = [1]
 // Output: [-1]
+
 ```
 
-**Time Complexity:** O(n) - Each element pushed and popped at most once  
+**Time Complexity:** O(n) - Each element pushed and popped at most once
 **Space Complexity:** O(n) - Stack stores values
 
 ## Q80. Daily Temperatures
@@ -334,6 +370,7 @@ function nextGreaterElementsCircular(nums) {
 **Approach:** Use a monotonic decreasing stack storing indices. Traverse right-to-left, compute distance as stack top index - current index.
 
 ### Solution 1: Monotonic Stack with Indices (Optimal)
+
 ```javascript
 function dailyTemperatures(temperatures) {
   const res = new Array(temperatures.length).fill(0);
@@ -342,7 +379,7 @@ function dailyTemperatures(temperatures) {
 
   for (let i = n - 1; i >= 0; i--) {
     // Pop indices with temperatures <= current
-    while (stack.length && temperatures[stack[stack.length - 1]] <= temperatures[i]) {
+    while (stack.length && temperatures[stack[stack.length - 1] <= temperatures[i]) {
       stack.pop();
     }
     // If stack has warmer day, compute distance
@@ -374,9 +411,10 @@ function dailyTemperatures(temperatures) {
 // Input: T = [73, 73, 75, 71, 69, 72, 76, 73]
 // Output: [2, 1, 4, 2, 1, 1, 0, 0]
 // Explanation: First 73 (index 0) has next warmer 73 at index 1, but 73 <= 73, so continues to find 75 at index 2 (distance 2).
+
 ```
 
-**Time Complexity:** O(n) - Each element pushed and popped at most once  
+**Time Complexity:** O(n) - Each element pushed and popped at most once
 **Space Complexity:** O(n) - Stack stores indices
 
 ## Q81. Evaluate Reverse Polish Notation
@@ -386,6 +424,7 @@ function dailyTemperatures(temperatures) {
 **Approach:** Use a stack to store operands. When encountering an operator, pop two operands, apply the operation, and push the result back.
 
 ### Solution 1: Stack-Based Evaluation (Optimal)
+
 ```javascript
 function evalRPN(tokens) {
   const stack = [];
@@ -395,7 +434,7 @@ function evalRPN(tokens) {
     '*': (a, b) => a * b,
     '/': (a, b) => Math.trunc(a / b),  // Truncate toward zero
   };
-  
+
   for (const token of tokens) {
     if (token in operators) {
       const b = stack.pop();
@@ -405,7 +444,7 @@ function evalRPN(tokens) {
       stack.push(Number(token));
     }
   }
-  
+
   return stack.pop();
 }
 
@@ -423,9 +462,10 @@ function evalRPN(tokens) {
 
 // Input: tokens = ["1"]
 // Output: 1
+
 ```
 
-**Time Complexity:** O(n) - Process each token once  
+**Time Complexity:** O(n) - Process each token once
 **Space Complexity:** O(n) - Stack stores operands
 
 ## Q82. Largest Rectangle in Histogram
@@ -435,6 +475,7 @@ function evalRPN(tokens) {
 **Approach:** Two-pass approach: find next smaller element on right (reverse loop), then on left (forward loop), then calculate max area using boundaries.
 
 ### Solution 1: Two-Pass with Monotonic Stack (Optimal)
+
 ```javascript
 function largestRectangleArea(heights) {
   const n = heights.length;
@@ -444,7 +485,7 @@ function largestRectangleArea(heights) {
 
   // Step 1: Find next smaller on right (reverse loop)
   for (let i = n - 1; i >= 0; i--) {
-    while (stack.length && heights[stack[stack.length - 1]] >= heights[i]) {
+    while (stack.length && heights[stack[stack.length - 1] >= heights[i]) {
       stack.pop();
     }
     right[i] = stack.length ? stack[stack.length - 1] : n;  // n if no smaller
@@ -455,7 +496,7 @@ function largestRectangleArea(heights) {
 
   // Step 2: Find next smaller on left (forward loop)
   for (let i = 0; i < n; i++) {
-    while (stack.length && heights[stack[stack.length - 1]] >= heights[i]) {
+    while (stack.length && heights[stack[stack.length - 1] >= heights[i]) {
       stack.pop();
     }
     left[i] = stack.length ? stack[stack.length - 1] : -1;  // -1 if no smaller
@@ -468,7 +509,7 @@ function largestRectangleArea(heights) {
     const width = right[i] - left[i] - 1;
     maxArea = Math.max(maxArea, heights[i] * width);
   }
-  
+
   return maxArea;
 }
 
@@ -486,9 +527,10 @@ function largestRectangleArea(heights) {
 
 // Input: heights = [1, 1]
 // Output: 2
+
 ```
 
-**Time Complexity:** O(n) - Each bar pushed and popped at most once per pass (3 passes total)  
+**Time Complexity:** O(n) - Each bar pushed and popped at most once per pass (3 passes total)
 **Space Complexity:** O(n) - Arrays `left` and `right` store boundaries, stack stores indices
 
 ## Q83. Sliding Window Maximum
@@ -498,30 +540,31 @@ function largestRectangleArea(heights) {
 **Approach:** Use a monotonic deque storing indices with decreasing values. Front always contains the maximum of the current window.
 
 ### Solution 1: Monotonic Deque (Optimal)
+
 ```javascript
 function maxSlidingWindow(nums, k) {
   const dq = [];  // Deque stores indices
   const res = [];
-  
+
   for (let i = 0; i < nums.length; i++) {
     // Remove indices outside current window
     while (dq.length && dq[0] <= i - k) {
       dq.shift();
     }
-    
+
     // Remove indices with values <= current (maintain decreasing order)
-    while (dq.length && nums[dq[dq.length - 1]] <= nums[i]) {
+    while (dq.length && nums[dq[dq.length - 1] <= nums[i]) {
       dq.pop();
     }
-    
+
     dq.push(i);
-    
+
     // Add maximum when window is complete
     if (i >= k - 1) {
-      res.push(nums[dq[0]]);  // Front is always max
+      res.push(nums[dq[0]);  // Front is always max
     }
   }
-  
+
   return res;
 }
 
@@ -540,9 +583,10 @@ function maxSlidingWindow(nums, k) {
 
 // Input: nums = [4, -2], k = 2
 // Output: [4]
+
 ```
 
-**Time Complexity:** O(n) - Each element added and removed at most once  
+**Time Complexity:** O(n) - Each element added and removed at most once
 **Space Complexity:** O(k) - Deque stores at most k indices
 
 ## Q84. Design Circular Queue
@@ -552,6 +596,7 @@ function maxSlidingWindow(nums, k) {
 **Approach:** Use a fixed-size array with head and tail pointers. Use modulo arithmetic for wrapping around. Track size to distinguish full from empty.
 
 ### Solution 1: Fixed-Size Ring Buffer (Optimal)
+
 ```javascript
 class MyCircularQueue {
   constructor(k) {
@@ -564,7 +609,7 @@ class MyCircularQueue {
 
   enQueue(value) {
     if (this.isFull()) return false;
-    
+
     this.queue[this.tail] = value;
     this.tail = (this.tail + 1) % this.capacity;
     this.size++;
@@ -573,7 +618,7 @@ class MyCircularQueue {
 
   deQueue() {
     if (this.isEmpty()) return false;
-    
+
     this.head = (this.head + 1) % this.capacity;
     this.size--;
     return true;
@@ -610,11 +655,11 @@ class MyCircularQueue {
 // circularQueue.deQueue();    // Output: true
 // circularQueue.enQueue(4);  // Output: true
 // circularQueue.Rear();       // Output: 4
+
 ```
 
-**Time Complexity:** O(1) - All operations are constant time  
+**Time Complexity:** O(1) - All operations are constant time
 **Space Complexity:** O(k) - Fixed-size array of capacity k
-
 
 ## Q85. Simplify Path
 
@@ -623,11 +668,12 @@ class MyCircularQueue {
 **Approach:** Split path by `/`, filter out empty strings and `.`. Use a stack to track directories. Pop on `..`, push otherwise.
 
 ### Solution 1: Stack-Based Path Processing (Optimal)
+
 ```javascript
 function simplifyPath(path) {
   const stack = [];
   const parts = path.split('/').filter(part => part !== '' && part !== '.');
-  
+
   for (const part of parts) {
     if (part === '..') {
       // Go up one directory (pop if not empty)
@@ -639,7 +685,7 @@ function simplifyPath(path) {
       stack.push(part);
     }
   }
-  
+
   return '/' + stack.join('/');
 }
 
@@ -658,11 +704,11 @@ function simplifyPath(path) {
 // Input: path = "/../"
 // Output: "/"
 // Explanation: .. from root stays at root
+
 ```
 
-**Time Complexity:** O(n) - Split and process path  
+**Time Complexity:** O(n) - Split and process path
 **Space Complexity:** O(n) - Stack storage
-
 
 ## Q86. Basic Calculator
 
@@ -671,16 +717,17 @@ function simplifyPath(path) {
 **Approach:** Track result, current number, and sign. Use stack to handle parentheses—push result and sign when opening, pop and combine when closing.
 
 ### Solution 1: Stack with Sign Tracking (Optimal)
+
 ```javascript
 function calculate(s) {
   let result = 0;
   let num = 0;
   let sign = 1;  // 1 for +, -1 for -
   const stack = [];
-  
+
   for (let i = 0; i < s.length; i++) {
     const char = s[i];
-    
+
     if (char >= '0' && char <= '9') {
       // Build number from digits
       num = num * 10 + (char.charCodeAt(0) - '0'.charCodeAt(0));
@@ -709,7 +756,7 @@ function calculate(s) {
     }
     // Skip spaces
   }
-  
+
   // Apply last number
   result += sign * num;
   return result;
@@ -723,9 +770,22 @@ function calculate(s) {
 
 // Input: s = "(1+(4+5+2)-3)+(6+8)"
 // Output: 23
+
 ```
 
-**Time Complexity:** O(n) - Single pass through string  
+**Time Complexity:** O(n) - Single pass through string
 **Space Complexity:** O(n) - Stack for parentheses (worst case: all parentheses)
 
 - **Interview Tip:** Explain sign handling clearly; emphasize stack usage for parentheses; ask about multiplication/division extension
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Linked List](3%20Linked%20List.md) • [Home: README](README.md) • [Binary Trees →](5%20Binary%20Trees.md)
+
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+
+</div>

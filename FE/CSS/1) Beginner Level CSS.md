@@ -1,10 +1,18 @@
+# 🧒 1. Beginner Level CSS (Q1–12)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: README](../README.md)** | **[Next: Intermediate Level CSS →](2%29%20Intermediate%20Level%20CSS.md)**
+[Home: README](../README.md) • [Intermediate Level CSS →](2%29%20Intermediate%20Level%20CSS.md)
+
+[📋 Cheatsheet](CSS%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 🧒 1. Beginner Level CSS (Q1–12)
+---
 
 ---
 
@@ -30,7 +38,7 @@ body {
 
 ## Q2. 🎨 Different ways to include CSS in a webpage
 
-CSS can be included via inline styles, internal stylesheets, or external stylesheet files - external stylesheets are preferred for production websites because they can be cached and reused. Inline (highest specificity), internal (page-specific), external (best for reusability).
+CSS can be included via inline styles, internal stylesheets, or external stylesheet files - external stylesheets are preferred for production websites because these can be cached and reused. Inline (highest specificity), internal (page-specific), external (best for reusability).
 
 - **Trade-offs**: The catch is overusing inline styles, hard to maintain - use external CSS for maintainability and caching. External stylesheets are preferred for production websites, but watch out - external CSS can be cached by browsers, use external CSS for production.
 
@@ -47,7 +55,7 @@ Example:
 
 ---
 
-## Q3. 🎨 CSS selectors: what they are and examples
+## Q3. 🎨 CSS selectors and examples
 
 CSS selectors target HTML elements to apply styles, using various patterns to match elements - selector specificity determines which styles apply when multiple rules match. Selectors determine which elements get styled, more specific selectors override less specific ones.
 
@@ -82,7 +90,7 @@ p { color: black; }
 
 ---
 
-## Q5. 🧩 CSS Box Model: what it is and its components
+## Q5. 🧩 CSS Box Model and its components
 
 The CSS Box Model describes how elements are sized and spaced - it consists of content, padding, border, and margin, layers from inside to outside, understanding the box model is essential for layout. Content → Padding → Border → Margin (from inside to outside). `box-sizing: content-box` (default) calculates width/height as content only, while `box-sizing: border-box` includes padding and border in the width/height calculation.
 
@@ -140,16 +148,16 @@ Example:
 Example:
 
 ```css
-.default { 
-  width: 200px; 
-  padding: 20px; 
-  border: 2px solid black; 
+.default {
+  width: 200px;
+  padding: 20px;
+  border: 2px solid black;
 }
-.border-box { 
-  width: 200px; 
-  padding: 20px; 
-  border: 2px solid black; 
-  box-sizing: border-box; 
+.border-box {
+  width: 200px;
+  padding: 20px;
+  border: 2px solid black;
+  box-sizing: border-box;
 }
 
 ```
@@ -165,26 +173,26 @@ These display values control how elements flow and interact with other elements 
 Example:
 
 ```css
-.block { 
-  display: block; 
-  background-color: red; 
-  margin: 10px 0; 
+.block {
+  display: block;
+  background-color: red;
+  margin: 10px 0;
 }
-.inline { 
-  display: inline; 
-  background-color: blue; 
+.inline {
+  display: inline;
+  background-color: blue;
 }
-.inline-block { 
-  display: inline-block; 
-  width: 100px; 
-  background-color: green; 
+.inline-block {
+  display: inline-block;
+  width: 100px;
+  background-color: green;
 }
 
 ```
 
 ---
 
-## Q9. 🏛️ Pseudo-classes and pseudo-elements: what they are and examples
+## Q9. 🏛️ Pseudo-classes and pseudo-elements and examples
 
 Pseudo-classes target element states (like `:hover`), while pseudo-elements create virtual elements (like `::before`) - pseudo-classes target states, pseudo-elements create new elements. Pseudo-classes use single colon `:`, pseudo-elements use double colon `::`.
 
@@ -193,13 +201,13 @@ Pseudo-classes target element states (like `:hover`), while pseudo-elements crea
 Example:
 
 ```css
-.button:hover { 
-  background-color: blue; 
-  transform: scale(1.1); 
+.button:hover {
+  background-color: blue;
+  transform: scale(1.1);
 }
-.button::before { 
-  content: "★ "; 
-  color: gold; 
+.button::before {
+  content: "★ ";
+  color: gold;
 }
 a:visited { color: purple; }
 p::first-line { font-weight: bold; }
@@ -208,7 +216,7 @@ p::first-line { font-weight: bold; }
 
 ---
 
-## Q10. 🎨 CSS specificity: what it is and how it's calculated
+## Q10. 🎨 CSS specificity and how it's calculated
 
 CSS specificity determines which styles apply when multiple rules target the same element - higher specificity wins, specificity is calculated based on selectors. Specificity: inline styles (1,0,0,0) > IDs (0,1,0,0) > classes (0,0,1,0) > elements (0,0,0,1).
 
@@ -255,32 +263,40 @@ Positioning controls how elements are placed - `relative` positions relative to 
 Example:
 
 ```css
-.relative { 
-  position: relative; 
-  top: 10px; 
-  left: 20px; 
+.relative {
+  position: relative;
+  top: 10px;
+  left: 20px;
 }
-.absolute { 
-  position: absolute; 
-  top: 0; 
-  right: 0; 
+.absolute {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
-.fixed { 
-  position: fixed; 
-  bottom: 0; 
-  right: 0; 
+.fixed {
+  position: fixed;
+  bottom: 0;
+  right: 0;
 }
-.sticky { 
-  position: sticky; 
-  top: 0; 
+.sticky {
+  position: sticky;
+  top: 0;
 }
 
 ```
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: README](../README.md)** | **[Next: Intermediate Level CSS →](2%29%20Intermediate%20Level%20CSS.md)**
+[Home: README](../README.md) • [Intermediate Level CSS →](2%29%20Intermediate%20Level%20CSS.md)
+
+[📋 Cheatsheet](CSS%20Interview%20Cheatsheet.md]
 
 </div>
+
+---

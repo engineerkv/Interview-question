@@ -1,10 +1,18 @@
+# 6. State Management & Data Handling (Q51–60)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Performance Optimization & Measurement](5%29%20Performance%20Optimization%20%26%20Measurement.md)** | **[Next: CodePush & OTA Updates →](7%29%20CodePush%20%26%20OTA%20Updates.md)**
+[Performance Optimization & Measurement](5%29%20Performance%20Optimization%20%26%20Measurement.md) • [Home: README](../README.md) • [CodePush & OTA Updates →](7%29%20CodePush%20%26%20OTA%20Updates.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
 
 </div>
 
-# 6. State Management & Data Handling (Q51–60)
+---
 
 ---
 
@@ -125,7 +133,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 function OfflineFirstApp() {
   const [isOnline, setIsOnline] = useState(true);
   const [pendingActions, setPendingActions] = useState([]);
-  
+
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
       setIsOnline(state.isConnected);
@@ -177,7 +185,7 @@ Example:
 function BatchingExample() {
   const [count, setCount] = useState(0);
   const [name, setName] = useState('');
-  
+
   const handleUpdate = () => {
     // These updates are batched together
     setCount(1);
@@ -265,3 +273,16 @@ function Parent({ user, setUser }) {
 
 ---
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Performance Optimization & Measurement](5%29%20Performance%20Optimization%20%26%20Measurement.md) • [Home: README](../README.md) • [CodePush & OTA Updates →](7%29%20CodePush%20%26%20OTA%20Updates.md)
+
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
+
+</div>
+
+---

@@ -1,10 +1,18 @@
+# ⚡ 6. Performance Optimization (Q63–76)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: React Latest Features](5%29%20React%20Latest%20Features.md)** | **[Next: Testing & Debugging →](7%29%20Testing%20%26%20Debugging.md)**
+[← Previous: React Latest Features](5%29%20React%20Latest%20Features.md) • [Home: README](../README.md) • [Next: Testing & Debugging →](7%29%20Testing%20%26%20Debugging.md)
+
+[📋 Cheatsheet](React%20Interview%20Cheatsheet.md)
 
 </div>
 
-# ⚡ 6. Performance Optimization (Q63–76)
+---
 
 ---
 
@@ -58,13 +66,13 @@ Example:
 ```jsx
 const ExpensiveComponent = React.memo(({ data, onUpdate }) => {
   const processedData = useMemo(() => {
-    return data.map(item => ({ 
-      id: item.id, 
-      name: item.name.toUpperCase() 
+    return data.map(item => ({
+      id: item.id,
+      name: item.name.toUpperCase()
     }));
   }, [data]);
   const handleUpdate = useCallback(
-    () => onUpdate(processedData), 
+    () => onUpdate(processedData),
     [onUpdate, processedData]
   );
   return <button onClick={handleUpdate}>Update</button>;
@@ -206,7 +214,7 @@ function VirtualizedList({ items }) {
 
 ## Q71. 💡 Optimizing images in React applications
 
-Use lazy loading, responsive images, WebP format, proper sizing, and Intersection Observer for efficient image loading and better Core Web Vitals. Lazy loading loads images only when they come into view (Intersection Observer).
+Use lazy loading, responsive images, WebP format, proper sizing, and Intersection Observer for efficient image loading and better Core Web Vitals. Lazy loading loads images only when these come into view (Intersection Observer).
 
 - **Trade-offs**: The catch is set width and height to prevent layout shift (CLS) - image optimization significantly improves Core Web Vitals. Image optimization is crucial for performance and user experience, but watch out - use srcset for different screen sizes, WebP or AVIF for better compression.
 
@@ -217,7 +225,7 @@ function OptimizedImage({ src, alt, width, height }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
   const imgRef = useRef();
-  
+
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) setIsInView(true);
@@ -225,7 +233,7 @@ function OptimizedImage({ src, alt, width, height }) {
     if (imgRef.current) observer.observe(imgRef.current);
     return () => observer.disconnect();
   }, []);
-  
+
   return (
     <div ref={imgRef} style={{ width, height }}>
       {isInView && (
@@ -312,7 +320,7 @@ Example:
 ```jsx
 function ExpensiveComponent({ data }) {
   const [processedData, setProcessedData] = useState(null);
-  
+
   useEffect(() => {
     const processData = async () => {
       const result = await heavyProcessing(data);
@@ -320,7 +328,7 @@ function ExpensiveComponent({ data }) {
     };
     processData();
   }, [data]);
-  
+
   return <div>{processedData || 'Processing...'}</div>;
 }
 
@@ -375,9 +383,16 @@ const MemoizedComponent = React.memo(({ data }) => {
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: React Latest Features](5%29%20React%20Latest%20Features.md)** | **[Next: Testing & Debugging →](7%29%20Testing%20%26%20Debugging.md)**
+[5) React Latest Features.md](5%29%20React%20Latest%20Features.md) • [Home: README](../README.md) • [7) Testing & Debugging.md →](7%29%20Testing%20&%20Debugging.md)
+
+[📋 Cheatsheet](React%20Interview%20Cheatsheet.md]
 
 </div>
 
+---

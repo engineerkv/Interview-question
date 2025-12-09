@@ -1,16 +1,23 @@
 # 🧠 TypeScript Interview Cheatsheet
 
 > **⏱️ Review Time: 15-20 minutes** | **Priority: ⭐⭐ Medium** | Quick reference for TypeScript interviews
-> 
+>
 > **Coverage: Q1-Q53** (53 questions across 5 topics)
 
 **Quick Review Checklist:**
+
 - [ ] TypeScript Basics (Type Annotation, Inference, Union/Intersection)
+
 - [ ] Interfaces & Types (Interface vs Type, Extension)
+
 - [ ] Functions (Function Types, Overloading, Generics)
+
 - [ ] Advanced Types (Conditional, Mapped, Utility Types)
+
 - [ ] Classes & Inheritance (Access Modifiers, Abstract Classes)
+
 - [ ] Module Resolution (Classic vs Node, Declaration Files)
+
 - [ ] TypeScript Configuration (tsconfig.json, Compiler Flags)
 
 ---
@@ -18,9 +25,13 @@
 ## 📋 **Question Coverage**
 
 - **Q1-Q9**: TypeScript Fundamentals
+
 - **Q10-Q21**: Type System & Interfaces
+
 - **Q22-Q31**: Functions & Advanced Type Features
+
 - **Q32-Q39**: Classes & Object-Oriented Features
+
 - **Q40-Q53**: Advanced TypeScript Internals
 
 ---
@@ -40,6 +51,9 @@
 ## 🔧 **Primitive Types**
 
 ### **Basic Types**
+
+**Definition:** TypeScript provides type annotations for primitives (string, number, boolean, null, undefined, symbol, bigint) and type inference to automatically detect types.
+
 ```typescript
 // Primitive types
 let name: string = "John";
@@ -54,9 +68,11 @@ let nothing: void = undefined;
 // Type inference
 let inferredString = "Hello"; // TypeScript infers 'string'
 let inferredNumber = 42; // TypeScript infers 'number'
+
 ```
 
 ### **Special Types**
+
 ```typescript
 // any - disables type checking
 let anything: any = 42;
@@ -73,6 +89,7 @@ if (typeof userInput === "string") {
 function throwError(message: string): never {
   throw new Error(message);
 }
+
 ```
 
 ---
@@ -80,6 +97,9 @@ function throwError(message: string): never {
 ## 🏗️ **Interfaces & Types**
 
 ### **Interfaces**
+
+**Definition:** Interfaces define object shapes with required/optional properties, readonly modifiers, and can be extended; support index signatures for dynamic properties.
+
 ```typescript
 // Basic interface
 interface User {
@@ -98,9 +118,13 @@ interface AdminUser extends User {
 interface StringDictionary {
   [key: string]: string;
 }
+
 ```
 
 ### **Type Aliases**
+
+**Definition:** Type aliases create reusable type definitions for unions, intersections, and object types; can represent complex type combinations.
+
 ```typescript
 // Type alias
 type StringOrNumber = string | number;
@@ -114,6 +138,7 @@ type Status = "pending" | "approved" | "rejected";
 
 // Intersection types
 type UserEmployee = User & Employee;
+
 ```
 
 ---
@@ -121,6 +146,9 @@ type UserEmployee = User & Employee;
 ## 🔄 **Functions**
 
 ### **Function Types**
+
+**Definition:** TypeScript functions specify parameter types and return types; support optional parameters, rest parameters, and function type annotations.
+
 ```typescript
 // Function declaration
 function add(a: number, b: number): number {
@@ -142,9 +170,11 @@ function greet(name: string, greeting?: string): string {
 function sum(...numbers: number[]): number {
   return numbers.reduce((total, num) => total + num, 0);
 }
+
 ```
 
 ### **Function Overloading**
+
 ```typescript
 function process(value: string): string;
 function process(value: number): number;
@@ -155,6 +185,7 @@ function process(value: string | number): string | number {
     return value * 2;
   }
 }
+
 ```
 
 ---
@@ -162,6 +193,7 @@ function process(value: string | number): string | number {
 ## 🧩 **Generics**
 
 ### **Generic Functions**
+
 ```typescript
 // Basic generic function
 function identity<T>(arg: T): T {
@@ -177,9 +209,11 @@ function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
 function createResponse<T = string>(data: T): ApiResponse<T> {
   return { data, status: 200, message: "Success" };
 }
+
 ```
 
 ### **Generic Interfaces**
+
 ```typescript
 interface Container<T> {
   value: T;
@@ -192,21 +226,24 @@ interface ApiResponse<T> {
   status: number;
   message: string;
 }
+
 ```
 
 ### **Generic Classes**
+
 ```typescript
 class Stack<T> {
   private items: T[] = [];
-  
+
   push(item: T): void {
     this.items.push(item);
   }
-  
+
   pop(): T | undefined {
     return this.items.pop();
   }
 }
+
 ```
 
 ---
@@ -214,37 +251,40 @@ class Stack<T> {
 ## 🏛️ **Classes**
 
 ### **Basic Class**
+
 ```typescript
 class User {
   private id: number;
   public name: string;
   protected email: string;
-  
+
   constructor(id: number, name: string, email: string) {
     this.id = id;
     this.name = name;
     this.email = email;
   }
-  
+
   public getName(): string {
     return this.name;
   }
-  
+
   private validateEmail(): boolean {
     return this.email.includes("@");
   }
 }
+
 ```
 
 ### **Inheritance**
+
 ```typescript
 class Animal {
   protected name: string;
-  
+
   constructor(name: string) {
     this.name = name;
   }
-  
+
   public makeSound(): void {
     console.log("Some sound");
   }
@@ -255,20 +295,22 @@ class Dog extends Animal {
     console.log("Woof!");
   }
 }
+
 ```
 
 ### **Abstract Classes**
+
 ```typescript
 abstract class Shape {
   protected color: string;
-  
+
   constructor(color: string) {
     this.color = color;
   }
-  
+
   // Abstract method - must be implemented by subclasses
   abstract getArea(): number;
-  
+
   // Concrete method
   public getColor(): string {
     return this.color;
@@ -277,16 +319,17 @@ abstract class Shape {
 
 class Circle extends Shape {
   private radius: number;
-  
+
   constructor(color: string, radius: number) {
     super(color);
     this.radius = radius;
   }
-  
+
   getArea(): number {
     return Math.PI * this.radius * this.radius;
   }
 }
+
 ```
 
 ---
@@ -294,6 +337,7 @@ class Circle extends Shape {
 ## 🎭 **Decorators & Mixins**
 
 ### **Decorators**
+
 ```typescript
 // Class decorator
 function LogClass(target: any) {
@@ -333,13 +377,15 @@ function LogProperty(target: any, propertyName: string) {
 class User {
   @LogProperty
   name: string = "John";
-  
+
   @LogMethod
   getName() { return this.name; }
 }
+
 ```
 
 ### **Mixins**
+
 ```typescript
 // Mixin function
 function Timestamped<T extends new (...args: any[]) => {}>(Base: T) {
@@ -364,6 +410,7 @@ const FullUser = Loggable(Timestamped(User));
 const user = new FullUser();
 user.getTimestamp(); // Available from Timestamped mixin
 user.log("Hello"); // Available from Loggable mixin
+
 ```
 
 ---
@@ -371,6 +418,7 @@ user.log("Hello"); // Available from Loggable mixin
 ## 🛠️ **Utility Types**
 
 ### **Built-in Utility Types**
+
 ```typescript
 interface User {
   id: number;
@@ -393,9 +441,11 @@ type RequiredUser = Required<PartialUser>;
 
 // Readonly - makes all properties readonly
 type ReadonlyUser = Readonly<User>;
+
 ```
 
 ### **Custom Utility Types**
+
 ```typescript
 // Custom utility type
 type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
@@ -410,6 +460,7 @@ type NonNullable<T> = T extends null | undefined ? never : T;
 type Getters<T> = {
   [K in keyof T as `get${Capitalize<string & K>}`]: () => T[K];
 };
+
 ```
 
 ---
@@ -417,6 +468,7 @@ type Getters<T> = {
 ## 🔍 **Advanced Types**
 
 ### **Conditional Types**
+
 ```typescript
 // Basic conditional type
 type IsString<T> = T extends string ? true : false;
@@ -428,9 +480,11 @@ type ReturnType<T> = T extends (...args: any[]) => infer R ? R : never;
 type DeepReadonly<T> = {
   readonly [P in keyof T]: T[P] extends object ? DeepReadonly<T[P]> : T[P];
 };
+
 ```
 
 ### **Mapped Types**
+
 ```typescript
 // Basic mapped type
 type Optional<T> = {
@@ -446,9 +500,11 @@ type Getters<T> = {
 type StringProperties<T> = {
   [K in keyof T]: T[K] extends string ? K : never;
 }[keyof T];
+
 ```
 
 ### **Template Literal Types**
+
 ```typescript
 // Basic template literal type
 type EventName<T extends string> = `on${Capitalize<T>}`;
@@ -457,6 +513,7 @@ type ClickEvent = EventName<"click">; // "onClick"
 // Complex template literal type
 type CSSProperty = `--${string}`;
 type CSSValue = `${number}px` | `${number}%` | `${number}em`;
+
 ```
 
 ---
@@ -464,6 +521,7 @@ type CSSValue = `${number}px` | `${number}%` | `${number}em`;
 ## 🎯 **Type Guards**
 
 ### **Type Guard Functions**
+
 ```typescript
 // Type guard function
 function isString(value: unknown): value is string {
@@ -482,9 +540,11 @@ function processValue(value: unknown): string {
 function hasName(obj: any): obj is { name: string } {
   return "name" in obj && typeof obj.name === "string";
 }
+
 ```
 
 ### **Discriminated Unions**
+
 ```typescript
 type LoadingState = {
   status: "loading";
@@ -515,6 +575,7 @@ function handleState(state: AppState) {
       break;
   }
 }
+
 ```
 
 ---
@@ -522,6 +583,7 @@ function handleState(state: AppState) {
 ## 🔍 **Module Resolution**
 
 ### **Classic Module Resolution**
+
 ```typescript
 // Classic strategy - looks for TypeScript files first
 import { utils } from './utils'; // Resolution order:
@@ -536,9 +598,11 @@ import { utils } from './utils'; // Resolution order:
     "moduleResolution": "classic"
   }
 }
+
 ```
 
 ### **Node Module Resolution**
+
 ```typescript
 // Node strategy - follows Node.js algorithm
 import { lodash } from 'lodash'; // Resolution order:
@@ -555,9 +619,11 @@ import { lodash } from 'lodash'; // Resolution order:
     "paths": { "@/*": ["src/*"] }
   }
 }
+
 ```
 
 ### **Declaration Files**
+
 ```typescript
 // my-library.d.ts
 declare module "my-library" {
@@ -574,6 +640,7 @@ declare module "lodash" {
   export function debounce<T extends (...args: any[]) => any>(
     func: T, wait: number): T;
 }
+
 ```
 
 ---
@@ -581,6 +648,7 @@ declare module "lodash" {
 ## 🔧 **TypeScript Configuration**
 
 ### **tsconfig.json**
+
 ```json
 {
   "compilerOptions": {
@@ -602,9 +670,11 @@ declare module "lodash" {
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }
+
 ```
 
 ### **Common Compiler Flags**
+
 ```typescript
 // Strict mode options
 "strict": true, // Enables all strict mode options
@@ -621,6 +691,7 @@ declare module "lodash" {
 "noFallthroughCasesInSwitch": true, // Error on fallthrough cases
 "noUnusedLocals": true, // Error on unused locals
 "noUnusedParameters": true // Error on unused parameters
+
 ```
 
 ---
@@ -628,36 +699,63 @@ declare module "lodash" {
 ## 🎯 **Interview Tips**
 
 ### **Common Questions**
+
 1. **TypeScript vs JavaScript** - Static typing, compilation, tooling
+
 2. **Type System** - Interfaces, types, unions, intersections
+
 3. **Generics** - Reusable components, type constraints
+
 4. **Advanced Types** - Conditional types, mapped types, utility types
+
 5. **Classes** - Inheritance, access modifiers, abstract classes
+
 6. **Module Resolution** - Classic vs Node strategies, declaration files
+
 7. **Decorators & Mixins** - Aspect-oriented programming, multiple inheritance
+
 8. **Compiler Internals** - Type checking, performance, configuration
 
 ### **Key Concepts**
+
 - **Type Safety**: Compile-time error detection
+
 - **Type Inference**: Automatic type detection
+
 - **Generics**: Reusable type parameters
+
 - **Utility Types**: Built-in type transformations
+
 - **Advanced Types**: Conditional and mapped types
+
 - **Module Resolution**: How TypeScript finds and loads modules
+
 - **Decorators**: Aspect-oriented programming with metadata
+
 - **Mixins**: Multiple inheritance patterns
+
 - **Compiler Internals**: Type checking, performance, configuration
 
 ### **Best Practices**
+
 - Use strict mode for better type safety
+
 - Prefer interfaces for object shapes
+
 - Use type aliases for unions and complex types
+
 - Leverage type inference when possible
+
 - Use utility types for common transformations
+
 - Use Node module resolution for modern projects
+
 - Create declaration files for JavaScript libraries
+
 - Use decorators sparingly and with clear purpose
+
 - Prefer composition over mixins when possible
+
 - Enable incremental compilation for large projects
 
 ---
@@ -665,13 +763,19 @@ declare module "lodash" {
 ## ⚡ **Last-Minute Review (5 minutes)**
 
 ### **Must-Know Concepts**
+
 - **Type vs Interface**: Type for unions/intersections, Interface for object shapes
+
 - **Generics**: Reusable type parameters `<T>`
+
 - **Utility Types**: `Partial<T>`, `Pick<T, K>`, `Omit<T, K>`, `Required<T>`
+
 - **Type Guards**: Narrow types with `typeof`, `instanceof`, custom functions
+
 - **Strict Mode**: Enables all strict checks for better type safety
 
 ### **Quick Code Snippets**
+
 ```typescript
 // Generic
 function identity<T>(arg: T): T { return arg; }
@@ -685,12 +789,17 @@ type UserWithoutId = Omit<User, "id">;
 function isString(value: unknown): value is string {
   return typeof value === "string";
 }
+
 ```
 
 ### **Common Gotchas**
+
 - `any` disables type checking (use `unknown` instead)
+
 - Interfaces can be extended, types use intersections
+
 - Generics enable reusable, type-safe code
+
 - Type guards narrow types for safe access
 
 *Remember: TypeScript is about type safety, not runtime behavior. Focus on compile-time benefits and type system features!*

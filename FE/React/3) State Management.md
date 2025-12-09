@@ -1,10 +1,18 @@
+# 🗂️ 3. State Management (Q35–45)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: React Hooks](2%29%20React%20Hooks.md)** | **[Next: Server State & Data Fetching →](4%29%20Server%20State%20%26%20Data%20Fetching.md)**
+[← Previous: React Hooks](2%29%20React%20Hooks.md) • [Home: README](../README.md) • [Next: Server State & Data Fetching →](4%29%20Server%20State%20%26%20Data%20Fetching.md)
+
+[📋 Cheatsheet](React%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 🗂️ 3. State Management (Q35–45)
+---
 
 ---
 
@@ -50,11 +58,11 @@ Example:
 ```jsx
 const counterReducer = (state = { count: 0 }, action) => {
   switch (action.type) {
-    case 'INCREMENT': 
+    case 'INCREMENT':
       return { count: state.count + 1 };
-    case 'DECREMENT': 
+    case 'DECREMENT':
       return { count: state.count - 1 };
-    default: 
+    default:
       return state;
   }
 };
@@ -74,17 +82,17 @@ Actions describe what happened, reducers specify how state changes, and the stor
 Example:
 
 ```jsx
-const actions = { 
-  increment: { type: 'INCREMENT' }, 
-  decrement: { type: 'DECREMENT' } 
+const actions = {
+  increment: { type: 'INCREMENT' },
+  decrement: { type: 'DECREMENT' }
 };
 const reducer = (state = { count: 0 }, action) => {
   switch (action.type) {
-    case 'INCREMENT': 
+    case 'INCREMENT':
       return { count: state.count + 1 };
-    case 'DECREMENT': 
+    case 'DECREMENT':
       return { count: state.count - 1 };
-    default: 
+    default:
       return state;
   }
 };
@@ -176,8 +184,8 @@ const counterSlice = createSlice({
     addBy: (state, action) => { state.count += action.payload; }
   }
 });
-const store = configureStore({ 
-  reducer: { counter: counterSlice.reducer } 
+const store = configureStore({
+  reducer: { counter: counterSlice.reducer }
 });
 
 ```
@@ -263,9 +271,16 @@ const count = useSelector(state => state.counter.count);
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: React Hooks](2%29%20React%20Hooks.md)** | **[Next: Server State & Data Fetching →](4%29%20Server%20State%20%26%20Data%20Fetching.md)**
+[2) React Hooks.md](2%29%20React%20Hooks.md) • [Home: README](../README.md) • [4) Server State & Data Fetching.md →](4%29%20Server%20State%20&%20Data%20Fetching.md)
+
+[📋 Cheatsheet](React%20Interview%20Cheatsheet.md]
 
 </div>
 
+---

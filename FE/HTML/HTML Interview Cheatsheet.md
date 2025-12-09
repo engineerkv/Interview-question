@@ -1,16 +1,23 @@
 # 🌐 HTML Interview Cheatsheet
 
 > **⏱️ Review Time: 10-15 minutes** | **Priority: ⭐⭐⭐ High** | Essential HTML concepts for interviews
-> 
+>
 > **Coverage: Q1-Q111** (111 questions across 8 topics)
 
 **Quick Review Checklist:**
+
 - [ ] Document Structure & Semantic HTML
+
 - [ ] Forms & Input Types
+
 - [ ] Accessibility (ARIA, Keyboard Navigation)
+
 - [ ] HTML5 Features (New Elements, Data Attributes)
+
 - [ ] Media Elements (Images, Video, Audio)
+
 - [ ] Performance & SEO (Meta Tags, Core Web Vitals)
+
 - [ ] Browser Rendering Pipeline
 
 ---
@@ -18,12 +25,19 @@
 ## 📋 **Question Coverage**
 
 - **Q1-Q15**: HTML Fundamentals
+
 - **Q16-Q30**: Semantic HTML & Structure
+
 - **Q31-Q45**: Forms & Input Elements
+
 - **Q46-Q60**: Accessibility (A11y)
+
 - **Q61-Q75**: HTML5 Features & APIs
+
 - **Q76-Q85**: Media Elements
+
 - **Q86-Q101**: Performance & SEO
+
 - **Q102-Q111**: Advanced HTML Concepts
 
 ---
@@ -31,24 +45,35 @@
 ## 📋 **Quick Reference**
 
 ### **Document Structure**
+
+**Definition:** HTML5 document structure includes DOCTYPE declaration, html root element with lang attribute, head (metadata), and body (content) for semantic markup.
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Page Title</title></head>
 <body><!-- Content --></body>
 </html>
+
 ```
 
 ### **Semantic Elements**
+
+**Definition:** HTML5 semantic elements (header, nav, main, article, section, aside, footer) provide meaning and structure, improving accessibility and SEO.
+
 ```html
 <body>
   <header><h1>Site Title</h1><nav><ul><li><a href="/">Home</a></li></ul></nav></header>
   <main><article><section><h2>Article Title</h2><p>Content...</p></section></article><aside>Sidebar</aside></main>
   <footer><p>Copyright 2024</p></footer>
 </body>
+
 ```
 
 ### **Form Structure**
+
+**Definition:** Forms collect user input with action (submit URL) and method (GET/POST); use fieldset/legend for grouping and labels for accessibility.
+
 ```html
 <form action="/submit" method="POST">
   <fieldset><legend>Personal Information</legend>
@@ -57,6 +82,7 @@
     <button type="submit">Submit</button>
   </fieldset>
 </form>
+
 ```
 
 ---
@@ -80,27 +106,35 @@
 ## 📝 **Forms & Input Types**
 
 ### **Input Types**
+
+**Definition:** HTML5 input types (email, url, tel, date, number, range) provide native validation, mobile keyboard optimization, and better UX.
+
 ```html
 <!-- Text: text, email, password, url, tel, search -->
 <!-- Selection: radio, checkbox, select, file -->
 <!-- Date/Time: date, time, datetime-local, month, week -->
 <!-- Other: number, range, color -->
+
 ```
 
 ### **Validation Attributes**
+
 ```html
 <input required>           <!-- Required field -->
 <input minlength="3">     <!-- Min length -->
 <input maxlength="50">    <!-- Max length -->
 <input pattern="[A-Za-z]+">  <!-- Regex pattern -->
 <input min="0" max="100"> <!-- Numeric range -->
+
 ```
 
 ### **Button Types**
+
 ```html
 <button type="submit">Submit</button>  <!-- Submits form -->
 <button type="reset">Reset</button>    <!-- Clears form -->
 <button type="button">Cancel</button>  <!-- No default action -->
+
 ```
 
 ---
@@ -108,15 +142,20 @@
 ## ♿ **Accessibility (A11y)**
 
 ### **ARIA Landmarks**
+
+**Definition:** ARIA roles (banner, navigation, main, complementary, contentinfo) define page regions for screen readers, enhancing accessibility when semantic HTML isn't sufficient.
+
 ```html
 <header role="banner">
 <nav role="navigation" aria-label="Main navigation">
 <main role="main">
 <aside role="complementary">
 <footer role="contentinfo">
+
 ```
 
 ### **Essential ARIA Attributes**
+
 ```html
 <!-- Labels -->
 <button aria-label="Close dialog">×</button>
@@ -130,9 +169,11 @@
 <!-- Live regions -->
 <div aria-live="polite">Status updates</div>
 <div aria-live="assertive">Urgent alerts</div>
+
 ```
 
 ### **Accessible Images**
+
 ```html
 <!-- Decorative: empty alt -->
 <img src="decoration.jpg" alt="" role="presentation">
@@ -145,9 +186,11 @@
   <img src="infographic.jpg" alt="Sales data visualization">
   <figcaption>Complete sales data for 2024</figcaption>
 </figure>
+
 ```
 
 ### **Keyboard Navigation**
+
 ```html
 <!-- Tab order -->
 <button tabindex="0">Natural order</button>      <!-- Focusable -->
@@ -156,6 +199,7 @@
 
 <!-- Skip links -->
 <a href="#main" class="skip-link">Skip to main content</a>
+
 ```
 
 ---
@@ -163,31 +207,39 @@
 ## 🚀 **HTML5 Features**
 
 ### **New Elements**
+
 ```html
 <main>, <section>, <article>, <aside>, <header>, <footer>, <nav>
 <figure><img><figcaption></figure>
 <details><summary>Expand</summary><p>Content</p></details>
 <time datetime="2024-01-15">Jan 15</time>
 <mark>Highlighted text</mark>
+
 ```
 
 ### **New Input Types**
+
 ```html
 email, url, tel, search, number, range, date, time, datetime-local, color
+
 ```
 
 ### **Data Attributes**
+
 ```html
 <div data-user-id="123" data-role="admin">Content</div>
 <!-- Access: element.dataset.userId, element.dataset.role -->
+
 ```
 
 ### **Template Element**
+
 ```html
 <template id="card-template">
   <div class="card"><h3></h3><p></p></div>
 </template>
 <!-- Usage: template.content.cloneNode(true) -->
+
 ```
 
 ---
@@ -195,6 +247,7 @@ email, url, tel, search, number, range, date, time, datetime-local, color
 ## 🎬 **Media Elements**
 
 ### **Responsive Images**
+
 ```html
 <!-- srcset for different densities -->
 <img src="image.jpg" srcset="image-320w.jpg 320w, image-640w.jpg 640w" sizes="(max-width: 600px) 320px, 640px" alt="Responsive">
@@ -204,9 +257,11 @@ email, url, tel, search, number, range, date, time, datetime-local, color
   <source media="(min-width: 800px)" srcset="large.jpg">
   <img src="small.jpg" alt="Responsive image">
 </picture>
+
 ```
 
 ### **Video & Audio**
+
 ```html
 <video controls>
   <source src="video.mp4" type="video/mp4">
@@ -219,6 +274,7 @@ email, url, tel, search, number, range, date, time, datetime-local, color
   <source src="audio.mp3" type="audio/mpeg">
   Fallback text
 </audio>
+
 ```
 
 ---
@@ -226,24 +282,29 @@ email, url, tel, search, number, range, date, time, datetime-local, color
 ## ⚡ **Performance & SEO**
 
 ### **Essential Meta Tags**
+
 ```html
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Page Title (50-60 chars)</title>
 <meta name="description" content="Description (150-160 chars)">
 <link rel="canonical" href="https://example.com/page">
+
 ```
 
 ### **Open Graph (Social Sharing)**
+
 ```html
 <meta property="og:type" content="website">
 <meta property="og:title" content="Page Title">
 <meta property="og:description" content="Description">
 <meta property="og:image" content="https://example.com/image.jpg">
 <meta property="og:url" content="https://example.com/page">
+
 ```
 
 ### **Performance Optimization**
+
 ```html
 <!-- Lazy loading -->
 <img src="image.jpg" loading="lazy" alt="Description">
@@ -255,11 +316,15 @@ email, url, tel, search, number, range, date, time, datetime-local, color
 <!-- Resource hints -->
 <link rel="preconnect" href="https://api.example.com">
 <link rel="dns-prefetch" href="//fonts.googleapis.com">
+
 ```
 
 ### **Core Web Vitals**
+
 - **LCP**: Preload LCP image, optimize largest element
+
 - **FID**: Minimize JavaScript execution, use defer/async
+
 - **CLS**: Specify image dimensions, avoid layout shifts
 
 ---
@@ -267,34 +332,42 @@ email, url, tel, search, number, range, date, time, datetime-local, color
 ## 🎯 **Common Patterns**
 
 ### **Navigation**
+
 ```html
 <nav aria-label="Main navigation">
   <ul><li><a href="/" aria-current="page">Home</a></li></ul>
 </nav>
+
 ```
 
 ### **Modal Dialog**
+
 ```html
 <div role="dialog" aria-labelledby="modal-title" aria-modal="true" aria-hidden="true" tabindex="-1">
   <h2 id="modal-title">Modal Title</h2>
   <button aria-label="Close dialog">Close</button>
 </div>
+
 ```
 
 ### **Data Table**
+
 ```html
 <table>
   <caption>Table Title</caption>
   <thead><tr><th scope="col">Header</th></tr></thead>
   <tbody><tr><td>Data</td></tr></tbody>
 </table>
+
 ```
 
 ### **Breadcrumbs**
+
 ```html
 <nav aria-label="Breadcrumb">
   <ol><li><a href="/">Home</a></li><li aria-current="page">Current</li></ol>
 </nav>
+
 ```
 
 ---
@@ -325,6 +398,7 @@ email, url, tel, search, number, range, date, time, datetime-local, color
 
 <!-- ❌ Only one h1 per page -->
 <h1>Title 1</h1><h1>Title 2</h1>  <!-- Wrong: multiple h1 -->
+
 ```
 
 ---
@@ -334,16 +408,27 @@ email, url, tel, search, number, range, date, time, datetime-local, color
 **When you type a URL:**
 
 1. **DNS Resolution** → Domain to IP (checks cache first)
+
 2. **TCP/TLS Handshake** → Secure connection (HTTPS)
+
 3. **HTTP Request** → GET request sent
+
 4. **HTTP Response** → HTML received in chunks
+
 5. **HTML Parsing** → Builds DOM tree
+
 6. **CSS Parsing** → Builds CSSOM tree
+
 7. **JavaScript Execution** → Runs scripts (blocks if not async/defer)
+
 8. **Render Tree** → DOM + CSSOM combined
+
 9. **Layout (Reflow)** → Calculate positions/sizes
+
 10. **Paint** → Convert to pixels
+
 11. **Composite** → GPU merges layers
+
 12. **Event Loop** → Handles interactions
 
 **Key**: Blocking resources delay rendering. Use `async`/`defer` for scripts, preload critical resources, lazy load below-fold content.
@@ -353,10 +438,15 @@ email, url, tel, search, number, range, date, time, datetime-local, color
 ## 🚀 **Interview Quick Tips**
 
 1. **Semantic HTML** → Use elements based on meaning
+
 2. **Accessibility** → WCAG 2.1 AA, proper ARIA, keyboard navigation
+
 3. **SEO** → Meta tags, structured data (JSON-LD), semantic structure
+
 4. **Performance** → Lazy loading, resource hints, Core Web Vitals
+
 5. **Forms** → Proper labels, validation, fieldset/legend
+
 6. **Media** → Responsive images, alt text, captions
 
 ---
@@ -364,7 +454,9 @@ email, url, tel, search, number, range, date, time, datetime-local, color
 ## 📊 **Quick Stats**
 
 - **Questions**: Q1-Q111 (111 total)
+
 - **Categories**: Fundamentals, Semantic, Forms, Accessibility, HTML5, Media, Performance/SEO, Advanced
+
 - **Key Focus**: Semantic HTML, Accessibility, Performance, SEO
 
 ---
@@ -372,13 +464,19 @@ email, url, tel, search, number, range, date, time, datetime-local, color
 ## ⚡ **Last-Minute Review (5 minutes)**
 
 ### **Must-Know Concepts**
+
 - **Semantic HTML**: Use `<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, `<footer>`
+
 - **Accessibility**: ARIA labels, keyboard navigation, alt text for images
+
 - **Forms**: Proper labels, validation attributes, fieldset/legend
+
 - **SEO**: Meta tags, semantic structure, structured data (JSON-LD)
+
 - **Performance**: Lazy loading, resource hints (preload, preconnect)
 
 ### **Quick Code Snippets**
+
 ```html
 <!-- Semantic Structure -->
 <header><nav></nav></header>
@@ -392,12 +490,17 @@ email, url, tel, search, number, range, date, time, datetime-local, color
 
 <!-- Lazy Loading -->
 <img src="image.jpg" loading="lazy" alt="Description">
+
 ```
 
 ### **Common Gotchas**
+
 - Only one `<h1>` per page
+
 - Don't skip heading levels (h1→h3 is wrong)
+
 - Always provide alt text for images (empty for decorative)
+
 - Use semantic elements over `<div>` when possible
 
 **Review Time**: 10-15 minutes | **Focus**: Semantic HTML, Accessibility, Forms, Performance

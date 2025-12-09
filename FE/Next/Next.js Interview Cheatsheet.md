@@ -1,16 +1,23 @@
 # ⚛️ Next.js Interview Cheatsheet
 
 > **⏱️ Review Time: 15-20 minutes** | **Priority: ⭐⭐ Medium** | Quick reference for Next.js interviews
-> 
+>
 > **Coverage: Q1-Q60** (60 questions across 6 topics)
 
 **Quick Review Checklist:**
+
 - [ ] Next.js Basics (App Router, Server/Client Components)
+
 - [ ] Data Fetching (SSR, SSG, ISR, Server Components)
+
 - [ ] Routing & Navigation (Dynamic Routes, Link Component)
+
 - [ ] Performance (Image Optimization, Code Splitting, Scripts)
+
 - [ ] API Routes & Server Actions
+
 - [ ] Authentication (NextAuth.js, Middleware)
+
 - [ ] Deployment (Vercel, Docker, Build Output)
 
 ---
@@ -18,10 +25,15 @@
 ## 📋 **Question Coverage**
 
 - **Q1-Q10**: Fundamentals
+
 - **Q11-Q20**: Data Fetching & Rendering
+
 - **Q21-Q27**: Routing & Navigation
+
 - **Q28-Q37**: Performance & Optimization
+
 - **Q38-Q48**: Architecture & Best Practices
+
 - **Q49-Q60**: Deployment & Tooling
 
 ---
@@ -42,6 +54,9 @@
 ## 🏗️ **Project Structure**
 
 ### **App Router Structure**
+
+**Definition:** Next.js 13+ App Router uses file-based routing with app directory, supports layouts, route groups, and nested routes for modern React Server Components architecture.
+
 ```javascript
 // app/
 //   ├── layout.js          // Root layout
@@ -64,9 +79,11 @@
 //   │       └── Button.js
 //   └── lib/
 //       └── auth.js
+
 ```
 
 ### **Pages Router Structure (Legacy)**
+
 ```javascript
 // pages/
 //   ├── _app.js            // App wrapper
@@ -78,6 +95,7 @@
 //   │   └── [slug].js      // Dynamic route
 //   └── api/
 //       └── users.js
+
 ```
 
 ---
@@ -85,12 +103,15 @@
 ## 🔄 **Data Fetching**
 
 ### **App Router (Modern)**
+
+**Definition:** Server Components are async functions that fetch data on the server, reducing client bundle size and improving performance by eliminating unnecessary JavaScript.
+
 ```javascript
 // Server Component - async function
 async function ServerComponent() {
   const data = await fetch('https://api.example.com/data');
   const posts = await data.json();
-  
+
   return (
     <div>
       {posts.map(post => (
@@ -107,24 +128,26 @@ import { useState, useEffect } from 'react';
 
 function ClientComponent() {
   const [data, setData] = useState(null);
-  
+
   useEffect(() => {
     fetch('/api/data')
       .then(res => res.json())
       .then(setData);
   }, []);
-  
+
   return <div>{data?.message}</div>;
 }
+
 ```
 
 ### **Pages Router (Legacy)**
+
 ```javascript
 // SSG - Static Site Generation
 export async function getStaticProps() {
   const data = await fetch('https://api.example.com/data');
   const posts = await data.json();
-  
+
   return {
     props: { posts },
     revalidate: 3600 // ISR
@@ -135,7 +158,7 @@ export async function getStaticProps() {
 export async function getServerSideProps() {
   const data = await fetch('https://api.example.com/data');
   const posts = await data.json();
-  
+
   return { props: { posts } };
 }
 
@@ -143,13 +166,14 @@ export async function getServerSideProps() {
 export async function getStaticPaths() {
   const posts = await fetch('https://api.example.com/posts');
   const data = await posts.json();
-  
+
   const paths = data.map(post => ({
     params: { id: post.id.toString() }
   }));
-  
+
   return { paths, fallback: 'blocking' };
 }
+
 ```
 
 ---
@@ -157,6 +181,7 @@ export async function getStaticPaths() {
 ## 🧭 **Routing & Navigation**
 
 ### **App Router Navigation**
+
 ```javascript
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -170,9 +195,11 @@ const router = useRouter();
 router.push('/about');
 router.replace('/login');
 router.back();
+
 ```
 
 ### **Dynamic Routes**
+
 ```javascript
 // app/blog/[slug]/page.js
 export default function BlogPost({ params }) {
@@ -184,13 +211,14 @@ export default function BlogCatchAll({ params }) {
   return <h1>Blog: {params.slug.join('/')}</h1>;
 }
 
-// app/blog/[[...slug]]/page.js - Optional catch-all
+// app/blog/[...slug]/page.js - Optional catch-all
 export default function BlogOptional({ params }) {
   if (params.slug) {
     return <h1>Blog: {params.slug.join('/')}</h1>;
   }
   return <h1>Blog Home</h1>;
 }
+
 ```
 
 ---
@@ -198,6 +226,9 @@ export default function BlogOptional({ params }) {
 ## ⚡ **Performance Optimization**
 
 ### **Image Optimization**
+
+**Definition:** Next.js Image component automatically optimizes images with lazy loading, responsive sizing, modern formats (WebP/AVIF), and CDN delivery for better performance.
+
 ```javascript
 import Image from 'next/image';
 
@@ -226,9 +257,11 @@ import Image from 'next/image';
   height={600}
   priority
 />
+
 ```
 
 ### **Code Splitting**
+
 ```javascript
 import dynamic from 'next/dynamic';
 
@@ -246,9 +279,11 @@ const ClientOnlyComponent = dynamic(
   () => import('./ClientOnlyComponent'),
   { ssr: false }
 );
+
 ```
 
 ### **Script Optimization**
+
 ```javascript
 import Script from 'next/script';
 
@@ -269,6 +304,7 @@ import Script from 'next/script';
   src="https://example.com/analytics.js"
   strategy="lazyOnload"
 />
+
 ```
 
 ---
@@ -276,6 +312,7 @@ import Script from 'next/script';
 ## 🔧 **API Routes**
 
 ### **App Router API Routes**
+
 ```javascript
 // app/api/users/route.js
 export async function GET() {
@@ -295,9 +332,11 @@ export const runtime = 'edge';
 export async function GET() {
   return Response.json({ message: 'Hello from edge!' });
 }
+
 ```
 
 ### **Pages Router API Routes (Legacy)**
+
 ```javascript
 // pages/api/users.js
 export default function handler(req, res) {
@@ -307,6 +346,7 @@ export default function handler(req, res) {
     res.status(201).json({ message: 'User created' });
   }
 }
+
 ```
 
 ---
@@ -320,12 +360,12 @@ export default function handler(req, res) {
 export async function createPost(formData) {
   const title = formData.get('title');
   const content = formData.get('content');
-  
+
   const post = await db.posts.create({
     title,
     content
   });
-  
+
   revalidatePath('/posts');
   return post;
 }
@@ -340,6 +380,7 @@ export default function CreatePostForm() {
     </form>
   );
 }
+
 ```
 
 ---
@@ -347,6 +388,7 @@ export default function CreatePostForm() {
 ## 🎨 **Styling**
 
 ### **CSS Modules**
+
 ```javascript
 // styles.module.css
 .container {
@@ -360,9 +402,11 @@ import styles from './styles.module.css';
 export default function Component() {
   return <div className={styles.container}>Content</div>;
 }
+
 ```
 
 ### **Styled JSX**
+
 ```javascript
 export default function Component() {
   return (
@@ -377,9 +421,11 @@ export default function Component() {
     </div>
   );
 }
+
 ```
 
 ### **Tailwind CSS**
+
 ```javascript
 export default function Component() {
   return (
@@ -388,6 +434,7 @@ export default function Component() {
     </div>
   );
 }
+
 ```
 
 ---
@@ -395,6 +442,7 @@ export default function Component() {
 ## 🔐 **Authentication**
 
 ### **NextAuth.js**
+
 ```javascript
 // lib/auth.js
 import NextAuth from 'next-auth';
@@ -427,9 +475,11 @@ export const authOptions = {
 };
 
 export default NextAuth(authOptions);
+
 ```
 
 ### **Middleware Protection**
+
 ```javascript
 // middleware.js
 import { withAuth } from 'next-auth/middleware';
@@ -448,6 +498,7 @@ export default withAuth(
 export const config = {
   matcher: ['/dashboard/:path*', '/admin/:path*']
 };
+
 ```
 
 ---
@@ -455,6 +506,7 @@ export const config = {
 ## 📊 **State Management**
 
 ### **Context API**
+
 ```javascript
 'use client';
 
@@ -464,7 +516,7 @@ const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState('light');
-  
+
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}
@@ -475,9 +527,11 @@ export function ThemeProvider({ children }) {
 export function useTheme() {
   return useContext(ThemeContext);
 }
+
 ```
 
 ### **Zustand**
+
 ```javascript
 import { create } from 'zustand';
 
@@ -489,7 +543,7 @@ const useStore = create((set) => ({
 
 export default function Counter() {
   const { count, increment, decrement } = useStore();
-  
+
   return (
     <div>
       <p>Count: {count}</p>
@@ -498,6 +552,7 @@ export default function Counter() {
     </div>
   );
 }
+
 ```
 
 ---
@@ -505,18 +560,25 @@ export default function Counter() {
 ## 🚀 **Deployment**
 
 ### **Vercel Deployment**
+
 ```bash
+
 # Install Vercel CLI
+
 npm i -g vercel
 
 # Deploy
+
 vercel
 
 # Production deployment
+
 vercel --prod
+
 ```
 
 ### **Docker Deployment**
+
 ```dockerfile
 FROM node:18-alpine AS base
 WORKDIR /app
@@ -539,6 +601,7 @@ COPY --from=builder /app/public ./public
 
 EXPOSE 3000
 CMD ["node", "server.js"]
+
 ```
 
 ---
@@ -546,24 +609,39 @@ CMD ["node", "server.js"]
 ## 🎯 **Interview Tips**
 
 ### **Common Questions**
+
 1. **App Router vs Pages Router** - Modern vs legacy routing
+
 2. **Server Components vs Client Components** - When to use each
+
 3. **Data Fetching** - SSR, SSG, ISR strategies
+
 4. **Performance** - Image optimization, code splitting
+
 5. **Authentication** - NextAuth.js, middleware protection
 
 ### **Key Concepts**
+
 - **Server Components**: Run on server, no JavaScript sent
+
 - **Client Components**: Run in browser, use hooks
+
 - **App Router**: Modern routing with better performance
+
 - **Performance**: Image optimization, code splitting, caching
+
 - **Deployment**: Vercel, Docker, static export
 
 ### **Best Practices**
+
 - Use Server Components when possible
+
 - Optimize images with next/image
+
 - Implement proper error handling
+
 - Use TypeScript for better development experience
+
 - Follow Next.js conventions and patterns
 
 ---
@@ -571,13 +649,19 @@ CMD ["node", "server.js"]
 ## ⚡ **Last-Minute Review (5 minutes)**
 
 ### **Must-Know Concepts**
+
 - **App Router**: Modern routing (Next 13+), file-based routing
+
 - **Server Components**: Run on server, no JavaScript sent (default)
+
 - **Client Components**: Use `'use client'` for hooks, interactivity
+
 - **Data Fetching**: Server Components can be async, fetch directly
+
 - **SSR/SSG/ISR**: Server-side rendering, static generation, incremental regeneration
 
 ### **Quick Code Snippets**
+
 ```javascript
 // Server Component (default)
 async function ServerComponent() {
@@ -594,12 +678,17 @@ function ClientComponent() {
 
 // Image Optimization
 <Image src="/hero.jpg" width={800} height={600} alt="Hero" priority />
+
 ```
 
 ### **Common Gotchas**
+
 - Server Components can't use hooks or browser APIs
+
 - Client Components must have `'use client'` directive
+
 - App Router uses `async` components for data fetching
+
 - Image component requires width/height (or fill with parent)
 
 *Remember: Focus on App Router (Next 13+), Server Components, and modern Next.js features for 2025 interviews!*

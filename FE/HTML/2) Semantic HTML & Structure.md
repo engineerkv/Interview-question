@@ -1,10 +1,18 @@
+# 🏗️ 2. Semantic HTML & Structure (Q16–30)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: HTML Fundamentals](1%29%20HTML%20Fundamentals.md)** | **[Next: Forms & Input Elements →](3%29%20Forms%20%26%20Input%20Elements.md)**
+[HTML Fundamentals](1%29%20HTML%20Fundamentals.md) • [Home: README](../README.md) • [Forms & Input Elements →](3%29%20Forms%20%26%20Input%20Elements.md)
+
+[📋 Cheatsheet](HTML%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 🏗️ 2. Semantic HTML & Structure (Q16–30)
+---
 
 ---
 
@@ -330,8 +338,16 @@ Example:
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: HTML Fundamentals](1%29%20HTML%20Fundamentals.md)** | **[Next: Forms & Input Elements →](3%29%20Forms%20%26%20Input%20Elements.md)**
+[HTML Fundamentals](1%29%20HTML%20Fundamentals.md) • [Home: README](../README.md) • [Forms & Input Elements →](3%29%20Forms%20%26%20Input%20Elements.md)
+
+[📋 Cheatsheet](HTML%20Interview%20Cheatsheet.md)
 
 </div>
+
+---

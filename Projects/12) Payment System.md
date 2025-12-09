@@ -1,0 +1,1352 @@
+# Payment System
+
+> **Project Type:** Full-Stack Web Application (MERN Stack)
+> **Scale:** Handle 1B+ transactions per day, 99.99% reliability, fraud detection
+> **Tech Stack:** React.js, Node.js, Express.js, MongoDB/PostgreSQL, Redis, Payment Gateway SDKs
+
+# 1) Problem Statement
+
+Design and implement a secure payment processing system that addresses the following challenges:
+
+- **Core Functionality**: Process payments securely through payment gateways, support multiple payment methods (credit cards, debit cards, wallets), handle refunds, and maintain payment history
+- **Scale Requirements**: Handle 1B+ transactions per day, millions of concurrent payment requests, and high transaction volumes during peak hours
+- **Performance**: Payment processing < 2 seconds, fast payment history retrieval, low-latency payment status updates
+- **Security**: PCI-DSS compliance, secure payment data handling, fraud detection mechanisms, protect against fraudulent transactions
+- **Reliability**: 99.99% reliability, zero duplicate charges, ensure idempotency, handle payment gateway failures gracefully
+- **Payment Gateway Integration**: Integrate with multiple payment gateways, handle webhooks for payment status updates, process payment responses
+- **Fraud Detection**: Implement fraud detection mechanisms, analyze transaction patterns, block suspicious transactions
+- **Data Consistency**: Ensure idempotency to prevent duplicate charges, maintain transaction consistency, handle concurrent payment requests reliably
+
+---
+
+# 2) High Level Design (HLD)
+
+## a) Requirements
+
+### i) Functional Requirements
+
+- Process payments (credit cards, debit cards, wallets)
+
+- Payment gateway integration
+
+- Refund processing
+
+- Payment history
+
+- Fraud detection
+
+- Webhook handling
+
+### ii) Non-Functional Requirements
+
+- Payment processing < 2 seconds
+
+- 99.99% reliability
+
+- PCI-DSS compliance
+
+- Idempotency (prevent duplicate charges)
+
+---
+
+## b) Scope and Priority
+
+### Phase 1: MVP (Must Have) - Priority 1
+
+- Core functionality
+
+- Basic features
+
+### Phase 2: Enhanced Features - Priority 2
+
+- Additional capabilities
+
+- Performance improvements
+
+### Phase 2: Enhanced Features - Priority 2
+
+- Multiple payment gateways support
+
+- Advanced fraud detection
+
+- Payment analytics and reporting
+
+- Recurring payments and subscriptions
+
+- Payment method management
+
+---
+
+## c) Technology Choices
+
+### Backend Framework
+
+- **Node.js with Express.js** - Fast, secure backend for payment processing
+
+### Payment Gateway
+
+- **Payment Gateway Integration** - Secure payment processing via payment gateway
+
+### Database
+
+- **SQL Database** - ACID compliance for transaction data
+
+- **Redis** - Idempotency keys and transaction state
+
+### Additional Services
+
+- **Message Queue** - For async payment processing and webhooks
+
+- **Webhook Handler** - Process payment status updates
+
+---
+
+## d) Capacity Estimation
+
+### Throughput Requirements
+
+- **Total Users**: 500 million users
+- **Daily Active Users (DAU)**: 100 million users per day
+- **Peak Traffic**: 3x average during peak hours (300 million users per day)
+- **Transactions per Day**: 1 billion transactions
+- **Transaction Requests per Day**: 1.2 billion transaction requests (some failed)
+- **Read:Write Ratio**: 10:1 (viewing payment history vs processing payments)
+
+**Calculations:**
+- **Average Writes Per Second (WPS)**: 1.2B transaction requests / 86,400 seconds ≈ 13,889 WPS
+- **Peak WPS**: 13,889 × 3 = 41,667 WPS
+- **Average Reads Per Second (RPS)**: 13,889 × 10 = 138,890 RPS
+- **Peak RPS**: 138,890 × 3 = 416,670 RPS
+- **Concurrent Active Transactions**: 10 million concurrent active transactions
+
+### Storage Estimation
+
+**Storage per Transaction:**
+- Transaction metadata: 1 KB (id, userId, amount, status, payment method, timestamps)
+- Payment gateway response: 500 bytes (gateway transaction ID, response code, message)
+- Fraud detection data: 500 bytes (risk score, flags, analysis)
+- Audit log: 1 KB (request/response logs, IP address, user agent)
+- **Total per Transaction**: ~3 KB
+
+**Storage Requirements:**
+- **Transactions per Year**: 1B transactions/day × 365 = 365 billion transactions
+- **Transaction Storage**: 365B × 3 KB ≈ 1.095 PB per year
+- **User Data**: 500M users × 5 KB ≈ 2.5 TB
+- **Payment Methods**: 500M users × 2 payment methods × 1 KB ≈ 1 TB
+- **Total Storage**: ~1.095 PB (transactions) + 2.5 TB (users) + 1 TB (payment methods) ≈ 1.098 PB/year
+
+### Bandwidth Estimation
+
+- **Average Transaction Request Size**: 2 KB per request
+- **Daily Bandwidth**: 1.2B requests × 2 KB = 2.4 TB/day
+- **Peak Bandwidth**: 2.4 TB × 3 = 7.2 TB/day during peak hours
+- **Average Bandwidth**: 2.4 TB / 86,400 seconds ≈ 27.8 MB/s
+- **Peak Bandwidth**: 27.8 MB/s × 3 ≈ 83.4 MB/s
+
+### Caching Estimation
+
+Following the **80-20 rule** where 20% of users generate 80% of traffic:
+- **Cache 20% of active users' payment methods**: 100M × 0.2 = 20M users
+- **Cache memory required**: 20M × 2 KB = 40 GB (distributed across Redis cluster)
+- **Cache hit ratio**: 95% (only 5% of payment method requests hit database)
+- **Requests hitting Database**: 138,890 × 0.05 ≈ 6,945 RPS (manageable with sharding)
+
+### Infrastructure Sizing
+
+- **API Servers**: 2,000-5,000 instances behind load balancer, each handling 20-50 RPS
+- **Payment Processing Workers**: 500-1,000 instances for async payment processing
+- **Webhook Handlers**: 200-500 instances for processing payment gateway webhooks
+- **Fraud Detection Service**: 100-200 instances for fraud analysis
+- **Message Queue**: RabbitMQ/Kafka cluster with 50-100 nodes for payment processing and webhooks
+- **Database**: PostgreSQL cluster with 100-200 nodes for ACID compliance and high read/write throughput
+- **Cache Layer**: Redis cluster with 50-100 nodes for high availability and performance
+- **Payment Gateways**: Stripe, PayPal, Razorpay with appropriate rate limits and failover
+
+---
+
+## e) Architecture Overview
+
+The system follows a secure payment processing architecture with idempotency, fraud detection, and distributed transaction management. Here's how the complete system works:
+
+### Frontend Architecture
+
+**Frontend Layers:**
+
+1. **Presentation Layer (React Components)**
+   - **UI Components**: Reusable components (PaymentForm, PaymentMethodCard, TransactionCard, ReceiptView)
+   - **Feature Components**: PaymentProcessor, PaymentHistory, RefundRequest, PaymentMethodManager
+   - **Layout Components**: Header, Sidebar, Navigation, MainLayout
+   - **Page Components**: PaymentPage, HistoryPage, SettingsPage
+
+2. **State Management Layer**
+   - **Local State (useState)**: Component-specific UI state (form inputs, loading, errors, payment status)
+   - **Server State (Redux Toolkit)**: Global state for transactions, payment methods, user
+   - **API State (React Query)**: Transaction data caching, refetching, optimistic updates
+
+3. **Payment Integration Layer**
+   - **Payment Gateway SDK**: Stripe/PayPal SDK integration for secure payment processing
+   - **Tokenization**: Tokenize payment methods for secure storage
+   - **Payment Flow**: Handle payment initiation, confirmation, and status updates
+
+4. **API Integration Layer**
+   - **API Client**: Axios instance with interceptors for auth, error handling
+   - **Redux Thunks**: Async actions for API operations (processPayment, getPaymentHistory, processRefund)
+   - **Request/Response Transformation**: Data normalization and error handling
+
+5. **Routing Layer (React Router)**
+   - **Route Configuration**: Define routes and protected routes
+   - **Navigation**: Programmatic and declarative navigation
+   - **Route Guards**: Authentication and authorization checks
+
+6. **Build & Deployment Layer**
+   - **Build Process**: Webpack/Vite bundling with code splitting
+   - **Static Assets**: Served from CDN (CloudFront/Cloudflare)
+   - **Environment Configuration**: Environment-specific API endpoints and payment gateway keys
+
+**Frontend Request Flow:**
+
+1. **User Interaction** → User initiates payment or views payment history
+2. **State Update** → Redux action dispatched or React Query mutation triggered
+3. **API Call** → Axios makes HTTP request to backend API with idempotency key
+4. **Loading State** → UI shows loading indicator
+5. **Response Handling** → Success/error state updates Redux store or React Query cache
+6. **UI Update** → Components re-render with payment status
+
+### Backend Architecture
+
+**Backend Layers:**
+
+1. **API Gateway/Load Balancer** - Entry point for all HTTP requests
+2. **API Server Layer** - Stateless servers handling HTTP requests
+3. **Payment Processing Layer** - Workers for async payment processing
+4. **Webhook Handler Layer** - Process payment gateway webhooks
+5. **Fraud Detection Layer** - ML-based fraud detection service
+6. **Application Service Layer** - Business logic and orchestration
+7. **Cache Layer** - In-memory caching for performance
+8. **Database Layer** - Persistent data storage with ACID compliance
+9. **Payment Gateway Layer** - Integration with multiple payment gateways
+
+### Complete Request Flow
+
+**Payment Processing Flow:**
+1. **Frontend**: User initiates payment, sends payment request with idempotency key
+2. **API Call**: POST request to payment API with payment details and idempotency key
+3. **Idempotency Check**: Check Redis for existing transaction with same idempotency key
+4. **Fraud Detection**: Analyze transaction for fraud risk
+5. **Payment Gateway**: Process payment via payment gateway (Stripe/PayPal)
+6. **Database**: Create transaction record with status
+7. **Webhook**: Payment gateway sends webhook with payment status
+8. **Update**: Update transaction status based on webhook
+9. **Response**: Return payment status to frontend
+10. **Frontend**: Show payment confirmation or error
+
+**Webhook Processing Flow:**
+1. **Payment Gateway**: Sends webhook with payment status update
+2. **Webhook Handler**: Receive and validate webhook signature
+3. **Idempotency Check**: Check if webhook already processed
+4. **Database**: Update transaction status
+5. **Notification**: Notify user of payment status change
+6. **Response**: Send acknowledgment to payment gateway
+
+**Refund Processing Flow:**
+1. **Frontend**: User requests refund
+2. **API Call**: POST request to refund API
+3. **Validation**: Validate refund eligibility
+4. **Payment Gateway**: Process refund via payment gateway
+5. **Database**: Update transaction status to "refunded"
+6. **Response**: Return refund confirmation
+7. **Frontend**: Show refund confirmation
+
+### Key Components
+
+- **Frontend (React.js)**: Single-page application with payment gateway SDK integration, component-based architecture, Redux for state management, secure payment form handling
+- **Load Balancer**: Distributes HTTP traffic across API servers, SSL/TLS termination
+- **API Servers**: Stateless design for horizontal scaling, handle payment requests, refund requests, payment history
+- **Payment Processing Workers**: Async workers for payment processing, handle payment gateway communication
+- **Webhook Handlers**: Process payment gateway webhooks, update transaction status
+- **Fraud Detection Service**: ML-based fraud detection, analyze transaction patterns, block suspicious transactions
+- **Application Services**: Payment Service, Refund Service, Fraud Detection Service, Webhook Service
+- **Cache Layer (Redis)**: In-memory cache for idempotency keys, payment methods, transaction status
+- **Database (PostgreSQL)**: ACID-compliant database for transaction storage, ensures data consistency
+- **Payment Gateways**: Stripe, PayPal, Razorpay integration with failover support
+
+---
+
+# 3) Low Level Design (LLD)
+
+---
+
+## Component Architecture
+
+### Payment Service
+
+```typescript
+class PaymentService {
+  async processPayment(paymentData: PaymentRequest): Promise<Payment> {
+    // Validate payment data
+    // Check idempotency
+    // Create payment record
+    // Call payment gateway
+    // Update payment status
+    // Return payment result
+  }
+
+  async refundPayment(paymentId: string, amount: number): Promise<Refund> {
+    // Validate refund request
+    // Create refund record
+    // Call payment gateway refund API
+    // Update refund status
+    // Return refund result
+  }
+}
+
+```
+
+---
+
+## Frontend Design
+
+### Component Architecture
+
+Think of the frontend as a tree of React components - each component handles a specific part of the UI, and they work together to create the complete user experience.
+
+**Component Hierarchy:**
+
+```
+App
+├── Header
+│   ├── Logo
+│   ├── Navigation
+│   └── UserMenu (Profile, Settings, Sign out)
+├── MainContent
+│   ├── PaymentFormPage
+│   │   ├── PaymentAmount
+│   │   ├── PaymentMethodSelector
+│   │   │   ├── SavedCards
+│   │   │   ├── CardInput
+│   │   │   ├── WalletOptions
+│   │   │   └── UPIInput
+│   │   ├── PaymentForm
+│   │   │   ├── CardNumberInput
+│   │   │   ├── ExpiryDateInput
+│   │   │   ├── CVVInput
+│   │   │   ├── CardholderNameInput
+│   │   │   └── SaveCardCheckbox
+│   │   ├── BillingAddressForm
+│   │   └── PayButton
+│   ├── PaymentStatusPage
+│   │   ├── PaymentStatusIndicator
+│   │   ├── TransactionDetails
+│   │   │   ├── TransactionId
+│   │   │   ├── Amount
+│   │   │   ├── PaymentMethod
+│   │   │   └── Timestamp
+│   │   └── ActionButtons
+│   │       ├── DownloadReceipt
+│   │       └── RetryPayment (if failed)
+│   ├── PaymentHistoryPage
+│   │   ├── FilterBar
+│   │   │   ├── DateRangeFilter
+│   │   │   ├── StatusFilter
+│   │   │   └── PaymentMethodFilter
+│   │   ├── TransactionList
+│   │   │   └── TransactionCard
+│   │   │       ├── TransactionInfo
+│   │   │       ├── Amount
+│   │   │       ├── Status
+│   │   │       └── ViewDetailsButton
+│   │   └── Pagination
+│   └── PaymentMethodsPage
+│       ├── SavedCardsList
+│       │   └── SavedCardItem
+│       │       ├── CardInfo
+│       │       └── DeleteButton
+│       └── AddPaymentMethodButton
+└── PaymentGatewayProvider (Payment SDK integration)
+```
+
+### Key React Components
+
+**Frontend Implementation:**
+
+```typescript
+// Payment Form Component
+const PaymentForm: React.FC<{ amount: number; onSuccess: (transactionId: string) => void }> = ({ 
+  amount, 
+  onSuccess 
+}) => {
+  const [paymentMethod, setPaymentMethod] = useState<'card' | 'wallet' | 'upi'>('card');
+  const [cardData, setCardData] = useState({ number: '', expiry: '', cvv: '', name: '' });
+  const processPaymentMutation = useProcessPayment();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    processPaymentMutation.mutate({
+      amount,
+      paymentMethod,
+      cardData: paymentMethod === 'card' ? cardData : undefined
+    }, {
+      onSuccess: (data) => {
+        onSuccess(data.transactionId);
+      }
+    });
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="payment-form">
+      <PaymentMethodSelector
+        selected={paymentMethod}
+        onSelect={setPaymentMethod}
+      />
+      {paymentMethod === 'card' && (
+        <CardInput
+          value={cardData}
+          onChange={setCardData}
+        />
+      )}
+      <BillingAddressForm />
+      <button 
+        type="submit" 
+        disabled={processPaymentMutation.isLoading}
+      >
+        {processPaymentMutation.isLoading ? 'Processing...' : `Pay $${amount}`}
+      </button>
+    </form>
+  );
+};
+
+// Transaction Card Component
+const TransactionCard: React.FC<{ transaction: Transaction }> = ({ transaction }) => {
+  return (
+    <div className="transaction-card">
+      <div className="transaction-info">
+        <div className="transaction-id">#{transaction.id}</div>
+        <div className="transaction-date">{formatDate(transaction.createdAt)}</div>
+      </div>
+      <div className="transaction-amount">${transaction.amount}</div>
+      <div className={`transaction-status ${transaction.status}`}>
+        {transaction.status}
+      </div>
+      <button onClick={() => navigate(`/transactions/${transaction.id}`)}>
+        View Details
+      </button>
+    </div>
+  );
+};
+```
+
+### State Management
+
+**State Management Strategy:**
+
+- **Local State (useState)**: Form inputs, UI state (loading, errors, selected payment method)
+- **Component State**: Each component manages its own UI state
+- **API State**: React Query or SWR for server state (transactions, payment methods) - caching, refetching
+- **Global State (Redux Toolkit)**: User authentication, saved payment methods, active payment session
+
+**Frontend Implementation:**
+
+```typescript
+// Using React Query for API state management
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+
+const useProcessPayment = () => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: async (paymentData: PaymentRequest) => {
+      const response = await axios.post('/api/v1/payments', paymentData);
+      return response.data;
+    },
+    onSuccess: (data) => {
+      // Invalidate transactions list
+      queryClient.invalidateQueries({ queryKey: ['transactions'] });
+      // Navigate to payment status page
+      navigate(`/payments/${data.transactionId}/status`);
+    }
+  });
+};
+
+const useTransactions = (filters?: TransactionFilters) => {
+  return useQuery({
+    queryKey: ['transactions', filters],
+    queryFn: async () => {
+      const response = await axios.get('/api/v1/transactions', { params: filters });
+      return response.data;
+    },
+    staleTime: 30 * 1000 // Cache for 30 seconds
+  });
+};
+```
+
+### Component Interactions
+
+**Data Flow:**
+
+1. **Payment Initiation** → User fills payment form, submits payment request
+2. **Payment Processing** → Backend processes payment via payment gateway
+3. **Payment Status** → Payment status updates via webhook or polling
+4. **Transaction History** → User views past transactions with filters
+5. **Payment Methods** → User manages saved payment methods
+
+**Event Handling:**
+
+- Payment form submission triggers payment processing
+- Payment gateway callbacks update payment status
+- Webhook events update transaction status in real-time
+- Saved payment methods load from user profile
+- Transaction filters update transaction list
+
+### UI/UX Considerations
+
+- **Loading States**: Show spinner during payment processing, skeleton loaders for transaction list
+- **Error Handling**: Display user-friendly error messages, handle payment failures gracefully
+- **Validation**: Client-side validation for card details, expiry dates, CVV
+- **Responsive Design**: Mobile-first layout, optimized for touch interactions
+- **Accessibility**: ARIA labels, keyboard navigation, screen reader support
+- **Security**: PCI-DSS compliance, secure card input handling, tokenization
+
+---
+
+## Data Models
+
+### Payment Model
+
+```typescript
+interface Payment {
+  paymentId: string;
+  orderId: string;
+  amount: number;
+  currency: string;
+  status: 'pending' | 'processing' | 'succeeded' | 'failed' | 'refunded';
+  paymentMethod: PaymentMethod;
+  gatewayTransactionId?: string;
+  idempotencyKey: string;
+  metadata?: Record<string, any>;
+  createdAt: Date;
+  updatedAt: Date;
+  completedAt?: Date;
+}
+
+interface PaymentMethod {
+  type: 'card' | 'upi' | 'netbanking' | 'wallet';
+  cardNumber?: string;
+  expiryMonth?: number;
+  expiryYear?: number;
+  cvv?: string;
+  cardholderName?: string;
+}
+
+```
+
+---
+
+## Data APIs
+
+### POST /api/v1/payments
+
+- **URL:** `/api/v1/payments`
+
+- **Method:** POST
+
+- **Request Body:**
+  ```json
+  {
+    "amount": 100.50,
+    "currency": "USD",
+    "orderId": "order_abc123",
+    "paymentMethod": {
+      "type": "card",
+      "cardNumber": "4111111111111111",
+      "expiryMonth": 12,
+      "expiryYear": 2025,
+      "cvv": "123",
+      "cardholderName": "John Doe"
+    },
+    "idempotencyKey": "unique_key_123"
+  }
+  ```
+
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "data": {
+      "paymentId": "pay_abc123",
+      "status": "processing",
+      "amount": 100.50,
+      "currency": "USD",
+      "orderId": "order_abc123",
+      "createdAt": "2024-01-15T10:30:00Z"
+    }
+  }
+  ```
+
+- **Status Codes:** 201 (Created), 400 (Validation Error), 409 (Duplicate - Idempotency Key)
+
+### GET /api/v1/payments/:paymentId
+
+- **URL:** `/api/v1/payments/:paymentId`
+
+- **Method:** GET
+
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "data": {
+      "paymentId": "pay_abc123",
+      "status": "succeeded",
+      "amount": 100.50,
+      "currency": "USD",
+      "orderId": "order_abc123",
+      "gatewayTransactionId": "txn_xyz789",
+      "createdAt": "2024-01-15T10:30:00Z",
+      "completedAt": "2024-01-15T10:30:05Z"
+    }
+  }
+  ```
+
+- **Status Codes:** 200 (Success), 404 (Not Found)
+
+### POST /api/v1/payments/:paymentId/refund
+
+- **URL:** `/api/v1/payments/:paymentId/refund`
+
+- **Method:** POST
+
+- **Request Body:**
+  ```json
+  {
+    "amount": 50.25,
+    "reason": "Customer request"
+  }
+  ```
+
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "data": {
+      "refundId": "refund_abc123",
+      "paymentId": "pay_abc123",
+      "amount": 50.25,
+      "status": "processing",
+      "createdAt": "2024-01-15T11:00:00Z"
+    }
+  }
+  ```
+
+- **Status Codes:** 201 (Created), 400 (Validation Error), 404 (Not Found)
+
+### POST /api/v1/webhooks/payment-gateway
+
+- **URL:** `/api/v1/webhooks/payment-gateway`
+
+- **Method:** POST
+
+- **Description:** Webhook endpoint for payment gateway callbacks
+
+- **Request Body:**
+  ```json
+  {
+    "event": "payment.succeeded",
+    "data": {
+      "paymentId": "pay_abc123",
+      "status": "succeeded",
+      "gatewayTransactionId": "txn_xyz789"
+    },
+    "signature": "webhook_signature"
+  }
+  ```
+
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "Webhook processed"
+  }
+  ```
+
+- **Status Codes:** 200 (Success), 400 (Invalid Signature), 401 (Unauthorized)
+
+---
+
+## Backend Implementation Details
+
+### Express.js Server Structure
+
+```
+
+server/
+├── routes/
+├── controllers/
+├── services/
+└── models/
+
+```
+
+### Service Implementation
+
+```typescript
+class Service {
+  async processRequest(data: any) {
+    // Implementation details
+  }
+}
+
+```
+
+---
+
+## Payment Flow
+
+1. Client initiates payment
+
+2. Generate idempotency key
+
+3. Create payment record (pending)
+
+4. Call payment gateway
+
+5. Update payment status
+
+6. Send webhook to merchant
+
+7. Update order status
+
+## Protocols
+
+### REST API Protocol
+
+- **Protocol:** REST (Representational State Transfer)
+
+- **Data Format:** JSON
+
+- **Authentication:** JWT Bearer token
+
+### Additional Protocols
+
+- **WebSocket** - For real-time features (if applicable)
+
+- **Message Queue** - For async processing (if applicable)
+
+---
+
+---
+
+## Implementation Details
+
+### Core Implementation
+
+**Note:** Implementation details are split between frontend (React.js) and backend (Node.js/Express.js). Each section indicates where the code runs.
+
+### Payment Processing Flow
+
+**Frontend Implementation:** React component handles payment form and checkout flow
+**Backend Implementation:** Express.js service processes payments with idempotency and webhook handling
+
+- **Strategy:** Idempotent payment processing - like ensuring the same payment isn't processed twice, uses idempotency keys
+
+- **Webhook Handling:** Async payment status updates via webhooks from payment gateway
+
+**Backend (Express.js):**
+
+```typescript
+// Backend: services/PaymentService.ts
+import PaymentGateway from 'payment-gateway-sdk';
+import crypto from 'crypto';
+
+class PaymentService {
+  private paymentGateway: PaymentGateway;
+
+  constructor() {
+    this.paymentGateway = new PaymentGateway({
+      key_id: process.env.PAYMENT_GATEWAY_KEY_ID!,
+      key_secret: process.env.PAYMENT_GATEWAY_KEY_SECRET!
+    });
+  }
+
+  async processPayment(paymentData: PaymentRequest): Promise<Payment> {
+    // Check idempotency - prevent duplicate payments
+    const existingPayment = await Payment.findOne({
+      idempotencyKey: paymentData.idempotencyKey
+    });
+
+    if (existingPayment) {
+      return existingPayment; // Return existing payment
+    }
+
+    // Create payment record with pending status
+    const payment = await Payment.create({
+      orderId: paymentData.orderId,
+      amount: paymentData.amount,
+      currency: paymentData.currency,
+      status: 'pending',
+      idempotencyKey: paymentData.idempotencyKey,
+      paymentMethod: paymentData.paymentMethod
+    });
+
+    try {
+      // Call payment gateway
+      const gatewayOrder = await this.paymentGateway.orders.create({
+        amount: paymentData.amount * 100, // Convert to smallest currency unit
+        currency: paymentData.currency,
+        receipt: payment.paymentId
+      });
+
+      // Update payment with gateway order ID
+      payment.gatewayOrderId = gatewayOrder.id;
+      payment.status = 'processing';
+      await payment.save();
+
+      return payment;
+    } catch (error) {
+      // Update payment status to failed
+      payment.status = 'failed';
+      payment.errorMessage = error.message;
+      await payment.save();
+      throw error;
+    }
+  }
+
+  async handleWebhook(webhookData: any, signature: string): Promise<void> {
+    // Verify webhook signature
+    const expectedSignature = crypto
+      .createHmac('sha256', process.env.PAYMENT_GATEWAY_WEBHOOK_SECRET!)
+      .update(JSON.stringify(webhookData))
+      .digest('hex');
+
+    if (signature !== expectedSignature) {
+      throw new Error('Invalid webhook signature');
+    }
+
+    // Process webhook event
+    if (webhookData.event === 'payment.captured') {
+      const payment = await Payment.findOne({
+        gatewayTransactionId: webhookData.payload.payment.entity.id
+      });
+
+      if (payment) {
+        payment.status = 'succeeded';
+        payment.gatewayTransactionId = webhookData.payload.payment.entity.id;
+        payment.completedAt = new Date();
+        await payment.save();
+
+        // Update order status
+        await Order.updateOne(
+          { orderId: payment.orderId },
+          { $set: { status: 'paid' } }
+        );
+      }
+    }
+  }
+}
+
+```
+
+**Frontend Implementation:**
+
+```typescript
+// React component for payment form
+import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
+import { loadPaymentGateway } from '../utils/paymentGateway';
+
+const PaymentForm: React.FC<{ orderId: string; amount: number }> = ({ orderId, amount }) => {
+  const [cardData, setCardData] = useState({
+    cardNumber: '',
+    expiryMonth: '',
+    expiryYear: '',
+    cvv: '',
+    cardholderName: ''
+  });
+
+  const { mutate: processPayment, isLoading } = useMutation({
+    mutationFn: async (paymentData: any) => {
+      // Generate idempotency key
+      const idempotencyKey = `${orderId}-${Date.now()}`;
+
+      // Create payment
+      const response = await axios.post('/api/v1/payments', {
+        ...paymentData,
+        idempotencyKey
+      });
+
+      // Initialize payment gateway checkout
+      const paymentGateway = await loadPaymentGateway();
+      const options = {
+        key: process.env.REACT_APP_PAYMENT_GATEWAY_KEY_ID,
+        amount: amount * 100,
+        currency: 'INR',
+        name: 'My Company',
+        description: `Payment for Order ${orderId}`,
+        order_id: response.data.data.gatewayOrderId,
+        handler: async (response: any) => {
+          // Payment successful
+          await axios.post('/api/v1/payments/verify', {
+            paymentId: response.data.paymentId,
+            gatewayPaymentId: response.gateway_payment_id,
+            gatewayOrderId: response.gateway_order_id,
+            gatewaySignature: response.gateway_signature
+          });
+        },
+        prefill: {
+          name: cardData.cardholderName
+        }
+      };
+
+      const gatewayInstance = new paymentGateway(options);
+      gatewayInstance.open();
+
+      return response.data;
+    },
+    onError: (error) => {
+      console.error('Payment failed:', error);
+    }
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    processPayment({
+      orderId,
+      amount,
+      paymentMethod: {
+        type: 'card',
+        ...cardData
+      }
+    });
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      {/* Payment form fields */}
+      <button type="submit" disabled={isLoading}>
+        {isLoading ? 'Processing...' : 'Pay Now'}
+      </button>
+    </form>
+  );
+};
+
+```
+
+### Idempotency and Webhook Handling
+
+**Frontend Implementation:** React component handles payment status polling
+**Backend Implementation:** Express.js handles idempotency keys and webhook verification
+
+- **Strategy:** Idempotency keys prevent duplicate payments - same key returns same result
+
+- **Webhook Verification:** Verify webhook signatures to ensure authenticity
+
+**Backend (Express.js):**
+
+```typescript
+// Backend: middleware/idempotency.ts
+export const idempotencyMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+  const idempotencyKey = req.headers['idempotency-key'] as string;
+
+  if (!idempotencyKey) {
+    return res.status(400).json({ error: 'Idempotency key required' });
+  }
+
+  // Check if request was already processed
+  const existingResult = await IdempotencyKey.findOne({ key: idempotencyKey });
+
+  if (existingResult) {
+    // Return cached response
+    return res.status(existingResult.statusCode).json(existingResult.response);
+  }
+
+  // Store original res.json
+  const originalJson = res.json.bind(res);
+
+  // Override res.json to cache response
+  res.json = function(body: any) {
+    IdempotencyKey.create({
+      key: idempotencyKey,
+      statusCode: res.statusCode,
+      response: body
+    });
+
+    return originalJson(body);
+  };
+
+  next();
+};
+
+```
+
+### Error Handling
+
+**Error Scenarios:**
+
+- **Payment Gateway Errors:** Handle payment gateway failures, network timeouts, invalid responses - retry with exponential backoff, log for investigation
+
+- **Transaction Failures:** Handle insufficient funds, card declined, expired cards - show user-friendly error messages, suggest alternative payment methods
+
+- **Idempotency Errors:** Handle duplicate payment requests - return existing transaction result, prevent double charging
+
+- **Webhook Failures:** Handle webhook delivery failures - retry with exponential backoff, store in dead letter queue after max retries
+
+---
+
+## Testing Strategy
+
+### Frontend Testing (React.js)
+
+**Unit Testing:**
+
+- **Jest + React Testing Library** - Test components, payment form, checkout flow
+
+- **Payment Component Testing** - Test payment form validation, card input, error handling
+
+- **Mocking:** Mock API calls, payment gateway SDK
+
+**Integration Testing:**
+
+- **Payment Flow** - Test complete payment process
+
+- **Payment Gateway Integration** - Test payment gateway SDK integration
+
+- **API Integration Tests** - Test API calls with mock server
+
+**E2E Testing:**
+
+- **Cypress / Playwright** - Test payment flows
+
+- **Test Scenarios:** Process payment, handle payment failures, refund processing
+
+### Backend Testing (Node.js/Express.js)
+
+**Unit Testing:**
+
+- **Jest + Supertest** - Test API endpoints, payment processing
+
+- **Payment Gateway Testing** - Test payment gateway integration
+
+- **Mocking:** Mock database, payment gateway, Redis
+
+**Integration Testing:**
+
+- **MongoDB Memory Server** - Test database operations
+
+- **Redis Mock** - Test idempotency keys
+
+- **Payment Gateway Mock** - Test payment gateway responses
+
+**Load Testing:**
+
+- **Artillery / k6** - Test payment processing under high load
+
+- **Concurrent Payments:** Test performance with multiple simultaneous payments
+
+---
+
+## Deployment & DevOps
+
+### Frontend Deployment
+
+**Build Process:**
+
+- **Production Build:** Optimized bundle with code splitting
+
+- **CDN Deployment:** Deploy static assets to CDN
+
+- **Environment Variables:** `.env.production` for production config
+
+**Deployment Platforms:**
+
+- **Vercel / Netlify** - Automatic deployments
+
+- **AWS S3 + CloudFront** - Static site hosting with CDN
+
+### Backend Deployment
+
+**Server Setup:**
+
+- **PM2:** Process manager with clustering
+
+- **Nginx:** Load balancer and reverse proxy
+
+- **Docker:** Containerized deployment
+
+**CI/CD Pipeline:**
+
+- **Automated Testing:** Run tests before deployment
+
+- **Zero-Downtime:** Rolling deployment strategy
+
+- **Health Checks:** Verify payment endpoints
+
+### Database Deployment
+
+**MongoDB/PostgreSQL Setup:**
+
+- **Managed Database Service** - MongoDB Atlas / AWS RDS
+
+- **Backup Strategy:** Daily automated backups, point-in-time recovery
+
+- **Transaction Logs:** Maintain transaction logs for audit
+
+**Redis Setup:**
+
+- **Redis Cloud / AWS ElastiCache** - Managed Redis service
+
+- **Idempotency Keys:** Store idempotency keys in Redis
+
+---
+
+## Environment Configuration
+
+### Environment Variables
+
+**Frontend:**
+
+```env
+REACT_APP_API_URL=https://api.example.com
+REACT_APP_PAYMENT_GATEWAY_KEY=pk_live_xxx
+REACT_APP_ENVIRONMENT=production
+
+```
+
+**Backend:**
+
+```env
+NODE_ENV=production
+PORT=3000
+MONGODB_URI=mongodb://...
+REDIS_URL=redis://...
+PAYMENT_GATEWAY_SECRET_KEY=sk_live_xxx
+PAYMENT_GATEWAY_WEBHOOK_SECRET=whsec_xxx
+
+```
+
+---
+
+## Database Migrations & Seeding
+
+### MongoDB/PostgreSQL Migrations
+
+**Migration Scripts:**
+
+- **Schema Changes:** Add indexes for transaction queries
+
+- **Data Migrations:** Update transaction formats
+
+- **Index Optimization:** Add compound indexes for payment queries
+
+### Data Seeding
+
+**Seed Data:**
+
+- **Test Transactions:** Seed test transactions
+
+- **Payment Methods:** Seed test payment methods
+
+---
+
+## API Documentation
+
+### Swagger/OpenAPI
+
+**API Documentation:**
+
+- **Swagger UI:** Document REST APIs
+
+- **Payment API:** Document payment endpoints
+
+- **Webhook API:** Document webhook endpoints
+
+---
+
+## API Versioning
+
+**Versioning Strategy:**
+
+- **URL Versioning:** `/api/v1/payments`, `/api/v2/payments`
+
+- **Header Versioning:** `Accept: application/vnd.api+json;version=1`
+
+- **Backward Compatibility:** Maintain old API versions for existing clients
+
+---
+
+## Monitoring & Logging
+
+### Application Monitoring
+
+**Frontend:**
+
+- **Error Tracking:** Sentry for payment errors
+
+- **Performance:** Track payment processing times
+
+- **User Analytics:** Track payment success rates
+
+**Backend:**
+
+- **APM:** Monitor payment processing performance
+
+- **Payment Gateway Monitoring:** Track payment gateway response times
+
+- **Payment Metrics:** Track transaction volume, success rates, failures
+
+### Logging
+
+**Structured Logging:**
+
+- **Winston / Pino:** Log payment operations
+
+- **Payment Events:** Log payment initiation, processing, completion, failures
+
+- **Error Logging:** Detailed error logs with context (no sensitive data)
+
+---
+
+## Database Transactions & Consistency
+
+### MongoDB/PostgreSQL Transactions
+
+**Transaction Usage:**
+
+- **Multi-Document Transactions** - For operations requiring ACID guarantees
+
+- **Example:** Payment creation + balance update + transaction log
+
+- **Session Management:** Use database sessions for transaction control
+
+**Example:**
+
+```typescript
+const session = await mongoose.startSession();
+session.startTransaction();
+try {
+  await Payment.create([paymentData], { session });
+  await Wallet.updateOne({ userId }, { $inc: { balance: -amount } }, { session });
+  await TransactionLog.create([logData], { session });
+  await session.commitTransaction();
+} catch (error) {
+  await session.abortTransaction();
+  throw error;
+} finally {
+  session.endSession();
+}
+
+```
+
+### Consistency Strategies
+
+**Data Consistency:**
+
+- **Payment Consistency:** Use transactions for payment operations
+
+- **Idempotency:** Use idempotency keys to prevent duplicate payments
+
+- **Balance Consistency:** Ensure balance updates are atomic
+
+---
+
+## Third-Party Service Integration
+
+### Payment Gateway Integration
+
+**Payment Processing:**
+
+- **SDK Integration:** Integrate payment gateway SDK for payment processing
+
+- **Webhook Handling:** Handle payment gateway webhooks
+
+- **Idempotency:** Implement idempotency for payment requests
+
+- **Error Handling:** Handle payment gateway errors gracefully
+
+### Redis Integration
+
+**Idempotency & Caching:**
+
+- **Idempotency Keys:** Store idempotency keys in Redis
+
+- **Payment Status Caching:** Cache payment status
+
+- **Rate Limiting:** Use Redis for rate limiting
+
+---
+
+# 3) Interview Answers
+
+---
+
+## Q1. Designing a payment system
+
+**Situation:** Need to design a payment processing system for 1B+ transactions per day with 99.99% reliability, handling multiple payment methods and fraud detection.
+
+**Action:** I designed a payment system:
+
+- **Idempotency:** Use idempotency keys to prevent duplicate charges (store in Redis)
+
+- **Payment Gateway Integration:** Integrate with multiple payment gateways
+
+- **Webhook Handling:** Process payment status updates via webhooks with signature verification
+
+- **Message Queue:** Use Kafka/RabbitMQ for async payment processing to avoid blocking
+
+- **Fraud Detection:** ML-based fraud detection system analyzing transaction patterns
+
+- **Retry Logic:** Retry failed payments with exponential backoff
+
+- **Database Transactions:** Use database transactions to ensure payment and order consistency
+
+- **Audit Logging:** Log all payment operations for compliance and debugging
+
+**Result:** System handles 1B+ transactions per day with 99.99% reliability. Zero duplicate charges due to idempotency. Fraud detection reduces fraudulent transactions by 95%.
+
+**Takeaway:** Idempotency is critical for payment systems. Webhooks provide reliable status updates. Fraud detection protects both users and merchants.
+
+---
+
+## Q2. Ensuring idempotency in payment processing
+
+**Situation:** Need to prevent duplicate charges when payment request is retried.
+
+**Action:** I implemented idempotency:
+
+- **Idempotency Key:** Client sends unique idempotency key with each payment request
+
+- **Redis Storage:** Store idempotency key → payment result mapping in Redis with 24-hour TTL
+
+- **Duplicate Detection:** Check if idempotency key exists before processing payment
+
+- **Return Cached Result:** If key exists, return cached payment result instead of processing again
+
+- **Key Generation:** Client generates idempotency key (UUID) or server generates if not provided
+
+**Result:** Zero duplicate charges in production. Idempotency keys prevent duplicate processing even with network retries.
+
+**Takeaway:** Idempotency keys are essential for payment systems. Redis provides fast duplicate detection.
+
+---
+
+## Q3. Handling payment webhooks
+
+**Situation:** Payment gateway sends webhooks to notify payment status changes.
+
+**Action:** I implemented webhook handling:
+
+- **Signature Verification:** Verify webhook signature to ensure authenticity
+
+- **Idempotency:** Use webhook ID to prevent duplicate processing
+
+- **Queue Processing:** Queue webhooks for async processing to avoid blocking
+
+- **Retry Logic:** Retry failed webhook processing with exponential backoff
+
+- **Status Updates:** Update payment and order status based on webhook events
+
+- **Logging:** Log all webhook events for audit trail
+
+**Result:** 99.9% webhook processing success rate. Payment status updates in real-time. Zero duplicate webhook processing.
+
+**Takeaway:** Webhook signature verification is critical for security. Async processing prevents blocking.

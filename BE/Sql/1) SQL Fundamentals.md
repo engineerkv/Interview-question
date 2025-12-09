@@ -1,10 +1,18 @@
+# 🗄️ 1. SQL Fundamentals (Q1–10)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: README](../README.md)** | **[Next: Querying & Joins →](2%29%20Querying%20%26%20Joins.md)**
+[Home: Question List](question.md) • [Next: Querying & Joins →](2%29%20Querying%20%26%20Joins.md)
+
+[📋 Cheatsheet](SQL%20Interview%20Cheatsheet.md)
 
 </div>
 
-# 🗄️ 1. SQL Fundamentals (Q1–10)
+---
 
 ---
 
@@ -62,7 +70,7 @@ SELECT TOP 10 name, salary FROM employees WHERE salary > 50000;
 
 A database schema is the logical structure that defines how data is organized, including tables, views, indexes, constraints, and relationships between database objects. It provides namespace separation and logical grouping of related objects.
 
-- **Trade-offs**: Schemas provide security boundaries with different access permissions and make object management easier, but they can complicate naming and require schema.object_name references—they're great for multi-tenancy where multiple applications share the same database safely.
+- **Trade-offs**: Schemas provide security boundaries with different access permissions and make object management easier, but these can complicate naming and require schema.object_name references—these are great for multi-tenancy where multiple applications share the same database safely.
 
 Example:
 
@@ -85,7 +93,7 @@ CREATE TABLE hr.employees (
 
 A table stores actual data physically, while a view is a virtual table based on the result of a SQL query that doesn't store data but provides a way to access and manipulate data from underlying tables. Views store only the query definition, not the data itself.
 
-- **Trade-offs**: Views simplify complex queries and provide security by restricting access to specific columns or rows, but they don't improve performance by themselves—they can be updated only if they meet specific criteria (single table, no aggregates), and complex views can actually slow down queries.
+- **Trade-offs**: Views simplify complex queries and provide security by restricting access to specific columns or rows, but these don't improve performance by themselves—these can be updated only if these meet specific criteria (single table, no aggregates), and complex views can actually slow down queries.
 
 Example:
 
@@ -110,7 +118,7 @@ SELECT id, name, salary FROM employees WHERE salary > 50000;
 
 Constraints are rules applied to table columns to ensure data integrity, consistency, and validity by restricting the type of data that can be stored. NOT NULL prevents NULL values, CHECK validates against conditions, DEFAULT provides fallback values, UNIQUE ensures uniqueness, and PRIMARY KEY combines NOT NULL and UNIQUE.
 
-- **Trade-offs**: Constraints enforce data quality at the database level and prevent invalid data, but they can slow down INSERT/UPDATE operations and make schema changes more complex—use them to catch errors early, but balance strictness with flexibility.
+- **Trade-offs**: Constraints enforce data quality at the database level and prevent invalid data, but these can slow down INSERT/UPDATE operations and make schema changes more complex—use them to catch errors early, but balance strictness with flexibility.
 
 Example:
 
@@ -157,7 +165,7 @@ CREATE TABLE employees (
 
 Composite keys are primary keys made up of multiple columns when no single column can uniquely identify a row, but a combination of columns can. They often represent natural business relationships, but column order matters for query performance.
 
-- **Trade-offs**: Composite keys are natural for relationships like order_items (order_id + product_id), but they can affect join performance and make foreign key references more complex—sometimes artificial single-column surrogate keys are preferred for performance, even though they're less intuitive.
+- **Trade-offs**: Composite keys are natural for relationships like order_items (order_id + product_id), but these can affect join performance and make foreign key references more complex—sometimes artificial single-column surrogate keys are preferred for performance, even though these are less intuitive.
 
 Example:
 
@@ -200,7 +208,7 @@ DROP TABLE old_table;
 
 ## Q9. 🤔 Difference between DELETE, TRUNCATE, and DROP
 
-Aliases provide temporary names for tables or columns, making queries more readable, enabling shorter references, and allowing for self-joins and complex queries. They're essential for joining a table with itself and preventing ambiguity when multiple tables have the same column names.
+Aliases provide temporary names for tables or columns, making queries more readable, enabling shorter references, and allowing for self-joins and complex queries. These are essential for joining a table with itself and preventing ambiguity when multiple tables have the same column names.
 
 - **Trade-offs**: Aliases make complex queries more readable and maintainable, and shorter aliases can slightly improve query performance, but use meaningful aliases that reflect table purpose (like 'e' for employees) rather than random letters—clarity matters more than saving a few characters.
 
@@ -208,7 +216,7 @@ Example:
 
 ```sql
 -- Column aliases
-SELECT 
+SELECT
     employee_id AS emp_id,
     first_name AS fname,
     last_name AS lname,
@@ -216,7 +224,7 @@ SELECT
 FROM employees;
 
 -- Table aliases for self-join
-SELECT 
+SELECT
     e1.employee_name AS employee,
     e2.employee_name AS manager
 FROM employees e1
@@ -236,7 +244,7 @@ Example:
 
 ```sql
 -- Basic aggregate functions
-SELECT 
+SELECT
     COUNT(*) AS total_employees,
     COUNT(salary) AS employees_with_salary,
     SUM(salary) AS total_payroll,
@@ -246,7 +254,7 @@ SELECT
 FROM employees;
 
 -- With GROUP BY
-SELECT 
+SELECT
     department_id,
     COUNT(*) AS emp_count,
     AVG(salary) AS avg_salary
@@ -258,9 +266,16 @@ HAVING COUNT(*) > 5;
 
 ---
 
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: README](../README.md)** | **[Next: Querying & Joins →](2%29%20Querying%20%26%20Joins.md)**
+[Home: Question List](question.md) • [Next: Querying & Joins →](2%29%20Querying%20%26%20Joins.md)
+
+[📋 Cheatsheet](SQL%20Interview%20Cheatsheet.md)
 
 </div>
 
+---

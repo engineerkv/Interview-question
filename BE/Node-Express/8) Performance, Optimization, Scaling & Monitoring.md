@@ -1,12 +1,20 @@
+# ⚡ 8. Performance, Optimization, Scaling & Monitoring (Q80–88)
+
+---
+
+## 📍 Navigation
+
 <div align="center">
 
-**[← Previous: Authentication, Security & Encryption](7%29%20Authentication%2C%20Security%20%26%20Encryption.md)** | **[Next: Testing, Debugging & Deployment →](9%29%20Testing%2C%20Debugging%20%26%20Deployment.md)**
+[← Previous: Authentication, Security & Encryption](7%29%20Authentication%2C%20Security%20%26%20Encryption.md) • [Home: Question List](question.md) • [Next: Testing, Debugging & Deployment →](9%29%20Testing%2C%20Debugging%20%26%20Deployment.md)
+
+[📋 Cheatsheet](Node-Express%20Interview%20Cheatsheet.md)
 
 </div>
 
-# ⚡ 8. Performance, Optimization, Scaling & Monitoring (Q81–89)
+---
 
-## Q81. ⚡ Identifying performance bottlenecks in Node.js applications
+## Q80. ⚡ Identifying performance bottlenecks in Node.js applications
 
 Common bottlenecks include blocking I/O operations, memory leaks, inefficient algorithms, and event loop blocking - avoid synchronous operations in request handlers, use streaming for large data processing, implement proper error handling, monitor event loop lag, and profile CPU and memory usage regularly. Can be addressed through proper async patterns and optimization techniques.
 
@@ -34,7 +42,7 @@ app.get('/data', (req, res) => {
 
 ```
 
-## Q82. ⚡ Optimizing middleware for performance
+## Q81. ⚡ Optimizing middleware for performance
 
 Optimize middleware by reducing heavy operations, implementing compression, caching, and ordering middleware efficiently - order middleware by frequency of use, use compression for text responses, implement caching for expensive operations, avoid heavy middleware on all routes, and monitor middleware execution time. Minimizes request processing time.
 
@@ -68,7 +76,7 @@ app.use('/api/data', (req, res, next) => {
 
 ```
 
-## Q83. 🗄️ Optimizing database queries in Node.js
+## Q82. 🗄️ Optimizing database queries in Node.js
 
 Optimize database performance by using connection pooling, query optimization, indexing, and async database operations - use connection pooling for database connections, optimize queries with proper indexing, use prepared statements to prevent SQL injection, implement query caching for frequently accessed data, and monitor database performance and slow queries. Prevents blocking the event loop.
 
@@ -105,7 +113,7 @@ app.get('/api/users', async (req, res) => {
 
 ```
 
-## Q84. 🔧 Implementing clustering with PM2
+## Q83. 🔧 Implementing clustering with PM2
 
 PM2 is a process manager for Node.js applications that provides clustering, monitoring, logging, and automatic restarts for production deployments - it provides process clustering and load balancing, automatic restarts on crashes, built-in monitoring and logging, zero-downtime deployments, and memory and CPU monitoring.
 
@@ -138,7 +146,7 @@ module.exports = {
 
 ```
 
-## Q85. 🔧 Implementing horizontal scaling in Node.js
+## Q84. 🔧 Implementing horizontal scaling in Node.js
 
 Horizontal scaling involves running multiple instances of the application across different processes, machines, or containers, with load balancing to distribute requests - use clustering for multi-core utilization, implement load balancing for multiple servers, use containers (Docker) for consistent deployments, consider microservices architecture, and implement health checks and monitoring.
 
@@ -162,14 +170,14 @@ if (cluster.isMaster) {
 } else {
   const express = require('express');
   const app = express();
-  
+
   app.get('/', (req, res) => {
-    res.json({ 
-      message: 'Hello World!', 
-      pid: process.pid 
+    res.json({
+      message: 'Hello World!',
+      pid: process.pid
     });
   });
-  
+
   app.listen(3000, () => {
     console.log(`Worker ${process.pid} started`);
   });
@@ -177,7 +185,7 @@ if (cluster.isMaster) {
 
 ```
 
-## Q86. 💾 Implementing caching with Redis or LRU
+## Q85. 💾 Implementing caching with Redis or LRU
 
 Caching stores frequently accessed data in fast storage (memory or Redis) to reduce database load and improve response times - use Redis for distributed caching, implement cache invalidation strategies, consider cache warming for critical data, monitor cache hit rates, and use appropriate TTL values.
 
@@ -194,33 +202,33 @@ const cache = new LRU({ max: 100, ttl: 1000 * 60 * 5 });
 
 app.get('/api/users/:id', async (req, res) => {
   const userId = req.params.id;
-  
+
   const cached = await client.get(`user:${userId}`);
   if (cached) {
     return res.json(JSON.parse(cached));
   }
-  
+
   const user = await getUserById(userId);
   await client.setex(`user:${userId}`, 300, JSON.stringify(user));
-  
+
   res.json(user);
 });
 
 app.get('/api/stats', (req, res) => {
   const cacheKey = 'stats';
   let stats = cache.get(cacheKey);
-  
+
   if (!stats) {
     stats = calculateStats();
     cache.set(cacheKey, stats);
   }
-  
+
   res.json(stats);
 });
 
 ```
 
-## Q87. 🔌 Optimizing API response times
+## Q86. 🔌 Optimizing API response times
 
 Optimize API response times through caching, database optimization, compression, CDN usage, and efficient data processing - use database pagination instead of loading all data, select only necessary fields, implement proper indexing, use compression for text responses, and consider CDN for static assets.
 
@@ -242,13 +250,13 @@ app.use('/api/', limiter);
 
 app.get('/api/users', async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
-  
+
   const users = await User.find()
     .select('id name email')
     .limit(limit * 1)
     .skip((page - 1) * limit)
     .lean();
-  
+
   res.json({
     users,
     pagination: { page, limit, total: await User.countDocuments() }
@@ -257,7 +265,7 @@ app.get('/api/users', async (req, res) => {
 
 ```
 
-## Q88. 📊 Implementing monitoring and alerting
+## Q87. 📊 Implementing monitoring and alerting
 
 Monitoring tools provide real-time insights into application performance, errors, and user experience - monitor key performance metrics, set up alerts for critical issues, track user experience metrics, monitor database and external service performance, and use distributed tracing for microservices. Enables proactive issue detection and resolution.
 
@@ -290,7 +298,7 @@ app.get('/api/data', async (req, res) => {
 
 ```
 
-## Q89. 🔧 Implementing connection pooling and batching
+## Q88. 🔧 Implementing connection pooling and batching
 
 Performance optimization involves profiling to identify bottlenecks, implementing efficient patterns like batching and async iteration, and optimizing resource usage - profile before optimizing, use batching for bulk operations, implement async iteration for large datasets, use connection pooling for databases, and monitor and measure improvements.
 
@@ -311,11 +319,11 @@ obs.observe({ entryTypes: ['measure'] });
 async function batchProcess(items) {
   const batchSize = 100;
   const batches = [];
-  
+
   for (let i = 0; i < items.length; i += batchSize) {
     batches.push(items.slice(i, i + batchSize));
   }
-  
+
   for (const batch of batches) {
     await Promise.all(batch.map(processItem));
   }
@@ -329,3 +337,17 @@ async function processLargeDataset() {
 }
 
 ```
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[7) Authentication, Security & Encryption.md](7%29%20Authentication,%20Security%20&%20Encryption.md) • [Home: Question List](question.md) • [9) Testing, Debugging & Deployment.md →](9%29%20Testing,%20Debugging%20&%20Deployment.md)
+
+[📋 Cheatsheet](Node-Express%20Interview%20Cheatsheet.md]
+
+</div>
+
+---

@@ -1,5 +1,19 @@
 # Binary Search
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Trie](13%20Trie.md) • [Home: README](README.md) • [Bit Manipulation →](15%20Bit%20Manipulation.md)
+
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+
+</div>
+
+---
+
 ## Q211. Search Insert Position
 
 **Problem:** Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order. You must write an algorithm with `O(log n)` runtime complexity.
@@ -7,13 +21,14 @@
 **Approach:** Use binary search. If target found, return index. If not found, `left` index is the insertion position.
 
 ### Solution 1: Binary Search (Optimal)
+
 ```javascript
 function searchInsert(nums, target) {
   let left = 0, right = nums.length - 1;
-  
+
   while (left <= right) {
     const mid = Math.floor((left + right) / 2);
-    
+
     if (nums[mid] === target) {
       return mid;
     } else if (nums[mid] < target) {
@@ -22,10 +37,11 @@ function searchInsert(nums, target) {
       right = mid - 1;
     }
   }
-  
+
   // Insertion position is left
   return left;
 }
+
 ```
 
 // Test Cases:
@@ -40,16 +56,18 @@ function searchInsert(nums, target) {
 
 // Input: nums = [1,3,5,6], target = 0
 // Output: 0
+
 ```
 
-**Time Complexity:** O(log n) - Binary search  
+**Time Complexity:** O(log n) - Binary search
 **Space Complexity:** O(1) - Constant extra space
-
 
 ## Q212. Search a 2D Matrix
 
 **Problem:** You are given an `m x n` integer matrix `matrix` with the following two properties:
+
 - Each row is sorted in non-decreasing order.
+
 - The first integer of each row is greater than the last integer of the previous row.
 
 Given an integer `target`, return `true` if `target` is in `matrix` or `false` otherwise. You must write a solution in `O(log(m * n))` time complexity.
@@ -57,10 +75,11 @@ Given an integer `target`, return `true` if `target` is in `matrix` or `false` o
 **Approach:** Treat 2D matrix as sorted 1D array. Convert flat index to row/col using: row = mid/n, col = mid%n.
 
 ### Solution 1: Binary Search on Flattened Array (Optimal)
+
 ```javascript
 function searchMatrix(matrix, target) {
   if (!matrix.length || !matrix[0].length) return false;
-  
+
   const m = matrix.length;
   const n = matrix[0].length;
   let left = 0, right = m * n - 1;
@@ -83,19 +102,20 @@ function searchMatrix(matrix, target) {
 
   return false;
 }
+
 ```
 
 // Test Cases:
-// Input: matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3
+// Input: matrix = [1,3,5,7],[10,11,16,20],[23,30,34,60], target = 3
 // Output: true
 
-// Input: matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13
+// Input: matrix = [1,3,5,7],[10,11,16,20],[23,30,34,60], target = 13
 // Output: false
+
 ```
 
-**Time Complexity:** O(log(m × n)) - Binary search on flattened array  
+**Time Complexity:** O(log(m × n)) - Binary search on flattened array
 **Space Complexity:** O(1) - Constant extra space
-
 
 ## Q213. Find Peak Element
 
@@ -104,13 +124,14 @@ function searchMatrix(matrix, target) {
 **Approach:** Use binary search. Compare mid with mid+1. If mid < mid+1, peak is in right half. Otherwise, peak is in left half.
 
 ### Solution 1: Binary Search (Optimal)
+
 ```javascript
 function findPeakElement(nums) {
   let left = 0, right = nums.length - 1;
 
   while (left < right) {
     const mid = Math.floor((left + right) / 2);
-    
+
     // If mid < mid+1, peak is in right half
     if (nums[mid] < nums[mid + 1]) {
       left = mid + 1;
@@ -122,6 +143,7 @@ function findPeakElement(nums) {
 
   return left;
 }
+
 ```
 
 // Test Cases:
@@ -132,19 +154,20 @@ function findPeakElement(nums) {
 // Input: nums = [1,2,1,3,5,6,4]
 // Output: 5
 // Explanation: 6 is a peak element and index is 5
+
 ```
 
-**Time Complexity:** O(log n) - Binary search  
+**Time Complexity:** O(log n) - Binary search
 **Space Complexity:** O(1) - Constant extra space
-
 
 ## Q214. Search in Rotated Sorted Array
 
-**Problem:** There is an integer array `nums` sorted in ascending order (with distinct values). Prior to being passed to your function, `nums` is possibly rotated at an unknown pivot index `k` (1 <= k < nums.length) such that the resulting array is `[nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]` (0-indexed). For example, `[0,1,2,4,5,6,7]` might be rotated at pivot index `3` and become `[4,5,6,7,0,1,2]`. Given the array `nums` after the rotation and an integer `target`, return the index of `target` if it is in `nums`, or `-1` if it is not in `nums`. You must write an algorithm with `O(log n)` runtime complexity.
+**Problem:** There is an integer array `nums` sorted in ascending order (with distinct values). Prior to being passed to your function, `nums` is possibly rotated at an unknown pivot index `k` (1 <= k < nums.length) such that the resulting array is `[nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]` (0-indexed). For example, `[0,1,2,4,5,6,7]` might be rotated at pivot index `3` and become `[4,5,6,7,0,1,2]`. Given the array `nums` after the rotation and an integer `target`, return the index of `target` if it is in `nums`, or `-1` if it is not in `nums`. You must write an algorithm with `O(log n)` runtime complexity.
 
 **Approach:** Use binary search. Check which half is sorted. If target is in sorted half's range, search there. Otherwise, search the other half.
 
 ### Solution 1: Binary Search with Rotation Handling (Optimal)
+
 ```javascript
 function search(nums, target) {
   let left = 0, right = nums.length - 1;
@@ -164,7 +187,7 @@ function search(nums, target) {
       } else {
         left = mid + 1;
       }
-    } 
+    }
     // Right half is sorted
     else {
       // Target is in sorted right half
@@ -178,6 +201,7 @@ function search(nums, target) {
 
   return -1;
 }
+
 ```
 
 // Test Cases:
@@ -189,11 +213,11 @@ function search(nums, target) {
 
 // Input: nums = [1], target = 0
 // Output: -1
+
 ```
 
-**Time Complexity:** O(log n) - Binary search  
+**Time Complexity:** O(log n) - Binary search
 **Space Complexity:** O(1) - Constant extra space
-
 
 ## Q215. Find First and Last Position of Element in Sorted Array
 
@@ -202,6 +226,7 @@ function search(nums, target) {
 **Approach:** Use binary search twice: once to find first position (continue searching left when found), once to find last position (continue searching right when found).
 
 ### Solution 1: Two Binary Searches (Optimal)
+
 ```javascript
 function searchRange(nums, target) {
   const first = findFirst(nums, target);
@@ -216,7 +241,7 @@ function findFirst(nums, target) {
 
   while (left <= right) {
     const mid = Math.floor((left + right) / 2);
-    
+
     if (nums[mid] === target) {
       result = mid;
       right = mid - 1; // Continue searching left
@@ -236,7 +261,7 @@ function findLast(nums, target) {
 
   while (left <= right) {
     const mid = Math.floor((left + right) / 2);
-    
+
     if (nums[mid] === target) {
       result = mid;
       left = mid + 1; // Continue searching right
@@ -249,6 +274,7 @@ function findLast(nums, target) {
 
   return result;
 }
+
 ```
 
 // Test Cases:
@@ -260,23 +286,26 @@ function findLast(nums, target) {
 
 // Input: nums = [], target = 0
 // Output: [-1,-1]
+
 ```
 
-**Time Complexity:** O(log n) - Two binary searches  
+**Time Complexity:** O(log n) - Two binary searches
 **Space Complexity:** O(1) - Constant extra space
-
 
 ## Q216. Find Minimum in Rotated Sorted Array
 
 **Problem:** Suppose an array of length `n` sorted in ascending order is rotated between `1` and `n` times. For example, the array `nums = [0,1,2,4,5,6,7]` might become:
+
 - `[4,5,6,7,0,1,2]` if it was rotated `4` times.
+
 - `[0,1,2,4,5,6,7]` if it was rotated `7` times.
 
-Notice that rotating an array `[a[0], a[1], a[2], ..., a[n-1]]` 1 time results in the array `[a[n-1], a[0], a[1], a[2], ..., a[n-2]]`. Given the sorted rotated array `nums` of unique elements, return the minimum element of this array. You must write an algorithm that runs in `O(log n)` time.
+Notice that rotating an array `[a[0], a[1], a[2], ..., a[n-1]` 1 time results in the array `[a[n-1], a[0], a[1], a[2], ..., a[n-2]`. Given the sorted rotated array `nums` of unique elements, return the minimum element of this array. You must write an algorithm that runs in `O(log n)` time.
 
 **Approach:** Use binary search. Compare mid with right. If mid < right, right half is sorted, minimum is in left half. Otherwise, minimum is in right half.
 
 ### Solution 1: Binary Search (Optimal)
+
 ```javascript
 function findMin(nums) {
   let left = 0, right = nums.length - 1;
@@ -287,7 +316,7 @@ function findMin(nums) {
     // Right half is sorted, minimum is in left half (including mid)
     if (nums[mid] < nums[right]) {
       right = mid;
-    } 
+    }
     // Left half is sorted, minimum is in right half
     else {
       left = mid + 1;
@@ -296,6 +325,7 @@ function findMin(nums) {
 
   return nums[left];
 }
+
 ```
 
 // Test Cases:
@@ -309,11 +339,11 @@ function findMin(nums) {
 // Input: nums = [11,13,15,17]
 // Output: 11
 // Explanation: Array not rotated
+
 ```
 
-**Time Complexity:** O(log n) - Binary search  
+**Time Complexity:** O(log n) - Binary search
 **Space Complexity:** O(1) - Constant extra space
-
 
 ## Q217. Median of Two Sorted Arrays
 
@@ -322,6 +352,7 @@ function findMin(nums) {
 **Approach:** Use binary search on partitions. Partition both arrays such that left halves have same size as right halves. Check if partition is valid (maxLeft <= minRight). If valid, calculate median from partition boundaries.
 
 ### Solution 1: Binary Search on Partitions (Optimal)
+
 ```javascript
 function findMedianSortedArrays(nums1, nums2) {
   // Ensure nums1 is smaller array
@@ -361,6 +392,7 @@ function findMedianSortedArrays(nums1, nums2) {
     }
   }
 }
+
 ```
 
 // Test Cases:
@@ -371,9 +403,20 @@ function findMedianSortedArrays(nums1, nums2) {
 // Input: nums1 = [1,2], nums2 = [3,4]
 // Output: 2.50000
 // Explanation: Merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5
+
 ```
 
-**Time Complexity:** O(log(min(m,n))) - Binary search on smaller array  
+**Time Complexity:** O(log(min(m,n))) - Binary search on smaller array
 **Space Complexity:** O(1) - Constant extra space
 
+---
 
+## 📍 Navigation
+
+<div align="center">
+
+[Trie](13%20Trie.md) • [Home: README](README.md) • [Bit Manipulation →](15%20Bit%20Manipulation.md)
+
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+
+</div>
