@@ -636,7 +636,7 @@ Security Groups are simpler and stateful, so you only define inbound rules and r
 
 * **Security Groups pros** → Simpler, stateful, automatic responses
 
-* **Security Groups cons** → The catch is they can't deny traffic, only allow
+* **Security Groups cons** → The catch is these can't deny traffic, only allow
 
 * **NACLs pros** → Give you deny capabilities and subnet-level control
 
@@ -1206,7 +1206,7 @@ You use weighted routing by starting with a small percentage (like 10%) going to
 
 ### What's the difference between latency-based and geolocation routing?
 
-Latency-based routing routes to the lowest latency region (performance-based), while geolocation routing routes based on user location (geography-based). Latency routing optimizes for performance, geolocation routing optimizes for location. The catch is they can route to different endpoints. The tricky part is choosing the right policy - use latency for performance, geolocation for compliance or localization.
+Latency-based routing routes to the lowest latency region (performance-based), while geolocation routing routes based on user location (geography-based). Latency routing optimizes for performance, geolocation routing optimizes for location. The catch is these can route to different endpoints. The tricky part is choosing the right policy - use latency for performance, geolocation for compliance or localization.
 
 ---
 
@@ -1344,7 +1344,7 @@ You balance security with usability by using IAM roles for service access, bucke
 
 ### What's the difference between bucket policies and IAM policies?
 
-Bucket policies are attached to buckets and control access to bucket resources, while IAM policies are attached to users/roles and control what actions they can perform. Bucket policies are resource-based, IAM policies are identity-based. The catch is you can use both together. The tricky part is understanding how they interact - both must allow access for it to work.
+Bucket policies are attached to buckets and control access to bucket resources, while IAM policies are attached to users/roles and control what actions these can perform. Bucket policies are resource-based, IAM policies are identity-based. The catch is you can use both together. The tricky part is understanding how these interact - both must allow access for it to work.
 
 ### How do you audit S3 access?
 

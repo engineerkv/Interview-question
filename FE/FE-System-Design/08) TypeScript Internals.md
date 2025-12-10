@@ -27,12 +27,14 @@ TypeScript is a statically typed superset of JavaScript that adds type checking 
 The TypeScript compiler (tsc) transforms TypeScript source code into JavaScript through several stages:
 
 **1. Scanner (Lexical Analysis)**
+
 * Reads source code character by character
 * Breaks code into tokens (keywords, identifiers, operators, literals)
 * Handles whitespace, comments, and string escaping
 * Produces token stream for parser
 
 **2. Parser (Syntax Analysis)**
+
 * Takes token stream from scanner
 * Builds Abstract Syntax Tree (AST) according to TypeScript grammar
 * Validates syntax and structure
@@ -40,6 +42,7 @@ The TypeScript compiler (tsc) transforms TypeScript source code into JavaScript 
 * Handles TypeScript-specific syntax (type annotations, interfaces, generics)
 
 **3. Binder (Symbol Resolution)**
+
 * Creates symbol table linking identifiers to their declarations
 * Resolves scopes (global, module, function, block)
 * Links references to their definitions
@@ -47,6 +50,7 @@ The TypeScript compiler (tsc) transforms TypeScript source code into JavaScript 
 * Creates type symbols for type checking
 
 **4. Type Checker (Semantic Analysis)**
+
 * Analyzes types and relationships
 * Performs type inference (deduces types from usage)
 * Validates type compatibility
@@ -55,6 +59,7 @@ The TypeScript compiler (tsc) transforms TypeScript source code into JavaScript 
 * Handles type narrowing and widening
 
 **5. Emitter (Code Generation)**
+
 * Transforms TypeScript AST to JavaScript
 * Removes type annotations (type erasure)
 * Transpiles modern JavaScript to target version
@@ -62,6 +67,7 @@ The TypeScript compiler (tsc) transforms TypeScript source code into JavaScript 
 * Outputs JavaScript code
 
 **Why This Architecture Matters:**
+
 * Separation of concerns - each stage has specific responsibility
 * Type checking happens before code generation (catches errors early)
 * AST enables powerful transformations and analysis
@@ -72,6 +78,7 @@ The TypeScript compiler (tsc) transforms TypeScript source code into JavaScript 
 The TypeScript compiler is written in TypeScript itself:
 
 **Compiler Structure:**
+
 * `tsc.ts` - Main entry point
 * `compiler/` - Core compiler logic
 * `checker.ts` - Type checking implementation
@@ -79,12 +86,14 @@ The TypeScript compiler is written in TypeScript itself:
 * `parser.ts` - Parsing and AST creation
 
 **Compiler Modes:**
+
 * **Compile mode**: Full compilation with type checking
 * **Watch mode**: Watches files and recompiles on changes
 * **Incremental mode**: Only recompiles changed files (faster)
 * **Project references**: Compiles multiple projects together
 
 **Performance Optimizations:**
+
 * Incremental compilation (only recompiles changed files)
 * Project references (isolates compilation units)
 * Skip lib check (skips type checking of declaration files)
@@ -95,6 +104,7 @@ The TypeScript compiler is written in TypeScript itself:
 The TypeScript Language Service provides editor features:
 
 **Features:**
+
 * **Autocomplete**: Suggests completions based on types
 * **Go to Definition**: Jumps to type/declaration
 * **Find References**: Finds all usages of symbol
@@ -103,6 +113,7 @@ The TypeScript Language Service provides editor features:
 * **Formatting**: Formats code according to rules
 
 **How It Works:**
+
 * Uses same compiler pipeline (parser, binder, checker)
 * Maintains program representation in memory
 * Updates incrementally on file changes
@@ -120,36 +131,43 @@ The TypeScript Language Service provides editor features:
 TypeScript has several categories of types:
 
 **Primitive Types:**
+
 * `string`, `number`, `boolean`, `null`, `undefined`, `symbol`, `bigint`
 * Basic building blocks
 * Cannot be broken down further
 
 **Object Types:**
+
 * Interfaces, classes, object literals
 * Have properties and methods
 * Can be extended and composed
 
 **Union Types:**
+
 * `string | number` - Value can be one of several types
 * Creates new type from existing types
 * Used for values that can be multiple types
 
 **Intersection Types:**
+
 * `Person & Employee` - Value must satisfy all types
 * Combines multiple types
 * Used for mixins and composition
 
 **Generic Types:**
+
 * `Array<T>`, `Promise<T>` - Types parameterized by other types
 * Reusable type definitions
 * Enables type-safe abstractions
 
 **Literal Types:**
+
 * `"hello"`, `42`, `true` - Specific values as types
 * Narrow types representing exact values
 * Used for const assertions and discriminated unions
 
 **Function Types:**
+
 * `(x: number) => string` - Types for functions
 * Describe function signatures
 * Support overloads and generics
@@ -159,12 +177,14 @@ TypeScript has several categories of types:
 TypeScript infers types automatically when not explicitly provided:
 
 **How Type Inference Works:**
+
 * Analyzes expressions and assignments
 * Uses context to determine most specific type
 * Flows through code (type narrowing)
 * Can infer from usage patterns
 
 **Inference Strategies:**
+
 * **Best common type**: Infers union for array literals
 * **Contextual typing**: Infers from context (function parameters)
 * **Type narrowing**: Narrows types based on control flow
@@ -197,6 +217,7 @@ function process(value: string | number) {
 ```
 
 **When Inference Fails:**
+
 * Ambiguous expressions (use explicit types)
 * Complex generic inference (provide type parameters)
 * Circular references (break with explicit types)
@@ -206,17 +227,20 @@ function process(value: string | number) {
 Type checking validates that values match their types:
 
 **Structural Typing (Duck Typing):**
+
 * Types are compatible if they have compatible structure
 * `{ name: string }` is compatible with `{ name: string; age?: number }`
 * More flexible than nominal typing (Java, C#)
 
 **Type Compatibility Rules:**
+
 * **Assignment compatibility**: Can assign if types are compatible
 * **Function compatibility**: Parameters are contravariant, return types are covariant
 * **Property compatibility**: Properties must be compatible
 * **Index signatures**: Allow additional properties
 
 **Type Errors:**
+
 * Type mismatch (assigning incompatible types)
 * Missing properties (object doesn't have required property)
 * Extra properties (object has properties not in type)
@@ -250,6 +274,7 @@ greet({ name: "John", age: 30 }); // OK
 Type narrowing reduces union types to specific types:
 
 **Narrowing Techniques:**
+
 * **Type guards**: `typeof`, `instanceof`, `in` operator
 * **Discriminated unions**: Switch on discriminant property
 * **Control flow**: If/else, switch, loops
@@ -298,12 +323,14 @@ function area(shape: Shape): number {
 Generics enable reusable type-safe code:
 
 **How Generics Work:**
+
 * Type parameters: `function identity<T>(arg: T): T`
 * Type arguments: `identity<string>("hello")`
 * Type inference: `identity("hello")` infers `T` as `string`
 * Constraints: `function process<T extends string>(arg: T)`
 
 **Generic Constraints:**
+
 * `extends` keyword limits type parameters
 * `keyof` operator gets keys of type
 * `in` operator iterates over union types
@@ -340,6 +367,7 @@ class Container<T> {
 Conditional types select types based on conditions:
 
 **Syntax:**
+
 * `T extends U ? X : Y` - If T extends U, then X, else Y
 * Can be nested for complex conditions
 * Used in utility types and type transformations
@@ -363,6 +391,7 @@ type Flatten<T> = T extends (infer U)[] ? U : T;
 Mapped types transform object types:
 
 **Syntax:**
+
 * `{ [K in keyof T]: T[K] }` - Iterates over keys
 * Can add/remove/modify properties
 * Used in utility types
@@ -392,6 +421,7 @@ type Pick<T, K extends keyof T> = {
 Template literal types manipulate string types:
 
 **Syntax:**
+
 * Uses template literal syntax with types
 * Can concatenate, extract, and transform strings
 * Used for type-safe string manipulation
@@ -422,17 +452,20 @@ type Lowercase<S extends string> = intrinsic;
 TypeScript resolves module imports using strategies:
 
 **Resolution Strategies:**
+
 * **Classic**: Legacy strategy, looks for `.ts` files
 * **Node**: Follows Node.js resolution algorithm
 * **Bundler**: For bundlers like Webpack, Vite
 
 **Node Resolution Algorithm:**
+
 1. Check `package.json` for `main` or `exports`
 2. Look for `index.js` or `index.ts`
 3. Check `@types` packages for type definitions
 4. Follow `node_modules` resolution
 
 **Path Mapping:**
+
 * `baseUrl`: Base directory for module resolution
 * `paths`: Map module names to paths
 * Enables aliases like `@/components`
@@ -457,6 +490,7 @@ TypeScript resolves module imports using strategies:
 Declaration files provide type information:
 
 **Types of Declaration Files:**
+
 * **Global**: `declare global { }`
 * **Module**: `declare module "module-name" { }`
 * **Ambient**: Types for JavaScript libraries
@@ -491,11 +525,13 @@ declare module "express" {
 Type-only imports improve performance:
 
 **Syntax:**
+
 * `import type { Type } from "module"`
 * `import { type Type } from "module"`
 * Removed during compilation (no runtime code)
 
 **Benefits:**
+
 * Reduces bundle size
 * Prevents accidental value imports
 * Clearer intent
@@ -511,12 +547,14 @@ Type-only imports improve performance:
 TypeScript removes all type information during compilation:
 
 **What Gets Removed:**
+
 * Type annotations: `let x: number = 5` → `let x = 5`
 * Interfaces: Completely removed
 * Type aliases: Replaced with their definitions, then removed
 * Generic parameters: Removed, types inferred
 
 **What Stays:**
+
 * Runtime code (functions, classes, variables)
 * Decorators (if enabled)
 * Type assertions (converted to runtime checks if needed)
@@ -546,17 +584,20 @@ function greet(user) {
 TypeScript transpiles modern JavaScript to target version:
 
 **Target Options:**
+
 * `ES3`, `ES5`, `ES2015`, `ES2017`, `ES2020`, `ESNext`
 * Determines output JavaScript version
 * Affects which features are transpiled
 
 **Transpilation Examples:**
+
 * `async/await` → Promises (ES5 target)
 * Arrow functions → Regular functions (ES5 target)
 * Classes → Functions and prototypes (ES5 target)
 * Optional chaining → Conditional checks (older targets)
 
 **Module System:**
+
 * `module`: Output module format (CommonJS, ES modules, etc.)
 * `moduleResolution`: How to resolve modules
 * Affects import/export syntax
@@ -566,12 +607,14 @@ TypeScript transpiles modern JavaScript to target version:
 Source maps map compiled JavaScript to TypeScript:
 
 **How Source Maps Work:**
+
 * Generated during compilation
 * Maps JavaScript lines to TypeScript lines
 * Enables debugging original TypeScript code
 * Used by browsers and debuggers
 
 **Configuration:**
+
 * `sourceMap: true` - Generate source maps
 * `inlineSourceMap: true` - Embed in output
 * `sourceRoot: ""` - Base path for sources
@@ -587,6 +630,7 @@ Source maps map compiled JavaScript to TypeScript:
 Incremental compilation only recompiles changed files:
 
 **How It Works:**
+
 * Stores compilation state in `.tsbuildinfo` files
 * Tracks file dependencies
 * Only recompiles changed files and dependents
@@ -609,6 +653,7 @@ Incremental compilation only recompiles changed files:
 Project references isolate compilation units:
 
 **Benefits:**
+
 * Faster compilation (only rebuild changed projects)
 * Better IDE performance (smaller projects)
 * Clearer dependencies
@@ -634,6 +679,7 @@ Project references isolate compilation units:
 Skip type checking of declaration files:
 
 **Benefits:**
+
 * Faster compilation
 * Reduces memory usage
 * Useful for large projects
@@ -671,7 +717,7 @@ TypeScript uses structural typing (duck typing) - if two types have the same str
 
 ### What happens to TypeScript types at runtime?
 
-TypeScript types are completely erased at compile time - they don't exist in the generated JavaScript. This is called type erasure. The TypeScript compiler removes all type annotations, interfaces, and type-only code, leaving only the JavaScript code. This is why you can't check types at runtime using `instanceof` with TypeScript interfaces.
+TypeScript types are completely erased at compile time - these don't exist in the generated JavaScript. This is called type erasure. The TypeScript compiler removes all type annotations, interfaces, and type-only code, leaving only the JavaScript code. This is why you can't check types at runtime using `instanceof` with TypeScript interfaces.
 
 ---
 
@@ -686,4 +732,3 @@ TypeScript types are completely erased at compile time - they don't exist in the
 </div>
 
 ---
-

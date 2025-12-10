@@ -784,7 +784,7 @@ Scaling WebSockets across multiple servers requires either sticky sessions (clie
 
 ### What's the difference between WebSocket and HTTP/2 Server Push?
 
-WebSocket is a full-duplex protocol that upgrades from HTTP to a persistent connection, allowing bidirectional communication. HTTP/2 Server Push is a one-way mechanism where the server proactively sends resources to the client before they're requested, but it's still HTTP-based and doesn't provide true bidirectional real-time communication. WebSocket is better for real-time applications like chat, while HTTP/2 Server Push is better for optimizing page load times by pushing critical resources. The catch is HTTP/2 Server Push is being deprecated in favor of other techniques. The tricky part is WebSockets can work over HTTP/2, but they don't leverage HTTP/2's multiplexing benefits since WebSocket uses its own framing protocol.
+WebSocket is a full-duplex protocol that upgrades from HTTP to a persistent connection, allowing bidirectional communication. HTTP/2 Server Push is a one-way mechanism where the server proactively sends resources to the client before these are requested, but it's still HTTP-based and doesn't provide true bidirectional real-time communication. WebSocket is better for real-time applications like chat, while HTTP/2 Server Push is better for optimizing page load times by pushing critical resources. The catch is HTTP/2 Server Push is being deprecated in favor of other techniques. The tricky part is WebSockets can work over HTTP/2, but these don't leverage HTTP/2's multiplexing benefits since WebSocket uses its own framing protocol.
 
 ---
 
@@ -1172,7 +1172,7 @@ Yes, you can convert between binary and text formats, but it adds overhead. For 
 
 ### Why are binary protocols faster to parse?
 
-Binary protocols are faster because they don't require text parsing - numbers are stored as their binary representation, strings have length prefixes, and there's no need to parse text into numbers. Text protocols require parsing strings, converting text to numbers, and handling whitespace and delimiters. The catch is binary protocols require schema definitions and code generation.
+Binary protocols are faster because these don't require text parsing - numbers are stored as their binary representation, strings have length prefixes, and there's no need to parse text into numbers. Text protocols require parsing strings, converting text to numbers, and handling whitespace and delimiters. The catch is binary protocols require schema definitions and code generation.
 
 ### How do you debug binary protocols?
 
@@ -1812,7 +1812,7 @@ Session resumption reduces handshake latency significantly, which improves perfo
 
 ## ⭐ Summary — 10-second Interview Version
 
-> "TLS session resumption allows clients to reuse previous TLS session parameters, skipping most of the handshake - the client sends a session ID or ticket from a previous connection, and if the server recognizes it, they can resume the session with just one round trip instead of a full handshake. This reduces latency for repeat connections from 2 round trips to 1 round trip."
+> "TLS session resumption allows clients to reuse previous TLS session parameters, skipping most of the handshake - the client sends a session ID or ticket from a previous connection, and if the server recognizes it, you can resume the session with just one round trip instead of a full handshake. This reduces latency for repeat connections from 2 round trips to 1 round trip."
 
 ---
 

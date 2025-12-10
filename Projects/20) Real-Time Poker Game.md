@@ -4,6 +4,7 @@
 > **Frontend:** React.js Web Application
 > **Backend:** Node.js, Express.js, MongoDB, Socket.io Server, REST APIs
 > **Tech Stack:**
+>
 > - **Frontend:** React.js, TypeScript, React Router, Socket.io Client, Framer Motion, Material-UI
 > - **Backend:** Node.js, Express.js, MongoDB, Redis, Socket.io Server, JWT
 > **Key Features:** Real-time multiplayer, advanced animations, performance optimization
@@ -544,6 +545,7 @@ The system follows a real-time multiplayer poker game architecture with WebSocke
 ### Complete Request Flow
 
 **Player Action Flow:**
+
 1. **Frontend**: Player performs action (bet, call, raise, fold)
 2. **WebSocket**: Send action to server via Socket.io
 3. **Game Engine**: Validate action (server-side validation)
@@ -552,6 +554,7 @@ The system follows a real-time multiplayer poker game architecture with WebSocke
 6. **Frontend**: All players receive update, UI updates with animations
 
 **Game State Synchronization Flow:**
+
 1. **Game Engine**: Game state changes (card dealing, betting round)
 2. **State Update**: Update game state in memory and cache
 3. **Broadcast**: Broadcast state update to all players via WebSocket
@@ -559,6 +562,7 @@ The system follows a real-time multiplayer poker game architecture with WebSocke
 5. **UI Update**: All players see synchronized game state
 
 **Player Reconnection Flow:**
+
 1. **Player Disconnects**: WebSocket connection lost
 2. **Game State Persisted**: Save game state to database
 3. **Player Reconnects**: New WebSocket connection established
@@ -846,7 +850,7 @@ App (Root Component - Entry Point)
 
 - **GameTable** shows the poker table - PlayerSeats, CommunityCards, PotDisplay
 
-- **ActionPanel** lets players act - buttons for Fold, Call, Raise, etc.
+- **ActionPanel** allows players to act - buttons for Fold, Call, Raise, etc.
 
 - **GameProvider** manages game state - connects to Socket.io, updates UI in real-time
 
@@ -2531,6 +2535,7 @@ try {
 **Purpose:** Evaluate poker hands and determine winner.
 
 **Algorithm:**
+
 1. Get player's hole cards and community cards
 2. Generate all possible 5-card combinations
 3. Evaluate each combination for hand rank
@@ -2593,7 +2598,8 @@ function evaluateFiveCards(cards: Card[]): Hand {
 ```
 
 **Complexity:**
-- Time: O(C(7,5) * 5) = O(21 * 5) = O(105) for hand evaluation
+
+- Time: O(C(7,5) *5) = O(21* 5) = O(105) for hand evaluation
 - Space: O(1)
 - **Hand Evaluation:** Fast evaluation ensures responsive gameplay
 
@@ -2604,6 +2610,7 @@ function evaluateFiveCards(cards: Card[]): Hand {
 **Purpose:** Manage betting rounds and determine when round is complete.
 
 **Algorithm:**
+
 1. Start with first active player after dealer
 2. Wait for player action (fold, check, call, raise, all-in)
 3. Update pot and current bet
@@ -2667,6 +2674,7 @@ class BettingRound {
 ```
 
 **Complexity:**
+
 - Time: O(n) where n is number of players
 - Space: O(1)
 - **Betting Management:** Ensures fair and consistent betting rounds
@@ -2736,6 +2744,7 @@ class BettingRound {
 ### MongoDB Transactions
 
 **Transaction Usage:**
+
 - **Multi-Document Transactions** - For operations requiring ACID guarantees
 - **Example:** Chip transfer + pot distribution + action logging in single transaction
 - **Session Management:** Use MongoDB sessions for transaction control
@@ -2762,6 +2771,7 @@ try {
 ### Consistency Strategies
 
 **Data Consistency:**
+
 - **Game State Consistency:** Use transactions for all game state changes to ensure atomicity
 - **Chip Consistency:** Ensure chip transfers are atomic
 - **Action Consistency:** Log all actions atomically with state changes
@@ -2804,6 +2814,7 @@ try {
   }
 
   ```
+
 - **Response:**
 
   ```json
@@ -2816,6 +2827,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 400 (Invalid Action), 403 (Not Your Turn)
 
 ### GET /api/v1/rooms/:roomId/state
@@ -2836,6 +2848,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 404 (Room Not Found)
 
 ---
@@ -2845,15 +2858,17 @@ try {
 ### Redis Cache
 
 **Cache Strategy:**
+
 - **Key Format:** `game:{roomId}:state`, `room:{roomId}:players`, `hand:{handId}`
 - **Value:** Serialized JSON (game state, player data, hand data)
-- **TTL:** 
+- **TTL:**
   - Game state: 60 seconds (frequently updated)
   - Player data: 300 seconds (5 minutes)
   - Hand data: 3600 seconds (1 hour) for completed hands
 - **Eviction Policy:** TTL-based eviction
 
 **Cache Patterns:**
+
 - **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
 - **Write-Through Pattern:** Update cache when game state changes
 - **Cache Invalidation:** Invalidate cache on game state updates
@@ -2865,6 +2880,7 @@ try {
 ### Error Scenarios and Responses
 
 **Edge Cases Handling:**
+
 - **Not Player's Turn:** Return 403 Forbidden with "Not your turn"
 - **Invalid Action:** Return 400 Bad Request with validation errors
 - **Insufficient Chips:** Return 400 Bad Request with "Insufficient chips"
@@ -2891,21 +2907,25 @@ try {
 ### Scalability
 
 **API Layer:**
+
 - Deploy API layer across multiple instances behind load balancer
 - Use auto-scaling based on CPU/memory metrics
 - Stateless design allows horizontal scaling
 
 **WebSocket Scaling:**
+
 - **Socket.io Redis Adapter:** Enable horizontal scaling of WebSocket connections
 - **Sticky Sessions:** Required for Socket.io (use session affinity in load balancer)
 - **Connection Management:** Monitor and manage WebSocket connections
 
 **Database Scaling:**
+
 - **Read Replicas:** Deploy read replicas for game state queries
 - **Sharding:** Shard game rooms by region for write scaling
 - **Connection Pooling:** Use connection pooling to manage database connections
 
 **Caching:**
+
 - Distributed Redis cluster for high availability
 - Cache game states and player data
 - Reduces database load significantly
@@ -2913,15 +2933,18 @@ try {
 ### Availability
 
 **Replication:**
+
 - Database replication ensures data availability
 - Multi-region replication for disaster recovery
 
 **Failover:**
+
 - Automated failover mechanisms for API and data store layers
 - Health checks and monitoring for proactive failover
 - Circuit breaker pattern to prevent cascading failures
 
 **Geo-Distributed Deployment:**
+
 - Deploy service across multiple geographical regions
 - Reduces latency for users worldwide
 - Improves availability by eliminating single point of failure
@@ -2929,23 +2952,27 @@ try {
 ### Frontend Deployment
 
 **Build Process:**
+
 - **Production Build:** Optimized bundle with code splitting
 - **CDN Deployment:** Deploy static assets to CDN for fast global delivery
 - **Environment Variables:** `.env.production` for production config
 
 **Deployment Platforms:**
+
 - **Vercel / Netlify** - Automatic deployments from Git
 - **AWS S3 + CloudFront** - Static site hosting with CDN
 
 ### Backend Deployment
 
 **Server Setup:**
+
 - **PM2:** Process manager with clustering for Node.js apps
 - **Nginx:** Load balancer and reverse proxy with SSL termination
 - **Docker:** Containerized deployment for consistency
 - **Kubernetes:** Container orchestration for auto-scaling
 
 **CI/CD Pipeline:**
+
 - **Automated Testing:** Run tests before deployment
 - **Zero-Downtime:** Rolling deployment strategy
 - **Health Checks:** Verify game endpoints are healthy
@@ -2954,12 +2981,14 @@ try {
 ### Database Deployment
 
 **MongoDB Setup:**
+
 - **MongoDB Atlas** - Managed MongoDB service with automatic backups
 - **Backup Strategy:** Daily automated backups with point-in-time recovery
 - **Indexing:** Proper indexes on roomId, handId, userId
 - **Replication:** Replica sets for high availability
 
 **Redis Setup:**
+
 - **Redis Cloud / AWS ElastiCache** - Managed Redis service
 - **Cluster Mode:** Redis cluster for high availability and performance
 - **Persistence:** RDB snapshots and AOF for data durability
@@ -3070,4 +3099,3 @@ try {
 **Takeaway:** Context API with useReducer works well for complex game state. Normalize state structure for better performance. Use memoization to prevent unnecessary re-renders. Optimistic updates improve UX but server is authoritative. Custom hooks encapsulate game logic.
 
 ---
-

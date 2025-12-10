@@ -8,46 +8,45 @@ This playbook defines the format rules for all interview questions. **Read this 
 
 ### 🗣️ Language Requirements (MANDATORY - SYSTEM DESIGN ONLY)
 
-**⚠️ IMPORTANT: These rules apply ONLY to FE System Design content (`FE/FE-System-Design/` directory).**
+**⚠️ IMPORTANT: These rules apply ONLY to System Design content:**
 
-**All System Design content (introductions, numbered stages, summaries, extra points) must follow these conversational language rules:**
+- **FE System Design** (`FE/FE-System-Design/` directory) - Networking, Architecture, Performance topics
+- **Project System Design** (`Projects/` directory) - HLD/LLD documents
+
+**All System Design content (introductions, numbered stages, summaries, extra points, tech stack explanations) must follow these conversational language rules:**
 
 #### ✅ Natural Language & Word Choice
+
 - **Use "you can" instead of "they can"** - Write from the reader's perspective
 - **Use "allows/allows you to" instead of "lets/lets you"** - More professional and clear
 - **Use "when you assign" instead of "are copied by value"** - Action-oriented language
 - **Use "these/those" instead of vague "they"** - Be specific about what you're referring to
 - **Use "users" instead of "they" when referring to users** - Clear and direct
+- **Use analogies and simple explanations** - "Like a walkie-talkie" instead of "bidirectional communication"
+- **Use "think of it as" for complex concepts** - Makes abstract ideas concrete
 
 #### ✅ Conversational Tone
+
 - **Write like explaining to a colleague** - Use everyday words, avoid jargon
 - **Use "weird part" instead of "historical bug"** - More relatable
 - **Use "surprise bugs" instead of technical jargon** - Easier to understand
 - **Use "because it's a copy" instead of technical explanations** - Simple and clear
 - **Make it easy to speak aloud** - Should sound natural when read
+- **Explain "why" not just "what"** - Help interviewer understand decisions
+- **Use real-world comparisons** - "Like a cashier" for payment gateway, "Like a GPS" for routing
 
 #### ✅ Natural Flow & Clarity
+
 - **Use "the catch is" instead of "however"** - More conversational
 - **Use "watch out for" instead of "limitation"** - Practical warning
 - **Use "can be confusing" instead of "may lead to confusion"** - Direct and clear
 - **Use "tricky part" instead of "consideration"** - More engaging
 - **Use "works great for" instead of "optimal for"** - Natural language
 - **Use "can cause issues" instead of "may result in"** - Direct and practical
-
-#### ✅ System Design Content (SPECIAL REQUIREMENT)
-**All FE System Design content (introductions, numbered stages, summaries, extra points) MUST follow these rules:**
-- ✅ **Natural language** - Use "when you assign" instead of "are copied by value", "you can" instead of "they can"
-- ✅ **Word choice** - Use "allows/allows you to" instead of "lets/lets you", "allows" instead of "lets"
-- ✅ **Conversational tone** - Write like explaining to a colleague, use everyday words
-- ✅ **Simple explanations** - Use "weird part" instead of "historical bug", "surprise bugs" instead of technical jargon
-- ✅ **Natural flow** - Make it easy to speak aloud, sound like a real conversation
-- ✅ **Clearer examples** - Use "because it's a copy" instead of technical explanations
-
-**Goal:** All System Design content should sound like you're explaining to a colleague in a hallway conversation, not reading from a textbook.
-
-**Note:** Tech Stack files (HTML, CSS, JavaScript, React, etc.) do NOT need to follow these conversational language rules - they follow the standard answer format rules below.
+- **Use "like having" for tools** - "Like having a professional animator" for animation libraries
 
 #### ❌ Common Mistakes to Avoid
+
 - ❌ "They can" → ✅ "You can" or "These can"
 - ❌ "Lets you" → ✅ "Allows you to"
 - ❌ "They are" → ✅ "These are" or be specific
@@ -55,12 +54,18 @@ This playbook defines the format rules for all interview questions. **Read this 
 - ❌ "When they" → ✅ "When you" or "When users"
 - ❌ Technical jargon → ✅ Everyday words
 - ❌ Textbook language → ✅ Conversational language
+- ❌ "Semantic markup that conveys structural information" → ✅ "HTML that has meaning - like using `<header>` instead of `<div>` so screen readers know what it is"
+
+**Goal:** All System Design content should sound like you're explaining to a colleague in a hallway conversation, not reading from a textbook. This makes it easy to explain in interviews and easy to remember.
+
+**Note:** Tech Stack files (HTML, CSS, JavaScript, React, etc.) do NOT need to follow these conversational language rules - they follow the standard answer format rules below.
 
 ### 📝 Answer Format (MANDATORY)
 
 **Format:** Direct answer (no label) + Trade-offs (optional) + Example (optional)
 
 **Structure:**
+
 - ✅ **Direct answer (NO LABEL)** - Start answering directly after the question, no "What it is:" label needed
 - ✅ **Definition first** - Start with what directly answers the question
 - ✅ **Answer length: 1-3 lines max** - Keep focused, conversational, and practical
@@ -68,6 +73,7 @@ This playbook defines the format rules for all interview questions. **Read this 
 - ✅ **"Example" is OPTIONAL** - Add only when it clarifies complex concepts or shows practical usage
 
 **Content Quality Rules:**
+
 - ✅ **Maintain content quality** - Include all essential information (definition, how it works if essential, when to use if essential) - don't cut off content just to meet line limit
 - ✅ **Smart condensation, not deletion** - Remove redundancy and combine ideas naturally, but preserve all essential information
 - ✅ **No content corruption** - Preserve meaning and clarity when condensing - don't just concatenate or cut off important details
@@ -78,6 +84,7 @@ This playbook defines the format rules for all interview questions. **Read this 
 **Rephrase all answers AND Trade-offs to be conversational and natural:**
 
 **For Answers:**
+
 - ✅ **Natural language** - Use "when you assign" instead of "are copied by value", "you can" instead of "they can"
 - ✅ **Word choice** - Use "allows/allows you to" instead of "lets/lets you", "allows" instead of "lets"
 - ✅ **Conversational tone** - Write like explaining to a colleague, use everyday words
@@ -86,6 +93,7 @@ This playbook defines the format rules for all interview questions. **Read this 
 - ✅ **Clearer examples** - Use "because it's a copy" instead of technical explanations
 
 **For Trade-offs:**
+
 - ✅ **Conversational pros/cons** - Use "the catch is" instead of "however", "watch out for" instead of "limitation"
 - ✅ **Natural warnings** - Use "can be confusing" instead of "may lead to confusion", "tricky part" instead of "consideration"
 - ✅ **Simple language** - Use "works great for" instead of "optimal for", "can cause issues" instead of "may result in"
@@ -93,6 +101,7 @@ This playbook defines the format rules for all interview questions. **Read this 
 - ✅ **Keep it concise** - Trade-offs should be 1-2 lines max, conversational and practical
 
 **Examples:**
+
 - ❌ "Primitives are immutable and copied by value" (too technical)
 - ✅ "Primitives are copied by value - when you assign `let a = 5; let b = a; b = 10;`, `a` stays 5 because it's a copy" (conversational)
 
@@ -107,12 +116,14 @@ This playbook defines the format rules for all interview questions. **Read this 
 ### 📋 Code Examples (REQUIRED WHEN RELEVANT)
 
 **When to include examples (MANDATORY if any condition applies):**
+
 - ✅ **Complex syntax** that's hard to explain in words (e.g., promise chaining, destructuring patterns)
 - ✅ **Practical usage** that clarifies the concept (e.g., API calls, event handlers)
 - ✅ **Common mistakes or gotchas** that need demonstration
 - ❌ **Skip only when the concept is trivial** and code would add zero clarity (e.g., "What is a variable?")
 
 **Example Guidelines:**
+
 - ✅ **Keep examples relevant and focused** - Examples should directly illustrate the concept being explained
 - ✅ **Length: 1-10 lines** - Simple concepts: 1-4 lines, Complex examples: 5-10 lines when needed
 - ✅ **Keep focused and practical** - Remove unnecessary code, show only what's needed
@@ -120,6 +131,7 @@ This playbook defines the format rules for all interview questions. **Read this 
 - ✅ **No emojis or icons** - Clean and professional formatting
 
 **Format Example:**
+
 ```
 Q#. What is Promise.all()?
 
@@ -136,6 +148,7 @@ Promise.all() waits for all promises to fulfill or fails fast on first rejection
 - ✅ **Continuous sequence** - Each file should continue from where the previous file ended
 
 **Example:**
+
 - ✅ Correct: File 1 (Q1-Q15) → File 2 (Q16-Q25) → File 3 (Q26-Q35)
 - ❌ Wrong: File 1 (Q1-Q15) → File 2 (Q12-Q25) ❌ Overlap
 - ❌ Wrong: File 1 (Q1-Q15) → File 2 (Q17-Q25) ❌ Gap (missing Q16)
@@ -145,6 +158,7 @@ Promise.all() waits for all promises to fulfill or fails fast on first rejection
 **All sections and questions must follow a logical learning progression:**
 
 **Section Order Principles:**
+
 - ✅ **Start with fundamentals** - Basic concepts, what it is, core principles
 - ✅ **Build to core mechanisms** - How things work internally, key features
 - ✅ **Progress to practical usage** - Common patterns, real-world applications
@@ -152,6 +166,7 @@ Promise.all() waits for all promises to fulfill or fails fast on first rejection
 - ✅ **End with production topics** - Testing, debugging, deployment, monitoring
 
 **Question Order Within Sections:**
+
 - ✅ **Foundation first** - Basic concepts before advanced ones
 - ✅ **Prerequisites before dependents** - Learn what you need before using it
 - ✅ **Simple to complex** - Start with simple concepts, build to complex
@@ -159,18 +174,21 @@ Promise.all() waits for all promises to fulfill or fails fast on first rejection
 - ✅ **Natural progression** - Each question should build on previous knowledge
 
 **Examples of Logical Order:**
+
 - ✅ **Good**: "What is X?" → "How X works" → "When to use X" → "Advanced X features"
 - ✅ **Good**: "Basic concept" → "Core mechanism" → "Practical usage" → "Optimization"
 - ❌ **Bad**: "Advanced optimization" → "Basic concept" → "Core mechanism"
 - ❌ **Bad**: "Using feature X" → "What is feature X?" (prerequisite missing)
 
 **When to Rearrange:**
+
 - ✅ If a question requires knowledge from a later question, move prerequisites first
 - ✅ If questions jump between difficulty levels, reorganize by complexity
 - ✅ If related topics are scattered, group them together
 - ✅ If sections don't build on each other, reorder sections
 
 **Review Checklist:**
+
 1. ✅ Can someone understand Q2 without Q1? (If no, reorder)
 2. ✅ Does each section build on previous sections? (If no, reorder)
 3. ✅ Are related questions grouped together? (If no, reorganize)
@@ -189,6 +207,7 @@ Promise.all() waits for all promises to fulfill or fails fast on first rejection
 **Conversion Examples:**
 
 **From Question Format → To Concept Format:**
+
 - ❌ "What is React and why is it used?" → ✅ "React and its purpose"
 - ❌ "How do you implement code splitting?" → ✅ "Implementing code splitting"
 - ❌ "What are the differences between X and Y?" → ✅ "Differences between X and Y"
@@ -199,6 +218,7 @@ Promise.all() waits for all promises to fulfill or fails fast on first rejection
 - ❌ "How do you design a scalable architecture?" → ✅ "Designing a scalable architecture"
 
 **Acceptable Concept Statements (these are fine):**
+
 - ✅ "How X works" - Describes a mechanism/process
 - ✅ "What X means" - Explains a concept
 - ✅ "X and its purpose" - Describes purpose
@@ -206,12 +226,14 @@ Promise.all() waits for all promises to fulfill or fails fast on first rejection
 - ✅ "Differences between X and Y" - Compares concepts
 
 **Not Acceptable (these are questions):**
+
 - ❌ "What is X?" - Direct question
 - ❌ "How do you do X?" - Action question
 - ❌ "What are the differences?" - Question format
 - ❌ "How does X work?" - Can be acceptable if used as concept statement, but prefer "How X works"
 
 **Rules:**
+
 1. **question.md files** - All numbered items must be in concept format
 2. **Section files** - All `## Q#.` headers must match the concept format from `question.md`
 3. **Cross-check** - Verify that section files match their corresponding `question.md` entries
@@ -224,11 +246,13 @@ Promise.all() waits for all promises to fulfill or fails fast on first rejection
 **Target Audience:** Senior level engineers and tech leads preparing for interviews
 
 **Three Non-Negotiable Rules:**
+
 1. **Conversational language** - Write like talking to a colleague, avoid theory and jargon
 2. **Practical focus** - Real-world examples, actual decisions, avoid abstract concepts
 3. **Interview-ready** - Natural to speak aloud, easy to remember, simple words
 
 **Language Examples:**
+
 - ❌ "Semantic markup that conveys structural information" (too theoretical)
 - ✅ "HTML that has meaning - like using `<header>` instead of `<div>` so screen readers know what it is" (practical)
 
@@ -248,12 +272,14 @@ Promise.all() waits for all promises to fulfill or fails fast on first rejection
 ## ⚠️ CRITICAL WORKFLOW RULE
 
 **Work Approach:**
+
 1. **Tech Stack by Tech Stack** - Complete ONE entire tech stack fully before moving to the next
 2. **Section by Section** - Within each tech stack, complete ONE file fully before moving to the next file
 3. **No Revisiting** - Once a tech stack is complete, mark it as done and never revisit
 4. **Sequential Numbering** - Ensure question numbers are sequential with no duplicates, overlaps, or gaps
 
 **Order:**
+
 - JavaScript (7 files) → Complete ALL files → Verify numbering Q1-Q195
 - ReactJS → Complete ALL files → Verify numbering Q1-Q100
 - Next.js → Complete ALL files → Verify numbering Q1-Q60
@@ -329,22 +355,16 @@ Promise.all() waits for all promises to fulfill or fails fast on first rejection
 7. **Extra Points** - Include follow-up questions that interviewers commonly ask
 8. **No Question Format** - Use concept statements, not questions (e.g., "How the Web Works" not "How does the web work?")
 
-**Language Requirements (MANDATORY for System Design Content):**
+**Language Requirements (MANDATORY):**
 
-**⚠️ IMPORTANT: All system design content must follow the comprehensive Language Requirements pinned at the top of this document (see "🗣️ Language Requirements" section).**
+**⚠️ IMPORTANT: All FE System Design content must follow the comprehensive Language Requirements pinned at the top of this document (see "🗣️ Language Requirements" section).**
 
-This includes:
+This applies to:
+
 - ✅ All introductions, numbered stages, summaries, and extra points sections
 - ✅ All explanations, examples, and code comments
 - ✅ All "In simple terms" summaries
 - ✅ All interview version summaries
-
-**Key reminders:**
-- Use "you can" instead of "they can"
-- Use "allows/allows you to" instead of "lets/lets you"
-- Use "these/those" instead of vague "they"
-- Write like explaining to a colleague, not a textbook
-- Make it easy to speak aloud naturally
 
 **Goal:** All system design explanations should sound like you're explaining to a colleague in a hallway conversation, not reading from a textbook.
 
@@ -362,7 +382,8 @@ When a user types a URL into a browser and presses Enter, a series of steps happ
 A URL has parts like:
 
 ```
-https://www.example.com/products?id=10
+<https://www.example.com/products?id=10>
+
 ```
 
 * **https** → Protocol (how to communicate)
@@ -413,13 +434,12 @@ A naming system that converts domain names → IP addresses.
 
 **Content Guidelines:**
 
-- ✅ **Interview-friendly** - Easy to understand, natural to speak aloud, conversational language (see Language Requirements above)
+- ✅ **Interview-friendly** - Easy to understand, natural to speak aloud, conversational language (see Language Requirements at top)
 - ✅ **Detailed but clear** - Comprehensive coverage without overwhelming
 - ✅ **Visual formatting** - Use separators (`---`), emojis (🔹, 📌, ⭐), code blocks for clarity
 - ✅ **Practical focus** - Real-world examples, not abstract theory
 - ✅ **Quick reference** - Summary section for fast recall during interviews
 - ✅ **Deep details** - Provide comprehensive explanations suitable for system design interviews
-- ✅ **Conversational language** - Must follow natural language rules (use "allows" not "lets", "you can" not "they can", everyday words, easy to speak aloud)
 
 **Formatting Rules:**
 
@@ -428,31 +448,6 @@ A naming system that converts domain names → IP addresses.
 - ✅ **Code blocks**: Use triple backticks for code examples
 - ✅ **Bullet points**: Use `* **Bold** → Explanation` format for key points
 - ✅ **Headings**: Use `## Q#.` for main question, `## [Number]` for stages, `### 🔹` for sub-sections
-
-**Question Numbering:**
-
-- ✅ **Format**: `## Q#. [Question Title]` - Always include question number in heading
-- ✅ **Sequential**: Questions must be numbered sequentially (Q1, Q2, Q3, etc.)
-- ✅ **Match question.md**: Question numbers must match the numbering in question.md file
-- ✅ **No gaps**: No missing question numbers in sequence
-
-**Answer Structure Requirements:**
-
-- ✅ **Introduction**: 1-2 sentences setting context for the process/concept
-- ✅ **Numbered stages**: Break complex processes into 6-8 numbered stages/steps
-- ✅ **Sub-sections**: Use `### 🔹` for sub-points within stages
-- ✅ **Simple summaries**: Use `📌 **In simple terms**:` for one-line explanations
-- ✅ **Code examples**: Include practical code examples, URL examples, or demonstrations
-- ✅ **Summary section**: Always include `## ⭐ Summary — 10-second Interview Version` with quote format
-- ✅ **Extra points**: Always include `## ⭐ Extra Points (If Interviewer Asks More)` with follow-up Q&A
-
-**Formatting Rules:**
-
-- ✅ **Separators**: Use `---` between major sections
-- ✅ **Emojis allowed**: Use 🔹, 📌, ⭐ for visual clarity (only in FE System Design)
-- ✅ **Code blocks**: Use triple backticks for code examples
-- ✅ **Bullet points**: Use `* **Bold** → Explanation` format for key points
-- ✅ **Headings**: Use `##` for main question, `###` for sub-sections
 
 ### Answer Template
 
@@ -471,12 +466,14 @@ Example: (optional - only when it adds value)
 ### 📐 Spacing & Formatting Rules (MANDATORY)
 
 **Spacing Requirements:**
+
 - ✅ **Blank line after question** - Always include one blank line between the question (Q#.) and the answer
 - ✅ **Blank line before "Trade-offs"** - Always include one blank line between the answer and the "Trade-offs" section (if present)
 - ✅ **Blank line before "Example:"** - Always include one blank line between "Trade-offs" (or answer if no trade-offs) and "Example:" label (if present)
 - ✅ **Blank line before code block** - Always include one blank line between "Example:" label and the code block (if example is included)
 
 **Formatting Structure:**
+
 ```
 Q#. [Question]
 
@@ -490,6 +487,7 @@ Example: (optional)
 ```
 
 **Visual Spacing Pattern:**
+
 - Question → [blank line] → Answer
 - Answer → [blank line] → Trade-offs (if present)
 - Trade-offs → [blank line] → Example: (if present)
@@ -498,6 +496,7 @@ Example: (optional)
 ### 🔑 Answer Format Rules
 
 **What goes in the direct answer:**
+
 - **Definition first** - Start with what directly answers the question
 - **How it works** - Include mechanism/process only if essential to understanding
 - **When to use** - Include use cases only if essential to understanding
@@ -505,6 +504,7 @@ Example: (optional)
 - **1-3 lines maximum** - If content is too long, prioritize the most important parts, but don't cut off essential information
 
 **When to add "Trade-offs":**
+
 - Add when question asks about pros/cons, differences, or considerations
 - Add when there are important limitations or things to watch out for
 - Skip if trade-offs are obvious or don't add value
@@ -533,12 +533,14 @@ Example: (optional)
 ### Content Requirements
 
 **Language:**
+
 - Write like talking to a colleague in the hallway
 - Use everyday words, avoid jargon
 - Focus on "how you'd actually use this" not "what it theoretically is"
 - Show practical expertise and decision-making
 
 **Content:**
+
 - **Direct answer: 1-3 lines maximum** - Keep focused, straight to the point
 - **Definition first** - Start with what directly answers the question
 - **Smart merging** - Merge definition, how it works, and when to use intelligently - prioritize answering the question
@@ -550,6 +552,7 @@ Example: (optional)
 - No unnecessary content - If it doesn't directly answer the question, remove it, but keep all essential content
 
 **Code Examples (OPTIONAL - Only When Required):**
+
 - ✅ **Add examples only when they add value** - Use examples to clarify complex concepts, show practical usage, or demonstrate syntax that's hard to explain in words
 - ✅ **Skip examples for simple concepts** - If the answer is clear without code, don't add an example just to have one
 - ✅ **Keep examples relevant and focused** - Examples should directly illustrate the concept being explained, not show unrelated features
@@ -561,6 +564,7 @@ Example: (optional)
 - ✅ **Blank line before code block** (between "Example:" and code)
 
 **When to include examples:**
+
 - ✅ Complex syntax that's hard to explain (e.g., promise chaining, destructuring patterns)
 - ✅ Practical usage that clarifies the concept (e.g., API calls, event handlers)
 - ✅ Common mistakes or gotchas that need demonstration
@@ -569,24 +573,28 @@ Example: (optional)
 ### 🔢 Question Numbering Rules
 
 **Sequential Numbering Requirements:**
+
 - **No duplicates** - Each question number must be unique within a tech stack
 - **No overlaps** - Question numbers must not overlap between files in the same tech stack
 - **No gaps** - Question numbers must be sequential with no missing numbers
 - **Continuous sequence** - Each file should continue from where the previous file ended
 
 **Numbering Pattern:**
+
 - **File 1**: Q1, Q2, Q3... QN
 - **File 2**: Q(N+1), Q(N+2), Q(N+3)... QM
 - **File 3**: Q(M+1), Q(M+2), Q(M+3)... QP
 - And so on...
 
 **Common Issues to Avoid:**
+
 - ❌ **Duplicate numbers**: Q52 appears in both file 3 and file 4
 - ❌ **Overlaps**: File 2 ends at Q27, File 3 starts at Q24
 - ❌ **Gaps**: File 4 ends at Q59, File 5 starts at Q61 (missing Q60)
 - ❌ **Missing numbers**: File has Q1-Q11, then jumps to Q29-Q30 (missing Q12-Q28)
 
 **Example of Correct Numbering:**
+
 ```
 File 1: Q1-Q15 (15 questions)
 File 2: Q16-Q25 (10 questions) ✅ Continues from Q15
@@ -594,6 +602,7 @@ File 3: Q26-Q35 (10 questions) ✅ Continues from Q25
 ```
 
 **Example of Incorrect Numbering:**
+
 ```
 File 1: Q1-Q15 (15 questions)
 File 2: Q12-Q25 (14 questions) ❌ Overlaps with File 1
@@ -645,6 +654,7 @@ File 3: Q27-Q35 (9 questions) ❌ Gap - missing Q26
 
 **Time Complexity:** O(...) - [Brief explanation] (when applicable)
 **Space Complexity:** O(...) - [Brief explanation] (when applicable)
+
 ```
 
 ### Critical Rules
@@ -687,12 +697,14 @@ File 3: Q27-Q35 (9 questions) ❌ Gap - missing Q26
 ### Answer Template
 
 ```
+
 Q#. [Question]
 
 - **Situation**: [What happened, explained simply] (when applicable)
 - **Action**: [What you did, in plain language] (when applicable)
 - **Result**: [Impact - numbers, feedback, outcomes] (when applicable)
 - **Takeaway**: [What you learned, easy to remember] (when applicable)
+
 ```
 
 **Note:** Use STAR method structure. Add labels when applicable based on question needs.
@@ -705,32 +717,13 @@ Q#. [Question]
 
 ### Language Requirements (MANDATORY)
 
-**All project system design content must follow conversational language rules:**
+**⚠️ IMPORTANT: All project system design content must follow the comprehensive Language Requirements pinned at the top of this document (see "🗣️ Language Requirements" section).**
 
-#### ✅ Natural Language & Word Choice
-- **Use "you can" instead of "they can"** - Write from the reader's perspective
-- **Use "allows/allows you to" instead of "lets/lets you"** - More professional and clear
-- **Use analogies and simple explanations** - "Like a walkie-talkie" instead of "bidirectional communication"
-- **Use "think of it as" for complex concepts** - Makes abstract ideas concrete
-- **Use everyday words** - "Smart messenger" instead of "HTTP client with interceptors"
-
-#### ✅ Conversational Tone
-- **Write like explaining to a colleague** - Use everyday words, avoid jargon
-- **Use analogies** - "Like building with LEGO blocks" for component-based architecture
-- **Use simple comparisons** - "Like a GPS for your app" for routing
-- **Make it easy to speak aloud** - Should sound natural when read in an interview
-- **Explain "why" not just "what"** - Help interviewer understand decisions
-
-#### ✅ Natural Flow & Clarity
-- **Use "the catch is" instead of "however"** - More conversational
-- **Use "watch out for" instead of "limitation"** - Practical warning
-- **Use "works great for" instead of "optimal for"** - Natural language
-- **Use "like having" for tools** - "Like having a professional animator" for animation libraries
-- **Use "think of it as" for abstractions** - Makes concepts relatable
+**Additional Guidelines for Project System Design:**
 
 #### ✅ Tech Stack Explanations
-- **Explain why you chose it** - Not just what it is, but why it fits
-- **Use real-world comparisons** - "Like a cashier" for payment gateway
+- **Explain why you chose it** - Not just what it is, but why it fits the project
+- **Use real-world comparisons** - "Like a cashier" for payment gateway, "Like building with LEGO blocks" for component-based architecture
 - **Focus on benefits** - What problem it solves, not just features
 - **Keep it interview-friendly** - Easy to explain and remember
 
@@ -928,6 +921,7 @@ Q#. [Question]
 ```
 
 **Complexity:**
+
 - Time: [Big O notation with explanation]
 - Space: [Big O notation with explanation]
 - [Additional notes if needed]
@@ -939,6 +933,7 @@ Q#. [Question]
 ## [Collection/Table Name] (MongoDB/SQL)
 
 [Schema definition with:]
+
 - Field names and types
 - Indexes
 - Relationships
@@ -951,10 +946,12 @@ Q#. [Question]
 # 6) Database Transactions and Consistency
 
 ### [Database] Transactions
+
 - Transaction usage scenarios
 - Code examples with transaction handling
 
 ### Consistency Strategies
+
 - Data consistency approaches
 - Cache consistency
 - Conflict resolution
@@ -964,6 +961,7 @@ Q#. [Question]
 # 7) Protocols
 
 ### [Protocol Name]
+
 - Protocol description
 - Data format
 - HTTP methods (if applicable)
@@ -974,6 +972,7 @@ Q#. [Question]
 # 8) API Design
 
 ### [HTTP Method] [Endpoint Path]
+
 - **URL:** [Full endpoint path]
 - **Method:** [HTTP method]
 - **Request Body:** [Request structure with example]
@@ -988,6 +987,7 @@ Q#. [Question]
 # 9) Caching Strategy
 
 ### [Cache Solution]
+
 - Cache strategy description
 - Key format
 - Value structure
@@ -1001,6 +1001,7 @@ Q#. [Question]
 # 10) Error Handling
 
 ### Error Scenarios and Responses
+
 - [List of error scenarios with HTTP status codes]
 - Error response format
 - Edge cases handling
@@ -1011,27 +1012,32 @@ Q#. [Question]
 # 11) Deployment and DevOps
 
 ### Scalability
+
 - API layer scaling
 - Database sharding strategy
 - Caching distribution
 - Read replicas
 
 ### Availability
+
 - Replication strategy
 - Failover mechanisms
 - Geo-distributed deployment
 
 ### Frontend Deployment
+
 - Build process
 - Deployment platforms
 - CDN configuration
 
 ### Backend Deployment
+
 - Server setup
 - CI/CD pipeline
 - Container orchestration
 
 ### Database Deployment
+
 - Database setup
 - Backup strategy
 - Indexing strategy
@@ -1042,18 +1048,22 @@ Q#. [Question]
 # 12) Security Considerations
 
 ### Rate Limiting
+
 - Rate limiting strategy
 - Implementation approach
 
 ### Input Validation
+
 - Validation rules
 - Sanitization approach
 
 ### HTTPS/TLS
+
 - Security protocols
 - Certificate management
 
 ### Monitoring and Alerts
+
 - Security monitoring
 - Alert configuration
 - Audit logging
@@ -1067,6 +1077,7 @@ Q#. [Question]
 ## Q1. [Question Title]
 
 [Answer in conversational STAR format or detailed technical explanation with:]
+
 - The Challenge/Problem
 - My Approach/Solution
 - Implementation details
@@ -1078,6 +1089,7 @@ Q#. [Question]
 ---
 
 **Template Rules:**
+
 - ✅ **All sections must be present** - Follow the exact structure above
 - ✅ **Numbering consistency** - Use consistent numbering (1, 2, 3... and a, b, c... and i, ii, iii...)
 - ✅ **Conversational language** - All content must follow conversational language rules
@@ -1118,6 +1130,7 @@ Q#. [Question]
 ## 📝 Summary - Quick Reference
 
 ### Tech Stack Questions
+
 - **Format:** Direct answer (no label) / Trade-offs (optional) / Example (optional)
 - **Definition first** - Start with what directly answers the question
 - **Smart merging** - Merge definition, how it works, when to use intelligently
@@ -1130,6 +1143,7 @@ Q#. [Question]
 - **Spacing:** Blank line after question, before "Trade-offs", before "Example:", and before code block
 
 ### FE System Design Questions (Special Format)
+
 - **Format:** Clean, interview-friendly explanation with numbered stages, summary, and extra points
 - **Question numbering:** Always include `## Q#.` format in headings, match question.md numbering
 - **Structure:** Introduction → Numbered stages (6-8 steps) → Summary (10-second version) → Extra points
@@ -1142,12 +1156,14 @@ Q#. [Question]
 - **Deep details:** Provide comprehensive, detailed explanations suitable for system design interviews
 
 ### DSA Questions
+
 - **Format:** Problem / Approach / Solution / Complexity
 - **Code:** Complete working functions
 - **Test cases:** 2-3 minimum, inside code block as comments
 - **Complexity:** Both time and space with explanations
 
 ### All Questions
+
 - **Concept format** - All questions must be written as concept statements, not questions
 - **No question marks** - Remove question marks and rephrase as statements
 - **No emojis** (except cheatsheet headers and FE System Design format for visual clarity)

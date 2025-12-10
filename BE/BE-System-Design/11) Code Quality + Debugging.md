@@ -628,7 +628,7 @@ Using both gives you code quality and consistent style, but you need to configur
 
 ### How do you configure ESLint and Prettier to work together?
 
-You configure by using eslint-config-prettier to disable ESLint formatting rules, running Prettier before ESLint, or using eslint-plugin-prettier to run Prettier as ESLint rule. The catch is they can conflict. The tricky part is configuration - disable ESLint formatting rules, run Prettier first, and ensure compatibility.
+You configure by using eslint-config-prettier to disable ESLint formatting rules, running Prettier before ESLint, or using eslint-plugin-prettier to run Prettier as ESLint rule. The catch is these can conflict. The tricky part is configuration - disable ESLint formatting rules, run Prettier first, and ensure compatibility.
 
 ### When should you use ESLint vs Prettier?
 
@@ -1363,7 +1363,6 @@ You prevent by using multiple metrics, focusing on trends not absolute numbers, 
 You use by tracking trends over time, setting goals based on metrics, taking action when metrics degrade, and using metrics to guide improvements. The catch is you need to act on metrics. The tricky part is usage - track trends, set goals, and take action.
 
 ---
-
 
 ---
 

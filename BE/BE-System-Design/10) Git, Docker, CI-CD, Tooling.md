@@ -973,7 +973,7 @@ Proper secret management prevents credential leaks, which is critical for securi
 
 ### Why not use environment variables for secrets?
 
-You avoid environment variables for secrets because they can be exposed in process lists, logs, or container inspection. Use secret management services instead. The catch is environment variables are visible. The tricky part is security - use secret files or secret management services for sensitive data, environment variables only for non-sensitive config.
+You avoid environment variables for secrets because these can be exposed in process lists, logs, or container inspection. Use secret management services instead. The catch is environment variables are visible. The tricky part is security - use secret files or secret management services for sensitive data, environment variables only for non-sensitive config.
 
 ### How do you handle secret rotation in Docker?
 
@@ -1801,7 +1801,7 @@ Lock files ensure consistent dependency versions, which prevents "works on my ma
 
 ### Should you commit lock files to version control?
 
-Yes, you should always commit lock files to version control. They ensure consistent installs across environments and prevent "works on my machine" issues. The catch is they can have merge conflicts. The tricky part is handling conflicts - regenerate lock files when possible, or resolve conflicts carefully.
+Yes, you should always commit lock files to version control. These ensure consistent installs across environments and prevent "works on my machine" issues. The catch is these can have merge conflicts. The tricky part is handling conflicts - regenerate lock files when possible, or resolve conflicts carefully.
 
 ### How do you resolve lock file merge conflicts?
 
@@ -2286,7 +2286,6 @@ You use environments for values that differ per environment (URLs, API keys, dat
 You share by exporting environments to JSON files, committing to version control, importing into Postman, or using Postman workspaces. The catch is you need to keep them in sync. The tricky part is synchronization - export/import, use version control, and keep team in sync.
 
 ---
-
 
 ---
 

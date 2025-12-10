@@ -130,7 +130,7 @@ Queues are simple and ensure each message is processed once.
 
 * **Queue pros** → Simple, ensure each message processed once
 
-* **Queue cons** → The catch is they don't support multiple consumers well
+* **Queue cons** → The catch is these don't support multiple consumers well
 
 * **Stream pros** → Support multiple consumers and replay, great for event-driven architectures
 
@@ -676,7 +676,7 @@ Automatic offset commits are convenient but risk losing messages.
 
 ### How do you ensure exactly-once processing with offsets?
 
-You ensure exactly-once processing by committing offsets atomically with processing - either use Kafka transactions or store offsets in the same transaction as your processing results. The catch is this requires careful coordination. The tricky part is ensuring the offset commit and processing happen atomically - if they don't, you might lose messages or reprocess them.
+You ensure exactly-once processing by committing offsets atomically with processing - either use Kafka transactions or store offsets in the same transaction as your processing results. The catch is this requires careful coordination. The tricky part is ensuring the offset commit and processing happen atomically - if these don't, you might lose messages or reprocess them.
 
 ### What happens if you commit offsets too early?
 
@@ -808,7 +808,7 @@ You choose retention based on your needs - consider how far back you need to rep
 
 ### What happens when retention period expires?
 
-When retention period expires, Kafka automatically deletes the oldest messages. This happens in the background and doesn't block new message writes. The catch is once messages are deleted, they can't be recovered. The tricky part is ensuring you don't need messages after they're deleted - if you do, you need longer retention or external archival.
+When retention period expires, Kafka automatically deletes the oldest messages. This happens in the background and doesn't block new message writes. The catch is once messages are deleted, these can't be recovered. The tricky part is ensuring you don't need messages after these are deleted - if you do, you need longer retention or external archival.
 
 ### Can you have different retention for different topics?
 

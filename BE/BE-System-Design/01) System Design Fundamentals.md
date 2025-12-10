@@ -210,7 +210,7 @@ When building distributed systems, you follow certain principles to handle compl
 
 ## ⭐ Summary — 10-second Interview Version
 
-> "A distributed system is a collection of independent computers that work together and appear as a single system to users. They allow you to scale beyond single-machine limits and improve fault tolerance, but the tricky part is they're way more complex - you have to deal with network failures, data consistency, and coordination."
+> "A distributed system is a collection of independent computers that work together and appear as a single system to users. These allow you to scale beyond single-machine limits and improve fault tolerance, but the tricky part is these are way more complex - you have to deal with network failures, data consistency, and coordination."
 
 ---
 
@@ -1762,7 +1762,7 @@ When the circuit is open, requests fail immediately without calling the service.
 
 ### Can you have different circuit breakers for different services?
 
-Yes, you typically have one circuit breaker per downstream service. This allows you to isolate failures - if one service is down, other services can still work. The tricky part is managing multiple circuit breakers and ensuring they don't all open at once during system-wide issues.
+Yes, you typically have one circuit breaker per downstream service. This allows you to isolate failures - if one service is down, other services can still work. The tricky part is managing multiple circuit breakers and ensuring these don't all open at once during system-wide issues.
 
 ---
 
@@ -1790,7 +1790,7 @@ The bulkhead pattern isolates resources to prevent failures from cascading acros
 
 ## 2. 💡 How Bulkheads Work
 
-Bulkheads work by separating resources so they can't interfere with each other.
+Bulkheads work by separating resources so these can't interfere with each other.
 
 * **Separate thread pools** → Different services use different thread pools
 
@@ -2888,7 +2888,7 @@ Distributed transactions guarantee data consistency across services, which is im
 
 * **Cons** → Slow because they require coordination, can block if any participant is unavailable
 
-* **Scalability** → The tricky part is they don't scale well - as you add more services, the chance of one being down increases
+* **Scalability** → The tricky part is these don't scale well - as you add more services, the chance of one being down increases
 
 * **Performance** → Coordination overhead makes them slow
 
@@ -2896,7 +2896,7 @@ Distributed transactions guarantee data consistency across services, which is im
 
 ## ⭐ Summary — 10-second Interview Version
 
-> "A distributed transaction updates data across multiple databases or services atomically - like transferring money from one bank account to another where both updates must succeed or both must fail. It's tricky because you need to coordinate commits across different systems, which is why two-phase commit exists but it's slow and can block if one system is down. The tricky part is they don't scale well."
+> "A distributed transaction updates data across multiple databases or services atomically - like transferring money from one bank account to another where both updates must succeed or both must fail. It's tricky because you need to coordinate commits across different systems, which is why two-phase commit exists but it's slow and can block if one system is down. The tricky part is these don't scale well."
 
 ---
 

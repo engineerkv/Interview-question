@@ -50,7 +50,7 @@ GraphQL is a query language and runtime for APIs.
 
 * **Type system** → Strongly typed schema
 
-📌 **In simple terms**: Query language that lets clients request exactly the data they need.
+📌 **In simple terms**: Query language that allows clients to request exactly the data they need.
 
 ---
 
@@ -1371,7 +1371,6 @@ The main bottlenecks are N+1 queries (most common), complex query execution, lac
 **[← Previous: Communication Protocols](02%29%20Communication%20Protocols.md)** | **[Next: API Scaling →](04%29%20API%20Scaling.md)**
 
 </div>
-
 
 ---
 

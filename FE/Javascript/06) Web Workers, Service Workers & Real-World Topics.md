@@ -20,7 +20,7 @@
 
 Web Workers run JavaScript in background threads, enabling CPU-intensive tasks without blocking the main thread - they run in separate thread with own global scope and communicate via `postMessage` and `onmessage`. Great for heavy computations and data processing where you need to keep the UI responsive.
 
-- **Trade-offs**: The catch is they can't access DOM or `window` object - you must use `postMessage` for communication. Workers prevent blocking the main thread, keeping UI responsive, but watch out - use `terminate()` to stop workers when you're done to free up resources.
+- **Trade-offs**: The catch is these can't access DOM or `window` object - you must use `postMessage` for communication. Workers prevent blocking the main thread, keeping UI responsive, but watch out - use `terminate()` to stop workers when you're done to free up resources.
 
 Example:
 

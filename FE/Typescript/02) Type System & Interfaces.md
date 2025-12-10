@@ -218,7 +218,7 @@ let strLength2: number = (<string>value).length;
 
 Literal types allow you specify exact values instead of broad types - when you use `"up"` instead of `string`, TypeScript only allows that specific value. You can use them for string literals like `"success" | "error"`, number literals like `200 | 404 | 500`, or boolean literals like `true` - perfect for event names, status codes, CSS properties, and API endpoints where you need to restrict values to specific options.
 
-- **Trade-offs**: The catch is they can get verbose when you have many possible values - instead of `direction: "up" | "down" | "left" | "right"`, you might want an enum or const object for better maintainability, but literal types work great when you have a small, fixed set of values.
+- **Trade-offs**: The catch is these can get verbose when you have many possible values - instead of `direction: "up" | "down" | "left" | "right"`, you might want an enum or const object for better maintainability, but literal types work great when you have a small, fixed set of values.
 
 Example:
 

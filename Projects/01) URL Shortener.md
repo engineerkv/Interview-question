@@ -98,6 +98,7 @@ Design and implement a scalable URL shortening service that addresses the follow
 - **Peak Traffic**: 10x the average load
 
 **Calculations:**
+
 - **Average Writes Per Second (WPS)**: (100,000,000 requests / 86,400 seconds) ≈ 1,160 WPS
 - **Peak WPS**: 1,160 × 10 = 11,600 WPS
 - **Average Redirects Per Second (RPS)**: 1,160 × 10 = 11,600 RPS
@@ -106,6 +107,7 @@ Design and implement a scalable URL shortening service that addresses the follow
 ### Storage Estimation
 
 **Storage per URL:**
+
 - Short URL: 7 characters (Base62 encoded)
 - Original URL: 100 characters (average)
 - Creation Date: 8 bytes (timestamp)
@@ -114,6 +116,7 @@ Design and implement a scalable URL shortening service that addresses the follow
 - **Total per URL**: 7 + 100 + 8 + 8 + 4 = 127 bytes
 
 **Storage requirements:**
+
 - **Total URLs per Year**: 100,000,000 × 365 = 36.5 billion
 - **Total Storage per Year**: 36.5 billion × 127 bytes ≈ 4.6 TB
 
@@ -126,6 +129,7 @@ Design and implement a scalable URL shortening service that addresses the follow
 ### Caching Estimation
 
 Following the **80-20 rule** where 20% of URLs generate 80% of traffic:
+
 - **Cache 20% of hot URLs**: 100M × 0.2 = 20M URLs
 - **Cache memory required**: 20M × 127 bytes = 2.54 GB
 - **Cache hit ratio**: 90% (only 10% of redirects hit the database)
@@ -197,6 +201,7 @@ The system follows a layered architecture with clear separation of concerns acro
 ### Complete Request Flow
 
 **URL Shortening Flow:**
+
 1. **Frontend**: User submits URL through React form
 2. **Load Balancer**: Routes request to available API server
 3. **API Server**: Validates request, extracts URL and optional custom alias
@@ -207,6 +212,7 @@ The system follows a layered architecture with clear separation of concerns acro
 8. **Frontend**: Displays short URL with copy functionality
 
 **URL Redirection Flow:**
+
 1. **User**: Clicks short URL (e.g., short.ly/abc123)
 2. **CDN/Edge**: Checks if redirect can be served from edge location
 3. **Load Balancer**: Routes to API server if not cached at edge
@@ -218,6 +224,7 @@ The system follows a layered architecture with clear separation of concerns acro
 9. **Cache Update**: Update Redis cache for future requests
 
 **Analytics Flow:**
+
 1. **Frontend**: User views analytics dashboard
 2. **API Request**: React Query fetches analytics data
 3. **Cache Check**: Check Redis for cached analytics
@@ -355,6 +362,7 @@ Frontend Application
 ```
 
 **Frontend Deployment:**
+
 - **Build**: Production bundle with code splitting and tree shaking
 - **CDN**: Static assets served from CloudFront/Cloudflare edge locations
 - **Caching**: Aggressive caching for static assets, cache-busting for updates
@@ -363,6 +371,7 @@ Frontend Application
 ### Backend Architecture Details
 
 **Service Architecture:**
+
 - **Stateless API Servers**: Can scale horizontally without session affinity
 - **Service Layer**: Business logic separated from HTTP handling
 - **Cache-First Strategy**: Check Redis before database for hot URLs
@@ -370,43 +379,43 @@ Frontend Application
 
 **Key Components:**
 
-- **Frontend (React.js)**: 
+- **Frontend (React.js)**:
   - Single-page application with client-side routing
   - Component-based architecture for reusability
   - React Query for efficient API state management
   - Responsive design for mobile and desktop
   
-- **CDN/Edge**: 
+- **CDN/Edge**:
   - Global distribution of static assets
   - Edge caching for redirects to reduce latency
   - DDoS protection and rate limiting at edge
   
-- **Load Balancer**: 
+- **Load Balancer**:
   - Distributes traffic across API servers
   - SSL/TLS termination
   - Health checks and automatic failover
   
-- **API Servers**: 
+- **API Servers**:
   - Stateless design for horizontal scaling
   - Handle URL shortening, redirection, and analytics APIs
   - Can add/remove instances based on load
   
-- **Application Services**: 
+- **Application Services**:
   - URL Generation Service (Base62 encoding, custom aliases)
   - Validation Service (URL format, expiration checks)
   - Analytics Service (event tracking, aggregation)
   
-- **Cache Layer (Redis)**: 
+- **Cache Layer (Redis)**:
   - In-memory cache for 20% hot URLs (80-20 rule)
   - Session data and rate limiting counters
   - 90% cache hit rate target
   
-- **Database (MongoDB)**: 
+- **Database (MongoDB)**:
   - Sharded across multiple nodes for horizontal scaling
   - Consistent hashing for even distribution
   - Read replicas for analytics queries
   
-- **Message Queue**: 
+- **Message Queue**:
   - RabbitMQ/Kafka for async analytics processing
   - Decouples analytics from core redirect functionality
   - Enables independent scaling of workers
@@ -732,6 +741,7 @@ server/
 The URL Generator Service is responsible for creating unique short URLs. Here are the key approaches:
 
 **Approach 1: Base62 Encoding (Recommended)**
+
 - Use auto-increment database ID as the base
 - Convert ID to Base62 string using characters (a-z, A-Z, 0-9)
 - A 7-character Base62 string can represent ~3.5 billion unique URLs (62^7)
@@ -743,6 +753,7 @@ The URL Generator Service is responsible for creating unique short URLs. Here ar
 - **Cons:** Reveals total number of URLs created, requires database coordination
 
 **Approach 2: Hash-based Encoding**
+
 - Hash original URL using MD5 or SHA256
 - Take first 6-8 characters of the hash
 - **Workflow:**
@@ -754,12 +765,14 @@ The URL Generator Service is responsible for creating unique short URLs. Here ar
 - **Cons:** Potential collisions, requires collision detection and retry logic
 
 **Custom Alias Handling:**
+
 - **Uniqueness Check:** Verify alias doesn't exist in database before allowing creation
 - **Character Validation:** Ensure alias contains only allowed characters (alphanumeric, hyphens)
 - **Reserved Words:** Check against list of reserved aliases (e.g., "help", "admin", "about")
 - **Conflict Resolution:** Return 409 Conflict if alias already exists, suggest alternatives
 
 **Link Expiration:**
+
 - **User-Specified Expiration:** Users can set expiration date when creating URL
 - **Default Expiration:** Assign default expiration (e.g., 1 year) if not specified
 - **Real-Time Check:** Verify expiration during redirection, return 410 Gone if expired
@@ -794,6 +807,7 @@ The Analytics Service tracks usage statistics without impacting core functionali
 **Purpose:** Convert auto-increment database IDs into short, URL-friendly strings.
 
 **Algorithm:**
+
 1. Take the numeric ID from database
 2. Convert to Base62 using characters: `a-z, A-Z, 0-9` (62 characters total)
 3. Repeatedly divide by 62 and use remainder as index
@@ -833,6 +847,7 @@ function decodeFromBase62(shortCode: string): number {
 ```
 
 **Complexity:**
+
 - Time: O(log₆₂(n)) where n is the ID
 - Space: O(1)
 - **Capacity:** 7 characters = 62^7 ≈ 3.5 billion unique URLs
@@ -844,6 +859,7 @@ function decodeFromBase62(shortCode: string): number {
 **Purpose:** Generate short URLs from long URLs using cryptographic hashing.
 
 **Algorithm:**
+
 1. Hash the original URL using MD5 or SHA256
 2. Extract first 6-8 bytes from hash
 3. Convert bytes to decimal number
@@ -896,6 +912,7 @@ async function generateUniqueShortCode(originalUrl: string): Promise<string> {
 ```
 
 **Complexity:**
+
 - Time: O(1) for hash generation, O(log n) for Base62 encoding
 - Space: O(1)
 - **Collision Probability:** Low but requires collision detection
@@ -907,6 +924,7 @@ async function generateUniqueShortCode(originalUrl: string): Promise<string> {
 **Purpose:** Distribute URLs across database shards evenly and minimize data movement when adding/removing shards.
 
 **Algorithm:**
+
 1. Create a hash ring (circular space) from 0 to 2^64 - 1
 2. Hash each shard server to multiple points on the ring
 3. Hash the shortCode to a point on the ring
@@ -969,6 +987,7 @@ class ConsistentHash {
 ```
 
 **Complexity:**
+
 - Time: O(log n) for shard lookup where n is number of virtual nodes
 - Space: O(v * s) where v is virtual nodes, s is number of shards
 - **Data Movement:** Only ~1/n of data moves when adding/removing shards
@@ -980,6 +999,7 @@ class ConsistentHash {
 **Purpose:** Generate unique short codes for URLs with collision detection and retry logic.
 
 **Algorithm:**
+
 1. Check if custom alias provided
 2. If custom: validate and check uniqueness
 3. If auto-generate: use Base62 encoding with ID
@@ -1050,6 +1070,7 @@ async function generateShortUrl(
 ```
 
 **Complexity:**
+
 - Time: O(1) average case, O(k) worst case where k is retry attempts
 - Space: O(1)
 
@@ -1060,6 +1081,7 @@ async function generateShortUrl(
 **Purpose:** Manage Redis cache efficiently by evicting least recently used URLs when cache is full.
 
 **Algorithm:**
+
 1. Maintain a doubly-linked list of cached URLs ordered by access time
 2. Use a hash map for O(1) lookup
 3. On access: move item to front (most recently used)
@@ -1153,6 +1175,7 @@ class Node {
 ```
 
 **Complexity:**
+
 - Time: O(1) for get and put operations
 - Space: O(capacity)
 
@@ -1163,6 +1186,7 @@ class Node {
 **Purpose:** Determine which database shard should store a given URL based on shortCode.
 
 **Algorithm:**
+
 1. Hash the shortCode using consistent hashing
 2. Map hash value to shard using hash ring
 3. Return shard identifier for database routing
@@ -1187,6 +1211,7 @@ function getShardConsistentHash(shortCode: string, consistentHash: ConsistentHas
 ```
 
 **Complexity:**
+
 - Time: O(1) for modulo, O(log n) for consistent hashing
 - Space: O(1)
 
@@ -1282,6 +1307,7 @@ CREATE TABLE analytics (
 ### MongoDB Transactions
 
 **Transaction Usage:**
+
 - **Multi-Document Transactions** - For operations requiring ACID guarantees
 - **Example:** URL creation + analytics initialization in single transaction
 - **Session Management:** Use MongoDB sessions for transaction control
@@ -1307,6 +1333,7 @@ try {
 ### Consistency Strategies
 
 **Data Consistency:**
+
 - **URL Consistency:** Ensure short code uniqueness using unique index and application-level checks
 - **Analytics Consistency:** Use transactions for analytics updates to maintain data integrity
 - **Cache Consistency:** Invalidate cache on URL updates to prevent serving stale data
@@ -1346,6 +1373,7 @@ try {
   }
 
   ```
+
 - **Response:**
 
   ```json
@@ -1360,6 +1388,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 201 (Created), 400 (Invalid URL), 409 (Alias Exists)
 
 **Backend Implementation:**
@@ -1464,6 +1493,7 @@ app.get('/api/v1/:shortCode', async (req, res) => {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 404 (Not Found)
 
 ---
@@ -1473,12 +1503,14 @@ app.get('/api/v1/:shortCode', async (req, res) => {
 ### Redis Cache
 
 **Cache Strategy:**
+
 - **Key Format:** `url:{shortCode}`
 - **Value:** Original URL string
 - **TTL:** 1 hour (configurable, can be extended for hot URLs)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Pattern:**
+
 - **Cache-Aside Pattern**: Check cache first, if miss query database and update cache
 - **Cache 20% hot URLs**: Following 80-20 rule, cache the most popular URLs
 - **Cache Hit Ratio Target**: 90% (only 10% of requests hit database)
@@ -1496,6 +1528,7 @@ app.get('/api/v1/:shortCode', async (req, res) => {
 ### Error Scenarios and Responses
 
 **Edge Cases Handling:**
+
 - **Invalid URL Format:** Return 400 Bad Request with descriptive error message
 - **Custom Alias Already Exists:** Return 409 Conflict with suggestion to use different alias
 - **URL Not Found:** Return 404 Not Found when short code doesn't exist in database
@@ -1505,6 +1538,7 @@ app.get('/api/v1/:shortCode', async (req, res) => {
 - **Cache Miss:** Gracefully fallback to database (not an error, but handled scenario)
 
 **URL Conflicts:**
+
 - **Collision Detection:** Implement collision detection during URL creation
 - **Retry Logic:** If collision occurs (rare with base62), retry with next ID
 - **Database Constraints:** Use unique index on shortCode column as primary defense
@@ -1530,11 +1564,13 @@ app.get('/api/v1/:shortCode', async (req, res) => {
 ### Scalability
 
 **API Layer:**
+
 - Deploy API layer across multiple instances behind load balancer
 - Use round-robin or consistent hashing for request distribution
 - Stateless design allows horizontal scaling
 
 **Database Sharding:**
+
 - **Hash-Based Sharding:** Apply hash function to shortCode to determine shard
   - Formula: `hash(shortCode) % N` where N is number of shards
   - Ensures even distribution across shards
@@ -1542,26 +1578,31 @@ app.get('/api/v1/:shortCode', async (req, res) => {
 - **Shard Management:** Metadata service tracks shard locations and health for dynamic shard management
 
 **Caching:**
+
 - Distributed Redis cluster for high availability
 - Cache frequently accessed short URL-to-long URL mappings
 - Reduces database load significantly (90% cache hit ratio target)
 
 **Read Replicas:**
+
 - Use read replicas for analytics queries to separate read/write workloads
 - Multiple replicas for high availability and load distribution
 
 ### Availability
 
 **Replication:**
+
 - Database replication ensures data availability even if some nodes fail
 - Multi-region replication for disaster recovery
 
 **Failover:**
+
 - Automated failover mechanisms for API and data store layers
 - Switch to backup servers automatically in case of failure
 - Health checks and monitoring for proactive failover
 
 **Geo-Distributed Deployment:**
+
 - Deploy service across multiple geographical regions
 - Reduces latency for users worldwide
 - Improves availability by eliminating single point of failure
@@ -1569,23 +1610,27 @@ app.get('/api/v1/:shortCode', async (req, res) => {
 ### Frontend Deployment
 
 **Build Process:**
+
 - **Production Build:** Optimized bundle with code splitting
 - **CDN Deployment:** Deploy static assets to CDN for fast global delivery
 - **Environment Variables:** `.env.production` for production config
 
 **Deployment Platforms:**
+
 - **Vercel / Netlify** - Automatic deployments from Git
 - **AWS S3 + CloudFront** - Static site hosting with CDN
 
 ### Backend Deployment
 
 **Server Setup:**
+
 - **PM2:** Process manager with clustering for Node.js apps
 - **Nginx:** Load balancer and reverse proxy with SSL termination
 - **Docker:** Containerized deployment for consistency across environments
 - **Kubernetes:** Container orchestration for auto-scaling and management
 
 **CI/CD Pipeline:**
+
 - **Automated Testing:** Run tests before deployment
 - **Zero-Downtime:** Rolling deployment strategy
 - **Health Checks:** Verify URL shortening endpoints are healthy
@@ -1594,12 +1639,14 @@ app.get('/api/v1/:shortCode', async (req, res) => {
 ### Database Deployment
 
 **MongoDB Setup:**
+
 - **MongoDB Atlas** - Managed MongoDB service with automatic backups
 - **Backup Strategy:** Daily automated backups with point-in-time recovery
 - **Indexing:** Proper indexes on shortCode, userId, expiresAt, and createdAt
 - **Sharding:** Horizontal sharding across multiple nodes for scalability
 
 **Redis Setup:**
+
 - **Redis Cloud / AWS ElastiCache** - Managed Redis service
 - **Cluster Mode:** Redis cluster for high availability and performance
 - **Persistence:** RDB snapshots and AOF for data durability
@@ -1637,6 +1684,7 @@ try {
 ### Consistency Strategies
 
 **Data Consistency:**
+
 - **URL Consistency:** Ensure short code uniqueness using unique index and application-level checks
 - **Analytics Consistency:** Use transactions for analytics updates to maintain data integrity
 - **Cache Consistency:** Invalidate cache on URL updates to prevent serving stale data
@@ -1645,21 +1693,25 @@ try {
 ### Security Considerations
 
 **Rate Limiting:**
+
 - Implement rate limiting at API layer to prevent abuse
 - Limit number of URLs each user can create per minute/hour
 - Use Redis for distributed rate limiting across multiple servers
 
 **Input Validation:**
+
 - Validate URLs to ensure they don't contain malicious content
 - Sanitize user input to prevent injection attacks
 - Check URL format and protocol (http/https only)
 
 **HTTPS:**
+
 - All communication between clients and service encrypted using HTTPS
 - Prevents eavesdropping and man-in-the-middle attacks
 - SSL/TLS certificates for secure connections
 
 **Monitoring and Alerts:**
+
 - Set up monitoring for unusual activity patterns
 - Trigger alerts for potential DDoS attacks or misuse
 - Track metrics: request rates, error rates, response times
@@ -1693,12 +1745,13 @@ For billions of URLs, we shard by hashing the shortCode. I'd use consistent hash
 Analytics go through a message queue - RabbitMQ or Kafka - so tracking clicks doesn't block redirects. This is critical because redirects need to be fast, but analytics can be processed asynchronously.
 
 **Results:**
+
 - Handles 1,160 writes/sec average, 11,600 at peak
 - Redirect latency under 100ms (90% from cache)
 - Scales to billions of URLs across 20-30 shards
 - 99.9% uptime with redundancy
 
-**Key Insight:** The 80-20 rule is crucial here. Most traffic goes to popular URLs, so caching those gives us massive performance gains. Also, keeping the API layer stateless and using async processing for non-critical features lets us scale independently.
+**Key Insight:** The 80-20 rule is crucial here. Most traffic goes to popular URLs, so caching those gives us massive performance gains. Also, keeping the API layer stateless and using async processing for non-critical features allows us to scale independently.
 
 ---
 
@@ -1716,6 +1769,7 @@ Before inserting, we check if the shortCode exists. For base62 encoding, collisi
 
 **Layer 3: Custom Alias Handling (The Tricky Part)**
 Custom aliases are where race conditions happen. Two users might try "mybrand" at the same time. Here's what I do:
+
 - First, validate the format - only alphanumeric and hyphens
 - Check against reserved words like "admin" or "api"
 - Use a distributed lock in Redis before checking existence
@@ -1756,7 +1810,8 @@ try {
 ```
 
 **Why This Works:**
-- Database constraints are the source of truth - they can't be bypassed
+
+- Database constraints are the source of truth - these can't be bypassed
 - Application checks give fast feedback and reduce database load
 - Distributed locks prevent race conditions in high-concurrency scenarios
 - Retry logic handles edge cases transparently
@@ -1776,6 +1831,7 @@ Vertical scaling - bigger machines - hits limits. Horizontal scaling - more mach
 
 **The Sharding Key Decision:**
 I use the hash of shortCode as the sharding key. This is important because:
+
 - It's evenly distributed - hash functions spread data uniformly
 - Lookups are fast - we know exactly which shard to query
 - It's stable - same shortCode always maps to same shard
@@ -1813,6 +1869,7 @@ class ShardRouter {
 ```
 
 **Results:**
+
 - Handles billions of URLs across 20-30 shards
 - Query latency stays under 10ms even at scale
 - 99.9% uptime with automatic failover
@@ -1833,13 +1890,14 @@ Every redirect request checks expiration before serving. If expired, we return 4
 
 **Phase 2: Background Cleanup (Maintenance)**
 A daily cron job runs during off-peak hours - say 2 AM - to clean up expired URLs. Here's the strategy:
+
 - First, soft delete - mark as inactive. This gives us a safety net in case we need to recover
 - After a grace period (7 days), hard delete
 - Process in batches of 1000 to avoid overwhelming the database
 - We keep expired URLs for 30 days before cleanup - this handles edge cases and provides an audit trail
 
 **Why Soft Delete First?**
-Mistakes happen. Maybe a user reports an issue, or we need to investigate. Soft delete lets us recover. After the grace period, we're confident it's safe to hard delete.
+Mistakes happen. Maybe a user reports an issue, or we need to investigate. Soft delete allows us to recover. After the grace period, we're confident it's safe to hard delete.
 
 **Cache Synchronization:**
 This is important - cache and database must stay in sync. When we detect expiration, we invalidate cache immediately. We also set Redis TTL to match expiration time, but that's a backup. The real-time check is primary.
@@ -1883,6 +1941,7 @@ async function cleanupExpired() {
 ```
 
 **Why This Works:**
+
 - Real-time validation ensures users never get redirected to expired URLs
 - Background cleanup prevents database bloat without impacting users
 - Soft delete provides safety net and audit trail
@@ -1906,6 +1965,7 @@ During a redirect, we extract analytics data - IP, user agent, referrer, timesta
 
 **Why Message Queue?**
 Message queues give us several benefits:
+
 - Decoupling - redirect service doesn't care about analytics processing
 - Buffering - if analytics is slow, events queue up
 - Independent scaling - we can scale workers separately
@@ -1918,7 +1978,7 @@ Separate worker processes consume events from the queue. They process in batches
 Here's the key insight - we can't query raw events for dashboards. With millions of events, that's too slow. So we pre-aggregate. As events come in, we update aggregates - daily counts, top countries, device breakdown. We store these in separate collections. When a user queries analytics, we read pre-calculated data, not raw events.
 
 **Time Windows:**
-We aggregate by different time windows - hour, day, week, month. This lets users see trends at different granularities. We update aggregates incrementally - when a new click comes in, we increment the count for that day. Much faster than recalculating from scratch.
+We aggregate by different time windows - hour, day, week, month. This allows users to see trends at different granularities. We update aggregates incrementally - when a new click comes in, we increment the count for that day. Much faster than recalculating from scratch.
 
 **Query Optimization:**
 Even with aggregates, we cache in Redis. Analytics queries are cached for 5-15 minutes. We use compound indexes on shortCode and clickedAt for time-range queries. For large result sets, cursor-based pagination.
@@ -1967,6 +2027,7 @@ async function getAnalytics(shortCode: string, range: string) {
 ```
 
 **Why This Works:**
+
 - Async processing means zero impact on redirect performance
 - Message queue provides buffering and reliability
 - Pre-aggregation makes dashboard queries fast
@@ -1974,6 +2035,7 @@ async function getAnalytics(shortCode: string, range: string) {
 - Caching reduces database load for frequently accessed analytics
 
 **Results:**
+
 - Less than 5ms overhead on redirects
 - Processes millions of events per day
 - Dashboard loads in under 1 second

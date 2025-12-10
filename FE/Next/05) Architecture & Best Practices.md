@@ -296,7 +296,7 @@ export default function HybridPage() {
 
 Avoid mixing Pages and App Router, overusing client components (use Server Components when possible), blocking SSR calls (use streaming with Suspense), and not using proper caching strategies - follow Next.js best practices for optimal performance.
 
-- **Trade-offs**: The catch is follow Next.js best practices for optimal performance, and use Server Components when possible to reduce client-side JS, but watch out - avoid these anti-patterns, as they can significantly impact performance and user experience.
+- **Trade-offs**: The catch is follow Next.js best practices for optimal performance, and use Server Components when possible to reduce client-side JS, but watch out - avoid these anti-patterns, as these can significantly impact performance and user experience.
 
 Example:
 

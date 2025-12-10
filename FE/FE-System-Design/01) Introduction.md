@@ -2456,7 +2456,7 @@ How the app looks and feels affects user experience and platform integration.
 
 * Limited platform integration
 
-📌 **In simple terms**: Cordova apps feel like web apps - they don't have the native look and feel. The catch is users can tell it's not a native app.
+📌 **In simple terms**: Cordova apps feel like web apps - these don't have the native look and feel. The catch is users can tell it's not a native app.
 
 ---
 
