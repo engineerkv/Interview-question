@@ -16,13 +16,13 @@
 
 ---
 
-## Q20. How React Native Works Internally
+## Q20. ⚛️ How React Native Works Internally
 
 React Native allows you to build mobile apps using React, but instead of rendering to the web DOM, it renders to native mobile components. Understanding how React Native works internally helps you write better mobile apps, debug performance issues, and understand the bridge between JavaScript and native code. This knowledge is crucial for senior developers - it helps you understand why certain patterns work better, how to optimize React Native applications, and how to debug complex issues.
 
 ---
 
-## 1. React Native Architecture
+## 1. ⚛️ React Native Architecture
 
 ### 🔹 Core Concept
 
@@ -60,7 +60,7 @@ When you write React Native code:
 
 ---
 
-## 2. The Bridge (Old Architecture)
+## 2. 💡 The Bridge (Old Architecture)
 
 ### 🔹 What is the Bridge?
 
@@ -208,7 +208,7 @@ Understanding bridge limitations helps you understand why the new architecture w
 
 ---
 
-## 3. JavaScript Interface (JSI) - New Architecture
+## 3. 📋 JavaScript Interface (JSI) - New Architecture
 
 ### 🔹 What is JSI?
 
@@ -311,7 +311,7 @@ const image = await camera.takePictureAsync();
 
 ---
 
-## 4. Fabric - New Rendering System
+## 4. 🎨 Fabric - New Rendering System
 
 ### 🔹 What is Fabric?
 
@@ -351,7 +351,7 @@ Fabric is React Native's new rendering system that uses JSI for better performan
 
 ---
 
-## 5. TurboModules - New Native Module System
+## 5. 📦 TurboModules - New Native Module System
 
 ### 🔹 What are TurboModules?
 
@@ -387,7 +387,7 @@ TurboModules are the new native module system that uses JSI instead of the bridg
 
 ---
 
-## 6. Threading Model
+## 6. 💡 Threading Model
 
 ### 🔹 Thread Separation
 
@@ -417,7 +417,7 @@ React Native runs different parts of your app on different threads:
 
 ---
 
-## 7. Component Rendering Process
+## 7. 🧩 Component Rendering Process
 
 ### 🔹 How Components Render
 
@@ -443,7 +443,7 @@ React Native runs different parts of your app on different threads:
 
 ---
 
-## 8. State Management & Updates
+## 8. 📦 State Management & Updates
 
 ### 🔹 State Updates Work the Same
 
@@ -479,15 +479,29 @@ React Native uses the same state management as React web:
 
 ---
 
+## ⭐ Extra Points (If Interviewer Asks More)
+
+### What's the difference between the old bridge and new JSI architecture?
+
+The old bridge used asynchronous message passing with JSON serialization - JavaScript and native code communicated by sending serialized messages, which added overhead. The new JSI (JavaScript Interface) architecture allows direct synchronous calls between JavaScript and native code without serialization. This eliminates the bridge overhead and enables better performance, especially for frequent operations like animations.
+
+### How does React Native render to native components?
+
+React Native uses a renderer (Fabric in the new architecture) that converts React components to native mobile components. When you write `<View>`, React Native creates a native UIView (iOS) or ViewGroup (Android). The renderer maintains a shadow tree (layout calculations) and updates native components when React state changes. This is different from web React, which renders to DOM elements.
+
+### Can you use native modules in React Native?
+
+Yes, you can create native modules to access platform-specific APIs or write performance-critical code in native languages (Java/Kotlin for Android, Objective-C/Swift for iOS). Native modules expose functions that can be called from JavaScript. The new TurboModules architecture makes this easier and more performant by allowing direct synchronous calls instead of going through the bridge.
+
 ---
 
 ## 📍 Navigation
 
 <div align="center">
 
-[07) Node.js Internals.md](07%29%20Node.js%20Internals.md) • [Questions Index](question.md) • [09) Browser APIs.md →](09%29%20Browser%20APIs.md)
+[← Previous: Node.js Internals](11%29%20Node.js%20Internals.md) • [Home: Questions Index](question.md) • [Next: Browser APIs →](13%29%20Browser%20APIs.md)
 
-[FE-System-Design Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md)
 
 </div>
 

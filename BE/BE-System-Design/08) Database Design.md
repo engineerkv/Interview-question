@@ -1,4 +1,4 @@
-# 8. Database Design (Q121–Q155)
+# 8. Database Design (Q163–Q169)
 
 ---
 
@@ -16,13 +16,13 @@
 
 ---
 
-## Q121. 🗄️ SQL vs NoSQL and when to choose which
+## Q135. 🗄️ SQL vs NoSQL and when to choose which
 
 SQL and NoSQL databases serve different use cases based on data structure, consistency requirements, and scalability needs. When you choose a database, you consider data model, query patterns, and operational requirements.
 
 ---
 
-## 1. When to Choose SQL
+## 1. 🗄️ When to Choose SQL
 
 Choose SQL when you need structured data with relationships, ACID transactions, and complex queries with joins.
 
@@ -38,7 +38,7 @@ Choose SQL when you need structured data with relationships, ACID transactions, 
 
 ---
 
-## 2. SQL Use Cases
+## 2. 🗄️ SQL Use Cases
 
 Like banking systems or e-commerce where data integrity is critical.
 
@@ -52,7 +52,7 @@ Like banking systems or e-commerce where data integrity is critical.
 
 ---
 
-## 3. When to Choose NoSQL
+## 3. 🗄️ When to Choose NoSQL
 
 Choose NoSQL when you need flexible schemas, horizontal scaling, and high write throughput.
 
@@ -68,7 +68,7 @@ Choose NoSQL when you need flexible schemas, horizontal scaling, and high write 
 
 ---
 
-## 4. NoSQL Use Cases
+## 4. 🗄️ NoSQL Use Cases
 
 Like social media feeds, IoT data, or content management where data structure changes frequently.
 
@@ -82,7 +82,7 @@ Like social media feeds, IoT data, or content management where data structure ch
 
 ---
 
-## 5. SQL Trade-offs
+## 5. 🗄️ SQL Trade-offs
 
 SQL gives you strong consistency and powerful querying but is harder to scale horizontally and requires schema migrations.
 
@@ -96,7 +96,7 @@ SQL gives you strong consistency and powerful querying but is harder to scale ho
 
 ---
 
-## 6. NoSQL Trade-offs
+## 6. 🗄️ NoSQL Trade-offs
 
 NoSQL scales easily and handles unstructured data well, but you lose joins, complex transactions, and have to manage consistency yourself.
 
@@ -110,7 +110,7 @@ NoSQL scales easily and handles unstructured data well, but you lose joins, comp
 
 ---
 
-## 7. Hybrid Approaches
+## 7. 🔍 Hybrid Approaches
 
 Hybrid approaches are common where you use SQL for transactional data and NoSQL for analytics or caching.
 
@@ -146,13 +146,13 @@ Main types include document databases (MongoDB - flexible documents), key-value 
 
 ---
 
-## Q122. 🔒 ACID properties with examples
+## Q136. 🔒 ACID properties with examples
 
 ACID properties ensure reliable and predictable database transactions. When you use ACID-compliant databases, you get guarantees about how transactions behave, which is essential for critical operations like financial transactions.
 
 ---
 
-## 1. What is ACID
+## 1. 💡 What is ACID
 
 ACID stands for Atomicity, Consistency, Isolation, and Durability.
 
@@ -168,7 +168,7 @@ ACID stands for Atomicity, Consistency, Isolation, and Durability.
 
 ---
 
-## 2. Atomicity
+## 2. 💡 Atomicity
 
 All operations succeed or all fail.
 
@@ -182,7 +182,7 @@ All operations succeed or all fail.
 
 ---
 
-## 3. Consistency
+## 3. ⚖️ Consistency
 
 Data stays valid.
 
@@ -196,7 +196,7 @@ Data stays valid.
 
 ---
 
-## 4. Isolation
+## 4. 💡 Isolation
 
 Concurrent transactions don't interfere.
 
@@ -210,7 +210,7 @@ Concurrent transactions don't interfere.
 
 ---
 
-## 5. Durability
+## 5. 💡 Durability
 
 Committed data survives crashes.
 
@@ -224,7 +224,7 @@ Committed data survives crashes.
 
 ---
 
-## 6. Example
+## 6. 💡 Example
 
 Example of ACID transaction:
 
@@ -242,7 +242,7 @@ COMMIT;
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 ACID guarantees make data reliable and predictable.
 
@@ -278,13 +278,13 @@ Durability works by writing changes to persistent storage (disk) before committi
 
 ---
 
-## Q123. 🔄 How SQL transactions work
+## Q137. 🔄 How SQL transactions work
 
 SQL transactions group multiple operations into a single unit that either all succeed or all fail. When you use transactions, you ensure data integrity by grouping related operations together.
 
 ---
 
-## 1. Transaction Structure
+## 1. 💳 Transaction Structure
 
 SQL transactions group multiple operations into a single unit that either all succeed or all fail.
 
@@ -300,7 +300,7 @@ SQL transactions group multiple operations into a single unit that either all su
 
 ---
 
-## 2. Transaction Commands
+## 2. 💳 Transaction Commands
 
 You start with BEGIN, execute your queries, then COMMIT to save changes or ROLLBACK to undo everything.
 
@@ -314,7 +314,7 @@ You start with BEGIN, execute your queries, then COMMIT to save changes or ROLLB
 
 ---
 
-## 3. Locking
+## 3. 💡 Locking
 
 The database locks affected rows to prevent other transactions from seeing partial changes.
 
@@ -328,7 +328,7 @@ The database locks affected rows to prevent other transactions from seeing parti
 
 ---
 
-## 4. Example
+## 4. 💡 Example
 
 Example transaction:
 
@@ -343,7 +343,7 @@ COMMIT;
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 Transactions guarantee data integrity which is critical for operations like payments or inventory updates.
 
@@ -357,7 +357,7 @@ Transactions guarantee data integrity which is critical for operations like paym
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Transactions guarantee data integrity which is critical for operations like payments or inventory updates.
 
@@ -393,13 +393,13 @@ If a transaction fails, all changes are rolled back (undone), locks are released
 
 ---
 
-## Q124. 🔒 Deadlock avoidance strategies
+## Q138. 🔒 Deadlock avoidance strategies
 
 Deadlocks occur when two transactions each hold a lock the other needs. When you avoid deadlocks, you use strategies like lock ordering, timeouts, and short transactions to prevent deadlock situations.
 
 ---
 
-## 1. What are Deadlocks
+## 1. 💡 What are Deadlocks
 
 Deadlocks happen when two transactions each hold a lock the other needs.
 
@@ -415,7 +415,7 @@ Deadlocks happen when two transactions each hold a lock the other needs.
 
 ---
 
-## 2. Lock Ordering
+## 2. 💡 Lock Ordering
 
 Always acquire locks in the same order across transactions.
 
@@ -429,7 +429,7 @@ Always acquire locks in the same order across transactions.
 
 ---
 
-## 3. Timeouts
+## 3. ⏰ ⏰ Timeouts
 
 Use timeouts so transactions don't wait forever.
 
@@ -443,7 +443,7 @@ Use timeouts so transactions don't wait forever.
 
 ---
 
-## 4. Short Transactions
+## 4. 💳 Short Transactions
 
 Keep transactions short to reduce lock time.
 
@@ -457,7 +457,7 @@ Keep transactions short to reduce lock time.
 
 ---
 
-## 5. Lower Isolation Levels
+## 5. 💡 Lower Isolation Levels
 
 Use lower isolation levels when possible.
 
@@ -471,7 +471,7 @@ Use lower isolation levels when possible.
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Lock ordering prevents deadlocks but requires discipline.
 
@@ -513,13 +513,13 @@ You monitor for deadlocks by enabling deadlock logging, using database monitorin
 
 ---
 
-## Q125. 🏊 Connection pool
+## Q139. 🏊 Connection pool
 
 A connection pool maintains a set of reusable database connections instead of creating a new one for each query. When you use connection pooling, you reuse expensive connections to improve performance and reduce overhead.
 
 ---
 
-## 1. What is Connection Pooling
+## 1. 💡 What is Connection Pooling
 
 A connection pool maintains a set of reusable database connections instead of creating a new one for each query.
 
@@ -535,7 +535,7 @@ A connection pool maintains a set of reusable database connections instead of cr
 
 ---
 
-## 2. Benefits
+## 2. 💡 Benefits
 
 This avoids the overhead of establishing connections which involves network handshakes and authentication.
 
@@ -549,7 +549,7 @@ This avoids the overhead of establishing connections which involves network hand
 
 ---
 
-## 3. Pool Sizing
+## 3. 💡 Pool Sizing
 
 You need to size the pool correctly.
 
@@ -563,7 +563,7 @@ You need to size the pool correctly.
 
 ---
 
-## 4. Connection Management
+## 4. 💡 Connection Management
 
 Dead connections need to be detected and replaced.
 
@@ -577,7 +577,7 @@ Dead connections need to be detected and replaced.
 
 ---
 
-## 5. Example
+## 5. 💡 Example
 
 Example connection pool:
 
@@ -600,7 +600,7 @@ pool.query('SELECT * FROM users', (err, results) => {
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Connection pooling dramatically improves performance by reusing expensive connections.
 
@@ -636,13 +636,13 @@ Connection pool reuses connections across requests (better performance, lower ov
 
 ---
 
-## Q126. 📖 Using read replicas for scaling read-heavy workloads
+## Q140. 📖 Using read replicas for scaling read-heavy workloads
 
 Read replicas are copies of your database that handle read queries while the primary handles writes. When you scale read-heavy workloads, you use read replicas to distribute read load and scale reads horizontally.
 
 ---
 
-## 1. What are Read Replicas
+## 1. 💡 What are Read Replicas
 
 Read replicas are copies of your database that handle read queries while the primary handles writes.
 
@@ -658,7 +658,7 @@ Read replicas are copies of your database that handle read queries while the pri
 
 ---
 
-## 2. Query Routing
+## 2. ❓ Query Routing
 
 You send SELECT queries to replicas and INSERT/UPDATE/DELETE to the primary.
 
@@ -672,7 +672,7 @@ You send SELECT queries to replicas and INSERT/UPDATE/DELETE to the primary.
 
 ---
 
-## 3. Replication
+## 3. 🔄 Replication
 
 The primary replicates changes to replicas asynchronously.
 
@@ -686,7 +686,7 @@ The primary replicates changes to replicas asynchronously.
 
 ---
 
-## 4. Benefits
+## 4. 💡 Benefits
 
 Read replicas allow you to scale reads almost infinitely by adding more replicas.
 
@@ -700,7 +700,7 @@ Read replicas allow you to scale reads almost infinitely by adding more replicas
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 Read replicas allow you to scale reads almost infinitely by adding more replicas.
 
@@ -736,13 +736,13 @@ You use read replicas when you have read-heavy workloads, need to scale reads, w
 
 ---
 
-## Q127. 🔀 SQL sharding patterns
+## Q141. 🔀 SQL sharding patterns
 
 SQL sharding splits your database across multiple servers by a shard key to scale beyond one machine's limits. When you shard a database, you distribute data across multiple servers based on a shard key.
 
 ---
 
-## 1. What is Sharding
+## 1. 🔀 What is Sharding
 
 SQL sharding splits your database across multiple servers by a shard key.
 
@@ -758,7 +758,7 @@ SQL sharding splits your database across multiple servers by a shard key.
 
 ---
 
-## 2. Range-Based Sharding
+## 2. 🔀 Range-Based Sharding
 
 Split by ID ranges.
 
@@ -772,7 +772,7 @@ Split by ID ranges.
 
 ---
 
-## 3. Hash-Based Sharding
+## 3. 🗝️ Hash-Based Sharding
 
 Hash the key to determine shard.
 
@@ -786,7 +786,7 @@ Hash the key to determine shard.
 
 ---
 
-## 4. Directory-Based Sharding
+## 4. 🔀 Directory-Based Sharding
 
 Lookup table maps keys to shards.
 
@@ -800,7 +800,7 @@ Lookup table maps keys to shards.
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 Sharding allows you to scale beyond one machine's limits and can speed up queries by reducing data per server.
 
@@ -814,7 +814,7 @@ Sharding allows you to scale beyond one machine's limits and can speed up querie
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Sharding allows you to scale beyond one machine's limits.
 
@@ -828,7 +828,7 @@ Sharding allows you to scale beyond one machine's limits.
 
 ---
 
-## 7. Example
+## 7. 💡 Example
 
 Example sharding patterns:
 
@@ -867,13 +867,13 @@ You rebalance shards by creating new shards, migrating data from old shards to n
 
 ---
 
-## Q128. 📇 Indexing strategy for large databases
+## Q142. 📇 Indexing strategy for large databases
 
 Indexing strategy is critical for large database performance. When you index large databases, you create indexes strategically to improve query performance while minimizing write overhead.
 
 ---
 
-## 1. Strategic Indexing
+## 1. 📇 Strategic Indexing
 
 Index strategically by creating indexes on columns used in WHERE clauses, JOIN conditions, and ORDER BY.
 
@@ -889,7 +889,7 @@ Index strategically by creating indexes on columns used in WHERE clauses, JOIN c
 
 ---
 
-## 2. Consider Write Overhead
+## 2. 💡 Consider Write Overhead
 
 Only where queries actually benefit, since indexes slow down writes and use storage.
 
@@ -903,7 +903,7 @@ Only where queries actually benefit, since indexes slow down writes and use stor
 
 ---
 
-## 3. Composite Indexes
+## 3. 📇 Composite Indexes
 
 For large databases, use composite indexes that match common query patterns.
 
@@ -917,7 +917,7 @@ For large databases, use composite indexes that match common query patterns.
 
 ---
 
-## 4. Monitor and Remove
+## 4. 🗑️ Monitor and Remove
 
 Monitor index usage to remove unused ones.
 
@@ -931,7 +931,7 @@ Monitor index usage to remove unused ones.
 
 ---
 
-## 5. Partial Indexes
+## 5. 📇 Partial Indexes
 
 Consider partial indexes for filtered queries.
 
@@ -945,7 +945,7 @@ Consider partial indexes for filtered queries.
 
 ---
 
-## 6. Example
+## 6. 💡 Example
 
 Example composite index:
 
@@ -962,7 +962,7 @@ ORDER BY created_at DESC;
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Good indexes make queries fast - turning full table scans into index seeks.
 
@@ -998,13 +998,13 @@ Composite indexes index multiple columns together (e.g., (user_id, status, creat
 
 ---
 
-## Q129. 📇 Covering index
+## Q143. 📇 Covering index
 
 A covering index contains all the columns needed for a query, so the database never needs to read the actual table. When you use covering indexes, you can get query results directly from the index without accessing the table.
 
 ---
 
-## 1. What is a Covering Index
+## 1. 📇 What is a Covering Index
 
 A covering index contains all the columns needed for a query.
 
@@ -1020,7 +1020,7 @@ A covering index contains all the columns needed for a query.
 
 ---
 
-## 2. How It Works
+## 2. 💡 How It Works
 
 Like if you query user_id and email, and you have an index on (user_id, email), the database can return results directly from the index without touching the table.
 
@@ -1034,7 +1034,7 @@ Like if you query user_id and email, and you have an index on (user_id, email), 
 
 ---
 
-## 3. Benefits
+## 3. 💡 Benefits
 
 Covering indexes make queries super fast because these avoid table lookups entirely.
 
@@ -1048,7 +1048,7 @@ Covering indexes make queries super fast because these avoid table lookups entir
 
 ---
 
-## 4. Trade-offs
+## 4. 💡 Trade-offs
 
 Covering indexes make queries super fast, but these are larger and slower to maintain.
 
@@ -1062,7 +1062,7 @@ Covering indexes make queries super fast, but these are larger and slower to mai
 
 ---
 
-## 5. Example
+## 5. 💡 Example
 
 Example covering index:
 
@@ -1100,13 +1100,13 @@ A covering index contains all columns needed by the query (no table access neede
 
 ---
 
-## Q130. ⚡ Query optimization best practices
+## Q144. ⚡ Query optimization best practices
 
 Query optimization improves performance and reduces database load. When you optimize queries, you use indexes, efficient query patterns, and analysis tools to improve performance.
 
 ---
 
-## 1. Using Indexes
+## 1. 📇 Using Indexes
 
 Optimize queries by using indexes on filtered columns.
 
@@ -1122,7 +1122,7 @@ Optimize queries by using indexes on filtered columns.
 
 ---
 
-## 2. Reducing Data Transfer
+## 2. 💡 Reducing Data Transfer
 
 Avoid SELECT * to reduce data transfer.
 
@@ -1136,7 +1136,7 @@ Avoid SELECT * to reduce data transfer.
 
 ---
 
-## 3. Restricting Results
+## 3. 🔀 Restricting Results
 
 Use LIMIT to restrict result sets.
 
@@ -1150,7 +1150,7 @@ Use LIMIT to restrict result sets.
 
 ---
 
-## 4. Efficient JOINs
+## 4. 🔗 Efficient JOINs
 
 Write efficient JOINs with proper indexes.
 
@@ -1164,7 +1164,7 @@ Write efficient JOINs with proper indexes.
 
 ---
 
-## 5. Query Analysis
+## 5. ❓ Query Analysis
 
 Analyze query plans with EXPLAIN.
 
@@ -1178,7 +1178,7 @@ Analyze query plans with EXPLAIN.
 
 ---
 
-## 6. Avoiding N+1 Queries
+## 6. 💡 Avoiding N+1 Queries
 
 Avoid N+1 queries by using JOINs or batch loading.
 
@@ -1192,7 +1192,7 @@ Avoid N+1 queries by using JOINs or batch loading.
 
 ---
 
-## 7. Prepared Statements
+## 7. 📦 Prepared Statements
 
 Use prepared statements to avoid parsing overhead.
 
@@ -1206,7 +1206,7 @@ Use prepared statements to avoid parsing overhead.
 
 ---
 
-## 8. Trade-offs
+## 8. 💡 Trade-offs
 
 Query optimization improves performance and reduces database load.
 
@@ -1242,13 +1242,13 @@ You measure impact by comparing query execution times before and after, monitori
 
 ---
 
-## Q131. 🔀 Table partitioning and where to use it
+## Q145. 🔀 Table partitioning and where to use it
 
 Table partitioning splits large tables into smaller, manageable pieces based on a partition key. When you partition tables, you improve query performance and simplify maintenance for very large tables.
 
 ---
 
-## 1. When to Use Partitioning
+## 1. 💡 When to Use Partitioning
 
 Use table partitioning when you have very large tables that can be split logically.
 
@@ -1264,7 +1264,7 @@ Use table partitioning when you have very large tables that can be split logical
 
 ---
 
-## 2. Benefits
+## 2. 💡 Benefits
 
 Partitioning allows you to query only relevant partitions, drop old partitions easily, and can improve maintenance operations.
 
@@ -1278,7 +1278,7 @@ Partitioning allows you to query only relevant partitions, drop old partitions e
 
 ---
 
-## 3. Query Performance
+## 3. ⚡ Query Performance
 
 Partitioning can dramatically speed up queries that filter by the partition key.
 
@@ -1292,7 +1292,7 @@ Partitioning can dramatically speed up queries that filter by the partition key.
 
 ---
 
-## 4. Trade-offs
+## 4. 💡 Trade-offs
 
 Partitioning can dramatically speed up queries that filter by the partition key.
 
@@ -1306,7 +1306,7 @@ Partitioning can dramatically speed up queries that filter by the partition key.
 
 ---
 
-## 5. Example
+## 5. 💡 Example
 
 Example partitioning:
 
@@ -1375,13 +1375,13 @@ SELECT * FROM orders WHERE created_at BETWEEN '2024-01-01' AND '2024-01-31';
 
 ---
 
-## Q132. 📝 Write-ahead log internals
+## Q146. 📝 Write-ahead log internals
 
 Write-ahead log (WAL) records all changes to a log file before applying them to the database to ensure durability. When you use WAL, changes are written to the log first, then to the data file, allowing recovery from crashes.
 
 ---
 
-## 1. How WAL Works
+## 1. 💡 How WAL Works
 
 Write-ahead log (WAL) records all changes to a log file before applying them to the database.
 
@@ -1397,7 +1397,7 @@ Write-ahead log (WAL) records all changes to a log file before applying them to 
 
 ---
 
-## 2. Durability
+## 2. 💡 Durability
 
 This ensures durability - if the server crashes, the database can replay the WAL to recover all committed transactions.
 
@@ -1411,7 +1411,7 @@ This ensures durability - if the server crashes, the database can replay the WAL
 
 ---
 
-## 3. Benefits
+## 3. 💡 Benefits
 
 WAL provides durability and allows faster commits since writes are sequential.
 
@@ -1425,7 +1425,7 @@ WAL provides durability and allows faster commits since writes are sequential.
 
 ---
 
-## 4. Trade-offs
+## 4. 💡 Trade-offs
 
 WAL provides durability and allows faster commits since writes are sequential.
 
@@ -1461,13 +1461,13 @@ WAL recovery works by replaying WAL entries from the last checkpoint to recover 
 
 ---
 
-## Q133. 🌐 Schema federation vs centralized DB
+## Q147. 🌐 Schema federation vs centralized DB
 
 Schema federation and centralized databases are two different approaches to organizing database schemas. When you choose between them, you consider team autonomy, scaling needs, and consistency requirements.
 
 ---
 
-## 1. What is Schema Federation
+## 1. 📋 What is Schema Federation
 
 Schema federation splits your database into multiple databases by domain or service.
 
@@ -1483,7 +1483,7 @@ Schema federation splits your database into multiple databases by domain or serv
 
 ---
 
-## 2. What is Centralized DB
+## 2. 💡 What is Centralized DB
 
 Centralized DB keeps everything in one database with shared schemas.
 
@@ -1499,7 +1499,7 @@ Centralized DB keeps everything in one database with shared schemas.
 
 ---
 
-## 3. When to Choose Federation
+## 3. 💡 When to Choose Federation
 
 Choose federation when teams need independence and different scaling needs.
 
@@ -1513,7 +1513,7 @@ Choose federation when teams need independence and different scaling needs.
 
 ---
 
-## 4. When to Choose Centralized
+## 4. 💡 When to Choose Centralized
 
 Choose centralized when you need strong consistency and complex joins.
 
@@ -1527,7 +1527,7 @@ Choose centralized when you need strong consistency and complex joins.
 
 ---
 
-## 5. Federation Trade-offs
+## 5. 💡 Federation Trade-offs
 
 Federation gives teams autonomy and allows you to scale databases independently.
 
@@ -1541,7 +1541,7 @@ Federation gives teams autonomy and allows you to scale databases independently.
 
 ---
 
-## 6. Centralized Trade-offs
+## 6. 💡 Centralized Trade-offs
 
 Centralized DB makes joins and transactions easy.
 
@@ -1577,13 +1577,13 @@ Yes, you can use a hybrid approach - use centralized for core transactional data
 
 ---
 
-## Q134. 🛒 Designing relational schema for e-commerce
+## Q148. 🛒 Designing relational schema for e-commerce
 
 E-commerce schema design requires balancing normalization with performance. When you design an e-commerce schema, you create separate tables for different entities, use foreign keys for relationships, and strategically denormalize for read performance.
 
 ---
 
-## 1. Core Tables
+## 1. 💡 Core Tables
 
 Design e-commerce schema with separate tables for users, products, orders, order_items, payments, and inventory.
 
@@ -1603,7 +1603,7 @@ Design e-commerce schema with separate tables for users, products, orders, order
 
 ---
 
-## 2. Relationships
+## 2. 💡 Relationships
 
 Use foreign keys to maintain relationships.
 
@@ -1617,7 +1617,7 @@ Use foreign keys to maintain relationships.
 
 ---
 
-## 3. Normalization and Denormalization
+## 3. 💡 Normalization and Denormalization
 
 Normalize to reduce redundancy, but denormalize where reads are frequent.
 
@@ -1631,7 +1631,7 @@ Normalize to reduce redundancy, but denormalize where reads are frequent.
 
 ---
 
-## 4. Indexing
+## 4. 📇 Indexing
 
 Include indexes on foreign keys and commonly queried fields.
 
@@ -1645,7 +1645,7 @@ Include indexes on foreign keys and commonly queried fields.
 
 ---
 
-## 5. Additional Tables
+## 5. ➕ Additional Tables
 
 Consider separate tables for product variants, reviews, and shipping addresses.
 
@@ -1659,7 +1659,7 @@ Consider separate tables for product variants, reviews, and shipping addresses.
 
 ---
 
-## 6. Example
+## 6. 💡 Example
 
 Example e-commerce schema:
 
@@ -1685,7 +1685,7 @@ CREATE TABLE order_items (
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Normalized schema reduces data duplication and maintains integrity.
 
@@ -1721,13 +1721,13 @@ You optimize by denormalizing frequently read data (product info in order_items)
 
 ---
 
-## Q135. 📦 Archival strategies for SQL databases
+## Q149. 📦 Archival strategies for SQL databases
 
 Archiving old data keeps your main database small and fast. When you archive data, you move old data to separate storage while keeping recent data accessible for fast queries.
 
 ---
 
-## 1. Archival Methods
+## 1. 💡 Archival Methods
 
 Archive old data by moving it to separate archive tables or databases, using partitioning to isolate old partitions, or exporting to cold storage like S3.
 
@@ -1743,7 +1743,7 @@ Archive old data by moving it to separate archive tables or databases, using par
 
 ---
 
-## 2. Data Retention Strategy
+## 2. 💡 Data Retention Strategy
 
 Keep recent data in the main database for fast queries, and archive data older than a threshold.
 
@@ -1757,7 +1757,7 @@ Keep recent data in the main database for fast queries, and archive data older t
 
 ---
 
-## 3. Benefits
+## 3. 💡 Benefits
 
 Archiving keeps your main database small and fast.
 
@@ -1771,7 +1771,7 @@ Archiving keeps your main database small and fast.
 
 ---
 
-## 4. Trade-offs
+## 4. 💡 Trade-offs
 
 Archiving keeps your main database small and fast.
 
@@ -1807,13 +1807,13 @@ You automate archiving by creating scheduled jobs that move old data, using data
 
 ---
 
-## Q136. 📄 Embed vs reference decision rules
+## Q150. 📄 Embed vs reference decision rules
 
 Embedding and referencing are two patterns for modeling relationships in MongoDB. When you choose between them, you consider relationship cardinality, access patterns, and data growth.
 
 ---
 
-## 1. When to Embed
+## 1. 💡 When to Embed
 
 Embed related data in the same document when the relationship is one-to-few, data is accessed together, and child data doesn't grow independently.
 
@@ -1829,7 +1829,7 @@ Embed related data in the same document when the relationship is one-to-few, dat
 
 ---
 
-## 2. When to Reference
+## 2. 💡 When to Reference
 
 Reference with ObjectIds when relationships are one-to-many, child data is large or accessed separately, or when the same child is referenced by multiple parents.
 
@@ -1845,7 +1845,7 @@ Reference with ObjectIds when relationships are one-to-many, child data is large
 
 ---
 
-## 3. Embedding Benefits
+## 3. 💡 Embedding Benefits
 
 Embedding makes reads fast since you get everything in one query.
 
@@ -1859,7 +1859,7 @@ Embedding makes reads fast since you get everything in one query.
 
 ---
 
-## 4. Embedding Trade-offs
+## 4. 💡 Embedding Trade-offs
 
 Documents can become large and you can't query embedded data efficiently.
 
@@ -1873,7 +1873,7 @@ Documents can become large and you can't query embedded data efficiently.
 
 ---
 
-## 5. Referencing Benefits
+## 5. 💡 Referencing Benefits
 
 Referencing keeps documents small and allows independent updates.
 
@@ -1887,7 +1887,7 @@ Referencing keeps documents small and allows independent updates.
 
 ---
 
-## 6. Referencing Trade-offs
+## 6. 💡 Referencing Trade-offs
 
 You need multiple queries or $lookup to get related data, which is slower.
 
@@ -1901,7 +1901,7 @@ You need multiple queries or $lookup to get related data, which is slower.
 
 ---
 
-## 7. Example
+## 7. 💡 Example
 
 Example embedding vs referencing:
 
@@ -1952,13 +1952,13 @@ You handle queries on embedded data by using dot notation (user.addresses.city),
 
 ---
 
-## Q137. 📋 MongoDB replica set architecture
+## Q151. 📋 MongoDB replica set architecture
 
 MongoDB replica sets provide high availability and read scaling through replication. When you use replica sets, you have one primary node handling writes and multiple secondary nodes replicating data for redundancy and read scaling.
 
 ---
 
-## 1. Replica Set Structure
+## 1. 💡 Replica Set Structure
 
 A MongoDB replica set has one primary node that handles all writes and multiple secondary nodes that replicate data from the primary.
 
@@ -1974,7 +1974,7 @@ A MongoDB replica set has one primary node that handles all writes and multiple 
 
 ---
 
-## 2. Read and Write Behavior
+## 2. 💡 Read and Write Behavior
 
 Clients read from primary by default but can read from secondaries for read scaling.
 
@@ -1988,7 +1988,7 @@ Clients read from primary by default but can read from secondaries for read scal
 
 ---
 
-## 3. Automatic Failover
+## 3. 💡 Automatic Failover
 
 If the primary fails, secondaries automatically elect a new primary through consensus.
 
@@ -2002,7 +2002,7 @@ If the primary fails, secondaries automatically elect a new primary through cons
 
 ---
 
-## 4. Benefits
+## 4. 💡 Benefits
 
 Replica sets provide redundancy and automatic failover, which is great for availability.
 
@@ -2016,7 +2016,7 @@ Replica sets provide redundancy and automatic failover, which is great for avail
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 Replica sets provide redundancy and automatic failover, which is great for availability.
 
@@ -2052,13 +2052,13 @@ Minimum is 3 nodes for a proper replica set - 1 primary and 2 secondaries. This 
 
 ---
 
-## Q138. 🔑 Choosing the right shard key
+## Q152. 🔑 Choosing the right shard key
 
 Choosing the right shard key is critical for MongoDB sharding performance. When you choose a shard key, you balance even distribution with query locality to enable horizontal scaling and fast queries.
 
 ---
 
-## 1. Good Shard Key Characteristics
+## 1. 💡 Good Shard Key Characteristics
 
 Choose a shard key that distributes data evenly across shards, matches your query patterns, and avoids hotspots.
 
@@ -2074,7 +2074,7 @@ Choose a shard key that distributes data evenly across shards, matches your quer
 
 ---
 
-## 2. What to Avoid
+## 2. 💡 What to Avoid
 
 Avoid shard keys with low cardinality or that create hotspots.
 
@@ -2088,7 +2088,7 @@ Avoid shard keys with low cardinality or that create hotspots.
 
 ---
 
-## 3. Benefits
+## 3. 💡 Benefits
 
 A good shard key enables horizontal scaling and keeps queries fast by limiting which shards need to be queried.
 
@@ -2102,7 +2102,7 @@ A good shard key enables horizontal scaling and keeps queries fast by limiting w
 
 ---
 
-## 4. Trade-offs
+## 4. 💡 Trade-offs
 
 A good shard key enables horizontal scaling and keeps queries fast.
 
@@ -2116,7 +2116,7 @@ A good shard key enables horizontal scaling and keeps queries fast.
 
 ---
 
-## 5. Example
+## 5. 💡 Example
 
 Example shard key choices:
 
@@ -2157,13 +2157,13 @@ You test by creating a test sharded cluster, loading sample data, analyzing dist
 
 ---
 
-## Q139. ⚡ Aggregation pipeline performance rules
+## Q153. ⚡ Aggregation pipeline performance rules
 
 Aggregation pipeline performance depends on stage order and optimization. When you optimize aggregation pipelines, you filter early, reduce data size, and use indexes to improve performance.
 
 ---
 
-## 1. Early Filtering
+## 1. 💡 Early Filtering
 
 Put $match early to filter data.
 
@@ -2179,7 +2179,7 @@ Put $match early to filter data.
 
 ---
 
-## 2. Reduce Data Size
+## 2. 💡 Reduce Data Size
 
 Use $project to reduce data size.
 
@@ -2193,7 +2193,7 @@ Use $project to reduce data size.
 
 ---
 
-## 3. Indexing
+## 3. 📇 Indexing
 
 Create indexes on $match fields.
 
@@ -2207,7 +2207,7 @@ Create indexes on $match fields.
 
 ---
 
-## 4. Limit Results
+## 4. 💡 Limit Results
 
 Use $limit to restrict results.
 
@@ -2221,7 +2221,7 @@ Use $limit to restrict results.
 
 ---
 
-## 5. Avoid Expensive Operations
+## 5. 💡 Avoid Expensive Operations
 
 Avoid $unwind on large arrays, use $lookup sparingly.
 
@@ -2235,7 +2235,7 @@ Avoid $unwind on large arrays, use $lookup sparingly.
 
 ---
 
-## 6. Large Result Sets
+## 6. 💡 Large Result Sets
 
 Consider allowingDiskUse for large result sets.
 
@@ -2249,7 +2249,7 @@ Consider allowingDiskUse for large result sets.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Well-optimized pipelines are fast and efficient.
 
@@ -2285,13 +2285,13 @@ You handle memory issues by using allowingDiskUse for large result sets, limitin
 
 ---
 
-## Q140. ✍️ Designing high-write workloads
+## Q154. ✍️ Designing high-write workloads
 
 High-write workloads require optimizing for write throughput. When you design for high writes, you use write concerns, batching, and sharding to maximize write performance.
 
 ---
 
-## 1. Write Concerns
+## 1. 💡 Write Concerns
 
 Use write concerns that don't wait for replication.
 
@@ -2307,7 +2307,7 @@ Use write concerns that don't wait for replication.
 
 ---
 
-## 2. Batching
+## 2. 💡 Batching
 
 Batch writes together.
 
@@ -2321,7 +2321,7 @@ Batch writes together.
 
 ---
 
-## 3. Unordered Bulk Operations
+## 3. 💡 Unordered Bulk Operations
 
 Use unordered bulk operations.
 
@@ -2335,7 +2335,7 @@ Use unordered bulk operations.
 
 ---
 
-## 4. Indexing Strategy
+## 4. 📇 Indexing Strategy
 
 Avoid indexes on frequently updated fields.
 
@@ -2349,7 +2349,7 @@ Avoid indexes on frequently updated fields.
 
 ---
 
-## 5. Sharding
+## 5. 🔀 Sharding
 
 Shard to distribute writes.
 
@@ -2363,7 +2363,7 @@ Shard to distribute writes.
 
 ---
 
-## 6. Data Cleanup
+## 6. 💡 Data Cleanup
 
 Consider using change streams or TTL indexes to automatically clean up old data.
 
@@ -2377,7 +2377,7 @@ Consider using change streams or TTL indexes to automatically clean up old data.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Optimizing for writes improves throughput.
 
@@ -2413,13 +2413,13 @@ You balance by understanding access patterns (read-heavy vs write-heavy), using 
 
 ---
 
-## Q141. 🔄 MongoDB multi-document transactions
+## Q155. 🔄 MongoDB multi-document transactions
 
 MongoDB multi-document transactions provide ACID guarantees across multiple documents. When you use transactions, you can perform multiple operations atomically, ensuring all succeed or all fail.
 
 ---
 
-## 1. What are Multi-Document Transactions
+## 1. 💳 What are Multi-Document Transactions
 
 Multi-document transactions allow you to perform multiple operations across documents atomically.
 
@@ -2435,7 +2435,7 @@ Multi-document transactions allow you to perform multiple operations across docu
 
 ---
 
-## 2. Isolation and Requirements
+## 2. 💡 Isolation and Requirements
 
 They use snapshot isolation and require replica sets with WiredTiger storage engine.
 
@@ -2449,7 +2449,7 @@ They use snapshot isolation and require replica sets with WiredTiger storage eng
 
 ---
 
-## 3. Benefits
+## 3. 💡 Benefits
 
 Transactions provide ACID guarantees across documents which is great for data integrity.
 
@@ -2463,7 +2463,7 @@ Transactions provide ACID guarantees across documents which is great for data in
 
 ---
 
-## 4. Trade-offs
+## 4. 💡 Trade-offs
 
 Transactions provide ACID guarantees across documents which is great for data integrity.
 
@@ -2477,7 +2477,7 @@ Transactions provide ACID guarantees across documents which is great for data in
 
 ---
 
-## 5. Example
+## 5. 💡 Example
 
 Example transaction:
 
@@ -2524,13 +2524,13 @@ If a transaction fails, all changes are rolled back (aborted), locks are release
 
 ---
 
-## Q142. 📇 Indexing best practices in Mongo
+## Q156. 📇 Indexing best practices in Mongo
 
 MongoDB indexing improves query performance but requires careful design. When you create indexes, you match them to query patterns and optimize field order to maximize index usage.
 
 ---
 
-## 1. Basic Indexing
+## 1. 📇 Basic Indexing
 
 Create indexes on fields used in queries.
 
@@ -2546,7 +2546,7 @@ Create indexes on fields used in queries.
 
 ---
 
-## 2. Compound Indexes
+## 2. 📇 Compound Indexes
 
 Use compound indexes that match query patterns.
 
@@ -2560,7 +2560,7 @@ Use compound indexes that match query patterns.
 
 ---
 
-## 3. Index Field Order
+## 3. 📇 Index Field Order
 
 Create indexes in the order of equality, sort, then range.
 
@@ -2574,7 +2574,7 @@ Create indexes in the order of equality, sort, then range.
 
 ---
 
-## 4. Special Index Types
+## 4. 📇 Special Index Types
 
 Use partial indexes for filtered queries, sparse indexes for optional fields, and TTL indexes for expiring data.
 
@@ -2588,7 +2588,7 @@ Use partial indexes for filtered queries, sparse indexes for optional fields, an
 
 ---
 
-## 5. Monitor and Remove
+## 5. 🗑️ Monitor and Remove
 
 Monitor index usage to remove unused ones.
 
@@ -2602,7 +2602,7 @@ Monitor index usage to remove unused ones.
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Good indexes make queries fast.
 
@@ -2638,13 +2638,13 @@ You use partial indexes for queries that filter on specific conditions - they're
 
 ---
 
-## Q143. ⏰ TTL index use cases
+## Q157. 📇 ⏰ TTL index use cases
 
 TTL (Time-To-Live) indexes automatically delete documents after a specified time period. When you use TTL indexes, MongoDB automatically cleans up old data without manual intervention.
 
 ---
 
-## 1. What are TTL Indexes
+## 1. 📇 What are TTL Indexes
 
 Use TTL indexes to automatically delete documents after a time period.
 
@@ -2660,7 +2660,7 @@ Use TTL indexes to automatically delete documents after a time period.
 
 ---
 
-## 2. How TTL Indexes Work
+## 2. 📇 How TTL Indexes Work
 
 MongoDB automatically deletes documents when the indexed date field is older than the TTL value, running a background task every 60 seconds.
 
@@ -2674,7 +2674,7 @@ MongoDB automatically deletes documents when the indexed date field is older tha
 
 ---
 
-## 3. Benefits
+## 3. 💡 Benefits
 
 TTL indexes automate data cleanup which is convenient.
 
@@ -2688,7 +2688,7 @@ TTL indexes automate data cleanup which is convenient.
 
 ---
 
-## 4. Trade-offs
+## 4. 💡 Trade-offs
 
 TTL indexes automate data cleanup which is convenient.
 
@@ -2702,7 +2702,7 @@ TTL indexes automate data cleanup which is convenient.
 
 ---
 
-## 5. Example
+## 5. 💡 Example
 
 Example TTL index:
 
@@ -2742,13 +2742,13 @@ If a document doesn't have the TTL field, it won't be deleted by the TTL index. 
 
 ---
 
-## Q144. 📊 Time-series schema design
+## Q158. 📊 Time-series schema design
 
 Time-series data requires specialized schema design for efficient storage and queries. When you design time-series schemas, you optimize for writes and time-range queries while balancing granularity and detail.
 
 ---
 
-## 1. Document Structure
+## 1. 💡 Document Structure
 
 Design time-series data with a document per time point.
 
@@ -2764,7 +2764,7 @@ Design time-series data with a document per time point.
 
 ---
 
-## 2. Indexing
+## 2. 📇 Indexing
 
 Use compound indexes on time and tags.
 
@@ -2778,7 +2778,7 @@ Use compound indexes on time and tags.
 
 ---
 
-## 3. Bucketing
+## 3. 💡 Bucketing
 
 Bucket multiple measurements into single documents when possible.
 
@@ -2792,7 +2792,7 @@ Bucket multiple measurements into single documents when possible.
 
 ---
 
-## 4. Metadata Separation
+## 4. 💡 Metadata Separation
 
 Store metadata separately from measurements.
 
@@ -2806,7 +2806,7 @@ Store metadata separately from measurements.
 
 ---
 
-## 5. Pre-aggregation
+## 5. 📊 Pre-aggregation
 
 Consider pre-aggregation for common queries.
 
@@ -2820,7 +2820,7 @@ Consider pre-aggregation for common queries.
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Time-series schemas optimize for writes and time-range queries.
 
@@ -2856,13 +2856,13 @@ You handle metadata by storing it separately (separate collection or document), 
 
 ---
 
-## Q145. ⚡ Mongo high-throughput strategies
+## Q159. ⚡ Mongo high-throughput strategies
 
 High-throughput MongoDB workloads require optimizing for write performance. When you design for high throughput, you use sharding, write concerns, batching, and connection pooling to maximize performance.
 
 ---
 
-## 1. Sharding
+## 1. 🔀 Sharding
 
 Shard to distribute load.
 
@@ -2878,7 +2878,7 @@ Shard to distribute load.
 
 ---
 
-## 2. Write Concerns
+## 2. 💡 Write Concerns
 
 Use write concerns that don't wait for acknowledgment.
 
@@ -2892,7 +2892,7 @@ Use write concerns that don't wait for acknowledgment.
 
 ---
 
-## 3. Batching
+## 3. 💡 Batching
 
 Batch operations together.
 
@@ -2906,7 +2906,7 @@ Batch operations together.
 
 ---
 
-## 4. Indexing Strategy
+## 4. 📇 Indexing Strategy
 
 Avoid unnecessary indexes.
 
@@ -2920,7 +2920,7 @@ Avoid unnecessary indexes.
 
 ---
 
-## 5. Connection Pooling
+## 5. 💡 Connection Pooling
 
 Use connection pooling.
 
@@ -2934,7 +2934,7 @@ Use connection pooling.
 
 ---
 
-## 6. Additional Strategies
+## 6. ➕ Additional Strategies
 
 Consider using change streams for real-time processing instead of polling, and use bulk operations for batch inserts.
 
@@ -2948,7 +2948,7 @@ Consider using change streams for real-time processing instead of polling, and u
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 These strategies improve throughput significantly.
 
@@ -2984,13 +2984,13 @@ You monitor by tracking write throughput (operations per second), write latency 
 
 ---
 
-## Q146. 🌊 Change streams use cases
+## Q160. 🌊 Change streams use cases
 
 MongoDB change streams provide real-time notifications of database changes. When you use change streams, you can react to changes as they happen, keeping systems in sync.
 
 ---
 
-## 1. What are Change Streams
+## 1. 🌊 What are Change Streams
 
 Use change streams to react to database changes in real-time.
 
@@ -3006,7 +3006,7 @@ Use change streams to react to database changes in real-time.
 
 ---
 
-## 2. Use Cases
+## 2. 💡 Use Cases
 
 Like updating a search index when documents change, sending notifications when orders are created, or syncing data to a cache.
 
@@ -3020,7 +3020,7 @@ Like updating a search index when documents change, sending notifications when o
 
 ---
 
-## 3. Benefits
+## 3. 💡 Benefits
 
 Change streams enable real-time processing which is great for keeping systems in sync.
 
@@ -3034,7 +3034,7 @@ Change streams enable real-time processing which is great for keeping systems in
 
 ---
 
-## 4. Trade-offs
+## 4. 💡 Trade-offs
 
 Change streams enable real-time processing which is great for keeping systems in sync.
 
@@ -3048,7 +3048,7 @@ Change streams enable real-time processing which is great for keeping systems in
 
 ---
 
-## 5. Example
+## 5. 💡 Example
 
 Example change stream:
 
@@ -3089,13 +3089,13 @@ You scale by using multiple consumers (process different collections or filters)
 
 ---
 
-## Q147. ❌ MongoDB anti-patterns
+## Q161. ❌ MongoDB anti-patterns
 
 MongoDB anti-patterns are common mistakes that hurt performance and maintainability. When you avoid anti-patterns, you design schemas and queries that leverage MongoDB's strengths.
 
 ---
 
-## 1. Common Anti-patterns
+## 1. 💡 Common Anti-patterns
 
 Common anti-patterns include creating indexes on every field, using $lookup excessively, storing large arrays that grow unbounded, embedding when you should reference, using _id for business logic, and not using connection pooling.
 
@@ -3115,7 +3115,7 @@ Common anti-patterns include creating indexes on every field, using $lookup exce
 
 ---
 
-## 2. How to Avoid
+## 2. 💡 How to Avoid
 
 Avoid these by understanding your access patterns and MongoDB's strengths.
 
@@ -3129,7 +3129,7 @@ Avoid these by understanding your access patterns and MongoDB's strengths.
 
 ---
 
-## 3. Benefits
+## 3. 💡 Benefits
 
 Avoiding anti-patterns keeps your database performant and maintainable.
 
@@ -3143,7 +3143,7 @@ Avoiding anti-patterns keeps your database performant and maintainable.
 
 ---
 
-## 4. Trade-offs
+## 4. 💡 Trade-offs
 
 Avoiding anti-patterns keeps your database performant and maintainable.
 
@@ -3179,13 +3179,13 @@ You fix by identifying the anti-pattern, understanding the root cause, redesigni
 
 ---
 
-## Q148. 💾 Redis architecture
+## Q162. 💾 Redis architecture
 
 Redis is an in-memory data store optimized for speed. When you use Redis, you get extremely fast access to data stored in RAM, with optional persistence and various deployment options.
 
 ---
 
-## 1. In-Memory Storage
+## 1. 💡 In-Memory Storage
 
 Redis is an in-memory data store that keeps all data in RAM for fast access.
 
@@ -3201,7 +3201,7 @@ Redis is an in-memory data store that keeps all data in RAM for fast access.
 
 ---
 
-## 2. Persistence Options
+## 2. 💡 Persistence Options
 
 Optional persistence to disk using RDB snapshots or AOF logs.
 
@@ -3215,7 +3215,7 @@ Optional persistence to disk using RDB snapshots or AOF logs.
 
 ---
 
-## 3. Data Structures
+## 3. 📊 Data Structures
 
 Supports various data structures like strings, hashes, lists, sets, and sorted sets.
 
@@ -3231,7 +3231,7 @@ Supports various data structures like strings, hashes, lists, sets, and sorted s
 
 ---
 
-## 4. Deployment Options
+## 4. 🚀 Deployment Options
 
 Can be deployed as a single instance, master-replica for read scaling, or clustered for horizontal scaling.
 
@@ -3245,7 +3245,7 @@ Can be deployed as a single instance, master-replica for read scaling, or cluste
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 In-memory storage makes Redis extremely fast but limits capacity to available RAM.
 
@@ -3281,13 +3281,13 @@ You use persistence when you need data to survive restarts, can't afford data lo
 
 ---
 
-## Q149. 💾 Redis AOF vs RDB persistence
+## Q163. 💾 Redis AOF vs RDB persistence
 
 Redis offers two persistence options: RDB and AOF. When you choose persistence, you balance performance, durability, and resource usage based on your requirements.
 
 ---
 
-## 1. What is RDB
+## 1. 💡 What is RDB
 
 RDB creates point-in-time snapshots of your dataset at intervals.
 
@@ -3303,7 +3303,7 @@ RDB creates point-in-time snapshots of your dataset at intervals.
 
 ---
 
-## 2. What is AOF
+## 2. 💡 What is AOF
 
 AOF logs every write operation and replays them on startup.
 
@@ -3319,7 +3319,7 @@ AOF logs every write operation and replays them on startup.
 
 ---
 
-## 3. When to Use RDB
+## 3. 💡 When to Use RDB
 
 Use RDB for backups and fast restarts.
 
@@ -3333,7 +3333,7 @@ Use RDB for backups and fast restarts.
 
 ---
 
-## 4. When to Use AOF
+## 4. 💡 When to Use AOF
 
 Use AOF when you need maximum durability.
 
@@ -3347,7 +3347,7 @@ Use AOF when you need maximum durability.
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 RDB is fast and creates small files.
 
@@ -3363,7 +3363,7 @@ RDB is fast and creates small files.
 
 ---
 
-## 6. Example
+## 6. 💡 Example
 
 Example configuration:
 
@@ -3404,13 +3404,13 @@ You optimize by using appendfsync everysec (balance between performance and dura
 
 ---
 
-## Q150. 📢 Redis pub/sub pros and cons
+## Q164. 📢 Redis pub/sub pros and cons
 
 Redis pub/sub provides real-time messaging between publishers and subscribers. When you use pub/sub, you can broadcast messages to multiple subscribers in real-time.
 
 ---
 
-## 1. What is Pub/Sub
+## 1. 💡 What is Pub/Sub
 
 Redis pub/sub allows publishers to send messages to channels and subscribers receive them in real-time.
 
@@ -3426,7 +3426,7 @@ Redis pub/sub allows publishers to send messages to channels and subscribers rec
 
 ---
 
-## 2. Use Cases
+## 2. 💡 Use Cases
 
 Like broadcasting notifications or coordinating between services.
 
@@ -3440,7 +3440,7 @@ Like broadcasting notifications or coordinating between services.
 
 ---
 
-## 3. Characteristics
+## 3. 💡 Characteristics
 
 It's simple and fast, but messages are fire-and-forget with no persistence.
 
@@ -3454,7 +3454,7 @@ It's simple and fast, but messages are fire-and-forget with no persistence.
 
 ---
 
-## 4. Benefits
+## 4. 💡 Benefits
 
 Pub/sub is great for real-time messaging and decoupling services.
 
@@ -3468,7 +3468,7 @@ Pub/sub is great for real-time messaging and decoupling services.
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 Pub/sub is great for real-time messaging and decoupling services.
 
@@ -3482,7 +3482,7 @@ Pub/sub is great for real-time messaging and decoupling services.
 
 ---
 
-## 6. Example
+## 6. 💡 Example
 
 Example pub/sub:
 
@@ -3523,13 +3523,13 @@ You scale by using multiple Redis instances (partition channels), using Redis St
 
 ---
 
-## Q151. 🔀 Redis clustering and how it works
+## Q165. 🔀 Redis clustering and how it works
 
 Redis clustering enables horizontal scaling by distributing data across multiple nodes. When you use Redis Cluster, you can scale beyond single-machine memory limits and achieve high availability.
 
 ---
 
-## 1. How Clustering Works
+## 1. 💡 How Clustering Works
 
 Redis clustering distributes data across multiple nodes using hash slots.
 
@@ -3545,7 +3545,7 @@ Redis clustering distributes data across multiple nodes using hash slots.
 
 ---
 
-## 2. Client Connection
+## 2. 💡 Client Connection
 
 Clients connect to any node, which redirects to the correct node if needed.
 
@@ -3559,7 +3559,7 @@ Clients connect to any node, which redirects to the correct node if needed.
 
 ---
 
-## 3. Failover
+## 3. 💡 Failover
 
 Nodes monitor each other for failover.
 
@@ -3573,7 +3573,7 @@ Nodes monitor each other for failover.
 
 ---
 
-## 4. Benefits
+## 4. 💡 Benefits
 
 Clustering enables horizontal scaling beyond single-machine memory limits and provides high availability through replication.
 
@@ -3587,7 +3587,7 @@ Clustering enables horizontal scaling beyond single-machine memory limits and pr
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 Clustering enables horizontal scaling beyond single-machine memory limits.
 
@@ -3623,13 +3623,13 @@ You add/remove by using redis-cli cluster commands, moving hash slots from old n
 
 ---
 
-## Q152. 🔒 Distributed locking with Redis
+## Q166. 🔒 Distributed locking with Redis
 
 Redis distributed locking coordinates access to shared resources across multiple processes. When you use Redis for locking, you ensure only one process can access a resource at a time.
 
 ---
 
-## 1. How Locking Works
+## 1. 💡 How Locking Works
 
 Use Redis for distributed locking by having clients try to set a key with a unique value and expiration.
 
@@ -3645,7 +3645,7 @@ Use Redis for distributed locking by having clients try to set a key with a uniq
 
 ---
 
-## 2. Atomic Operations
+## 2. 💡 Atomic Operations
 
 Use SET with NX and EX options atomically.
 
@@ -3659,7 +3659,7 @@ Use SET with NX and EX options atomically.
 
 ---
 
-## 3. Lock Release
+## 3. 💡 Lock Release
 
 Always release locks using the value to ensure you only release your own lock.
 
@@ -3673,7 +3673,7 @@ Always release locks using the value to ensure you only release your own lock.
 
 ---
 
-## 4. Benefits
+## 4. 💡 Benefits
 
 Redis locks are fast and simple.
 
@@ -3687,7 +3687,7 @@ Redis locks are fast and simple.
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 Redis locks are fast and simple.
 
@@ -3701,7 +3701,7 @@ Redis locks are fast and simple.
 
 ---
 
-## 6. Example
+## 6. 💡 Example
 
 Example distributed lock:
 
@@ -3754,13 +3754,13 @@ You implement by periodically extending lock expiration (before it expires), usi
 
 ---
 
-## Q153. 🗑️ Cache invalidation best practices
+## Q167. 🗑️ Cache invalidation best practices
 
 Cache invalidation ensures cached data stays fresh. When you invalidate cache, you choose strategies based on data change frequency and freshness requirements.
 
 ---
 
-## 1. Invalidation Strategies
+## 1. ✅ Invalidation Strategies
 
 Invalidate cache by deleting keys when underlying data changes, using TTLs for time-based expiration, using cache tags to invalidate related keys together, or using versioned keys that change when data updates.
 
@@ -3776,7 +3776,7 @@ Invalidate cache by deleting keys when underlying data changes, using TTLs for t
 
 ---
 
-## 2. Strategy Selection
+## 2. 💡 Strategy Selection
 
 Choose invalidation strategy based on how often data changes and how critical freshness is.
 
@@ -3790,7 +3790,7 @@ Choose invalidation strategy based on how often data changes and how critical fr
 
 ---
 
-## 3. Benefits
+## 3. 💡 Benefits
 
 Immediate invalidation ensures cache stays fresh.
 
@@ -3804,7 +3804,7 @@ Immediate invalidation ensures cache stays fresh.
 
 ---
 
-## 4. Trade-offs
+## 4. 💡 Trade-offs
 
 Immediate invalidation ensures cache stays fresh but requires coordination.
 
@@ -3818,7 +3818,7 @@ Immediate invalidation ensures cache stays fresh but requires coordination.
 
 ---
 
-## 5. Example
+## 5. 💡 Example
 
 Example invalidation strategies:
 
@@ -3862,13 +3862,13 @@ You implement by storing tag-to-key mappings, invalidating all keys with a tag w
 
 ---
 
-## Q154. 💾 Avoiding memory eviction issues
+## Q168. 💾 Avoiding memory eviction issues
 
 Memory eviction occurs when Redis runs out of memory and needs to remove data. When you avoid eviction issues, you manage memory proactively to prevent unexpected data loss.
 
 ---
 
-## 1. Monitoring
+## 1. 👁️ Monitoring
 
 Monitor memory usage to catch issues early.
 
@@ -3884,7 +3884,7 @@ Monitor memory usage to catch issues early.
 
 ---
 
-## 2. Eviction Policies
+## 2. 💡 Eviction Policies
 
 Set appropriate maxmemory policy (like allkeys-lru for cache, noeviction for critical data).
 
@@ -3898,7 +3898,7 @@ Set appropriate maxmemory policy (like allkeys-lru for cache, noeviction for cri
 
 ---
 
-## 3. TTL Usage
+## 3. 💡 TTL Usage
 
 Use TTLs to expire old data automatically.
 
@@ -3912,7 +3912,7 @@ Use TTLs to expire old data automatically.
 
 ---
 
-## 4. Sizing
+## 4. 💡 Sizing
 
 Size your Redis instance correctly.
 
@@ -3926,7 +3926,7 @@ Size your Redis instance correctly.
 
 ---
 
-## 5. Clustering
+## 5. 💡 Clustering
 
 Consider using Redis Cluster to distribute memory across nodes.
 
@@ -3940,7 +3940,7 @@ Consider using Redis Cluster to distribute memory across nodes.
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Proper memory management prevents unexpected evictions.
 
@@ -3976,13 +3976,13 @@ If you set noeviction, Redis won't evict data when memory is full - writes will 
 
 ---
 
-## Q155. 🔀 Redis vs Memcached differences
+## Q169. 🔀 Redis vs Memcached differences
 
 Redis and Memcached are both in-memory data stores, but they serve different use cases. When you choose between them, you consider features, persistence, and complexity requirements.
 
 ---
 
-## 1. What is Redis
+## 1. 💡 What is Redis
 
 Redis is a data structure server with persistence, replication, and complex data types like sorted sets and pub/sub.
 
@@ -3998,7 +3998,7 @@ Redis is a data structure server with persistence, replication, and complex data
 
 ---
 
-## 2. What is Memcached
+## 2. 💡 What is Memcached
 
 Memcached is a simple key-value cache with no persistence or replication.
 
@@ -4014,7 +4014,7 @@ Memcached is a simple key-value cache with no persistence or replication.
 
 ---
 
-## 3. When to Choose Redis
+## 3. 💡 When to Choose Redis
 
 Choose Redis when you need advanced features, persistence, or complex data structures.
 
@@ -4028,7 +4028,7 @@ Choose Redis when you need advanced features, persistence, or complex data struc
 
 ---
 
-## 4. When to Choose Memcached
+## 4. 💡 When to Choose Memcached
 
 Choose Memcached when you need a simple, high-performance cache and don't need persistence.
 
@@ -4042,7 +4042,7 @@ Choose Memcached when you need a simple, high-performance cache and don't need p
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 Redis is more feature-rich and can be used for more than caching.
 

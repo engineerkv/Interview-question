@@ -22,7 +22,7 @@ When designing a system, you need to define both what it should do and how well 
 
 ---
 
-## 1. Understanding Functional Requirements
+## 1. ⚙️ Understanding Functional Requirements
 
 Functional requirements describe what the system should do - the features and behaviors users expect.
 
@@ -36,7 +36,7 @@ Functional requirements describe what the system should do - the features and be
 
 ---
 
-## 2. Understanding Non-Functional Requirements
+## 2. ⚙️ Understanding Non-Functional Requirements
 
 Non-functional requirements describe how well the system should perform - the quality attributes and constraints.
 
@@ -52,7 +52,7 @@ Non-functional requirements describe how well the system should perform - the qu
 
 ---
 
-## 3. Key Differences
+## 3. ➖ Key Differences
 
 Functional requirements define features, while non-functional requirements define quality standards.
 
@@ -64,7 +64,7 @@ Functional requirements define features, while non-functional requirements defin
 
 ---
 
-## 4. When to Define Each Type
+## 4. 🏷️ When to Define Each Type
 
 You define both types during requirements gathering, but they serve different purposes.
 
@@ -76,7 +76,7 @@ You define both types during requirements gathering, but they serve different pu
 
 ---
 
-## 5. Real-World Examples
+## 5. 💡 Real-World Examples
 
 Here's how these apply in practice:
 
@@ -88,7 +88,7 @@ Here's how these apply in practice:
 
 ---
 
-## 6. Trade-offs and Considerations
+## 6. 💡 Trade-offs and Considerations
 
 Functional requirements are easier to test, but non-functional requirements are trickier because you can only measure performance and reliability under real load. The catch is non-functional requirements cost more but these are what separates a working system from a production-ready one.
 
@@ -122,7 +122,7 @@ A distributed system is a collection of independent computers that work together
 
 ---
 
-## 1. What Makes a System Distributed
+## 1. 💡 What Makes a System Distributed
 
 A distributed system consists of multiple independent computers connected over a network that work together.
 
@@ -138,7 +138,7 @@ A distributed system consists of multiple independent computers connected over a
 
 ---
 
-## 2. Why Use Distributed Systems
+## 2. 💡 Why Use Distributed Systems
 
 Distributed systems allow you to scale beyond single-machine limits and improve reliability.
 
@@ -152,7 +152,7 @@ Distributed systems allow you to scale beyond single-machine limits and improve 
 
 ---
 
-## 3. Key Characteristics
+## 3. 💡 Key Characteristics
 
 Distributed systems have several defining characteristics that make them powerful but complex.
 
@@ -166,7 +166,7 @@ Distributed systems have several defining characteristics that make them powerfu
 
 ---
 
-## 4. Common Examples
+## 4. 💡 Common Examples
 
 You encounter distributed systems in everyday applications.
 
@@ -180,7 +180,7 @@ You encounter distributed systems in everyday applications.
 
 ---
 
-## 5. Challenges of Distributed Systems
+## 5. 💡 Challenges of Distributed Systems
 
 Distributed systems introduce complexity that single-machine systems don't have.
 
@@ -194,7 +194,7 @@ Distributed systems introduce complexity that single-machine systems don't have.
 
 ---
 
-## 6. Design Principles
+## 6. 💡 Design Principles
 
 When building distributed systems, you follow certain principles to handle complexity.
 
@@ -236,7 +236,7 @@ When your system needs to handle more load, you have two main approaches: make y
 
 ---
 
-## 1. What is Vertical Scaling
+## 1. 📊 What is Vertical Scaling
 
 Vertical scaling means adding more power to your existing server - upgrading the hardware of a single machine.
 
@@ -252,7 +252,7 @@ Vertical scaling means adding more power to your existing server - upgrading the
 
 ---
 
-## 2. What is Horizontal Scaling
+## 2. 📊 What is Horizontal Scaling
 
 Horizontal scaling means adding more servers - increasing the number of machines in your system.
 
@@ -268,7 +268,7 @@ Horizontal scaling means adding more servers - increasing the number of machines
 
 ---
 
-## 3. When to Choose Vertical Scaling
+## 3. 📊 When to Choose Vertical Scaling
 
 You choose vertical scaling when you have a single machine bottleneck and it's cheaper to upgrade.
 
@@ -282,7 +282,7 @@ You choose vertical scaling when you have a single machine bottleneck and it's c
 
 ---
 
-## 4. When to Choose Horizontal Scaling
+## 4. 📊 When to Choose Horizontal Scaling
 
 You choose horizontal scaling when you need to scale beyond one machine's limits or want better fault tolerance.
 
@@ -296,7 +296,7 @@ You choose horizontal scaling when you need to scale beyond one machine's limits
 
 ---
 
-## 5. Trade-offs: Vertical Scaling
+## 5. 📊 Trade-offs: Vertical Scaling
 
 Vertical scaling is simpler but has limitations.
 
@@ -308,7 +308,7 @@ Vertical scaling is simpler but has limitations.
 
 ---
 
-## 6. Trade-offs: Horizontal Scaling
+## 6. 📊 Trade-offs: Horizontal Scaling
 
 Horizontal scaling can scale almost infinitely but requires more design work.
 
@@ -320,7 +320,7 @@ Horizontal scaling can scale almost infinitely but requires more design work.
 
 ---
 
-## 7. Combining Both Approaches
+## 7. 🔍 Combining Both Approaches
 
 In practice, you often use both approaches at different stages.
 
@@ -362,7 +362,7 @@ When designing systems, you need to understand two critical performance metrics:
 
 ---
 
-## 1. Understanding Latency
+## 1. ⚡ Understanding Latency
 
 Latency is how long it takes for one request to complete - the time from when a request is sent until a response is received.
 
@@ -378,7 +378,7 @@ Latency is how long it takes for one request to complete - the time from when a 
 
 ---
 
-## 2. Understanding Throughput
+## 2. 📊 Understanding Throughput
 
 Throughput is how many requests you can handle per second - the total capacity of your system.
 
@@ -394,7 +394,7 @@ Throughput is how many requests you can handle per second - the total capacity o
 
 ---
 
-## 3. Key Differences
+## 3. ➖ Key Differences
 
 Latency and throughput measure different aspects of performance.
 
@@ -408,7 +408,7 @@ Latency and throughput measure different aspects of performance.
 
 ---
 
-## 4. Why Both Matter
+## 4. 💡 Why Both Matter
 
 You need both low latency and high throughput for a good system.
 
@@ -422,7 +422,7 @@ You need both low latency and high throughput for a good system.
 
 ---
 
-## 5. Real-World Examples
+## 5. 💡 Real-World Examples
 
 Here's how latency and throughput work in practice:
 
@@ -434,7 +434,7 @@ Here's how latency and throughput work in practice:
 
 ---
 
-## 6. Trade-offs and Optimization
+## 6. 💡 Trade-offs and Optimization
 
 Optimizing for latency versus throughput requires different approaches.
 
@@ -448,7 +448,7 @@ Optimizing for latency versus throughput requires different approaches.
 
 ---
 
-## 7. Measuring and Monitoring
+## 7. 👁️ Measuring and Monitoring
 
 You measure both metrics to understand system performance.
 
@@ -490,7 +490,7 @@ High availability means your system stays up and running even when components fa
 
 ---
 
-## 1. What is High Availability
+## 1. ✅ What is High Availability
 
 High availability is the ability of your system to remain operational even when components fail.
 
@@ -506,7 +506,7 @@ High availability is the ability of your system to remain operational even when 
 
 ---
 
-## 2. Uptime Percentages
+## 2. ⏰ ⏰ Uptime Percentages
 
 High availability is measured as uptime percentage, showing how much time your system is operational.
 
@@ -520,7 +520,7 @@ High availability is measured as uptime percentage, showing how much time your s
 
 ---
 
-## 3. Key Components
+## 3. 🧩 Key Components
 
 High availability requires several components working together.
 
@@ -534,7 +534,7 @@ High availability requires several components working together.
 
 ---
 
-## 4. Design Principles
+## 4. 💡 Design Principles
 
 When building for high availability, you follow certain principles.
 
@@ -548,7 +548,7 @@ When building for high availability, you follow certain principles.
 
 ---
 
-## 5. Common Patterns
+## 5. 💡 Common Patterns
 
 You use several patterns to achieve high availability.
 
@@ -562,7 +562,7 @@ You use several patterns to achieve high availability.
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 High availability requires redundancy which costs more money and complexity.
 
@@ -576,7 +576,7 @@ High availability requires redundancy which costs more money and complexity.
 
 ---
 
-## 7. Real-World Examples
+## 7. 💡 Real-World Examples
 
 Here's how high availability works in practice:
 
@@ -618,7 +618,7 @@ Fault tolerance is your system's ability to keep working when components fail. W
 
 ---
 
-## 1. What is Fault Tolerance
+## 1. 💡 What is Fault Tolerance
 
 Fault tolerance is the ability of your system to continue operating correctly when components fail.
 
@@ -634,7 +634,7 @@ Fault tolerance is the ability of your system to continue operating correctly wh
 
 ---
 
-## 2. Key Principles
+## 2. 💡 Key Principles
 
 Fault tolerance is built on several key principles.
 
@@ -648,7 +648,7 @@ Fault tolerance is built on several key principles.
 
 ---
 
-## 3. Common Failure Scenarios
+## 3. 🍎 Common Failure Scenarios
 
 You need to handle various types of failures.
 
@@ -662,7 +662,7 @@ You need to handle various types of failures.
 
 ---
 
-## 4. Fault Tolerance Techniques
+## 4. 💡 Fault Tolerance Techniques
 
 You use several techniques to achieve fault tolerance.
 
@@ -678,7 +678,7 @@ You use several techniques to achieve fault tolerance.
 
 ---
 
-## 5. Example: Database Failover
+## 5. 🗄️ Example: Database Failover
 
 Here's how fault tolerance works with database failover:
 
@@ -694,7 +694,7 @@ Here's how fault tolerance works with database failover:
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Fault tolerance requires redundancy and error handling everywhere which adds complexity and cost.
 
@@ -708,7 +708,7 @@ Fault tolerance requires redundancy and error handling everywhere which adds com
 
 ---
 
-## 7. Difference from High Availability
+## 7. ✅ Difference from High Availability
 
 Fault tolerance and high availability are related but different.
 
@@ -750,7 +750,7 @@ CAP theorem is a fundamental principle in distributed systems that says you can 
 
 ---
 
-## 1. Understanding the CAP Theorem
+## 1. 💡 Understanding the CAP Theorem
 
 CAP theorem states that in a distributed system, you can only guarantee two out of three properties.
 
@@ -764,7 +764,7 @@ CAP theorem states that in a distributed system, you can only guarantee two out 
 
 ---
 
-## 2. Why You Can't Have All Three
+## 2. 💡 Why You Can't Have All Three
 
 During a network partition, you must choose between consistency and availability.
 
@@ -778,7 +778,7 @@ During a network partition, you must choose between consistency and availability
 
 ---
 
-## 3. AP Systems (Availability + Partition Tolerance)
+## 3. ✅ AP Systems (Availability + Partition Tolerance)
 
 AP systems prioritize availability and partition tolerance, sacrificing consistency.
 
@@ -792,7 +792,7 @@ AP systems prioritize availability and partition tolerance, sacrificing consiste
 
 ---
 
-## 4. CP Systems (Consistency + Partition Tolerance)
+## 4. ⚖️ CP Systems (Consistency + Partition Tolerance)
 
 CP systems prioritize consistency and partition tolerance, sacrificing availability.
 
@@ -806,7 +806,7 @@ CP systems prioritize consistency and partition tolerance, sacrificing availabil
 
 ---
 
-## 5. CA Systems (Consistency + Availability)
+## 5. ⚖️ CA Systems (Consistency + Availability)
 
 CA systems prioritize consistency and availability, but can't handle partitions.
 
@@ -820,7 +820,7 @@ CA systems prioritize consistency and availability, but can't handle partitions.
 
 ---
 
-## 6. Real-World Examples
+## 6. 💡 Real-World Examples
 
 Here's how different systems choose their CAP properties:
 
@@ -852,7 +852,7 @@ const dynamoDB = new AWS.DynamoDB();
 
 ---
 
-## 7. Choosing the Right Trade-off
+## 7. 💡 Choosing the Right Trade-off
 
 You choose based on your use case and requirements.
 
@@ -894,7 +894,7 @@ When designing distributed systems, you need to understand three critical proper
 
 ---
 
-## 1. Understanding Consistency
+## 1. ⚖️ Understanding Consistency
 
 Consistency means all users see the same data at the same time across all nodes.
 
@@ -910,7 +910,7 @@ Consistency means all users see the same data at the same time across all nodes.
 
 ---
 
-## 2. Understanding Availability
+## 2. ✅ Understanding Availability
 
 Availability means your system responds to every request even if some parts are down.
 
@@ -926,7 +926,7 @@ Availability means your system responds to every request even if some parts are 
 
 ---
 
-## 3. Understanding Durability
+## 3. 💡 Understanding Durability
 
 Durability means once data is written, it survives crashes and system failures.
 
@@ -942,7 +942,7 @@ Durability means once data is written, it survives crashes and system failures.
 
 ---
 
-## 4. Key Differences
+## 4. ➖ Key Differences
 
 These three properties address different concerns in system design.
 
@@ -956,7 +956,7 @@ These three properties address different concerns in system design.
 
 ---
 
-## 5. How They Relate
+## 5. 💡 How They Relate
 
 These properties often interact and require trade-offs.
 
@@ -970,7 +970,7 @@ These properties often interact and require trade-offs.
 
 ---
 
-## 6. Real-World Examples
+## 6. 💡 Real-World Examples
 
 Here's how these properties work in practice:
 
@@ -982,7 +982,7 @@ Here's how these properties work in practice:
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 You often have to trade one property for another based on your needs.
 
@@ -1024,7 +1024,7 @@ Sharding splits your database into smaller pieces called shards, each stored on 
 
 ---
 
-## 1. What is Sharding
+## 1. 🔀 What is Sharding
 
 Sharding is the process of splitting a large database into smaller, manageable pieces called shards.
 
@@ -1040,7 +1040,7 @@ Sharding is the process of splitting a large database into smaller, manageable p
 
 ---
 
-## 2. When to Apply Sharding
+## 2. 🔀 When to Apply Sharding
 
 You apply sharding when your database is too big for one machine or when queries are too slow.
 
@@ -1054,7 +1054,7 @@ You apply sharding when your database is too big for one machine or when queries
 
 ---
 
-## 3. Sharding Strategies
+## 3. 🔀 Sharding Strategies
 
 You can shard data using different strategies based on your access patterns.
 
@@ -1068,7 +1068,7 @@ You can shard data using different strategies based on your access patterns.
 
 ---
 
-## 4. Hash-Based Sharding
+## 4. 🗝️ Hash-Based Sharding
 
 Hash-based sharding uses a hash function to distribute data evenly across shards.
 
@@ -1098,7 +1098,7 @@ const user = await shard.query('SELECT * FROM users WHERE id = ?', [userId);
 
 ---
 
-## 5. Range-Based Sharding
+## 5. 🔀 Range-Based Sharding
 
 Range-based sharding splits data by value ranges.
 
@@ -1127,7 +1127,7 @@ function getShardByRange(userId) {
 
 ---
 
-## 6. Choosing a Shard Key
+## 6. 💡 Choosing a Shard Key
 
 The shard key determines how data is distributed across shards.
 
@@ -1141,7 +1141,7 @@ The shard key determines how data is distributed across shards.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Sharding allows you to scale beyond one machine's limits and speeds up queries, but has challenges.
 
@@ -1183,7 +1183,7 @@ Replication means keeping copies of your data on multiple servers. When you repl
 
 ---
 
-## 1. What is Replication
+## 1. 🔄 What is Replication
 
 Replication is the process of maintaining copies of your data on multiple servers.
 
@@ -1199,7 +1199,7 @@ Replication is the process of maintaining copies of your data on multiple server
 
 ---
 
-## 2. Why Replication is Important
+## 2. 🔄 Why Replication is Important
 
 Replication provides several critical benefits for distributed systems.
 
@@ -1213,7 +1213,7 @@ Replication provides several critical benefits for distributed systems.
 
 ---
 
-## 3. Types of Replication
+## 3. 🔄 Types of Replication
 
 You can replicate data using different strategies based on your needs.
 
@@ -1227,7 +1227,7 @@ You can replicate data using different strategies based on your needs.
 
 ---
 
-## 4. Synchronous vs Asynchronous Replication
+## 4. 🔄 Synchronous vs Asynchronous Replication
 
 You need to choose between synchronous and asynchronous replication based on your requirements.
 
@@ -1241,7 +1241,7 @@ You need to choose between synchronous and asynchronous replication based on you
 
 ---
 
-## 5. Read Scaling with Replication
+## 5. 📊 Read Scaling with Replication
 
 Replication allows you to scale reads by distributing queries across replicas.
 
@@ -1255,7 +1255,7 @@ Replication allows you to scale reads by distributing queries across replicas.
 
 ---
 
-## 6. Geographic Replication
+## 6. 🕸️ Geographic Replication
 
 You can replicate data across different geographic locations.
 
@@ -1269,7 +1269,7 @@ You can replicate data across different geographic locations.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Replication adds complexity because you have to keep copies in sync, and there's always a delay.
 
@@ -1311,7 +1311,7 @@ Caching stores frequently accessed data in fast memory so you don't have to fetc
 
 ---
 
-## 1. What is Caching
+## 1. 💾 What is Caching
 
 Caching is storing frequently accessed data in fast memory for quick retrieval.
 
@@ -1327,7 +1327,7 @@ Caching is storing frequently accessed data in fast memory for quick retrieval.
 
 ---
 
-## 2. How Caching Improves Performance
+## 2. 💾 How Caching Improves Performance
 
 Caching dramatically improves performance in several ways.
 
@@ -1341,7 +1341,7 @@ Caching dramatically improves performance in several ways.
 
 ---
 
-## 3. Cache Hit vs Cache Miss
+## 3. 💡 Cache Hit vs Cache Miss
 
 When you request data, you either get a cache hit or cache miss.
 
@@ -1355,7 +1355,7 @@ When you request data, you either get a cache hit or cache miss.
 
 ---
 
-## 4. Cache Invalidation
+## 4. ✅ Cache Invalidation
 
 When data changes, you need to invalidate the cache to keep it in sync.
 
@@ -1397,7 +1397,7 @@ async function updateUser(userId, data) {
 
 ---
 
-## 5. Cache Eviction Policies
+## 5. 💡 Cache Eviction Policies
 
 When cache is full, you need to decide what to remove.
 
@@ -1411,7 +1411,7 @@ When cache is full, you need to decide what to remove.
 
 ---
 
-## 6. Multi-Level Caching
+## 6. 💾 Multi-Level Caching
 
 You can use multiple levels of caching for better performance.
 
@@ -1425,7 +1425,7 @@ You can use multiple levels of caching for better performance.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Caching makes reads super fast and reduces database load, but has challenges.
 
@@ -1467,7 +1467,7 @@ CDNs and reverse proxies are both infrastructure components that sit between use
 
 ---
 
-## 1. What is a CDN
+## 1. 💡 What is a CDN
 
 A CDN (Content Delivery Network) is a network of servers around the world that cache static content close to users.
 
@@ -1483,7 +1483,7 @@ A CDN (Content Delivery Network) is a network of servers around the world that c
 
 ---
 
-## 2. What is a Reverse Proxy
+## 2. 🔄 What is a Reverse Proxy
 
 A reverse proxy sits in front of your servers and handles requests before they reach your application.
 
@@ -1499,7 +1499,7 @@ A reverse proxy sits in front of your servers and handles requests before they r
 
 ---
 
-## 3. Key Differences
+## 3. ➖ Key Differences
 
 CDNs and reverse proxies serve different purposes in your architecture.
 
@@ -1513,7 +1513,7 @@ CDNs and reverse proxies serve different purposes in your architecture.
 
 ---
 
-## 4. When to Use CDN
+## 4. 💡 When to Use CDN
 
 You use CDN for static content that benefits from geographic distribution.
 
@@ -1527,7 +1527,7 @@ You use CDN for static content that benefits from geographic distribution.
 
 ---
 
-## 5. When to Use Reverse Proxy
+## 5. 🔄 When to Use Reverse Proxy
 
 You use reverse proxy for routing, load balancing, and infrastructure concerns.
 
@@ -1541,7 +1541,7 @@ You use reverse proxy for routing, load balancing, and infrastructure concerns.
 
 ---
 
-## 6. Using Both Together
+## 6. 💡 Using Both Together
 
 In practice, you often use both CDN and reverse proxy together.
 
@@ -1555,7 +1555,7 @@ In practice, you often use both CDN and reverse proxy together.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 CDNs work great for static content because they reduce latency and take load off your servers, but they're not great for dynamic content.
 
@@ -1597,7 +1597,7 @@ A circuit breaker stops calling a failing service after too many failures, preve
 
 ---
 
-## 1. What is a Circuit Breaker
+## 1. 💡 What is a Circuit Breaker
 
 A circuit breaker is a pattern that stops calling a failing service after detecting too many failures.
 
@@ -1613,7 +1613,7 @@ A circuit breaker is a pattern that stops calling a failing service after detect
 
 ---
 
-## 2. Circuit Breaker States
+## 2. 📦 Circuit Breaker States
 
 A circuit breaker has three states that control how it behaves.
 
@@ -1625,7 +1625,7 @@ A circuit breaker has three states that control how it behaves.
 
 ---
 
-## 3. How Circuit Breaker Works
+## 3. 💡 How Circuit Breaker Works
 
 The circuit breaker monitors failures and changes state based on failure patterns.
 
@@ -1641,7 +1641,7 @@ The circuit breaker monitors failures and changes state based on failure pattern
 
 ---
 
-## 4. Implementation Example
+## 4. 💡 Implementation Example
 
 Here's how you implement a circuit breaker:
 
@@ -1702,7 +1702,7 @@ try {
 
 ---
 
-## 5. Handling Open State
+## 5. 📦 Handling Open State
 
 When the circuit is open, you need to handle requests gracefully.
 
@@ -1716,7 +1716,7 @@ When the circuit is open, you need to handle requests gracefully.
 
 ---
 
-## 6. Tuning Thresholds
+## 6. 💡 Tuning Thresholds
 
 You need to tune circuit breaker thresholds based on your service characteristics.
 
@@ -1730,7 +1730,7 @@ You need to tune circuit breaker thresholds based on your service characteristic
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Circuit breakers prevent cascading failures by failing fast, which protects your system when downstream services are down.
 
@@ -1772,7 +1772,7 @@ The bulkhead pattern isolates resources so failures in one part don't bring down
 
 ---
 
-## 1. What is the Bulkhead Pattern
+## 1. 💡 What is the Bulkhead Pattern
 
 The bulkhead pattern isolates resources to prevent failures from cascading across your system.
 
@@ -1788,7 +1788,7 @@ The bulkhead pattern isolates resources to prevent failures from cascading acros
 
 ---
 
-## 2. How Bulkheads Work
+## 2. 💡 How Bulkheads Work
 
 Bulkheads work by separating resources so they can't interfere with each other.
 
@@ -1802,7 +1802,7 @@ Bulkheads work by separating resources so they can't interfere with each other.
 
 ---
 
-## 3. Example: Thread Pool Isolation
+## 3. 💡 Example: Thread Pool Isolation
 
 You can use separate thread pools for different services.
 
@@ -1816,7 +1816,7 @@ You can use separate thread pools for different services.
 
 ---
 
-## 4. Example: Connection Pool Isolation
+## 4. 💡 Example: Connection Pool Isolation
 
 You can use separate connection pools for different databases or services.
 
@@ -1830,7 +1830,7 @@ You can use separate connection pools for different databases or services.
 
 ---
 
-## 5. Benefits of Bulkheads
+## 5. 💡 Benefits of Bulkheads
 
 Bulkheads provide several benefits for system reliability.
 
@@ -1844,7 +1844,7 @@ Bulkheads provide several benefits for system reliability.
 
 ---
 
-## 6. Implementation Considerations
+## 6. 💡 Implementation Considerations
 
 When implementing bulkheads, you need to carefully allocate resources.
 
@@ -1858,7 +1858,7 @@ When implementing bulkheads, you need to carefully allocate resources.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Bulkheads prevent one slow component from taking down your entire system, which is great for reliability.
 
@@ -1900,7 +1900,7 @@ Rate limiting restricts how many requests a user or IP can make in a time window
 
 ---
 
-## 1. What is Rate Limiting
+## 1. 💡 What is Rate Limiting
 
 Rate limiting restricts request frequency to protect your system.
 
@@ -1916,7 +1916,7 @@ Rate limiting restricts request frequency to protect your system.
 
 ---
 
-## 2. Why Rate Limiting is Important
+## 2. 💡 Why Rate Limiting is Important
 
 Rate limiting protects your system in several ways.
 
@@ -1930,21 +1930,225 @@ Rate limiting protects your system in several ways.
 
 ---
 
-## 3. Rate Limiting Algorithms
+## 3. ⚙️ Rate Limiting Algorithms
 
-You can implement rate limiting using different algorithms.
+Below are **clean, interview-ready JavaScript implementations** for **all 4 rate-limiting algorithms**.
 
-* **Fixed window** → Count requests in fixed time windows (e.g., 100 requests per minute)
-
-* **Sliding window** → Count requests in a sliding time window
-
-* **Token bucket** → Tokens added at fixed rate, requests consume tokens
-
-* **Leaky bucket** → Requests added to bucket, processed at fixed rate
+Each example assumes **per-user rate limiting** using a `userId`.
 
 ---
 
-## 4. Implementation Example: Fixed Window
+### 1️⃣ Fixed Window Rate Limiting
+
+**Idea:**
+
+Count requests in a fixed time window (e.g., 100 req / 60 sec). Window resets completely.
+
+```js
+class FixedWindowRateLimiter {
+  constructor(limit, windowSizeMs) {
+    this.limit = limit;
+    this.windowSizeMs = windowSizeMs;
+    this.requests = new Map();
+  }
+
+  allowRequest(userId) {
+    const now = Date.now();
+    const data = this.requests.get(userId);
+
+    if (!data || now > data.windowEnd) {
+      // Start new window
+      this.requests.set(userId, {
+        count: 1,
+        windowEnd: now + this.windowSizeMs,
+      });
+      return true;
+    }
+
+    if (data.count < this.limit) {
+      data.count++;
+      return true;
+    }
+
+    return false;
+  }
+}
+
+// Usage
+const limiter = new FixedWindowRateLimiter(5, 60000);
+
+```
+
+✅ Simple
+
+❌ Burst allowed at window boundary
+
+---
+
+### 2️⃣ Sliding Window Rate Limiting
+
+**Idea:**
+
+Store timestamps and count only requests within last N milliseconds.
+
+```js
+class SlidingWindowRateLimiter {
+  constructor(limit, windowSizeMs) {
+    this.limit = limit;
+    this.windowSizeMs = windowSizeMs;
+    this.requests = new Map();
+  }
+
+  allowRequest(userId) {
+    const now = Date.now();
+    const timestamps = this.requests.get(userId) || [];
+
+    // Remove old requests
+    const updated = timestamps.filter(
+      time => now - time < this.windowSizeMs
+    );
+
+    if (updated.length >= this.limit) {
+      return false;
+    }
+
+    updated.push(now);
+    this.requests.set(userId, updated);
+    return true;
+  }
+}
+
+// Usage
+const limiter = new SlidingWindowRateLimiter(5, 60000);
+
+```
+
+✅ More accurate
+
+❌ Higher memory usage
+
+---
+
+### 3️⃣ Token Bucket Rate Limiting ✅ (Most Popular)
+
+**Idea:**
+
+Tokens refill at fixed rate. Each request consumes 1 token.
+
+```js
+class TokenBucketRateLimiter {
+  constructor(capacity, refillRatePerSec) {
+    this.capacity = capacity;
+    this.refillRate = refillRatePerSec;
+    this.buckets = new Map();
+  }
+
+  allowRequest(userId) {
+    const now = Date.now();
+    let bucket = this.buckets.get(userId);
+
+    if (!bucket) {
+      bucket = {
+        tokens: this.capacity,
+        lastRefill: now,
+      };
+    }
+
+    // Refill tokens
+    const elapsed = (now - bucket.lastRefill) / 1000;
+    bucket.tokens = Math.min(
+      this.capacity,
+      bucket.tokens + elapsed * this.refillRate
+    );
+    bucket.lastRefill = now;
+
+    if (bucket.tokens >= 1) {
+      bucket.tokens -= 1;
+      this.buckets.set(userId, bucket);
+      return true;
+    }
+
+    return false;
+  }
+}
+
+// Usage
+const limiter = new TokenBucketRateLimiter(5, 1); // 5 tokens, 1/sec
+
+```
+
+✅ Smooth traffic
+
+✅ Allows bursts
+
+✅ Used by AWS, Stripe
+
+---
+
+### 4️⃣ Leaky Bucket Rate Limiting
+
+**Idea:**
+
+Requests enter a queue and are processed at a fixed rate.
+
+```js
+class LeakyBucketRateLimiter {
+  constructor(capacity, leakRatePerSec) {
+    this.capacity = capacity;
+    this.leakRate = leakRatePerSec;
+    this.buckets = new Map();
+  }
+
+  allowRequest(userId) {
+    const now = Date.now();
+    let bucket = this.buckets.get(userId);
+
+    if (!bucket) {
+      bucket = {
+        size: 0,
+        lastLeak: now,
+      };
+    }
+
+    // Leak requests
+    const elapsed = (now - bucket.lastLeak) / 1000;
+    const leaked = elapsed * this.leakRate;
+    bucket.size = Math.max(0, bucket.size - leaked);
+    bucket.lastLeak = now;
+
+    if (bucket.size < this.capacity) {
+      bucket.size += 1;
+      this.buckets.set(userId, bucket);
+      return true;
+    }
+
+    return false;
+  }
+}
+
+// Usage
+const limiter = new LeakyBucketRateLimiter(5, 1); // queue 5, leak 1/sec
+
+```
+
+✅ Smooth output rate
+
+❌ No burst handling
+
+---
+
+### ✅ Quick Interview Comparison
+
+| Algorithm      | Burst Allowed | Accuracy | Memory   | Common Use        |
+| -------------- | ------------- | -------- | -------- | ----------------- |
+| Fixed Window   | ✅ Yes         | ❌ Low    | ✅ Low    | Simple APIs       |
+| Sliding Window | ❌ No          | ✅ High   | ❌ High   | Strict limits     |
+| Token Bucket   | ✅ Yes         | ✅ High   | ✅ Medium | Industry standard |
+| Leaky Bucket   | ❌ No          | ✅ Medium | ✅ Medium | Traffic shaping   |
+
+---
+
+## 4. 💡 Implementation Example: Fixed Window
 
 Here's a simple fixed window rate limiter using Redis:
 
@@ -1973,7 +2177,7 @@ async function rateLimit(identifier, limit = 100, window = 60) {
 
 ---
 
-## 5. Token Bucket Algorithm
+## 5. ⚙️ Token Bucket Algorithm
 
 Token bucket allows bursts while maintaining average rate.
 
@@ -2018,7 +2222,7 @@ class TokenBucket {
 
 ---
 
-## 6. Handling Rate Limit Exceeded
+## 6. 💡 Handling Rate Limit Exceeded
 
 When limits are exceeded, you need to decide how to handle requests.
 
@@ -2032,7 +2236,7 @@ When limits are exceeded, you need to decide how to handle requests.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Rate limiting protects your servers from being overwhelmed and prevents abuse, but requires careful tuning.
 
@@ -2068,13 +2272,13 @@ You use shared storage like Redis to track rate limits across all servers, ensur
 
 ---
 
-## Q16. ⏱️ Eventual consistency
+## Q16. ⚖️ ⏱️ Eventual consistency
 
 Eventual consistency means data will become consistent across all nodes eventually, but not immediately. When you use eventual consistency, you prioritize availability and performance over immediate consistency, allowing your system to stay responsive even during network partitions.
 
 ---
 
-## 1. What is Eventual Consistency
+## 1. ⚖️ What is Eventual Consistency
 
 Eventual consistency means data becomes consistent eventually, but not immediately.
 
@@ -2090,7 +2294,7 @@ Eventual consistency means data becomes consistent eventually, but not immediate
 
 ---
 
-## 2. Why Use Eventual Consistency
+## 2. ⚖️ Why Use Eventual Consistency
 
 Eventual consistency allows your system to stay available and fast.
 
@@ -2104,7 +2308,7 @@ Eventual consistency allows your system to stay available and fast.
 
 ---
 
-## 3. How Eventual Consistency Works
+## 3. ⚖️ How Eventual Consistency Works
 
 Data propagates asynchronously across nodes.
 
@@ -2118,7 +2322,7 @@ Data propagates asynchronously across nodes.
 
 ---
 
-## 4. Real-World Examples
+## 4. 💡 Real-World Examples
 
 Eventual consistency works great for systems where slight delays are acceptable.
 
@@ -2132,7 +2336,7 @@ Eventual consistency works great for systems where slight delays are acceptable.
 
 ---
 
-## 5. Handling Conflicts
+## 5. 💡 Handling Conflicts
 
 When the same data is updated in different places, you need conflict resolution.
 
@@ -2146,7 +2350,7 @@ When the same data is updated in different places, you need conflict resolution.
 
 ---
 
-## 6. Consistency Models
+## 6. ⚖️ Consistency Models
 
 You can have different levels of eventual consistency.
 
@@ -2160,7 +2364,7 @@ You can have different levels of eventual consistency.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Eventual consistency allows your system to stay available and fast even during network partitions.
 
@@ -2202,7 +2406,7 @@ Strong consistency means all nodes see the same data at the same time. When you 
 
 ---
 
-## 1. What is Strong Consistency
+## 1. ⚖️ What is Strong Consistency
 
 Strong consistency guarantees that all nodes see the same data simultaneously.
 
@@ -2218,7 +2422,7 @@ Strong consistency guarantees that all nodes see the same data simultaneously.
 
 ---
 
-## 2. How Strong Consistency Works
+## 2. ⚖️ How Strong Consistency Works
 
 Strong consistency requires coordination across all nodes.
 
@@ -2232,7 +2436,7 @@ Strong consistency requires coordination across all nodes.
 
 ---
 
-## 3. Implementation Mechanisms
+## 3. 💡 Implementation Mechanisms
 
 You achieve strong consistency through various mechanisms.
 
@@ -2246,7 +2450,7 @@ You achieve strong consistency through various mechanisms.
 
 ---
 
-## 4. Real-World Examples
+## 4. 💡 Real-World Examples
 
 Strong consistency is critical for systems where data accuracy is essential.
 
@@ -2260,7 +2464,7 @@ Strong consistency is critical for systems where data accuracy is essential.
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 Strong consistency prevents users from seeing stale or conflicting data, which is critical for financial systems.
 
@@ -2274,7 +2478,7 @@ Strong consistency prevents users from seeing stale or conflicting data, which i
 
 ---
 
-## 6. When to Use Strong Consistency
+## 6. ⚖️ When to Use Strong Consistency
 
 You use strong consistency when data accuracy is more important than performance.
 
@@ -2288,7 +2492,7 @@ You use strong consistency when data accuracy is more important than performance
 
 ---
 
-## 7. Alternatives to Strong Consistency
+## 7. ⚖️ Alternatives to Strong Consistency
 
 You can use weaker consistency models when strong consistency isn't needed.
 
@@ -2330,7 +2534,7 @@ Identifying bottlenecks in distributed systems requires monitoring metrics acros
 
 ---
 
-## 1. Key Metrics to Monitor
+## 1. 💡 Key Metrics to Monitor
 
 You monitor various metrics to identify bottlenecks.
 
@@ -2350,7 +2554,7 @@ You monitor various metrics to identify bottlenecks.
 
 ---
 
-## 2. Identifying Bottlenecks
+## 2. 💡 Identifying Bottlenecks
 
 You identify bottlenecks by looking for metrics that spike while others are normal.
 
@@ -2364,7 +2568,7 @@ You identify bottlenecks by looking for metrics that spike while others are norm
 
 ---
 
-## 3. Using Distributed Tracing
+## 3. 💡 Using Distributed Tracing
 
 Distributed tracing helps you follow requests across services to see where they slow down.
 
@@ -2378,7 +2582,7 @@ Distributed tracing helps you follow requests across services to see where they 
 
 ---
 
-## 4. Common Bottleneck Patterns
+## 4. 💡 Common Bottleneck Patterns
 
 You look for specific patterns that indicate bottlenecks.
 
@@ -2392,7 +2596,7 @@ You look for specific patterns that indicate bottlenecks.
 
 ---
 
-## 5. Monitoring Tools
+## 5. 👁️ Monitoring Tools
 
 You use various tools to monitor and identify bottlenecks.
 
@@ -2406,7 +2610,7 @@ You use various tools to monitor and identify bottlenecks.
 
 ---
 
-## 6. Root Cause Analysis
+## 6. 💡 Root Cause Analysis
 
 The tricky part is distinguishing between symptoms and root causes.
 
@@ -2420,7 +2624,7 @@ The tricky part is distinguishing between symptoms and root causes.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Monitoring gives you visibility into what's slow, but has challenges.
 
@@ -2462,7 +2666,7 @@ Backpressure occurs when a fast producer overwhelms a slow consumer, causing mes
 
 ---
 
-## 1. What is Backpressure
+## 1. 💡 What is Backpressure
 
 Backpressure is when a fast producer overwhelms a slow consumer.
 
@@ -2478,7 +2682,7 @@ Backpressure is when a fast producer overwhelms a slow consumer.
 
 ---
 
-## 2. Why Backpressure Happens
+## 2. 💡 Why Backpressure Happens
 
 Backpressure occurs when there's a mismatch between production and consumption rates.
 
@@ -2492,7 +2696,7 @@ Backpressure occurs when there's a mismatch between production and consumption r
 
 ---
 
-## 3. Signs of Backpressure
+## 3. 💡 Signs of Backpressure
 
 You can detect backpressure through various indicators.
 
@@ -2506,7 +2710,7 @@ You can detect backpressure through various indicators.
 
 ---
 
-## 4. Handling Strategies
+## 4. 💡 Handling Strategies
 
 You handle backpressure using several strategies.
 
@@ -2520,7 +2724,7 @@ You handle backpressure using several strategies.
 
 ---
 
-## 5. Flow Control Mechanisms
+## 5. 💡 Flow Control Mechanisms
 
 You can implement flow control to manage backpressure.
 
@@ -2534,7 +2738,7 @@ You can implement flow control to manage backpressure.
 
 ---
 
-## 6. Implementation Considerations
+## 6. 💡 Implementation Considerations
 
 When implementing backpressure handling, you need to make decisions.
 
@@ -2548,7 +2752,7 @@ When implementing backpressure handling, you need to make decisions.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Backpressure prevents memory overflow and system crashes by controlling flow.
 
@@ -2590,7 +2794,7 @@ A distributed transaction updates data across multiple databases or services ato
 
 ---
 
-## 1. What is a Distributed Transaction
+## 1. 💳 What is a Distributed Transaction
 
 A distributed transaction updates data across multiple systems atomically.
 
@@ -2606,7 +2810,7 @@ A distributed transaction updates data across multiple systems atomically.
 
 ---
 
-## 2. Why Distributed Transactions are Tricky
+## 2. 💳 Why Distributed Transactions are Tricky
 
 Distributed transactions are complex because you need to coordinate across systems.
 
@@ -2620,7 +2824,7 @@ Distributed transactions are complex because you need to coordinate across syste
 
 ---
 
-## 3. Two-Phase Commit (2PC)
+## 3. 💡 Two-Phase Commit (2PC)
 
 Two-phase commit is a protocol for coordinating distributed transactions.
 
@@ -2634,7 +2838,7 @@ Two-phase commit is a protocol for coordinating distributed transactions.
 
 ---
 
-## 4. Challenges with 2PC
+## 4. 💡 Challenges with 2PC
 
 Two-phase commit has several challenges.
 
@@ -2648,7 +2852,7 @@ Two-phase commit has several challenges.
 
 ---
 
-## 5. Alternatives to 2PC
+## 5. 📱 Alternatives to 2PC
 
 You can use alternatives when 2PC doesn't work well.
 
@@ -2662,7 +2866,7 @@ You can use alternatives when 2PC doesn't work well.
 
 ---
 
-## 6. When to Use Distributed Transactions
+## 6. 💳 When to Use Distributed Transactions
 
 You use distributed transactions when you need strong consistency across services.
 
@@ -2676,7 +2880,7 @@ You use distributed transactions when you need strong consistency across service
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Distributed transactions guarantee data consistency across services, which is important for financial operations.
 
@@ -2718,7 +2922,7 @@ The Saga pattern breaks a distributed transaction into a series of local transac
 
 ---
 
-## 1. What is the Saga Pattern
+## 1. 💡 What is the Saga Pattern
 
 The Saga pattern breaks distributed transactions into local transactions with compensation.
 
@@ -2734,7 +2938,7 @@ The Saga pattern breaks distributed transactions into local transactions with co
 
 ---
 
-## 2. How Sagas Work
+## 2. 💡 How Sagas Work
 
 Sagas execute steps sequentially and compensate if any step fails.
 
@@ -2748,7 +2952,7 @@ Sagas execute steps sequentially and compensate if any step fails.
 
 ---
 
-## 3. Saga Orchestration Pattern
+## 3. 💡 Saga Orchestration Pattern
 
 In orchestration pattern, a central coordinator manages the saga.
 
@@ -2800,7 +3004,7 @@ async function bookTrip(userId, flightId, hotelId, carId) {
 
 ---
 
-## 4. Saga Choreography Pattern
+## 4. 🕸️ Saga Choreography Pattern
 
 In choreography pattern, each service manages its own part of the saga.
 
@@ -2814,7 +3018,7 @@ In choreography pattern, each service manages its own part of the saga.
 
 ---
 
-## 5. Benefits of Sagas
+## 5. 💡 Benefits of Sagas
 
 Sagas avoid the blocking and coordination overhead of distributed transactions.
 
@@ -2828,7 +3032,7 @@ Sagas avoid the blocking and coordination overhead of distributed transactions.
 
 ---
 
-## 6. Challenges with Sagas
+## 6. 💡 Challenges with Sagas
 
 Sagas have several challenges you need to handle.
 
@@ -2842,7 +3046,7 @@ Sagas have several challenges you need to handle.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Sagas avoid the blocking and coordination overhead of distributed transactions, which makes them faster and more scalable.
 
@@ -2884,7 +3088,7 @@ Graceful degradation means your system keeps working with reduced functionality 
 
 ---
 
-## 1. What is Graceful Degradation
+## 1. 💡 What is Graceful Degradation
 
 Graceful degradation keeps your system working with reduced functionality during failures.
 
@@ -2900,7 +3104,7 @@ Graceful degradation keeps your system working with reduced functionality during
 
 ---
 
-## 2. Examples of Graceful Degradation
+## 2. 💡 Examples of Graceful Degradation
 
 Here are common examples of graceful degradation.
 
@@ -2914,7 +3118,7 @@ Here are common examples of graceful degradation.
 
 ---
 
-## 3. Design Principles
+## 3. 💡 Design Principles
 
 When designing for graceful degradation, you follow certain principles.
 
@@ -2928,7 +3132,7 @@ When designing for graceful degradation, you follow certain principles.
 
 ---
 
-## 4. Implementing Fallbacks
+## 4. 💡 Implementing Fallbacks
 
 You implement fallbacks for non-critical features.
 
@@ -2942,7 +3146,7 @@ You implement fallbacks for non-critical features.
 
 ---
 
-## 5. Deciding What's Critical
+## 5. 💡 Deciding What's Critical
 
 The tricky part is deciding what's critical vs non-critical.
 
@@ -2956,7 +3160,7 @@ The tricky part is deciding what's critical vs non-critical.
 
 ---
 
-## 6. Benefits
+## 6. 💡 Benefits
 
 Graceful degradation keeps your system usable during failures.
 
@@ -2970,7 +3174,7 @@ Graceful degradation keeps your system usable during failures.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Graceful degradation keeps your system usable during failures, which is way better than showing an error page.
 
@@ -3012,7 +3216,7 @@ Failover and fallback are two different strategies for handling failures. Failov
 
 ---
 
-## 1. What is Failover
+## 1. 💡 What is Failover
 
 Failover automatically switches to a backup system when the primary fails.
 
@@ -3028,7 +3232,7 @@ Failover automatically switches to a backup system when the primary fails.
 
 ---
 
-## 2. What is Fallback
+## 2. 💡 What is Fallback
 
 Fallback provides an alternative way to accomplish the same goal when primary method fails.
 
@@ -3044,7 +3248,7 @@ Fallback provides an alternative way to accomplish the same goal when primary me
 
 ---
 
-## 3. Key Differences
+## 3. ➖ Key Differences
 
 Failover and fallback serve different purposes.
 
@@ -3058,7 +3262,7 @@ Failover and fallback serve different purposes.
 
 ---
 
-## 4. When to Use Failover
+## 4. 💡 When to Use Failover
 
 You use failover for critical infrastructure that must stay available.
 
@@ -3072,7 +3276,7 @@ You use failover for critical infrastructure that must stay available.
 
 ---
 
-## 5. When to Use Fallback
+## 5. 💡 When to Use Fallback
 
 You use fallback for features where users can choose alternatives.
 
@@ -3086,7 +3290,7 @@ You use fallback for features where users can choose alternatives.
 
 ---
 
-## 6. Implementing Failover
+## 6. 💡 Implementing Failover
 
 You implement failover using various mechanisms.
 
@@ -3100,7 +3304,7 @@ You implement failover using various mechanisms.
 
 ---
 
-## 7. Implementing Fallback
+## 7. 💡 Implementing Fallback
 
 You implement fallback by providing alternative paths.
 
@@ -3114,7 +3318,7 @@ You implement fallback by providing alternative paths.
 
 ---
 
-## 8. Trade-offs
+## 8. 💡 Trade-offs
 
 Failover is automatic and transparent to users, which is great for critical infrastructure.
 
@@ -3156,7 +3360,7 @@ Stateless and stateful designs represent two different approaches to handling ap
 
 ---
 
-## 1. What is Stateless Design
+## 1. 📦 What is Stateless Design
 
 Stateless design means each request contains all the information needed to process it.
 
@@ -3172,7 +3376,7 @@ Stateless design means each request contains all the information needed to proce
 
 ---
 
-## 2. What is Stateful Design
+## 2. 📦 What is Stateful Design
 
 Stateful design means the server remembers information between requests.
 
@@ -3188,7 +3392,7 @@ Stateful design means the server remembers information between requests.
 
 ---
 
-## 3. Key Differences
+## 3. ➖ Key Differences
 
 Stateless and stateful designs have fundamental differences.
 
@@ -3202,7 +3406,7 @@ Stateless and stateful designs have fundamental differences.
 
 ---
 
-## 4. Benefits of Stateless Design
+## 4. 📦 Benefits of Stateless Design
 
 Stateless design is easier to scale and more resilient.
 
@@ -3216,7 +3420,7 @@ Stateless design is easier to scale and more resilient.
 
 ---
 
-## 5. Benefits of Stateful Design
+## 5. 📦 Benefits of Stateful Design
 
 Stateful design can be more efficient for certain use cases.
 
@@ -3230,7 +3434,7 @@ Stateful design can be more efficient for certain use cases.
 
 ---
 
-## 6. When to Use Stateless
+## 6. 📦 When to Use Stateless
 
 You use stateless design for most web APIs and scalable systems.
 
@@ -3244,7 +3448,7 @@ You use stateless design for most web APIs and scalable systems.
 
 ---
 
-## 7. When to Use Stateful
+## 7. 📦 When to Use Stateful
 
 You use stateful design for specific use cases.
 
@@ -3258,7 +3462,7 @@ You use stateful design for specific use cases.
 
 ---
 
-## 8. Trade-offs
+## 8. 💡 Trade-offs
 
 Stateless design is easier to scale because you can add servers without worrying about where previous requests went.
 
@@ -3300,7 +3504,7 @@ P99 latency is the response time that 99% of requests are faster than, giving yo
 
 ---
 
-## 1. What is P99 Latency
+## 1. ⚡ What is P99 Latency
 
 P99 latency is the 99th percentile of response times.
 
@@ -3316,7 +3520,7 @@ P99 latency is the 99th percentile of response times.
 
 ---
 
-## 2. Why P99 is Useful
+## 2. 💡 Why P99 is Useful
 
 P99 is more useful than average latency because it shows worst-case experience for most users.
 
@@ -3330,7 +3534,7 @@ P99 is more useful than average latency because it shows worst-case experience f
 
 ---
 
-## 3. Other Percentiles
+## 3. 💡 Other Percentiles
 
 You can monitor different percentiles for different insights.
 
@@ -3344,7 +3548,7 @@ You can monitor different percentiles for different insights.
 
 ---
 
-## 4. Calculating Percentiles
+## 4. 💡 Calculating Percentiles
 
 You calculate percentiles from latency data.
 
@@ -3358,7 +3562,7 @@ You calculate percentiles from latency data.
 
 ---
 
-## 5. P99 vs Average Latency
+## 5. ⚡ P99 vs Average Latency
 
 P99 and average latency provide different insights.
 
@@ -3372,7 +3576,7 @@ P99 and average latency provide different insights.
 
 ---
 
-## 6. Limitations of P99
+## 6. 💡 Limitations of P99
 
 P99 can hide really bad outliers.
 
@@ -3386,7 +3590,7 @@ P99 can hide really bad outliers.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 P99 gives you a better picture of user experience than average because it shows what most users actually experience.
 
@@ -3425,7 +3629,6 @@ It depends on your use case - APIs might target 200-500ms P99, web pages might t
 **[← Previous: Question List](question.md)** | **[Next: Communication Protocols →](02%29%20Communication%20Protocols.md)**
 
 </div>
-
 
 ---
 

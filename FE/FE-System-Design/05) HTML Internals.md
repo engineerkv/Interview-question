@@ -20,7 +20,7 @@ HTML (HyperText Markup Language) is the standard markup language for creating we
 
 ---
 
-## 1. HTML Parsing Process
+## 1. 📄 HTML Parsing Process
 
 ### 🔹 Tokenization (Lexical Analysis)
 
@@ -50,8 +50,10 @@ The first step in HTML parsing is breaking the HTML source into tokens:
 * Numeric entities: `&#65;` → `A`
 
 **Example:**
+
 ```html
 <div class="container">Hello</div>
+
 ```
 
 Tokens produced:
@@ -94,6 +96,7 @@ After tokenization, tokens are converted into a DOM tree:
 3. Handle special cases (script tags, void elements)
 
 **Example:**
+
 ```html
 <html>
   <head>
@@ -103,9 +106,11 @@ After tokenization, tokens are converted into a DOM tree:
     <div>Hello</div>
   </body>
 </html>
+
 ```
 
 DOM tree:
+
 ```
 Document
 └── html
@@ -115,6 +120,7 @@ Document
     └── body
         └── div
             └── "Hello" (text)
+
 ```
 
 **Special Elements:**
@@ -154,7 +160,7 @@ Browsers parse HTML incrementally (as it arrives):
 
 ---
 
-## 2. DOM (Document Object Model)
+## 2. 💡 DOM (Document Object Model)
 
 ### 🔹 DOM Tree Structure
 
@@ -186,12 +192,14 @@ The DOM is a tree representation of HTML:
 * `nextSibling`, `previousSibling`: Adjacent siblings
 
 **Example:**
+
 ```javascript
 // Accessing DOM nodes
 const div = document.querySelector('div');
 console.log(div.nodeType); // 1 (Element)
 console.log(div.nodeName); // "DIV"
 console.log(div.firstChild.nodeValue); // Text content
+
 ```
 
 ### 🔹 Element Interface
@@ -220,6 +228,7 @@ Elements extend Node with element-specific properties:
 * `matches(selector)`: Check if matches selector
 
 **Example:**
+
 ```javascript
 const div = document.createElement('div');
 div.id = 'container';
@@ -229,6 +238,7 @@ div.innerHTML = '<p>Hello</p>';
 
 console.log(div.getAttribute('data-id')); // "123"
 console.log(div.textContent); // "Hello"
+
 ```
 
 ### 🔹 Live vs Static Collections
@@ -248,6 +258,7 @@ DOM collections can be live or static:
 * Don't update automatically
 
 **Example:**
+
 ```javascript
 // Live collection
 const children = div.children; // HTMLCollection (live)
@@ -258,13 +269,14 @@ console.log(children.length); // Updated automatically
 const nodes = div.querySelectorAll('p'); // NodeList (static)
 div.appendChild(document.createElement('p'));
 console.log(nodes.length); // Not updated
+
 ```
 
 📌 **In simple terms**: DOM is a tree of nodes representing HTML. Elements have properties (id, className) and methods (querySelector, setAttribute). Collections can be live (update automatically) or static (snapshot).
 
 ---
 
-## 3. HTML5 Features
+## 3. 📄 HTML5 Features
 
 ### 🔹 Semantic Elements
 
@@ -283,6 +295,7 @@ HTML5 introduced semantic elements for better structure:
 * Easier styling and maintenance
 
 **Example:**
+
 ```html
 <header>
   <nav>
@@ -300,6 +313,7 @@ HTML5 introduced semantic elements for better structure:
 <footer>
   <p>Copyright</p>
 </footer>
+
 ```
 
 ### 🔹 Form Enhancements
@@ -319,6 +333,7 @@ HTML5 added new form input types and attributes:
 * `min`, `max`, `step`: Number/date constraints
 
 **Example:**
+
 ```html
 <form>
   <input type="email" required placeholder="Email">
@@ -326,6 +341,7 @@ HTML5 added new form input types and attributes:
   <input type="date" min="2024-01-01">
   <button type="submit">Submit</button>
 </form>
+
 ```
 
 ### 🔹 Media Elements
@@ -344,12 +360,14 @@ HTML5 added native media support:
 * Lighter weight
 
 **Example:**
+
 ```html
 <video controls width="640" height="360">
   <source src="video.mp4" type="video/mp4">
   <source src="video.webm" type="video/webm">
   Your browser doesn't support video.
 </video>
+
 ```
 
 ### 🔹 Canvas and SVG
@@ -369,6 +387,7 @@ HTML5 provides graphics capabilities:
 * CSS and JavaScript can style/control
 
 **Example:**
+
 ```html
 <!-- Canvas -->
 <canvas id="myCanvas" width="200" height="200"></canvas>
@@ -382,13 +401,14 @@ HTML5 provides graphics capabilities:
 <svg width="200" height="200">
   <circle cx="50" cy="50" r="40" fill="blue"/>
 </svg>
+
 ```
 
 📌 **In simple terms**: HTML5 added semantic elements (header, nav, article), form enhancements (new input types, validation), media elements (video, audio), and graphics (canvas, SVG) for richer web applications.
 
 ---
 
-## 4. Accessibility (A11y)
+## 4. ♿ Accessibility (A11y)
 
 ### 🔹 ARIA Attributes
 
@@ -407,11 +427,13 @@ ARIA (Accessible Rich Internet Applications) enhances accessibility:
 * `aria-live`: Announce dynamic changes
 
 **Example:**
+
 ```html
 <button aria-label="Close dialog" aria-describedby="close-desc">
   ×
 </button>
 <span id="close-desc" class="sr-only">Closes the modal dialog</span>
+
 ```
 
 ### 🔹 Semantic HTML for Accessibility
@@ -433,6 +455,7 @@ Use semantic HTML for better accessibility:
 * Use `<fieldset>` and `<legend>` for groups
 
 **Example:**
+
 ```html
 <form>
   <fieldset>
@@ -441,6 +464,7 @@ Use semantic HTML for better accessibility:
     <input type="email" id="email" name="email" required>
   </fieldset>
 </form>
+
 ```
 
 ### 🔹 Keyboard Navigation
@@ -463,7 +487,7 @@ Ensure keyboard accessibility:
 
 ---
 
-## 5. Performance Optimization
+## 5. ⚡ Performance Optimization
 
 ### 🔹 HTML Optimization Techniques
 
@@ -485,6 +509,7 @@ Optimize HTML for better performance:
 * Improves perceived performance
 
 **Example:**
+
 ```html
 <!-- Defer script -->
 <script src="app.js" defer></script>
@@ -494,6 +519,7 @@ Optimize HTML for better performance:
 
 <!-- Prefetch next page -->
 <link rel="prefetch" href="/next-page.html">
+
 ```
 
 ### 🔹 Critical Rendering Path
@@ -515,34 +541,25 @@ Optimize the critical rendering path:
 
 ---
 
-## ⭐ Summary — Key Takeaways
+## ⭐ Summary — 10-second Interview Version
 
-**HTML Parsing:**
-* Tokenization breaks HTML into tokens
-* Tree construction builds DOM tree
-* Incremental parsing enables progressive rendering
+> "HTML parsing involves tokenization (breaking HTML into tokens) and tree construction (building DOM tree). The DOM is a tree of nodes representing HTML elements. HTML5 added semantic elements, form enhancements, and media elements. Use semantic HTML for accessibility, minify HTML for performance, and defer/async scripts to optimize the critical rendering path."
 
-**DOM:**
-* Tree structure of nodes
-* Elements have properties and methods
-* Live vs static collections
+---
 
-**HTML5 Features:**
-* Semantic elements for structure
-* Form enhancements for validation
-* Media elements for rich content
-* Canvas and SVG for graphics
+## ⭐ Extra Points (If Interviewer Asks More)
 
-**Accessibility:**
-* ARIA attributes enhance accessibility
-* Semantic HTML improves structure
-* Keyboard navigation is essential
+### What's the difference between innerHTML and textContent?
 
-**Performance:**
-* Minify HTML
-* Defer/async scripts
-* Preload critical resources
-* Optimize critical rendering path
+`innerHTML` returns HTML content as a string and allows you to set HTML (which can execute scripts - XSS risk). `textContent` returns only text content without HTML tags and safely escapes HTML when setting. Use `textContent` when you only need text, use `innerHTML` only when you need to set HTML (and sanitize it first).
+
+### Why do browsers parse HTML incrementally?
+
+Browsers parse HTML incrementally because HTML arrives in chunks over the network. Instead of waiting for the entire document, browsers start parsing and rendering as soon as they receive some HTML. This enables progressive rendering, faster Time to First Paint, and better user experience.
+
+### What happens when a script tag is encountered during HTML parsing?
+
+When the browser encounters a `<script>` tag, it immediately stops HTML parsing, downloads the JavaScript file (if external), executes the JavaScript, and then resumes HTML parsing. This is why scripts block rendering - the browser must execute JavaScript before continuing because JavaScript can modify the DOM.
 
 ---
 

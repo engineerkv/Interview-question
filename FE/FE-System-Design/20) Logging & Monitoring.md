@@ -16,13 +16,13 @@
 
 ---
 
-## Q89. Telemetry
+## Q89. 💡 Telemetry
 
 Telemetry is the automatic collection of metrics, logs, and traces from your application so you can understand how it behaves in real usage. For frontend systems, it's your eyes and ears in production. Proper telemetry implementation helps you understand user behavior, identify issues quickly, and make data-driven decisions about your application.
 
 ---
 
-## 1. What to collect
+## 1. 💡 What to collect
 
 ### 🔹 Metrics
 
@@ -44,7 +44,7 @@ Telemetry is the automatic collection of metrics, logs, and traces from your app
 
 ---
 
-## 2. Frontend implementation
+## 2. 💡 Frontend implementation
 
 * Use a telemetry SDK (Sentry, Datadog, OpenTelemetry, custom)
 
@@ -69,13 +69,13 @@ Define a small set of important events and metrics, sample high-volume data, and
 
 ---
 
-## Q90. Alerting
+## Q90. 💡 Alerting
 
 Alerting turns telemetry signals into notifications for humans when something goes wrong or drifts from expected behavior. Good alerts are rare, actionable, and clearly owned.
 
 ---
 
-## 1. What to alert on
+## 1. 💡 What to alert on
 
 * Error rate spikes (JS errors, failed API calls)
 
@@ -87,7 +87,7 @@ Alerting turns telemetry signals into notifications for humans when something go
 
 ---
 
-## 2. Designing good alerts
+## 2. 💡 Designing good alerts
 
 * Tie each alert to:
   * **Owner** (team/on-call)
@@ -114,13 +114,13 @@ An alert when JS error rate or failed API calls exceed a threshold for more than
 
 ---
 
-## Q91. Fixing Performance and Error Issues
+## Q91. ⚡ Fixing Performance and Error Issues
 
 Fixing issues is about turning telemetry and alerts into concrete improvements. It requires a repeatable workflow from detection to verification.
 
 ---
 
-## 1. Debugging workflow
+## 1. 🐛 Debugging workflow
 
 ### 🔹 For errors
 
@@ -146,7 +146,7 @@ Fixing issues is about turning telemetry and alerts into concrete improvements. 
 
 ---
 
-## 2. Closing the loop
+## 2. 💡 Closing the loop
 
 * Link issues to alerts and dashboards
 
@@ -176,9 +176,9 @@ Look at impact: number of users affected, business-critical flows, and trend (ge
 
 <div align="center">
 
-[15) Database & Caching.md](15%29%20Database%20&%20Caching.md) • [Questions Index](question.md) • [17) Accessibility.md →](17%29%20Accessibility.md)
+[← Previous: Database & Caching](19%29%20Database%20%26%20Caching.md) • [Home: Questions Index](question.md) • [Next: Accessibility →](21%29%20Accessibility.md)
 
-[FE-System-Design Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md)
 
 </div>
 

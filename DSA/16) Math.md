@@ -6,15 +6,15 @@
 
 <div align="center">
 
-[Bit Manipulation](15%20Bit%20Manipulation.md) • [Home: README](README.md)
+[← Previous: Bit Manipulation](15%29%20Bit%20Manipulation.md) • [Home: README](README.md)
 
-[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md)
 
 </div>
 
 ---
 
-## Q224. Palindrome Number
+## Q224. 🔄 Palindrome Number
 
 **Problem:** Given an integer `x`, return `true` if `x` is a palindrome, and `false` otherwise.
 
@@ -60,7 +60,7 @@ function isPalindrome(x) {
 **Time Complexity:** O(log n) - Number of digits
 **Space Complexity:** O(1) - Constant extra space
 
-## Q225. Plus One
+## Q225. 💡 Plus One
 
 **Problem:** You are given a large integer represented as an integer array `digits`, where each `digits[i]` is the `i`th digit of the integer. The digits are ordered from most significant to least significant in left-to-right order. The large integer does not contain any leading zeros. Increment the large integer by one and return the resulting array of digits.
 
@@ -105,7 +105,7 @@ function plusOne(digits) {
 **Time Complexity:** O(n) - Worst case traverse all digits
 **Space Complexity:** O(1) - Excluding result array
 
-## Q226. Factorial Trailing Zeroes
+## Q226. 💡 Factorial Trailing Zeroes
 
 **Problem:** Given an integer `n`, return the number of trailing zeroes in `n!`. Note that `n! = n * (n - 1) * (n - 2) * ... * 3 * 2 * 1`.
 
@@ -147,7 +147,7 @@ function trailingZeroes(n) {
 **Time Complexity:** O(log n) - Base 5 logarithm
 **Space Complexity:** O(1) - Constant extra space
 
-## Q227. Sqrt(x)
+## Q227. 💡 Sqrt(x)
 
 **Problem:** Given a non-negative integer `x`, return the square root of `x` rounded down to the nearest integer. The returned integer should be non-negative as well. You must not use any built-in exponent function or operator.
 
@@ -196,7 +196,7 @@ function mySqrt(x) {
 **Time Complexity:** O(log x) - Binary search
 **Space Complexity:** O(1) - Constant extra space
 
-## Q228. Pow(x, n)
+## Q228. 💡 Pow(x, n)
 
 **Problem:** Implement `pow(x, n)`, which calculates `x` raised to the power `n` (i.e., `x^n`).
 
@@ -243,7 +243,7 @@ function myPow(x, n) {
 **Time Complexity:** O(log n) - Binary exponentiation
 **Space Complexity:** O(1) - Constant extra space
 
-## Q229. Max Points on a Line
+## Q229. ⬆️ ⬆️ ⬆️ Max Points on a Line
 
 **Problem:** Given an array of `points` where `points[i] = [xi, yi]` represents a point on the X-Y plane, return the maximum number of points that lie on the same straight line.
 
@@ -314,8 +314,8 @@ function gcd(a, b) {
 
 <div align="center">
 
-[Bit Manipulation](15%20Bit%20Manipulation.md) • [Home: README](README.md)
+[← Previous: Bit Manipulation](15%29%20Bit%20Manipulation.md) • [Home: README](README.md)
 
-[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md)
 
 </div>

@@ -372,6 +372,7 @@ App
 │       │       ├── OrderStatus
 │       │       └── ReorderButton
 └── SocketProvider (Real-time order updates)
+
 ```
 
 ### Key React Components
@@ -449,6 +450,7 @@ const OrderTrackingPage: React.FC<{ orderId: string }> = ({ orderId }) => {
     </div>
   );
 };
+
 ```
 
 ### State Management
@@ -493,6 +495,7 @@ const usePlaceOrder = () => {
     }
   });
 };
+
 ```
 
 ### Component Interactions
@@ -549,6 +552,7 @@ interface Model {
 - **Method:** POST
 
 - **Request Body:**
+
   ```json
   {
     "restaurantId": "restaurant_abc123",
@@ -568,9 +572,11 @@ interface Model {
     },
     "paymentMethod": "card"
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -583,6 +589,7 @@ interface Model {
       "createdAt": "2024-01-15T10:30:00Z"
     }
   }
+
   ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error)
@@ -594,6 +601,7 @@ interface Model {
 - **Method:** GET
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -617,6 +625,7 @@ interface Model {
       "totalAmount": 31.98
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 404 (Not Found)
@@ -634,6 +643,7 @@ interface Model {
   - `cuisine`: string (optional)
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -650,6 +660,7 @@ interface Model {
       ]
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success)
@@ -1271,11 +1282,462 @@ try {
 
 ---
 
+# 4) Algorithms
+
+## Delivery Partner Matching Algorithm
+
+**Purpose:** Find the nearest available delivery partner to a restaurant efficiently.
+
+**Algorithm:**
+1. Get restaurant location (latitude, longitude)
+2. Search for available delivery partners within radius using geospatial query
+3. Filter by availability status (not on active delivery)
+4. Calculate distance to each partner
+5. Consider partner rating and load
+6. Select best match
+7. Expand radius if no partner found
+
+**Implementation:**
+
+```typescript
+class DeliveryMatchingService {
+  async findNearestPartner(
+    restaurantLat: number,
+    restaurantLon: number,
+    radius: number = 5
+  ): Promise<string | null> {
+    // Search using Redis GeoHash
+    const partners = await redis.georadius(
+      'partners:available',
+      restaurantLon,
+      restaurantLat,
+      radius,
+      'km',
+      'WITHCOORD',
+      'WITHDIST',
+      'ASC',
+      'COUNT',
+      10
+    );
+    
+    if (partners.length === 0 && radius < 10) {
+      return this.findNearestPartner(restaurantLat, restaurantLon, 10);
+    }
+    
+    // Filter available and rank by distance and rating
+    const rankedPartners = await this.rankPartners(partners);
+    
+    return rankedPartners.length > 0 ? rankedPartners[0].partnerId : null;
+  }
+}
+
+```
+
+**Complexity:**
+- Time: O(log n + m) where n is number of partners, m is results
+- Space: O(m) for results
+- **Matching Speed:** Geospatial queries enable < 100ms matching
+
+---
+
+## ETA Calculation Algorithm
+
+**Purpose:** Calculate estimated delivery time based on distance, traffic, and historical data.
+
+**Algorithm:**
+1. Calculate distance from restaurant to customer
+2. Get current traffic conditions
+3. Look up historical delivery times for similar routes
+4. Apply traffic multiplier
+5. Add preparation time
+6. Calculate final ETA
+
+**Implementation:**
+
+```typescript
+function calculateETA(
+  restaurantLocation: Location,
+  customerLocation: Location,
+  preparationTime: number = 20
+): number {
+  const distance = calculateDistance(restaurantLocation, customerLocation);
+  const baseTime = distance / 30; // 30 km/h average speed
+  const trafficMultiplier = getTrafficMultiplier(restaurantLocation, customerLocation);
+  const historicalTime = getHistoricalETA(restaurantLocation, customerLocation);
+  
+  const travelTime = (baseTime * trafficMultiplier + historicalTime) / 2;
+  const totalETA = preparationTime + travelTime;
+  
+  return Math.ceil(totalETA); // Round up to nearest minute
+}
+
+```
+
+**Complexity:**
+- Time: O(1) for calculation
+- Space: O(1)
+- **ETA Accuracy:** Historical data improves accuracy
+
+---
+
+# 5) Data Models
+
+## Orders Collection (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  orderId: String,           // Unique order ID, indexed
+  userId: ObjectId,          // Customer reference, indexed
+  restaurantId: ObjectId,    // Restaurant reference, indexed
+  deliveryPartnerId: ObjectId, // Delivery partner reference, indexed
+  items: [Object],           // Array of order items
+  totalAmount: Number,       // Total order amount
+  deliveryFee: Number,       // Delivery fee
+  status: String,           // placed, accepted, preparing, ready, picked_up, in_transit, delivered, cancelled
+  deliveryAddress: Object,   // { address, latitude, longitude }
+  estimatedDeliveryTime: Number, // ETA in minutes
+  actualDeliveryTime: Date,  // Actual delivery timestamp
+  paymentId: ObjectId,       // Payment reference
+  placedAt: Date,           // Order placed timestamp, indexed
+  createdAt: Date,
+  updatedAt: Date
+}
+
+// Indexes:
+// - { orderId: 1 } (unique)
+// - { userId: 1, placedAt: -1 } (compound)
+// - { restaurantId: 1, status: 1 } (compound)
+// - { deliveryPartnerId: 1, status: 1 } (compound)
+// - { status: 1, placedAt: -1 } (compound)
+
+```
+
+## Delivery Partners Collection (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  partnerId: String,         // Unique partner ID, indexed
+  userId: ObjectId,          // User reference, indexed
+  location: Object,          // { latitude, longitude } (geospatial index)
+  status: String,           // available, busy, offline
+  rating: Number,           // Average rating
+  totalDeliveries: Number,  // Total deliveries completed
+  currentOrderId: ObjectId, // Current active order
+  createdAt: Date,
+  updatedAt: Date
+}
+
+// Indexes:
+// - { partnerId: 1 } (unique)
+// - { location: "2dsphere" } (geospatial index)
+// - { status: 1 } (indexed)
+
+```
+
+---
+
+# 6) Database Transactions and Consistency
+
+### MongoDB Transactions
+
+**Transaction Usage:**
+- **Multi-Document Transactions** - For operations requiring ACID guarantees
+- **Example:** Order creation + restaurant update + delivery assignment in single transaction
+- **Session Management:** Use MongoDB sessions for transaction control
+
+**Example:**
+
+```typescript
+const session = await mongoose.startSession();
+session.startTransaction();
+try {
+  await Order.create([orderData], { session });
+  await Restaurant.updateOne({ restaurantId }, { $inc: { orderCount: 1 } }, { session });
+  await DeliveryPartner.updateOne({ partnerId }, { $set: { status: 'busy' } }, { session });
+  await session.commitTransaction();
+} catch (error) {
+  await session.abortTransaction();
+  throw error;
+} finally {
+  session.endSession();
+}
+
+```
+
+### Consistency Strategies
+
+**Data Consistency:**
+- **Order Consistency:** Use transactions for order operations to ensure atomicity
+- **Inventory Consistency:** Ensure menu item availability is consistent
+- **Delivery Assignment Consistency:** Ensure delivery partner assignment is atomic
+- **Eventual Consistency:** Accept eventual consistency for location updates (may update with slight delay)
+
+---
+
+# 7) Protocols
+
+### REST API Protocol
+
+- **Protocol:** REST (Representational State Transfer)
+- **Data Format:** JSON
+- **HTTP Methods:** GET, POST, PUT, DELETE
+- **Status Codes:** 200 (Success), 201 (Created), 400 (Bad Request), 401 (Unauthorized), 404 (Not Found), 500 (Server Error)
+- **Authentication:** JWT Bearer token in Authorization header
+
+### WebSocket Protocol
+
+- **Protocol:** Socket.io over WebSocket
+- **Events:** `order:status`, `location:update`, `eta:update`
+- **Authentication:** JWT token in handshake
+- **Use Case:** Real-time order tracking and location updates
+
+---
+
+# 8) API Design
+
+### POST /api/v1/orders
+
+- **URL:** `/api/v1/orders`
+- **Method:** POST
+- **Description:** Create a new order
+- **Request Body:**
+
+  ```json
+  {
+    "restaurantId": "rest_abc123",
+    "items": [
+      { "itemId": "item_1", "quantity": 2, "price": 15.99 }
+    ],
+    "deliveryAddress": {
+      "address": "123 Main St",
+      "latitude": 40.7128,
+      "longitude": -74.0060
+    }
+  }
+
+  ```
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "orderId": "order_abc123",
+      "status": "placed",
+      "estimatedDeliveryTime": 30,
+      "totalAmount": 31.98
+    }
+  }
+
+  ```
+- **Status Codes:** 201 (Created), 400 (Validation Error)
+
+### GET /api/v1/orders/:orderId
+
+- **URL:** `/api/v1/orders/:orderId`
+- **Method:** GET
+- **Description:** Get order details with real-time status
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "orderId": "order_abc123",
+      "status": "in_transit",
+      "deliveryPartner": {...},
+      "currentLocation": {...},
+      "eta": 5
+    }
+  }
+
+  ```
+- **Status Codes:** 200 (Success), 404 (Order Not Found)
+
+---
+
+# 9) Caching Strategy
+
+### Redis Cache
+
+**Cache Strategy:**
+- **Key Format:** `order:{orderId}`, `partner:location:{partnerId}`, `restaurants:nearby:{lat}:{lon}`
+- **Value:** Serialized JSON (order data, partner location, nearby restaurants)
+- **TTL:** 
+  - Order data: 300 seconds (5 minutes)
+  - Partner locations: 60 seconds (frequently updated)
+  - Nearby restaurants: 600 seconds (10 minutes)
+- **Eviction Policy:** TTL-based eviction
+
+**Cache Patterns:**
+- **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
+- **Write-Through Pattern:** Update cache when order status changes
+- **Cache Invalidation:** Invalidate order cache on status updates
+
+---
+
+# 10) Error Handling
+
+### Error Scenarios and Responses
+
+**Edge Cases Handling:**
+- **Restaurant Closed:** Return 400 Bad Request with "Restaurant is currently closed"
+- **Item Unavailable:** Return 400 Bad Request with unavailable items list
+- **No Delivery Partner Available:** Return 503 Service Unavailable, queue order for later assignment
+- **Payment Failure:** Return 402 Payment Required with payment error details
+- **Order Not Found:** Return 404 Not Found
+
+**Error Response Format:**
+
+```json
+{
+  "error": {
+    "code": "NO_PARTNER_AVAILABLE",
+    "message": "No delivery partner available",
+    "details": "We're experiencing high demand. Your order will be assigned shortly.",
+    "retryAfter": 60
+  }
+}
+
+```
+
+---
+
+# 11) Deployment and DevOps
+
+### Scalability
+
+**API Layer:**
+- Deploy API layer across multiple instances behind load balancer
+- Use auto-scaling based on CPU/memory metrics
+- Stateless design allows horizontal scaling
+
+**WebSocket Scaling:**
+- **Socket.io Redis Adapter:** Enable horizontal scaling of WebSocket connections
+- **Sticky Sessions:** Required for Socket.io (use session affinity in load balancer)
+- **Connection Management:** Monitor and manage WebSocket connections
+
+**Database Scaling:**
+- **Read Replicas:** Deploy read replicas for order queries
+- **Sharding:** Shard orders by region or userId for write scaling
+- **Connection Pooling:** Use connection pooling to manage database connections
+
+**Caching:**
+- Distributed Redis cluster for high availability
+- Cache orders and partner locations
+- Reduces database load significantly
+
+### Availability
+
+**Replication:**
+- Database replication ensures data availability
+- Multi-region replication for disaster recovery
+
+**Failover:**
+- Automated failover mechanisms for API and data store layers
+- Health checks and monitoring for proactive failover
+- Circuit breaker pattern to prevent cascading failures
+
+**Geo-Distributed Deployment:**
+- Deploy service across multiple geographical regions
+- Reduces latency for users worldwide
+- Improves availability by eliminating single point of failure
+
+### Frontend Deployment
+
+**Build Process:**
+- **Production Build:** Optimized bundle with code splitting
+- **CDN Deployment:** Deploy static assets to CDN for fast global delivery
+- **Environment Variables:** `.env.production` for production config
+
+**Deployment Platforms:**
+- **Vercel / Netlify** - Automatic deployments from Git
+- **AWS S3 + CloudFront** - Static site hosting with CDN
+
+### Backend Deployment
+
+**Server Setup:**
+- **PM2:** Process manager with clustering for Node.js apps
+- **Nginx:** Load balancer and reverse proxy with SSL termination
+- **Docker:** Containerized deployment for consistency
+- **Kubernetes:** Container orchestration for auto-scaling
+
+**CI/CD Pipeline:**
+- **Automated Testing:** Run tests before deployment
+- **Zero-Downtime:** Rolling deployment strategy
+- **Health Checks:** Verify order endpoints are healthy
+- **Blue-Green Deployment:** Maintain two identical production environments
+
+### Database Deployment
+
+**MongoDB Setup:**
+- **MongoDB Atlas** - Managed MongoDB service with automatic backups
+- **Backup Strategy:** Daily automated backups with point-in-time recovery
+- **Indexing:** Proper indexes on orderId, userId, restaurantId, status, geospatial index on location
+- **Replication:** Replica sets for high availability
+
+**Redis Setup:**
+- **Redis Cloud / AWS ElastiCache** - Managed Redis service
+- **Cluster Mode:** Redis cluster for high availability and performance
+- **Persistence:** RDB snapshots and AOF for data durability
+
+---
+
+# 12) Security Considerations
+
+### Rate Limiting
+
+- Implement rate limiting at API layer to prevent abuse
+- Limit number of orders per user per hour
+- Use Redis for distributed rate limiting across multiple servers
+
+### Input Validation
+
+- Validate all API inputs (order data, addresses)
+- Sanitize user input to prevent injection attacks
+- Validate location coordinates (latitude/longitude ranges)
+
+### HTTPS/TLS
+
+- All communication between clients and API encrypted using HTTPS
+- Prevents eavesdropping and man-in-the-middle attacks
+- SSL/TLS certificates for secure connections
+
+### Location Privacy
+
+- **Location Encryption:** Encrypt location data in transit and at rest
+- **Privacy Controls:** Allow users to control location sharing
+- **Data Retention:** Implement location data retention policies
+
+### Authentication and Authorization
+
+- **JWT Tokens:** Use JWT for stateless authentication
+- **Token Expiration:** Set appropriate token expiration times
+- **Role-Based Access Control:** Implement RBAC for customer vs delivery partner access
+- **Order Ownership:** Verify user owns order before allowing access
+
+### Payment Security
+
+- **PCI-DSS Compliance:** Use payment gateway SDKs that handle PCI-DSS compliance
+- **Tokenization:** Never store full payment card details, use tokens
+- **Idempotency:** Use idempotency keys to prevent duplicate charges
+
+### Monitoring and Alerts
+
+- Set up monitoring for unusual activity patterns
+- Trigger alerts for potential security issues
+- Track metrics: order rates, delivery success rates, payment success rates
+- Log all operations for security auditing
+
+---
+
 # 3) Interview Answers
 
 ---
 
-## Q1. Designing a food delivery system
+## Q1. 💡 Designing a food delivery system
 
 **Situation:** Need to design a food delivery system for 50M+ users that handles 10M+ orders per day with real-time order tracking and delivery partner assignment.
 
@@ -1303,7 +1765,7 @@ try {
 
 ---
 
-## Q2. Assigning delivery partners to orders
+## Q2. 💡 Assigning delivery partners to orders
 
 **Situation:** Need to match orders with nearest available delivery partner efficiently.
 
@@ -1329,7 +1791,7 @@ try {
 
 ---
 
-## Q3. Tracking orders in real-time
+## Q3. ⏰ ⏰ ⏰ Tracking orders in real-time
 
 **Situation:** Users want to see delivery partner location and ETA in real-time.
 

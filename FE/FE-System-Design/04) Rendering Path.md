@@ -16,13 +16,13 @@
 
 ---
 
-## Q8. Critical Rendering Path
+## Q8. 🎨 Critical Rendering Path
 
 The Critical Rendering Path is the sequence of steps the browser takes to convert HTML, CSS, and JavaScript into pixels on the screen. Understanding this path helps you optimize page load performance and create faster, more responsive websites. Every millisecond matters - a 100ms delay can reduce conversions by 1%.
 
 ---
 
-## 1. HTML Parsing and DOM Construction
+## 1. 📄 HTML Parsing and DOM Construction
 
 When the browser receives HTML bytes over the network, it can't use them directly. It needs to parse the HTML and build a data structure (the DOM) that JavaScript can manipulate and the browser can render.
 
@@ -112,7 +112,7 @@ Understanding what blocks parsing and rendering is crucial for performance optim
 
 ---
 
-## 2. CSS Parsing and CSSOM Construction
+## 2. 🎨 CSS Parsing and CSSOM Construction
 
 CSS is parsed to build the CSS Object Model (CSSOM) tree, which represents all CSS rules and how these rules apply to elements. The browser needs this to know how to style each element.
 
@@ -196,7 +196,7 @@ CSS is parsed to build the CSS Object Model (CSSOM) tree, which represents all C
 
 ---
 
-## 3. JavaScript Execution
+## 3. 💡 JavaScript Execution
 
 JavaScript execution plays a crucial role in the critical rendering path and can significantly impact page load performance.
 
@@ -279,7 +279,7 @@ JavaScript execution plays a crucial role in the critical rendering path and can
 
 ---
 
-## 4. Render Tree Construction
+## 4. 🌳 Render Tree Construction
 
 The render tree combines DOM and CSSOM, but only includes visible elements (excludes `display: none`, `<head>`, etc.).
 
@@ -293,7 +293,7 @@ The render tree combines DOM and CSSOM, but only includes visible elements (excl
 
 ---
 
-## 5. Layout (Reflow)
+## 5. 📐 Layout (Reflow)
 
 Layout calculates the exact position and size of each element on the page.
 
@@ -315,7 +315,7 @@ Layout calculates the exact position and size of each element on the page.
 
 ---
 
-## 6. Paint
+## 6. 💡 Paint
 
 Paint fills in the pixels for each element based on the layout information.
 
@@ -329,7 +329,7 @@ Paint fills in the pixels for each element based on the layout information.
 
 ---
 
-## 7. Compositing
+## 7. 💡 Compositing
 
 Compositing combines different layers into the final image displayed on screen.
 
@@ -373,9 +373,9 @@ async downloads in parallel and executes immediately when ready (may interrupt p
 
 <div align="center">
 
-[03) Networking.md](03%29%20Networking.md) • [Questions Index](question.md) • [05) JavaScript Internals.md →](05%29%20JavaScript%20Internals.md)
+[← Previous: Networking](03%29%20Networking.md) • [Home: Questions Index](question.md) • [Next: HTML Internals →](05%29%20HTML%20Internals.md)
 
-[FE-System-Design Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md)
 
 </div>
 

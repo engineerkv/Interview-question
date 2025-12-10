@@ -347,6 +347,7 @@ App
 │       └── ShareButton
 └── Footer
     └── StorageUsage
+
 ```
 
 ### Key React Components
@@ -434,6 +435,7 @@ const FileUploadDialog: React.FC = () => {
     </div>
   );
 };
+
 ```
 
 ### State Management
@@ -487,6 +489,7 @@ const useUploadFiles = () => {
     }
   });
 };
+
 ```
 
 ### Component Interactions
@@ -545,13 +548,16 @@ interface Model {
 - **Content-Type:** `multipart/form-data`
 
 - **Request Body:**
+
   ```
 
   file: File
   folderId: string (optional)
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -565,6 +571,7 @@ interface Model {
       "createdAt": "2024-01-15T10:30:00Z"
     }
   }
+
   ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error), 413 (File Too Large)
@@ -576,6 +583,7 @@ interface Model {
 - **Method:** GET
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -591,6 +599,7 @@ interface Model {
       "updatedAt": "2024-01-15T10:30:00Z"
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 404 (Not Found)
@@ -612,11 +621,13 @@ interface Model {
 - **Method:** DELETE
 
 - **Response:**
+
   ```json
   {
     "success": true,
     "message": "File deleted successfully"
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 404 (Not Found)
@@ -628,13 +639,16 @@ interface Model {
 - **Method:** POST
 
 - **Request Body:**
+
   ```json
   {
     "targetFolderId": "folder_new123"
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -644,6 +658,7 @@ interface Model {
       "updatedAt": "2024-01-15T11:00:00Z"
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 404 (Not Found)
@@ -1383,11 +1398,610 @@ try {
 
 ---
 
+# 4) Algorithms
+
+## File Chunking Algorithm
+
+**Purpose:** Split large files into smaller chunks for efficient upload, storage, and deduplication.
+
+**Algorithm:**
+1. Read file in fixed-size chunks (e.g., 5MB)
+2. Calculate SHA-256 hash for each chunk
+3. Store chunk hash and metadata
+4. Upload chunks to object storage (S3)
+5. Store chunk references in file metadata
+
+**Implementation:**
+
+```typescript
+import crypto from 'crypto';
+import fs from 'fs';
+
+async function chunkFile(filePath: string, chunkSize: number = 5 * 1024 * 1024): Promise<Chunk[]> {
+  const chunks: Chunk[] = [];
+  const fileStream = fs.createReadStream(filePath, { highWaterMark: chunkSize });
+  let chunkIndex = 0;
+  
+  for await (const chunk of fileStream) {
+    const hash = crypto.createHash('sha256').update(chunk).digest('hex');
+    
+    chunks.push({
+      index: chunkIndex++,
+      hash,
+      size: chunk.length,
+      data: chunk
+    });
+  }
+  
+  return chunks;
+}
+
+async function uploadChunks(chunks: Chunk[]): Promise<string[]> {
+  const chunkIds: string[] = [];
+  
+  for (const chunk of chunks) {
+    // Check if chunk already exists (deduplication)
+    const existing = await checkChunkExists(chunk.hash);
+    
+    if (existing) {
+      chunkIds.push(existing.chunkId);
+    } else {
+      // Upload to S3
+      const chunkId = await uploadToS3(chunk);
+      await storeChunkMetadata(chunk.hash, chunkId);
+      chunkIds.push(chunkId);
+    }
+  }
+  
+  return chunkIds;
+}
+
+```
+
+**Complexity:**
+- Time: O(n) where n is file size
+- Space: O(chunkSize) for streaming
+- **Deduplication:** Content-based hashing enables chunk-level deduplication
+
+---
+
+## File Deduplication Algorithm
+
+**Purpose:** Identify and reuse duplicate file chunks to save storage space.
+
+**Algorithm:**
+1. Calculate SHA-256 hash for each file chunk
+2. Check if chunk hash exists in database
+3. If exists, increment reference count and reuse chunk
+4. If not exists, upload chunk and create new entry
+5. Track reference count for each chunk
+6. Delete chunks with zero references
+
+**Implementation:**
+
+```typescript
+class DeduplicationService {
+  async processFile(file: File): Promise<string[]> {
+    const chunks = await chunkFile(file.path);
+    const chunkIds: string[] = [];
+    
+    for (const chunk of chunks) {
+      // Check if chunk exists
+      const existing = await ChunkMetadata.findOne({ hash: chunk.hash });
+      
+      if (existing) {
+        // Increment reference count
+        await ChunkMetadata.updateOne(
+          { hash: chunk.hash },
+          { $inc: { referenceCount: 1 } }
+        );
+        chunkIds.push(existing.chunkId);
+      } else {
+        // Upload new chunk
+        const chunkId = await this.uploadChunk(chunk);
+        
+        // Store metadata
+        await ChunkMetadata.create({
+          chunkId,
+          hash: chunk.hash,
+          size: chunk.size,
+          referenceCount: 1
+        });
+        
+        chunkIds.push(chunkId);
+      }
+    }
+    
+    return chunkIds;
+  }
+  
+  async deleteFile(fileId: string): Promise<void> {
+    const file = await File.findById(fileId);
+    
+    // Decrement reference count for each chunk
+    for (const chunkId of file.chunkIds) {
+      const result = await ChunkMetadata.updateOne(
+        { chunkId },
+        { $inc: { referenceCount: -1 } }
+      );
+      
+      // Delete chunk if no references
+      if (result.modifiedCount > 0) {
+        const chunk = await ChunkMetadata.findOne({ chunkId });
+        if (chunk.referenceCount === 0) {
+          await this.deleteChunk(chunkId);
+          await ChunkMetadata.deleteOne({ chunkId });
+        }
+      }
+    }
+  }
+}
+
+```
+
+**Complexity:**
+- Time: O(n) where n is number of chunks
+- Space: O(1) per chunk metadata
+- **Storage Savings:** Deduplication can save 30-50% storage space
+
+---
+
+## Delta Sync Algorithm
+
+**Purpose:** Synchronize only changed chunks between client and server to reduce bandwidth.
+
+**Algorithm:**
+1. Client calculates chunk hashes for local file
+2. Server sends list of chunk hashes for server file
+3. Compare hashes to identify changed chunks
+4. Client requests only changed chunks from server
+5. Client reconstructs file with new chunks
+
+**Implementation:**
+
+```typescript
+async function syncFile(localFile: File, serverFile: File): Promise<void> {
+  const localChunks = await getChunkHashes(localFile);
+  const serverChunks = await getChunkHashes(serverFile);
+  
+  // Find changed chunks
+  const changedChunks: number[] = [];
+  for (let i = 0; i < Math.max(localChunks.length, serverChunks.length); i++) {
+    if (localChunks[i] !== serverChunks[i]) {
+      changedChunks.push(i);
+    }
+  }
+  
+  // Download only changed chunks
+  for (const index of changedChunks) {
+    const chunk = await downloadChunk(serverFile.fileId, index);
+    await updateLocalChunk(localFile, index, chunk);
+  }
+}
+
+```
+
+**Complexity:**
+- Time: O(n) where n is number of chunks
+- Space: O(k) where k is number of changed chunks
+- **Bandwidth Savings:** Delta sync reduces bandwidth by 70-90%
+
+---
+
+# 5) Data Models
+
+## Files Collection (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  fileId: String,           // Unique file ID, indexed
+  userId: ObjectId,         // User reference, indexed
+  folderId: ObjectId,       // Folder reference, indexed
+  fileName: String,         // File name
+  fileSize: Number,        // File size in bytes
+  mimeType: String,         // MIME type
+  chunkIds: [String],       // Array of chunk IDs
+  version: Number,          // File version number
+  parentVersion: ObjectId,  // Parent version reference (for versioning)
+  hash: String,            // File hash (SHA-256), indexed
+  isShared: Boolean,       // Whether file is shared
+  shareSettings: Object,    // Share permissions and settings
+  createdAt: Date,         // Created timestamp, indexed
+  updatedAt: Date,         // Updated timestamp, indexed
+  deletedAt: Date          // Soft delete timestamp
+}
+
+// Indexes:
+// - { fileId: 1 } (unique)
+// - { userId: 1, folderId: 1 } (compound)
+// - { hash: 1 } (for deduplication)
+// - { userId: 1, createdAt: -1 } (compound)
+// - { isShared: 1, createdAt: -1 } (compound)
+
+```
+
+## Chunks Collection (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  chunkId: String,          // Unique chunk ID, indexed
+  hash: String,            // Chunk hash (SHA-256), indexed (unique)
+  size: Number,            // Chunk size in bytes
+  s3Key: String,           // S3 object key
+  referenceCount: Number,   // Number of files referencing this chunk
+  createdAt: Date,         // Created timestamp
+  lastAccessedAt: Date     // Last access timestamp
+}
+
+// Indexes:
+// - { chunkId: 1 } (unique)
+// - { hash: 1 } (unique, for deduplication)
+// - { referenceCount: 1 } (for cleanup)
+
+```
+
+## Folders Collection (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  folderId: String,         // Unique folder ID, indexed
+  userId: ObjectId,         // User reference, indexed
+  parentFolderId: ObjectId, // Parent folder reference
+  folderName: String,       // Folder name
+  path: String,            // Full folder path, indexed
+  fileCount: Number,        // Number of files in folder
+  totalSize: Number,       // Total size of files in folder
+  createdAt: Date,         // Created timestamp, indexed
+  updatedAt: Date          // Updated timestamp
+}
+
+// Indexes:
+// - { folderId: 1 } (unique)
+// - { userId: 1, parentFolderId: 1 } (compound)
+// - { path: 1 } (for path queries)
+
+```
+
+---
+
+# 6) Database Transactions and Consistency
+
+### MongoDB Transactions
+
+**Transaction Usage:**
+- **Multi-Document Transactions** - For operations requiring ACID guarantees
+- **Example:** File creation + folder update + user quota update in single transaction
+- **Session Management:** Use MongoDB sessions for transaction control
+
+**Example:**
+
+```typescript
+const session = await mongoose.startSession();
+session.startTransaction();
+try {
+  await File.create([fileData], { session });
+  await Folder.updateOne({ folderId }, { $inc: { fileCount: 1 } }, { session });
+  await User.updateOne({ userId }, { $inc: { storageUsed: fileSize } }, { session });
+  await session.commitTransaction();
+} catch (error) {
+  await session.abortTransaction();
+  throw error;
+} finally {
+  session.endSession();
+}
+
+```
+
+### Consistency Strategies
+
+**Data Consistency:**
+- **File Consistency:** Use transactions for file operations to ensure atomicity
+- **Storage Quota Consistency:** Ensure quota updates are atomic with file creation
+- **Metadata Consistency:** Keep file metadata in sync with S3 (eventual consistency acceptable)
+- **Chunk Reference Consistency:** Use transactions when updating chunk reference counts
+
+---
+
+# 7) Protocols
+
+### REST API Protocol
+
+- **Protocol:** REST (Representational State Transfer)
+- **Data Format:** JSON (for metadata), multipart/form-data (for file uploads)
+- **HTTP Methods:** GET, POST, PUT, DELETE
+- **Status Codes:** 200 (Success), 201 (Created), 400 (Bad Request), 401 (Unauthorized), 404 (Not Found), 413 (Payload Too Large), 507 (Insufficient Storage)
+- **Authentication:** JWT Bearer token in Authorization header
+
+### File Upload Protocol
+
+- **Protocol:** Multipart upload (chunked)
+- **Chunk Size:** 5MB per chunk
+- **Upload ID:** Unique upload ID for resumable uploads
+- **Use Case:** Large file uploads with resume capability
+
+---
+
+# 8) API Design
+
+### POST /api/v1/files/upload
+
+- **URL:** `/api/v1/files/upload`
+- **Method:** POST
+- **Description:** Upload a file (supports chunked upload)
+- **Content-Type:** `multipart/form-data`
+- **Request Body:**
+
+  ```
+  file: [File]
+  folderId: string (optional)
+  fileName: string (optional, defaults to original filename)
+
+  ```
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "fileId": "file_abc123",
+      "fileName": "document.pdf",
+      "fileSize": 5242880,
+      "uploadId": "upload_xyz789",
+      "chunks": [
+        { "index": 0, "chunkId": "chunk_1" },
+        { "index": 1, "chunkId": "chunk_2" }
+      ],
+      "createdAt": "2024-01-15T10:30:00Z"
+    }
+  }
+
+  ```
+- **Status Codes:** 201 (Created), 400 (Validation Error), 413 (File Too Large), 507 (Storage Quota Exceeded)
+
+### GET /api/v1/files/:fileId/download
+
+- **URL:** `/api/v1/files/:fileId/download`
+- **Method:** GET
+- **Description:** Get download URL for file
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "downloadUrl": "https://s3.amazonaws.com/bucket/file_abc123?signature=...",
+      "expiresAt": "2024-01-15T11:30:00Z"
+    }
+  }
+
+  ```
+- **Status Codes:** 200 (Success), 404 (File Not Found), 403 (Access Denied)
+
+### POST /api/v1/files/:fileId/share
+
+- **URL:** `/api/v1/files/:fileId/share`
+- **Method:** POST
+- **Description:** Share file with other users
+- **Request Body:**
+
+  ```json
+  {
+    "userId": "user_xyz789",
+    "permission": "read" // read, write, admin
+  }
+
+  ```
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "shareId": "share_abc123",
+      "fileId": "file_abc123",
+      "userId": "user_xyz789",
+      "permission": "read",
+      "createdAt": "2024-01-15T10:30:00Z"
+    }
+  }
+
+  ```
+- **Status Codes:** 201 (Created), 400 (Validation Error), 404 (File Not Found)
+
+---
+
+# 9) Caching Strategy
+
+### Redis Cache
+
+**Cache Strategy:**
+- **Key Format:** `file:metadata:{fileId}`, `file:chunks:{fileId}`, `signed-url:{fileId}`
+- **Value:** Serialized JSON (file metadata, chunk list, signed URLs)
+- **TTL:** 
+  - File metadata: 3600 seconds (1 hour)
+  - Signed URLs: 3600 seconds (1 hour)
+  - Chunk list: 1800 seconds (30 minutes)
+- **Eviction Policy:** LRU (Least Recently Used)
+
+**Cache Patterns:**
+- **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
+- **Write-Through Pattern:** Update cache when file metadata changes
+- **Cache Invalidation:** Invalidate file cache on file updates or deletions
+
+### CDN Cache
+
+**Cache Strategy:**
+- **Static Files:** Cache frequently accessed files at CDN edge locations
+- **Cache Headers:** Use Cache-Control headers for cache control
+- **Cache Invalidation:** Purge CDN cache on file updates
+
+---
+
+# 10) Error Handling
+
+### Error Scenarios and Responses
+
+**Edge Cases Handling:**
+- **File Too Large:** Return 413 Payload Too Large when file exceeds size limit
+- **Storage Quota Exceeded:** Return 507 Insufficient Storage when user quota exceeded
+- **Invalid File Format:** Return 400 Bad Request with validation errors
+- **File Not Found:** Return 404 Not Found when file doesn't exist
+- **Access Denied:** Return 403 Forbidden when user doesn't have permission
+- **Upload Failure:** Return 500 Server Error, allow resume from last successful chunk
+- **Chunk Upload Failure:** Retry chunk upload with exponential backoff
+
+**Error Response Format:**
+
+```json
+{
+  "error": {
+    "code": "STORAGE_QUOTA_EXCEEDED",
+    "message": "Storage quota exceeded",
+    "details": "You have used 99.5GB of 100GB storage quota",
+    "quota": 100000000000,
+    "used": 99500000000,
+    "available": 500000000
+  }
+}
+
+```
+
+---
+
+# 11) Deployment and DevOps
+
+### Scalability
+
+**API Layer:**
+- Deploy API layer across multiple instances behind load balancer
+- Use auto-scaling based on CPU/memory metrics
+- Stateless design allows horizontal scaling
+
+**Storage Scaling:**
+- **S3 Scaling:** S3 automatically scales to handle any storage volume
+- **CDN Scaling:** CloudFront CDN scales globally for file delivery
+- **Database Scaling:** Shard file metadata by userId for write scaling
+
+**Caching:**
+- Distributed Redis cluster for high availability
+- Cache file metadata and signed URLs
+- Reduces database load significantly
+
+### Availability
+
+**Replication:**
+- S3 provides 99.999999999% (11 9's) durability
+- Database replication ensures metadata availability
+- Multi-region replication for disaster recovery
+
+**Failover:**
+- Automated failover mechanisms for API and data store layers
+- Health checks and monitoring for proactive failover
+- Circuit breaker pattern to prevent cascading failures
+
+**Geo-Distributed Deployment:**
+- Deploy service across multiple geographical regions
+- Reduces latency for users worldwide
+- Improves availability by eliminating single point of failure
+
+### Frontend Deployment
+
+**Build Process:**
+- **Production Build:** Optimized bundle with code splitting
+- **CDN Deployment:** Deploy static assets to CDN for fast global delivery
+- **Environment Variables:** `.env.production` for production config
+
+**Deployment Platforms:**
+- **Vercel / Netlify** - Automatic deployments from Git
+- **AWS S3 + CloudFront** - Static site hosting with CDN
+
+### Backend Deployment
+
+**Server Setup:**
+- **PM2:** Process manager with clustering for Node.js apps
+- **Nginx:** Load balancer and reverse proxy with SSL termination
+- **Docker:** Containerized deployment for consistency
+- **Kubernetes:** Container orchestration for auto-scaling
+
+**CI/CD Pipeline:**
+- **Automated Testing:** Run tests before deployment
+- **Zero-Downtime:** Rolling deployment strategy
+- **Health Checks:** Verify file endpoints are healthy
+- **Blue-Green Deployment:** Maintain two identical production environments
+
+### Database Deployment
+
+**MongoDB Setup:**
+- **MongoDB Atlas** - Managed MongoDB service with automatic backups
+- **Backup Strategy:** Daily automated backups with point-in-time recovery
+- **Indexing:** Proper indexes on fileId, userId, folderId, hash
+- **Sharding:** Shard file metadata by userId for horizontal scaling
+
+**Redis Setup:**
+- **Redis Cloud / AWS ElastiCache** - Managed Redis service
+- **Cluster Mode:** Redis cluster for high availability and performance
+- **Persistence:** RDB snapshots and AOF for data durability
+
+**S3 Setup:**
+- **AWS S3** - Object storage for file chunks
+- **Lifecycle Policies:** Configure lifecycle policies (move to Glacier after 90 days)
+- **Versioning:** Enable versioning for file versioning feature
+- **Cross-Region Replication:** Replicate critical files across regions
+
+---
+
+# 12) Security Considerations
+
+### File Access Control
+
+- **Authentication:** Require authentication for all file operations
+- **Authorization:** Check user permissions before allowing file access
+- **Signed URLs:** Use time-limited signed URLs for file downloads
+- **Share Permissions:** Implement fine-grained share permissions (read, write, admin)
+
+### Input Validation
+
+- Validate file names, sizes, and types
+- Sanitize file names to prevent path traversal attacks
+- Scan uploaded files for malware
+- Limit file size to prevent DoS attacks
+
+### HTTPS/TLS
+
+- All communication between clients and API encrypted using HTTPS
+- Prevents eavesdropping and man-in-the-middle attacks
+- SSL/TLS certificates for secure connections
+
+### Data Encryption
+
+- **Encryption at Rest:** Encrypt files stored in S3 using server-side encryption
+- **Encryption in Transit:** Use HTTPS for all file transfers
+- **Client-Side Encryption:** Optional client-side encryption for sensitive files
+
+### Authentication and Authorization
+
+- **JWT Tokens:** Use JWT for stateless authentication
+- **Token Expiration:** Set appropriate token expiration times
+- **Role-Based Access Control:** Implement RBAC for file operations
+- **Share Links:** Support password-protected share links
+
+### Monitoring and Alerts
+
+- Set up monitoring for unusual file access patterns
+- Trigger alerts for potential security issues
+- Track metrics: upload rates, download rates, storage usage, access patterns
+- Log all file operations for security auditing
+
+---
+
 # 3) Interview Answers
 
 ---
 
-## Q1. Designing a file storage system
+## Q1. 💡 Designing a file storage system
 
 **Situation:** Need to design a file storage system for 1B+ users with 100PB+ storage, supporting file upload, download, synchronization, and sharing.
 
@@ -1415,7 +2029,7 @@ try {
 
 ---
 
-## Q2. Implementing file deduplication
+## Q2. 💡 Implementing file deduplication
 
 **Situation:** Multiple users upload same file, need to store only once to save storage.
 
@@ -1439,7 +2053,7 @@ try {
 
 ---
 
-## Q3. Handling file synchronization across devices
+## Q3. 💡 Handling file synchronization across devices
 
 **Situation:** User edits file on device A, changes should sync to device B automatically.
 
@@ -1460,3 +2074,45 @@ try {
 **Result:** File changes sync across devices in < 5 seconds. Delta sync reduces bandwidth by 80%. Conflict resolution works smoothly.
 
 **Takeaway:** Change logs enable efficient synchronization. Delta sync reduces bandwidth usage.
+
+---
+
+## Q4. 💡 Handling large file uploads
+
+**Situation:** Users upload files up to 10GB, need to handle uploads efficiently with resume capability.
+
+**Action:** I implemented large file upload handling:
+
+- **Chunked Upload:** Split files into 5MB chunks for upload
+- **Resumable Uploads:** Support resume from last successful chunk if upload fails
+- **Parallel Uploads:** Upload multiple chunks in parallel for faster upload
+- **Progress Tracking:** Track upload progress per chunk, show overall progress
+- **Upload ID:** Generate unique upload ID for resumable uploads
+- **Chunk Verification:** Verify chunk integrity after upload using hash
+- **S3 Multipart Upload:** Use S3 multipart upload API for large files
+- **Timeout Handling:** Handle upload timeouts gracefully, allow resume
+
+**Result:** Files up to 10GB upload successfully. Resume capability reduces failed uploads by 90%. Parallel uploads reduce upload time by 60%.
+
+**Takeaway:** Chunked upload enables resume capability. Parallel uploads improve performance. S3 multipart upload handles large files efficiently.
+
+---
+
+## Q5. 💡 Implementing file sharing and permissions
+
+**Situation:** Users want to share files with other users with different permission levels.
+
+**Action:** I implemented file sharing:
+
+- **Share Model:** Create share records linking file to user with permission level
+- **Permission Levels:** Read (view only), Write (edit), Admin (full control)
+- **Share Links:** Generate shareable links with optional password protection
+- **Access Control:** Check share permissions before allowing file access
+- **Share Expiration:** Support time-limited shares with expiration dates
+- **Public Shares:** Support public shares accessible without authentication
+- **Share Management:** Users can view, modify, and revoke shares
+- **Audit Trail:** Log all share access for security
+
+**Result:** File sharing works seamlessly. Permission system prevents unauthorized access. Share links enable easy collaboration.
+
+**Takeaway:** Share records enable flexible permissions. Share links simplify collaboration. Access control ensures security.

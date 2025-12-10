@@ -1,6 +1,17 @@
 # 🧩 Puzzles Interview Cheatsheet
 
-> **Complete solutions and explanations for 50 puzzle problems** - Logic puzzles, optimization problems, and brain teasers commonly asked in technical interviews
+> **⏱️ Review Time: 20-30 minutes** | **Priority: ⭐⭐ Medium** | Complete solutions and explanations for 50 puzzle problems
+>
+> **Coverage: P1-P50** (50 puzzles across 6 categories)
+
+**Quick Review Checklist:**
+
+- [ ] Logic & Reasoning Puzzles (Crossing bridge, Wolf-Goat-Cabbage, Truth/Lie)
+- [ ] Optimization Puzzles (2 Eggs problem, Minimum planes, Knight's path)
+- [ ] Probability & Statistics (Monty Hall, Ants on Triangle, Ratio problems)
+- [ ] Game Theory (5 Pirates, Round table coin game, Prisoners)
+- [ ] Graph & Path Problems (Knight's shortest path, Blocked Path, Spider's Web)
+- [ ] Mathematical Puzzles (Magic Square, Counting triangles, Number sequences)
 
 ---
 

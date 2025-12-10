@@ -132,15 +132,15 @@
 
 ## 📖 Complete Answer Guide
 
-- [1) TypeScript Fundamentals](1%29%20TypeScript%20Fundamentals.md) - Q1-9
+- [1) TypeScript Fundamentals](01%29%20TypeScript%20Fundamentals.md) - Q1-9
 
-- [2) Type System & Interfaces](2%29%20Type%20System%20%26%20Interfaces.md) - Q10-21
+- [2) Type System & Interfaces](02%29%20Type%20System%20%26%20Interfaces.md) - Q10-21
 
-- [3) Functions & Advanced Type Features](3%29%20Functions%20%26%20Advanced%20Type%20Features.md) - Q22-31
+- [3) Functions & Advanced Type Features](03%29%20Functions%20%26%20Advanced%20Type%20Features.md) - Q22-31
 
-- [4) Classes & Object-Oriented Features](4%29%20Classes%20%26%20Object-Oriented%20Features.md) - Q32-39
+- [4) Classes & Object-Oriented Features](04%29%20Classes%20%26%20Object-Oriented%20Features.md) - Q32-39
 
-- [5) Advanced TypeScript Internals](5%29%20Advanced%20TypeScript%20Internals.md) - Q40-53
+- [5) Advanced TypeScript Internals](05%29%20Advanced%20TypeScript%20Internals.md) - Q40-53
 
 ## 📝 Cheatsheet
 

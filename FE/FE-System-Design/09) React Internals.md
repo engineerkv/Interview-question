@@ -16,13 +16,13 @@
 
 ---
 
-## Q18. How React.js Works Internally
+## Q18. ⚛️ How React.js Works Internally
 
 React is a library for building user interfaces. Understanding how React works under the hood helps you write better code, debug tricky issues, and optimize performance. When you use React, it handles Virtual DOM, reconciliation, Fiber architecture, hooks, state management, event system, and performance optimizations behind the scenes. This knowledge is crucial for senior developers - it helps you understand why certain patterns work better, how to optimize React applications, and how to debug complex issues.
 
 ---
 
-## 1. React Architecture
+## 1. ⚛️ React Architecture
 
 ### 🔹 Core Concepts
 
@@ -187,7 +187,7 @@ function Greeting({ name }) {
 
 ---
 
-## 2. Virtual DOM & Reconciliation
+## 2. 👻 Virtual DOM & Reconciliation
 
 ### 🔹 Virtual DOM
 
@@ -401,7 +401,7 @@ React's diffing algorithm is how React determines what changed between renders. 
 
 ---
 
-## 3. Component Lifecycle & Hooks
+## 3. 🧩 Component Lifecycle & Hooks
 
 ### 🔹 Class Component Lifecycle
 
@@ -778,7 +778,7 @@ function Component({ condition }) {
 
 ---
 
-## 4. Fiber Architecture
+## 4. 💡 Fiber Architecture
 
 ### 🔹 Fiber Node
 
@@ -1011,7 +1011,7 @@ Fiber work happens in two distinct phases. Understanding these phases helps you 
 
 ---
 
-## 5. State Management & Updates
+## 5. 📦 State Management & Updates
 
 ### 🔹 State Updates
 
@@ -1113,7 +1113,7 @@ function handleClick() {
 
 ---
 
-## 6. Event System
+## 6. 🎯 Event System
 
 ### 🔹 SyntheticEvent
 
@@ -1264,7 +1264,7 @@ You can write event handlers in different ways:
 
 ---
 
-## 7. Rendering & Batching
+## 7. 🎨 Rendering & Batching
 
 ### 🔹 Rendering Process
 
@@ -1429,7 +1429,7 @@ const handleClick = useCallback(() => {
 
 ---
 
-## 8. Performance Optimizations
+## 8. ⚡ Performance Optimizations
 
 ### 🔹 Code Splitting
 
@@ -1759,15 +1759,29 @@ function SearchInput() {
 
 ---
 
+## ⭐ Extra Points (If Interviewer Asks More)
+
+### What's the difference between Virtual DOM and Real DOM?
+
+Virtual DOM is React's JavaScript representation of the DOM - it's a lightweight copy that React uses to figure out what changed. The real DOM is the actual browser DOM that users see. React compares the old and new Virtual DOM (reconciliation), then updates only the changed parts in the real DOM. This is faster than directly manipulating the real DOM because Virtual DOM operations are cheap JavaScript operations.
+
+### How does React's reconciliation algorithm work?
+
+React's reconciliation (diffing algorithm) compares the old and new Virtual DOM trees. It assumes elements of the same type in the same position are the same element, so it only updates what changed. Keys help React identify which items changed, were added, or removed in lists. React uses a heuristic algorithm (not perfect diffing) for performance - it's O(n) complexity instead of O(n³) for perfect diffing.
+
+### What's the purpose of React Fiber?
+
+React Fiber is a reimplementation of React's reconciliation algorithm that allows React to pause, abort, or reuse work as priorities change. It enables features like concurrent rendering, where React can interrupt low-priority updates to handle high-priority updates (like user input) immediately. Fiber makes React more responsive and allows features like Suspense and concurrent mode.
+
 ---
 
 ## 📍 Navigation
 
 <div align="center">
 
-[05) JavaScript Internals.md](05%29%20JavaScript%20Internals.md) • [Questions Index](question.md) • [07) Node.js Internals.md →](07%29%20Node.js%20Internals.md)
+[← Previous: TypeScript Internals](08%29%20TypeScript%20Internals.md) • [Home: Questions Index](question.md) • [Next: Next.js Internals →](10%29%20Next.js%20Internals.md)
 
-[FE-System-Design Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md)
 
 </div>
 

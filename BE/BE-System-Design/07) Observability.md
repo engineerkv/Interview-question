@@ -1,4 +1,4 @@
-# 7. Observability (Q106–Q120)
+# 7. Observability (Q134–Q134)
 
 ---
 
@@ -16,13 +16,13 @@
 
 ---
 
-## Q106. 📊 CloudWatch Metrics vs Logs vs Events
+## Q120. 📊 CloudWatch Metrics vs Logs vs Events
 
 CloudWatch provides three types of observability data: Metrics, Logs, and Events. When you monitor AWS applications, you use each type for different purposes to get complete visibility into your system.
 
 ---
 
-## 1. What are CloudWatch Metrics
+## 1. 💡 What are CloudWatch Metrics
 
 CloudWatch Metrics are numeric data points over time.
 
@@ -38,7 +38,7 @@ CloudWatch Metrics are numeric data points over time.
 
 ---
 
-## 2. What are CloudWatch Logs
+## 2. 💡 What are CloudWatch Logs
 
 CloudWatch Logs are text log files from your applications or AWS services.
 
@@ -54,7 +54,7 @@ CloudWatch Logs are text log files from your applications or AWS services.
 
 ---
 
-## 3. What are CloudWatch Events
+## 3. 🎯 What are CloudWatch Events
 
 CloudWatch Events (now EventBridge) are notifications about state changes.
 
@@ -70,7 +70,7 @@ CloudWatch Events (now EventBridge) are notifications about state changes.
 
 ---
 
-## 4. When to Use Metrics
+## 4. 💡 When to Use Metrics
 
 Metrics are great for monitoring performance and setting alarms.
 
@@ -84,7 +84,7 @@ Metrics are great for monitoring performance and setting alarms.
 
 ---
 
-## 5. When to Use Logs
+## 5. 💡 When to Use Logs
 
 Logs give you detailed information for debugging.
 
@@ -98,7 +98,7 @@ Logs give you detailed information for debugging.
 
 ---
 
-## 6. When to Use Events
+## 6. 🎯 When to Use Events
 
 Events enable event-driven architectures.
 
@@ -112,7 +112,7 @@ Events enable event-driven architectures.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Metrics are great for monitoring performance and setting alarms.
 
@@ -152,13 +152,13 @@ CloudWatch Events can trigger Lambda functions when events occur - you configure
 
 ---
 
-## Q107. Creating custom CloudWatch metrics
+## Q121. 💡 Creating custom CloudWatch metrics
 
 Custom CloudWatch metrics allow you to track application-specific metrics beyond AWS default metrics. When you create custom metrics, you send data points to CloudWatch using the API to monitor business metrics and application behavior.
 
 ---
 
-## 1. Using PutMetricData API
+## 1. 🔌 Using PutMetricData API
 
 Create custom metrics by using the CloudWatch API to send data points with PutMetricData.
 
@@ -174,7 +174,7 @@ Create custom metrics by using the CloudWatch API to send data points with PutMe
 
 ---
 
-## 2. Metric Components
+## 2. 🧩 Metric Components
 
 You define a metric name, namespace, dimensions, and value.
 
@@ -188,7 +188,7 @@ You define a metric name, namespace, dimensions, and value.
 
 ---
 
-## 3. Using Dimensions
+## 3. 💡 Using Dimensions
 
 Use dimensions to filter and aggregate metrics.
 
@@ -202,7 +202,7 @@ Use dimensions to filter and aggregate metrics.
 
 ---
 
-## 4. Business Metrics
+## 4. 💡 Business Metrics
 
 Custom metrics allow you to track business metrics.
 
@@ -216,7 +216,7 @@ Custom metrics allow you to track business metrics.
 
 ---
 
-## 5. Example Implementation
+## 5. 💡 Example Implementation
 
 Example code for sending custom metrics:
 
@@ -239,7 +239,7 @@ await cloudwatch.putMetricData({
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Custom metrics give you visibility into your application's behavior.
 
@@ -275,13 +275,13 @@ You track custom metrics in Lambda by using the CloudWatch SDK to send metrics, 
 
 ---
 
-## Q108. 📈 CloudWatch dashboards
+## Q122. 📈 CloudWatch dashboards
 
 CloudWatch dashboards provide a single view of your system's health by displaying multiple metrics and logs in one customizable page. When you monitor AWS applications, you use dashboards to visualize system health and track key performance indicators.
 
 ---
 
-## 1. What are CloudWatch Dashboards
+## 1. 💡 What are CloudWatch Dashboards
 
 CloudWatch dashboards are customizable pages that display multiple metrics and logs in one view.
 
@@ -297,7 +297,7 @@ CloudWatch dashboards are customizable pages that display multiple metrics and l
 
 ---
 
-## 2. Dashboard Widgets
+## 2. 💡 Dashboard Widgets
 
 You add widgets like line graphs, numbers, or logs, and refresh them automatically.
 
@@ -311,7 +311,7 @@ You add widgets like line graphs, numbers, or logs, and refresh them automatical
 
 ---
 
-## 3. Use Cases
+## 3. 💡 Use Cases
 
 Use dashboards to monitor your system's health, track key performance indicators, and visualize trends over time.
 
@@ -325,7 +325,7 @@ Use dashboards to monitor your system's health, track key performance indicators
 
 ---
 
-## 4. Multiple Dashboards
+## 4. 💡 Multiple Dashboards
 
 You can create multiple dashboards for different teams or use cases.
 
@@ -339,7 +339,7 @@ You can create multiple dashboards for different teams or use cases.
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 Dashboards give you a single view of your system's health.
 
@@ -353,7 +353,7 @@ Dashboards give you a single view of your system's health.
 
 ---
 
-## 6. Limitations
+## 6. 💡 Limitations
 
 These only show data from CloudWatch - you can't easily combine data from other sources.
 
@@ -367,7 +367,7 @@ These only show data from CloudWatch - you can't easily combine data from other 
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Dashboards give you a single view of your system's health.
 
@@ -403,13 +403,13 @@ You share dashboards by creating shared dashboards, using IAM permissions to con
 
 ---
 
-## Q109. 🚨 Setting alarms for auto-scaling
+## Q123. 🚨 Setting alarms for auto-scaling
 
 CloudWatch alarms trigger Auto Scaling actions based on metric thresholds. When you configure auto-scaling, you set alarms on metrics like CPU utilization or request count to automatically scale your infrastructure based on actual load.
 
 ---
 
-## 1. Setting CloudWatch Alarms
+## 1. 💡 Setting CloudWatch Alarms
 
 Set CloudWatch alarms on metrics like CPU utilization or request count.
 
@@ -425,7 +425,7 @@ Set CloudWatch alarms on metrics like CPU utilization or request count.
 
 ---
 
-## 2. Scale-Out Policy
+## 2. 💡 Scale-Out Policy
 
 When CPU goes above 70%, the alarm triggers a scale-out policy to add instances.
 
@@ -439,7 +439,7 @@ When CPU goes above 70%, the alarm triggers a scale-out policy to add instances.
 
 ---
 
-## 3. Scale-In Policy
+## 3. 💡 Scale-In Policy
 
 When it drops below 30%, it triggers a scale-in policy to remove instances.
 
@@ -453,7 +453,7 @@ When it drops below 30%, it triggers a scale-in policy to remove instances.
 
 ---
 
-## 4. Scaling Types
+## 4. 📊 Scaling Types
 
 Use step scaling for gradual adjustments or simple scaling for immediate changes.
 
@@ -467,7 +467,7 @@ Use step scaling for gradual adjustments or simple scaling for immediate changes
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 Alarms enable automatic scaling based on actual load.
 
@@ -481,7 +481,7 @@ Alarms enable automatic scaling based on actual load.
 
 ---
 
-## 6. Scaling Delay
+## 6. 📊 Scaling Delay
 
 There's a delay between detecting the need and scaling - typically 1-5 minutes.
 
@@ -495,7 +495,7 @@ There's a delay between detecting the need and scaling - typically 1-5 minutes.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Alarms enable automatic scaling based on actual load.
 
@@ -531,13 +531,13 @@ You prevent thrashing by using cooldown periods, requiring multiple consecutive 
 
 ---
 
-## Q110. 🐛 Debugging Lambda using CloudWatch
+## Q124. 🐛 Debugging Lambda using CloudWatch
 
 Debugging Lambda functions requires visibility into execution logs, errors, and performance. When you debug Lambda, you use CloudWatch Logs, Metrics, and X-Ray to understand what happened during execution.
 
 ---
 
-## 1. CloudWatch Logs
+## 1. 💡 CloudWatch Logs
 
 Debug Lambda functions by viewing CloudWatch Logs for execution logs, errors, and print statements.
 
@@ -553,7 +553,7 @@ Debug Lambda functions by viewing CloudWatch Logs for execution logs, errors, an
 
 ---
 
-## 2. X-Ray Distributed Tracing
+## 2. 💡 X-Ray Distributed Tracing
 
 Use X-Ray for distributed tracing to see the full request path.
 
@@ -567,7 +567,7 @@ Use X-Ray for distributed tracing to see the full request path.
 
 ---
 
-## 3. CloudWatch Metrics
+## 3. 💡 CloudWatch Metrics
 
 Check CloudWatch Metrics for invocation counts and errors.
 
@@ -581,7 +581,7 @@ Check CloudWatch Metrics for invocation counts and errors.
 
 ---
 
-## 4. CloudWatch Insights
+## 4. 💡 CloudWatch Insights
 
 Use CloudWatch Insights to query logs with SQL-like syntax.
 
@@ -595,7 +595,7 @@ Use CloudWatch Insights to query logs with SQL-like syntax.
 
 ---
 
-## 5. Best Practices
+## 5. 💡 Best Practices
 
 Enable detailed logging and include request IDs in your logs for easier debugging.
 
@@ -609,7 +609,7 @@ Enable detailed logging and include request IDs in your logs for easier debuggin
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 CloudWatch Logs give you visibility into Lambda execution.
 
@@ -645,13 +645,13 @@ You debug timeouts by checking execution duration in CloudWatch Metrics, reviewi
 
 ---
 
-## Q111. 💰 Cost optimization of CloudWatch logs
+## Q125. 💰 Cost optimization of CloudWatch logs
 
 CloudWatch Logs costs can add up quickly at scale. When you optimize CloudWatch Logs costs, you balance cost reduction with maintaining enough logs for debugging and monitoring.
 
 ---
 
-## 1. Log Retention Periods
+## 1. 💡 Log Retention Periods
 
 Optimize CloudWatch Logs costs by setting log retention periods to automatically delete old logs.
 
@@ -667,7 +667,7 @@ Optimize CloudWatch Logs costs by setting log retention periods to automatically
 
 ---
 
-## 2. Log Filtering
+## 2. 💡 Log Filtering
 
 Filter logs before sending them to CloudWatch.
 
@@ -681,7 +681,7 @@ Filter logs before sending them to CloudWatch.
 
 ---
 
-## 3. Log Sampling
+## 3. 💡 Log Sampling
 
 Use log sampling for high-volume logs.
 
@@ -695,7 +695,7 @@ Use log sampling for high-volume logs.
 
 ---
 
-## 4. Log Compression
+## 4. 💡 Log Compression
 
 Compress logs before sending.
 
@@ -709,7 +709,7 @@ Compress logs before sending.
 
 ---
 
-## 5. CloudWatch Logs Insights
+## 5. 💡 CloudWatch Logs Insights
 
 Use CloudWatch Logs Insights only when needed since queries cost money.
 
@@ -723,7 +723,7 @@ Use CloudWatch Logs Insights only when needed since queries cost money.
 
 ---
 
-## 6. Export to S3
+## 6. 💡 Export to S3
 
 Consider exporting logs to S3 for long-term storage which is cheaper.
 
@@ -737,7 +737,7 @@ Consider exporting logs to S3 for long-term storage which is cheaper.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Cost optimization reduces spending.
 
@@ -773,13 +773,13 @@ You export logs to S3 by creating export tasks, using CloudWatch Logs export API
 
 ---
 
-## Q112. 🔍 AWS X-Ray full tracing pipeline
+## Q126. 🔍 AWS X-Ray full tracing pipeline
 
 AWS X-Ray provides distributed tracing for requests as they travel through your system. When you use X-Ray, you instrument your code to send trace data, and X-Ray assembles segments into complete traces showing the full request path.
 
 ---
 
-## 1. How X-Ray Works
+## 1. 💡 How X-Ray Works
 
 X-Ray traces requests as they travel through your distributed system.
 
@@ -795,7 +795,7 @@ X-Ray traces requests as they travel through your distributed system.
 
 ---
 
-## 2. Instrumentation
+## 2. 💡 Instrumentation
 
 You instrument your code to send trace data.
 
@@ -809,7 +809,7 @@ You instrument your code to send trace data.
 
 ---
 
-## 3. Trace Information
+## 3. 💡 Trace Information
 
 You can see which services a request hit, how long each service took, and where errors occurred.
 
@@ -823,7 +823,7 @@ You can see which services a request hit, how long each service took, and where 
 
 ---
 
-## 4. Service Integration
+## 4. 💡 Service Integration
 
 Enable X-Ray on API Gateway, Lambda, EC2, and other services to get end-to-end visibility.
 
@@ -837,7 +837,7 @@ Enable X-Ray on API Gateway, Lambda, EC2, and other services to get end-to-end v
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 X-Ray provides complete visibility into distributed systems.
 
@@ -851,7 +851,7 @@ X-Ray provides complete visibility into distributed systems.
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 X-Ray provides complete visibility into distributed systems.
 
@@ -887,13 +887,13 @@ You debug performance issues by viewing service maps to see slow services, analy
 
 ---
 
-## Q113. 🌐 Distributed tracing concepts
+## Q127. 🌐 Distributed tracing concepts
 
 Distributed tracing follows requests across multiple services in a microservices architecture. When you use distributed tracing, you add trace IDs that get passed along, and each service creates spans that are collected into complete traces.
 
 ---
 
-## 1. How Distributed Tracing Works
+## 1. 💡 How Distributed Tracing Works
 
 Distributed tracing follows a request across multiple services by adding a trace ID that gets passed along.
 
@@ -909,7 +909,7 @@ Distributed tracing follows a request across multiple services by adding a trace
 
 ---
 
-## 2. Spans and Traces
+## 2. 💡 Spans and Traces
 
 Each service creates a span showing its part of the request, and all spans are collected into a trace.
 
@@ -923,7 +923,7 @@ Each service creates a span showing its part of the request, and all spans are c
 
 ---
 
-## 3. Trace ID Correlation
+## 3. 💡 Trace ID Correlation
 
 Use trace IDs to correlate logs across services.
 
@@ -937,7 +937,7 @@ Use trace IDs to correlate logs across services.
 
 ---
 
-## 4. Performance Analysis
+## 4. ⚡ Performance Analysis
 
 Identify bottlenecks by seeing which service takes longest.
 
@@ -951,7 +951,7 @@ Identify bottlenecks by seeing which service takes longest.
 
 ---
 
-## 5. Debugging
+## 5. 🐛 Debugging
 
 Debug issues by seeing the full request path.
 
@@ -965,7 +965,7 @@ Debug issues by seeing the full request path.
 
 ---
 
-## 6. Tools
+## 6. 💡 Tools
 
 Tools like X-Ray, Jaeger, or Zipkin collect and visualize traces.
 
@@ -979,7 +979,7 @@ Tools like X-Ray, Jaeger, or Zipkin collect and visualize traces.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Distributed tracing is essential for debugging microservices.
 
@@ -1015,13 +1015,13 @@ A span represents a single operation within a service (e.g., database query, HTT
 
 ---
 
-## Q114. ⚠️ Detecting throttling via CloudWatch Metrics
+## Q128. ⚠️ Detecting throttling via CloudWatch Metrics
 
 Throttling occurs when requests exceed capacity limits. When you detect throttling, you monitor CloudWatch metrics to identify when throttling occurs and take proactive measures to prevent it.
 
 ---
 
-## 1. Monitoring Throttling Metrics
+## 1. 👁️ Monitoring Throttling Metrics
 
 Detect throttling by monitoring CloudWatch metrics like ThrottledRequests for DynamoDB, ThrottledRequests for API Gateway, or 429 status codes for your APIs.
 
@@ -1037,7 +1037,7 @@ Detect throttling by monitoring CloudWatch metrics like ThrottledRequests for Dy
 
 ---
 
-## 2. Setting Up Alarms
+## 2. 💡 Setting Up Alarms
 
 Set up alarms on these metrics to alert when throttling occurs.
 
@@ -1051,7 +1051,7 @@ Set up alarms on these metrics to alert when throttling occurs.
 
 ---
 
-## 3. Log Analysis
+## 3. 💡 Log Analysis
 
 Use CloudWatch Insights to query logs for throttling patterns.
 
@@ -1065,7 +1065,7 @@ Use CloudWatch Insights to query logs for throttling patterns.
 
 ---
 
-## 4. Capacity Monitoring
+## 4. 👁️ Capacity Monitoring
 
 Monitor read and write capacity utilization to predict when throttling might occur.
 
@@ -1079,7 +1079,7 @@ Monitor read and write capacity utilization to predict when throttling might occ
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 Monitoring throttling helps you catch capacity issues early.
 
@@ -1093,7 +1093,7 @@ Monitoring throttling helps you catch capacity issues early.
 
 ---
 
-## 6. Reactive Nature
+## 6. ⚛️ Reactive Nature
 
 By the time you see throttling metrics, users are already experiencing problems.
 
@@ -1107,7 +1107,7 @@ By the time you see throttling metrics, users are already experiencing problems.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Monitoring throttling helps you catch capacity issues early.
 
@@ -1143,13 +1143,13 @@ You monitor capacity utilization by tracking metrics like ConsumedReadCapacityUn
 
 ---
 
-## Q115. 📊 New Relic APM
+## Q129. 📊 New Relic APM
 
 New Relic APM (Application Performance Monitoring) automatically monitors application performance without requiring code changes. When you use New Relic APM, you get automatic instrumentation that tracks performance, errors, and transactions across your application.
 
 ---
 
-## 1. What is New Relic APM
+## 1. 💡 What is New Relic APM
 
 New Relic APM automatically instruments your applications to track performance, errors, and transactions.
 
@@ -1165,7 +1165,7 @@ New Relic APM automatically instruments your applications to track performance, 
 
 ---
 
-## 2. Performance Metrics
+## 2. ⚡ Performance Metrics
 
 It shows you response times, throughput, error rates, and database query performance.
 
@@ -1179,7 +1179,7 @@ It shows you response times, throughput, error rates, and database query perform
 
 ---
 
-## 3. No Code Changes
+## 3. 💡 No Code Changes
 
 It provides this without requiring code changes.
 
@@ -1193,7 +1193,7 @@ It provides this without requiring code changes.
 
 ---
 
-## 4. Features
+## 4. 💡 Features
 
 It provides dashboards, alerts, and detailed transaction traces.
 
@@ -1207,7 +1207,7 @@ It provides dashboards, alerts, and detailed transaction traces.
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 New Relic APM gives you automatic instrumentation and rich performance data.
 
@@ -1221,7 +1221,7 @@ New Relic APM gives you automatic instrumentation and rich performance data.
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 New Relic APM gives you automatic instrumentation and rich performance data.
 
@@ -1257,13 +1257,13 @@ You reduce overhead by using sampling (trace only a percentage of transactions),
 
 ---
 
-## Q116. 📈 Monitoring Node.js with New Relic
+## Q130. 📈 Monitoring Node.js with New Relic
 
 New Relic provides automatic monitoring for Node.js applications with minimal code changes. When you monitor Node.js with New Relic, you install the agent which automatically instruments your code to track performance.
 
 ---
 
-## 1. Installing the Agent
+## 1. 💡 Installing the Agent
 
 Monitor Node.js applications by installing the New Relic agent.
 
@@ -1279,7 +1279,7 @@ Monitor Node.js applications by installing the New Relic agent.
 
 ---
 
-## 2. Automatic Instrumentation
+## 2. 💡 Automatic Instrumentation
 
 The agent automatically instruments your code to track transactions, database queries, and external API calls.
 
@@ -1293,7 +1293,7 @@ The agent automatically instruments your code to track transactions, database qu
 
 ---
 
-## 3. Performance Data
+## 3. ⚡ Performance Data
 
 The agent collects performance data and sends it to New Relic.
 
@@ -1307,7 +1307,7 @@ The agent collects performance data and sends it to New Relic.
 
 ---
 
-## 4. Database Query Monitoring
+## 4. 🗄️ Database Query Monitoring
 
 You can see response times, error rates, and slow database queries.
 
@@ -1321,7 +1321,7 @@ You can see response times, error rates, and slow database queries.
 
 ---
 
-## 5. Agent Configuration
+## 5. 💡 Agent Configuration
 
 Configure the agent to ignore health checks, set up custom attributes, and use New Relic's Node.js API for custom instrumentation.
 
@@ -1335,7 +1335,7 @@ Configure the agent to ignore health checks, set up custom attributes, and use N
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 New Relic provides automatic monitoring with minimal code changes.
 
@@ -1371,13 +1371,13 @@ New Relic automatically tracks async operations in Node.js, including promises, 
 
 ---
 
-## Q117. 🔍 New Relic distributed tracing
+## Q131. 🔍 New Relic distributed tracing
 
 New Relic distributed tracing automatically traces requests across services in a microservices architecture. When you use New Relic distributed tracing, trace context is propagated between services, and New Relic collects spans into complete traces.
 
 ---
 
-## 1. How It Works
+## 1. 💡 How It Works
 
 New Relic distributed tracing automatically traces requests across services by propagating trace context.
 
@@ -1393,7 +1393,7 @@ New Relic distributed tracing automatically traces requests across services by p
 
 ---
 
-## 2. Trace Context Propagation
+## 2. 💡 Trace Context Propagation
 
 When a request goes from service A to service B, the trace ID is passed along in headers.
 
@@ -1407,7 +1407,7 @@ When a request goes from service A to service B, the trace ID is passed along in
 
 ---
 
-## 3. Span Collection
+## 3. 💡 Span Collection
 
 New Relic collects spans from both services into a single trace.
 
@@ -1421,7 +1421,7 @@ New Relic collects spans from both services into a single trace.
 
 ---
 
-## 4. Benefits
+## 4. 💡 Benefits
 
 You can see the full request path, identify slow services, and debug issues across your microservices architecture.
 
@@ -1435,7 +1435,7 @@ You can see the full request path, identify slow services, and debug issues acro
 
 ---
 
-## 5. Configuration
+## 5. 💡 Configuration
 
 Distributed tracing in New Relic works automatically once configured.
 
@@ -1449,7 +1449,7 @@ Distributed tracing in New Relic works automatically once configured.
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Distributed tracing in New Relic works automatically once configured.
 
@@ -1485,13 +1485,13 @@ You debug issues by viewing service maps to see slow services, analyzing trace t
 
 ---
 
-## Q118. 🗄️ Database query monitoring with New Relic
+## Q132. 🗄️ Database query monitoring with New Relic
 
 New Relic automatically monitors database queries from your application to identify performance bottlenecks. When you use New Relic database monitoring, you get automatic tracking of query performance, slow queries, and query patterns.
 
 ---
 
-## 1. Automatic Query Tracking
+## 1. ❓ Automatic Query Tracking
 
 New Relic automatically tracks database queries from your application.
 
@@ -1507,7 +1507,7 @@ New Relic automatically tracks database queries from your application.
 
 ---
 
-## 2. Query Performance Metrics
+## 2. ⚡ Query Performance Metrics
 
 It shows you query execution times, slow queries, and query patterns.
 
@@ -1521,7 +1521,7 @@ It shows you query execution times, slow queries, and query patterns.
 
 ---
 
-## 3. Query Analysis
+## 3. ❓ Query Analysis
 
 You can see which queries are slowest, how often they're called, and identify N+1 query problems.
 
@@ -1535,7 +1535,7 @@ You can see which queries are slowest, how often they're called, and identify N+
 
 ---
 
-## 4. Database Insights
+## 4. 🗄️ Database Insights
 
 Use New Relic's database insights to optimize queries.
 
@@ -1549,7 +1549,7 @@ Use New Relic's database insights to optimize queries.
 
 ---
 
-## 5. Alerts
+## 5. 💡 Alerts
 
 Set up alerts for slow queries or high database time.
 
@@ -1563,7 +1563,7 @@ Set up alerts for slow queries or high database time.
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Database monitoring helps you identify performance bottlenecks.
 
@@ -1599,13 +1599,13 @@ You optimize by identifying slowest queries, analyzing query execution plans, ad
 
 ---
 
-## Q119. 🚨 Alerting best practices in New Relic
+## Q133. 🚨 Alerting best practices in New Relic
 
 Effective alerting helps you catch issues quickly without causing alert fatigue. When you set up alerts in New Relic, you configure alerts on key metrics with appropriate thresholds and routing.
 
 ---
 
-## 1. Key Metrics
+## 1. 💡 Key Metrics
 
 Set up alerts on key metrics like error rate, response time, and throughput.
 
@@ -1621,7 +1621,7 @@ Set up alerts on key metrics like error rate, response time, and throughput.
 
 ---
 
-## 2. Threshold Types
+## 2. 🏷️ Threshold Types
 
 Use baselines or static thresholds.
 
@@ -1635,7 +1635,7 @@ Use baselines or static thresholds.
 
 ---
 
-## 3. Avoiding False Positives
+## 3. 💡 Avoiding False Positives
 
 Configure alert conditions to avoid false positives.
 
@@ -1649,7 +1649,7 @@ Configure alert conditions to avoid false positives.
 
 ---
 
-## 4. Alert Routing
+## 4. 🗺️ Alert Routing
 
 Route alerts to the right teams.
 
@@ -1663,7 +1663,7 @@ Route alerts to the right teams.
 
 ---
 
-## 5. Alert Fatigue Prevention
+## 5. 🎯 Alert Fatigue Prevention
 
 Use alert fatigue prevention.
 
@@ -1677,7 +1677,7 @@ Use alert fatigue prevention.
 
 ---
 
-## 6. Runbooks
+## 6. 💡 Runbooks
 
 Create runbooks for common alerts.
 
@@ -1691,7 +1691,7 @@ Create runbooks for common alerts.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Good alerting helps you catch issues quickly.
 
@@ -1727,13 +1727,13 @@ You create effective runbooks by documenting alert meaning, root causes, investi
 
 ---
 
-## Q120. 📝 CloudWatch Logs vs New Relic Logs
+## Q134. 📝 CloudWatch Logs vs New Relic Logs
 
 CloudWatch Logs and New Relic Logs are two different log management solutions with different strengths. When you choose a log management solution, you consider integration, search capabilities, and cost.
 
 ---
 
-## 1. What is CloudWatch Logs
+## 1. 💡 What is CloudWatch Logs
 
 CloudWatch Logs is AWS-native log storage that integrates with other AWS services.
 
@@ -1749,7 +1749,7 @@ CloudWatch Logs is AWS-native log storage that integrates with other AWS service
 
 ---
 
-## 2. What is New Relic Logs
+## 2. 💡 What is New Relic Logs
 
 New Relic Logs provides log aggregation with better search capabilities, log parsing, and integration with APM data.
 
@@ -1765,7 +1765,7 @@ New Relic Logs provides log aggregation with better search capabilities, log par
 
 ---
 
-## 3. CloudWatch Logs Strengths
+## 3. 💡 CloudWatch Logs Strengths
 
 CloudWatch Logs is simpler if you're all-in on AWS and integrates well with other AWS services.
 
@@ -1779,7 +1779,7 @@ CloudWatch Logs is simpler if you're all-in on AWS and integrates well with othe
 
 ---
 
-## 4. CloudWatch Logs Limitations
+## 4. 💡 CloudWatch Logs Limitations
 
 Search capabilities are limited and it can be expensive at scale.
 
@@ -1793,7 +1793,7 @@ Search capabilities are limited and it can be expensive at scale.
 
 ---
 
-## 5. New Relic Logs Strengths
+## 5. 💡 New Relic Logs Strengths
 
 New Relic Logs provides better search and correlation with APM data.
 
@@ -1807,7 +1807,7 @@ New Relic Logs provides better search and correlation with APM data.
 
 ---
 
-## 6. New Relic Logs Limitations
+## 6. 💡 New Relic Logs Limitations
 
 It's a separate service that costs money and you need to ship logs there from AWS.
 
@@ -1821,7 +1821,7 @@ It's a separate service that costs money and you need to ship logs there from AW
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 CloudWatch Logs is simpler if you're all-in on AWS.
 

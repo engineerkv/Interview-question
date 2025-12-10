@@ -16,13 +16,13 @@
 
 ---
 
-## Q75. Performance Monitoring
+## Q75. ⚡ Performance Monitoring
 
 Performance monitoring is about continuously measuring how real users experience your app in production. It helps you catch regressions early and prioritize the fixes that matter most. Understanding performance metrics and how to monitor them effectively is crucial for keeping your app fast and responsive. For performance testing methodology, see [Q73. Performance Testing](11%29%20Testing.md#q73-performance-testing).
 
 ---
 
-## 1. What to monitor
+## 1. 💡 What to monitor
 
 ### 🔹 Core Web Vitals
 
@@ -44,7 +44,7 @@ Performance monitoring is about continuously measuring how real users experience
 
 ---
 
-## 2. How to implement (frontend view)
+## 2. 💡 How to implement (frontend view)
 
 * Use Real User Monitoring (RUM) tools (e.g., browser APIs + custom beacons, or vendors like New Relic/Datadog/Sentry) - these collect data from real users
 
@@ -72,13 +72,13 @@ Anonymize user IDs, avoid logging PII, and aggregate metrics rather than storing
 
 ---
 
-## Q76. Performance Tools
+## Q76. ⚡ Performance Tools
 
 Performance tools help you analyze where time is spent so you can target optimizations effectively. Different tools answer different questions - think of them as different lenses to look at performance.
 
 ---
 
-## 1. Key tools and when to use them
+## 1. 💡 Key tools and when to use them
 
 ### 🔹 Lighthouse
 
@@ -118,13 +118,13 @@ Save Lighthouse reports, screenshot key DevTools traces, and track WebPageTest l
 
 ---
 
-## Q77. Network Optimization
+## Q77. 💡 Network Optimization
 
 Network optimization reduces the cost and latency of downloading resources. It's often the biggest win for first load performance - you can see huge improvements just by optimizing how resources are delivered.
 
 ---
 
-## 1. Techniques
+## 1. 💡 Techniques
 
 ### 🔹 Reduce bytes
 
@@ -164,13 +164,13 @@ Preload only the resources that block rendering of above-the-fold content (criti
 
 ---
 
-## Q78. Rendering Patterns
+## Q78. 🎨 Rendering Patterns
 
 Rendering patterns describe where and when HTML is generated: in the browser, on the server, or ahead of time. Choosing the right pattern balances performance, SEO, and complexity - each pattern has trade-offs you need to consider.
 
 ---
 
-## 1. Common patterns
+## 1. 💡 Common patterns
 
 ### 🔹 CSR (Client-Side Rendering)
 
@@ -198,7 +198,7 @@ Rendering patterns describe where and when HTML is generated: in the browser, on
 
 ---
 
-## 2. Choosing a pattern
+## 2. 💡 Choosing a pattern
 
 * SEO-critical + dynamic → SSR / ISR - need SEO but data changes, use server rendering
 
@@ -222,13 +222,13 @@ Streaming and partial hydration are advanced SSR techniques that allow you to st
 
 ---
 
-## Q79. Build Optimization
+## Q79. 💡 Build Optimization
 
 Build optimization reduces JavaScript bundle size and improves how code is delivered to the browser. It directly affects load time and interactivity - smaller bundles mean faster downloads and quicker page loads.
 
 ---
 
-## 1. Techniques
+## 1. 💡 Techniques
 
 ### 🔹 Code splitting
 
@@ -252,7 +252,7 @@ Build optimization reduces JavaScript bundle size and improves how code is deliv
 
 ---
 
-## 2. Frontend workflow
+## 2. 💡 Frontend workflow
 
 * Run bundle analyzers (Webpack Bundle Analyzer, Source Map Explorer) - see what's making your bundles big
 
@@ -282,9 +282,9 @@ Too much code splitting can increase the number of network requests and hurt per
 
 <div align="center">
 
-[13) Testing.md](13%29%20Testing.md) • [Questions Index](question.md) • [15) Database & Caching.md →](15%29%20Database%20&%20Caching.md)
+[← Previous: Testing](17%29%20Testing.md) • [Home: Questions Index](question.md) • [Next: Database & Caching →](19%29%20Database%20%26%20Caching.md)
 
-[FE-System-Design Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md)
 
 </div>
 

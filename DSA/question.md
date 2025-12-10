@@ -70,519 +70,519 @@
 
 ## 1️⃣ Arrays (33 problems) - Q1-Q33
 
-1. Two Sum
+1. ➕ Two Sum
 
-2. Best Time to Buy & Sell Stock
+2. 💰 Best Time to Buy & Sell Stock
 
-3. Kadane's Algorithm (Max Subarray Sum)
+3. 📊 Kadane's Algorithm (Max Subarray Sum)
 
-4. Rotate Array
+4. 🔄 Rotate Array
 
-5. Merge Intervals
+5. 🔀 Merge Intervals
 
-6. Largest Element in Array
+6. 🔝 Largest Element in Array
 
-7. Rearrange array by sign / Dutch Flag
+7. 🎨 Rearrange array by sign / Dutch Flag
 
-8. Product of Array Except Self
+8. ✖️ Product of Array Except Self
 
-9. Find Missing Number
+9. 🔍 Find Missing Number
 
-10. Majority Element (Boyer-Moore)
+10. 📈 Majority Element (Boyer-Moore)
 
-11. Maximum Product Subarray
+11. 📊 Maximum Product Subarray
 
-12. Trapping Rain Water
+12. 💧 Trapping Rain Water
 
-13. Subarray Sum Equals K
+13. ➕ Subarray Sum Equals K
 
-14. Longest Consecutive Sequence
+14. 🔗 Longest Consecutive Sequence
 
-15. Merge Sorted Arrays
+15. 🔀 Merge Sorted Arrays
 
-16. Remove Element
+16. 🗑️ Remove Element
 
-17. Remove Duplicates from Sorted Array
+17. 🧹 Remove Duplicates from Sorted Array
 
-18. Remove Duplicates from Sorted Array II
+18. 🧹 Remove Duplicates from Sorted Array II
 
-19. Best Time to Buy and Sell Stock II
+19. 💰 Best Time to Buy and Sell Stock II
 
-20. Jump Game
+20. 🦘 Jump Game
 
-21. Jump Game II
+21. 🦘 Jump Game II
 
-22. H-Index
+22. 📊 H-Index
 
-23. Insert Delete GetRandom O(1)
+23. 🎲 Insert Delete GetRandom O(1)
 
-24. Gas Station
+24. ⛽ Gas Station
 
-25. Candy
+25. 🍬 Candy
 
-26. Two Sum II - Input Array Is Sorted
+26. ➕ Two Sum II - Input Array Is Sorted
 
-27. Container With Most Water
+27. 🪣 Container With Most Water
 
-28. 3Sum
+28. ➕ 3Sum
 
-29. Is Subsequence
+29. 🔍 Is Subsequence
 
-30. Minimum Size Subarray Sum
+30. 📏 Minimum Size Subarray Sum
 
-31. Summary Ranges
+31. 📝 Summary Ranges
 
-32. Insert Interval
+32. ➕ Insert Interval
 
-33. Minimum Number of Arrows to Burst Balloons
+33. 🎯 Minimum Number of Arrows to Burst Balloons
 
 ---
 
 ## 2️⃣ Strings (22 problems) - Q34-Q55
 
-34. Valid Anagram
+34. 🔤 Valid Anagram
 
-35. Longest Substring Without Repeating Characters
+35. 📏 Longest Substring Without Repeating Characters
 
-36. Palindrome Check
+36. 🔄 Palindrome Check
 
-37. Longest Palindromic Substring
+37. 🔄 Longest Palindromic Substring
 
-38. Group Anagrams
+38. 📦 Group Anagrams
 
-39. String Rotation / Reverse Words
+39. 🔄 String Rotation / Reverse Words
 
-40. Longest Repeating Character Replacement
+40. 🔁 Longest Repeating Character Replacement
 
-41. Minimum Window Substring
+41. 🪟 Minimum Window Substring
 
-42. Isomorphic Strings
+42. 🔗 Isomorphic Strings
 
-43. Count & Say
+43. 🔢 Count & Say
 
-44. Rabin-Karp / KMP Pattern Match
+44. 🔍 Rabin-Karp / KMP Pattern Match
 
-45. Roman to Integer / Integer to Roman
+45. 🔢 Roman to Integer / Integer to Roman
 
-46. Longest Common Prefix
+46. 📏 Longest Common Prefix
 
-47. Length of Last Word
+47. 📝 Length of Last Word
 
-48. Zigzag Conversion
+48. ⚡ Zigzag Conversion
 
-49. Find the Index of the First Occurrence in a String
+49. 🔍 Find the Index of the First Occurrence in a String
 
-50. Text Justification
+50. 📄 Text Justification
 
-51. Ransom Note
+51. 💌 Ransom Note
 
-52. Word Pattern
+52. 🎯 Word Pattern
 
-53. Happy Number
+53. 😊 Happy Number
 
-54. Contains Duplicate II
+54. 🔍 Contains Duplicate II
 
-55. Substring with Concatenation of All Words
+55. 🔗 Substring with Concatenation of All Words
 
 ---
 
 ## 3️⃣ Linked List (19 problems) - Q56-Q74
 
-56. Reverse Linked List
+56. 🔄 Reverse Linked List
 
-57. Detect Cycle
+57. 🔍 Detect Cycle
 
-58. Remove Nth Node From End
+58. 🗑️ Remove Nth Node From End
 
-59. Merge Two Sorted Lists
+59. 🔀 Merge Two Sorted Lists
 
-60. Middle of Linked List
+60. 🎯 Middle of Linked List
 
-61. Palindrome Linked List
+61. 🔄 Palindrome Linked List
 
-62. Flatten Multilevel LL
+62. 📦 Flatten Multilevel LL
 
-63. Intersection of Two LL
+63. 🔗 Intersection of Two LL
 
-64. Add Two Numbers (LL)
+64. ➕ Add Two Numbers (LL)
 
-65. Sort LL
+65. 📊 Sort LL
 
-66. Clone LL with Random Pointer
+66. 🧬 Clone LL with Random Pointer
 
-67. Reverse Nodes in K-Group
+67. 🔄 Reverse Nodes in K-Group
 
-68. Rotate List
+68. 🔄 Rotate List
 
-69. Delete Node w/o Head Pointer
+69. 🗑️ Delete Node w/o Head Pointer
 
-70. Find Start Node of Cycle
+70. 🔍 Find Start Node of Cycle
 
-71. Reverse Linked List II
+71. 🔄 Reverse Linked List II
 
-72. Remove Duplicates from Sorted List II
+72. 🧹 Remove Duplicates from Sorted List II
 
-73. Partition List
+73. 📊 Partition List
 
-74. LRU Cache
+74. 💾 LRU Cache
 
 ---
 
 ## 4️⃣ Stacks & Queues (12 problems) - Q75-Q86
 
-75. Implement Stack using Queues
+75. 📚 Implement Stack using Queues
 
-76. Implement Queue using Stacks
+76. 📚 Implement Queue using Stacks
 
-77. Min Stack
+77. 📊 Min Stack
 
-78. Valid Parentheses
+78. ✅ Valid Parentheses
 
-79. Next Greater Element
+79. ➡️ Next Greater Element
 
-80. Daily Temperatures
+80. 🌡️ Daily Temperatures
 
-81. Evaluate Reverse Polish Notation
+81. 🧮 Evaluate Reverse Polish Notation
 
-82. Largest Rectangle in Histogram
+82. 📊 Largest Rectangle in Histogram
 
-83. Sliding Window Maximum
+83. 🪟 Sliding Window Maximum
 
-84. Circular Queue
+84. 🔄 Circular Queue
 
-85. Simplify Path
+85. 📁 Simplify Path
 
-86. Basic Calculator
+86. 🧮 Basic Calculator
 
 ---
 
 ## 5️⃣ Binary Trees (27 problems) - Q87-Q113
 
-87. Binary Tree Traversals (DFS/BFS)
+87. 🌳 Binary Tree Traversals (DFS/BFS)
 
-88. Max Depth of Binary Tree
+88. 📏 Max Depth of Binary Tree
 
-89. Diameter of Binary Tree
+89. 📐 Diameter of Binary Tree
 
-90. Balanced Binary Tree
+90. ⚖️ Balanced Binary Tree
 
-91. Invert Binary Tree
+91. 🔄 Invert Binary Tree
 
-92. Symmetric Tree
+92. 🔄 Symmetric Tree
 
-93. Path Sum
+93. ➕ Path Sum
 
-94. LCA in Binary Tree
+94. 🔗 LCA in Binary Tree
 
-95. Serialize & Deserialize
+95. 💾 Serialize & Deserialize
 
-96. Level Order Traversal
+96. 📊 Level Order Traversal
 
-97. Zigzag Traversal
+97. ⚡ Zigzag Traversal
 
-98. Left/Right View of Tree
+98. 👁️ Left/Right View of Tree
 
-99. Boundary Traversal
+99. 🔲 Boundary Traversal
 
-100. DFS Pre/In/Post Order
+100. 🌳 DFS Pre/In/Post Order
 
-101. Construct Tree from Inorder & Preorder
+101. 🏗️ Construct Tree from Inorder & Preorder
 
-102. Morris Traversal
+102. 🔄 Morris Traversal
 
-103. Maximum Path Sum
+103. 📊 Maximum Path Sum
 
-104. Vertical Order Traversal
+104. 📊 Vertical Order Traversal
 
-105. Count Nodes in Complete Tree
+105. 🔢 Count Nodes in Complete Tree
 
-106. Binary Tree to DLL
+106. 🔗 Binary Tree to DLL
 
-107. Same Tree
+107. ✅ Same Tree
 
-108. Construct Binary Tree from Inorder and Postorder Traversal
+108. 🏗️ Construct Binary Tree from Inorder and Postorder Traversal
 
-109. Populating Next Right Pointers in Each Node II
+109. ➡️ Populating Next Right Pointers in Each Node II
 
-110. Flatten Binary Tree to Linked List
+110. 📦 Flatten Binary Tree to Linked List
 
-111. Sum Root to Leaf Numbers
+111. ➕ Sum Root to Leaf Numbers
 
-112. Binary Tree Right Side View
+112. 👁️ Binary Tree Right Side View
 
-113. Average of Levels in Binary Tree
+113. 📊 Average of Levels in Binary Tree
 
 ---
 
 ## 6️⃣ Binary Search Tree (10 problems) - Q114-Q123
 
-114. Insert/Delete/Search in BST
+114. ➕ Insert/Delete/Search in BST
 
-115. Validate BST
+115. ✅ Validate BST
 
-116. Lowest Common Ancestor in BST
+116. 🔗 Lowest Common Ancestor in BST
 
-117. Kth Smallest in BST
+117. 🔍 Kth Smallest in BST
 
-118. BST Iterator
+118. 🔄 BST Iterator
 
-119. Recover BST
+119. 🔧 Recover BST
 
-120. Floor and Ceil in BST
+120. 🏠 Floor and Ceil in BST
 
-121. Range Sum in BST
+121. ➕ Range Sum in BST
 
-122. Predecessor & Successor
+122. ⬅️➡️ Predecessor & Successor
 
-123. Convert Sorted Array to BST
+123. 🔄 Convert Sorted Array to BST
 
 ---
 
 ## 7️⃣ Heaps & Priority Queue (12 problems) - Q124-Q135
 
-124. Kth Largest Element
+124. 🔝 Kth Largest Element
 
-125. Top K Frequent Elements
+125. 📊 Top K Frequent Elements
 
-126. Merge K Sorted Lists
+126. 🔀 Merge K Sorted Lists
 
-127. Find Median from Stream
+127. 📊 Find Median from Stream
 
-128. K Closest Points to Origin
+128. 📍 K Closest Points to Origin
 
-129. Connect Ropes to Min Cost
+129. 🪢 Connect Ropes to Min Cost
 
-130. Reorganize String
+130. 🔄 Reorganize String
 
-131. Maximum Sliding Window (Heap variant)
+131. 🪟 Maximum Sliding Window (Heap variant)
 
-132. Smallest Range Covering Elements (k lists)
+132. 📏 Smallest Range Covering Elements (k lists)
 
-133. Heapsort
+133. 📊 Heapsort
 
-134. IPO
+134. 💼 IPO
 
-135. Find K Pairs with Smallest Sums
+135. ➕ Find K Pairs with Smallest Sums
 
 ---
 
 ## 8️⃣ Graphs (24 problems) - Q136-Q159
 
-136. DFS / BFS
+136. 🔍 DFS / BFS
 
-137. Detect Cycle (Directed & Undirected)
+137. 🔄 Detect Cycle (Directed & Undirected)
 
-138. Topological Sort
+138. 📊 Topological Sort
 
-139. Number of Islands
+139. 🏝️ Number of Islands
 
-140. Clone Graph
+140. 🧬 Clone Graph
 
-141. Rotten Oranges
+141. 🍊 Rotten Oranges
 
-142. Course Schedule
+142. 📚 Course Schedule
 
-143. Bipartite Graph
+143. 🎨 Bipartite Graph
 
-144. Dijkstra's Algorithm
+144. 🗺️ Dijkstra's Algorithm
 
-145. Bellman-Ford
+145. 🗺️ Bellman-Ford
 
-146. Floyd-Warshall
+146. 🗺️ Floyd-Warshall
 
-147. Minimum Spanning Tree (Kruskal/Prim)
+147. 🌲 Minimum Spanning Tree (Kruskal/Prim)
 
-148. Bridges in Graph
+148. 🌉 Bridges in Graph
 
-149. Articulation Points
+149. 📍 Articulation Points
 
-150. Shortest Path in DAG
+150. 🗺️ Shortest Path in DAG
 
-151. Detect Cycle in DAG
+151. 🔄 Detect Cycle in DAG
 
-152. Word Ladder
+152. 🪜 Word Ladder
 
-153. Snake & Ladder Problem
+153. 🐍 Snake & Ladder Problem
 
-154. DSU (Union-Find)
+154. 🔗 DSU (Union-Find)
 
-155. Tarjan's Algorithm for SCC
+155. 🔍 Tarjan's Algorithm for SCC
 
-156. Surrounded Regions
+156. 🔲 Surrounded Regions
 
-157. Evaluate Division
+157. ➗ Evaluate Division
 
-158. Course Schedule II
+158. 📚 Course Schedule II
 
-159. Minimum Genetic Mutation
+159. 🧬 Minimum Genetic Mutation
 
 ---
 
 ## 9️⃣ Dynamic Programming (33 problems) - Q160-Q192
 
-160. Fibonacci (Memo & Tabulation)
+160. 🔢 Fibonacci (Memo & Tabulation)
 
-161. Climbing Stairs
+161. 🪜 Climbing Stairs
 
-162. Coin Change
+162. 💰 Coin Change
 
-163. 0-1 Knapsack
+163. 🎒 0-1 Knapsack
 
-164. Longest Increasing Subsequence
+164. 📈 Longest Increasing Subsequence
 
-165. Longest Common Subsequence
+165. 🔗 Longest Common Subsequence
 
-166. Edit Distance
+166. ✏️ Edit Distance
 
-167. Rod Cutting
+167. 🪵 Rod Cutting
 
-168. Partition Equal Subset Sum
+168. ⚖️ Partition Equal Subset Sum
 
-169. House Robber
+169. 🏠 House Robber
 
-170. House Robber II
+170. 🏠 House Robber II
 
-171. Decode Ways
+171. 🔢 Decode Ways
 
-172. DP on Grid — Min Path / Unique Paths
+172. 🗺️ DP on Grid — Min Path / Unique Paths
 
-173. Palindromic Substrings
+173. 🔄 Palindromic Substrings
 
-174. Burst Balloons
+174. 🎈 Burst Balloons
 
-175. Job Scheduling
+175. 💼 Job Scheduling
 
-176. Wildcard Matching
+176. 🎯 Wildcard Matching
 
-177. Subset Sum
+177. ➕ Subset Sum
 
-178. Unbounded Knapsack
+178. 🎒 Unbounded Knapsack
 
-179. Maximum Rectangle
+179. 📊 Maximum Rectangle
 
-180. Rain Water with DP
+180. 💧 Rain Water with DP
 
-181. Egg Dropping
+181. 🥚 Egg Dropping
 
-182. Matrix Chain Multiplication
+182. 🔢 Matrix Chain Multiplication
 
-183. Min Cost Climbing Stairs
+183. 🪜 Min Cost Climbing Stairs
 
-184. Buy & Sell Stock DP (multiple variants)
+184. 💰 Buy & Sell Stock DP (multiple variants)
 
-185. Word Break
+185. 🔤 Word Break
 
-186. Triangle
+186. 🔺 Triangle
 
-187. Unique Paths II
+187. 🗺️ Unique Paths II
 
-188. Interleaving String
+188. 🔗 Interleaving String
 
-189. Best Time to Buy and Sell Stock III
+189. 💰 Best Time to Buy and Sell Stock III
 
-190. Best Time to Buy and Sell Stock IV
+190. 💰 Best Time to Buy and Sell Stock IV
 
-191. Maximal Square
+191. 📊 Maximal Square
 
-192. Maximum Sum Circular Subarray
+192. 📊 Maximum Sum Circular Subarray
 
 ---
 
 ## 🔟 Recursion & Backtracking (10 problems) - Q193-Q202
 
-193. N-Queens
+193. ♕ N-Queens
 
-194. Sudoku Solver
+194. 🔢 Sudoku Solver
 
-195. Permutations / Combinations
+195. 🔄 Permutations / Combinations
 
-196. Subsets / Power Set
+196. 📦 Subsets / Power Set
 
-197. Generate Parentheses
+197. ➕ Generate Parentheses
 
-198. Word Search
+198. 🔍 Word Search
 
-199. Rat in a Maze
+199. 🐭 Rat in a Maze
 
-200. Combination Sum
+200. ➕ Combination Sum
 
-201. Letter Combinations of Phone Number
+201. 📱 Letter Combinations of Phone Number
 
-202. Palindrome Partitioning
+202. 🔄 Palindrome Partitioning
 
 ---
 
 ## 1️⃣1️⃣ Matrix (5 problems) - Q203-Q207
 
-203. Valid Sudoku
+203. ✅ Valid Sudoku
 
-204. Spiral Matrix
+204. 🌀 Spiral Matrix
 
-205. Rotate Image
+205. 🔄 Rotate Image
 
-206. Set Matrix Zeroes
+206. 0️⃣ Set Matrix Zeroes
 
-207. Game of Life
+207. 🎮 Game of Life
 
 ---
 
 ## 1️⃣2️⃣ Trie (3 problems) - Q208-Q210
 
-208. Implement Trie (Prefix Tree)
+208. 🌳 Implement Trie (Prefix Tree)
 
-209. Design Add and Search Words Data Structure
+209. 🔍 Design Add and Search Words Data Structure
 
-210. Word Search II
+210. 🔍 Word Search II
 
 ---
 
 ## 1️⃣3️⃣ Binary Search (7 problems) - Q211-Q217
 
-211. Search Insert Position
+211. 🔍 Search Insert Position
 
-212. Search a 2D Matrix
+212. 🔍 Search a 2D Matrix
 
-213. Find Peak Element
+213. ⛰️ Find Peak Element
 
-214. Search in Rotated Sorted Array
+214. 🔄 Search in Rotated Sorted Array
 
-215. Find First and Last Position of Element in Sorted Array
+215. 🔍 Find First and Last Position of Element in Sorted Array
 
-216. Find Minimum in Rotated Sorted Array
+216. 🔄 Find Minimum in Rotated Sorted Array
 
-217. Median of Two Sorted Arrays
+217. 📊 Median of Two Sorted Arrays
 
 ---
 
 ## 1️⃣4️⃣ Bit Manipulation (6 problems) - Q218-Q223
 
-218. Add Binary
+218. ➕ Add Binary
 
-219. Reverse Bits
+219. 🔄 Reverse Bits
 
-220. Number of 1 Bits
+220. 🔢 Number of 1 Bits
 
-221. Single Number
+221. 🔍 Single Number
 
-222. Single Number II
+222. 🔍 Single Number II
 
-223. Bitwise AND of Numbers Range
+223. 🔢 Bitwise AND of Numbers Range
 
 ---
 
 ## 1️⃣5️⃣ Math (6 problems) - Q224-Q229
 
-224. Palindrome Number
+224. 🔄 Palindrome Number
 
-225. Plus One
+225. ➕ Plus One
 
-226. Factorial Trailing Zeroes
+226. 🔢 Factorial Trailing Zeroes
 
-227. Sqrt(x)
+227. √ Sqrt(x)
 
-228. Pow(x, n)
+228. ⚡ Pow(x, n)
 
-229. Max Points on a Line
+229. 📊 Max Points on a Line
 
 ---
 
@@ -622,11 +622,11 @@
 | Graphs | 24 | Q136-Q159 | [8) Graphs.md](8%20Graphs.md) |
 | Dynamic Programming | 33 | Q160-Q192 | [9) Dynamic Programming.md](9%20Dynamic%20Programming.md) |
 | Recursion & Backtracking | 10 | Q193-Q202 | [10) Recursion & Backtracking.md](10%20Recursion%20&%20Backtracking.md) |
-| Matrix | 5 | Q203-Q207 | [11) Matrix.md](11%20Matrix.md) |
-| Trie | 3 | Q208-Q210 | [12) Trie.md](12%20Trie.md) |
-| Binary Search | 7 | Q211-Q217 | [13) Binary Search.md](13%20Binary%20Search.md) |
-| Bit Manipulation | 6 | Q218-Q223 | [14) Bit Manipulation.md](14%20Bit%20Manipulation.md) |
-| Math | 6 | Q224-Q229 | [15) Math.md](15%20Math.md) |
+| Matrix | 5 | Q203-Q207 | [12) Matrix.md](12%20Matrix.md) |
+| Trie | 3 | Q208-Q210 | [13) Trie.md](13%20Trie.md) |
+| Binary Search | 7 | Q211-Q217 | [14) Binary Search.md](14%20Binary%20Search.md) |
+| Bit Manipulation | 6 | Q218-Q223 | [15) Bit Manipulation.md](15%20Bit%20Manipulation.md) |
+| Math | 6 | Q224-Q229 | [16) Math.md](16%20Math.md) |
 
 ---
 

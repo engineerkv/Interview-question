@@ -1,4 +1,4 @@
-# 6. AWS Cloud Architecture (Q81–Q105)
+# 6. AWS Cloud Architecture (Q95–Q119)
 
 ---
 
@@ -16,13 +16,13 @@
 
 ---
 
-## Q81. ☁️ EC2 vs Lambda and when to choose
+## Q95. ☁️ EC2 vs Lambda and when to choose
 
 EC2 and Lambda are two different compute options in AWS with different use cases. When you choose between EC2 and Lambda, you consider control, runtime requirements, and workload characteristics.
 
 ---
 
-## 1. What is EC2
+## 1. 💡 What is EC2
 
 EC2 provides virtual servers with full control over the environment.
 
@@ -38,7 +38,7 @@ EC2 provides virtual servers with full control over the environment.
 
 ---
 
-## 2. What is Lambda
+## 2. 💡 What is Lambda
 
 Lambda is a serverless compute service for running code without managing servers.
 
@@ -54,7 +54,7 @@ Lambda is a serverless compute service for running code without managing servers
 
 ---
 
-## 3. When to Choose EC2
+## 3. 💡 When to Choose EC2
 
 Choose EC2 when you need full control or long-running processes.
 
@@ -68,7 +68,7 @@ Choose EC2 when you need full control or long-running processes.
 
 ---
 
-## 4. When to Choose Lambda
+## 4. 💡 When to Choose Lambda
 
 Choose Lambda for event-driven tasks or variable workloads.
 
@@ -82,7 +82,7 @@ Choose Lambda for event-driven tasks or variable workloads.
 
 ---
 
-## 5. EC2 Characteristics
+## 5. 💡 EC2 Characteristics
 
 EC2 provides complete control and flexibility.
 
@@ -96,7 +96,7 @@ EC2 provides complete control and flexibility.
 
 ---
 
-## 6. Lambda Characteristics
+## 6. 💡 Lambda Characteristics
 
 Lambda provides serverless execution with auto-scaling.
 
@@ -110,7 +110,7 @@ Lambda provides serverless execution with auto-scaling.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 EC2 gives you complete control and can run anything.
 
@@ -146,13 +146,13 @@ You choose based on your requirements - use EC2 if you need full control, long-r
 
 ---
 
-## Q82. 📈 Auto Scaling Groups internal flow
+## Q96. 📈 Auto Scaling Groups internal flow
 
 Auto Scaling Groups automatically adjust the number of EC2 instances based on demand. When you configure Auto Scaling Groups, you set up monitoring, scaling policies, and capacity limits to automatically handle traffic changes.
 
 ---
 
-## 1. How Auto Scaling Works
+## 1. 📊 How Auto Scaling Works
 
 Auto Scaling Groups monitor your instances and automatically add or remove them based on metrics.
 
@@ -168,7 +168,7 @@ Auto Scaling Groups monitor your instances and automatically add or remove them 
 
 ---
 
-## 2. Scaling Triggers
+## 2. 📊 Scaling Triggers
 
 When CPU goes above 70%, it launches new instances, and when it drops below 30%, it terminates extra instances.
 
@@ -182,7 +182,7 @@ When CPU goes above 70%, it launches new instances, and when it drops below 30%,
 
 ---
 
-## 3. CloudWatch Integration
+## 3. 💡 CloudWatch Integration
 
 It uses CloudWatch alarms to trigger scaling actions.
 
@@ -196,7 +196,7 @@ It uses CloudWatch alarms to trigger scaling actions.
 
 ---
 
-## 4. Capacity Configuration
+## 4. 💡 Capacity Configuration
 
 You configure min/max/desired capacity to control the scaling range.
 
@@ -210,7 +210,7 @@ You configure min/max/desired capacity to control the scaling range.
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 Auto Scaling keeps your costs down and handles traffic spikes automatically.
 
@@ -224,7 +224,7 @@ Auto Scaling keeps your costs down and handles traffic spikes automatically.
 
 ---
 
-## 6. Scaling Delays
+## 6. 📊 Scaling Delays
 
 There's a delay between detecting the need and launching instances.
 
@@ -238,7 +238,7 @@ There's a delay between detecting the need and launching instances.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Auto Scaling keeps your costs down by removing unused instances and handles traffic spikes automatically.
 
@@ -274,13 +274,13 @@ You use metrics like CPU utilization, network traffic, request count, or custom 
 
 ---
 
-## Q83. 🔐 IAM Users vs Roles vs Policies
+## Q97. 🔐 IAM Users vs Roles vs Policies
 
 IAM Users, Roles, and Policies are the building blocks of AWS access control. When you design AWS security, you use these components to grant appropriate permissions while following least privilege principles.
 
 ---
 
-## 1. What are IAM Users
+## 1. 💡 What are IAM Users
 
 IAM Users are permanent identities for people or applications that need long-term access.
 
@@ -296,7 +296,7 @@ IAM Users are permanent identities for people or applications that need long-ter
 
 ---
 
-## 2. What are IAM Roles
+## 2. 💡 What are IAM Roles
 
 IAM Roles are temporary credentials that can be assumed by users, services, or EC2 instances.
 
@@ -312,7 +312,7 @@ IAM Roles are temporary credentials that can be assumed by users, services, or E
 
 ---
 
-## 3. What are IAM Policies
+## 3. 💡 What are IAM Policies
 
 Policies are documents that define permissions.
 
@@ -328,7 +328,7 @@ Policies are documents that define permissions.
 
 ---
 
-## 4. When to Use Users
+## 4. 💡 When to Use Users
 
 Use IAM Users for people or applications that need long-term access.
 
@@ -342,7 +342,7 @@ Use IAM Users for people or applications that need long-term access.
 
 ---
 
-## 5. When to Use Roles
+## 5. 💡 When to Use Roles
 
 Use IAM Roles for services or temporary access needs.
 
@@ -356,7 +356,7 @@ Use IAM Roles for services or temporary access needs.
 
 ---
 
-## 6. Policy Attachment
+## 6. 💡 Policy Attachment
 
 You attach policies to users, roles, or groups to grant access.
 
@@ -370,7 +370,7 @@ You attach policies to users, roles, or groups to grant access.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Users are simple but you have to manage credentials and rotate them regularly.
 
@@ -408,13 +408,13 @@ IAM policies are JSON documents that define permissions - they specify what acti
 
 ---
 
-## Q84. 🌐 VPC architecture
+## Q98. 🌐 VPC architecture
 
 VPC (Virtual Private Cloud) is your private network in AWS where you launch resources. When you design AWS architectures, you use VPCs to create isolated, secure networks with controlled access to the internet and other resources.
 
 ---
 
-## 1. What is a VPC
+## 1. 💡 What is a VPC
 
 VPC is your private network in AWS where you launch resources.
 
@@ -430,7 +430,7 @@ VPC is your private network in AWS where you launch resources.
 
 ---
 
-## 2. Subnets and Availability Zones
+## 2. ✅ Subnets and Availability Zones
 
 You create subnets in different availability zones for high availability.
 
@@ -444,7 +444,7 @@ You create subnets in different availability zones for high availability.
 
 ---
 
-## 3. Route Tables
+## 3. 💡 Route Tables
 
 Use route tables to control traffic flow.
 
@@ -458,7 +458,7 @@ Use route tables to control traffic flow.
 
 ---
 
-## 4. Internet Connectivity
+## 4. 💡 Internet Connectivity
 
 Use internet gateways or NAT gateways to connect to the internet.
 
@@ -472,7 +472,7 @@ Use internet gateways or NAT gateways to connect to the internet.
 
 ---
 
-## 5. Public vs Private Subnets
+## 5. 💡 Public vs Private Subnets
 
 Public subnets have routes to the internet gateway, private subnets use NAT gateways.
 
@@ -486,7 +486,7 @@ Public subnets have routes to the internet gateway, private subnets use NAT gate
 
 ---
 
-## 6. Benefits
+## 6. 💡 Benefits
 
 VPC gives you network isolation and control, which is essential for security.
 
@@ -500,7 +500,7 @@ VPC gives you network isolation and control, which is essential for security.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 VPC gives you network isolation and control, which is essential for security.
 
@@ -536,13 +536,13 @@ You secure a VPC by using private subnets for sensitive resources, configuring s
 
 ---
 
-## Q85. 🛡️ NACLs vs Security Groups
+## Q99. 🛡️ NACLs vs Security Groups
 
 NACLs and Security Groups are two layers of network security in AWS. When you secure your AWS resources, you use both to provide defense in depth, with Security Groups at the instance level and NACLs at the subnet level.
 
 ---
 
-## 1. What are Security Groups
+## 1. 🛡️ What are Security Groups
 
 Security Groups are stateful firewalls at the instance level that allow traffic.
 
@@ -558,7 +558,7 @@ Security Groups are stateful firewalls at the instance level that allow traffic.
 
 ---
 
-## 2. What are NACLs
+## 2. 💡 What are NACLs
 
 NACLs are stateless network-level firewalls at the subnet level.
 
@@ -574,7 +574,7 @@ NACLs are stateless network-level firewalls at the subnet level.
 
 ---
 
-## 3. Security Group Characteristics
+## 3. 🛡️ Security Group Characteristics
 
 Security Groups are simpler and stateful.
 
@@ -588,7 +588,7 @@ Security Groups are simpler and stateful.
 
 ---
 
-## 4. NACL Characteristics
+## 4. 💡 NACL Characteristics
 
 NACLs are stateless and provide subnet-level control.
 
@@ -602,7 +602,7 @@ NACLs are stateless and provide subnet-level control.
 
 ---
 
-## 5. When to Use Security Groups
+## 5. 🛡️ When to Use Security Groups
 
 Use Security Groups for instance-level security.
 
@@ -616,7 +616,7 @@ Use Security Groups for instance-level security.
 
 ---
 
-## 6. When to Use NACLs
+## 6. 💡 When to Use NACLs
 
 Use NACLs for subnet-level security or deny rules.
 
@@ -630,7 +630,7 @@ Use NACLs for subnet-level security or deny rules.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Security Groups are simpler and stateful, so you only define inbound rules and responses work automatically.
 
@@ -668,13 +668,13 @@ You use NACLs to deny traffic when you need to block specific IP addresses, port
 
 ---
 
-## Q86. ✅ Designing highly available AWS systems
+## Q100. ✅ Designing highly available AWS systems
 
 Designing highly available AWS systems requires deploying across multiple availability zones, using redundancy, and implementing automatic failover. When you design for high availability, you ensure your system can handle failures and maintain service availability.
 
 ---
 
-## 1. Multi-AZ Deployment
+## 1. 🚀 Multi-AZ Deployment
 
 Deploy across multiple availability zones for redundancy.
 
@@ -690,7 +690,7 @@ Deploy across multiple availability zones for redundancy.
 
 ---
 
-## 2. Load Balancers
+## 2. 💡 Load Balancers
 
 Use load balancers to distribute traffic.
 
@@ -704,7 +704,7 @@ Use load balancers to distribute traffic.
 
 ---
 
-## 3. Auto Scaling
+## 3. 📊 Auto Scaling
 
 Enable auto-scaling to handle load changes.
 
@@ -718,7 +718,7 @@ Enable auto-scaling to handle load changes.
 
 ---
 
-## 4. Managed Services
+## 4. 💡 Managed Services
 
 Use managed services like RDS Multi-AZ for automatic failover.
 
@@ -732,7 +732,7 @@ Use managed services like RDS Multi-AZ for automatic failover.
 
 ---
 
-## 5. Health Checks and Monitoring
+## 5. 👁️ Health Checks and Monitoring
 
 Use health checks to detect failures.
 
@@ -746,7 +746,7 @@ Use health checks to detect failures.
 
 ---
 
-## 6. Backup and Recovery
+## 6. 💡 Backup and Recovery
 
 Configure automatic backups and design for recovery.
 
@@ -760,7 +760,7 @@ Configure automatic backups and design for recovery.
 
 ---
 
-## 7. Stateless Applications
+## 7. 📦 Stateless Applications
 
 Design stateless applications that can run on any instance.
 
@@ -774,7 +774,7 @@ Design stateless applications that can run on any instance.
 
 ---
 
-## 8. Trade-offs
+## 8. 💡 Trade-offs
 
 Multi-AZ deployment provides redundancy and automatic failover.
 
@@ -810,13 +810,13 @@ You design stateless applications by storing state externally (databases, caches
 
 ---
 
-## Q87. 💾 S3 vs EFS vs EBS
+## Q101. 💾 S3 vs EFS vs EBS
 
 S3, EFS, and EBS are three different AWS storage options with different use cases. When you choose storage in AWS, you consider access patterns, performance requirements, and cost.
 
 ---
 
-## 1. What is S3
+## 1. 💡 What is S3
 
 S3 is object storage for files, backups, and static websites.
 
@@ -832,7 +832,7 @@ S3 is object storage for files, backups, and static websites.
 
 ---
 
-## 2. What is EFS
+## 2. 💡 What is EFS
 
 EFS is network file storage that multiple EC2 instances can mount simultaneously.
 
@@ -848,7 +848,7 @@ EFS is network file storage that multiple EC2 instances can mount simultaneously
 
 ---
 
-## 3. What is EBS
+## 3. 💡 What is EBS
 
 EBS is block storage attached to a single EC2 instance.
 
@@ -864,7 +864,7 @@ EBS is block storage attached to a single EC2 instance.
 
 ---
 
-## 4. When to Use S3
+## 4. 💡 When to Use S3
 
 Use S3 for object storage, backups, and static websites.
 
@@ -878,7 +878,7 @@ Use S3 for object storage, backups, and static websites.
 
 ---
 
-## 5. When to Use EFS
+## 5. 💡 When to Use EFS
 
 Use EFS for shared file storage across multiple instances.
 
@@ -892,7 +892,7 @@ Use EFS for shared file storage across multiple instances.
 
 ---
 
-## 6. When to Use EBS
+## 6. 💡 When to Use EBS
 
 Use EBS for instance-specific block storage.
 
@@ -906,7 +906,7 @@ Use EBS for instance-specific block storage.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 S3 is cheap and durable for storing files.
 
@@ -946,13 +946,13 @@ You choose based on your needs - use S3 for object storage and backups, EFS for 
 
 ---
 
-## Q88. 💰 S3 lifecycle and cost optimization
+## Q102. 💰 S3 lifecycle and cost optimization
 
 S3 lifecycle policies automatically manage object storage to optimize costs. When you configure S3, you use lifecycle policies to move objects between storage classes or delete them based on age, reducing costs without manual intervention.
 
 ---
 
-## 1. What are Lifecycle Policies
+## 1. 🔄 What are Lifecycle Policies
 
 S3 lifecycle policies automatically move objects between storage classes or delete them based on age.
 
@@ -968,7 +968,7 @@ S3 lifecycle policies automatically move objects between storage classes or dele
 
 ---
 
-## 2. Storage Class Transitions
+## 2. 📚 Storage Class Transitions
 
 Move objects to cheaper storage classes based on age.
 
@@ -982,7 +982,7 @@ Move objects to cheaper storage classes based on age.
 
 ---
 
-## 3. Object Deletion
+## 3. 💡 Object Deletion
 
 Delete objects after specified age.
 
@@ -996,7 +996,7 @@ Delete objects after specified age.
 
 ---
 
-## 4. Intelligent Tiering
+## 4. 💡 Intelligent Tiering
 
 Configure intelligent tiering to automatically optimize costs based on access patterns.
 
@@ -1010,7 +1010,7 @@ Configure intelligent tiering to automatically optimize costs based on access pa
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 Lifecycle policies automate cost optimization, which saves money without manual work.
 
@@ -1024,7 +1024,7 @@ Lifecycle policies automate cost optimization, which saves money without manual 
 
 ---
 
-## 6. Access Pattern Understanding
+## 6. 💡 Access Pattern Understanding
 
 You need to understand your access patterns.
 
@@ -1038,7 +1038,7 @@ You need to understand your access patterns.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Lifecycle policies automate cost optimization, which saves money without manual work.
 
@@ -1074,13 +1074,13 @@ You handle Glacier retrievals by using expedited retrieval for urgent needs (mor
 
 ---
 
-## Q89. 🌍 Route53 routing policies
+## Q103. 🌍 Route53 routing policies
 
 Route53 offers different routing policies to control how DNS queries are resolved and traffic is distributed. When you configure DNS routing, you choose policies based on your availability, performance, and traffic distribution needs.
 
 ---
 
-## 1. Simple Routing
+## 1. 🗺️ Simple Routing
 
 Simple routing returns one IP.
 
@@ -1096,7 +1096,7 @@ Simple routing returns one IP.
 
 ---
 
-## 2. Weighted Routing
+## 2. 🗺️ Weighted Routing
 
 Weighted routing splits traffic by percentage.
 
@@ -1112,7 +1112,7 @@ Weighted routing splits traffic by percentage.
 
 ---
 
-## 3. Latency-Based Routing
+## 3. ⚡ Latency-Based Routing
 
 Latency-based routing sends users to the lowest latency region.
 
@@ -1128,7 +1128,7 @@ Latency-based routing sends users to the lowest latency region.
 
 ---
 
-## 4. Failover Routing
+## 4. 🗺️ Failover Routing
 
 Failover routing switches to backup when primary fails.
 
@@ -1144,7 +1144,7 @@ Failover routing switches to backup when primary fails.
 
 ---
 
-## 5. Geolocation Routing
+## 5. 🗺️ Geolocation Routing
 
 Geolocation routing routes based on user location.
 
@@ -1160,7 +1160,7 @@ Geolocation routing routes based on user location.
 
 ---
 
-## 6. When to Use Each
+## 6. 💡 When to Use Each
 
 Choose based on your needs.
 
@@ -1174,7 +1174,7 @@ Choose based on your needs.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Different routing policies solve different problems.
 
@@ -1210,13 +1210,13 @@ Latency-based routing routes to the lowest latency region (performance-based), w
 
 ---
 
-## Q90. 🔒 Securing S3 buckets
+## Q104. 🔒 Securing S3 buckets
 
 Securing S3 buckets requires multiple layers of security controls. When you secure S3 buckets, you use access controls, encryption, versioning, and monitoring to protect data from unauthorized access and data breaches.
 
 ---
 
-## 1. Block Public Access
+## 1. 💡 Block Public Access
 
 Block public access by default.
 
@@ -1232,7 +1232,7 @@ Block public access by default.
 
 ---
 
-## 2. Access Control
+## 2. 💡 Access Control
 
 Use bucket policies to control access.
 
@@ -1246,7 +1246,7 @@ Use bucket policies to control access.
 
 ---
 
-## 3. Versioning
+## 3. 💡 Versioning
 
 Enable versioning to recover from accidental deletions.
 
@@ -1260,7 +1260,7 @@ Enable versioning to recover from accidental deletions.
 
 ---
 
-## 4. Encryption
+## 4. 🔒 Encryption
 
 Enable encryption at rest and in transit.
 
@@ -1274,7 +1274,7 @@ Enable encryption at rest and in transit.
 
 ---
 
-## 5. IAM Roles
+## 5. 💡 IAM Roles
 
 Use IAM roles instead of access keys.
 
@@ -1288,7 +1288,7 @@ Use IAM roles instead of access keys.
 
 ---
 
-## 6. Monitoring and Auditing
+## 6. 👁️ Monitoring and Auditing
 
 Enable CloudTrail to audit access.
 
@@ -1302,7 +1302,7 @@ Enable CloudTrail to audit access.
 
 ---
 
-## 7. Additional Security
+## 7. 🛡️ Additional Security
 
 Use MFA delete for critical buckets and configure lifecycle policies.
 
@@ -1316,7 +1316,7 @@ Use MFA delete for critical buckets and configure lifecycle policies.
 
 ---
 
-## 8. Trade-offs
+## 8. 💡 Trade-offs
 
 Proper S3 security prevents data breaches, which is critical.
 
@@ -1352,13 +1352,13 @@ You audit S3 access by enabling CloudTrail, reviewing access logs, setting up al
 
 ---
 
-## Q91. 🚀 Deployment architecture for React + Node
+## Q105. 🚀 Deployment architecture for React + Node
 
 Deploying React and Node.js applications requires different strategies for frontend and backend. When you deploy React + Node applications, you use S3 + CloudFront for the frontend and EC2 or Lambda for the backend, with proper configuration for scalability and performance.
 
 ---
 
-## 1. Frontend Deployment (React)
+## 1. ⚛️ Frontend Deployment (React)
 
 Deploy React as static files to S3 with CloudFront CDN for fast global delivery.
 
@@ -1374,7 +1374,7 @@ Deploy React as static files to S3 with CloudFront CDN for fast global delivery.
 
 ---
 
-## 2. Backend Deployment (Node.js)
+## 2. 🟢 Backend Deployment (Node.js)
 
 Deploy Node.js API to EC2 with Auto Scaling or use Lambda for serverless.
 
@@ -1388,7 +1388,7 @@ Deploy Node.js API to EC2 with Auto Scaling or use Lambda for serverless.
 
 ---
 
-## 3. API Gateway and Load Balancers
+## 3. 🔌 API Gateway and Load Balancers
 
 Use API Gateway in front of Lambda, or Application Load Balancer in front of EC2 instances.
 
@@ -1402,7 +1402,7 @@ Use API Gateway in front of Lambda, or Application Load Balancer in front of EC2
 
 ---
 
-## 4. Configuration Management
+## 4. 💡 Configuration Management
 
 Store environment variables in Systems Manager Parameter Store or Secrets Manager.
 
@@ -1416,7 +1416,7 @@ Store environment variables in Systems Manager Parameter Store or Secrets Manage
 
 ---
 
-## 5. DNS Configuration
+## 5. 🌍 DNS Configuration
 
 Use Route53 for DNS.
 
@@ -1430,7 +1430,7 @@ Use Route53 for DNS.
 
 ---
 
-## 6. Benefits
+## 6. 💡 Benefits
 
 S3 + CloudFront is cheap and scales automatically for static files.
 
@@ -1444,7 +1444,7 @@ S3 + CloudFront is cheap and scales automatically for static files.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 S3 + CloudFront is cheap and scales automatically for static files.
 
@@ -1486,13 +1486,13 @@ You use EC2 when you need full control, long-running processes, or predictable w
 
 ---
 
-## Q92. 🔄 CI/CD pipelines for microservices
+## Q106. 🔄 CI/CD pipelines for microservices
 
 CI/CD pipelines for microservices require separate pipelines per service with coordination mechanisms. When you design CI/CD for microservices, you balance team independence with coordination needs and ensure consistent deployment practices.
 
 ---
 
-## 1. Separate Pipelines
+## 1. 💡 Separate Pipelines
 
 Design CI/CD pipelines with separate pipelines per microservice.
 
@@ -1508,7 +1508,7 @@ Design CI/CD pipelines with separate pipelines per microservice.
 
 ---
 
-## 2. Shared Templates
+## 2. 💡 Shared Templates
 
 Use shared templates for consistency.
 
@@ -1522,7 +1522,7 @@ Use shared templates for consistency.
 
 ---
 
-## 3. Staging Before Production
+## 3. ✖️ Staging Before Production
 
 Deploy to staging before production.
 
@@ -1536,7 +1536,7 @@ Deploy to staging before production.
 
 ---
 
-## 4. AWS CI/CD Services
+## 4. 💡 AWS CI/CD Services
 
 Use CodePipeline, CodeBuild, and CodeDeploy.
 
@@ -1550,7 +1550,7 @@ Use CodePipeline, CodeBuild, and CodeDeploy.
 
 ---
 
-## 5. Deployment Strategies
+## 5. 🚀 Deployment Strategies
 
 Tag deployments with version numbers, use blue-green or canary deployments.
 
@@ -1564,7 +1564,7 @@ Tag deployments with version numbers, use blue-green or canary deployments.
 
 ---
 
-## 6. Testing
+## 6. 🧪 Testing
 
 Run tests at each stage.
 
@@ -1578,7 +1578,7 @@ Run tests at each stage.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Separate pipelines give teams independence and faster deployments.
 
@@ -1614,13 +1614,13 @@ You ensure consistency by using shared templates, standardizing pipeline stages,
 
 ---
 
-## Q93. 🔄 Blue-green deployment
+## Q107. 🔄 Blue-green deployment
 
 Blue-green deployment maintains two identical production environments for zero-downtime deployments. When you use blue-green deployment, you deploy to the inactive environment, test it, then switch traffic, enabling instant rollback if needed.
 
 ---
 
-## 1. What is Blue-Green Deployment
+## 1. 🚀 What is Blue-Green Deployment
 
 Blue-green deployment runs two identical production environments.
 
@@ -1636,7 +1636,7 @@ Blue-green deployment runs two identical production environments.
 
 ---
 
-## 2. Deployment Process
+## 2. 🚀 Deployment Process
 
 You deploy the new version to green, test it, then switch traffic from blue to green.
 
@@ -1650,7 +1650,7 @@ You deploy the new version to green, test it, then switch traffic from blue to g
 
 ---
 
-## 3. Instant Rollback
+## 3. 💡 Instant Rollback
 
 If something goes wrong, you switch back to blue immediately.
 
@@ -1664,7 +1664,7 @@ If something goes wrong, you switch back to blue immediately.
 
 ---
 
-## 4. Benefits
+## 4. 💡 Benefits
 
 Blue-green deployments eliminate downtime and provide instant rollback.
 
@@ -1678,7 +1678,7 @@ Blue-green deployments eliminate downtime and provide instant rollback.
 
 ---
 
-## 5. Infrastructure Costs
+## 5. 💡 Infrastructure Costs
 
 You need double the infrastructure during deployment which costs more.
 
@@ -1692,7 +1692,7 @@ You need double the infrastructure during deployment which costs more.
 
 ---
 
-## 6. Stateful Services
+## 6. 📦 Stateful Services
 
 Managing stateful services requires careful handling.
 
@@ -1706,7 +1706,7 @@ Managing stateful services requires careful handling.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Blue-green deployments eliminate downtime and provide instant rollback.
 
@@ -1742,13 +1742,13 @@ You use blue-green for critical systems where you need instant rollback and zero
 
 ---
 
-## Q94. 🔄 Rolling updates with zero downtime
+## Q108. 🔄 Rolling updates with zero downtime
 
 Rolling updates deploy new versions gradually by replacing instances incrementally. When you use rolling updates, you launch new instances, verify they're healthy, then terminate old instances, minimizing downtime and resource usage.
 
 ---
 
-## 1. How Rolling Updates Work
+## 1. 💡 How Rolling Updates Work
 
 Rolling updates deploy new versions gradually by replacing instances one at a time.
 
@@ -1764,7 +1764,7 @@ Rolling updates deploy new versions gradually by replacing instances one at a ti
 
 ---
 
-## 2. Health Checks
+## 2. ✅ Health Checks
 
 Use health checks to ensure new instances are ready before terminating old ones.
 
@@ -1778,7 +1778,7 @@ Use health checks to ensure new instances are ready before terminating old ones.
 
 ---
 
-## 3. Connection Draining
+## 3. 💡 Connection Draining
 
 Configure your load balancer to drain connections from old instances gracefully.
 
@@ -1792,7 +1792,7 @@ Configure your load balancer to drain connections from old instances gracefully.
 
 ---
 
-## 4. Benefits
+## 4. 💡 Benefits
 
 Rolling updates minimize downtime and resource usage compared to blue-green.
 
@@ -1806,7 +1806,7 @@ Rolling updates minimize downtime and resource usage compared to blue-green.
 
 ---
 
-## 5. Version Coexistence
+## 5. 💡 Version Coexistence
 
 There's a window where both versions run simultaneously.
 
@@ -1820,7 +1820,7 @@ There's a window where both versions run simultaneously.
 
 ---
 
-## 6. Failed Deployment Handling
+## 6. 🚀 Failed Deployment Handling
 
 If new instances fail health checks, you need to stop the rollout and roll back.
 
@@ -1834,7 +1834,7 @@ If new instances fail health checks, you need to stop the rollout and roll back.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Rolling updates minimize downtime and resource usage compared to blue-green.
 
@@ -1870,13 +1870,13 @@ Rolling updates replace instances gradually (one at a time), while blue-green ma
 
 ---
 
-## Q95. 🌍 CloudFront + S3 architecture
+## Q109. 🌍 CloudFront + S3 architecture
 
 CloudFront CDN sits in front of S3 to cache and serve content from edge locations. When you use CloudFront with S3, you improve performance by serving content from edge locations close to users, reducing latency and S3 costs.
 
 ---
 
-## 1. How CloudFront Works
+## 1. 💡 How CloudFront Works
 
 CloudFront CDN sits in front of S3 to cache and serve content from edge locations close to users.
 
@@ -1892,7 +1892,7 @@ CloudFront CDN sits in front of S3 to cache and serve content from edge location
 
 ---
 
-## 2. Request Flow
+## 2. 💡 Request Flow
 
 When a user requests a file, CloudFront checks its cache, and if it's not cached, it fetches from S3.
 
@@ -1906,7 +1906,7 @@ When a user requests a file, CloudFront checks its cache, and if it's not cached
 
 ---
 
-## 3. Benefits
+## 3. 💡 Benefits
 
 This reduces latency, offloads traffic from S3, and reduces costs.
 
@@ -1920,7 +1920,7 @@ This reduces latency, offloads traffic from S3, and reduces costs.
 
 ---
 
-## 4. Cache Invalidation
+## 4. ✅ Cache Invalidation
 
 You need to invalidate the cache when you update files.
 
@@ -1934,7 +1934,7 @@ You need to invalidate the cache when you update files.
 
 ---
 
-## 5. Cache Configuration
+## 5. 💡 Cache Configuration
 
 TTL settings affect how fresh your content is versus how much you save on S3 requests.
 
@@ -1948,7 +1948,7 @@ TTL settings affect how fresh your content is versus how much you save on S3 req
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 CloudFront dramatically improves performance and reduces S3 costs.
 
@@ -1984,13 +1984,13 @@ CloudFront reduces S3 request costs by serving cached content, but adds CloudFro
 
 ---
 
-## Q96. 🔗 S3 pre-signed URL flow
+## Q110. 🔗 S3 pre-signed URL flow
 
 Pre-signed URLs provide temporary, secure access to S3 objects without exposing AWS credentials. When you use pre-signed URLs, your server generates signed URLs that clients can use to upload or download directly from S3.
 
 ---
 
-## 1. What are Pre-signed URLs
+## 1. 💡 What are Pre-signed URLs
 
 Pre-signed URLs give temporary access to S3 objects without exposing your AWS credentials.
 
@@ -2006,7 +2006,7 @@ Pre-signed URLs give temporary access to S3 objects without exposing your AWS cr
 
 ---
 
-## 2. How Pre-signed URLs Work
+## 2. 💡 How Pre-signed URLs Work
 
 Your server generates a signed URL with an expiration time, the client uses that URL to upload or download directly from S3.
 
@@ -2020,7 +2020,7 @@ Your server generates a signed URL with an expiration time, the client uses that
 
 ---
 
-## 3. Authentication
+## 3. 🔐 Authentication
 
 The URL includes authentication information in the query string, so S3 can verify the request.
 
@@ -2034,7 +2034,7 @@ The URL includes authentication information in the query string, so S3 can verif
 
 ---
 
-## 4. Benefits
+## 4. 💡 Benefits
 
 Pre-signed URLs allow clients to upload directly to S3, which reduces load on your server and is faster.
 
@@ -2048,7 +2048,7 @@ Pre-signed URLs allow clients to upload directly to S3, which reduces load on yo
 
 ---
 
-## 5. Loss of Control
+## 5. 💡 Loss of Control
 
 You lose control over the upload process - you can't validate files before they're uploaded.
 
@@ -2062,7 +2062,7 @@ You lose control over the upload process - you can't validate files before they'
 
 ---
 
-## 6. Expiration Time
+## 6. ⏰ ⏰ Expiration Time
 
 Setting appropriate expiration times is critical.
 
@@ -2076,7 +2076,7 @@ Setting appropriate expiration times is critical.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Pre-signed URLs allow clients to upload directly to S3, which reduces load on your server and is faster.
 
@@ -2128,13 +2128,13 @@ const url = s3.getSignedUrl('putObject', params);
 
 ---
 
-## Q97. 🔐 Handling secrets with AWS Secrets Manager
+## Q111. 🔐 Handling secrets with AWS Secrets Manager
 
 AWS Secrets Manager provides secure storage and automatic rotation for secrets. When you manage secrets in AWS, you use Secrets Manager to store sensitive information like passwords and API keys, ensuring they're encrypted and automatically rotated.
 
 ---
 
-## 1. What is Secrets Manager
+## 1. 💡 What is Secrets Manager
 
 Use Secrets Manager to store secrets like database passwords, API keys, and certificates.
 
@@ -2150,7 +2150,7 @@ Use Secrets Manager to store secrets like database passwords, API keys, and cert
 
 ---
 
-## 2. Automatic Rotation
+## 2. 💡 Automatic Rotation
 
 It encrypts secrets at rest, rotates them automatically, and provides APIs to retrieve them.
 
@@ -2164,7 +2164,7 @@ It encrypts secrets at rest, rotates them automatically, and provides APIs to re
 
 ---
 
-## 3. Runtime Retrieval
+## 3. ⏰ ⏰ Runtime Retrieval
 
 Your application retrieves secrets at runtime using IAM roles, so secrets never appear in code or environment variables.
 
@@ -2178,7 +2178,7 @@ Your application retrieves secrets at runtime using IAM roles, so secrets never 
 
 ---
 
-## 4. Automatic Rotation
+## 4. 💡 Automatic Rotation
 
 Enable automatic rotation for database credentials to improve security.
 
@@ -2192,7 +2192,7 @@ Enable automatic rotation for database credentials to improve security.
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 Secrets Manager is secure and handles rotation automatically.
 
@@ -2206,7 +2206,7 @@ Secrets Manager is secure and handles rotation automatically.
 
 ---
 
-## 6. Costs
+## 6. 💡 Costs
 
 It costs money per secret and API calls.
 
@@ -2220,7 +2220,7 @@ It costs money per secret and API calls.
 
 ---
 
-## 7. Secret Version Management
+## 7. 💡 Secret Version Management
 
 Managing secret versions during rotation requires careful handling.
 
@@ -2234,7 +2234,7 @@ Managing secret versions during rotation requires careful handling.
 
 ---
 
-## 8. Trade-offs
+## 8. 💡 Trade-offs
 
 Secrets Manager is secure and handles rotation automatically, which is great for compliance.
 
@@ -2270,13 +2270,13 @@ You secure secrets by using Secrets Manager, retrieving secrets at runtime with 
 
 ---
 
-## Q98. 💰 AWS cost optimization best practices
+## Q112. 💰 AWS cost optimization best practices
 
 AWS cost optimization requires ongoing monitoring and strategic use of AWS services. When you optimize AWS costs, you balance cost savings with performance and reliability requirements.
 
 ---
 
-## 1. Reserved Instances
+## 1. 💡 Reserved Instances
 
 Use reserved instances for predictable workloads.
 
@@ -2292,7 +2292,7 @@ Use reserved instances for predictable workloads.
 
 ---
 
-## 2. Right-Sizing
+## 2. 💡 Right-Sizing
 
 Right-size instances based on actual usage.
 
@@ -2306,7 +2306,7 @@ Right-size instances based on actual usage.
 
 ---
 
-## 3. Spot Instances
+## 3. 💡 Spot Instances
 
 Use spot instances for flexible workloads.
 
@@ -2320,7 +2320,7 @@ Use spot instances for flexible workloads.
 
 ---
 
-## 4. Auto-Scaling
+## 4. 📊 Auto-Scaling
 
 Enable auto-scaling to remove unused resources.
 
@@ -2334,7 +2334,7 @@ Enable auto-scaling to remove unused resources.
 
 ---
 
-## 5. S3 Lifecycle Policies
+## 5. 🔄 S3 Lifecycle Policies
 
 Use S3 lifecycle policies to move data to cheaper storage.
 
@@ -2348,7 +2348,7 @@ Use S3 lifecycle policies to move data to cheaper storage.
 
 ---
 
-## 6. Cost Monitoring
+## 6. 👁️ Cost Monitoring
 
 Monitor costs with Cost Explorer, set up billing alerts, and tag resources.
 
@@ -2362,7 +2362,7 @@ Monitor costs with Cost Explorer, set up billing alerts, and tag resources.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Cost optimization saves money, but requires ongoing monitoring and adjustment.
 
@@ -2398,13 +2398,13 @@ You track costs by tagging resources with team/project tags, using Cost Explorer
 
 ---
 
-## Q99. 🗄️ RDS vs DynamoDB vs Mongo Atlas
+## Q113. 🗄️ RDS vs DynamoDB vs Mongo Atlas
 
 RDS, DynamoDB, and Mongo Atlas are three different database options in AWS with different use cases. When you choose a database, you consider data model, query patterns, scalability, and operational requirements.
 
 ---
 
-## 1. What is RDS
+## 1. 💡 What is RDS
 
 Choose RDS for relational data with complex queries, transactions, and SQL compatibility.
 
@@ -2420,7 +2420,7 @@ Choose RDS for relational data with complex queries, transactions, and SQL compa
 
 ---
 
-## 2. What is DynamoDB
+## 2. 💡 What is DynamoDB
 
 Choose DynamoDB for high-scale key-value access with predictable performance.
 
@@ -2436,7 +2436,7 @@ Choose DynamoDB for high-scale key-value access with predictable performance.
 
 ---
 
-## 3. What is Mongo Atlas
+## 3. 💡 What is Mongo Atlas
 
 Choose Mongo Atlas for document data with flexible schemas.
 
@@ -2452,7 +2452,7 @@ Choose Mongo Atlas for document data with flexible schemas.
 
 ---
 
-## 4. When to Use RDS
+## 4. 💡 When to Use RDS
 
 Use RDS for relational data with complex queries and transactions.
 
@@ -2466,7 +2466,7 @@ Use RDS for relational data with complex queries and transactions.
 
 ---
 
-## 5. When to Use DynamoDB
+## 5. 💡 When to Use DynamoDB
 
 Use DynamoDB for high-scale key-value access.
 
@@ -2480,7 +2480,7 @@ Use DynamoDB for high-scale key-value access.
 
 ---
 
-## 6. When to Use Mongo Atlas
+## 6. 💡 When to Use Mongo Atlas
 
 Use Mongo Atlas for document data with flexible schemas.
 
@@ -2494,7 +2494,7 @@ Use Mongo Atlas for document data with flexible schemas.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 RDS gives you SQL and ACID transactions but is harder to scale horizontally.
 
@@ -2534,13 +2534,13 @@ Yes, you can use multiple databases - use RDS for relational data, DynamoDB for 
 
 ---
 
-## Q100. 🔑 DynamoDB partition key design
+## Q114. 🔑 DynamoDB partition key design
 
 DynamoDB partition key design is critical for performance and scalability. When you design DynamoDB tables, you choose partition keys that distribute data evenly and match your access patterns.
 
 ---
 
-## 1. Even Distribution
+## 1. 💡 Even Distribution
 
 Design partition keys to distribute data evenly across partitions.
 
@@ -2556,7 +2556,7 @@ Design partition keys to distribute data evenly across partitions.
 
 ---
 
-## 2. High-Cardinality Attributes
+## 2. 💡 High-Cardinality Attributes
 
 Use high-cardinality attributes like user_id or order_id.
 
@@ -2570,7 +2570,7 @@ Use high-cardinality attributes like user_id or order_id.
 
 ---
 
-## 3. Access Pattern Matching
+## 3. 💡 Access Pattern Matching
 
 Match your access patterns.
 
@@ -2584,7 +2584,7 @@ Match your access patterns.
 
 ---
 
-## 4. Composite Keys
+## 4. 💡 Composite Keys
 
 Use composite keys (partition + sort key) to model relationships and enable range queries.
 
@@ -2598,7 +2598,7 @@ Use composite keys (partition + sort key) to model relationships and enable rang
 
 ---
 
-## 5. Write Sharding
+## 5. 🔀 Write Sharding
 
 Consider using write sharding for high-write scenarios.
 
@@ -2612,7 +2612,7 @@ Consider using write sharding for high-write scenarios.
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Good partition key design enables even distribution and fast queries.
 
@@ -2648,13 +2648,13 @@ You can't change partition keys after table creation - you need to create a new 
 
 ---
 
-## Q101. ⚠️ DynamoDB throttling prevention
+## Q115. ⚠️ DynamoDB throttling prevention
 
 DynamoDB throttling occurs when requests exceed provisioned capacity. When you prevent throttling, you design for even distribution, use appropriate capacity modes, and implement monitoring and retry logic.
 
 ---
 
-## 1. Partition Key Design
+## 1. 💡 Partition Key Design
 
 Prevent throttling by designing partition keys for even distribution.
 
@@ -2670,7 +2670,7 @@ Prevent throttling by designing partition keys for even distribution.
 
 ---
 
-## 2. Capacity Modes
+## 2. 💡 Capacity Modes
 
 Use on-demand capacity for unpredictable workloads, or provision enough capacity for predictable workloads.
 
@@ -2684,7 +2684,7 @@ Use on-demand capacity for unpredictable workloads, or provision enough capacity
 
 ---
 
-## 3. Auto-Scaling
+## 3. 📊 Auto-Scaling
 
 Enable auto-scaling to adjust capacity automatically.
 
@@ -2698,7 +2698,7 @@ Enable auto-scaling to adjust capacity automatically.
 
 ---
 
-## 4. Retry Logic
+## 4. 💡 Retry Logic
 
 Use exponential backoff when throttled.
 
@@ -2712,7 +2712,7 @@ Use exponential backoff when throttled.
 
 ---
 
-## 5. Monitoring
+## 5. 👁️ Monitoring
 
 Monitor CloudWatch metrics to catch throttling early.
 
@@ -2726,7 +2726,7 @@ Monitor CloudWatch metrics to catch throttling early.
 
 ---
 
-## 6. Write Sharding
+## 6. 🔀 Write Sharding
 
 For high-write scenarios, use write sharding to distribute writes across multiple partition keys.
 
@@ -2740,7 +2740,7 @@ For high-write scenarios, use write sharding to distribute writes across multipl
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 On-demand capacity eliminates throttling but costs more for steady workloads.
 
@@ -2778,13 +2778,13 @@ You monitor throttling by using CloudWatch metrics (ThrottledRequests, ConsumedR
 
 ---
 
-## Q102. 📋 Multi-AZ replication in RDS
+## Q116. 📋 Multi-AZ replication in RDS
 
 RDS Multi-AZ replication provides high availability by maintaining a standby replica in a different availability zone. When you configure Multi-AZ, you get automatic failover with zero data loss for production databases.
 
 ---
 
-## 1. What is Multi-AZ Replication
+## 1. 🔄 What is Multi-AZ Replication
 
 Multi-AZ replication creates a standby replica in a different availability zone.
 
@@ -2800,7 +2800,7 @@ Multi-AZ replication creates a standby replica in a different availability zone.
 
 ---
 
-## 2. Synchronous Replication
+## 2. 🔄 Synchronous Replication
 
 Data is synchronously replicated, so there's no data loss.
 
@@ -2814,7 +2814,7 @@ Data is synchronously replicated, so there's no data loss.
 
 ---
 
-## 3. Failover Time
+## 3. ⏰ ⏰ Failover Time
 
 Failover typically takes 60-120 seconds.
 
@@ -2828,7 +2828,7 @@ Failover typically takes 60-120 seconds.
 
 ---
 
-## 4. Standby Limitations
+## 4. 💡 Standby Limitations
 
 The standby replica can't serve reads, it's only for failover.
 
@@ -2842,7 +2842,7 @@ The standby replica can't serve reads, it's only for failover.
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 Multi-AZ provides automatic failover and zero data loss.
 
@@ -2856,7 +2856,7 @@ Multi-AZ provides automatic failover and zero data loss.
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Multi-AZ provides automatic failover and zero data loss, which is great for production databases.
 
@@ -2892,13 +2892,13 @@ You use Multi-AZ for production databases where you need high availability and c
 
 ---
 
-## Q103. 📖 RDS read replicas
+## Q117. 📖 RDS read replicas
 
 RDS read replicas are asynchronous copies of your primary database that can serve read queries. When you scale read-heavy applications, you use read replicas to distribute read load and improve performance.
 
 ---
 
-## 1. What are Read Replicas
+## 1. 💡 What are Read Replicas
 
 RDS read replicas are asynchronous copies of your primary database that can serve read queries.
 
@@ -2914,7 +2914,7 @@ RDS read replicas are asynchronous copies of your primary database that can serv
 
 ---
 
-## 2. Replication
+## 2. 🔄 Replication
 
 You create replicas in different availability zones or regions, and they replicate changes from the primary with a small delay.
 
@@ -2928,7 +2928,7 @@ You create replicas in different availability zones or regions, and they replica
 
 ---
 
-## 3. Use Cases
+## 3. 💡 Use Cases
 
 Use read replicas to scale reads, reduce load on the primary, and provide disaster recovery.
 
@@ -2942,7 +2942,7 @@ Use read replicas to scale reads, reduce load on the primary, and provide disast
 
 ---
 
-## 4. Promotion
+## 4. 💡 Promotion
 
 You can promote a read replica to become the primary if needed.
 
@@ -2956,7 +2956,7 @@ You can promote a read replica to become the primary if needed.
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 Read replicas allow you to scale reads almost infinitely and provide redundancy.
 
@@ -2970,7 +2970,7 @@ Read replicas allow you to scale reads almost infinitely and provide redundancy.
 
 ---
 
-## 6. Eventual Consistency
+## 6. ⚖️ Eventual Consistency
 
 You get eventual consistency - reads might see slightly stale data.
 
@@ -2984,7 +2984,7 @@ You get eventual consistency - reads might see slightly stale data.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Read replicas allow you to scale reads almost infinitely and provide redundancy.
 
@@ -3020,13 +3020,13 @@ You use read replicas for read scaling and geographic distribution, use Multi-AZ
 
 ---
 
-## Q104. 🌐 DynamoDB Global Tables
+## Q118. 🌐 DynamoDB Global Tables
 
 DynamoDB Global Tables replicate your table across multiple regions automatically for global low latency and disaster recovery. When you use Global Tables, you can serve users from the nearest region while maintaining data consistency across regions.
 
 ---
 
-## 1. What are Global Tables
+## 1. 💡 What are Global Tables
 
 DynamoDB Global Tables replicate your table across multiple regions automatically.
 
@@ -3042,7 +3042,7 @@ DynamoDB Global Tables replicate your table across multiple regions automaticall
 
 ---
 
-## 2. Low Latency
+## 2. ⚡ Low Latency
 
 You can serve users from the nearest region with low latency.
 
@@ -3056,7 +3056,7 @@ You can serve users from the nearest region with low latency.
 
 ---
 
-## 3. Multi-Region Writes
+## 3. 💡 Multi-Region Writes
 
 Writes to any region are replicated to all other regions within seconds.
 
@@ -3070,7 +3070,7 @@ Writes to any region are replicated to all other regions within seconds.
 
 ---
 
-## 4. Read and Write Capability
+## 4. 💡 Read and Write Capability
 
 Each region can serve both reads and writes.
 
@@ -3084,7 +3084,7 @@ Each region can serve both reads and writes.
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 This provides global low latency and disaster recovery.
 
@@ -3098,7 +3098,7 @@ This provides global low latency and disaster recovery.
 
 ---
 
-## 6. Costs
+## 6. 💡 Costs
 
 They cost more since you're paying for multiple regions and replication.
 
@@ -3112,7 +3112,7 @@ They cost more since you're paying for multiple regions and replication.
 
 ---
 
-## 7. Eventual Consistency
+## 7. ⚖️ Eventual Consistency
 
 Writes in one region might take a few seconds to appear in other regions.
 
@@ -3126,7 +3126,7 @@ Writes in one region might take a few seconds to appear in other regions.
 
 ---
 
-## 8. Trade-offs
+## 8. 💡 Trade-offs
 
 Global Tables provide low latency worldwide and automatic disaster recovery.
 
@@ -3162,13 +3162,13 @@ Global Tables use DynamoDB Streams to replicate changes across regions. When you
 
 ---
 
-## Q105. ⚡ On-demand vs provisioned capacity
+## Q119. ⚡ On-demand vs provisioned capacity
 
 DynamoDB offers two capacity modes: on-demand and provisioned. When you choose a capacity mode, you balance cost, predictability, and operational complexity based on your workload characteristics.
 
 ---
 
-## 1. What is On-Demand Capacity
+## 1. 💡 What is On-Demand Capacity
 
 On-demand capacity automatically scales up and down based on traffic.
 
@@ -3184,7 +3184,7 @@ On-demand capacity automatically scales up and down based on traffic.
 
 ---
 
-## 2. What is Provisioned Capacity
+## 2. 💡 What is Provisioned Capacity
 
 Provisioned capacity requires you to specify read and write capacity units.
 
@@ -3200,7 +3200,7 @@ Provisioned capacity requires you to specify read and write capacity units.
 
 ---
 
-## 3. When to Use On-Demand
+## 3. 💡 When to Use On-Demand
 
 Perfect for unpredictable workloads or new applications.
 
@@ -3214,7 +3214,7 @@ Perfect for unpredictable workloads or new applications.
 
 ---
 
-## 4. When to Use Provisioned
+## 4. 💡 When to Use Provisioned
 
 Better for predictable, steady workloads where you can optimize costs.
 
@@ -3228,7 +3228,7 @@ Better for predictable, steady workloads where you can optimize costs.
 
 ---
 
-## 5. On-Demand Benefits
+## 5. 💡 On-Demand Benefits
 
 On-demand is simple and eliminates throttling.
 
@@ -3242,7 +3242,7 @@ On-demand is simple and eliminates throttling.
 
 ---
 
-## 6. Provisioned Benefits
+## 6. 💡 Provisioned Benefits
 
 Provisioned capacity is cheaper for predictable workloads.
 
@@ -3256,7 +3256,7 @@ Provisioned capacity is cheaper for predictable workloads.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 On-demand is simple and eliminates throttling.
 
@@ -3297,7 +3297,6 @@ You optimize provisioned capacity by monitoring actual usage, right-sizing capac
 **[← Previous: Messaging Systems](05%29%20Messaging%20Systems.md)** | **[Next: Observability →](07%29%20Observability.md)**
 
 </div>
-
 
 ---
 

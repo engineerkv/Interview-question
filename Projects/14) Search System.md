@@ -320,6 +320,7 @@ App
 │       ├── RecentSearches
 │       └── PopularSearches
 └── Footer
+
 ```
 
 ### Key React Components
@@ -412,6 +413,7 @@ const FilterSidebar: React.FC<{ filters: SearchFilters; onFilterChange: (filters
     </div>
   );
 };
+
 ```
 
 ### State Management
@@ -456,6 +458,7 @@ const useAutocomplete = (query: string) => {
     staleTime: 1 * 60 * 1000 // Cache for 1 minute
   });
 };
+
 ```
 
 ### Component Interactions
@@ -519,6 +522,7 @@ interface Model {
   - `sort`: string (optional) - Sort order (e.g., "price:asc", "relevance:desc")
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -539,6 +543,7 @@ interface Model {
       "totalPages": 63
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 400 (Invalid Query)
@@ -554,6 +559,7 @@ interface Model {
   - `limit`: number (default: 10, max: 20)
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -564,6 +570,7 @@ interface Model {
       ]
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 400 (Invalid Query)
@@ -577,6 +584,7 @@ interface Model {
 - **Description:** Index a document for search (Admin/Internal)
 
 - **Request Body:**
+
   ```json
   {
     "id": "product_abc123",
@@ -586,9 +594,11 @@ interface Model {
     "price": 99.99,
     "tags": ["tag1", "tag2"]
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -598,6 +608,7 @@ interface Model {
       "indexedAt": "2024-01-15T10:30:00Z"
     }
   }
+
   ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error)
@@ -1264,11 +1275,535 @@ try {
 
 ---
 
+# 4) Algorithms
+
+## Inverted Index Algorithm
+
+**Purpose:** Build inverted index mapping words to document IDs for fast text search.
+
+**Algorithm:**
+1. Tokenize documents into words (lowercase, remove stop words)
+2. For each word, maintain list of documents containing that word
+3. Store word → [document IDs] mapping
+4. For search query, find documents containing all query terms
+5. Rank documents by relevance score
+
+**Implementation:**
+
+```typescript
+class InvertedIndex {
+  private index: Map<string, Set<string>> = new Map();
+  
+  indexDocument(docId: string, text: string): void {
+    const words = this.tokenize(text);
+    
+    for (const word of words) {
+      if (!this.index.has(word)) {
+        this.index.set(word, new Set());
+      }
+      this.index.get(word)!.add(docId);
+    }
+  }
+  
+  search(query: string): string[] {
+    const queryWords = this.tokenize(query);
+    let result: Set<string> | null = null;
+    
+    for (const word of queryWords) {
+      const docIds = this.index.get(word) || new Set();
+      
+      if (result === null) {
+        result = new Set(docIds);
+      } else {
+        // Intersection: documents containing all query terms
+        result = new Set([...result].filter(id => docIds.has(id)));
+      }
+    }
+    
+    return result ? Array.from(result) : [];
+  }
+  
+  private tokenize(text: string): string[] {
+    return text
+      .toLowerCase()
+      .replace(/[^\w\s]/g, '')
+      .split(/\s+/)
+      .filter(word => word.length > 0 && !this.isStopWord(word));
+  }
+  
+  private isStopWord(word: string): boolean {
+    const stopWords = ['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at'];
+    return stopWords.includes(word);
+  }
+}
+
+```
+
+**Complexity:**
+- Time: O(n) for indexing, O(m) for search where n is document size, m is query length
+- Space: O(n) where n is total number of words
+- **Search Speed:** Inverted index enables sub-100ms search even for billions of documents
+
+---
+
+## Trie (Prefix Tree) Algorithm for Autocomplete
+
+**Purpose:** Build trie data structure for fast autocomplete suggestions.
+
+**Algorithm:**
+1. Build trie where each node represents a character
+2. Store suggestions at each node (popular queries ending at that node)
+3. For prefix query, traverse trie to find node
+4. Return suggestions stored at that node
+5. Rank suggestions by popularity
+
+**Implementation:**
+
+```typescript
+class TrieNode {
+  children: Map<string, TrieNode> = new Map();
+  suggestions: string[] = [];
+  isEndOfWord: boolean = false;
+}
+
+class AutocompleteTrie {
+  private root: TrieNode = new TrieNode();
+  
+  insert(query: string, popularity: number = 1): void {
+    let node = this.root;
+    
+    for (const char of query.toLowerCase()) {
+      if (!node.children.has(char)) {
+        node.children.set(char, new TrieNode());
+      }
+      node = node.children.get(char)!;
+      
+      // Add to suggestions, keep top 10
+      if (!node.suggestions.includes(query)) {
+        node.suggestions.push(query);
+        node.suggestions.sort((a, b) => b.popularity - a.popularity);
+        node.suggestions = node.suggestions.slice(0, 10);
+      }
+    }
+    
+    node.isEndOfWord = true;
+  }
+  
+  search(prefix: string): string[] {
+    let node = this.root;
+    
+    for (const char of prefix.toLowerCase()) {
+      if (!node.children.has(char)) {
+        return [];
+      }
+      node = node.children.get(char)!;
+    }
+    
+    return node.suggestions;
+  }
+}
+
+```
+
+**Complexity:**
+- Time: O(m) for insert/search where m is query length
+- Space: O(n * m) where n is number of queries, m is average query length
+- **Response Time:** Trie enables < 10ms autocomplete response
+
+---
+
+## BM25 Ranking Algorithm
+
+**Purpose:** Rank search results by relevance using BM25 (Best Matching 25) algorithm.
+
+**Algorithm:**
+1. Calculate term frequency (TF) for each query term in document
+2. Calculate inverse document frequency (IDF) for each query term
+3. Calculate BM25 score: sum of (IDF * TF * (k1 + 1)) / (TF + k1 * (1 - b + b * (docLength / avgDocLength)))
+4. Rank documents by BM25 score (higher is more relevant)
+
+**Implementation:**
+
+```typescript
+class BM25Ranker {
+  private k1: number = 1.5;  // Term frequency saturation parameter
+  private b: number = 0.75;  // Length normalization parameter
+  private documents: Map<string, string[]> = new Map();
+  private avgDocLength: number = 0;
+  
+  calculateScore(docId: string, queryTerms: string[]): number {
+    const doc = this.documents.get(docId)!;
+    const docLength = doc.length;
+    let score = 0;
+    
+    for (const term of queryTerms) {
+      const tf = this.termFrequency(doc, term);
+      const idf = this.inverseDocumentFrequency(term);
+      
+      const numerator = idf * tf * (this.k1 + 1);
+      const denominator = tf + this.k1 * (1 - this.b + this.b * (docLength / this.avgDocLength));
+      
+      score += numerator / denominator;
+    }
+    
+    return score;
+  }
+  
+  private termFrequency(doc: string[], term: string): number {
+    return doc.filter(word => word === term).length;
+  }
+  
+  private inverseDocumentFrequency(term: string): number {
+    const docCount = this.documents.size;
+    const docsWithTerm = Array.from(this.documents.values())
+      .filter(doc => doc.includes(term)).length;
+    
+    return Math.log((docCount - docsWithTerm + 0.5) / (docsWithTerm + 0.5) + 1);
+  }
+}
+
+```
+
+**Complexity:**
+- Time: O(n * m) where n is number of documents, m is query length
+- Space: O(1) per document
+- **Ranking Quality:** BM25 provides good relevance ranking
+
+---
+
+# 5) Data Models
+
+## Documents Collection (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  documentId: String,       // Unique document ID, indexed
+  title: String,            // Document title
+  content: String,          // Document content (full text)
+  category: String,         // Document category, indexed
+  tags: [String],          // Document tags
+  metadata: Object,         // Additional metadata (author, date, etc.)
+  indexedAt: Date,         // When document was indexed, indexed
+  createdAt: Date,         // Created timestamp
+  updatedAt: Date          // Updated timestamp
+}
+
+// Indexes:
+// - { documentId: 1 } (unique)
+// - { category: 1, indexedAt: -1 } (compound)
+// - { tags: 1 } (for tag filtering)
+
+```
+
+## Search Queries Collection (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  queryId: String,          // Unique query ID
+  query: String,            // Search query text, indexed
+  userId: ObjectId,         // User reference (optional)
+  resultsCount: Number,     // Number of results returned
+  clickedResults: [String], // Document IDs that were clicked
+  timestamp: Date,          // Query timestamp, indexed
+  createdAt: Date          // Created timestamp
+}
+
+// Indexes:
+// - { query: 1, timestamp: -1 } (compound, for query analytics)
+// - { userId: 1, timestamp: -1 } (compound, for personalization)
+
+```
+
+---
+
+# 6) Database Transactions and Consistency
+
+### MongoDB Transactions
+
+**Transaction Usage:**
+- **Multi-Document Transactions** - For operations requiring ACID guarantees
+- **Example:** Document creation + search index update in single transaction
+- **Session Management:** Use MongoDB sessions for transaction control
+
+**Example:**
+
+```typescript
+const session = await mongoose.startSession();
+session.startTransaction();
+try {
+  await Document.create([documentData], { session });
+  await ElasticsearchService.indexDocument(documentData);
+  await session.commitTransaction();
+} catch (error) {
+  await session.abortTransaction();
+  throw error;
+} finally {
+  session.endSession();
+}
+
+```
+
+### Consistency Strategies
+
+**Data Consistency:**
+- **Search Index Consistency:** Keep Elasticsearch in sync with MongoDB (eventual consistency acceptable)
+- **Cache Consistency:** Invalidate search cache on document updates
+- **Eventual Consistency:** Handle eventual consistency between MongoDB and Elasticsearch (index updates may lag slightly)
+
+---
+
+# 7) Protocols
+
+### REST API Protocol
+
+- **Protocol:** REST (Representational State Transfer)
+- **Data Format:** JSON
+- **HTTP Methods:** GET, POST
+- **Status Codes:** 200 (Success), 400 (Bad Request), 401 (Unauthorized), 404 (Not Found), 500 (Server Error)
+- **Authentication:** JWT Bearer token in Authorization header
+
+### Search Query Protocol
+
+- **Query Format:** Query string parameters or JSON body
+- **Response Format:** JSON with results array and metadata
+- **Pagination:** Cursor-based or offset-based pagination
+
+---
+
+# 8) API Design
+
+### GET /api/v1/search
+
+- **URL:** `/api/v1/search?q=query&page=1&limit=20&category=tech`
+- **Method:** GET
+- **Description:** Search documents
+- **Query Parameters:**
+  - `q`: string (required) - Search query
+  - `page`: number (default: 1)
+  - `limit`: number (default: 20, max: 100)
+  - `category`: string (optional) - Filter by category
+  - `sort`: string (optional) - Sort by relevance, date, popularity
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "results": [
+        {
+          "documentId": "doc_abc123",
+          "title": "Document Title",
+          "snippet": "Relevant text snippet...",
+          "score": 0.95,
+          "category": "tech"
+        }
+      ],
+      "total": 1250,
+      "page": 1,
+      "limit": 20,
+      "took": 45
+    }
+  }
+
+  ```
+- **Status Codes:** 200 (Success), 400 (Invalid Query)
+
+### GET /api/v1/search/autocomplete
+
+- **URL:** `/api/v1/search/autocomplete?q=quer`
+- **Method:** GET
+- **Description:** Get autocomplete suggestions
+- **Query Parameters:**
+  - `q`: string (required) - Query prefix
+  - `limit`: number (default: 10, max: 20)
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "suggestions": [
+        "query example",
+        "query optimization",
+        "query performance"
+      ]
+    }
+  }
+
+  ```
+- **Status Codes:** 200 (Success), 400 (Invalid Query)
+
+---
+
+# 9) Caching Strategy
+
+### Redis Cache
+
+**Cache Strategy:**
+- **Key Format:** `search:query:{hash}`, `autocomplete:{prefix}`
+- **Value:** Serialized JSON (search results, autocomplete suggestions)
+- **TTL:** 
+  - Search results: 300 seconds (5 minutes)
+  - Autocomplete: 3600 seconds (1 hour)
+- **Eviction Policy:** LRU (Least Recently Used)
+
+**Cache Patterns:**
+- **Cache-Aside Pattern:** Check cache first, if miss query Elasticsearch and update cache
+- **Cache Invalidation:** Invalidate search cache on document updates
+- **Cache Warming:** Pre-load popular search queries
+
+---
+
+# 10) Error Handling
+
+### Error Scenarios and Responses
+
+**Edge Cases Handling:**
+- **Invalid Query:** Return 400 Bad Request with validation errors
+- **Elasticsearch Unavailable:** Return 503 Service Unavailable, fallback to cached results
+- **Query Timeout:** Return 504 Gateway Timeout when search exceeds timeout
+- **Empty Results:** Return 200 with empty results array (not an error)
+- **Index Not Found:** Return 404 Not Found when index doesn't exist
+
+**Error Response Format:**
+
+```json
+{
+  "error": {
+    "code": "INVALID_QUERY",
+    "message": "Invalid search query",
+    "details": "Query must be at least 2 characters long"
+  }
+}
+
+```
+
+---
+
+# 11) Deployment and DevOps
+
+### Scalability
+
+**API Layer:**
+- Deploy API layer across multiple instances behind load balancer
+- Use auto-scaling based on CPU/memory metrics
+- Stateless design allows horizontal scaling
+
+**Elasticsearch Scaling:**
+- **Sharding:** Shard indexes across multiple nodes for horizontal scaling
+- **Replication:** Replicate shards for high availability
+- **Node Scaling:** Add Elasticsearch nodes as document volume grows
+
+**Caching:**
+- Distributed Redis cluster for high availability
+- Cache search results and autocomplete suggestions
+- Reduces Elasticsearch load significantly
+
+### Availability
+
+**Replication:**
+- Elasticsearch replication ensures index availability
+- Multi-region replication for disaster recovery
+
+**Failover:**
+- Automated failover mechanisms for API and Elasticsearch
+- Health checks and monitoring for proactive failover
+- Circuit breaker pattern to prevent cascading failures
+
+**Geo-Distributed Deployment:**
+- Deploy service across multiple geographical regions
+- Reduces latency for users worldwide
+- Improves availability by eliminating single point of failure
+
+### Frontend Deployment
+
+**Build Process:**
+- **Production Build:** Optimized bundle with code splitting
+- **CDN Deployment:** Deploy static assets to CDN for fast global delivery
+- **Environment Variables:** `.env.production` for production config
+
+**Deployment Platforms:**
+- **Vercel / Netlify** - Automatic deployments from Git
+- **AWS S3 + CloudFront** - Static site hosting with CDN
+
+### Backend Deployment
+
+**Server Setup:**
+- **PM2:** Process manager with clustering for Node.js apps
+- **Nginx:** Load balancer and reverse proxy with SSL termination
+- **Docker:** Containerized deployment for consistency
+- **Kubernetes:** Container orchestration for auto-scaling
+
+**CI/CD Pipeline:**
+- **Automated Testing:** Run tests before deployment
+- **Zero-Downtime:** Rolling deployment strategy
+- **Health Checks:** Verify search endpoints are healthy
+- **Blue-Green Deployment:** Maintain two identical production environments
+
+### Database Deployment
+
+**MongoDB Setup:**
+- **MongoDB Atlas** - Managed MongoDB service with automatic backups
+- **Backup Strategy:** Daily automated backups with point-in-time recovery
+- **Indexing:** Proper indexes on documentId, category, indexedAt
+- **Replication:** Replica sets for high availability
+
+**Elasticsearch Setup:**
+- **Elasticsearch Cluster** - Managed service or self-hosted
+- **Index Management** - Configure index templates and mappings
+- **Sharding:** Configure appropriate number of shards per index
+- **Replication:** Configure replica count for high availability
+
+**Redis Setup:**
+- **Redis Cloud / AWS ElastiCache** - Managed Redis service
+- **Cluster Mode:** Redis cluster for high availability and performance
+- **Persistence:** RDB snapshots and AOF for data durability
+
+---
+
+# 12) Security Considerations
+
+### Rate Limiting
+
+- Implement rate limiting at API layer to prevent abuse
+- Limit number of search queries per user/IP per minute/hour
+- Use Redis for distributed rate limiting across multiple servers
+
+### Input Validation
+
+- Validate search queries to prevent injection attacks
+- Sanitize user input before processing
+- Limit query length to prevent DoS attacks
+
+### HTTPS/TLS
+
+- All communication between clients and API encrypted using HTTPS
+- Prevents eavesdropping and man-in-the-middle attacks
+- SSL/TLS certificates for secure connections
+
+### Authentication and Authorization
+
+- **JWT Tokens:** Use JWT for stateless authentication
+- **Token Expiration:** Set appropriate token expiration times
+- **Role-Based Access Control:** Implement RBAC for search operations
+- **API Keys:** Use API keys for service-to-service authentication
+
+### Monitoring and Alerts
+
+- Set up monitoring for unusual search patterns
+- Trigger alerts for potential security issues
+- Track metrics: search query rates, response times, error rates
+- Log all search operations for security auditing
+
+---
+
 # 3) Interview Answers
 
 ---
 
-## Q1. Designing a search system
+## Q1. 🔎 Designing a search system
 
 **Situation:** Need to design a search system for 1B+ documents with < 100ms search latency, handling 10M+ queries per day.
 
@@ -1296,7 +1831,7 @@ try {
 
 ---
 
-## Q2. Implementing autocomplete/suggestions
+## Q2. 💡 Implementing autocomplete/suggestions
 
 **Situation:** Users type search query, need to show suggestions in real-time.
 
@@ -1320,7 +1855,7 @@ try {
 
 ---
 
-## Q3. Ranking search results by relevance
+## Q3. 🔎 Ranking search results by relevance
 
 **Situation:** Multiple documents match search query, need to rank by relevance.
 
@@ -1339,3 +1874,43 @@ try {
 **Result:** Search relevance improved by 40%. Users find relevant results faster. Click-through rate increased by 25%.
 
 **Takeaway:** BM25 provides good baseline ranking. ML models can improve ranking with user feedback.
+
+---
+
+## Q4. 🔎 Handling search indexing
+
+**Situation:** Need to index 1B+ documents efficiently, handle document updates and deletions, maintain index consistency.
+
+**Action:** I implemented search indexing:
+
+- **Batch Indexing:** Index documents in batches (1000-10000 per batch) for efficiency
+- **Async Processing:** Use message queue (Kafka) for async indexing to avoid blocking
+- **Incremental Indexing:** Only index new/updated documents, not entire collection
+- **Index Updates:** Update index when documents are modified or deleted
+- **Index Optimization:** Optimize index periodically (merge segments, refresh)
+- **Real-time Indexing:** Index documents in near real-time (< 1 second delay)
+- **Index Monitoring:** Monitor index health, size, and performance
+
+**Result:** Indexes 1B+ documents efficiently. Index updates complete in < 1 second. Index size optimized. System handles document updates smoothly.
+
+**Takeaway:** Batch indexing improves efficiency. Async processing prevents blocking. Incremental indexing reduces load.
+
+---
+
+## Q5. 🔎 Scaling search for billions of documents
+
+**Situation:** Search system needs to handle 1B+ documents with < 100ms latency.
+
+**Action:** I implemented scaling strategies:
+
+- **Index Sharding:** Shard Elasticsearch index across multiple nodes (distribute documents)
+- **Replication:** Replicate shards for high availability and read scaling
+- **Horizontal Scaling:** Add Elasticsearch nodes as document volume grows
+- **Caching:** Cache popular search queries in Redis (60% cache hit rate)
+- **Query Optimization:** Optimize Elasticsearch queries, use filters instead of queries
+- **CDN:** Use CDN for static search assets
+- **Load Balancing:** Distribute search requests across multiple Elasticsearch nodes
+
+**Result:** System handles 1B+ documents with < 100ms search latency. Horizontal scaling enables growth. Cache reduces Elasticsearch load by 60%.
+
+**Takeaway:** Index sharding enables horizontal scaling. Caching significantly reduces search load. Query optimization improves performance.

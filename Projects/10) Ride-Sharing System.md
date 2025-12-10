@@ -382,6 +382,7 @@ App
 │       │       ├── Fare
 │       │       └── Rating
 └── SocketProvider (Real-time location updates)
+
 ```
 
 ### Key React Components
@@ -461,6 +462,7 @@ const ActiveRidePage: React.FC<{ rideId: string }> = ({ rideId }) => {
     </div>
   );
 };
+
 ```
 
 ### State Management
@@ -503,6 +505,7 @@ const useRide = (rideId: string) => {
     refetchInterval: 5000 // Refetch every 5 seconds
   });
 };
+
 ```
 
 ### Component Interactions
@@ -592,6 +595,7 @@ interface Model {
 - **Method:** POST
 
 - **Request Body:**
+
   ```json
   {
     "pickupLocation": {
@@ -606,9 +610,11 @@ interface Model {
     },
     "rideType": "standard"
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -627,6 +633,7 @@ interface Model {
       "status": "matched"
     }
   }
+
   ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error), 404 (No Driver Available)
@@ -638,6 +645,7 @@ interface Model {
 - **Method:** GET
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -660,6 +668,7 @@ interface Model {
       "distance": 2.5
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 404 (Not Found)
@@ -671,15 +680,18 @@ interface Model {
 - **Method:** PUT
 
 - **Request Body:**
+
   ```json
   {
     "latitude": 40.7128,
     "longitude": -74.0060,
     "heading": 90
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -692,6 +704,7 @@ interface Model {
       "updatedAt": "2024-01-15T10:30:00Z"
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 401 (Unauthorized)
@@ -1350,11 +1363,482 @@ try {
 
 ---
 
+# 4) Algorithms
+
+## Nearest Driver Matching Algorithm
+
+**Purpose:** Find the nearest available driver to a rider's location efficiently.
+
+**Algorithm:**
+1. Get rider's pickup location (latitude, longitude)
+2. Search for available drivers within radius using geospatial query
+3. Calculate distance to each driver
+4. Filter drivers by availability status
+5. Sort by distance and select nearest driver
+6. Expand radius if no driver found
+
+**Implementation:**
+
+```typescript
+class RideMatchingService {
+  async findNearestDriver(
+    userLat: number,
+    userLon: number,
+    radius: number = 5
+  ): Promise<string | null> {
+    // Search using Redis GeoHash
+    const drivers = await redis.georadius(
+      'drivers:available',
+      userLon,
+      userLat,
+      radius,
+      'km',
+      'WITHCOORD',
+      'WITHDIST',
+      'ASC',
+      'COUNT',
+      10
+    );
+    
+    if (drivers.length === 0 && radius < 10) {
+      // Expand search radius
+      return this.findNearestDriver(userLat, userLon, 10);
+    }
+    
+    // Filter available drivers
+    const availableDrivers = await this.filterAvailableDrivers(drivers);
+    
+    if (availableDrivers.length === 0) {
+      return null;
+    }
+    
+    // Return nearest driver
+    return availableDrivers[0].driverId;
+  }
+}
+
+```
+
+**Complexity:**
+- Time: O(log n + m) where n is number of drivers, m is results
+- Space: O(m) for results
+- **Matching Speed:** Geospatial queries enable < 100ms matching
+
+---
+
+## Dynamic Pricing Algorithm
+
+**Purpose:** Calculate ride fare based on distance, time, base fare, and surge pricing.
+
+**Algorithm:**
+1. Calculate base fare
+2. Calculate distance-based fare
+3. Calculate time-based fare
+4. Apply surge multiplier if demand is high
+5. Sum all components for final fare
+
+**Implementation:**
+
+```typescript
+function calculateFare(
+  distance: number, // in km
+  duration: number, // in minutes
+  baseFare: number = 2.5,
+  perKmRate: number = 1.5,
+  perMinRate: number = 0.3,
+  surgeMultiplier: number = 1.0
+): number {
+  const distanceFare = distance * perKmRate;
+  const timeFare = duration * perMinRate;
+  const totalFare = (baseFare + distanceFare + timeFare) * surgeMultiplier;
+  
+  return Math.round(totalFare * 100) / 100; // Round to 2 decimal places
+}
+
+function calculateSurgeMultiplier(
+  area: string,
+  currentDemand: number,
+  currentSupply: number
+): number {
+  const demandSupplyRatio = currentDemand / currentSupply;
+  
+  if (demandSupplyRatio > 2.0) return 2.5; // High surge
+  if (demandSupplyRatio > 1.5) return 2.0;
+  if (demandSupplyRatio > 1.2) return 1.5;
+  if (demandSupplyRatio > 1.0) return 1.2;
+  
+  return 1.0; // No surge
+}
+
+```
+
+**Complexity:**
+- Time: O(1) for fare calculation
+- Space: O(1)
+- **Pricing Accuracy:** Dynamic pricing balances supply and demand
+
+---
+
+# 5) Data Models
+
+## Rides Collection (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  rideId: String,           // Unique ride ID, indexed
+  riderId: ObjectId,        // Rider reference, indexed
+  driverId: ObjectId,       // Driver reference, indexed
+  pickupLocation: Object,   // { latitude, longitude, address }
+  dropoffLocation: Object,  // { latitude, longitude, address }
+  status: String,          // requested, matched, accepted, in_progress, completed, cancelled
+  fare: Number,            // Ride fare
+  distance: Number,        // Distance in km
+  duration: Number,        // Duration in minutes
+  surgeMultiplier: Number, // Surge pricing multiplier
+  paymentId: ObjectId,     // Payment reference
+  requestedAt: Date,       // Request timestamp, indexed
+  startedAt: Date,         // Ride start timestamp
+  completedAt: Date,       // Ride completion timestamp
+  createdAt: Date,         // Created timestamp
+  updatedAt: Date          // Updated timestamp
+}
+
+// Indexes:
+// - { rideId: 1 } (unique)
+// - { riderId: 1, requestedAt: -1 } (compound)
+// - { driverId: 1, requestedAt: -1 } (compound)
+// - { status: 1, requestedAt: -1 } (compound)
+
+```
+
+## Drivers Collection (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  driverId: String,         // Unique driver ID, indexed
+  userId: ObjectId,         // User reference, indexed
+  location: Object,         // { latitude, longitude } (geospatial index)
+  status: String,          // available, busy, offline
+  vehicleInfo: Object,      // Vehicle details
+  rating: Number,          // Average rating
+  totalRides: Number,      // Total rides completed
+  createdAt: Date,
+  updatedAt: Date
+}
+
+// Indexes:
+// - { driverId: 1 } (unique)
+// - { location: "2dsphere" } (geospatial index)
+// - { status: 1 } (indexed)
+
+```
+
+---
+
+# 6) Database Transactions and Consistency
+
+### MongoDB Transactions
+
+**Transaction Usage:**
+- **Multi-Document Transactions** - For operations requiring ACID guarantees
+- **Example:** Ride creation + driver assignment + payment processing in single transaction
+- **Session Management:** Use MongoDB sessions for transaction control
+
+**Example:**
+
+```typescript
+const session = await mongoose.startSession();
+session.startTransaction();
+try {
+  await Ride.create([rideData], { session });
+  await Driver.updateOne({ driverId }, { $set: { status: 'busy' } }, { session });
+  await Payment.create([paymentData], { session });
+  await session.commitTransaction();
+} catch (error) {
+  await session.abortTransaction();
+  throw error;
+} finally {
+  session.endSession();
+}
+
+```
+
+### Consistency Strategies
+
+**Data Consistency:**
+- **Ride Consistency:** Use transactions for ride operations to ensure atomicity
+- **Location Consistency:** Ensure location updates are consistent
+- **Payment Consistency:** Ensure payment and ride updates are atomic
+- **Eventual Consistency:** Accept eventual consistency for location updates (may update with slight delay)
+
+---
+
+# 7) Protocols
+
+### REST API Protocol
+
+- **Protocol:** REST (Representational State Transfer)
+- **Data Format:** JSON
+- **HTTP Methods:** GET, POST, PUT, DELETE
+- **Status Codes:** 200 (Success), 201 (Created), 400 (Bad Request), 401 (Unauthorized), 404 (Not Found - No Driver Available), 500 (Server Error)
+- **Authentication:** JWT Bearer token in Authorization header
+
+### WebSocket Protocol
+
+- **Protocol:** Socket.io over WebSocket
+- **Events:** `location:update`, `ride:status`, `driver:assigned`, `eta:update`
+- **Authentication:** JWT token in handshake
+- **Use Case:** Real-time location tracking and ride status updates
+
+---
+
+# 8) API Design
+
+### POST /api/v1/rides
+
+- **URL:** `/api/v1/rides`
+- **Method:** POST
+- **Description:** Request a ride
+- **Request Body:**
+
+  ```json
+  {
+    "pickupLocation": {
+      "latitude": 40.7128,
+      "longitude": -74.0060,
+      "address": "123 Main St"
+    },
+    "dropoffLocation": {
+      "latitude": 40.7589,
+      "longitude": -73.9851,
+      "address": "456 Park Ave"
+    }
+  }
+
+  ```
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "rideId": "ride_abc123",
+      "driverId": "driver_xyz789",
+      "status": "matched",
+      "estimatedFare": 15.50,
+      "eta": 5
+    }
+  }
+
+  ```
+- **Status Codes:** 201 (Created), 404 (No Driver Available), 400 (Validation Error)
+
+### GET /api/v1/rides/:rideId
+
+- **URL:** `/api/v1/rides/:rideId`
+- **Method:** GET
+- **Description:** Get ride details
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "rideId": "ride_abc123",
+      "status": "in_progress",
+      "driver": {...},
+      "currentLocation": {...},
+      "eta": 3
+    }
+  }
+
+  ```
+- **Status Codes:** 200 (Success), 404 (Ride Not Found)
+
+---
+
+# 9) Caching Strategy
+
+### Redis Cache
+
+**Cache Strategy:**
+- **Key Format:** `driver:location:{driverId}`, `ride:{rideId}`, `drivers:available`
+- **Value:** Serialized JSON (driver location, ride data, available drivers set)
+- **TTL:** 
+  - Driver locations: 60 seconds (frequently updated)
+  - Ride data: 300 seconds (5 minutes)
+  - Available drivers: 30 seconds (frequently updated)
+- **Eviction Policy:** TTL-based eviction
+
+**Cache Patterns:**
+- **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
+- **Write-Through Pattern:** Update cache when driver location changes
+- **Cache Invalidation:** Invalidate ride cache on status updates
+
+---
+
+# 10) Error Handling
+
+### Error Scenarios and Responses
+
+**Edge Cases Handling:**
+- **No Driver Available:** Return 404 Not Found with "No drivers available" message
+- **Invalid Location:** Return 400 Bad Request with validation errors
+- **Payment Failure:** Return 402 Payment Required with payment error details
+- **Ride Not Found:** Return 404 Not Found
+- **Driver Cancellation:** Return 409 Conflict, attempt to match with another driver
+
+**Error Response Format:**
+
+```json
+{
+  "error": {
+    "code": "NO_DRIVER_AVAILABLE",
+    "message": "No drivers available",
+    "details": "No drivers available in your area. Please try again in a few minutes.",
+    "retryAfter": 60
+  }
+}
+
+```
+
+---
+
+# 11) Deployment and DevOps
+
+### Scalability
+
+**API Layer:**
+- Deploy API layer across multiple instances behind load balancer
+- Use auto-scaling based on CPU/memory metrics
+- Stateless design allows horizontal scaling
+
+**WebSocket Scaling:**
+- **Socket.io Redis Adapter:** Enable horizontal scaling of WebSocket connections
+- **Sticky Sessions:** Required for Socket.io (use session affinity in load balancer)
+- **Connection Management:** Monitor and manage WebSocket connections
+
+**Database Scaling:**
+- **Read Replicas:** Deploy read replicas for ride queries
+- **Sharding:** Shard rides by region or userId for write scaling
+- **Connection Pooling:** Use connection pooling to manage database connections
+
+**Caching:**
+- Distributed Redis cluster for high availability
+- Cache driver locations and ride data
+- Reduces database load significantly
+
+### Availability
+
+**Replication:**
+- Database replication ensures data availability
+- Multi-region replication for disaster recovery
+
+**Failover:**
+- Automated failover mechanisms for API and data store layers
+- Health checks and monitoring for proactive failover
+- Circuit breaker pattern to prevent cascading failures
+
+**Geo-Distributed Deployment:**
+- Deploy service across multiple geographical regions
+- Reduces latency for users worldwide
+- Improves availability by eliminating single point of failure
+
+### Frontend Deployment
+
+**Build Process:**
+- **Production Build:** Optimized bundle with code splitting
+- **CDN Deployment:** Deploy static assets to CDN for fast global delivery
+- **Environment Variables:** `.env.production` for production config
+
+**Deployment Platforms:**
+- **Vercel / Netlify** - Automatic deployments from Git
+- **AWS S3 + CloudFront** - Static site hosting with CDN
+
+### Backend Deployment
+
+**Server Setup:**
+- **PM2:** Process manager with clustering for Node.js apps
+- **Nginx:** Load balancer and reverse proxy with SSL termination
+- **Docker:** Containerized deployment for consistency
+- **Kubernetes:** Container orchestration for auto-scaling
+
+**CI/CD Pipeline:**
+- **Automated Testing:** Run tests before deployment
+- **Zero-Downtime:** Rolling deployment strategy
+- **Health Checks:** Verify ride endpoints are healthy
+- **Blue-Green Deployment:** Maintain two identical production environments
+
+### Database Deployment
+
+**MongoDB Setup:**
+- **MongoDB Atlas** - Managed MongoDB service with automatic backups
+- **Backup Strategy:** Daily automated backups with point-in-time recovery
+- **Indexing:** Proper indexes on rideId, riderId, driverId, status, geospatial index on location
+- **Replication:** Replica sets for high availability
+
+**Redis Setup:**
+- **Redis Cloud / AWS ElastiCache** - Managed Redis service
+- **Cluster Mode:** Redis cluster for high availability and performance
+- **Persistence:** RDB snapshots and AOF for data durability
+
+---
+
+# 12) Security Considerations
+
+### Rate Limiting
+
+- Implement rate limiting at API layer to prevent abuse
+- Limit number of ride requests per user per hour
+- Use Redis for distributed rate limiting across multiple servers
+
+### Input Validation
+
+- Validate all API inputs (locations, ride data)
+- Sanitize user input to prevent injection attacks
+- Validate location coordinates (latitude/longitude ranges)
+
+### HTTPS/TLS
+
+- All communication between clients and API encrypted using HTTPS
+- Prevents eavesdropping and man-in-the-middle attacks
+- SSL/TLS certificates for secure connections
+
+### Location Privacy
+
+- **Location Encryption:** Encrypt location data in transit and at rest
+- **Privacy Controls:** Allow users to control location sharing
+- **Data Retention:** Implement location data retention policies
+
+### Authentication and Authorization
+
+- **JWT Tokens:** Use JWT for stateless authentication
+- **Token Expiration:** Set appropriate token expiration times
+- **Role-Based Access Control:** Implement RBAC for rider vs driver access
+- **Ride Ownership:** Verify user owns ride before allowing access
+
+### Payment Security
+
+- **PCI-DSS Compliance:** Use payment gateway SDKs that handle PCI-DSS compliance
+- **Tokenization:** Never store full payment card details, use tokens
+- **Idempotency:** Use idempotency keys to prevent duplicate charges
+
+### Monitoring and Alerts
+
+- Set up monitoring for unusual activity patterns
+- Trigger alerts for potential security issues
+- Track metrics: ride request rates, matching success rates, payment success rates
+- Log all operations for security auditing
+
+---
+
 # 3) Interview Answers
 
 ---
 
-## Q1. Designing a ride-sharing system
+## Q1. 💡 Designing a ride-sharing system
 
 **Situation:** Need to design a ride matching system for 100M+ users that matches riders with nearest available drivers in < 5 seconds, handling 10M+ rides per day.
 
@@ -1366,7 +1850,7 @@ try {
 
 ---
 
-## Q2. Finding the nearest available driver
+## Q2. 🔀 Finding the nearest available driver
 
 **Situation:** Need to find nearest available driver to user's location efficiently.
 
@@ -1378,7 +1862,7 @@ try {
 
 ---
 
-## Q3. Implementing real-time location tracking
+## Q3. ⏰ ⏰ ⏰ Implementing real-time location tracking
 
 **Situation:** Drivers and riders need to see each other's locations in real-time during a ride for navigation and safety.
 
@@ -1390,7 +1874,7 @@ try {
 
 ---
 
-## Q4. Handling ride matching during peak hours
+## Q4. 💡 Handling ride matching during peak hours
 
 **Situation:** During peak hours, there are more ride requests than available drivers, requiring efficient queuing and matching.
 
@@ -1402,7 +1886,7 @@ try {
 
 ---
 
-## Q5. Implementing payment processing and ride completion
+## Q5. 💡 Implementing payment processing and ride completion
 
 **Situation:** Rides need to be completed, fares calculated, and payments processed securely after ride completion.
 

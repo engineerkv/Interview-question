@@ -6,15 +6,15 @@
 
 <div align="center">
 
-[Dynamic Programming](9%20Dynamic%20Programming.md) • [Home: README](README.md) • [Matrix →](12%20Matrix.md)
+[← Previous: Dynamic Programming](09%29%20Dynamic%20Programming.md) • [Home: README](README.md) • [Next: Matrix →](12%29%20Matrix.md)
 
-[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md)
 
 </div>
 
 ---
 
-## Q193. N-Queens
+## Q193. 💡 N-Queens
 
 **Problem:** The n-queens puzzle is the problem of placing `n` queens on an `n x n` chessboard such that no two queens attack each other. Given an integer `n`, return all distinct solutions to the n-queens puzzle. You may return the answer in any order. Each solution contains a distinct board configuration of the n-queens' placement, where `'Q'` and `'.'` both indicate a queen and an empty space, respectively.
 
@@ -88,7 +88,7 @@ function solveNQueens(n) {
 **Time Complexity:** O(n!) - Backtracking generates all valid queen placements
 **Space Complexity:** O(n²) - Board storage plus O(n) recursion stack
 
-## Q194. Sudoku Solver
+## Q194. 💡 Sudoku Solver
 
 **Problem:** Write a program to solve a Sudoku puzzle by filling the empty cells. A sudoku solution must satisfy all of the following rules:
 
@@ -178,7 +178,7 @@ function solveSudoku(board) {
 **Time Complexity:** O(9^m) - Backtracking where m is number of empty cells
 **Space Complexity:** O(1) - Reusing input board, O(81) sets for constraints
 
-## Q195. Permutations / Combinations
+## Q195. 💡 Permutations / Combinations
 
 **Problem:**
 
@@ -275,7 +275,7 @@ function combine(n, k) {
 **Time Complexity:** O(n!) for permutations, O(C(n,k)) for combinations
 **Space Complexity:** O(n) - Recursion stack plus result storage
 
-## Q196. Subsets / Power Set
+## Q196. 💡 Subsets / Power Set
 
 **Problem:** Given an integer array `nums` of unique elements, return all possible subsets (the power set). The solution set must not contain duplicate subsets. Return the solution in any order.
 
@@ -341,7 +341,7 @@ function subsets(nums) {
 **Time Complexity:** O(2^n) - Generating all 2^n subsets
 **Space Complexity:** O(2^n) - Storage for all subsets
 
-## Q197. Generate Parentheses
+## Q197. 💡 Generate Parentheses
 
 **Problem:** Given `n` pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 
@@ -395,7 +395,7 @@ function generateParenthesis(n) {
 **Time Complexity:** O(4^n / √n) - Catalan number C(n) ≈ 4^n / (n√(πn))
 **Space Complexity:** O(n) - Recursion stack depth
 
-## Q198. Word Search
+## Q198. 🔎 Word Search
 
 **Problem:** Given an `m x n` grid of characters `board` and a string `word`, return `true` if `word` exists in the grid. The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.
 
@@ -465,7 +465,7 @@ function exist(board, word) {
 **Time Complexity:** O(mn × 4^L) - DFS from each cell, 4 directions, L is word length
 **Space Complexity:** O(L) - Recursion stack depth
 
-## Q199. Rat in a Maze
+## Q199. 💡 Rat in a Maze
 
 **Problem:** Consider a rat placed at `(0, 0)` in a square maze of order `N * N`. The maze is represented as a 2D array where `1` represents a valid path and `0` represents a wall. The rat needs to reach the destination at `(N-1, N-1)`. Find all paths that the rat can take to reach the destination. The directions allowed are Up (U), Down (D), Left (L), Right (R).
 
@@ -538,7 +538,7 @@ function ratMaze(maze) {
 **Time Complexity:** O(4^(mn)) - Backtracking with 4 directions from each cell
 **Space Complexity:** O(mn) - Visited array plus recursion stack
 
-## Q200. Combination Sum
+## Q200. ➕ Combination Sum
 
 **Problem:** Given an array of distinct integers `candidates` and a target integer `target`, return a list of all unique combinations of `candidates` where the chosen numbers sum to `target`. You may return the combinations in any order. The same number may be chosen from `candidates` an unlimited number of times.
 
@@ -602,7 +602,7 @@ function combinationSum(candidates, target) {
 **Time Complexity:** O(2^target) - Exponential backtracking
 **Space Complexity:** O(target) - Recursion stack depth
 
-## Q201. Letter Combinations of a Phone Number
+## Q201. 💡 Letter Combinations of a Phone Number
 
 **Problem:** Given a string containing digits from `2-9` inclusive, return all possible letter combinations that the number could represent. Return the answer in any order. A mapping of digits to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
 
@@ -668,7 +668,7 @@ function letterCombinations(digits) {
 **Time Complexity:** O(4^n) - Each digit maps to 3-4 letters
 **Space Complexity:** O(n) - Recursion stack depth
 
-## Q202. Palindrome Partitioning
+## Q202. 🔄 Palindrome Partitioning
 
 **Problem:** Given a string `s`, partition `s` such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of `s`.
 
@@ -741,8 +741,8 @@ function partition(s) {
 
 <div align="center">
 
-[Dynamic Programming](9%20Dynamic%20Programming.md) • [Home: README](README.md) • [Matrix →](12%20Matrix.md)
+[← Previous: Dynamic Programming](09%29%20Dynamic%20Programming.md) • [Home: README](README.md) • [Next: Matrix →](12%29%20Matrix.md)
 
-[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md)
 
 </div>

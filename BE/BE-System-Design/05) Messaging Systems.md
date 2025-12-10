@@ -22,7 +22,7 @@ Message queues and event streams are two different messaging patterns with diffe
 
 ---
 
-## 1. What are Message Queues
+## 1. 💡 What are Message Queues
 
 Message queues are point-to-point systems where messages are consumed by one consumer.
 
@@ -38,7 +38,7 @@ Message queues are point-to-point systems where messages are consumed by one con
 
 ---
 
-## 2. What are Event Streams
+## 2. 🎯 What are Event Streams
 
 Event streams are publish-subscribe systems where events are broadcast to multiple consumers.
 
@@ -54,7 +54,7 @@ Event streams are publish-subscribe systems where events are broadcast to multip
 
 ---
 
-## 3. When to Use Message Queues
+## 3. 💡 When to Use Message Queues
 
 Use queues for task distribution.
 
@@ -68,7 +68,7 @@ Use queues for task distribution.
 
 ---
 
-## 4. When to Use Event Streams
+## 4. 🎯 When to Use Event Streams
 
 Use streams for event broadcasting and event sourcing.
 
@@ -82,7 +82,7 @@ Use streams for event broadcasting and event sourcing.
 
 ---
 
-## 5. Key Differences
+## 5. ➖ Key Differences
 
 Queues and streams differ in several important ways.
 
@@ -96,7 +96,7 @@ Queues and streams differ in several important ways.
 
 ---
 
-## 6. Queue Characteristics
+## 6. 💡 Queue Characteristics
 
 Message queues provide simple, one-time consumption.
 
@@ -110,7 +110,7 @@ Message queues provide simple, one-time consumption.
 
 ---
 
-## 7. Stream Characteristics
+## 7. 🌊 Stream Characteristics
 
 Event streams provide flexible, multi-consumer processing.
 
@@ -124,7 +124,7 @@ Event streams provide flexible, multi-consumer processing.
 
 ---
 
-## 8. Trade-offs
+## 8. 💡 Trade-offs
 
 Queues are simple and ensure each message is processed once.
 
@@ -166,7 +166,7 @@ Kafka, RabbitMQ, SQS, and Redis Streams are different messaging systems with dif
 
 ---
 
-## 1. What is Kafka
+## 1. 💡 What is Kafka
 
 Kafka is a distributed event streaming platform for high-throughput, durable event logs.
 
@@ -182,7 +182,7 @@ Kafka is a distributed event streaming platform for high-throughput, durable eve
 
 ---
 
-## 2. What is RabbitMQ
+## 2. 🔢 What is RabbitMQ
 
 RabbitMQ is a message broker with flexible routing and multiple exchange types.
 
@@ -198,7 +198,7 @@ RabbitMQ is a message broker with flexible routing and multiple exchange types.
 
 ---
 
-## 3. What is SQS
+## 3. 💡 What is SQS
 
 SQS is AWS's managed message queue.
 
@@ -214,7 +214,7 @@ SQS is AWS's managed message queue.
 
 ---
 
-## 4. What is Redis Streams
+## 4. 🌊 What is Redis Streams
 
 Redis Streams is a lightweight stream processing system.
 
@@ -230,7 +230,7 @@ Redis Streams is a lightweight stream processing system.
 
 ---
 
-## 5. When to Use Each
+## 5. 💡 When to Use Each
 
 Choose based on your requirements.
 
@@ -244,7 +244,7 @@ Choose based on your requirements.
 
 ---
 
-## 6. Comparison
+## 6. 💡 Comparison
 
 Each system has different characteristics.
 
@@ -258,7 +258,7 @@ Each system has different characteristics.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Kafka scales to millions of messages per second and provides durability.
 
@@ -308,7 +308,7 @@ Kafka partitions are the fundamental unit of parallelism and scaling in Kafka. W
 
 ---
 
-## 1. What are Kafka Partitions
+## 1. 💡 What are Kafka Partitions
 
 Kafka topics are split into partitions, and each partition can be on a different broker.
 
@@ -324,7 +324,7 @@ Kafka topics are split into partitions, and each partition can be on a different
 
 ---
 
-## 2. How Partitions Work
+## 2. 💡 How Partitions Work
 
 When you write to a topic, Kafka distributes messages across partitions based on the partition key.
 
@@ -338,7 +338,7 @@ When you write to a topic, Kafka distributes messages across partitions based on
 
 ---
 
-## 3. Parallelism with Partitions
+## 3. 💡 Parallelism with Partitions
 
 More partitions mean more parallelism.
 
@@ -352,7 +352,7 @@ More partitions mean more parallelism.
 
 ---
 
-## 4. Horizontal Scaling
+## 4. 📊 Horizontal Scaling
 
 Partitions enable horizontal scaling by distributing data across brokers.
 
@@ -366,7 +366,7 @@ Partitions enable horizontal scaling by distributing data across brokers.
 
 ---
 
-## 5. Choosing Partition Count
+## 5. 💡 Choosing Partition Count
 
 Choose the right number of partitions based on your needs.
 
@@ -380,7 +380,7 @@ Choose the right number of partitions based on your needs.
 
 ---
 
-## 6. Partition Limitations
+## 6. 💡 Partition Limitations
 
 Partitions have limitations.
 
@@ -394,7 +394,7 @@ Partitions have limitations.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 More partitions increase throughput and parallelism.
 
@@ -436,7 +436,7 @@ Kafka consumer groups enable multiple consumers to work together to process mess
 
 ---
 
-## 1. What are Consumer Groups
+## 1. ➕ What are Consumer Groups
 
 Consumer groups allow multiple consumers to work together to process messages from a topic.
 
@@ -452,7 +452,7 @@ Consumer groups allow multiple consumers to work together to process messages fr
 
 ---
 
-## 2. How Consumer Groups Work
+## 2. ➕ How Consumer Groups Work
 
 Kafka assigns partitions to consumers in the group.
 
@@ -466,7 +466,7 @@ Kafka assigns partitions to consumers in the group.
 
 ---
 
-## 3. Rebalancing
+## 3. 💡 Rebalancing
 
 When a consumer joins or leaves, Kafka rebalances partitions among remaining consumers.
 
@@ -480,7 +480,7 @@ When a consumer joins or leaves, Kafka rebalances partitions among remaining con
 
 ---
 
-## 4. Benefits
+## 4. 💡 Benefits
 
 Consumer groups provide several benefits.
 
@@ -494,7 +494,7 @@ Consumer groups provide several benefits.
 
 ---
 
-## 5. Partition Assignment
+## 5. 💡 Partition Assignment
 
 Partition assignment is critical for consumer groups.
 
@@ -508,7 +508,7 @@ Partition assignment is critical for consumer groups.
 
 ---
 
-## 6. Rebalancing Challenges
+## 6. 💡 Rebalancing Challenges
 
 Rebalancing can cause challenges.
 
@@ -522,7 +522,7 @@ Rebalancing can cause challenges.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Consumer groups enable horizontal scaling of consumers, which is great for throughput.
 
@@ -564,7 +564,7 @@ Kafka offsets track the position of each consumer in a partition, enabling consu
 
 ---
 
-## 1. What are Kafka Offsets
+## 1. 💡 What are Kafka Offsets
 
 Kafka offsets track the position of each consumer in a partition.
 
@@ -580,7 +580,7 @@ Kafka offsets track the position of each consumer in a partition.
 
 ---
 
-## 2. How Offset Commits Work
+## 2. 💡 How Offset Commits Work
 
 When a consumer reads a message, it commits the offset to mark progress.
 
@@ -594,7 +594,7 @@ When a consumer reads a message, it commits the offset to mark progress.
 
 ---
 
-## 3. Automatic Offset Commits
+## 3. 💡 Automatic Offset Commits
 
 Offsets can be committed automatically after a time interval.
 
@@ -608,7 +608,7 @@ Offsets can be committed automatically after a time interval.
 
 ---
 
-## 4. Manual Offset Commits
+## 4. 💡 Manual Offset Commits
 
 Offsets can be committed manually after processing.
 
@@ -622,7 +622,7 @@ Offsets can be committed manually after processing.
 
 ---
 
-## 5. Consumer Restart Behavior
+## 5. 🔀 Consumer Restart Behavior
 
 If a consumer crashes and restarts, it resumes from the last committed offset.
 
@@ -636,7 +636,7 @@ If a consumer crashes and restarts, it resumes from the last committed offset.
 
 ---
 
-## 6. Offset Commit Strategies
+## 6. 💡 Offset Commit Strategies
 
 Choose between automatic and manual commits based on your needs.
 
@@ -650,7 +650,7 @@ Choose between automatic and manual commits based on your needs.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Automatic offset commits are convenient but risk losing messages.
 
@@ -688,13 +688,13 @@ In distributed consumers, each consumer instance manages its own offsets for its
 
 ---
 
-## Q71. ⏰ Kafka retention policy
+## Q71. 💡 ⏰ Kafka retention policy
 
 Kafka retention policy determines how long messages are kept in topics. When you configure Kafka topics, you set retention policies to balance storage costs with replay capability and disaster recovery needs.
 
 ---
 
-## 1. What is Retention Policy
+## 1. 💡 What is Retention Policy
 
 Kafka retention policy determines how long messages are kept.
 
@@ -710,7 +710,7 @@ Kafka retention policy determines how long messages are kept.
 
 ---
 
-## 2. Time-Based Retention
+## 2. ⏰ ⏰ Time-Based Retention
 
 You can set time-based retention (like 7 days).
 
@@ -724,7 +724,7 @@ You can set time-based retention (like 7 days).
 
 ---
 
-## 3. Size-Based Retention
+## 3. 💡 Size-Based Retention
 
 You can set size-based retention (like 1GB per partition).
 
@@ -738,7 +738,7 @@ You can set size-based retention (like 1GB per partition).
 
 ---
 
-## 4. Retention Enables Replay
+## 4. 💡 Retention Enables Replay
 
 Retention enables replay - consumers can read historical messages.
 
@@ -752,7 +752,7 @@ Retention enables replay - consumers can read historical messages.
 
 ---
 
-## 5. Benefits of Longer Retention
+## 5. 💡 Benefits of Longer Retention
 
 Longer retention provides several benefits.
 
@@ -766,7 +766,7 @@ Longer retention provides several benefits.
 
 ---
 
-## 6. Costs of Longer Retention
+## 6. 💡 Costs of Longer Retention
 
 Longer retention has costs.
 
@@ -780,7 +780,7 @@ Longer retention has costs.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Longer retention gives you more replay capability and better disaster recovery.
 
@@ -822,7 +822,7 @@ Kafka replication ensures fault tolerance by replicating each partition across m
 
 ---
 
-## 1. How Replication Works
+## 1. 🔄 How Replication Works
 
 Kafka replicates each partition across multiple brokers for fault tolerance.
 
@@ -838,7 +838,7 @@ Kafka replicates each partition across multiple brokers for fault tolerance.
 
 ---
 
-## 2. Leader and Followers
+## 2. 💡 Leader and Followers
 
 One broker is the leader and handles reads and writes, and other brokers are followers.
 
@@ -852,7 +852,7 @@ One broker is the leader and handles reads and writes, and other brokers are fol
 
 ---
 
-## 3. Leader Election
+## 3. 💡 Leader Election
 
 If the leader fails, one of the followers becomes the new leader.
 
@@ -866,7 +866,7 @@ If the leader fails, one of the followers becomes the new leader.
 
 ---
 
-## 4. Replication Factor
+## 4. 🔄 Replication Factor
 
 You configure replication factor (like 3) to determine how many copies of each partition exist.
 
@@ -880,7 +880,7 @@ You configure replication factor (like 3) to determine how many copies of each p
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 Replication provides several benefits.
 
@@ -894,7 +894,7 @@ Replication provides several benefits.
 
 ---
 
-## 6. Costs
+## 6. 💡 Costs
 
 Replication has costs.
 
@@ -908,7 +908,7 @@ Replication has costs.
 
 ---
 
-## 7. Replication Lag
+## 7. 🔄 Replication Lag
 
 Replication lag is a critical consideration.
 
@@ -922,7 +922,7 @@ Replication lag is a critical consideration.
 
 ---
 
-## 8. Trade-offs
+## 8. 💡 Trade-offs
 
 Replication provides fault tolerance and high availability.
 
@@ -964,7 +964,7 @@ Exactly-once semantics ensures each message is processed exactly once, even if t
 
 ---
 
-## 1. What is Exactly-Once Semantics
+## 1. 💡 What is Exactly-Once Semantics
 
 Exactly-once semantics ensures each message is processed exactly once, even if there are failures.
 
@@ -980,7 +980,7 @@ Exactly-once semantics ensures each message is processed exactly once, even if t
 
 ---
 
-## 2. Transactional Producers
+## 2. 💳 Transactional Producers
 
 Kafka uses transactional producers to prevent duplicates.
 
@@ -994,7 +994,7 @@ Kafka uses transactional producers to prevent duplicates.
 
 ---
 
-## 3. Transactional Consumers
+## 3. 💳 Transactional Consumers
 
 Consumers use transactional reads to ensure atomic processing.
 
@@ -1008,7 +1008,7 @@ Consumers use transactional reads to ensure atomic processing.
 
 ---
 
-## 4. Coordination Requirements
+## 4. 💡 Coordination Requirements
 
 This requires careful coordination between producers, brokers, and consumers.
 
@@ -1022,7 +1022,7 @@ This requires careful coordination between producers, brokers, and consumers.
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 Exactly-once semantics prevent duplicate processing.
 
@@ -1036,7 +1036,7 @@ Exactly-once semantics prevent duplicate processing.
 
 ---
 
-## 6. Limitations
+## 6. 💡 Limitations
 
 Exactly-once semantics have limitations.
 
@@ -1050,7 +1050,7 @@ Exactly-once semantics have limitations.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Exactly-once semantics prevent duplicate processing, which is critical for financial transactions.
 
@@ -1086,13 +1086,13 @@ You use exactly-once semantics when duplicate processing would cause problems - 
 
 ---
 
-## Q74. ⏱️ Kafka consumer lag handling
+## Q74. ➕ ⏱️ Kafka consumer lag handling
 
 Consumer lag indicates how far behind consumers are from producers. When you monitor and manage Kafka consumers, you track lag to identify performance issues and ensure consumers can keep up with producers.
 
 ---
 
-## 1. What is Consumer Lag
+## 1. ➕ What is Consumer Lag
 
 Consumer lag is the difference between the latest message in a partition and the last message a consumer has processed.
 
@@ -1108,7 +1108,7 @@ Consumer lag is the difference between the latest message in a partition and the
 
 ---
 
-## 2. Monitoring Lag
+## 2. 👁️ Monitoring Lag
 
 Monitor lag using Kafka's built-in metrics.
 
@@ -1122,7 +1122,7 @@ Monitor lag using Kafka's built-in metrics.
 
 ---
 
-## 3. Handling High Lag
+## 3. 💡 Handling High Lag
 
 Scale consumers or optimize processing to reduce lag.
 
@@ -1136,7 +1136,7 @@ Scale consumers or optimize processing to reduce lag.
 
 ---
 
-## 4. Causes of High Lag
+## 4. 💡 Causes of High Lag
 
 High lag can indicate performance issues or insufficient consumer capacity.
 
@@ -1150,7 +1150,7 @@ High lag can indicate performance issues or insufficient consumer capacity.
 
 ---
 
-## 5. Temporary vs Persistent Lag
+## 5. 💡 Temporary vs Persistent Lag
 
 Distinguish between temporary lag spikes and persistent lag.
 
@@ -1164,7 +1164,7 @@ Distinguish between temporary lag spikes and persistent lag.
 
 ---
 
-## 6. Benefits of Monitoring
+## 6. 👁️ Benefits of Monitoring
 
 Monitoring lag helps you catch performance issues early.
 
@@ -1178,7 +1178,7 @@ Monitoring lag helps you catch performance issues early.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Monitoring lag helps you catch performance issues early.
 
@@ -1220,7 +1220,7 @@ RabbitMQ has four exchange types that route messages differently. When you desig
 
 ---
 
-## 1. Direct Exchange
+## 1. 💡 Direct Exchange
 
 Direct routes messages to queues based on exact routing key match.
 
@@ -1236,7 +1236,7 @@ Direct routes messages to queues based on exact routing key match.
 
 ---
 
-## 2. Topic Exchange
+## 2. 💡 Topic Exchange
 
 Topic routes based on pattern matching.
 
@@ -1252,7 +1252,7 @@ Topic routes based on pattern matching.
 
 ---
 
-## 3. Fanout Exchange
+## 3. 💡 Fanout Exchange
 
 Fanout broadcasts to all bound queues.
 
@@ -1268,7 +1268,7 @@ Fanout broadcasts to all bound queues.
 
 ---
 
-## 4. Headers Exchange
+## 4. 💡 Headers Exchange
 
 Headers routes based on message headers.
 
@@ -1284,7 +1284,7 @@ Headers routes based on message headers.
 
 ---
 
-## 5. When to Use Each
+## 5. 💡 When to Use Each
 
 Choose exchange types based on your routing needs.
 
@@ -1298,7 +1298,7 @@ Choose exchange types based on your routing needs.
 
 ---
 
-## 6. Exchange Type Comparison
+## 6. 🏷️ Exchange Type Comparison
 
 Each exchange type has different characteristics.
 
@@ -1312,7 +1312,7 @@ Each exchange type has different characteristics.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Different exchange types solve different routing problems.
 
@@ -1344,7 +1344,7 @@ Direct, topic, and fanout exchanges are generally fast, while headers exchanges 
 
 ### How do topic exchange patterns work?
 
-Topic exchanges use patterns with wildcards - * matches one word, # matches zero or more words. For example, "order.*" matches "order.created" and "order.cancelled", but not "order.item.created". The catch is patterns can overlap, causing messages to go to multiple queues. The tricky part is designing patterns that don't overlap unintentionally.
+Topic exchanges use patterns with wildcards - *matches one word, # matches zero or more words. For example, "order.*" matches "order.created" and "order.cancelled", but not "order.item.created". The catch is patterns can overlap, causing messages to go to multiple queues. The tricky part is designing patterns that don't overlap unintentionally.
 
 ---
 
@@ -1354,7 +1354,7 @@ RabbitMQ uses acknowledgments to confirm message processing and handle failures.
 
 ---
 
-## 1. How Acknowledgments Work
+## 1. 💡 How Acknowledgments Work
 
 RabbitMQ uses acknowledgments to confirm message processing.
 
@@ -1370,7 +1370,7 @@ RabbitMQ uses acknowledgments to confirm message processing.
 
 ---
 
-## 2. Redelivery on Failure
+## 2. 💡 Redelivery on Failure
 
 If a consumer crashes without acking, RabbitMQ redelivers the message to another consumer.
 
@@ -1384,7 +1384,7 @@ If a consumer crashes without acking, RabbitMQ redelivers the message to another
 
 ---
 
-## 3. Automatic Acks
+## 3. 💡 Automatic Acks
 
 You can configure automatic acks (sent immediately).
 
@@ -1398,7 +1398,7 @@ You can configure automatic acks (sent immediately).
 
 ---
 
-## 4. Manual Acks
+## 4. 💡 Manual Acks
 
 You can configure manual acks (sent after processing).
 
@@ -1412,7 +1412,7 @@ You can configure manual acks (sent after processing).
 
 ---
 
-## 5. Handling Failures
+## 5. 💡 Handling Failures
 
 Handling failures requires careful decision-making.
 
@@ -1426,7 +1426,7 @@ Handling failures requires careful decision-making.
 
 ---
 
-## 6. Benefits of Manual Acks
+## 6. 💡 Benefits of Manual Acks
 
 Manual acks ensure messages aren't lost.
 
@@ -1440,7 +1440,7 @@ Manual acks ensure messages aren't lost.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Automatic acks are convenient but risk losing messages.
 
@@ -1484,7 +1484,7 @@ Durable queues ensure messages survive broker restarts by persisting them to dis
 
 ---
 
-## 1. What are Durable Queues
+## 1. 💡 What are Durable Queues
 
 Durable queues survive broker restarts.
 
@@ -1500,7 +1500,7 @@ Durable queues survive broker restarts.
 
 ---
 
-## 2. How Durability Works
+## 2. 💡 How Durability Works
 
 You mark queues as durable when creating them, and messages must also be marked as persistent.
 
@@ -1514,7 +1514,7 @@ You mark queues as durable when creating them, and messages must also be marked 
 
 ---
 
-## 3. When to Use Durable Queues
+## 3. 💡 When to Use Durable Queues
 
 Use durable queues for important messages that can't be lost.
 
@@ -1528,7 +1528,7 @@ Use durable queues for important messages that can't be lost.
 
 ---
 
-## 4. Benefits
+## 4. 💡 Benefits
 
 Durable queues provide message persistence, which is essential for reliability.
 
@@ -1542,7 +1542,7 @@ Durable queues provide message persistence, which is essential for reliability.
 
 ---
 
-## 5. Performance Impact
+## 5. ⚡ Performance Impact
 
 Writing to disk is slower than memory, so durable queues have lower throughput.
 
@@ -1556,7 +1556,7 @@ Writing to disk is slower than memory, so durable queues have lower throughput.
 
 ---
 
-## 6. Configuration Requirements
+## 6. 💡 Configuration Requirements
 
 You need both durable queues and persistent messages.
 
@@ -1570,7 +1570,7 @@ You need both durable queues and persistent messages.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Durable queues provide message persistence, which is essential for reliability.
 
@@ -1612,7 +1612,7 @@ SQS Standard and FIFO queues provide different guarantees for message delivery a
 
 ---
 
-## 1. SQS Standard Queues
+## 1. 💡 SQS Standard Queues
 
 SQS Standard queues provide best-effort ordering and at-least-once delivery.
 
@@ -1628,7 +1628,7 @@ SQS Standard queues provide best-effort ordering and at-least-once delivery.
 
 ---
 
-## 2. SQS FIFO Queues
+## 2. 💡 SQS FIFO Queues
 
 FIFO queues guarantee exactly-once processing and strict ordering.
 
@@ -1644,7 +1644,7 @@ FIFO queues guarantee exactly-once processing and strict ordering.
 
 ---
 
-## 3. When to Use Standard Queues
+## 3. 💡 When to Use Standard Queues
 
 Use Standard queues when you need high throughput and can handle duplicates.
 
@@ -1658,7 +1658,7 @@ Use Standard queues when you need high throughput and can handle duplicates.
 
 ---
 
-## 4. When to Use FIFO Queues
+## 4. 💡 When to Use FIFO Queues
 
 Use FIFO queues when you need ordering and exactly-once delivery.
 
@@ -1672,7 +1672,7 @@ Use FIFO queues when you need ordering and exactly-once delivery.
 
 ---
 
-## 5. Standard Queue Characteristics
+## 5. 💡 Standard Queue Characteristics
 
 Standard queues are faster and have unlimited throughput.
 
@@ -1686,7 +1686,7 @@ Standard queues are faster and have unlimited throughput.
 
 ---
 
-## 6. FIFO Queue Characteristics
+## 6. 💡 FIFO Queue Characteristics
 
 FIFO queues guarantee ordering and exactly-once delivery.
 
@@ -1700,7 +1700,7 @@ FIFO queues guarantee ordering and exactly-once delivery.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Standard queues are faster and have unlimited throughput.
 
@@ -1738,13 +1738,13 @@ You handle duplicates by implementing idempotent processing, using idempotency k
 
 ---
 
-## Q79. ⏱️ SQS Visibility Timeout full flow
+## Q79. ⏰ ⏰ ⏰ ⏱️ SQS Visibility Timeout full flow
 
 SQS visibility timeout controls how long a message is hidden from other consumers after being received. When you configure SQS consumers, you set visibility timeout to balance processing time with retry behavior.
 
 ---
 
-## 1. What is Visibility Timeout
+## 1. ⏰ ⏰ What is Visibility Timeout
 
 Visibility timeout is how long a message is hidden from other consumers after being received.
 
@@ -1760,7 +1760,7 @@ Visibility timeout is how long a message is hidden from other consumers after be
 
 ---
 
-## 2. How Visibility Timeout Works
+## 2. ⏰ ⏰ How Visibility Timeout Works
 
 When a consumer receives a message, it becomes invisible for the visibility timeout period.
 
@@ -1774,7 +1774,7 @@ When a consumer receives a message, it becomes invisible for the visibility time
 
 ---
 
-## 3. Successful Processing
+## 3. 💡 Successful Processing
 
 If the consumer processes and deletes the message within the timeout, it's removed.
 
@@ -1788,7 +1788,7 @@ If the consumer processes and deletes the message within the timeout, it's remov
 
 ---
 
-## 4. Timeout Expiration
+## 4. ⏰ ⏰ Timeout Expiration
 
 If the timeout expires, the message becomes visible again and can be redelivered.
 
@@ -1802,7 +1802,7 @@ If the timeout expires, the message becomes visible again and can be redelivered
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 Visibility timeout prevents multiple consumers from processing the same message.
 
@@ -1816,7 +1816,7 @@ Visibility timeout prevents multiple consumers from processing the same message.
 
 ---
 
-## 6. Configuration Challenges
+## 6. 💡 Configuration Challenges
 
 You need to set visibility timeout correctly.
 
@@ -1830,7 +1830,7 @@ You need to set visibility timeout correctly.
 
 ---
 
-## 7. Handling Long-Running Tasks
+## 7. 💡 Handling Long-Running Tasks
 
 Handling long-running tasks requires special consideration.
 
@@ -1844,7 +1844,7 @@ Handling long-running tasks requires special consideration.
 
 ---
 
-## 8. Trade-offs
+## 8. 💡 Trade-offs
 
 Visibility timeout prevents multiple consumers from processing the same message.
 
@@ -1886,7 +1886,7 @@ Dead Letter Queue (DLQ) is a separate queue for messages that can't be processed
 
 ---
 
-## 1. What is a Dead Letter Queue
+## 1. 💡 What is a Dead Letter Queue
 
 Dead Letter Queue (DLQ) is a separate queue for messages that can't be processed after multiple attempts.
 
@@ -1902,7 +1902,7 @@ Dead Letter Queue (DLQ) is a separate queue for messages that can't be processed
 
 ---
 
-## 2. How DLQ Works
+## 2. 💡 How DLQ Works
 
 When a message fails processing after the max receive count, SQS moves it to the DLQ.
 
@@ -1916,7 +1916,7 @@ When a message fails processing after the max receive count, SQS moves it to the
 
 ---
 
-## 3. Benefits
+## 3. 💡 Benefits
 
 DLQ prevents poison messages from blocking processing.
 
@@ -1930,7 +1930,7 @@ DLQ prevents poison messages from blocking processing.
 
 ---
 
-## 4. Configuration
+## 4. 💡 Configuration
 
 Configure DLQ on your main queue and set max receive count.
 
@@ -1944,7 +1944,7 @@ Configure DLQ on your main queue and set max receive count.
 
 ---
 
-## 5. Monitoring and Processing
+## 5. 👁️ Monitoring and Processing
 
 You need to monitor and process DLQ messages.
 
@@ -1958,7 +1958,7 @@ You need to monitor and process DLQ messages.
 
 ---
 
-## 6. Handling DLQ Messages
+## 6. 💡 Handling DLQ Messages
 
 Decide what to do with DLQ messages.
 
@@ -1972,7 +1972,7 @@ Decide what to do with DLQ messages.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 DLQ prevents poison messages from blocking processing, which is essential for reliability.
 
@@ -2008,130 +2008,121 @@ Messages end up in DLQ due to processing failures, malformed data, bugs in consu
 
 ---
 
-## Q67. 📡 Long polling vs short polling
-
-Short polling returns immediately, even if no messages are available - it checks for messages and returns empty if none found, which can waste API calls. Long polling waits up to 20 seconds for messages to arrive before returning - if messages arrive during the wait, it returns them immediately, reducing empty responses and API calls.
-
-- **Trade-offs**: Long polling reduces API calls and costs, and provides faster message delivery since it waits for messages, but the catch is it ties up connections longer. Short polling is simpler but wastes API calls and has higher latency. The tricky part is choosing the right timeout - too short and you don't get the benefits, too long and you tie up resources.
-
----
-
-## Q68. 🔑 FIFO deduplication logic
+## Q81. 🔑 FIFO deduplication logic
 
 FIFO queues use message deduplication IDs to prevent duplicates - if you send a message with the same deduplication ID within the 5-minute deduplication interval, SQS treats it as a duplicate and ignores it. You can provide a deduplication ID explicitly, or SQS can generate one from the message content. This ensures exactly-once processing within the deduplication window.
 
-- **Trade-offs**: Deduplication prevents duplicate processing, which is great for idempotency, but the catch is the 5-minute window means duplicates outside that window aren't caught. The tricky part is generating good deduplication IDs - they need to be unique per logical message but consistent for retries of the same message.
+* **Trade-offs**: Deduplication prevents duplicate processing, which is great for idempotency, but the catch is the 5-minute window means duplicates outside that window aren't caught. The tricky part is generating good deduplication IDs - they need to be unique per logical message but consistent for retries of the same message.
 
 ---
 
-## Q69. 📈 Scaling SQS consumers
+## Q82. 📈 Scaling SQS consumers
 
 Scale SQS consumers horizontally by running multiple consumer instances - each instance polls the queue independently and processes messages in parallel. Use Auto Scaling to add or remove consumers based on queue depth or processing time. Since SQS is a pull model, consumers can scale independently without coordination, and you can scale to hundreds of consumers if needed.
 
-- **Trade-offs**: Horizontal scaling allows you to handle more messages, but the catch is you need to ensure your processing is stateless and idempotent since multiple consumers might process messages concurrently. The tricky part is coordinating scaling - you want enough consumers to keep up with the queue, but not so many that you waste resources or overwhelm downstream systems.
+* **Trade-offs**: Horizontal scaling allows you to handle more messages, but the catch is you need to ensure your processing is stateless and idempotent since multiple consumers might process messages concurrently. The tricky part is coordinating scaling - you want enough consumers to keep up with the queue, but not so many that you waste resources or overwhelm downstream systems.
 
 ---
 
-## Q70. 🌊 Redis Streams internals
+## Q83. 🌊 Redis Streams internals
 
 Redis Streams stores messages as an append-only log with unique IDs - each message has a timestamp and sequence number, and consumers read messages by ID or by time range. Consumer groups track which messages each consumer has processed, similar to Kafka. Streams support blocking reads, range queries, and automatic message acknowledgment.
 
-- **Trade-offs**: Redis Streams is fast and simple, making it great for real-time event processing, but the catch is it's less durable than Kafka - data is in memory and can be lost if Redis crashes. The tricky part is managing stream size - streams grow indefinitely, so you need to use MAXLEN to limit size or XTRIM to remove old messages.
+* **Trade-offs**: Redis Streams is fast and simple, making it great for real-time event processing, but the catch is it's less durable than Kafka - data is in memory and can be lost if Redis crashes. The tricky part is managing stream size - streams grow indefinitely, so you need to use MAXLEN to limit size or XTRIM to remove old messages.
 
 ---
 
-## Q71. 📢 SNS + SQS fan-out pattern
+## Q84. 📢 SNS + SQS fan-out pattern
 
 SNS + SQS fan-out pattern uses SNS to publish messages to multiple SQS queues - when you publish to an SNS topic, it delivers the message to all subscribed SQS queues. This enables one-to-many messaging where multiple services can process the same event independently. Each service has its own queue, so these can process at their own pace.
 
-- **Trade-offs**: Fan-out pattern decouples publishers from consumers and enables multiple services to process events, which is great for event-driven architectures, but the catch is you need to manage multiple queues and ensure all services can handle the message format. The tricky part is message filtering - SNS can filter messages, but you need to configure filters correctly or services get messages these can't process.
+* **Trade-offs**: Fan-out pattern decouples publishers from consumers and enables multiple services to process events, which is great for event-driven architectures, but the catch is you need to manage multiple queues and ensure all services can handle the message format. The tricky part is message filtering - SNS can filter messages, but you need to configure filters correctly or services get messages these can't process.
 
 ---
 
-## Q72. 🌊 Backpressure in Kafka consumers
+## Q85. 🌊 Backpressure in Kafka consumers
 
 Backpressure in Kafka occurs when consumers can't keep up with producers - messages accumulate in partitions, consumer lag increases, and eventually consumers might run out of memory. Handle backpressure by scaling consumers, optimizing processing, using async processing, or pausing consumption when downstream systems are slow. Monitor consumer lag to detect backpressure early.
 
-- **Trade-offs**: Handling backpressure prevents memory issues and system crashes, but the catch is you need to detect it early and have strategies to handle it - scaling consumers, optimizing code, or slowing down producers. The tricky part is distinguishing between temporary backpressure and persistent issues - temporary might be fine, but persistent backpressure needs addressing.
+* **Trade-offs**: Handling backpressure prevents memory issues and system crashes, but the catch is you need to detect it early and have strategies to handle it - scaling consumers, optimizing code, or slowing down producers. The tricky part is distinguishing between temporary backpressure and persistent issues - temporary might be fine, but persistent backpressure needs addressing.
 
 ---
 
-## Q73. 🌊 Backpressure in RabbitMQ consumers
+## Q86. 🌊 Backpressure in RabbitMQ consumers
 
 Backpressure in RabbitMQ occurs when consumers can't process messages fast enough - messages queue up, memory fills, and RabbitMQ might stop accepting new messages. Handle backpressure by scaling consumers, using prefetch limits to control how many unacked messages each consumer holds, or using priority queues to process important messages first. Monitor queue depth to detect backpressure.
 
-- **Trade-offs**: Prefetch limits prevent consumers from being overwhelmed, but the catch is low prefetch limits reduce throughput. The tricky part is tuning prefetch - too low and you waste network round trips, too high and consumers hold too many unacked messages, blocking other consumers.
+* **Trade-offs**: Prefetch limits prevent consumers from being overwhelmed, but the catch is low prefetch limits reduce throughput. The tricky part is tuning prefetch - too low and you waste network round trips, too high and consumers hold too many unacked messages, blocking other consumers.
 
 ---
 
-## Q74. ☠️ Poison message handling
+## Q87. ☠️ Poison message handling
 
 Poison messages are messages that cause consumers to crash or fail repeatedly - like malformed data, messages that trigger bugs, or messages for deleted resources. Handle poison messages by catching exceptions, logging them, and sending to a DLQ after max retries. Use idempotent processing to handle duplicates, validate messages before processing, and implement circuit breakers to stop processing if too many messages fail.
 
-- **Trade-offs**: DLQ prevents poison messages from blocking processing, which is essential, but the catch is you need to monitor and process DLQ messages. The tricky part is distinguishing between transient failures (retry) and permanent failures (DLQ) - you need good retry logic with exponential backoff.
+* **Trade-offs**: DLQ prevents poison messages from blocking processing, which is essential, but the catch is you need to monitor and process DLQ messages. The tricky part is distinguishing between transient failures (retry) and permanent failures (DLQ) - you need good retry logic with exponential backoff.
 
 ---
 
-## Q75. 📤 Outbox pattern
+## Q88. 📤 Outbox pattern
 
 Outbox pattern ensures reliable message publishing by storing messages in the same database transaction as business data - you write business data and the message to an outbox table in one transaction, then a separate process reads from the outbox and publishes to the message queue. This ensures messages are only published if the business transaction commits, preventing lost messages.
 
-- **Trade-offs**: Outbox pattern guarantees message publishing matches database transactions, which prevents lost messages, but the catch is it adds complexity - you need an outbox table and a process to publish messages. The tricky part is ensuring exactly-once publishing - you need to mark outbox records as published and handle failures during publishing.
+* **Trade-offs**: Outbox pattern guarantees message publishing matches database transactions, which prevents lost messages, but the catch is it adds complexity - you need an outbox table and a process to publish messages. The tricky part is ensuring exactly-once publishing - you need to mark outbox records as published and handle failures during publishing.
 
 ---
 
-## Q76. 📐 Schema evolution in event-driven systems
+## Q89. 📐 Schema evolution in event-driven systems
 
 Schema evolution allows event schemas to change over time while maintaining compatibility - use backward-compatible changes like adding optional fields, and avoid breaking changes like removing required fields. Use schema registries to manage schemas and validate compatibility, and design consumers to handle multiple schema versions gracefully.
 
-- **Trade-offs**: Schema evolution enables systems to evolve without breaking consumers, which is essential for microservices, but the catch is you need discipline - breaking changes require coordinated deployments. The tricky part is managing multiple schema versions - consumers need to handle old and new formats, which adds complexity.
+* **Trade-offs**: Schema evolution enables systems to evolve without breaking consumers, which is essential for microservices, but the catch is you need discipline - breaking changes require coordinated deployments. The tricky part is managing multiple schema versions - consumers need to handle old and new formats, which adds complexity.
 
 ---
 
-## Q77. 🔑 Idempotency in event consumers
+## Q90. 🔑 Idempotency in event consumers
 
 Idempotent consumers produce the same result regardless of how many times they process the same message - use idempotency keys to track processed messages, check if a message was already processed before handling it, and store processing results so retries return the same result. This is essential because message queues might deliver messages multiple times.
 
-- **Trade-offs**: Idempotency prevents duplicate processing, which is critical for operations like payments or inventory updates, but the catch is you need to store idempotency keys somewhere accessible to all consumer instances. The tricky part is key generation - keys need to be unique per logical operation but consistent for retries of the same message.
+* **Trade-offs**: Idempotency prevents duplicate processing, which is critical for operations like payments or inventory updates, but the catch is you need to store idempotency keys somewhere accessible to all consumer instances. The tricky part is key generation - keys need to be unique per logical operation but consistent for retries of the same message.
 
 ---
 
-## Q78. 🔗 Event chaining in microservices
+## Q91. 🔗 Event chaining in microservices
 
 Event chaining occurs when one service's event triggers another service, which triggers another, creating a chain of events - like order created triggers inventory update, which triggers shipping notification. Design chains carefully to avoid tight coupling, use event sourcing to track the full chain, and handle failures gracefully with compensating actions or sagas.
 
-- **Trade-offs**: Event chaining enables loose coupling and reactive systems, which is great for microservices, but the catch is chains can be hard to debug and failures can cascade. The tricky part is handling partial failures - if one link in the chain fails, you need to decide whether to roll back previous steps or continue with compensating actions.
+* **Trade-offs**: Event chaining enables loose coupling and reactive systems, which is great for microservices, but the catch is chains can be hard to debug and failures can cascade. The tricky part is handling partial failures - if one link in the chain fails, you need to decide whether to roll back previous steps or continue with compensating actions.
 
 ---
 
-## Q79. 🔀 Multi-topic event pipelines
+## Q92. 🔀 Multi-topic event pipelines
 
 Multi-topic pipelines route events through multiple topics for different processing stages - like raw events go to a raw topic, processed events go to an enriched topic, and aggregated events go to an analytics topic. Use this pattern for ETL pipelines, event enrichment, or multi-stage processing where each stage transforms events.
 
-- **Trade-offs**: Multi-topic pipelines enable staged processing and different consumers for different stages, which provides flexibility, but the catch is you need to manage multiple topics and ensure events flow correctly. The tricky part is handling failures - if one stage fails, you need to decide whether to retry, skip, or send to DLQ.
+* **Trade-offs**: Multi-topic pipelines enable staged processing and different consumers for different stages, which provides flexibility, but the catch is you need to manage multiple topics and ensure events flow correctly. The tricky part is handling failures - if one stage fails, you need to decide whether to retry, skip, or send to DLQ.
 
 ---
 
-## Q80. 🎯 Choosing the right messaging system
+## Q93. 🎯 Choosing the right messaging system
 
 Choose Kafka for high-throughput event streaming, event sourcing, or log aggregation. Choose RabbitMQ for complex routing, request-reply patterns, or when you need message priorities. Choose SQS for simple queuing in AWS environments. Choose Redis Streams for real-time analytics or lightweight streaming. Consider factors like throughput, durability, ordering guarantees, and operational complexity.
 
-- **Trade-offs**: Each system has strengths and weaknesses - Kafka scales best but is complex, RabbitMQ is flexible but doesn't scale as well, SQS is simple but limited, Redis Streams is fast but less durable. The tricky part is matching the system to your needs - over-engineering with Kafka when SQS would work wastes resources, but under-engineering with SQS when you need Kafka's features causes problems later.
+* **Trade-offs**: Each system has strengths and weaknesses - Kafka scales best but is complex, RabbitMQ is flexible but doesn't scale as well, SQS is simple but limited, Redis Streams is fast but less durable. The tricky part is matching the system to your needs - over-engineering with Kafka when SQS would work wastes resources, but under-engineering with SQS when you need Kafka's features causes problems later.
 
 ---
 
-## Q80. 📊 Ensuring event ordering at scale
+## Q94. 📊 Ensuring event ordering at scale
 
 Ensure event ordering by using single partitions for ordered topics, using partition keys to route related events to the same partition, and processing partitions sequentially. For global ordering, use a single partition, but this limits throughput. For per-key ordering, use partition keys so events with the same key go to the same partition and are processed in order.
 
-- **Trade-offs**: Global ordering is simple but limits throughput to one partition. Per-key ordering enables parallelism while maintaining ordering for related events, but the catch is you need to choose good partition keys - if all events have the same key, you're back to single-partition throughput. The tricky part is balancing ordering requirements with throughput needs.
+* **Trade-offs**: Global ordering is simple but limits throughput to one partition. Per-key ordering enables parallelism while maintaining ordering for related events, but the catch is you need to choose good partition keys - if all events have the same key, you're back to single-partition throughput. The tricky part is balancing ordering requirements with throughput needs.
 
 <div align="center">
 
 **[← Previous: API Scaling](04%29%20API%20Scaling.md)** | **[Next: AWS Cloud Architecture →](06%29%20AWS%20Cloud%20Architecture.md)**
 
 </div>
-
 
 ---
 

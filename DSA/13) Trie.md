@@ -6,15 +6,15 @@
 
 <div align="center">
 
-[Matrix](12%20Matrix.md) • [Home: README](README.md) • [Binary Search →](14%20Binary%20Search.md)
+[← Previous: Matrix](12%29%20Matrix.md) • [Home: README](README.md) • [Next: Binary Search →](14%29%20Binary%20Search.md)
 
-[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md)
 
 </div>
 
 ---
 
-## Q208. Implement Trie (Prefix Tree)
+## Q208. 🌳 Implement Trie (Prefix Tree)
 
 **Problem:** A trie (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker. Implement the Trie class:
 
@@ -89,7 +89,7 @@ class Trie {
 **Time Complexity:** O(m) - Per insert/search/startsWith where m is word length
 **Space Complexity:** O(n × m) - n words of average length m
 
-## Q209. Design Add and Search Words Data Structure
+## Q209. 📊 Design Add and Search Words Data Structure
 
 **Problem:** Design a data structure that supports adding new words and finding if a string matches any previously added string. Implement the `WordDictionary` class:
 
@@ -170,7 +170,7 @@ class WordDictionary {
 **Time Complexity:** O(m) for exact match, O(26^m) worst case for m wildcards
 **Space Complexity:** O(n × m) - n words of average length m
 
-## Q210. Word Search II
+## Q210. 🔎 Word Search II
 
 **Problem:** Given an `m x n` board of characters and a list of strings `words`, return all words on the board. Each word must be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.
 
@@ -337,8 +337,8 @@ class Trie {
 
 <div align="center">
 
-[Matrix](12%20Matrix.md) • [Home: README](README.md) • [Binary Search →](14%20Binary%20Search.md)
+[← Previous: Matrix](12%29%20Matrix.md) • [Home: README](README.md) • [Next: Binary Search →](14%29%20Binary%20Search.md)
 
-[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md)
 
 </div>

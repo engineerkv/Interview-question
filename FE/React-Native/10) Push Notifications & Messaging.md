@@ -6,9 +6,9 @@
 
 <div align="center">
 
-[Build, Deployment & Stores](9%29%20Build%2C%20Deployment%20%26%20Stores.md) • [Home: README](../README.md)
+[Build, Deployment & Stores](09%29%20Build%2C%20Deployment%20%26%20Stores.md) • [Home: README](../README.md)
 
-[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md)
 
 </div>
 
@@ -182,9 +182,9 @@ const validateNotificationPayload = (payload) => {
 
 <div align="center">
 
-[Build, Deployment & Stores](9%29%20Build%2C%20Deployment%20%26%20Stores.md) • [Home: README](../README.md)
+[Build, Deployment & Stores](09%29%20Build%2C%20Deployment%20%26%20Stores.md) • [Home: README](../README.md)
 
-[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md)
 
 </div>
 

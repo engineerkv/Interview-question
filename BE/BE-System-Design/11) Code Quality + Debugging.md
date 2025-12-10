@@ -1,4 +1,4 @@
-# 11. Code Quality + Debugging (Q211–Q220)
+# 11. Code Quality + Debugging (Q210–Q218)
 
 ---
 
@@ -16,13 +16,13 @@
 
 ---
 
-## Q211. ✅ Code review checklist
+## Q210. ✅ Code review checklist
 
 Code review checklists ensure thorough and consistent code reviews. When you review code, you check for correctness, security, performance, readability, testing, and architecture to catch bugs and improve code quality.
 
 ---
 
-## 1. Correctness
+## 1. 💡 Correctness
 
 Check for correctness (does it work, handles edge cases).
 
@@ -38,7 +38,7 @@ Check for correctness (does it work, handles edge cases).
 
 ---
 
-## 2. Security
+## 2. 🛡️ Security
 
 Check for security (no vulnerabilities, proper authentication).
 
@@ -52,7 +52,7 @@ Check for security (no vulnerabilities, proper authentication).
 
 ---
 
-## 3. Performance
+## 3. ⚡ Performance
 
 Check for performance (no N+1 queries, efficient algorithms).
 
@@ -66,7 +66,7 @@ Check for performance (no N+1 queries, efficient algorithms).
 
 ---
 
-## 4. Readability
+## 4. 💡 Readability
 
 Check for readability (clear naming, good comments).
 
@@ -80,7 +80,7 @@ Check for readability (clear naming, good comments).
 
 ---
 
-## 5. Testing
+## 5. 🧪 Testing
 
 Check for testing (adequate test coverage, tests pass).
 
@@ -94,7 +94,7 @@ Check for testing (adequate test coverage, tests pass).
 
 ---
 
-## 6. Architecture
+## 6. 💡 Architecture
 
 Check for architecture (follows patterns, doesn't break design).
 
@@ -108,7 +108,7 @@ Check for architecture (follows patterns, doesn't break design).
 
 ---
 
-## 7. Focus Areas
+## 7. 💡 Focus Areas
 
 Review for bugs, security issues, and code quality, not just style.
 
@@ -122,7 +122,7 @@ Review for bugs, security issues, and code quality, not just style.
 
 ---
 
-## 8. Trade-offs
+## 8. 💡 Trade-offs
 
 Thorough code reviews catch bugs and improve code quality, which is essential.
 
@@ -158,13 +158,13 @@ You make effective by providing constructive feedback, explaining why changes ar
 
 ---
 
-## Q212. 🐛 Debugging memory leaks
+## Q211. 🐛 Debugging memory leaks
 
 Memory leaks occur when objects aren't garbage collected, causing memory usage to grow over time. When you debug memory leaks, you monitor memory usage, use heap snapshots, and trace references to find what's keeping objects alive.
 
 ---
 
-## 1. Monitoring Memory Usage
+## 1. 👁️ Monitoring Memory Usage
 
 Debug memory leaks by monitoring memory usage over time.
 
@@ -180,7 +180,7 @@ Debug memory leaks by monitoring memory usage over time.
 
 ---
 
-## 2. Heap Snapshots
+## 2. 💡 Heap Snapshots
 
 Use heap snapshots to compare memory states.
 
@@ -194,7 +194,7 @@ Use heap snapshots to compare memory states.
 
 ---
 
-## 3. Identifying Objects
+## 3. 💡 Identifying Objects
 
 Identify objects that aren't being garbage collected.
 
@@ -208,7 +208,7 @@ Identify objects that aren't being garbage collected.
 
 ---
 
-## 4. Tracing References
+## 4. 💡 Tracing References
 
 Tracing references to find what's keeping objects alive.
 
@@ -222,7 +222,7 @@ Tracing references to find what's keeping objects alive.
 
 ---
 
-## 5. Tools
+## 5. 💡 Tools
 
 Use tools like Chrome DevTools, Node.js `--inspect`, or memory profilers.
 
@@ -236,7 +236,7 @@ Use tools like Chrome DevTools, Node.js `--inspect`, or memory profilers.
 
 ---
 
-## 6. Common Causes
+## 6. 💡 Common Causes
 
 Look for event listeners that aren't removed, closures holding references, or global variables accumulating data.
 
@@ -250,7 +250,7 @@ Look for event listeners that aren't removed, closures holding references, or gl
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Finding and fixing memory leaks prevents crashes and performance degradation, which is critical.
 
@@ -286,13 +286,13 @@ You identify by using heap snapshots to see object references, tracing reference
 
 ---
 
-## Q213. ⚡ Debugging high CPU usage
+## Q212. ⚡ Debugging high CPU usage
 
 High CPU usage indicates performance bottlenecks. When you debug high CPU usage, you profile your application to identify which functions consume the most CPU and optimize them.
 
 ---
 
-## 1. Profiling
+## 1. 💡 Profiling
 
 Debug high CPU usage by profiling your application to see which functions consume the most CPU.
 
@@ -308,7 +308,7 @@ Debug high CPU usage by profiling your application to see which functions consum
 
 ---
 
-## 2. CPU Profilers
+## 2. 💡 CPU Profilers
 
 Use CPU profilers to generate flame graphs.
 
@@ -322,7 +322,7 @@ Use CPU profilers to generate flame graphs.
 
 ---
 
-## 3. Hot Paths
+## 3. 💡 Hot Paths
 
 Identifying hot paths and optimization opportunities.
 
@@ -336,7 +336,7 @@ Identifying hot paths and optimization opportunities.
 
 ---
 
-## 4. Common Issues
+## 4. 💡 Common Issues
 
 Checking for infinite loops or inefficient algorithms.
 
@@ -350,7 +350,7 @@ Checking for infinite loops or inefficient algorithms.
 
 ---
 
-## 5. Tools
+## 5. 💡 Tools
 
 Use tools like Chrome DevTools CPU profiler, Node.js `--prof`, or APM tools.
 
@@ -364,7 +364,7 @@ Use tools like Chrome DevTools CPU profiler, Node.js `--prof`, or APM tools.
 
 ---
 
-## 6. What to Look For
+## 6. 💡 What to Look For
 
 Look for tight loops, expensive operations in hot paths, or blocking operations.
 
@@ -378,7 +378,7 @@ Look for tight loops, expensive operations in hot paths, or blocking operations.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Identifying CPU bottlenecks helps you optimize performance, which improves user experience.
 
@@ -414,13 +414,13 @@ You distinguish by analyzing deeper - high CPU is a symptom, but root cause migh
 
 ---
 
-## Q214. 🔍 Static code analysis tools
+## Q213. 🔍 Static code analysis tools
 
 Static code analysis tools analyze code without running it to find issues. When you use static analysis, you catch bugs, security vulnerabilities, and code quality issues early in the development process.
 
 ---
 
-## 1. What is Static Analysis
+## 1. 💡 What is Static Analysis
 
 Static code analysis tools analyze code without running it to find bugs, security vulnerabilities, code smells, and style issues.
 
@@ -438,7 +438,7 @@ Static code analysis tools analyze code without running it to find bugs, securit
 
 ---
 
-## 2. Examples
+## 2. 💡 Examples
 
 Like ESLint for JavaScript, SonarQube for multiple languages, or Snyk for security.
 
@@ -452,7 +452,7 @@ Like ESLint for JavaScript, SonarQube for multiple languages, or Snyk for securi
 
 ---
 
-## 3. Benefits
+## 3. 💡 Benefits
 
 These tools catch issues early, enforce coding standards, and help maintain code quality.
 
@@ -466,7 +466,7 @@ These tools catch issues early, enforce coding standards, and help maintain code
 
 ---
 
-## 4. Integration
+## 4. 💡 Integration
 
 Integrate them into your CI/CD pipeline to catch issues before code is merged.
 
@@ -480,7 +480,7 @@ Integrate them into your CI/CD pipeline to catch issues before code is merged.
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 Static analysis catches issues early and enforces standards, which improves code quality.
 
@@ -516,13 +516,13 @@ You integrate by running analysis in CI/CD pipeline, failing builds on critical 
 
 ---
 
-## Q215. 🎨 ESLint vs Prettier
+## Q214. 🎨 ESLint vs Prettier
 
 ESLint and Prettier serve different purposes in code quality. When you use them together, you get both code quality checking and consistent formatting.
 
 ---
 
-## 1. What is ESLint
+## 1. 💡 What is ESLint
 
 ESLint is a linter that finds bugs and enforces code quality rules.
 
@@ -538,7 +538,7 @@ ESLint is a linter that finds bugs and enforces code quality rules.
 
 ---
 
-## 2. What is Prettier
+## 2. 💡 What is Prettier
 
 Prettier is a code formatter that enforces consistent code style.
 
@@ -554,7 +554,7 @@ Prettier is a code formatter that enforces consistent code style.
 
 ---
 
-## 3. Using Together
+## 3. 💡 Using Together
 
 Use both together - ESLint for code quality, Prettier for formatting.
 
@@ -568,7 +568,7 @@ Use both together - ESLint for code quality, Prettier for formatting.
 
 ---
 
-## 4. Configuration
+## 4. 💡 Configuration
 
 Configure them to work together without conflicts.
 
@@ -582,7 +582,7 @@ Configure them to work together without conflicts.
 
 ---
 
-## 5. ESLint Trade-offs
+## 5. 💡 ESLint Trade-offs
 
 ESLint catches bugs and enforces best practices, which improves code quality.
 
@@ -594,7 +594,7 @@ ESLint catches bugs and enforces best practices, which improves code quality.
 
 ---
 
-## 6. Prettier Trade-offs
+## 6. 💡 Prettier Trade-offs
 
 Prettier ensures consistent formatting automatically.
 
@@ -606,7 +606,7 @@ Prettier ensures consistent formatting automatically.
 
 ---
 
-## 7. Combined Trade-offs
+## 7. 🔀 Combined Trade-offs
 
 Using both gives you code quality and consistent style, but you need to configure them to avoid conflicts.
 
@@ -640,13 +640,13 @@ You handle by using eslint-config-prettier to disable conflicting ESLint rules, 
 
 ---
 
-## Q216. 🔍 Root cause analysis workflow
+## Q215. 🔍 Root cause analysis workflow
 
 Root cause analysis helps identify the underlying cause of issues, not just symptoms. When you perform root cause analysis, you systematically investigate issues to prevent them from recurring.
 
 ---
 
-## 1. Reproduce the Issue
+## 1. 💡 Reproduce the Issue
 
 Root cause analysis workflow involves reproducing the issue.
 
@@ -662,7 +662,7 @@ Root cause analysis workflow involves reproducing the issue.
 
 ---
 
-## 2. Gather Data
+## 2. 💡 Gather Data
 
 Gathering data (logs, metrics, stack traces).
 
@@ -676,7 +676,7 @@ Gathering data (logs, metrics, stack traces).
 
 ---
 
-## 3. Identify Symptoms vs Root Causes
+## 3. 💡 Identify Symptoms vs Root Causes
 
 Identifying symptoms vs root causes.
 
@@ -690,7 +690,7 @@ Identifying symptoms vs root causes.
 
 ---
 
-## 4. Form Hypotheses
+## 4. 💡 Form Hypotheses
 
 Forming hypotheses about what caused it.
 
@@ -704,7 +704,7 @@ Forming hypotheses about what caused it.
 
 ---
 
-## 5. Test Hypotheses
+## 5. 💡 Test Hypotheses
 
 Testing hypotheses.
 
@@ -718,7 +718,7 @@ Testing hypotheses.
 
 ---
 
-## 6. Implement Fixes
+## 6. 💡 Implement Fixes
 
 Implementing fixes.
 
@@ -732,7 +732,7 @@ Implementing fixes.
 
 ---
 
-## 7. 5 Whys Technique
+## 7. 💡 5 Whys Technique
 
 Use the "5 Whys" technique to dig deeper - ask why multiple times until you find the root cause, not just the symptom.
 
@@ -746,7 +746,7 @@ Use the "5 Whys" technique to dig deeper - ask why multiple times until you find
 
 ---
 
-## 8. Documentation
+## 8. 💡 Documentation
 
 Document findings and implement preventive measures.
 
@@ -760,7 +760,7 @@ Document findings and implement preventive measures.
 
 ---
 
-## 9. Trade-offs
+## 9. 💡 Trade-offs
 
 Root cause analysis prevents issues from recurring, which improves system reliability.
 
@@ -796,13 +796,13 @@ You prevent by implementing fixes for root causes, implementing preventive measu
 
 ---
 
-## Q217. 📝 Logging best practices
+## Q216. 📝 Logging best practices
 
 Logging best practices ensure effective debugging and monitoring. When you implement logging, you use structured logging, include context, and balance detail with performance.
 
 ---
 
-## 1. Structured Logging
+## 1. 📝 Structured Logging
 
 Logging best practices include using structured logging (JSON format).
 
@@ -818,7 +818,7 @@ Logging best practices include using structured logging (JSON format).
 
 ---
 
-## 2. Context
+## 2. 💡 Context
 
 Including context (request IDs, user IDs, timestamps).
 
@@ -832,7 +832,7 @@ Including context (request IDs, user IDs, timestamps).
 
 ---
 
-## 3. Log Levels
+## 3. 💡 Log Levels
 
 Using appropriate log levels (error, warn, info, debug).
 
@@ -846,7 +846,7 @@ Using appropriate log levels (error, warn, info, debug).
 
 ---
 
-## 4. Security
+## 4. 🛡️ Security
 
 Avoiding logging sensitive data (passwords, tokens, PII).
 
@@ -860,7 +860,7 @@ Avoiding logging sensitive data (passwords, tokens, PII).
 
 ---
 
-## 5. Centralization
+## 5. 💡 Centralization
 
 Centralizing logs for analysis.
 
@@ -874,7 +874,7 @@ Centralizing logs for analysis.
 
 ---
 
-## 6. Correlation IDs
+## 6. 💡 Correlation IDs
 
 Use correlation IDs to trace requests across services.
 
@@ -888,7 +888,7 @@ Use correlation IDs to trace requests across services.
 
 ---
 
-## 7. Balance
+## 7. 💡 Balance
 
 Log enough information to debug issues without logging too much.
 
@@ -902,7 +902,7 @@ Log enough information to debug issues without logging too much.
 
 ---
 
-## 8. Trade-offs
+## 8. 💡 Trade-offs
 
 Good logging enables debugging and monitoring, which is essential.
 
@@ -938,13 +938,13 @@ You prevent by sanitizing logs (remove sensitive fields), using log filters, avo
 
 ---
 
-## Q218. ⚠️ Handling production errors
+## Q217. ⚠️ Handling production errors
 
 Handling production errors properly improves user experience and system reliability. When you handle production errors, you implement proper error handling, logging, monitoring, and graceful degradation.
 
 ---
 
-## 1. Error Handling
+## 1. 💡 Error Handling
 
 Handle production errors by implementing proper error handling.
 
@@ -960,7 +960,7 @@ Handle production errors by implementing proper error handling.
 
 ---
 
-## 2. Logging
+## 2. 📝 Logging
 
 Logging errors with context.
 
@@ -974,7 +974,7 @@ Logging errors with context.
 
 ---
 
-## 3. Error Tracking
+## 3. 💡 Error Tracking
 
 Using error tracking services (like Sentry).
 
@@ -988,7 +988,7 @@ Using error tracking services (like Sentry).
 
 ---
 
-## 4. Alerts
+## 4. 💡 Alerts
 
 Setting up alerts for critical errors.
 
@@ -1002,7 +1002,7 @@ Setting up alerts for critical errors.
 
 ---
 
-## 5. Runbooks
+## 5. 💡 Runbooks
 
 Having runbooks for common issues.
 
@@ -1016,7 +1016,7 @@ Having runbooks for common issues.
 
 ---
 
-## 6. User-Friendly Messages
+## 6. 💡 User-Friendly Messages
 
 Don't expose internal errors to users - return user-friendly messages while logging detailed errors server-side.
 
@@ -1030,7 +1030,7 @@ Don't expose internal errors to users - return user-friendly messages while logg
 
 ---
 
-## 7. Circuit Breakers
+## 7. 💡 Circuit Breakers
 
 Implement circuit breakers and graceful degradation to prevent cascading failures.
 
@@ -1044,7 +1044,7 @@ Implement circuit breakers and graceful degradation to prevent cascading failure
 
 ---
 
-## 8. Trade-offs
+## 8. 💡 Trade-offs
 
 Proper error handling improves user experience and system reliability.
 
@@ -1080,13 +1080,13 @@ You prevent by implementing circuit breakers, graceful degradation, timeouts, an
 
 ---
 
-## Q219. 🧪 Preventing flaky tests
+## Q218. 🧪 Preventing flaky tests
 
 Flaky tests are unreliable and waste time. When you prevent flaky tests, you make tests deterministic, isolate them, and ensure consistent test data.
 
 ---
 
-## 1. What are Flaky Tests
+## 1. 💡 What are Flaky Tests
 
 Flaky tests are tests that sometimes pass and sometimes fail - they're unreliable and waste time.
 
@@ -1102,7 +1102,7 @@ Flaky tests are tests that sometimes pass and sometimes fail - they're unreliabl
 
 ---
 
-## 2. Deterministic Tests
+## 2. ⬇️ ⬇️ Deterministic Tests
 
 Prevent flaky tests by making tests deterministic (no random data, fixed timestamps).
 
@@ -1116,7 +1116,7 @@ Prevent flaky tests by making tests deterministic (no random data, fixed timesta
 
 ---
 
-## 3. Test Isolation
+## 3. 💡 Test Isolation
 
 Isolating tests (no shared state, clean setup/teardown).
 
@@ -1130,7 +1130,7 @@ Isolating tests (no shared state, clean setup/teardown).
 
 ---
 
-## 4. Proper Waits
+## 4. 💡 Proper Waits
 
 Using proper waits instead of fixed timeouts.
 
@@ -1144,7 +1144,7 @@ Using proper waits instead of fixed timeouts.
 
 ---
 
-## 5. Avoid Race Conditions
+## 5. 💡 Avoid Race Conditions
 
 Avoiding race conditions.
 
@@ -1158,7 +1158,7 @@ Avoiding race conditions.
 
 ---
 
-## 6. Consistent Test Data
+## 6. 💡 Consistent Test Data
 
 Ensuring test data is consistent.
 
@@ -1172,7 +1172,7 @@ Ensuring test data is consistent.
 
 ---
 
-## 7. Fixing Flaky Tests
+## 7. 💡 Fixing Flaky Tests
 
 Fix them by identifying what makes them non-deterministic.
 
@@ -1186,7 +1186,7 @@ Fix them by identifying what makes them non-deterministic.
 
 ---
 
-## 8. Trade-offs
+## 8. 💡 Trade-offs
 
 Reliable tests give you confidence in your code, which is essential.
 
@@ -1222,13 +1222,13 @@ You handle by using proper waits (wait for conditions), avoiding fixed timeouts,
 
 ---
 
-## Q220. 📊 Measuring code quality KPIs
+## Q219. 📊 Measuring code quality KPIs
 
 Code quality KPIs help track and improve code quality over time. When you measure code quality, you use metrics that correlate with maintainability and reliability.
 
 ---
 
-## 1. Test Coverage
+## 1. 💡 Test Coverage
 
 Measure code quality KPIs like test coverage percentage.
 
@@ -1244,7 +1244,7 @@ Measure code quality KPIs like test coverage percentage.
 
 ---
 
-## 2. Code Complexity
+## 2. 💡 Code Complexity
 
 Code complexity metrics (cyclomatic complexity).
 
@@ -1258,7 +1258,7 @@ Code complexity metrics (cyclomatic complexity).
 
 ---
 
-## 3. Technical Debt
+## 3. 💡 Technical Debt
 
 Technical debt ratio.
 
@@ -1272,7 +1272,7 @@ Technical debt ratio.
 
 ---
 
-## 4. Bug Density
+## 4. 💡 Bug Density
 
 Bug density (bugs per lines of code).
 
@@ -1286,7 +1286,7 @@ Bug density (bugs per lines of code).
 
 ---
 
-## 5. Code Review Metrics
+## 5. 💡 Code Review Metrics
 
 Code review metrics (review time, issues found).
 
@@ -1300,7 +1300,7 @@ Code review metrics (review time, issues found).
 
 ---
 
-## 6. Tools
+## 6. 💡 Tools
 
 Use tools like SonarQube, CodeClimate, or custom metrics.
 
@@ -1314,7 +1314,7 @@ Use tools like SonarQube, CodeClimate, or custom metrics.
 
 ---
 
-## 7. Trends
+## 7. 💡 Trends
 
 Track trends over time to see if code quality is improving or degrading.
 
@@ -1328,7 +1328,7 @@ Track trends over time to see if code quality is improving or degrading.
 
 ---
 
-## 8. Trade-offs
+## 8. 💡 Trade-offs
 
 Code quality metrics help you track and improve code quality, which is good.
 

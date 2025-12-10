@@ -228,6 +228,7 @@ App
 │       │       ├── BookingStatus
 │       │       └── DownloadTicketButton
 └── SocketProvider (Real-time seat availability)
+
 ```
 
 ### Key React Components
@@ -309,6 +310,7 @@ const BookingSummary: React.FC<{ booking: Booking }> = ({ booking }) => {
     </div>
   );
 };
+
 ```
 
 ### State Management
@@ -353,6 +355,7 @@ const useBookTickets = () => {
     }
   });
 };
+
 ```
 
 ### Component Interactions
@@ -409,6 +412,7 @@ interface Model {
 - **Method:** POST
 
 - **Request Body:**
+
   ```json
   {
     "eventId": "event_abc123",
@@ -416,9 +420,11 @@ interface Model {
     "userId": "user123",
     "paymentMethod": "card"
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -431,6 +437,7 @@ interface Model {
       "createdAt": "2024-01-15T10:30:00Z"
     }
   }
+
   ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error), 409 (Seats Already Booked)
@@ -442,6 +449,7 @@ interface Model {
 - **Method:** GET
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -455,6 +463,7 @@ interface Model {
       "createdAt": "2024-01-15T10:30:00Z"
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 404 (Not Found)
@@ -466,14 +475,17 @@ interface Model {
 - **Method:** POST
 
 - **Request Body:**
+
   ```json
   {
     "eventId": "event_abc123",
     "seatIds": ["seat_1", "seat_2"]
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -482,6 +494,7 @@ interface Model {
       "lockExpiresAt": "2024-01-15T10:35:00Z"
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 409 (Seats Already Locked/Booked)
@@ -1072,7 +1085,7 @@ try {
 
 ---
 
-## Q1. Designing a ticket booking system
+## Q1. 💡 Designing a ticket booking system
 
 **Situation:** Need to design a ticket booking system for 10M+ users that prevents double booking, handles concurrent seat selection, and processes 1M+ bookings per day.
 
@@ -1100,7 +1113,7 @@ try {
 
 ---
 
-## Q2. Preventing double booking of the same seat
+## Q2. 🎯 Preventing double booking of the same seat
 
 **Situation:** Two users try to book the same seat simultaneously, need to prevent double booking.
 
@@ -1126,7 +1139,7 @@ try {
 
 ---
 
-## Q3. Handling concurrent seat selection
+## Q3. 💡 Handling concurrent seat selection
 
 **Situation:** Multiple users select seats simultaneously, need to handle conflicts.
 
@@ -1147,3 +1160,636 @@ try {
 **Result:** Concurrent seat selection handled correctly. Users see real-time seat availability. No conflicts or double selections.
 
 **Takeaway:** Immediate locking prevents conflicts. Real-time updates improve user experience.
+
+---
+
+## Q4. 💡 Handling payment processing in bookings
+
+**Situation:** Need to process payments securely during booking, handle payment failures, and ensure booking is created only after successful payment.
+
+**Action:** I implemented payment processing:
+
+- **Payment Gateway Integration:** Integrate payment gateway SDK (Stripe, PayPal) for secure payment processing
+- **Idempotency:** Use idempotency keys to prevent duplicate charges if request retries
+- **Payment Flow:** Process payment before creating booking, create booking only after payment success
+- **Transaction Management:** Use database transactions to ensure payment and booking are atomic
+- **Payment Retry:** Retry failed payments with exponential backoff
+- **Refund Handling:** Process refunds if booking is cancelled within refund window
+- **Payment Webhooks:** Handle payment gateway webhooks for payment status updates
+
+**Result:** Payment processing completes in < 2 seconds. Zero duplicate charges. 99.9% payment success rate. Refunds processed within 24 hours.
+
+**Takeaway:** Idempotency prevents duplicate charges. Database transactions ensure atomicity. Webhooks handle async payment updates.
+
+---
+
+## Q5. 📊 Scaling the system for high-traffic events
+
+**Situation:** Popular events generate 10x normal traffic, need to handle without degradation.
+
+**Action:** I implemented scaling strategies:
+
+- **Auto-scaling:** Auto-scale servers based on CPU/memory metrics during peak hours
+- **Seat Availability Cache:** Cache seat availability in Redis for fast lookups
+- **Queue System:** Queue booking requests during peak hours to prevent overload
+- **Database Read Replicas:** Use read replicas for seat availability queries
+- **CDN:** Use CDN for static assets to reduce server load
+- **Rate Limiting:** Implement rate limiting to prevent abuse
+- **Load Balancing:** Distribute traffic across multiple servers
+
+**Result:** System handles 10x traffic spikes without degradation. Booking latency stays < 2 seconds. 99.9% availability maintained during peak events.
+
+**Takeaway:** Auto-scaling handles traffic spikes. Caching reduces database load. Queue system prevents overload.
+
+---
+
+# 4) Algorithms
+
+## Distributed Lock Algorithm
+
+**Purpose:** Acquire and release distributed locks for seat reservation across multiple servers.
+
+**Algorithm:**
+
+1. Generate unique lock value (UUID)
+2. Attempt to acquire lock using Redis SETNX with TTL
+3. If acquired, set lock expiration time
+4. Release lock by deleting key only if value matches (prevents releasing other's lock)
+
+**Implementation:**
+
+```typescript
+import redis from 'redis';
+import { v4 as uuidv4 } from 'uuid';
+
+class DistributedLock {
+  private client: redis.RedisClient;
+  private lockValue: string;
+  
+  constructor(client: redis.RedisClient) {
+    this.client = client;
+    this.lockValue = uuidv4();
+  }
+  
+  async acquireLock(key: string, ttl: number = 300): Promise<boolean> {
+    const result = await this.client.set(key, this.lockValue, 'EX', ttl, 'NX');
+    return result === 'OK';
+  }
+  
+  async releaseLock(key: string): Promise<boolean> {
+    const script = `
+      if redis.call("get", KEYS[1]) == ARGV[1] then
+        return redis.call("del", KEYS[1])
+      else
+        return 0
+      end
+    `;
+    
+    const result = await this.client.eval(script, 1, key, this.lockValue);
+    return result === 1;
+  }
+  
+  async extendLock(key: string, ttl: number): Promise<boolean> {
+    const script = `
+      if redis.call("get", KEYS[1]) == ARGV[1] then
+        return redis.call("expire", KEYS[1], ARGV[2])
+      else
+        return 0
+      end
+    `;
+    
+    const result = await this.client.eval(script, 1, key, this.lockValue, ttl);
+    return result === 1;
+  }
+}
+
+```
+
+**Complexity:**
+
+- Time: O(1) for lock operations
+- Space: O(1) per lock
+- **Lock Safety:** Prevents releasing locks acquired by other processes
+
+---
+
+## Optimistic Locking Algorithm
+
+**Purpose:** Prevent concurrent updates to seat records using version numbers.
+
+**Algorithm:**
+
+1. Read seat record with version number
+2. Update seat only if version matches
+3. Increment version number on successful update
+4. Retry if version mismatch (optimistic lock conflict)
+
+**Implementation:**
+
+```typescript
+async function bookSeatOptimistic(seatId: string, userId: string): Promise<boolean> {
+  const maxRetries = 3;
+  let retries = 0;
+  
+  while (retries < maxRetries) {
+    const seat = await Seat.findById(seatId);
+    
+    if (seat.status !== 'available') {
+      return false;
+    }
+    
+    const result = await Seat.updateOne(
+      { 
+        _id: seatId, 
+        version: seat.version,  // Only update if version matches
+        status: 'available' 
+      },
+      { 
+        $set: { status: 'booked', userId },
+        $inc: { version: 1 }  // Increment version
+      }
+    );
+    
+    if (result.modifiedCount === 1) {
+      return true;  // Success
+    }
+    
+    retries++;
+    await sleep(100 * retries);  // Exponential backoff
+  }
+  
+  return false;  // Failed after retries
+}
+
+```
+
+**Complexity:**
+
+- Time: O(1) average case, O(k) worst case where k is retry attempts
+- Space: O(1)
+- **Conflict Resolution:** Retries handle concurrent updates gracefully
+
+---
+
+# 5) Data Models
+
+## Bookings Collection (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  bookingId: String,        // Unique booking ID, indexed
+  eventId: ObjectId,        // Event reference, indexed
+  showtimeId: ObjectId,     // Showtime reference, indexed
+  userId: ObjectId,         // User reference, indexed
+  seatIds: [String],       // Array of seat IDs
+  status: String,           // pending, confirmed, cancelled, refunded
+  totalAmount: Number,      // Total booking amount
+  paymentId: String,         // Payment gateway transaction ID
+  paymentMethod: String,    // card, upi, wallet
+  bookingDate: Date,        // Booking creation date, indexed
+  showDate: Date,           // Show date
+  showTime: String,         // Show time
+  qrCode: String,           // QR code URL for ticket
+  createdAt: Date,         // Created timestamp, indexed
+  updatedAt: Date          // Updated timestamp
+}
+
+// Indexes:
+// - { bookingId: 1 } (unique)
+// - { userId: 1, bookingDate: -1 } (compound)
+// - { eventId: 1, showtimeId: 1 } (compound)
+// - { status: 1, bookingDate: -1 } (compound)
+
+```
+
+## Seats Collection (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  seatId: String,          // Unique seat ID, indexed
+  eventId: ObjectId,        // Event reference, indexed
+  showtimeId: ObjectId,     // Showtime reference, indexed
+  row: String,             // Seat row (A, B, C, etc.)
+  number: String,          // Seat number (1, 2, 3, etc.)
+  status: String,          // available, locked, booked, unavailable
+  price: Number,           // Seat price
+  category: String,        // premium, standard, economy
+  lockedBy: ObjectId,      // User ID who locked seat (if locked)
+  lockedUntil: Date,       // Lock expiration time
+  bookingId: ObjectId,     // Booking reference (if booked)
+  version: Number,         // Version number for optimistic locking
+  createdAt: Date,
+  updatedAt: Date
+}
+
+// Indexes:
+// - { seatId: 1, showtimeId: 1 } (compound, unique)
+// - { showtimeId: 1, status: 1 } (compound)
+// - { showtimeId: 1, row: 1, number: 1 } (compound)
+// - { lockedUntil: 1 } (TTL index for auto-expiring locks)
+
+```
+
+## Events Collection (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  eventId: String,         // Unique event ID, indexed
+  title: String,           // Event title
+  description: String,      // Event description
+  category: String,        // movie, concert, sports, theater
+  venue: String,           // Venue name
+  venueAddress: String,    // Venue address
+  imageUrl: String,        // Event image URL
+  startDate: Date,         // Event start date, indexed
+  endDate: Date,           // Event end date
+  status: String,          // upcoming, live, completed
+  createdAt: Date,
+  updatedAt: Date
+}
+
+// Indexes:
+// - { eventId: 1 } (unique)
+// - { category: 1, startDate: -1 } (compound)
+// - { status: 1, startDate: -1 } (compound)
+
+```
+
+---
+
+# 6) Database Transactions and Consistency
+
+### MongoDB Transactions
+
+**Transaction Usage:**
+
+- **Multi-Document Transactions** - For operations requiring ACID guarantees
+- **Example:** Booking creation + seat update + payment record in single transaction
+- **Session Management:** Use MongoDB sessions for transaction control
+
+**Example:**
+
+```typescript
+const session = await mongoose.startSession();
+session.startTransaction();
+try {
+  // Create booking
+  const booking = await Booking.create([bookingData], { session });
+  
+  // Update seats
+  for (const seatId of bookingData.seatIds) {
+    await Seat.updateOne(
+      { seatId, showtimeId: bookingData.showtimeId },
+      { $set: { status: 'booked', bookingId: booking[0]._id } },
+      { session }
+    );
+  }
+  
+  // Create payment record
+  await Payment.create([paymentData], { session });
+  
+  await session.commitTransaction();
+  return booking[0];
+} catch (error) {
+  await session.abortTransaction();
+  throw error;
+} finally {
+  session.endSession();
+}
+
+```
+
+### Consistency Strategies
+
+**Data Consistency:**
+
+- **Booking Consistency:** Use transactions for booking operations to ensure atomicity
+- **Seat Consistency:** Use distributed locks + transactions for seat booking
+- **Payment Consistency:** Ensure payment and booking updates are atomic
+- **Cache Consistency:** Invalidate seat availability cache on booking creation
+
+---
+
+# 7) Protocols
+
+### REST API Protocol
+
+- **Protocol:** REST (Representational State Transfer)
+- **Data Format:** JSON
+- **HTTP Methods:** GET, POST, PUT, DELETE
+- **Status Codes:** 200 (Success), 201 (Created), 400 (Bad Request), 401 (Unauthorized), 404 (Not Found), 409 (Conflict - Seat Already Booked), 500 (Server Error)
+- **Authentication:** JWT Bearer token in Authorization header
+
+### WebSocket Protocol
+
+- **Protocol:** WebSocket (via Socket.io)
+- **Events:**
+  - `lock-seat` - Lock seat for user
+  - `release-seat` - Release seat lock
+  - `seat-status-update` - Broadcast seat status changes
+  - `booking-update` - Broadcast booking status updates
+- **Use Case:** Real-time seat availability updates
+
+---
+
+# 8) API Design
+
+### POST /api/v1/bookings
+
+- **URL:** `/api/v1/bookings`
+- **Method:** POST
+- **Description:** Create a new booking
+- **Request Body:**
+
+  ```json
+  {
+    "eventId": "event_abc123",
+    "showtimeId": "showtime_xyz789",
+    "seatIds": ["seat_1", "seat_2", "seat_3"],
+    "paymentMethod": "card",
+    "customerInfo": {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1234567890"
+    }
+  }
+
+  ```
+
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "bookingId": "booking_abc123",
+      "eventId": "event_abc123",
+      "seatIds": ["seat_1", "seat_2", "seat_3"],
+      "status": "confirmed",
+      "totalAmount": 150.00,
+      "qrCode": "https://example.com/qr/booking_abc123",
+      "createdAt": "2024-01-15T10:30:00Z"
+    }
+  }
+
+  ```
+
+- **Status Codes:** 201 (Created), 400 (Validation Error), 409 (Seats Already Booked), 402 (Payment Failed)
+
+### GET /api/v1/showtimes/:showtimeId/seats
+
+- **URL:** `/api/v1/showtimes/:showtimeId/seats`
+- **Method:** GET
+- **Description:** Get seat map with availability for a showtime
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "showtimeId": "showtime_xyz789",
+      "seats": [
+        {
+          "seatId": "seat_1",
+          "row": "A",
+          "number": "1",
+          "status": "available",
+          "price": 50.00,
+          "category": "premium"
+        },
+        {
+          "seatId": "seat_2",
+          "row": "A",
+          "number": "2",
+          "status": "booked",
+          "price": 50.00,
+          "category": "premium"
+        }
+      ]
+    }
+  }
+
+  ```
+
+- **Status Codes:** 200 (Success), 404 (Showtime Not Found)
+
+### POST /api/v1/seats/lock
+
+- **URL:** `/api/v1/seats/lock`
+- **Method:** POST
+- **Description:** Lock seats temporarily during booking process
+- **Request Body:**
+
+  ```json
+  {
+    "showtimeId": "showtime_xyz789",
+    "seatIds": ["seat_1", "seat_2"]
+  }
+
+  ```
+
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "lockedSeats": ["seat_1", "seat_2"],
+      "lockExpiresAt": "2024-01-15T10:35:00Z"
+    }
+  }
+
+  ```
+
+- **Status Codes:** 200 (Success), 409 (Seats Already Locked/Booked)
+
+---
+
+# 9) Caching Strategy
+
+### Redis Cache
+
+**Cache Strategy:**
+
+- **Key Format:** `seat:availability:{showtimeId}`, `lock:seat:{seatId}`, `booking:{bookingId}`
+- **Value:** Serialized JSON (seat map, booking data)
+- **TTL:**
+  - Seat availability: 30 seconds (frequently updated)
+  - Seat locks: 300 seconds (5 minutes)
+  - Booking data: 3600 seconds (1 hour)
+- **Eviction Policy:** LRU (Least Recently Used)
+
+**Cache Patterns:**
+
+- **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
+- **Write-Through Pattern:** Update cache and database simultaneously for seat locks
+- **Cache Invalidation:** Invalidate seat availability cache when booking is created
+
+### Cache Warming
+
+- **Pre-load Strategy:** Pre-load seat availability for upcoming showtimes
+- **Update on Read:** Update cache on every seat map query to keep data fresh
+- **TTL Extension:** Extend TTL for frequently accessed showtimes
+
+---
+
+# 10) Error Handling
+
+### Error Scenarios and Responses
+
+**Edge Cases Handling:**
+
+- **Seat Already Booked:** Return 409 Conflict with message "Seat is already booked. Please select different seats."
+- **Seat Already Locked:** Return 409 Conflict with message "Seat is currently being booked by another user. Please try again."
+- **Lock Expired:** Return 410 Gone with message "Your seat selection has expired. Please select seats again."
+- **Payment Failure:** Return 402 Payment Required with payment error details
+- **Invalid Seat Selection:** Return 400 Bad Request with validation errors
+- **Showtime Not Found:** Return 404 Not Found
+- **Concurrent Booking Conflict:** Return 409 Conflict, retry booking
+
+**Error Response Format:**
+
+```json
+{
+  "error": {
+    "code": "SEAT_ALREADY_BOOKED",
+    "message": "Seat is already booked",
+    "details": "Seat seat_1 is no longer available. Please select different seats.",
+    "availableSeats": ["seat_3", "seat_4"]
+  }
+}
+
+```
+
+---
+
+# 11) Deployment and DevOps
+
+### Scalability
+
+**API Layer:**
+
+- Deploy API layer across multiple instances behind load balancer
+- Use auto-scaling based on CPU/memory metrics
+- Stateless design allows horizontal scaling
+
+**Database Scaling:**
+
+- **Read Replicas:** Deploy read replicas for seat availability queries
+- **Sharding:** Shard bookings by eventId or userId for write scaling
+- **Connection Pooling:** Use connection pooling to manage database connections
+
+**Caching:**
+
+- Distributed Redis cluster for high availability
+- Cache seat availability and booking data
+- Reduces database load significantly
+
+### Availability
+
+**Replication:**
+
+- Database replication ensures data availability
+- Multi-region replication for disaster recovery
+
+**Failover:**
+
+- Automated failover mechanisms for API and data store layers
+- Health checks and monitoring for proactive failover
+- Circuit breaker pattern to prevent cascading failures
+
+**Geo-Distributed Deployment:**
+
+- Deploy service across multiple geographical regions
+- Reduces latency for users worldwide
+- Improves availability by eliminating single point of failure
+
+### Frontend Deployment
+
+**Build Process:**
+
+- **Production Build:** Optimized bundle with code splitting
+- **CDN Deployment:** Deploy static assets to CDN for fast global delivery
+- **Environment Variables:** `.env.production` for production config
+
+**Deployment Platforms:**
+
+- **Vercel / Netlify** - Automatic deployments from Git
+- **AWS S3 + CloudFront** - Static site hosting with CDN
+
+### Backend Deployment
+
+**Server Setup:**
+
+- **PM2:** Process manager with clustering for Node.js apps
+- **Nginx:** Load balancer and reverse proxy with SSL termination
+- **Docker:** Containerized deployment for consistency
+- **Kubernetes:** Container orchestration for auto-scaling
+
+**CI/CD Pipeline:**
+
+- **Automated Testing:** Run tests before deployment
+- **Zero-Downtime:** Rolling deployment strategy
+- **Health Checks:** Verify booking endpoints are healthy
+- **Blue-Green Deployment:** Maintain two identical production environments
+
+### Database Deployment
+
+**MongoDB Setup:**
+
+- **MongoDB Atlas** - Managed MongoDB service with automatic backups
+- **Backup Strategy:** Daily automated backups with point-in-time recovery
+- **Indexing:** Proper indexes on bookingId, userId, eventId, showtimeId
+- **Replication:** Replica sets for high availability
+
+**Redis Setup:**
+
+- **Redis Cloud / AWS ElastiCache** - Managed Redis service
+- **Cluster Mode:** Redis cluster for high availability and performance
+- **Persistence:** RDB snapshots and AOF for data durability
+
+---
+
+# 12) Security Considerations
+
+### Rate Limiting
+
+- Implement rate limiting at API layer to prevent abuse
+- Limit number of booking attempts per user/IP per minute/hour
+- Use Redis for distributed rate limiting across multiple servers
+
+### Input Validation
+
+- Validate all API inputs (seat IDs, event IDs, payment data)
+- Sanitize user input to prevent injection attacks
+- Check seat availability before processing booking
+
+### HTTPS/TLS
+
+- All communication between clients and API encrypted using HTTPS
+- Prevents eavesdropping and man-in-the-middle attacks
+- SSL/TLS certificates for secure connections
+
+### Payment Security
+
+- **PCI-DSS Compliance:** Use payment gateway SDKs that handle PCI-DSS compliance
+- **Tokenization:** Never store full payment card details, use tokens
+- **Idempotency:** Use idempotency keys to prevent duplicate charges
+- **Webhook Verification:** Verify payment gateway webhook signatures
+
+### Authentication and Authorization
+
+- **JWT Tokens:** Use JWT for stateless authentication
+- **Token Expiration:** Set appropriate token expiration times
+- **Role-Based Access Control:** Implement RBAC for admin vs user access
+- **Booking Ownership:** Verify user owns booking before allowing modifications
+
+### Monitoring and Alerts
+
+- Set up monitoring for unusual booking patterns
+- Trigger alerts for potential fraud or abuse
+- Track metrics: booking rates, payment success rates, seat utilization
+- Log all booking operations for security auditing

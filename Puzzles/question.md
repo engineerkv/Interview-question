@@ -61,328 +61,328 @@
 
 ## 📚 Complete Puzzle List
 
-### 1. Crossing the bridge
+### 1. 🌉 Crossing the bridge
 
 **Asked in:** Google, Microsoft
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 2. A fake among 12 coins
+### 2. 🪙 A fake among 12 coins
 
 **Asked in:** Microsoft, Bloomberg, Amazon, Google
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 3. 2 Eggs and 100 Floor
+### 3. 🥚 2 Eggs and 100 Floor
 
 **Asked in:** Google, Microsoft, Nvidia, Bloomberg, Morgan Stanley
 **Difficulty:** ⭐⭐⭐⭐
 
 ---
 
-### 4. 100 people in a circle
+### 4. 👥 100 people in a circle
 
 **Difficulty:** ⭐⭐
 
 ---
 
-### 5. Wolf-Goat-Cabbage
+### 5. 🐺 Wolf-Goat-Cabbage
 
 **Difficulty:** ⭐⭐
 
 ---
 
-### 6. Finding Celebrity
+### 6. ⭐ Finding Celebrity
 
 **Asked in:** Facebook, Microsoft, Yahoo
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 7. Monkeys and Doors
+### 7. 🐵 Monkeys and Doors
 
 **Asked in:** Google, Amazon, Adobe, Oracle, Microsoft
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 8. The two water Jug
+### 8. 🪣 The two water Jug
 
 **Asked in:** Microsoft, Amazon, Oracle, Bloomberg, Citrix
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 9. Chessboard Reassembly
+### 9. ♟️ Chessboard Reassembly
 
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 10. Round table coin game
+### 10. 🪙 Round table coin game
 
 **Asked in:** Amazon, Microsoft
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 11. Fake Note
+### 11. 💵 Fake Note
 
 **Difficulty:** ⭐⭐
 
 ---
 
-### 12. Einstein's puzzle
+### 12. 🧠 Einstein's puzzle
 
 **Difficulty:** ⭐⭐⭐⭐
 
 ---
 
-### 13. Six-colored cube
+### 13. 🎲 Six-colored cube
 
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 14. The Monkey and the Coconut
+### 14. 🐵 The Monkey and the Coconut
 
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 15. Ants on a Triangle
+### 15. 🐜 Ants on a Triangle
 
 **Asked in:** Microsoft, Qualcomm, Google
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 16. 3 Mislabeled Jars
+### 16. 🫙 3 Mislabeled Jars
 
 **Asked in:** Microsoft
 **Difficulty:** ⭐⭐
 
 ---
 
-### 17. Find the ages of daughters
+### 17. 👧 Find the ages of daughters
 
 **Asked in:** Google
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 18. Truth and Lie
+### 18. ✅❌ Truth and Lie
 
 **Asked in:** Amazon
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 19. Prisoners and Poison
+### 19. 🚔 Prisoners and Poison
 
 **Asked in:** Amazon
 **Difficulty:** ⭐⭐⭐⭐
 
 ---
 
-### 20. Next Number
+### 20. 🔢 Next Number
 
 **Asked in:** Amazon, Google
 **Difficulty:** ⭐⭐
 
 ---
 
-### 21. Spider's Web
+### 21. 🕷️ Spider's Web
 
 **Asked in:** Bloomberg
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 22. Ratio of Boys and Girls
+### 22. 👦👧 Ratio of Boys and Girls
 
 **Asked in:** Amazon, Google
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 23. Balls in a bag
+### 23. ⚽ Balls in a bag
 
 **Difficulty:** ⭐⭐
 
 ---
 
-### 24. Maximum number of Kings on a Chessboard
+### 24. ♔ Maximum number of Kings on a Chessboard
 
 **Difficulty:** ⭐⭐
 
 ---
 
-### 25. Divide the Cake
+### 25. 🎂 Divide the Cake
 
 **Asked in:** Google
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 26. Minimum planes to go around the world
+### 26. ✈️ Minimum planes to go around the world
 
 **Asked in:** Microsoft
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 27. A knight's shortest path
+### 27. ♞ A knight's shortest path
 
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 28. Find the rank
+### 28. 📊 Find the rank
 
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 29. Counting triangles
+### 29. 🔺 Counting triangles
 
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 30. Questionable tiling
+### 30. 🧩 Questionable tiling
 
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 31. The Icosian game
+### 31. 🎮 The Icosian game
 
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 32. Row and Column Exchange
+### 32. 🔄 Row and Column Exchange
 
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 33. Mental Arithmetic
+### 33. 🧮 Mental Arithmetic
 
 **Difficulty:** ⭐⭐
 
 ---
 
-### 34. The Fox and The Duck
+### 34. 🦊 The Fox and The Duck
 
 **Asked in:** Microsoft
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 35. The Chameleons
+### 35. 🦎 The Chameleons
 
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 36. Crossing the desert
+### 36. 🏜️ Crossing the desert
 
 **Asked in:** Microsoft
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 37. Monty Hall Problem
+### 37. 🚪 Monty Hall Problem
 
 **Asked in:** Amazon
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 38. Blocked Path
+### 38. 🚧 Blocked Path
 
 **Asked in:** Google
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 39. 5 Pirates and 100 gold coins
+### 39. 🏴‍☠️ 5 Pirates and 100 gold coins
 
 **Asked in:** Microsoft
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 40. 10 Coins Puzzle
+### 40. 🪙 10 Coins Puzzle
 
 **Asked in:** Yahoo
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 41. Magic Square
+### 41. ✨ Magic Square
 
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 42. Cutting a Stick
+### 42. 🪵 Cutting a Stick
 
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 43. 13 Caves and a Thief
+### 43. 🕳️ 13 Caves and a Thief
 
 **Asked in:** Google
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 44. Couples crossing the river
+### 44. 💑 Couples crossing the river
 
 **Asked in:** Microsoft
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 45. Gold for 7 days of Work
+### 45. 💰 Gold for 7 days of Work
 
 **Asked in:** Microsoft
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 46. Palindrome Counting
+### 46. 🔄 Palindrome Counting
 
 **Difficulty:** ⭐⭐
 
 ---
 
-### 47. Coins on a star
+### 47. ⭐ Coins on a star
 
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 48. The Rabbit Problem
+### 48. 🐰 The Rabbit Problem
 
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 49. Find the fastest 3 horses
+### 49. 🐴 Find the fastest 3 horses
 
 **Asked in:** Google, Amazon, Citrix
 **Difficulty:** ⭐⭐⭐
 
 ---
 
-### 50. 100 Prisoners with Red/Black Hats
+### 50. 👥 100 Prisoners with Red/Black Hats
 
 **Asked in:** Google, Microsoft
 **Difficulty:** ⭐⭐⭐⭐

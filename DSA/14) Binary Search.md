@@ -6,15 +6,15 @@
 
 <div align="center">
 
-[Trie](13%20Trie.md) • [Home: README](README.md) • [Bit Manipulation →](15%20Bit%20Manipulation.md)
+[← Previous: Trie](13%29%20Trie.md) • [Home: README](README.md) • [Next: Bit Manipulation →](15%29%20Bit%20Manipulation.md)
 
-[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md)
 
 </div>
 
 ---
 
-## Q211. Search Insert Position
+## Q211. 🔎 Search Insert Position
 
 **Problem:** Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order. You must write an algorithm with `O(log n)` runtime complexity.
 
@@ -62,7 +62,7 @@ function searchInsert(nums, target) {
 **Time Complexity:** O(log n) - Binary search
 **Space Complexity:** O(1) - Constant extra space
 
-## Q212. Search a 2D Matrix
+## Q212. 🔎 Search a 2D Matrix
 
 **Problem:** You are given an `m x n` integer matrix `matrix` with the following two properties:
 
@@ -117,7 +117,7 @@ function searchMatrix(matrix, target) {
 **Time Complexity:** O(log(m × n)) - Binary search on flattened array
 **Space Complexity:** O(1) - Constant extra space
 
-## Q213. Find Peak Element
+## Q213. 🔍 Find Peak Element
 
 **Problem:** A peak element is an element that is strictly greater than its neighbors. Given a 0-indexed integer array `nums`, find a peak element, and return its index. If the array contains multiple peaks, return the index to any of the peaks. You may imagine that `nums[-1] = nums[n] = -∞`. You must write an algorithm that runs in `O(log n)` time.
 
@@ -160,7 +160,7 @@ function findPeakElement(nums) {
 **Time Complexity:** O(log n) - Binary search
 **Space Complexity:** O(1) - Constant extra space
 
-## Q214. Search in Rotated Sorted Array
+## Q214. 📋 Search in Rotated Sorted Array
 
 **Problem:** There is an integer array `nums` sorted in ascending order (with distinct values). Prior to being passed to your function, `nums` is possibly rotated at an unknown pivot index `k` (1 <= k < nums.length) such that the resulting array is `[nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]` (0-indexed). For example, `[0,1,2,4,5,6,7]` might be rotated at pivot index `3` and become `[4,5,6,7,0,1,2]`. Given the array `nums` after the rotation and an integer `target`, return the index of `target` if it is in `nums`, or `-1` if it is not in `nums`. You must write an algorithm with `O(log n)` runtime complexity.
 
@@ -219,7 +219,7 @@ function search(nums, target) {
 **Time Complexity:** O(log n) - Binary search
 **Space Complexity:** O(1) - Constant extra space
 
-## Q215. Find First and Last Position of Element in Sorted Array
+## Q215. 📋 Find First and Last Position of Element in Sorted Array
 
 **Problem:** Given an array of integers `nums` sorted in non-decreasing order, find the starting and ending position of a given `target` value. If `target` is not found in the array, return `[-1, -1]`. You must write an algorithm with `O(log n)` runtime complexity.
 
@@ -292,7 +292,7 @@ function findLast(nums, target) {
 **Time Complexity:** O(log n) - Two binary searches
 **Space Complexity:** O(1) - Constant extra space
 
-## Q216. Find Minimum in Rotated Sorted Array
+## Q216. 📋 Find Minimum in Rotated Sorted Array
 
 **Problem:** Suppose an array of length `n` sorted in ascending order is rotated between `1` and `n` times. For example, the array `nums = [0,1,2,4,5,6,7]` might become:
 
@@ -345,7 +345,7 @@ function findMin(nums) {
 **Time Complexity:** O(log n) - Binary search
 **Space Complexity:** O(1) - Constant extra space
 
-## Q217. Median of Two Sorted Arrays
+## Q217. 📋 Median of Two Sorted Arrays
 
 **Problem:** Given two sorted arrays `nums1` and `nums2` of size `m` and `n` respectively, return the median of the two sorted arrays. The overall run time complexity should be `O(log (m+n))`.
 
@@ -415,8 +415,8 @@ function findMedianSortedArrays(nums1, nums2) {
 
 <div align="center">
 
-[Trie](13%20Trie.md) • [Home: README](README.md) • [Bit Manipulation →](15%20Bit%20Manipulation.md)
+[← Previous: Trie](13%29%20Trie.md) • [Home: README](README.md) • [Next: Bit Manipulation →](15%29%20Bit%20Manipulation.md)
 
-[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md)
 
 </div>

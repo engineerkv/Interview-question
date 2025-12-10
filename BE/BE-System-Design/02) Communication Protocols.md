@@ -16,29 +16,90 @@
 
 ---
 
-## Q26. 🌐 HTTP/1.1 vs HTTP/2 vs HTTP/3
+## Q26. 🌐 HTTP/1.0/ HTTP/1.1 vs HTTP/2 vs HTTP/3
 
-HTTP has evolved through three major versions, each addressing performance limitations of the previous version. When you choose an HTTP version, you balance performance improvements with compatibility and tooling support.
+HTTP has evolved through multiple versions, each addressing performance limitations of the previous version. When you choose an HTTP version, you balance performance improvements with compatibility and tooling support.
 
 ---
 
-## 1. HTTP/1.1 Characteristics
+## 1. 🌐 HTTP/1.0 (1996)
 
-HTTP/1.1 sends one request per connection and requires multiple connections for parallelism.
+HTTP/1.0 is the original HTTP specification. Each request requires a new TCP connection, which creates significant overhead.
 
-* **One request per connection** → Each connection handles one request at a time
+**Key Characteristics:**
 
-* **Multiple connections** → Need multiple connections for parallel requests
+* **New connection per request** → Every request opens a fresh TCP connection (3-way handshake overhead)
 
-* **Head-of-line blocking** → One slow request blocks the connection
+* **Connection closes after response** → Server closes the connection immediately after sending the response
+
+* **No connection reuse** → Cannot reuse the same connection for multiple requests
+
+* **Sequential requests only** → Must wait for one request to complete before starting another on the same connection
 
 * **No header compression** → Headers sent in plain text, adding overhead
 
-📌 **In simple terms**: One request per connection, need multiple connections for parallelism.
+* **Head-of-line blocking** → One slow request blocks the entire connection
+
+**Example Scenario:**
+
+```
+Request 1: Open connection → Request HTML → Receive HTML → Close connection
+Request 2: Open connection → Request CSS → Receive CSS → Close connection
+Request 3: Open connection → Request JS → Receive JS → Close connection
+
+```
+
+Each request has the overhead of establishing a new TCP connection.
+
+📌 **In simple terms**: Every request needs a brand new connection. Very inefficient for modern web pages with many resources.
 
 ---
 
-## 2. HTTP/2 Improvements
+## 2. 🌐 HTTP/1.1 (1997)
+
+HTTP/1.1 introduced persistent connections (keep-alive), allowing multiple requests to reuse the same TCP connection. This was a major improvement over HTTP/1.0.
+
+**Key Characteristics:**
+
+* **Persistent connections by default** → Connections stay open after a response, allowing reuse
+
+* **Connection reuse** → Multiple requests can use the same TCP connection sequentially
+
+* **Keep-alive enabled by default** → No need for explicit `Connection: keep-alive` header (unlike HTTP/1.0)
+
+* **Host header required** → Enables virtual hosting (multiple domains on one server)
+
+* **Better caching** → Added Cache-Control, ETag, and conditional headers
+
+* **Still one request per connection at a time** → Requests are sequential, not parallel on the same connection
+
+* **Multiple connections for parallelism** → Browsers open 6-8 connections per domain to achieve parallelism
+
+* **No header compression** → Headers still sent in plain text
+
+* **Head-of-line blocking** → One slow request blocks that connection (but other connections can proceed)
+
+**Example Scenario:**
+
+```
+Connection 1: Request HTML → Receive HTML → Request CSS → Receive CSS → Request JS → Receive JS
+Connection 2: Request Image1 → Receive Image1 → Request Image2 → Receive Image2
+Connection 3: Request Image3 → Receive Image3 → Request Image4 → Receive Image4
+
+```
+
+Same connection reused for multiple requests, but requests are still sequential per connection.
+
+**Key Difference from HTTP/1.0:**
+
+* **HTTP/1.0**: Connection closes after each request → Must open new connection for next request
+* **HTTP/1.1**: Connection stays open → Can reuse same connection for next request
+
+📌 **In simple terms**: Reuses the same connection for multiple requests, but still processes them one at a time. Browsers open multiple connections (typically 6-8) to achieve parallelism.
+
+---
+
+## 3. 🌐 HTTP/2
 
 HTTP/2 multiplexes multiple requests over a single connection and uses header compression.
 
@@ -52,7 +113,7 @@ HTTP/2 multiplexes multiple requests over a single connection and uses header co
 
 ---
 
-## 3. HTTP/3 and QUIC
+## 4. 🌐 HTTP/3 and QUIC
 
 HTTP/3 uses QUIC protocol over UDP instead of TCP, eliminating head-of-line blocking.
 
@@ -66,11 +127,13 @@ HTTP/3 uses QUIC protocol over UDP instead of TCP, eliminating head-of-line bloc
 
 ---
 
-## 4. Performance Comparison
+## 5. ⚡ Performance Comparison
 
 Each version improves performance over the previous one.
 
-* **HTTP/1.1** → Slowest, requires multiple connections
+* **HTTP/1.0** → Slowest, requires new TCP connection for each request (high overhead from repeated handshakes)
+
+* **HTTP/1.1** → Significantly better than HTTP/1.0 with persistent connections, but still requires multiple connections (6-8 per domain) for parallelism
 
 * **HTTP/2** → Faster, multiplexing and header compression
 
@@ -78,9 +141,11 @@ Each version improves performance over the previous one.
 
 ---
 
-## 5. When to Use Each Version
+## 6. 💡 When to Use Each Version
 
 You choose based on your needs and constraints.
+
+* **HTTP/1.0** → Very old legacy systems, maximum compatibility
 
 * **HTTP/1.1** → Legacy systems, maximum compatibility
 
@@ -90,9 +155,17 @@ You choose based on your needs and constraints.
 
 ---
 
-## 6. Trade-offs
+## 7. 💡 Trade-offs
 
-HTTP/2 improves performance significantly over HTTP/1.1, but has limitations.
+Each version has different trade-offs.
+
+* **HTTP/1.0 pros** → Maximum compatibility, works everywhere, simple to implement
+
+* **HTTP/1.0 cons** → The catch is it requires a new TCP connection for each request, which adds significant overhead (3-way handshake for every request)
+
+* **HTTP/1.1 pros** → Persistent connections by default (major improvement over HTTP/1.0), connection reuse reduces overhead, maximum compatibility, widely supported
+
+* **HTTP/1.1 cons** → The catch is it still requires multiple connections (6-8 per domain) for parallelism, sequential requests per connection cause head-of-line blocking, no header compression
 
 * **HTTP/2 pros** → Significant performance improvement, wide support
 
@@ -104,7 +177,7 @@ HTTP/2 improves performance significantly over HTTP/1.1, but has limitations.
 
 ---
 
-## 7. Migration Considerations
+## 8. 💡 Migration Considerations
 
 When migrating between HTTP versions, consider compatibility and tooling.
 
@@ -120,7 +193,7 @@ When migrating between HTTP versions, consider compatibility and tooling.
 
 ## ⭐ Summary — 10-second Interview Version
 
-> "HTTP/1.1 sends one request per connection and requires multiple connections for parallelism. HTTP/2 multiplexes multiple requests over a single connection, uses header compression, and supports server push. HTTP/3 uses QUIC over UDP, eliminating head-of-line blocking. Choose HTTP/2 for most cases, HTTP/3 for better performance on unreliable networks."
+> "HTTP/1.0 requires a new TCP connection for every request, which is very inefficient. HTTP/1.1 introduced persistent connections (keep-alive by default), allowing connection reuse for multiple sequential requests, but still requires multiple connections (typically 6-8 per domain) for parallelism. HTTP/2 multiplexes multiple requests over a single connection simultaneously, uses header compression, and supports server push. HTTP/3 uses QUIC over UDP, eliminating head-of-line blocking. Choose HTTP/2 for most cases, HTTP/3 for better performance on unreliable networks."
 
 ---
 
@@ -146,7 +219,7 @@ gRPC and REST are two different approaches to building APIs, each with their own
 
 ---
 
-## 1. What is gRPC
+## 1. 🔌 What is gRPC
 
 gRPC is a high-performance RPC framework using Protocol Buffers and HTTP/2.
 
@@ -162,7 +235,7 @@ gRPC is a high-performance RPC framework using Protocol Buffers and HTTP/2.
 
 ---
 
-## 2. What is REST
+## 2. 🔀 What is REST
 
 REST is an architectural style using HTTP methods and JSON.
 
@@ -178,7 +251,7 @@ REST is an architectural style using HTTP methods and JSON.
 
 ---
 
-## 3. When to Use gRPC
+## 3. 🔌 When to Use gRPC
 
 Use gRPC for service-to-service communication where you need high performance.
 
@@ -192,7 +265,7 @@ Use gRPC for service-to-service communication where you need high performance.
 
 ---
 
-## 4. When to Use REST
+## 4. 🔀 When to Use REST
 
 Use REST for client-server communication where you need compatibility.
 
@@ -206,7 +279,7 @@ Use REST for client-server communication where you need compatibility.
 
 ---
 
-## 5. Key Differences
+## 5. ➖ Key Differences
 
 gRPC and REST differ in several important ways.
 
@@ -220,7 +293,7 @@ gRPC and REST differ in several important ways.
 
 ---
 
-## 6. Performance Comparison
+## 6. ⚡ Performance Comparison
 
 gRPC generally performs better than REST.
 
@@ -234,7 +307,7 @@ gRPC generally performs better than REST.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 gRPC is faster and more efficient with binary Protocol Buffers and HTTP/2.
 
@@ -270,121 +343,420 @@ You might use gRPC for internal service-to-service communication and REST for ex
 
 ---
 
-## Q28. 🔌 WebSockets vs SSE vs Long Polling
+## Q28. 🔌 WebSockets vs SSE vs Long Polling vs Short Polling
 
-WebSockets, SSE, and Long Polling are three different approaches to real-time communication. When you choose between them, you consider whether you need bidirectional communication, the complexity you can handle, and your performance requirements.
-
----
-
-## 1. What are WebSockets
-
-WebSockets provide full-duplex communication over a single persistent connection.
-
-* **Full-duplex** → Both client and server can send messages anytime
-
-* **Persistent connection** → Connection stays open for the session
-
-* **Low latency** → Real-time bidirectional communication
-
-* **Use cases** → Real-time chat, gaming, collaborative editing
-
-📌 **In simple terms**: Full-duplex communication over a persistent connection.
+WebSockets, SSE, Long Polling, and Short Polling are four different approaches to real-time communication. When you choose between them, you consider whether you need bidirectional communication, the complexity you can handle, and your performance requirements.
 
 ---
 
-## 2. What is SSE (Server-Sent Events)
+## 1. 🔌 What are WebSockets
 
-SSE is one-way server-to-client streaming over HTTP.
+WebSockets provide full-duplex communication over a single persistent TCP connection, enabling real-time bidirectional data exchange.
 
-* **One-way** → Server pushes events to client
+### Key Characteristics
 
-* **HTTP-based** → Works over standard HTTP
+* **Full-duplex** → Both client and server can send messages simultaneously at any time
+* **Persistent connection** → Single TCP connection stays open for the entire session
+* **Low latency** → Near-instantaneous message delivery (typically < 10ms)
+* **Protocol upgrade** → Starts as HTTP request, upgrades to WebSocket protocol (WS/WSS)
+* **Binary & text support** → Can send both text and binary data
+* **Frame-based** → Messages sent as frames with headers (2-14 bytes overhead per frame)
 
-* **Automatic reconnection** → Browser handles reconnection
+### Connection Lifecycle
 
-* **Use cases** → Notifications, live updates, dashboards
+1. **Handshake** → Client sends HTTP Upgrade request with `Sec-WebSocket-Key`
+2. **Upgrade** → Server responds with `101 Switching Protocols` and `Sec-WebSocket-Accept`
+3. **Data exchange** → Both sides can send frames anytime
+4. **Close** → Either side can initiate close with close frame
 
-📌 **In simple terms**: One-way server-to-client streaming over HTTP.
+### Use Cases
 
----
+* Real-time chat applications (WhatsApp, Slack)
+* Multiplayer gaming
+* Collaborative editing (Google Docs)
+* Live trading platforms
+* Real-time dashboards with bidirectional updates
+* IoT device control
 
-## 3. What is Long Polling
+### Browser Support
 
-Long polling keeps HTTP requests open until the server has data.
+* Modern browsers: Full support
+* Mobile: iOS Safari 4.2+, Android 4.4+
+* Fallback: Requires polyfills for older browsers
 
-* **HTTP request** → Standard HTTP request that stays open
-
-* **Server holds** → Server holds request until data is available
-
-* **Response then new request** → After response, client makes new request
-
-* **Use cases** → Simple real-time updates, when WebSockets aren't available
-
-📌 **In simple terms**: HTTP request that stays open until server has data.
-
----
-
-## 4. Comparison of Capabilities
-
-Each approach has different capabilities.
-
-* **Bidirectional** → WebSockets: Yes, SSE: No, Long Polling: No (requires separate requests)
-
-* **Connection type** → WebSockets: Persistent, SSE: Persistent, Long Polling: Per request
-
-* **Protocol** → WebSockets: WS/WSS, SSE: HTTP, Long Polling: HTTP
-
-* **Complexity** → WebSockets: High, SSE: Medium, Long Polling: Low
+📌 **In simple terms**: Full-duplex communication over a persistent connection with minimal overhead.
 
 ---
 
-## 5. Performance Characteristics
+## 2. 🎯 What is SSE (Server-Sent Events)
 
-Each approach has different performance characteristics.
+SSE is a one-way server-to-client streaming protocol built on top of HTTP, allowing servers to push events to browsers automatically.
 
-* **Latency** → WebSockets: Lowest, SSE: Low, Long Polling: Higher
+### Key Characteristics
 
-* **Overhead** → WebSockets: Low (after connection), SSE: Low, Long Polling: Higher
+* **One-way** → Server pushes events to client (client cannot send data over SSE connection)
+* **HTTP-based** → Uses standard HTTP GET request with `text/event-stream` content type
+* **Automatic reconnection** → Browser automatically reconnects on connection loss
+* **Event ID tracking** → Supports event IDs for resuming after disconnection
+* **Text-only** → Only supports UTF-8 text data (no binary)
+* **HTTP/2 compatible** → Works with HTTP/2 multiplexing
 
-* **Scalability** → WebSockets: Good, SSE: Good, Long Polling: Limited
+### Message Format
 
-* **Resource usage** → WebSockets: Moderate, SSE: Moderate, Long Polling: Higher
+```
+data: This is a message\n\n
+id: 123\n
+event: message\n
+retry: 3000\n
+data: Multi-line\n
+data: message\n\n
+
+```
+
+### Connection Lifecycle
+
+1. **Request** → Client makes GET request with `Accept: text/event-stream`
+2. **Stream** → Server keeps connection open and sends events
+3. **Reconnection** → Browser automatically reconnects if connection drops (uses `Last-Event-ID` header)
+
+### Use Cases
+
+* Live notifications (Twitter, Facebook)
+* Real-time dashboards (monitoring, analytics)
+* Live score updates (sports, stocks)
+* Progress updates for long-running operations
+* News feeds and live blogs
+* Server status updates
+
+### Browser Support
+
+* Modern browsers: Full support (except IE/Edge Legacy)
+* Mobile: iOS Safari 5+, Android 4.4+
+* Fallback: Requires EventSource polyfill for older browsers
+
+📌 **In simple terms**: One-way server-to-client streaming over HTTP with automatic reconnection.
 
 ---
 
-## 6. When to Use Each
+## 3. 💡 What is Long Polling
 
-You choose based on your specific needs.
+Long polling is a technique where the client makes an HTTP request that the server holds open until it has data to send, creating a pseudo-persistent connection.
 
-* **WebSockets** → Bidirectional real-time communication, chat, gaming
+### Key Characteristics
 
-* **SSE** → Server push, notifications, live updates, dashboards
+* **HTTP request** → Standard HTTP GET/POST request
+* **Server holds** → Server keeps request open (doesn't respond immediately)
+* **Timeout handling** → Request times out after a period (typically 30-60 seconds)
+* **Immediate reconnection** → Client makes new request immediately after response
+* **State management** → Server must track pending requests per client
 
-* **Long Polling** → Simple cases, when WebSockets/SSE not available
+### Connection Lifecycle
+
+1. **Request** → Client sends HTTP request
+2. **Hold** → Server holds request open (no immediate response)
+3. **Data available** → Server responds with data when available
+4. **Reconnect** → Client immediately sends new request
+5. **Timeout** → If no data arrives, server responds with empty/status after timeout
+
+### Implementation Pattern
+
+```javascript
+// Client side
+function longPoll() {
+  fetch('/api/poll')
+    .then(response => response.json())
+    .then(data => {
+      processData(data);
+      longPoll(); // Immediately make new request
+    })
+    .catch(() => {
+      setTimeout(longPoll, 1000); // Retry on error
+    });
+}
+
+```
+
+### Use Cases
+
+* Simple real-time updates when WebSockets aren't available
+* Legacy browser support
+* Firewall/proxy environments that block WebSockets
+* Simple notification systems
+* Chat applications (older implementations)
+
+### Challenges
+
+* **Connection limits** → Each long-polling request consumes a server connection
+* **Timeout management** → Need to handle timeouts gracefully
+* **State tracking** → Server must maintain state for pending requests
+* **Race conditions** → Data might arrive between requests
+
+📌 **In simple terms**: HTTP request that stays open until server has data, then immediately reconnects.
 
 ---
 
-## 7. Trade-offs
+## 4. 💡 What is Short Polling
 
-WebSockets provide the best real-time performance with low latency and bidirectional communication.
+Short polling repeatedly makes HTTP requests at fixed intervals, regardless of whether data is available.
 
-* **WebSockets pros** → Best performance, bidirectional, low latency
+### Key Characteristics
 
-* **WebSockets cons** → The catch is they're more complex and require connection management
+* **Fixed intervals** → Client requests server at regular intervals (e.g., every 5, 10, 30 seconds)
+* **Immediate response** → Server responds immediately, even if no data is available
+* **No connection holding** → Each request completes immediately
+* **Simple implementation** → Easiest to implement and understand
+* **Stateless** → No server-side state tracking needed
 
-* **SSE pros** → Simpler, works over HTTP, automatic reconnection
+### Connection Lifecycle
 
-* **SSE cons** → Only supports server-to-client communication
+1. **Request** → Client sends HTTP request
+2. **Immediate response** → Server responds immediately (with data or empty)
+3. **Wait** → Client waits for interval period
+4. **Repeat** → Client makes new request after interval
 
-* **Long Polling pros** → Simplest, works everywhere
+### Implementation Pattern
 
-* **Long Polling cons** → Higher latency and overhead
+```javascript
+// Client side
+setInterval(() => {
+  fetch('/api/status')
+    .then(response => response.json())
+    .then(data => processData(data));
+}, 5000); // Poll every 5 seconds
+
+```
+
+### Use Cases
+
+* Simple status checks (order status, file processing)
+* Low-frequency updates (hourly weather updates)
+* When real-time isn't critical
+* Simple monitoring dashboards
+* Legacy systems with minimal requirements
+
+### Challenges
+
+* **Wasteful** → Many requests return empty responses
+* **High server load** → Constant requests consume server resources
+* **Bandwidth waste** → HTTP headers sent repeatedly
+* **Latency** → Updates delayed by polling interval
+* **Scalability** → Poor scalability with many clients
+
+📌 **In simple terms**: Repeatedly asking the server for updates at fixed intervals, regardless of data availability.
+
+---
+
+## 5. 💡 Detailed Comparison Table
+
+| Feature | WebSockets | SSE | Long Polling | Short Polling |
+|---------|-----------|-----|--------------|---------------|
+| **Bidirectional** | ✅ Yes | ❌ No | ⚠️ Via separate requests | ⚠️ Via separate requests |
+| **Connection Type** | Persistent TCP | Persistent HTTP | Per request | Per request |
+| **Protocol** | WS/WSS (upgraded from HTTP) | HTTP/HTTPS | HTTP/HTTPS | HTTP/HTTPS |
+| **Data Format** | Binary + Text | Text only (UTF-8) | Any (JSON, XML, etc.) | Any (JSON, XML, etc.) |
+| **Latency** | Lowest (~1-10ms) | Low (~10-50ms) | Medium (~50-200ms) | Highest (depends on interval) |
+| **Overhead** | Low (2-14 bytes/frame) | Low (HTTP headers) | Medium (HTTP headers per request) | High (HTTP headers × frequency) |
+| **Server Resources** | Moderate (persistent connections) | Moderate (persistent connections) | Higher (many pending requests) | Highest (constant requests) |
+| **Client Resources** | Moderate (one connection) | Low (one connection) | Low (one request at a time) | Low (periodic requests) |
+| **Scalability** | Good (with proper infrastructure) | Good (HTTP/2 multiplexing) | Limited (connection limits) | Poor (high request volume) |
+| **Complexity** | High (connection management) | Medium (simple API) | Low-Medium (timeout handling) | Very Low (simple requests) |
+| **Browser Support** | Excellent (modern browsers) | Good (not IE/Edge Legacy) | Universal | Universal |
+| **Reconnection** | Manual (must implement) | Automatic (browser handles) | Manual (must implement) | Automatic (interval-based) |
+| **Firewall/Proxy** | May be blocked | Usually works | Usually works | Usually works |
+| **Message Ordering** | Guaranteed | Guaranteed | Per request | Per request |
+| **Error Handling** | Manual | Built-in (EventSource) | Manual | Manual |
+
+---
+
+## 6. ⚡ Performance Characteristics
+
+### Latency Comparison
+
+* **WebSockets**: ~1-10ms (after connection established)
+* **SSE**: ~10-50ms (HTTP overhead)
+* **Long Polling**: ~50-200ms (request-response cycle)
+* **Short Polling**: 500ms-30s+ (depends on polling interval)
+
+### Bandwidth Efficiency
+
+* **WebSockets**: Most efficient (minimal frame overhead)
+* **SSE**: Efficient (HTTP headers once, then data)
+* **Long Polling**: Less efficient (HTTP headers per request)
+* **Short Polling**: Least efficient (HTTP headers × polling frequency)
+
+### Server Load (10,000 clients, 1 message/second)
+
+* **WebSockets**: ~10,000 persistent connections
+* **SSE**: ~10,000 persistent connections
+* **Long Polling**: ~10,000 requests/second (with reconnection)
+* **Short Polling**: ~10,000-200,000 requests/second (depending on interval)
+
+### Scalability Considerations
+
+* **WebSockets**: Requires connection management, load balancing (sticky sessions or pub/sub), heartbeat handling
+* **SSE**: HTTP/2 multiplexing helps, but still needs connection management
+* **Long Polling**: Limited by server connection limits, timeout management critical
+* **Short Polling**: Poor scalability due to constant request volume
+
+---
+
+## 7. 💡 When to Use Each
+
+### Use WebSockets When
+
+* ✅ You need **bidirectional real-time communication**
+* ✅ **Low latency** is critical (< 50ms)
+* ✅ You need to send **binary data** or large messages
+* ✅ You're building **real-time chat, gaming, or collaborative apps**
+* ✅ You can handle **connection management complexity**
+* ✅ You have infrastructure for **scaling persistent connections**
+
+**Real-world examples**: Slack, Discord, multiplayer games, collaborative editors
+
+### Use SSE When
+
+* ✅ You only need **server-to-client** communication
+* ✅ You want **simpler implementation** than WebSockets
+* ✅ You need **automatic reconnection** handled by browser
+* ✅ You're building **notifications, live feeds, or dashboards**
+* ✅ You want to leverage **HTTP/2 multiplexing**
+* ✅ You need **text-only** data streaming
+
+**Real-world examples**: Twitter notifications, Facebook live updates, stock tickers, monitoring dashboards
+
+### Use Long Polling When
+
+* ✅ WebSockets/SSE are **not available** (legacy browsers, restrictive firewalls)
+* ✅ You need **simple real-time updates** without WebSocket complexity
+* ✅ You have **limited server resources** for persistent connections
+* ✅ You're building a **simple notification system**
+* ✅ You can handle **timeout and reconnection logic**
+
+**Real-world examples**: Older chat applications, simple notification systems
+
+### Use Short Polling When
+
+* ✅ Updates are **infrequent** (minutes or hours)
+* ✅ **Real-time responsiveness** is not critical
+* ✅ You want the **absolute simplest** implementation
+* ✅ You have **very low client count**
+* ✅ You're building **simple status checks** or monitoring
+
+**Real-world examples**: Order status pages, simple monitoring dashboards, low-frequency data updates
+
+---
+
+## 8. 💡 Trade-offs & Considerations
+
+### WebSockets
+
+**Pros:**
+
+* ✅ Best performance and lowest latency
+* ✅ Full bidirectional communication
+* ✅ Supports binary and text data
+* ✅ Efficient bandwidth usage
+* ✅ Real-time capabilities
+
+**Cons:**
+
+* ❌ More complex to implement (connection management, heartbeats, reconnection)
+* ❌ Requires additional infrastructure for scaling (Redis pub/sub, sticky sessions)
+* ❌ May be blocked by firewalls/proxies
+* ❌ No automatic reconnection (must implement)
+* ❌ Harder to debug than HTTP-based solutions
+
+**Implementation challenges:**
+
+* Connection state management
+* Heartbeat/ping-pong to detect dead connections
+* Reconnection logic with exponential backoff
+* Scaling across multiple servers (requires pub/sub or sticky sessions)
+* Handling connection failures gracefully
+
+### SSE
+
+**Pros:**
+
+* ✅ Simpler than WebSockets (EventSource API)
+* ✅ Works over standard HTTP (easier integration)
+* ✅ Automatic reconnection handled by browser
+* ✅ Event ID tracking for resuming after disconnection
+* ✅ HTTP/2 compatible
+* ✅ Works through most firewalls/proxies
+
+**Cons:**
+
+* ❌ Only server-to-client (one-way)
+* ❌ Text-only (no binary data)
+* ❌ Limited browser support (no IE/Edge Legacy)
+* ❌ HTTP overhead per connection
+* ❌ Requires separate HTTP requests for client-to-server communication
+
+**Implementation considerations:**
+
+* Need separate HTTP endpoints for client-to-server messages
+* Server must handle connection state and event IDs
+* Content-Type must be `text/event-stream`
+* CORS configuration required for cross-origin
+
+### Long Polling
+
+**Pros:**
+
+* ✅ Works everywhere (standard HTTP)
+* ✅ Simpler than WebSockets
+* ✅ Better than short polling (reduces empty responses)
+* ✅ No special infrastructure needed
+* ✅ Works through firewalls/proxies
+
+**Cons:**
+
+* ❌ Higher latency than WebSockets/SSE
+* ❌ More overhead than persistent connections
+* ❌ Requires timeout management
+* ❌ Server must track pending requests
+* ❌ Limited scalability (connection limits)
+* ❌ Not truly real-time
+
+**Implementation challenges:**
+
+* Timeout handling (typically 30-60 seconds)
+* Race conditions (data arriving between requests)
+* Server connection limits
+* State management for pending requests
+* Immediate reconnection after response
+
+### Short Polling
+
+**Pros:**
+
+* ✅ Simplest to implement
+* ✅ Works everywhere (standard HTTP)
+* ✅ No connection management needed
+* ✅ Stateless (easy to scale horizontally)
+* ✅ Easy to debug
+
+**Cons:**
+
+* ❌ Highest overhead (many empty responses)
+* ❌ Wastes bandwidth and server resources
+* ❌ Poor scalability (high request volume)
+* ❌ Highest latency (depends on polling interval)
+* ❌ Not suitable for real-time applications
+
+**Implementation considerations:**
+
+* Choosing appropriate polling interval (balance between latency and load)
+* Handling empty responses efficiently
+* Rate limiting to prevent abuse
+* Caching to reduce server load
 
 ---
 
 ## ⭐ Summary — 10-second Interview Version
 
-> "WebSockets provide full-duplex communication over a persistent connection - perfect for real-time chat or gaming. SSE is one-way server-to-client streaming over HTTP - good for notifications or live updates. Long polling keeps HTTP requests open until the server has data - simpler but less efficient. Choose WebSockets for bidirectional real-time, SSE for server push, long polling for simple cases."
+> "WebSockets provide full-duplex communication over a persistent connection - perfect for real-time chat or gaming with lowest latency. SSE is one-way server-to-client streaming over HTTP - good for notifications or live updates with automatic reconnection. Long polling keeps HTTP requests open until the server has data - simpler but less efficient than WebSockets/SSE. Short polling repeatedly requests the server at fixed intervals - simplest but wastes bandwidth with empty responses. Choose WebSockets for bidirectional real-time, SSE for server push, long polling for simple cases when WebSockets aren't available, short polling only for low-frequency status checks."
 
 ---
 
@@ -392,15 +764,27 @@ WebSockets provide the best real-time performance with low latency and bidirecti
 
 ### Why would you choose SSE over WebSockets?
 
-You choose SSE when you only need server-to-client communication, want simpler implementation, or need automatic reconnection handled by the browser. SSE works over standard HTTP, so it's easier to integrate with existing infrastructure. The catch is you can't send data from client to server over the same connection. The tricky part is if you need bidirectional communication, you'd need to use separate HTTP requests for client-to-server messages.
+You choose SSE when you only need server-to-client communication, want simpler implementation, or need automatic reconnection handled by the browser. SSE works over standard HTTP, so it's easier to integrate with existing infrastructure and works through most firewalls/proxies. The catch is you can't send data from client to server over the same connection - you'd need separate HTTP requests for client-to-server messages. SSE is also text-only, so if you need binary data, WebSockets are better. The tricky part is choosing between SSE and WebSockets often comes down to whether you need bidirectional communication and how much complexity you can handle.
 
 ### How does long polling work exactly?
 
-Long polling works by making an HTTP request that the server holds open until it has data to send. When data is available, the server responds, and the client immediately makes a new request. This creates a continuous connection-like experience. The catch is each request-response cycle adds overhead, and you need to handle timeouts. The tricky part is managing connection state and ensuring requests don't timeout before data is available.
+Long polling works by making an HTTP request that the server holds open until it has data to send. When data is available, the server responds, and the client immediately makes a new request. This creates a continuous connection-like experience. The catch is each request-response cycle adds overhead (HTTP headers), and you need to handle timeouts (typically 30-60 seconds). The tricky part is managing connection state and ensuring requests don't timeout before data is available. You also need to handle race conditions where data might arrive between requests. Long polling is better than short polling because it reduces empty responses, but it's less efficient than WebSockets or SSE.
 
 ### What are the main challenges with WebSockets?
 
-WebSockets require connection management - handling reconnections, heartbeats, and connection state. They're more complex to implement and debug than HTTP-based solutions. The catch is you need to handle connection failures and reconnection logic yourself. The tricky part is scaling WebSocket connections across multiple servers requires additional infrastructure like Redis pub/sub or sticky sessions.
+WebSockets require connection management - handling reconnections, heartbeats (ping/pong frames), and connection state. They're more complex to implement and debug than HTTP-based solutions. The catch is you need to handle connection failures and reconnection logic yourself (with exponential backoff). The tricky part is scaling WebSocket connections across multiple servers requires additional infrastructure like Redis pub/sub for message distribution or sticky sessions for load balancing. You also need to handle dead connection detection (heartbeats), buffer management for messages during reconnection, and graceful degradation when WebSockets aren't available.
+
+### When would you use Short Polling over Long Polling?
+
+You might use Short Polling when updates are infrequent (minutes or hours) and you don't need real-time responsiveness, or when you want the absolute simplest implementation. The catch is Short Polling wastes bandwidth and server resources with many empty responses. The tricky part is choosing the right interval - too frequent wastes resources, too infrequent increases latency. Long Polling is almost always better because it reduces empty responses and improves efficiency. Short Polling only makes sense for very low-frequency updates (like checking order status every few minutes) or when you have very few clients and simplicity is more important than efficiency.
+
+### How do you scale WebSockets across multiple servers?
+
+Scaling WebSockets across multiple servers requires either sticky sessions (client always connects to same server) or a pub/sub system (like Redis). With sticky sessions, you use session affinity in load balancer, but this limits load distribution. With pub/sub, each server subscribes to channels, and when a message needs to be sent to a client on a different server, you publish to Redis and the server holding that connection delivers it. The catch is you need to track which server has which connection. The tricky part is handling reconnections - if a client reconnects, it might connect to a different server, so you need to handle connection migration and state synchronization.
+
+### What's the difference between WebSocket and HTTP/2 Server Push?
+
+WebSocket is a full-duplex protocol that upgrades from HTTP to a persistent connection, allowing bidirectional communication. HTTP/2 Server Push is a one-way mechanism where the server proactively sends resources to the client before they're requested, but it's still HTTP-based and doesn't provide true bidirectional real-time communication. WebSocket is better for real-time applications like chat, while HTTP/2 Server Push is better for optimizing page load times by pushing critical resources. The catch is HTTP/2 Server Push is being deprecated in favor of other techniques. The tricky part is WebSockets can work over HTTP/2, but they don't leverage HTTP/2's multiplexing benefits since WebSocket uses its own framing protocol.
 
 ---
 
@@ -410,7 +794,7 @@ TCP and UDP are two fundamental transport protocols with different characteristi
 
 ---
 
-## 1. What is TCP
+## 1. 📡 What is TCP
 
 TCP provides reliable, ordered delivery with error correction and flow control.
 
@@ -426,7 +810,7 @@ TCP provides reliable, ordered delivery with error correction and flow control.
 
 ---
 
-## 2. What is UDP
+## 2. 📡 What is UDP
 
 UDP is connectionless and unreliable.
 
@@ -442,7 +826,7 @@ UDP is connectionless and unreliable.
 
 ---
 
-## 3. TCP Characteristics
+## 3. 📡 TCP Characteristics
 
 TCP provides guarantees at the cost of overhead.
 
@@ -456,7 +840,7 @@ TCP provides guarantees at the cost of overhead.
 
 ---
 
-## 4. UDP Characteristics
+## 4. 📡 UDP Characteristics
 
 UDP prioritizes speed over reliability.
 
@@ -470,7 +854,7 @@ UDP prioritizes speed over reliability.
 
 ---
 
-## 5. When to Use TCP
+## 5. 📡 When to Use TCP
 
 Use TCP when you need reliability.
 
@@ -486,7 +870,7 @@ Use TCP when you need reliability.
 
 ---
 
-## 6. When to Use UDP
+## 6. 📡 When to Use UDP
 
 Use UDP when you need speed and can handle packet loss.
 
@@ -502,7 +886,7 @@ Use UDP when you need speed and can handle packet loss.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 TCP's reliability is essential for most applications, but has overhead.
 
@@ -544,7 +928,7 @@ QUIC is a modern transport protocol that combines reliability with performance i
 
 ---
 
-## 1. What is QUIC
+## 1. 💡 What is QUIC
 
 QUIC is a transport protocol built on UDP that combines the best of TCP and TLS.
 
@@ -560,7 +944,7 @@ QUIC is a transport protocol built on UDP that combines the best of TCP and TLS.
 
 ---
 
-## 2. Why QUIC is Fast
+## 2. 💡 Why QUIC is Fast
 
 QUIC is faster than TCP for several reasons.
 
@@ -574,7 +958,7 @@ QUIC is faster than TCP for several reasons.
 
 ---
 
-## 3. Connection Establishment
+## 3. 💡 Connection Establishment
 
 QUIC reduces connection establishment time significantly.
 
@@ -588,7 +972,7 @@ QUIC reduces connection establishment time significantly.
 
 ---
 
-## 4. Head-of-Line Blocking Elimination
+## 4. ⬇️ ⬇️ Head-of-Line Blocking Elimination
 
 QUIC eliminates head-of-line blocking through multiple streams.
 
@@ -602,7 +986,7 @@ QUIC eliminates head-of-line blocking through multiple streams.
 
 ---
 
-## 5. Built-in Security
+## 5. 🛡️ Built-in Security
 
 QUIC includes encryption by default.
 
@@ -616,7 +1000,7 @@ QUIC includes encryption by default.
 
 ---
 
-## 6. When to Use QUIC
+## 6. 💡 When to Use QUIC
 
 Use QUIC when you need better performance, especially on unreliable networks.
 
@@ -630,7 +1014,7 @@ Use QUIC when you need better performance, especially on unreliable networks.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 QUIC improves performance significantly, especially on unreliable networks.
 
@@ -672,7 +1056,7 @@ Binary and text protocols represent two different approaches to data encoding. W
 
 ---
 
-## 1. What are Binary Protocols
+## 1. 📡 What are Binary Protocols
 
 Binary protocols encode data in binary format, which is more compact and faster to parse.
 
@@ -688,7 +1072,7 @@ Binary protocols encode data in binary format, which is more compact and faster 
 
 ---
 
-## 2. What are Text Protocols
+## 2. 📡 What are Text Protocols
 
 Text protocols encode data as human-readable text.
 
@@ -704,7 +1088,7 @@ Text protocols encode data as human-readable text.
 
 ---
 
-## 3. Performance Comparison
+## 3. ⚡ Performance Comparison
 
 Binary protocols generally perform better than text protocols.
 
@@ -718,7 +1102,7 @@ Binary protocols generally perform better than text protocols.
 
 ---
 
-## 4. Developer Experience
+## 4. 💡 Developer Experience
 
 Text protocols provide better developer experience.
 
@@ -732,7 +1116,7 @@ Text protocols provide better developer experience.
 
 ---
 
-## 5. When to Use Binary Protocols
+## 5. 📡 When to Use Binary Protocols
 
 Use binary protocols for performance-critical internal services.
 
@@ -746,7 +1130,7 @@ Use binary protocols for performance-critical internal services.
 
 ---
 
-## 6. When to Use Text Protocols
+## 6. 📡 When to Use Text Protocols
 
 Use text protocols for external APIs or when debugging is important.
 
@@ -760,7 +1144,7 @@ Use text protocols for external APIs or when debugging is important.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Binary protocols are faster and use less bandwidth, which is great for performance.
 
@@ -802,7 +1186,7 @@ MQTT is a lightweight messaging protocol designed for IoT devices and unreliable
 
 ---
 
-## 1. What is MQTT
+## 1. 💡 What is MQTT
 
 MQTT is a lightweight messaging protocol using a publish-subscribe model.
 
@@ -818,7 +1202,7 @@ MQTT is a lightweight messaging protocol using a publish-subscribe model.
 
 ---
 
-## 2. Key Features
+## 2. 💡 Key Features
 
 MQTT provides features optimized for IoT scenarios.
 
@@ -832,7 +1216,7 @@ MQTT provides features optimized for IoT scenarios.
 
 ---
 
-## 3. MQTT Architecture
+## 3. 💡 MQTT Architecture
 
 MQTT uses a broker-based architecture.
 
@@ -846,7 +1230,7 @@ MQTT uses a broker-based architecture.
 
 ---
 
-## 4. Common Use Cases
+## 4. 💡 Common Use Cases
 
 MQTT is ideal for specific scenarios.
 
@@ -862,7 +1246,7 @@ MQTT is ideal for specific scenarios.
 
 ---
 
-## 5. QoS Levels
+## 5. 💡 QoS Levels
 
 MQTT provides three quality of service levels.
 
@@ -874,7 +1258,7 @@ MQTT provides three quality of service levels.
 
 ---
 
-## 6. Advantages
+## 6. 💡 Advantages
 
 MQTT provides several advantages for IoT scenarios.
 
@@ -888,7 +1272,7 @@ MQTT provides several advantages for IoT scenarios.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 MQTT is lightweight and works well on unreliable networks, which is perfect for IoT.
 
@@ -924,13 +1308,13 @@ You scale MQTT brokers by using broker clusters, load balancing, and topic-based
 
 ---
 
-## Q33. ⏱️ Protocol overhead and latency
+## Q33. 📡 ⏱️ Protocol overhead and latency
 
 Protocol overhead and latency are important factors that affect system performance. When you design systems, you need to understand how different protocols contribute to overhead and latency, and balance these against the features you need.
 
 ---
 
-## 1. What is Protocol Overhead
+## 1. 📡 What is Protocol Overhead
 
 Protocol overhead is the extra data and processing required by the protocol itself.
 
@@ -946,7 +1330,7 @@ Protocol overhead is the extra data and processing required by the protocol itse
 
 ---
 
-## 2. What is Latency
+## 2. ⚡ What is Latency
 
 Latency is the time it takes for a request to complete.
 
@@ -962,7 +1346,7 @@ Latency is the time it takes for a request to complete.
 
 ---
 
-## 3. Sources of Overhead
+## 3. 💡 Sources of Overhead
 
 Different protocols have different sources of overhead.
 
@@ -976,7 +1360,7 @@ Different protocols have different sources of overhead.
 
 ---
 
-## 4. Sources of Latency
+## 4. ⚡ Sources of Latency
 
 Latency comes from multiple sources.
 
@@ -990,7 +1374,7 @@ Latency comes from multiple sources.
 
 ---
 
-## 5. Protocol Comparison
+## 5. 📡 Protocol Comparison
 
 Different protocols have different overhead and latency characteristics.
 
@@ -1004,7 +1388,7 @@ Different protocols have different overhead and latency characteristics.
 
 ---
 
-## 6. Reducing Overhead and Latency
+## 6. ⚡ Reducing Overhead and Latency
 
 You can reduce overhead and latency through various techniques.
 
@@ -1018,7 +1402,7 @@ You can reduce overhead and latency through various techniques.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Lower overhead improves performance and reduces bandwidth.
 
@@ -1060,7 +1444,7 @@ DNS resolution translates domain names to IP addresses through a hierarchical sy
 
 ---
 
-## 1. What is DNS Resolution
+## 1. ✅ What is DNS Resolution
 
 DNS resolution translates domain names to IP addresses.
 
@@ -1076,7 +1460,7 @@ DNS resolution translates domain names to IP addresses.
 
 ---
 
-## 2. DNS Resolution Steps
+## 2. ✅ DNS Resolution Steps
 
 DNS resolution follows a hierarchical query process.
 
@@ -1094,7 +1478,7 @@ DNS resolution follows a hierarchical query process.
 
 ---
 
-## 3. DNS Hierarchy
+## 3. 🌍 DNS Hierarchy
 
 DNS uses a hierarchical structure.
 
@@ -1108,7 +1492,7 @@ DNS uses a hierarchical structure.
 
 ---
 
-## 4. DNS Caching
+## 4. 🌍 DNS Caching
 
 DNS resolvers cache results to improve performance.
 
@@ -1122,7 +1506,7 @@ DNS resolvers cache results to improve performance.
 
 ---
 
-## 5. DNS Record Types
+## 5. 🌍 DNS Record Types
 
 DNS supports different record types.
 
@@ -1138,7 +1522,7 @@ DNS supports different record types.
 
 ---
 
-## 6. Performance Characteristics
+## 6. ⚡ Performance Characteristics
 
 DNS resolution typically takes milliseconds.
 
@@ -1152,7 +1536,7 @@ DNS resolution typically takes milliseconds.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 DNS caching speeds up subsequent lookups, which improves performance.
 
@@ -1194,7 +1578,7 @@ TLS handshake establishes an encrypted connection between client and server. Whe
 
 ---
 
-## 1. What is TLS Handshake
+## 1. 🔒 What is TLS Handshake
 
 TLS handshake establishes an encrypted connection between client and server.
 
@@ -1210,7 +1594,7 @@ TLS handshake establishes an encrypted connection between client and server.
 
 ---
 
-## 2. TLS Handshake Steps
+## 2. 🔒 TLS Handshake Steps
 
 The TLS handshake follows a specific sequence.
 
@@ -1228,7 +1612,7 @@ The TLS handshake follows a specific sequence.
 
 ---
 
-## 3. Handshake Latency
+## 3. ⚡ Handshake Latency
 
 TLS handshake adds latency to the first request.
 
@@ -1242,7 +1626,7 @@ TLS handshake adds latency to the first request.
 
 ---
 
-## 4. Certificate Validation
+## 4. ✅ Certificate Validation
 
 Certificate validation is a critical part of the handshake.
 
@@ -1256,7 +1640,7 @@ Certificate validation is a critical part of the handshake.
 
 ---
 
-## 5. Cipher Suite Negotiation
+## 5. 💡 Cipher Suite Negotiation
 
 Client and server negotiate encryption parameters.
 
@@ -1270,7 +1654,7 @@ Client and server negotiate encryption parameters.
 
 ---
 
-## 6. Key Exchange
+## 6. 💡 Key Exchange
 
 Shared encryption keys are generated during handshake.
 
@@ -1284,7 +1668,7 @@ Shared encryption keys are generated during handshake.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 TLS handshake provides secure communication, which is essential.
 
@@ -1326,7 +1710,7 @@ TLS session resumption allows clients to reuse previous TLS session parameters, 
 
 ---
 
-## 1. What is TLS Session Resumption
+## 1. 🔒 What is TLS Session Resumption
 
 TLS session resumption allows clients to reuse previous TLS session parameters.
 
@@ -1342,7 +1726,7 @@ TLS session resumption allows clients to reuse previous TLS session parameters.
 
 ---
 
-## 2. How Session Resumption Works
+## 2. ➕ How Session Resumption Works
 
 Session resumption works through session IDs or session tickets.
 
@@ -1356,7 +1740,7 @@ Session resumption works through session IDs or session tickets.
 
 ---
 
-## 3. Latency Reduction
+## 3. ⚡ Latency Reduction
 
 Session resumption significantly reduces handshake latency.
 
@@ -1370,7 +1754,7 @@ Session resumption significantly reduces handshake latency.
 
 ---
 
-## 4. Session ID Method
+## 4. 💡 Session ID Method
 
 Session ID method requires server-side session storage.
 
@@ -1384,7 +1768,7 @@ Session ID method requires server-side session storage.
 
 ---
 
-## 5. Session Ticket Method
+## 5. 💡 Session Ticket Method
 
 Session ticket method is stateless.
 
@@ -1398,7 +1782,7 @@ Session ticket method is stateless.
 
 ---
 
-## 6. Session Expiration
+## 6. 💡 Session Expiration
 
 Sessions expire after a time period.
 
@@ -1412,7 +1796,7 @@ Sessions expire after a time period.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Session resumption reduces handshake latency significantly, which improves performance.
 
@@ -1454,7 +1838,7 @@ Request/response and streaming are two fundamental API communication patterns. W
 
 ---
 
-## 1. Request/Response Pattern
+## 1. 💡 Request/Response Pattern
 
 Request/response pattern sends a request and waits for a response.
 
@@ -1470,7 +1854,7 @@ Request/response pattern sends a request and waits for a response.
 
 ---
 
-## 2. Streaming Pattern
+## 2. 🌊 Streaming Pattern
 
 Streaming pattern sends data continuously as it becomes available.
 
@@ -1486,7 +1870,7 @@ Streaming pattern sends data continuously as it becomes available.
 
 ---
 
-## 3. When to Use Request/Response
+## 3. 💡 When to Use Request/Response
 
 Use request/response for traditional APIs.
 
@@ -1500,7 +1884,7 @@ Use request/response for traditional APIs.
 
 ---
 
-## 4. When to Use Streaming
+## 4. 🌊 When to Use Streaming
 
 Use streaming for real-time data or continuous operations.
 
@@ -1514,7 +1898,7 @@ Use streaming for real-time data or continuous operations.
 
 ---
 
-## 5. Examples
+## 5. 💡 Examples
 
 Here are examples of each pattern.
 
@@ -1526,7 +1910,7 @@ Here are examples of each pattern.
 
 ---
 
-## 6. Performance Characteristics
+## 6. ⚡ Performance Characteristics
 
 Each pattern has different performance characteristics.
 
@@ -1538,7 +1922,7 @@ Each pattern has different performance characteristics.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Request/response is simple and works well for most APIs.
 
@@ -1580,7 +1964,7 @@ Mutual TLS (mTLS) requires both client and server to present certificates, provi
 
 ---
 
-## 1. What is Mutual TLS
+## 1. 🔒 What is Mutual TLS
 
 Mutual TLS requires both client and server to present certificates.
 
@@ -1596,7 +1980,7 @@ Mutual TLS requires both client and server to present certificates.
 
 ---
 
-## 2. Difference from Regular TLS
+## 2. 🔒 Difference from Regular TLS
 
 mTLS differs from regular TLS in authentication.
 
@@ -1610,7 +1994,7 @@ mTLS differs from regular TLS in authentication.
 
 ---
 
-## 3. Use Cases for mTLS
+## 3. 🔒 Use Cases for mTLS
 
 Use mTLS for scenarios requiring strong mutual authentication.
 
@@ -1624,7 +2008,7 @@ Use mTLS for scenarios requiring strong mutual authentication.
 
 ---
 
-## 4. Benefits
+## 4. 💡 Benefits
 
 mTLS provides several security benefits.
 
@@ -1638,7 +2022,7 @@ mTLS provides several security benefits.
 
 ---
 
-## 5. Certificate Management
+## 5. 💡 Certificate Management
 
 mTLS requires certificate management for both clients and servers.
 
@@ -1652,7 +2036,7 @@ mTLS requires certificate management for both clients and servers.
 
 ---
 
-## 6. Certificate Rotation
+## 6. 💡 Certificate Rotation
 
 Certificate rotation is critical for mTLS.
 
@@ -1666,7 +2050,7 @@ Certificate rotation is critical for mTLS.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 mTLS provides strong mutual authentication, which is great for security.
 
@@ -1708,7 +2092,7 @@ HTTP keep-alive reuses the same TCP connection for multiple HTTP requests, reduc
 
 ---
 
-## 1. What is HTTP Keep-Alive
+## 1. 🌐 What is HTTP Keep-Alive
 
 HTTP keep-alive reuses the same TCP connection for multiple HTTP requests.
 
@@ -1724,7 +2108,7 @@ HTTP keep-alive reuses the same TCP connection for multiple HTTP requests.
 
 ---
 
-## 2. How Keep-Alive Works
+## 2. 💡 How Keep-Alive Works
 
 Keep-alive works by keeping connections open.
 
@@ -1738,7 +2122,7 @@ Keep-alive works by keeping connections open.
 
 ---
 
-## 3. Benefits
+## 3. 💡 Benefits
 
 Keep-alive provides several performance benefits.
 
@@ -1752,7 +2136,7 @@ Keep-alive provides several performance benefits.
 
 ---
 
-## 4. Connection Management
+## 4. 💡 Connection Management
 
 Keep-alive requires connection management.
 
@@ -1766,7 +2150,7 @@ Keep-alive requires connection management.
 
 ---
 
-## 5. Configuration
+## 5. 💡 Configuration
 
 Keep-alive can be configured.
 
@@ -1780,7 +2164,7 @@ Keep-alive can be configured.
 
 ---
 
-## 6. HTTP/1.1 Default
+## 6. 🌐 HTTP/1.1 Default
 
 HTTP/1.1 enables keep-alive by default.
 
@@ -1794,7 +2178,7 @@ HTTP/1.1 enables keep-alive by default.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Keep-alive reduces latency and improves performance by reusing connections.
 
@@ -1836,7 +2220,7 @@ HTTP/2 connection multiplexing allows multiple requests and responses to be sent
 
 ---
 
-## 1. What is Connection Multiplexing
+## 1. 💡 What is Connection Multiplexing
 
 Connection multiplexing allows multiple requests over one connection simultaneously.
 
@@ -1852,7 +2236,7 @@ Connection multiplexing allows multiple requests over one connection simultaneou
 
 ---
 
-## 2. How Multiplexing Works
+## 2. 💡 How Multiplexing Works
 
 Multiplexing works by breaking requests into frames.
 
@@ -1866,7 +2250,7 @@ Multiplexing works by breaking requests into frames.
 
 ---
 
-## 3. Eliminating Head-of-Line Blocking
+## 3. ⬇️ ⬇️ Eliminating Head-of-Line Blocking
 
 Multiplexing eliminates HTTP-level head-of-line blocking.
 
@@ -1880,7 +2264,7 @@ Multiplexing eliminates HTTP-level head-of-line blocking.
 
 ---
 
-## 4. Benefits
+## 4. 💡 Benefits
 
 Multiplexing provides significant performance benefits.
 
@@ -1894,7 +2278,7 @@ Multiplexing provides significant performance benefits.
 
 ---
 
-## 5. TCP-Level Limitations
+## 5. 📡 TCP-Level Limitations
 
 HTTP/2 still has head-of-line blocking at the TCP level.
 
@@ -1908,7 +2292,7 @@ HTTP/2 still has head-of-line blocking at the TCP level.
 
 ---
 
-## 6. Comparison with HTTP/1.1
+## 6. 🌐 Comparison with HTTP/1.1
 
 HTTP/2 multiplexing improves over HTTP/1.1.
 
@@ -1922,7 +2306,7 @@ HTTP/2 multiplexing improves over HTTP/1.1.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Multiplexing improves performance significantly by allowing parallel requests over one connection.
 
@@ -1961,7 +2345,6 @@ HTTP/2 typically provides 20-50% performance improvement over HTTP/1.1, dependin
 **[← Previous: System Design Fundamentals](01%29%20System%20Design%20Fundamentals.md)** | **[Next: REST vs GraphQL →](03%29%20REST%20vs%20GraphQL.md)**
 
 </div>
-
 
 ---
 

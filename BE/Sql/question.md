@@ -14,127 +14,127 @@
 
 ## 🧠 1. SQL Fundamentals
 
-1. SQL and what it stands for
+1. 💾 SQL and what it stands for
 
-2. Difference between SQL and MySQL/PostgreSQL/SQL Server
+2. 🔄 Difference between SQL and MySQL/PostgreSQL/SQL Server
 
-3. Database schema
+3. 📊 Database schema
 
-4. Difference between a table and a view
+4. 📋 Difference between a table and a view
 
-5. Constraints in SQL and examples
+5. 🔒 Constraints in SQL and examples
 
-6. Difference between primary key and foreign key
+6. 🔑 Difference between primary key and foreign key
 
-7. Unique constraint and how it differs from primary key
+7. ✅ Unique constraint and how it differs from primary key
 
-8. Composite key
+8. 🔑 Composite key
 
-9. Difference between DELETE, TRUNCATE, and DROP
+9. 🗑️ Difference between DELETE, TRUNCATE, and DROP
 
-10. Aliases in SQL and how to use them
+10. 🏷️ Aliases in SQL and how to use them
 
 ## 🔍 2. Querying & Joins
 
-11. Different types of JOINs in SQL
+11. 🔗 Different types of JOINs in SQL
 
-12. Difference between INNER JOIN and LEFT JOIN
+12. 🔗 Difference between INNER JOIN and LEFT JOIN
 
-13. Self-join and when to use it
+13. 🔄 Self-join and when to use it
 
-14. Difference between UNION and UNION ALL
+14. ➕ Difference between UNION and UNION ALL
 
-15. Subqueries and how to use them
+15. 🔍 Subqueries and how to use them
 
-16. Difference between correlated and non-correlated subqueries
+16. 🔗 Difference between correlated and non-correlated subqueries
 
-17. CTEs (Common Table Expressions) and how to use them
+17. 📊 CTEs (Common Table Expressions) and how to use them
 
-18. Temporary tables and how to create them
+18. 📋 Temporary tables and how to create them
 
-19. Finding duplicate records in a table
+19. 🔍 Finding duplicate records in a table
 
-20. Finding the second-highest salary from a table
+20. 💰 Finding the second-highest salary from a table
 
 ## 📊 3. Filtering, Grouping & Aggregation
 
-21. Difference between WHERE and HAVING clauses
+21. 🔍 Difference between WHERE and HAVING clauses
 
-22. Handling NULL values in SQL
+22. ❓ Handling NULL values in SQL
 
-23. Difference between IN, EXISTS, and ANY operators
+23. 🔍 Difference between IN, EXISTS, and ANY operators
 
-24. GROUP BY and how to use it
+24. 📊 GROUP BY and how to use it
 
-25. Aggregate functions in SQL
+25. 📈 Aggregate functions in SQL
 
-26. Difference between COUNT(*) and COUNT(column_name)
+26. 🔢 Difference between COUNT(*) and COUNT(column_name)
 
-27. Using conditional aggregation with CASE statements
+27. 🔀 Using conditional aggregation with CASE statements
 
-28. Window functions and how to use them
+28. 🪟 Window functions and how to use them
 
-29. Difference between ROW_NUMBER, RANK, and DENSE_RANK
+29. 📊 Difference between ROW_NUMBER, RANK, and DENSE_RANK
 
-30. Creating pivot tables in SQL
+30. 📊 Creating pivot tables in SQL
 
 ## 🏗️ 4. Database Design, Indexing & Performance
 
-31. Database normalization and why it's important
+31. 📊 Database normalization and why it's important
 
-32. Different normal forms (1NF, 2NF, 3NF, BCNF)
+32. 📐 Different normal forms (1NF, 2NF, 3NF, BCNF)
 
-33. Denormalization and when to use it
+33. 📊 Denormalization and when to use it
 
-34. Indexes and how they improve performance
+34. 🔍 Indexes and how they improve performance
 
-35. Difference between clustered and non-clustered indexes
+35. 📊 Difference between clustered and non-clustered indexes
 
-36. Composite indexes and when to use them
+36. 🔍 Composite indexes and when to use them
 
-37. Index fragmentation and how to fix it
+37. 🔧 Index fragmentation and how to fix it
 
-38. Using EXPLAIN/EXPLAIN ANALYZE to optimize queries
+38. 🔍 Using EXPLAIN/EXPLAIN ANALYZE to optimize queries
 
-39. Common query optimization techniques
+39. ⚡ Common query optimization techniques
 
-40. Identifying and fixing slow queries
+40. 🐌 Identifying and fixing slow queries
 
 ## ⚡ 5. Transactions, Concurrency & Stored Logic
 
-41. Transaction in SQL
+41. 🔄 Transaction in SQL
 
-42. ACID properties of transactions
+42. 🔒 ACID properties of transactions
 
-43. Difference between COMMIT and ROLLBACK
+43. ✅❌ Difference between COMMIT and ROLLBACK
 
-44. Isolation levels in SQL
+44. 🔒 Isolation levels in SQL
 
-45. Deadlock and how to prevent it
+45. 🔒 Deadlock and how to prevent it
 
-46. Difference between optimistic and pessimistic locking
+46. 🔒 Difference between optimistic and pessimistic locking
 
-47. Stored procedures and how to create them
+47. 📦 Stored procedures and how to create them
 
-48. Triggers and when to use them
+48. ⚡ Triggers and when to use them
 
-49. User-defined functions in SQL
+49. 🔧 User-defined functions in SQL
 
-50. Best practices for writing efficient SQL queries
+50. ✅ Best practices for writing efficient SQL queries
 
 ---
 
 ## 📖 Complete Answer Guide
 
-- [1) SQL Fundamentals](1%29%20SQL%20Fundamentals.md) - Q1-10
+- [1) SQL Fundamentals](01%29%20SQL%20Fundamentals.md) - Q1-10
 
-- [2) Querying & Joins](2%29%20Querying%20%26%20Joins.md) - Q11-20
+- [2) Querying & Joins](02%29%20Querying%20%26%20Joins.md) - Q11-20
 
-- [3) Filtering, Grouping & Aggregation](3%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md) - Q21-30
+- [3) Filtering, Grouping & Aggregation](03%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md) - Q21-30
 
-- [4) Database Design, Indexing & Performance](4%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md) - Q31-40
+- [4) Database Design, Indexing & Performance](04%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md) - Q31-40
 
-- [5) Transactions, Concurrency & Stored Logic](5%29%20Transactions%2C%20Concurrency%20%26%20Stored%20Logic.md) - Q41-50
+- [5) Transactions, Concurrency & Stored Logic](05%29%20Transactions%2C%20Concurrency%20%26%20Stored%20Logic.md) - Q41-50
 
 ## 📝 Cheatsheet
 

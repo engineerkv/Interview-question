@@ -16,13 +16,13 @@
 
 ---
 
-## Q19. How Node.js Works Internally
+## Q19. 🟢 How Node.js Works Internally
 
 Node.js is a JavaScript runtime built on Chrome's V8 engine. Understanding how Node.js works under the hood helps you write efficient applications, debug performance issues, and make better architectural decisions. When you run Node.js, it uses V8 for JavaScript execution, libuv for async I/O, an event loop for coordination, and handles modules, streams, buffers, and clustering. This knowledge is crucial for senior developers - it helps you understand why certain patterns work better, how to optimize Node.js applications, and how to debug complex issues.
 
 ---
 
-## 1. Node.js Architecture
+## 1. 🟢 Node.js Architecture
 
 ### 🔹 Components
 
@@ -62,7 +62,7 @@ Node.js uses a single-threaded event loop model:
 
 ---
 
-## 2. Event Loop in Node.js
+## 2. 🎯 Event Loop in Node.js
 
 ### 🔹 Event Loop Phases
 
@@ -276,7 +276,7 @@ console.log('6'); // Synchronous - runs second
 
 ---
 
-## 3. V8 Engine
+## 3. 💡 V8 Engine
 
 ### 🔹 V8 Components
 
@@ -319,7 +319,7 @@ obj.age = 30;       // Hidden class 2 (changed!)
 
 ---
 
-## 4. libuv & Asynchronous I/O
+## 4. ⏳ ⏳ libuv & Asynchronous I/O
 
 ### 🔹 What is libuv?
 
@@ -431,7 +431,7 @@ fs.readFile('file.txt', (err, data) => {
 
 ---
 
-## 5. Modules & require()
+## 5. 📦 Modules & require()
 
 ### 🔹 CommonJS Modules
 
@@ -496,7 +496,7 @@ Node.js resolves modules in this order:
 
 ---
 
-## 6. Streams
+## 6. 🌊 Streams
 
 ### 🔹 Stream Types
 
@@ -567,7 +567,7 @@ fs.createReadStream('file.txt')
 
 ---
 
-## 7. Buffer & Binary Data
+## 7. 📦 Buffer & Binary Data
 
 ### 🔹 What is a Buffer?
 
@@ -653,7 +653,7 @@ const str = buf.toString('utf8');
 
 ---
 
-## 8. Cluster & Child Processes
+## 8. 💡 Cluster & Child Processes
 
 ### 🔹 Cluster Module
 
@@ -741,15 +741,29 @@ child.on('message', (msg) => {
 
 ---
 
+## ⭐ Extra Points (If Interviewer Asks More)
+
+### How does Node.js handle blocking operations if it's single-threaded?
+
+Node.js uses a thread pool (provided by libuv) for blocking operations. When you call a blocking I/O operation (like file system operations), libuv offloads it to a worker thread from the thread pool. The main thread continues running other JavaScript code. When the blocking operation completes, the callback is queued in the event loop. This allows Node.js to handle many concurrent operations despite being single-threaded for JavaScript execution.
+
+### What's the difference between process.nextTick and setImmediate?
+
+`process.nextTick` runs callbacks before the event loop continues to the next phase - it has the highest priority. `setImmediate` runs callbacks in the check phase of the event loop. `process.nextTick` can starve the event loop if used recursively, while `setImmediate` is safer because it allows the event loop to continue. Use `process.nextTick` for immediate execution, use `setImmediate` for execution in the next event loop iteration.
+
+### How does Node.js module caching work?
+
+Node.js caches modules after the first `require()` call. When you `require()` a module, Node.js checks if it's already in the cache. If it is, it returns the cached module object. If not, it loads the module, executes it, and caches the result. This means modules are only executed once, even if required multiple times. The catch is that module state is shared across all `require()` calls, which can cause issues if modules have mutable state.
+
 ---
 
 ## 📍 Navigation
 
 <div align="center">
 
-[06) React Internals.md](06%29%20React%20Internals.md) • [Questions Index](question.md) • [08) React Native Internals.md →](08%29%20React%20Native%20Internals.md)
+[← Previous: Next.js Internals](10%29%20Next.js%20Internals.md) • [Home: Questions Index](question.md) • [Next: React Native Internals →](12%29%20React%20Native%20Internals.md)
 
-[FE-System-Design Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md)
 
 </div>
 

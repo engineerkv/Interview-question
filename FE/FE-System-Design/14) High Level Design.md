@@ -16,13 +16,13 @@
 
 ---
 
-## Q33. Requirements (Functional & Non-Functional)
+## Q33. ⚙️ Requirements (Functional & Non-Functional)
 
 When you're designing a system, you need to figure out two things: what it should do (functional requirements) and how well it should do it (non-functional requirements). Think of it like building a car - functional requirements are "it needs to have an engine and wheels," while non-functional requirements are "it should go 0-60 in under 5 seconds and get 30 mpg." Understanding and documenting requirements properly is crucial for building the right system and avoiding costly mistakes later.
 
 ---
 
-## 1. Functional Requirements
+## 1. ⚙️ Functional Requirements
 
 Functional requirements are all about what your system actually does - the features, behaviors, and capabilities that users and stakeholders expect.
 
@@ -94,7 +94,7 @@ Functional requirements are all about what your system actually does - the featu
 
 ---
 
-## 2. Non-Functional Requirements
+## 2. ⚙️ Non-Functional Requirements
 
 Non-functional requirements are about how well your system performs, not what it does. These are the quality attributes that make your system fast, secure, reliable, and maintainable.
 
@@ -140,7 +140,7 @@ Non-functional requirements are about how well your system performs, not what it
 
 ---
 
-## 3. Gathering Requirements
+## 3. 💡 Gathering Requirements
 
 ### 🔹 Talk to People
 
@@ -237,13 +237,13 @@ Document conflicts, discuss with stakeholders, make trade-offs based on business
 
 ---
 
-## Q34. Scope, Priority & MVP
+## Q34. 👁️ Scope, Priority & MVP
 
 When you're building something, you need to figure out three things: what you're actually building (scope), what order to build it in (priority), and what's the absolute minimum you need to launch (MVP). These help you stay focused, avoid feature creep, and get something useful out the door quickly.
 
 ---
 
-## 1. Scope Definition
+## 1. 👁️ Scope Definition
 
 Scope is like drawing a line around your project - everything inside the line gets built, everything outside doesn't. It's super important because without clear scope, projects tend to grow and grow until these projects never finish.
 
@@ -281,7 +281,7 @@ Scope is like drawing a line around your project - everything inside the line ge
 
 ---
 
-## 2. Priority Framework
+## 2. 💡 Priority Framework
 
 You can't build everything at once, so you need a way to decide what comes first. Priority frameworks help you make those decisions based on what matters most.
 
@@ -381,7 +381,7 @@ Ask yourself: What creates the most value?
 
 ---
 
-## 3. MVP (Minimum Viable Product)
+## 3. ⬇️ ⬇️ MVP (Minimum Viable Product)
 
 MVP is the smallest thing you can build that still solves the core problem and proves people actually want it. The goal isn't perfection - it's learning quickly and getting something useful out there.
 
@@ -461,13 +461,13 @@ That's valuable learning! Pivot based on feedback, iterate on the concept, or co
 
 ---
 
-## Q35. Client Architecture
+## Q35. 💡 Client Architecture
 
 Client architecture is how you organize your frontend code - what goes where, how different parts talk to each other, and how data flows through your app. Good architecture makes your code easier to understand, test, and maintain.
 
 ---
 
-## 1. Client Architecture Layers
+## 1. 💡 Client Architecture Layers
 
 Think of your frontend like a building with different floors - each floor has a specific job, and these layers work together to make the whole thing function.
 
@@ -523,7 +523,7 @@ Think of your frontend like a building with different floors - each floor has a 
 
 ---
 
-## 2. Architecture Patterns
+## 2. 💡 Architecture Patterns
 
 Different frameworks use different patterns, but these frameworks all try to solve the same problem: how to organize code so it's not a mess.
 
@@ -575,7 +575,7 @@ Modern approach - everything is a component:
 
 ---
 
-## 3. State Management
+## 3. 📦 State Management
 
 State is just data that changes over time. The question is: where should you put it? The answer depends on who needs it.
 
@@ -637,13 +637,13 @@ Service layer handles external communication (APIs), while controller handles in
 
 ---
 
-## Q36. Server Architecture
+## Q36. 🖥️ Server Architecture
 
 Server architecture is how you organize your backend - what servers do what, how requests flow through your system, and how different pieces work together. It's like designing the plumbing and electrical systems of a building - everything needs to connect properly.
 
 ---
 
-## 1. Server Components
+## 1. 🧩 Server Components
 
 Your backend is made up of different types of servers, each with a specific job. Think of them like different departments in a company.
 
@@ -697,7 +697,7 @@ Your backend is made up of different types of servers, each with a specific job.
 
 ---
 
-## 2. Server Architecture Patterns
+## 2. 🖥️ Server Architecture Patterns
 
 How you organize your backend code and servers matters a lot. Different patterns work better for different situations.
 
@@ -733,7 +733,7 @@ How you organize your backend code and servers matters a lot. Different patterns
 
 * **What it is**: Functions that run on-demand, no servers to manage
 
-* **How it works**: Write functions, upload them, these functions run when triggered (HTTP request, event, schedule)
+* **How it works**: Write functions, upload them, they run when triggered (HTTP request, event, schedule)
 
 * **Pros**: No server management, auto-scales, pay only for what you use, super fast to deploy
 
@@ -747,7 +747,7 @@ How you organize your backend code and servers matters a lot. Different patterns
 
 ---
 
-## 3. Request Flow
+## 3. 💡 Request Flow
 
 ```
 
@@ -791,13 +791,13 @@ Web server handles HTTP protocol and static files. Application server runs your 
 
 ---
 
-## Q37. Database Design (SQL/No-SQL)
+## Q37. 🗄️ Database Design (SQL/No-SQL)
 
 Choosing the right database is like choosing the right storage system - you wouldn't store books in a filing cabinet or papers in a bookshelf. Different databases are built for different types of data and use cases.
 
 ---
 
-## 1. SQL Databases (Relational)
+## 1. 🗄️ SQL Databases (Relational)
 
 SQL databases are like Excel spreadsheets on steroids - data is organized in tables with rows and columns, and you can link tables together.
 
@@ -841,7 +841,7 @@ SQL databases are like Excel spreadsheets on steroids - data is organized in tab
 
 ---
 
-## 2. NoSQL Databases
+## 2. 🗄️ NoSQL Databases
 
 NoSQL databases are more flexible - these databases don't force you into tables. Different types are built for different needs.
 
@@ -897,7 +897,7 @@ NoSQL databases are more flexible - these databases don't force you into tables.
 
 ---
 
-## 3. Database Design Principles
+## 3. 🗄️ Database Design Principles
 
 How you structure your database affects performance, maintainability, and scalability. These principles help you make good decisions.
 
@@ -987,13 +987,13 @@ Yes! Many systems use SQL for transactional data and NoSQL for caching, sessions
 
 ---
 
-## Q38. Load Balancer
+## Q38. 💡 Load Balancer
 
 A load balancer is like a traffic director at a busy intersection - it takes incoming requests and sends them to different servers so no single server gets overwhelmed. It's essential when you have multiple servers handling the same workload.
 
 ---
 
-## 1. Why Load Balancer?
+## 1. 💡 Why Load Balancer?
 
 ### 🔹 What Problems It Solves
 
@@ -1029,7 +1029,7 @@ Think of a restaurant:
 
 ---
 
-## 2. Load Balancing Algorithms
+## 2. ⚙️ Load Balancing Algorithms
 
 The load balancer needs a way to decide which server gets each request. Different algorithms work better for different situations.
 
@@ -1085,7 +1085,7 @@ The load balancer needs a way to decide which server gets each request. Differen
 
 ---
 
-## 3. Types of Load Balancers
+## 3. 🏷️ Types of Load Balancers
 
 ### 🔹 Layer 4 (Transport Layer)
 
@@ -1129,13 +1129,13 @@ Load balancer detects failure (health checks) and stops routing traffic to that 
 
 ---
 
-## Q39. CDN (Content Delivery Network)
+## Q39. 💡 CDN (Content Delivery Network)
 
 A CDN is like having copies of your website stored in warehouses around the world - when someone in Tokyo wants to see your site, that user gets it from the Tokyo warehouse instead of waiting for it to come from your server in New York. It makes everything much faster.
 
 ---
 
-## 1. How CDN Works
+## 1. 💡 How CDN Works
 
 ### 🔹 The Process
 
@@ -1170,7 +1170,7 @@ With CDN: User in Tokyo requests image → goes to CDN server in Tokyo → 10ms 
 
 ---
 
-## 2. What to Cache in CDN
+## 2. 💡 What to Cache in CDN
 
 ### 🔹 Static Assets (Perfect for CDN)
 
@@ -1212,7 +1212,7 @@ With CDN: User in Tokyo requests image → goes to CDN server in Tokyo → 10ms 
 
 ---
 
-## 3. CDN Providers
+## 3. 💡 CDN Providers
 
 * **Cloudflare**: Free tier, DDoS protection, global network
 
@@ -1242,13 +1242,13 @@ Running code at CDN edge servers instead of origin, enabling faster processing a
 
 ---
 
-## Q40. Middleware
+## Q40. 🔧 Middleware
 
 Middleware is like a series of checkpoints that every request passes through before reaching your actual code. Think of it like airport security - your request goes through authentication, validation, logging, and other checks before it gets to your route handler.
 
 ---
 
-## 1. What is Middleware?
+## 1. 🔧 What is Middleware?
 
 ### 🔹 What Middleware Does
 
@@ -1319,7 +1319,7 @@ app.use(authMiddleware); // Applied to all routes
 
 ---
 
-## 2. Middleware Pipeline
+## 2. 🔧 Middleware Pipeline
 
 ### 🔹 Execution Order
 
@@ -1360,7 +1360,7 @@ app.get('/users', handler); // Route handler
 
 ---
 
-## 3. Types of Middleware
+## 3. 🔧 Types of Middleware
 
 ### 🔹 Application-Level
 
@@ -1400,13 +1400,13 @@ Use error-handling middleware (takes 4 parameters: err, req, res, next) placed a
 
 ---
 
-## Q41. Caching & Redis
+## Q41. 💾 Caching & Redis
 
 Caching is like keeping your most-used tools on your desk instead of in a storage room - you can grab them instantly instead of walking across the building. Redis is a super-fast in-memory cache that makes your app much faster by storing frequently accessed data in RAM instead of hitting the database every time.
 
 ---
 
-## 1. Caching Strategy
+## 1. 💾 Caching Strategy
 
 How you handle reading and writing to cache matters. Different strategies work better for different situations.
 
@@ -1474,7 +1474,7 @@ How you handle reading and writing to cache matters. Different strategies work b
 
 ---
 
-## 2. Redis
+## 2. 💡 Redis
 
 ### 🔹 What is Redis?
 
@@ -1518,7 +1518,7 @@ Redis is an in-memory data store - think of it as a super-fast database that sto
 
 ---
 
-## 3. Cache Invalidation
+## 3. ✅ Cache Invalidation
 
 ### 🔹 TTL (Time To Live)
 
@@ -1564,13 +1564,13 @@ Redis supports more data structures, persistence, and pub/sub. Memcached is simp
 
 ---
 
-## Q42. Queue System
+## Q42. 💡 Queue System
 
 A queue system is like a to-do list for your server - instead of doing everything immediately (which would make users wait), you add tasks to a queue and process them in the background. It's essential for handling time-consuming work without blocking user requests.
 
 ---
 
-## 1. Why Use Queues?
+## 1. 💡 Why Use Queues?
 
 ### 🔹 Problems Queues Solve
 
@@ -1618,7 +1618,7 @@ A queue system is like a to-do list for your server - instead of doing everythin
 
 ---
 
-## 2. Queue Architecture
+## 2. 💡 Queue Architecture
 
 ### 🔹 Components
 
@@ -1644,7 +1644,7 @@ Producer → Queue → Consumer
 
 ---
 
-## 3. Queue Types
+## 3. 🏷️ Queue Types
 
 ### 🔹 Simple Queue
 
@@ -1670,7 +1670,7 @@ Producer → Queue → Consumer
 
 ---
 
-## 4. Queue Systems
+## 4. 💡 Queue Systems
 
 ### 🔹 RabbitMQ
 
@@ -1724,13 +1724,13 @@ Preventing duplicate processing of the same message, important for idempotent op
 
 ---
 
-## Q43. Cron Jobs
+## Q43. 💡 Cron Jobs
 
 Cron jobs are like scheduled reminders for your server - these automatically run tasks at specific times. Need to send a daily report? Clean up old data every night? Sync data every hour? Cron jobs handle it automatically so you don't have to remember.
 
 ---
 
-## 1. What are Cron Jobs?
+## 1. 💡 What are Cron Jobs?
 
 ### 🔹 What Cron Jobs Do
 
@@ -1778,7 +1778,7 @@ Cron uses a simple syntax with 5 fields (plus the command):
 
 ---
 
-## 2. Common Use Cases
+## 2. 💡 Common Use Cases
 
 ### 🔹 Data Cleanup
 
@@ -1814,7 +1814,7 @@ Cron uses a simple syntax with 5 fields (plus the command):
 
 ---
 
-## 3. Cron Job Management
+## 3. 💡 Cron Job Management
 
 ### 🔹 Things to Keep in Mind
 
@@ -1858,13 +1858,13 @@ Implement retry logic, log errors, send alerts to monitoring systems, and consid
 
 ---
 
-## Q44. CI/CD Pipeline
+## Q44. 💡 CI/CD Pipeline
 
 CI/CD is like having a robot assistant that automatically tests your code, builds it, and deploys it every time you make changes. Instead of manually running tests, building, and deploying (which is slow and error-prone), CI/CD does it all automatically, catching problems early and getting code to users faster.
 
 ---
 
-## 1. CI (Continuous Integration)
+## 1. 💡 CI (Continuous Integration)
 
 ### 🔹 What CI Does
 
@@ -1910,7 +1910,7 @@ Report results (pass ✅ or fail ❌)
 
 ---
 
-## 2. CD (Continuous Deployment/Delivery)
+## 2. 🚀 CD (Continuous Deployment/Delivery)
 
 CD takes CI one step further - not only does it test and build, it also deploys your code automatically.
 
@@ -1962,7 +1962,7 @@ Monitor Application
 
 ---
 
-## 3. CI/CD Tools
+## 3. 💡 CI/CD Tools
 
 ### 🔹 GitHub Actions
 
@@ -1998,7 +1998,7 @@ Monitor Application
 
 ---
 
-## 4. Best Practices
+## 4. 💡 Best Practices
 
 ### 🔹 Fast Feedback
 
@@ -2050,9 +2050,9 @@ Maintain two identical production environments. Deploy to inactive one, test, th
 
 <div align="center">
 
-[09) Browser APIs.md](09%29%20Browser%20APIs.md) • [Questions Index](question.md) • [11) Low Level Design.md →](11%29%20Low%20Level%20Design.md)
+[← Previous: Browser APIs](13%29%20Browser%20APIs.md) • [Home: Questions Index](question.md) • [Next: Low Level Design →](15%29%20Low%20Level%20Design.md)
 
-[FE-System-Design Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md)
 
 </div>
 

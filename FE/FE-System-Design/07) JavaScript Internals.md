@@ -6,9 +6,9 @@
 
 <div align="center">
 
-[Rendering Path](04%29%20Rendering%20Path.md) • [Questions Index](question.md) • [React Internals →](06%29%20React%20Internals.md)
+[← Previous: CSS Internals](06%29%20CSS%20Internals.md) • [Home: Questions Index](question.md) • [Next: TypeScript Internals →](08%29%20TypeScript%20Internals.md)
 
-[FE-System-Design Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md)
 
 </div>
 
@@ -16,13 +16,13 @@
 
 ---
 
-## Q17. How JavaScript Works Internally
+## Q17. 💡 How JavaScript Works Internally
 
 Understanding how JavaScript works under the hood helps you write better code, debug tricky issues, and optimize performance. When you run JavaScript, the engine handles parsing, execution, memory management, and async operations through the event loop. This knowledge is crucial for senior developers - it helps you understand why certain code patterns are faster, why some bugs occur, and how to write code that works well with the engine's optimizations.
 
 ---
 
-## 1. JavaScript Engine
+## 1. 💡 JavaScript Engine
 
 ### 🔹 Major Engines
 
@@ -744,7 +744,7 @@ Modern engines use JIT (Just-In-Time) compilation, which combines the best of bo
 
 ---
 
-## 2. Execution Context & Call Stack
+## 2. 💡 Execution Context & Call Stack
 
 ### 🔹 What is Execution Context?
 
@@ -970,7 +970,7 @@ function sayHello() {  // Function declaration (hoisted fully)
 
 ---
 
-## 3. Memory Management & Garbage Collection
+## 3. 💡 Memory Management & Garbage Collection
 
 ### 🔹 How Memory Works
 
@@ -1153,7 +1153,7 @@ Even though JavaScript manages memory automatically, you can still cause memory 
 
 ---
 
-## 4. Event Loop & Concurrency Model
+## 4. 🎯 Event Loop & Concurrency Model
 
 ### 🔹 How JavaScript Handles Async
 
@@ -1381,7 +1381,7 @@ console.log('6');
 
 ---
 
-## 5. Hoisting
+## 5. ⬆️ ⬆️ Hoisting
 
 ### 🔹 Variable Hoisting
 
@@ -1580,7 +1580,7 @@ console.log(typeof myFunc); // "string" (variable assignment overwrites)
 
 ---
 
-## 6. Scope & Closures
+## 6. 🔒 Scope & Closures
 
 ### 🔹 Scope Types
 
@@ -1831,11 +1831,13 @@ console.log(myModule.getPrivate()); // "private"
 **Common Pitfalls:**
 
 * **Loop variable closure**: Variables in loops can cause issues
+
   ```javascript
   for (var i = 0; i < 3; i++) {
     setTimeout(() => console.log(i), 100); // Logs 3, 3, 3 (not 0, 1, 2)
   }
   // Solution: Use let instead of var, or IIFE
+
   ```
 
 * **Memory leaks**: Closures keep outer scope alive, can cause memory leaks if not careful
@@ -1866,7 +1868,7 @@ console.log(myModule.getPrivate()); // "private"
 
 ---
 
-## 7. Prototypes & Inheritance
+## 7. 🔗 Prototypes & Inheritance
 
 ### 🔹 Prototype Chain
 
@@ -2048,7 +2050,7 @@ dog.speak(); // "Buddy barks"
 
 ---
 
-## 8. This Binding
+## 8. 💡 This Binding
 
 ### 🔹 How `this` Works
 
@@ -2319,7 +2321,7 @@ const obj = {
 
 ---
 
-## 9. Promises & Async/Await
+## 9. ⏳ ⏳ Promises & Async/Await
 
 ### 🔹 Promises
 
@@ -2605,6 +2607,20 @@ async function fetchMultiple() {
 > "JavaScript engines parse code to a tree structure, use JIT compilation to optimize hot code, and automatically manage memory with garbage collection. Execution context is where code runs - it has space for variables and references outer scope. The call stack tracks function calls. The event loop handles async operations - microtasks (promises) run before macro tasks (setTimeout). Hoisting moves declarations to the top. Scope determines variable accessibility. Closures allow inner functions to access outer variables. Prototypes enable inheritance. `this` binding depends on how functions are called. Promises and async/await handle async operations."
 
 ---
+
+## ⭐ Extra Points (If Interviewer Asks More)
+
+### How does the event loop handle microtasks vs macrotasks?
+
+The event loop processes microtasks (promises, queueMicrotask) before macrotasks (setTimeout, setInterval, I/O). After each macrotask completes, the event loop processes all pending microtasks before moving to the next macrotask. This ensures promises resolve quickly and in the correct order.
+
+### What's the difference between let/const and var?
+
+`let` and `const` are block-scoped (only accessible within the block where they're declared) and are not hoisted in the same way as `var`. `var` is function-scoped and hoisted to the top of the function. `const` cannot be reassigned, while `let` can be. The catch is `var` can cause bugs due to function scoping and hoisting behavior.
+
+### How does garbage collection work in JavaScript?
+
+JavaScript uses automatic garbage collection - the engine automatically frees memory when objects are no longer referenced. Most engines use mark-and-sweep algorithm: mark all reachable objects, then sweep (free) unmarked objects. The catch is you can't manually control when garbage collection happens, but you can avoid memory leaks by removing references to unused objects.
 
 ---
 

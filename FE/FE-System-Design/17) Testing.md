@@ -16,13 +16,13 @@
 
 ---
 
-## Q70. Unit and Integration Testing
+## Q70. 🧪 Unit and Integration Testing
 
 Unit and integration tests verify that your front-end code works correctly at different levels: small, isolated pieces (units) and combined components or modules (integrations). Together these tests give you fast feedback and confidence that changes don't break core behavior. Understanding when and how to write effective tests is essential for building maintainable, reliable frontend applications - it's like having a safety net that catches bugs before they reach production.
 
 ---
 
-## 1. What is Unit Testing?
+## 1. 🧪 What is Unit Testing?
 
 Unit testing focuses on testing the smallest pieces of your code in complete isolation. When you write a unit test, you're checking that a single function, hook, or component behaves correctly when you give it specific inputs, without any dependencies on external systems.
 
@@ -166,7 +166,7 @@ test('updates localStorage when value changes', () => {
 
 ---
 
-## 2. What is Integration Testing?
+## 2. 🧪 What is Integration Testing?
 
 Integration testing verifies that multiple pieces of your application work together correctly. Unlike unit tests that test things in isolation, integration tests check how components, modules, and services actually interact with each other in practice.
 
@@ -407,7 +407,7 @@ test('displays products from Redux store', () => {
 
 ---
 
-## 3. When to Use Which?
+## 3. 💡 When to Use Which?
 
 Understanding when to write unit tests versus integration tests helps you build a balanced test suite that gives you confidence without slowing down your development workflow - you want fast feedback where it matters most.
 
@@ -525,13 +525,13 @@ Jest/Vitest for unit tests, React Testing Library for integration tests, and occ
 
 ---
 
-## Q71. E2E and Automation Testing
+## Q71. 🧪 E2E and Automation Testing
 
 End-to-end (E2E) and automation tests simulate real user behavior in a real browser against a running application. These tests verify that the entire stack (frontend, backend, infrastructure) works as expected from the user's perspective - like having a robot user actually click through your app.
 
 ---
 
-## 1. What is E2E Testing?
+## 1. 🧪 What is E2E Testing?
 
 ### 🔹 Characteristics
 
@@ -549,7 +549,7 @@ End-to-end (E2E) and automation tests simulate real user behavior in a real brow
 
 ---
 
-## 2. Automation Testing beyond E2E
+## 2. 🧪 Automation Testing beyond E2E
 
 * **Smoke tests** – quick checks after each deploy to ensure app is up and basic paths work - like making sure the app actually loads
 
@@ -559,7 +559,7 @@ End-to-end (E2E) and automation tests simulate real user behavior in a real brow
 
 ---
 
-## 3. Trade-offs
+## 3. 💡 Trade-offs
 
 * **Pros**:
   * Highest confidence – covers full stack
@@ -585,13 +585,13 @@ I keep a **small, focused set** of E2E tests for the most important flows and re
 
 ---
 
-## Q72. A/B Testing
+## Q72. 🧪 A/B Testing
 
 A/B testing is a technique where you show two or more variants of a feature to different user groups and use data to decide which performs better. It's essential for making data-driven product and UX decisions instead of guessing what works.
 
 ---
 
-## 1. How A/B testing works
+## 1. 🧪 How A/B testing works
 
 1. Define a **goal metric** (conversion, click-through, retention) - what you're trying to improve
 
@@ -607,7 +607,7 @@ A/B testing is a technique where you show two or more variants of a feature to d
 
 ---
 
-## 2. Frontend responsibilities
+## 2. 💡 Frontend responsibilities
 
 * Integrate with **experimentation platform** (e.g., LaunchDarkly, Optimizely, homegrown) - this handles the variant assignment
 
@@ -632,13 +632,13 @@ Load experiment decisions as early as possible (server-side or at app bootstrap)
 
 ---
 
-## Q73. Performance Testing
+## Q73. ⚡ Performance Testing
 
 Performance testing checks how fast your application loads, responds, and behaves under different conditions. It helps you find bottlenecks before users actually feel them. This section covers testing methodology; for performance optimization and monitoring strategies, see [Performance](12%29%20Performance.md).
 
 ---
 
-## 1. Types of performance testing
+## 1. ⚡ Types of performance testing
 
 ### 🔹 Frontend Performance Testing
 
@@ -688,7 +688,7 @@ Performance testing checks how fast your application loads, responds, and behave
 
 ---
 
-## 2. Frontend performance testing workflow
+## 2. ⚡ Frontend performance testing workflow
 
 ### 🔹 Establish Baselines
 
@@ -752,13 +752,13 @@ Lab testing (Lighthouse, DevTools) gives you controlled, repeatable measurements
 
 ---
 
-## Q74. Security Testing
+## Q74. 🛡️ Security Testing
 
 Security testing looks for vulnerabilities in your application before attackers do. For frontend-heavy apps, it focuses on issues like XSS, CSRF, misconfigured CORS, and insecure dependencies. This section covers the testing perspective of security - how you actually test for these issues; for detailed security concepts and prevention strategies, see [Security](10%29%20Security.md).
 
 ---
 
-## 1. Types of security testing
+## 1. 🛡️ Types of security testing
 
 ### 🔹 Static Analysis (SAST)
 
@@ -804,7 +804,7 @@ Security testing looks for vulnerabilities in your application before attackers 
 
 ---
 
-## 2. Frontend engineer's role in security testing
+## 2. 🛡️ Frontend engineer's role in security testing
 
 ### 🔹 During Development
 
@@ -888,9 +888,9 @@ Run `npm audit` and security linting on every commit, use Dependabot for automat
 
 <div align="center">
 
-[12) Security.md](12%29%20Security.md) • [Questions Index](question.md) • [14) Performance.md →](14%29%20Performance.md)
+[← Previous: Security](16%29%20Security.md) • [Home: Questions Index](question.md) • [Next: Performance →](18%29%20Performance.md)
 
-[FE-System-Design Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md)
 
 </div>
 

@@ -6,15 +6,15 @@
 
 <div align="center">
 
-[Binary Search](14%20Binary%20Search.md) • [Home: README](README.md) • [Math →](16%20Math.md)
+[← Previous: Binary Search](14%29%20Binary%20Search.md) • [Home: README](README.md) • [Next: Math →](16%29%20Math.md)
 
-[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md)
 
 </div>
 
 ---
 
-## Q218. Add Binary
+## Q218. ➕ Add Binary
 
 **Problem:** Given two binary strings `a` and `b`, return their sum as a binary string.
 
@@ -60,7 +60,7 @@ function addBinary(a, b) {
 **Time Complexity:** O(max(m,n)) - Traverse both strings
 **Space Complexity:** O(max(m,n)) - Result string
 
-## Q219. Reverse Bits
+## Q219. 🔢 Reverse Bits
 
 **Problem:** Reverse bits of a given 32 bits unsigned integer. Note that in some languages, such as Java, there is no unsigned integer type. In this case, both input and output will be given as signed integers. They should not affect your implementation, as the internal binary representation of the integer is the same whether it is signed or unsigned. In Java, the compiler represents the signed integers using 2's complement notation.
 
@@ -100,7 +100,7 @@ function reverseBits(n) {
 **Time Complexity:** O(32) - Fixed 32-bit integer
 **Space Complexity:** O(1) - Constant extra space
 
-## Q220. Number of 1 Bits
+## Q220. 🔢 Number of 1 Bits
 
 **Problem:** Write a function that takes the binary representation of an unsigned integer and returns the number of '1' bits it has (also known as the Hamming weight).
 
@@ -152,7 +152,7 @@ function hammingWeight(n) {
 **Time Complexity:** O(k) - k is number of set bits (optimal), O(32) for shifting
 **Space Complexity:** O(1) - Constant extra space
 
-## Q221. Single Number
+## Q221. 💡 Single Number
 
 **Problem:** Given a non-empty array of integers `nums`, every element appears twice except for one. Find that single one. You must implement a solution with a linear runtime complexity and use only constant extra space.
 
@@ -186,7 +186,7 @@ function singleNumber(nums) {
 **Time Complexity:** O(n) - Single pass through array
 **Space Complexity:** O(1) - Constant extra space
 
-## Q222. Single Number II
+## Q222. 💡 Single Number II
 
 **Problem:** Given an integer array `nums` where every element appears three times except for one, which appears exactly once. Find the single element and return it. You must implement a solution with a linear runtime complexity and use only constant extra space.
 
@@ -234,7 +234,7 @@ function singleNumber(nums) {
 **Time Complexity:** O(32n) - 32 bits × n numbers
 **Space Complexity:** O(1) - Constant extra space
 
-## Q223. Bitwise AND of Numbers Range
+## Q223. 🔢 Bitwise AND of Numbers Range
 
 **Problem:** Given two integers `left` and `right` that represent the range `[left, right]`, return the bitwise AND of all numbers in this range, inclusive.
 
@@ -324,8 +324,8 @@ function singleNumber(arr) {
 
 <div align="center">
 
-[Binary Search](14%20Binary%20Search.md) • [Home: README](README.md) • [Math →](16%20Math.md)
+[← Previous: Binary Search](14%29%20Binary%20Search.md) • [Home: README](README.md) • [Next: Math →](16%29%20Math.md)
 
-[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md)
 
 </div>

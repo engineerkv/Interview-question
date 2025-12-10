@@ -1,4 +1,4 @@
-# 12. AI Tools (Q221–Q225)
+# 12. AI Tools (Q220–Q223)
 
 ---
 
@@ -16,13 +16,13 @@
 
 ---
 
-## Q221. 🤖 Using GitHub Copilot effectively
+## Q220. 🤖 Using GitHub Copilot effectively
 
 GitHub Copilot is an AI coding assistant that helps write code faster. When you use Copilot effectively, you provide clear context, review suggestions, and use it as an assistant rather than a replacement for understanding.
 
 ---
 
-## 1. Clear Comments and Names
+## 1. 💡 Clear Comments and Names
 
 Use GitHub Copilot effectively by writing clear comments and function names that describe what you want.
 
@@ -38,7 +38,7 @@ Use GitHub Copilot effectively by writing clear comments and function names that
 
 ---
 
-## 2. Provide Context
+## 2. 💡 Provide Context
 
 Providing context about your codebase.
 
@@ -52,7 +52,7 @@ Providing context about your codebase.
 
 ---
 
-## 3. Review Suggestions
+## 3. 💡 Review Suggestions
 
 Reviewing all suggestions before accepting them.
 
@@ -66,7 +66,7 @@ Reviewing all suggestions before accepting them.
 
 ---
 
-## 4. Use Cases
+## 4. 💡 Use Cases
 
 Use it for boilerplate code, common patterns, or generating test cases, but always understand and test the code it generates.
 
@@ -80,7 +80,7 @@ Use it for boilerplate code, common patterns, or generating test cases, but alwa
 
 ---
 
-## 5. Customization
+## 5. 💡 Customization
 
 Customize suggestions by adjusting settings.
 
@@ -94,7 +94,7 @@ Customize suggestions by adjusting settings.
 
 ---
 
-## 6. Assistant, Not Replacement
+## 6. 💡 Assistant, Not Replacement
 
 Use it as a coding assistant, not a replacement for understanding.
 
@@ -108,7 +108,7 @@ Use it as a coding assistant, not a replacement for understanding.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Copilot speeds up coding significantly, especially for repetitive tasks.
 
@@ -144,13 +144,13 @@ You avoid using for critical security code, complex business logic, or when you 
 
 ---
 
-## Q222. ⚠️ Risks of AI-generated code
+## Q221. ⚠️ Risks of AI-generated code
 
 AI-generated code comes with risks that need to be understood and mitigated. When you use AI-generated code, you need to be aware of security, correctness, and quality risks.
 
 ---
 
-## 1. Security Vulnerabilities
+## 1. 🛡️ Security Vulnerabilities
 
 Risks of AI-generated code include security vulnerabilities (like SQL injection or XSS).
 
@@ -166,7 +166,7 @@ Risks of AI-generated code include security vulnerabilities (like SQL injection 
 
 ---
 
-## 2. Incorrect Logic
+## 2. 💡 Incorrect Logic
 
 Incorrect logic that seems right but has edge cases.
 
@@ -180,7 +180,7 @@ Incorrect logic that seems right but has edge cases.
 
 ---
 
-## 3. Performance Issues
+## 3. ⚡ Performance Issues
 
 Performance issues.
 
@@ -194,7 +194,7 @@ Performance issues.
 
 ---
 
-## 4. Licensing Problems
+## 4. 💡 Licensing Problems
 
 Licensing problems if it copies copyrighted code.
 
@@ -208,7 +208,7 @@ Licensing problems if it copies copyrighted code.
 
 ---
 
-## 5. Lack of Context
+## 5. 💡 Lack of Context
 
 Lack of understanding of the codebase context.
 
@@ -222,7 +222,7 @@ Lack of understanding of the codebase context.
 
 ---
 
-## 6. Subtle Bugs
+## 6. 💡 Subtle Bugs
 
 AI tools can generate code that compiles and runs but doesn't fit your architecture or has subtle bugs that are hard to catch.
 
@@ -236,7 +236,7 @@ AI tools can generate code that compiles and runs but doesn't fit your architect
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 AI-generated code can save time, but the catch is you're responsible for the code quality and security, not the AI.
 
@@ -272,13 +272,13 @@ You verify by reviewing code against your architecture, ensuring it follows patt
 
 ---
 
-## Q223. 🔍 Reviewing AI-generated code securely
+## Q222. 🔍 Reviewing AI-generated code securely
 
 Reviewing AI-generated code securely is essential to prevent vulnerabilities and bugs. When you review AI-generated code, you check for security issues, verify correctness, and ensure it meets your standards.
 
 ---
 
-## 1. Security Vulnerabilities
+## 1. 🛡️ Security Vulnerabilities
 
 Review AI-generated code securely by checking for security vulnerabilities (SQL injection, XSS, authentication bypass).
 
@@ -294,7 +294,7 @@ Review AI-generated code securely by checking for security vulnerabilities (SQL 
 
 ---
 
-## 2. Edge Cases and Errors
+## 2. 💡 Edge Cases and Errors
 
 Verifying it handles edge cases and error conditions.
 
@@ -308,7 +308,7 @@ Verifying it handles edge cases and error conditions.
 
 ---
 
-## 3. Coding Standards
+## 3. 💡 Coding Standards
 
 Ensuring it follows your coding standards and architecture.
 
@@ -322,7 +322,7 @@ Ensuring it follows your coding standards and architecture.
 
 ---
 
-## 4. Thorough Testing
+## 4. 🧪 Thorough Testing
 
 Testing it thoroughly.
 
@@ -336,7 +336,7 @@ Testing it thoroughly.
 
 ---
 
-## 5. Secrets and Credentials
+## 5. 💡 Secrets and Credentials
 
 Checking for hardcoded secrets or credentials.
 
@@ -350,7 +350,7 @@ Checking for hardcoded secrets or credentials.
 
 ---
 
-## 6. Same Level of Review
+## 6. 💡 Same Level of Review
 
 Treat AI-generated code the same as human-written code - it needs the same level of review and testing.
 
@@ -364,7 +364,7 @@ Treat AI-generated code the same as human-written code - it needs the same level
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Secure code review prevents vulnerabilities and bugs, which is essential.
 
@@ -400,13 +400,13 @@ You balance by prioritizing security-critical code, using automated security sca
 
 ---
 
-## Q224. ⚡ Cursor productivity benefits
+## Q223. ⚡ Cursor productivity benefits
 
 Cursor is an AI-powered code editor that improves productivity. When you use Cursor, you get AI assistance directly in your editor for faster coding and better understanding.
 
 ---
 
-## 1. AI-Powered Features
+## 1. 💡 AI-Powered Features
 
 Cursor productivity benefits include AI-powered code completion, inline code generation, chat-based code assistance, and refactoring suggestions.
 
@@ -422,7 +422,7 @@ Cursor productivity benefits include AI-powered code completion, inline code gen
 
 ---
 
-## 2. Use Cases
+## 2. 💡 Use Cases
 
 It can help you write code faster, understand codebases, and refactor code.
 
@@ -436,7 +436,7 @@ It can help you write code faster, understand codebases, and refactor code.
 
 ---
 
-## 3. Specific Uses
+## 3. 💡 Specific Uses
 
 Use it to generate boilerplate, explain complex code, or suggest improvements.
 
@@ -450,7 +450,7 @@ Use it to generate boilerplate, explain complex code, or suggest improvements.
 
 ---
 
-## 4. Integration
+## 4. 💡 Integration
 
 It integrates AI directly into your editor, making it more accessible than switching to separate tools.
 
@@ -464,7 +464,7 @@ It integrates AI directly into your editor, making it more accessible than switc
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 Cursor can significantly improve productivity, especially for repetitive tasks or learning new codebases.
 
@@ -500,13 +500,13 @@ You use by asking for refactoring suggestions, reviewing suggestions carefully, 
 
 ---
 
-## Q225. 🔧 Using AI for refactoring safely
+## Q224. 🔧 Using AI for refactoring safely
 
 Using AI for refactoring can improve code quality, but requires careful approach. When you use AI for refactoring, you make small changes, test thoroughly, and understand what's being changed.
 
 ---
 
-## 1. Small, Isolated Changes
+## 1. 💡 Small, Isolated Changes
 
 Use AI for refactoring safely by starting with small, isolated changes.
 
@@ -522,7 +522,7 @@ Use AI for refactoring safely by starting with small, isolated changes.
 
 ---
 
-## 2. Thorough Testing
+## 2. 🧪 Thorough Testing
 
 Testing thoroughly after each refactoring.
 
@@ -536,7 +536,7 @@ Testing thoroughly after each refactoring.
 
 ---
 
-## 3. Understanding Changes
+## 3. 💡 Understanding Changes
 
 Understanding what the AI is changing and why.
 
@@ -550,7 +550,7 @@ Understanding what the AI is changing and why.
 
 ---
 
-## 4. Review Diffs
+## 4. ➖ Review Diffs
 
 Reviewing diffs carefully.
 
@@ -564,7 +564,7 @@ Reviewing diffs carefully.
 
 ---
 
-## 5. Verify Functionality
+## 5. ⚙️ Verify Functionality
 
 Use AI to suggest refactorings, but verify they maintain functionality and improve code quality.
 
@@ -578,7 +578,7 @@ Use AI to suggest refactorings, but verify they maintain functionality and impro
 
 ---
 
-## 6. Incremental Approach
+## 6. 🔍 Incremental Approach
 
 Don't let AI refactor large portions of code at once - break it into smaller, testable changes.
 
@@ -592,7 +592,7 @@ Don't let AI refactor large portions of code at once - break it into smaller, te
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 AI can suggest good refactorings and help modernize code, but the catch is it might change behavior unintentionally or introduce bugs.
 

@@ -4,7 +4,7 @@
 
 **Quick Review Checklist:**
 
-- [ ] Introduction (React vs Frameworks, Webpack vs Bundlers, Node.js vs Frameworks, SQL vs NoSQL, React Native vs Flutter/Cordova)
+- [ ] Introduction (React vs Vue/Angular, Webpack vs Parcel/Vite/Rollup, Node.js vs Python/Java, SQL vs NoSQL, React Native vs Flutter/Cordova)
 
 - [ ] Network (DNS, TCP, HTTP, Protocols, REST, GraphQL, gRPC, Rendering Path, Payment Gateway)
 
@@ -88,7 +88,7 @@
 
 ## 📋 Question Coverage
 
-- **Q0-Q4**: Introduction (React vs Frameworks, Webpack vs Bundlers, Node.js vs Frameworks, SQL vs NoSQL, React Native vs Flutter/Cordova)
+- **Q0-Q4**: Introduction (React vs Vue/Angular, Webpack vs Parcel/Vite/Rollup, Node.js vs Python/Java, SQL vs NoSQL, React Native vs Flutter/Cordova)
 
 - **Q1**: Web Works
 
@@ -992,15 +992,15 @@
 
 ### Framework Comparisons
 
-- **React vs Vue/Angular/Svelte**: Component-based, learning curve, ecosystem
+- **React vs Vue/Angular**: Library vs framework, JSX vs templates, flexibility vs structure, ecosystem size
 
-- **Webpack vs Vite/Rollup**: Build tools, bundling strategies, performance
+- **Webpack vs Parcel/Vite/Rollup**: Configuration complexity, development speed, production builds, use cases
 
-- **Node.js vs Python/Go/Java**: Backend runtime, performance, use cases
+- **Node.js vs Python/Java**: I/O performance, development speed, ecosystem, use cases (real-time vs data science vs enterprise)
 
-- **SQL vs NoSQL**: Database types, data modeling, scalability
+- **SQL vs NoSQL**: Structured vs flexible schemas, ACID vs eventual consistency, relationships vs scale
 
-- **React Native vs Flutter vs Cordova**: Mobile frameworks, performance, native access
+- **React Native vs Flutter vs Cordova**: Native components vs compiled code vs WebView, performance, development experience
 
 ### Key Considerations
 
@@ -1016,7 +1016,7 @@
 
 ## ⚡ Quick Tips
 
-- **Introduction**: Choose frameworks based on team, scale, and requirements
+- **Introduction**: Choose frameworks based on team expertise, project requirements, and scalability needs
 
 - **DNS caching** speeds up requests
 

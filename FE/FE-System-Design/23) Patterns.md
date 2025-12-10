@@ -16,13 +16,13 @@
 
 ---
 
-## Q100. Rendering Patterns
+## Q100. 🎨 Rendering Patterns
 
 Rendering patterns determine when and where your application generates HTML and sends it to the browser. Different patterns offer different trade-offs between performance, SEO, user experience, and complexity. Understanding these patterns helps you choose the right approach for your application and optimize for your specific use case.
 
 ---
 
-## 1. Client-Side Rendering (CSR)
+## 1. 🎨 Client-Side Rendering (CSR)
 
 CSR renders content entirely in the browser using JavaScript after the initial HTML page loads.
 
@@ -81,7 +81,7 @@ function App() {
 
 ---
 
-## 2. Server-Side Rendering (SSR)
+## 2. 🎨 Server-Side Rendering (SSR)
 
 SSR generates HTML on the server for each request and sends fully rendered HTML to the browser.
 
@@ -138,7 +138,7 @@ export default function Page({ data }) {
 
 ---
 
-## 3. Static Site Generation (SSG)
+## 3. 📄 Static Site Generation (SSG)
 
 SSG pre-renders pages at build time, generating static HTML files that are served directly.
 
@@ -200,7 +200,7 @@ export default function Blog({ posts }) {
 
 ---
 
-## 4. Incremental Static Regeneration (ISR)
+## 4. 🔄 Incremental Static Regeneration (ISR)
 
 ISR combines SSG with on-demand regeneration - pages are pre-rendered but can be regenerated in the background.
 
@@ -257,7 +257,7 @@ export async function getStaticPaths() {
 
 ---
 
-## 5. Streaming SSR
+## 5. 🌊 Streaming SSR
 
 Streaming SSR sends HTML to the browser progressively as it's generated, rather than waiting for the entire page.
 
@@ -293,7 +293,7 @@ Streaming SSR sends HTML to the browser progressively as it's generated, rather 
 
 ---
 
-## 6. Partial Hydration
+## 6. 💡 Partial Hydration
 
 Partial Hydration only hydrates parts of the page that need interactivity, leaving static parts as plain HTML.
 
@@ -339,13 +339,13 @@ Hydration is the process of attaching JavaScript event listeners and making serv
 
 ---
 
-## Q101. Anti-React Patterns
+## Q101. ⚛️ Anti-React Patterns
 
 Anti-patterns in React are common mistakes that lead to poor performance, bugs, or hard-to-maintain code. Recognizing and avoiding these patterns is crucial for building quality React applications.
 
 ---
 
-## 1. Direct DOM Manipulation
+## 1. 💡 Direct DOM Manipulation
 
 Manipulating the DOM directly bypasses React's virtual DOM and can cause inconsistencies.
 
@@ -393,7 +393,7 @@ function Component() {
 
 ---
 
-## 2. Mutating State Directly
+## 2. 📦 Mutating State Directly
 
 Mutating state directly instead of creating new objects/arrays breaks React's change detection.
 
@@ -444,7 +444,7 @@ function Component() {
 
 ---
 
-## 3. Using Index as Key
+## 3. 📇 Using Index as Key
 
 Using array index as key can cause bugs when list items are reordered, added, or removed.
 
@@ -494,7 +494,7 @@ function TodoList({ todos }) {
 
 ---
 
-## 4. Creating Functions/Objects in Render
+## 4. ⚙️ Creating Functions/Objects in Render
 
 Creating new functions or objects in render causes unnecessary re-renders of child components.
 
@@ -556,7 +556,7 @@ function Parent({ items }) {
 
 ---
 
-## 5. Prop Drilling
+## 5. 💡 Prop Drilling
 
 Passing props through many component layers makes code hard to maintain.
 
@@ -619,7 +619,7 @@ function Profile() {
 
 ---
 
-## 6. useEffect Without Dependencies
+## 6. 💡 useEffect Without Dependencies
 
 Missing or incorrect dependency arrays in useEffect can cause bugs or infinite loops.
 
@@ -667,7 +667,7 @@ function Component({ userId }) {
 
 ---
 
-## 7. Not Cleaning Up Effects
+## 7. 💡 Not Cleaning Up Effects
 
 Not cleaning up effects (subscriptions, timers, event listeners) causes memory leaks.
 
@@ -736,13 +736,13 @@ These patterns can cause unnecessary re-renders, memory leaks, and bugs. Followi
 
 ---
 
-## Q102. Anti-JavaScript Patterns
+## Q102. 💡 Anti-JavaScript Patterns
 
 Anti-patterns in JavaScript are common mistakes that lead to bugs, poor performance, or hard-to-maintain code. Understanding these helps write better JavaScript.
 
 ---
 
-## 1. Using var Instead of let/const
+## 1. 💡 Using var Instead of let/const
 
 Using `var` has function scope and hoisting issues that can cause bugs.
 
@@ -784,7 +784,7 @@ for (let i = 0; i < 3; i++) {
 
 ---
 
-## 2. Not Handling Async Errors
+## 2. ⏳ ⏳ Not Handling Async Errors
 
 Not handling promise rejections or async errors can cause silent failures.
 
@@ -836,7 +836,7 @@ fetchData().catch(error => {
 
 ---
 
-## 3. Using == Instead of ===
+## 3. 💡 Using == Instead of ===
 
 Using loose equality (`==`) can cause unexpected type coercion bugs.
 
@@ -888,7 +888,7 @@ if (null === undefined) { // false (expected)
 
 ---
 
-## 4. Modifying Objects You Don't Own
+## 4. 💡 Modifying Objects You Don't Own
 
 Modifying built-in prototypes or objects you don't control can cause conflicts.
 
@@ -932,7 +932,7 @@ import { last } from 'lodash';
 
 ---
 
-## 5. Not Using Optional Chaining
+## 5. 💡 Not Using Optional Chaining
 
 Not using optional chaining can cause verbose null/undefined checks.
 
@@ -971,7 +971,7 @@ function getName(user) {
 
 ---
 
-## 6. Creating Functions in Loops
+## 6. ⚙️ Creating Functions in Loops
 
 Creating functions in loops without proper closure handling causes bugs.
 
@@ -1020,7 +1020,7 @@ buttons.forEach((button, i) => {
 
 ---
 
-## 7. Not Using Destructuring
+## 7. 💡 Not Using Destructuring
 
 Not using destructuring makes code verbose and harder to read.
 
@@ -1083,13 +1083,13 @@ Some patterns (like modifying prototypes) can affect performance. Others mainly 
 
 ---
 
-## Q103. Anti-Node.js Patterns
+## Q103. 🟢 Anti-Node.js Patterns
 
 Anti-patterns in Node.js are common mistakes that lead to poor performance, bugs, or security issues. Understanding these helps build better Node.js applications.
 
 ---
 
-## 1. Blocking the Event Loop
+## 1. 🎯 Blocking the Event Loop
 
 Running CPU-intensive or synchronous operations blocks the event loop.
 
@@ -1139,7 +1139,7 @@ app.get('/process', async (req, res) => {
 
 ---
 
-## 2. Not Handling Errors in Async Code
+## 2. ⏳ ⏳ Not Handling Errors in Async Code
 
 Not handling errors in async operations can crash your application.
 
@@ -1185,7 +1185,7 @@ app.get('/data', async (req, res) => {
 
 ---
 
-## 3. Callback Hell
+## 3. 📞 Callback Hell
 
 Nesting callbacks deeply makes code hard to read and maintain.
 
@@ -1237,7 +1237,7 @@ async function processFiles() {
 
 ---
 
-## 4. Not Using Streams for Large Files
+## 4. 🌊 Not Using Streams for Large Files
 
 Loading entire files into memory can cause memory issues with large files.
 
@@ -1279,7 +1279,7 @@ app.get('/download', (req, res) => {
 
 ---
 
-## 5. Not Using Environment Variables
+## 5. 💡 Not Using Environment Variables
 
 Hardcoding configuration values makes code inflexible and insecure.
 
@@ -1325,7 +1325,7 @@ const dbConfig = {
 
 ---
 
-## 6. Not Implementing Graceful Shutdown
+## 6. 💡 Not Implementing Graceful Shutdown
 
 Not handling shutdown signals can cause data loss or incomplete operations.
 
@@ -1385,7 +1385,7 @@ process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
 ---
 
-## 7. Not Using Connection Pooling
+## 7. 💡 Not Using Connection Pooling
 
 Creating new database connections for each request is inefficient.
 
@@ -1460,9 +1460,9 @@ These patterns can significantly impact performance, scalability, and reliabilit
 
 <div align="center">
 
-[18) Offline Support.md](18%29%20Offline%20Support.md) • [Questions Index](question.md) • [20) Microfrontend.md →](20%29%20Microfrontend.md)
+[← Previous: Offline Support](22%29%20Offline%20Support.md) • [Home: Questions Index](question.md) • [Next: Microfrontend →](24%29%20Microfrontend.md)
 
-[FE-System-Design Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md)
 
 </div>
 

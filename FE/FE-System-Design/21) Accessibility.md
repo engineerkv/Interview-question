@@ -16,13 +16,13 @@
 
 ---
 
-## Q92. Keyboard Accessibility
+## Q92. ♿ Keyboard Accessibility
 
 Keyboard accessibility ensures that all interactive elements and flows can be used without a mouse, using only the keyboard (Tab, Shift+Tab, Enter, Space, Arrow keys). It's critical for many users with motor or visual impairments. Building keyboard-accessible interfaces is not just about compliance - it's about creating inclusive experiences that work for everyone.
 
 ---
 
-## 1. Requirements
+## 1. 💡 Requirements
 
 ### 🔹 Focusable elements
 
@@ -42,7 +42,7 @@ Keyboard accessibility ensures that all interactive elements and flows can be us
 
 ---
 
-## 2. Implementation tips
+## 2. 💡 Implementation tips
 
 * Ensure visible **focus outlines** (never remove them without replacement)
 
@@ -66,13 +66,13 @@ Try using the site with only a keyboard—Tab, Shift+Tab, Enter, Space, and Arro
 
 ---
 
-## Q93. Screen Reader
+## Q93. 💡 Screen Reader
 
 Screen readers read out the content and structure of the page to users who can’t see the screen. Good screen reader support relies on semantic HTML, meaningful labels, and ARIA only when needed.
 
 ---
 
-## 1. Semantic structure
+## 1. 💡 Semantic structure
 
 * Proper heading hierarchy (`h1` → `h2` → `h3`…)
 
@@ -85,7 +85,7 @@ Screen readers read out the content and structure of the page to users who can�
 
 ---
 
-## 2. Labels and ARIA
+## 2. 💡 Labels and ARIA
 
 * Use `<label for>` or `aria-label` / `aria-labelledby` for inputs
 
@@ -109,13 +109,13 @@ Use built-in screen readers like VoiceOver (macOS) or NVDA (Windows), navigate b
 
 ---
 
-## Q94. Focus Management
+## Q94. 💡 Focus Management
 
 Focus management is about controlling which element is focused at any time, especially during dynamic UI changes like modals, drawers, and navigation.
 
 ---
 
-## 1. Key patterns
+## 1. 💡 Key patterns
 
 * **Initial focus** – when opening a modal, focus the first meaningful element
 
@@ -127,7 +127,7 @@ Focus management is about controlling which element is focused at any time, espe
 
 ---
 
-## 2. Implementation tips
+## 2. 💡 Implementation tips
 
 * Use libraries (e.g., `focus-trap`) or UI frameworks with built-in support
 
@@ -149,13 +149,13 @@ Closing a modal without restoring focus, leaving keyboard users at the top of th
 
 ---
 
-## Q95. Color Contrast
+## Q95. 💡 Color Contrast
 
 Color contrast ensures text and important UI elements are readable for users with low vision or color vision deficiencies.
 
 ---
 
-## 1. WCAG contrast ratios
+## 1. 🍎 WCAG contrast ratios
 
 * Normal text: **4.5:1** (AA)
 
@@ -167,7 +167,7 @@ Color contrast ensures text and important UI elements are readable for users wit
 
 ---
 
-## 2. Practical steps
+## 2. 💡 Practical steps
 
 * Use contrast checkers (axe, WebAIM, browser extensions)
 
@@ -191,13 +191,13 @@ Tweak one side of the color pair (usually text) towards darker or lighter while 
 
 ---
 
-## Q96. Accessibility Tools
+## Q96. ♿ Accessibility Tools
 
 Accessibility tools help you automatically catch many issues and manually explore others. These tools are essential for integrating accessibility into your workflow.
 
 ---
 
-## 1. Automated tools
+## 1. 💡 Automated tools
 
 * **axe DevTools**, **Lighthouse**, **WAVE**
 
@@ -209,7 +209,7 @@ Accessibility tools help you automatically catch many issues and manually explor
 
 ---
 
-## 2. Manual tools
+## 2. 💡 Manual tools
 
 * Screen readers (NVDA, JAWS, VoiceOver)
 
@@ -233,13 +233,13 @@ Run Lighthouse or axe against key pages, set thresholds, and fail builds when re
 
 ---
 
-## Q97. How to Fix Accessibility Issues
+## Q97. ♿ How to Fix Accessibility Issues
 
 Fixing accessibility issues is an iterative process: discover problems, prioritize them by impact, and fix them using semantic HTML, ARIA, and design tweaks.
 
 ---
 
-## 1. Typical issues and fixes
+## 1. 💡 Typical issues and fixes
 
 * Missing labels → add `<label>` or `aria-label`
 
@@ -253,7 +253,7 @@ Fixing accessibility issues is an iterative process: discover problems, prioriti
 
 ---
 
-## 2. Workflow
+## 2. 💡 Workflow
 
 1. Run automated tools and gather issues
 
@@ -285,9 +285,9 @@ Bake accessibility into shared components and design system, add lint rules, and
 
 <div align="center">
 
-[16) Logging & Monitoring.md](16%29%20Logging%20&%20Monitoring.md) • [Questions Index](question.md) • [18) Offline Support.md →](18%29%20Offline%20Support.md)
+[← Previous: Logging & Monitoring](20%29%20Logging%20%26%20Monitoring.md) • [Home: Questions Index](question.md) • [Next: Offline Support →](22%29%20Offline%20Support.md)
 
-[FE-System-Design Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md)
 
 </div>
 

@@ -216,6 +216,7 @@ App (Admin Dashboard)
 │       ├── ReplicationStatus
 │       └── ShardingStatus
 └── Footer
+
 ```
 
 ### Key React Components
@@ -306,6 +307,7 @@ const AutoScalingConfig: React.FC = () => {
     </div>
   );
 };
+
 ```
 
 ### State Management
@@ -348,6 +350,7 @@ const useSaveScalingConfig = () => {
     }
   });
 };
+
 ```
 
 ### Component Interactions
@@ -410,6 +413,7 @@ interface Model {
 - **Description:** Get list of users with pagination
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -423,6 +427,7 @@ interface Model {
       }
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success)
@@ -434,6 +439,7 @@ interface Model {
 - **Method:** GET
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -443,6 +449,7 @@ interface Model {
       "email": "john@example.com"
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 404 (Not Found)
@@ -695,7 +702,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
 
 ---
 
-## Q1. Scaling a REST API to handle 1B+ requests per day
+## Q1. 🔀 Scaling a REST API to handle 1B+ requests per day
 
 **Situation:** Need to scale REST API from handling 1M requests/day to 1B+ requests/day while maintaining < 200ms latency and 99.9% availability.
 
@@ -723,7 +730,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
 
 ---
 
-## Q2. Handling database scaling
+## Q2. 📊 Handling database scaling
 
 **Situation:** Single database cannot handle 1B+ requests/day, need to scale database.
 
@@ -749,7 +756,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
 
 ---
 
-## Q3. Handling traffic spikes
+## Q3. 💡 Handling traffic spikes
 
 **Situation:** Traffic suddenly increases 10x during peak hours, need to handle without degradation.
 
@@ -772,3 +779,534 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
 **Result:** System handles 10x traffic spikes without degradation. Auto-scaling adds servers within 2 minutes. 99.9% availability maintained.
 
 **Takeaway:** Auto-scaling is essential for handling traffic spikes. Caching and queue systems help absorb spikes.
+
+---
+
+## Q4. 💾 Implementing caching strategies
+
+**Situation:** Database load is too high, need to reduce database queries by implementing effective caching strategies.
+
+**Action:** I implemented multi-layer caching:
+
+- **Application Cache (Redis):** Cache API responses, user sessions, frequently accessed data
+- **CDN Cache:** Cache static assets and API responses at edge locations
+- **Database Query Cache:** Cache query results for frequently executed queries
+- **Cache Invalidation:** Implement cache invalidation strategies (TTL, event-based, manual)
+- **Cache Warming:** Pre-load cache with popular data during low-traffic periods
+- **Cache Patterns:** Use cache-aside pattern for flexibility, write-through for consistency
+- **Cache Monitoring:** Monitor cache hit rates, adjust TTL based on access patterns
+
+**Result:** Cache hit rate of 80%+ for frequently accessed endpoints. Database load reduced by 70%. API response times improved by 60%.
+
+**Takeaway:** Multi-layer caching significantly reduces database load. Cache invalidation is critical for data consistency. Monitor cache performance to optimize.
+
+---
+
+## Q5. ⚡ Monitoring and optimizing API performance
+
+**Situation:** Need to monitor API performance and identify bottlenecks to optimize.
+
+**Action:** I implemented comprehensive monitoring and optimization:
+
+- **APM Tools:** Use Application Performance Monitoring (New Relic, Datadog) to track latency, throughput, errors
+- **Metrics Collection:** Track p50, p95, p99 latencies, request rates, error rates, database query times
+- **Distributed Tracing:** Implement distributed tracing (Jaeger, Zipkin) to track requests across services
+- **Logging:** Structured logging with correlation IDs for request tracking
+- **Alerting:** Set up alerts for high latency, high error rates, low availability
+- **Performance Profiling:** Profile slow endpoints, identify bottlenecks (database queries, external API calls)
+- **Optimization:** Optimize slow queries, add indexes, implement caching, optimize code paths
+
+**Result:** Identified and fixed 10+ performance bottlenecks. P95 latency reduced from 500ms to 150ms. Error rate reduced by 90%. System performance improved significantly.
+
+**Takeaway:** Monitoring is essential for identifying bottlenecks. Distributed tracing helps track request flow. Continuous optimization improves performance.
+
+---
+
+# 4) Algorithms
+
+## Consistent Hashing Algorithm
+
+**Purpose:** Distribute requests evenly across multiple servers and minimize data movement when servers are added or removed.
+
+**Algorithm:**
+1. Create a hash ring (circular space) from 0 to 2^64 - 1
+2. Hash each server to multiple points on the ring (virtual nodes)
+3. Hash the request key to a point on the ring
+4. Find the first server clockwise from the key's position
+
+**Implementation:**
+
+```typescript
+import crypto from 'crypto';
+
+class ConsistentHash {
+  private ring: Map<number, string> = new Map();
+  private sortedKeys: number[] = [];
+  private virtualNodes: number = 150;
+  
+  addServer(serverId: string): void {
+    for (let i = 0; i < this.virtualNodes; i++) {
+      const hash = this.hash(`${serverId}-${i}`);
+      this.ring.set(hash, serverId);
+      this.sortedKeys.push(hash);
+    }
+    this.sortedKeys.sort((a, b) => a - b);
+  }
+  
+  removeServer(serverId: string): void {
+    for (let i = 0; i < this.virtualNodes; i++) {
+      const hash = this.hash(`${serverId}-${i}`);
+      this.ring.delete(hash);
+      const index = this.sortedKeys.indexOf(hash);
+      if (index > -1) {
+        this.sortedKeys.splice(index, 1);
+      }
+    }
+  }
+  
+  getServer(key: string): string {
+    if (this.ring.size === 0) {
+      throw new Error('No servers available');
+    }
+    
+    const hash = this.hash(key);
+    
+    for (const ringKey of this.sortedKeys) {
+      if (ringKey >= hash) {
+        return this.ring.get(ringKey)!;
+      }
+    }
+    
+    return this.ring.get(this.sortedKeys[0])!;
+  }
+  
+  private hash(key: string): number {
+    const hash = crypto.createHash('md5').update(key).digest();
+    return hash.readUInt32BE(0);
+  }
+}
+
+```
+
+**Complexity:**
+- Time: O(log n) for server lookup where n is number of virtual nodes
+- Space: O(v * s) where v is virtual nodes, s is number of servers
+- **Data Movement:** Only ~1/n of data moves when adding/removing servers
+
+---
+
+## Cache Eviction Algorithm (LRU)
+
+**Purpose:** Manage Redis cache efficiently by evicting least recently used items when cache is full.
+
+**Algorithm:**
+1. Maintain a doubly-linked list of cached items ordered by access time
+2. Use a hash map for O(1) lookup
+3. On access: move item to front (most recently used)
+4. On eviction: remove item from back (least recently used)
+
+**Implementation:**
+
+```typescript
+class LRUCache {
+  private capacity: number;
+  private cache: Map<string, { value: any; node: Node }> = new Map();
+  private head: Node;
+  private tail: Node;
+  
+  constructor(capacity: number) {
+    this.capacity = capacity;
+    this.head = new Node('', '');
+    this.tail = new Node('', '');
+    this.head.next = this.tail;
+    this.tail.prev = this.head;
+  }
+  
+  get(key: string): any {
+    const item = this.cache.get(key);
+    
+    if (!item) {
+      return null;
+    }
+    
+    this.moveToFront(item.node);
+    return item.value;
+  }
+  
+  put(key: string, value: any): void {
+    const existing = this.cache.get(key);
+    
+    if (existing) {
+      existing.value = value;
+      this.moveToFront(existing.node);
+      return;
+    }
+    
+    if (this.cache.size >= this.capacity) {
+      this.evictLRU();
+    }
+    
+    const node = new Node(key, value);
+    this.addToFront(node);
+    this.cache.set(key, { value, node });
+  }
+  
+  private moveToFront(node: Node): void {
+    this.removeNode(node);
+    this.addToFront(node);
+  }
+  
+  private addToFront(node: Node): void {
+    node.prev = this.head;
+    node.next = this.head.next;
+    this.head.next!.prev = node;
+    this.head.next = node;
+  }
+  
+  private removeNode(node: Node): void {
+    node.prev!.next = node.next;
+    node.next!.prev = node.prev;
+  }
+  
+  private evictLRU(): void {
+    const lru = this.tail.prev!;
+    this.removeNode(lru);
+    this.cache.delete(lru.key);
+  }
+}
+
+class Node {
+  key: string;
+  value: any;
+  prev: Node | null = null;
+  next: Node | null = null;
+  
+  constructor(key: string, value: any) {
+    this.key = key;
+    this.value = value;
+  }
+}
+
+```
+
+**Complexity:**
+- Time: O(1) for get and put operations
+- Space: O(capacity)
+
+---
+
+# 5) Data Models
+
+## API Request Log (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  requestId: String,        // Unique request ID
+  method: String,           // HTTP method
+  path: String,            // API path
+  statusCode: Number,       // Response status code
+  latency: Number,         // Response time in ms
+  userId: ObjectId,        // Optional, indexed
+  ipAddress: String,       // Client IP
+  userAgent: String,       // Client user agent
+  timestamp: Date,         // Request timestamp, indexed
+  responseSize: Number     // Response size in bytes
+}
+
+// Indexes:
+// - { timestamp: -1 } (for time-based queries)
+// - { path: 1, timestamp: -1 } (compound, for endpoint analysis)
+// - { statusCode: 1, timestamp: -1 } (compound, for error analysis)
+
+```
+
+## Server Metrics (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  serverId: String,        // Server identifier
+  timestamp: Date,         // Metric timestamp, indexed
+  cpuUsage: Number,       // CPU usage percentage
+  memoryUsage: Number,    // Memory usage percentage
+  requestCount: Number,   // Requests handled
+  errorCount: Number,     // Errors occurred
+  avgLatency: Number      // Average latency in ms
+}
+
+// Indexes:
+// - { serverId: 1, timestamp: -1 } (compound)
+// - { timestamp: -1 } (for time-based queries)
+
+```
+
+---
+
+# 6) Database Transactions and Consistency
+
+### MongoDB Transactions
+
+**Transaction Usage:**
+- **Multi-Document Transactions** - For operations requiring ACID guarantees
+- **Example:** User creation + account initialization in single transaction
+- **Session Management:** Use MongoDB sessions for transaction control
+
+**Example:**
+
+```typescript
+const session = await mongoose.startSession();
+session.startTransaction();
+try {
+  await User.create([userData], { session });
+  await Account.create([accountData], { session });
+  await session.commitTransaction();
+} catch (error) {
+  await session.abortTransaction();
+  throw error;
+} finally {
+  session.endSession();
+}
+
+```
+
+### Consistency Strategies
+
+**Data Consistency:**
+- **Read Consistency:** Use read replicas for eventual consistency, primary for strong consistency
+- **Cache Consistency:** Invalidate cache on data updates to prevent serving stale data
+- **Distributed Consistency:** Use distributed locks for critical operations across servers
+
+---
+
+# 7) Protocols
+
+### REST API Protocol
+
+- **Protocol:** REST (Representational State Transfer)
+- **Data Format:** JSON
+- **HTTP Methods:** GET, POST, PUT, DELETE, PATCH
+- **Status Codes:** 200 (Success), 201 (Created), 400 (Bad Request), 401 (Unauthorized), 404 (Not Found), 500 (Server Error)
+- **Authentication:** JWT Bearer token in Authorization header
+
+### Health Check Protocol
+
+- **Endpoint:** `/health` or `/healthz`
+- **Method:** GET
+- **Response:** JSON with service status, dependencies status
+- **Use Case:** Load balancer health checks, monitoring
+
+---
+
+# 8) API Design
+
+### GET /api/v1/health
+
+- **URL:** `/api/v1/health`
+- **Method:** GET
+- **Description:** Health check endpoint for load balancer and monitoring
+- **Response:**
+
+  ```json
+  {
+    "status": "healthy",
+    "timestamp": "2024-01-15T10:30:00Z",
+    "services": {
+      "database": "healthy",
+      "cache": "healthy",
+      "external": "healthy"
+    }
+  }
+
+  ```
+- **Status Codes:** 200 (Healthy), 503 (Unhealthy)
+
+### GET /api/v1/metrics
+
+- **URL:** `/api/v1/metrics`
+- **Method:** GET
+- **Description:** Get API performance metrics (Admin only)
+- **Query Parameters:**
+  - `timeRange`: string (1h, 24h, 7d)
+  - `endpoint`: string (optional)
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "requestRate": 11574,
+      "p95Latency": 150,
+      "p99Latency": 300,
+      "errorRate": 0.1,
+      "cacheHitRate": 80
+    }
+  }
+
+  ```
+- **Status Codes:** 200 (Success), 401 (Unauthorized), 403 (Forbidden)
+
+---
+
+# 9) Caching Strategy
+
+### Redis Cache
+
+**Cache Strategy:**
+- **Key Format:** `cache:{endpoint}:{params}` or `cache:user:{userId}`
+- **Value:** Serialized JSON response
+- **TTL:** 5 minutes (configurable per endpoint)
+- **Eviction Policy:** LRU (Least Recently Used)
+
+**Cache Patterns:**
+- **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
+- **Write-Through Pattern:** Write to cache and database simultaneously (for critical data)
+- **Cache Warming:** Pre-load cache with popular data during low-traffic periods
+
+### CDN Cache
+
+**Cache Strategy:**
+- **Static Assets:** Cache JS, CSS, images with long TTL (1 year)
+- **API Responses:** Cache GET responses with short TTL (5 minutes)
+- **Cache Headers:** Use Cache-Control headers for cache control
+- **Cache Invalidation:** Purge cache on data updates
+
+---
+
+# 10) Error Handling
+
+### Error Scenarios and Responses
+
+**Edge Cases Handling:**
+- **Database Connection Failure:** Return 503 Service Unavailable with retry suggestion
+- **Cache Failure:** Fail-open, continue without cache (graceful degradation)
+- **Timeout Errors:** Return 504 Gateway Timeout when request exceeds timeout
+- **Rate Limit Exceeded:** Return 429 Too Many Requests with Retry-After header
+- **Invalid Request:** Return 400 Bad Request with validation error details
+- **Authentication Failure:** Return 401 Unauthorized
+- **Authorization Failure:** Return 403 Forbidden
+
+**Error Response Format:**
+
+```json
+{
+  "error": {
+    "code": "DATABASE_ERROR",
+    "message": "Database connection failed",
+    "details": "Unable to connect to database",
+    "retryAfter": 5
+  }
+}
+
+```
+
+---
+
+# 11) Deployment and DevOps
+
+### Scalability
+
+**API Layer:**
+- Deploy API layer across multiple instances behind load balancer
+- Use auto-scaling based on CPU/memory metrics
+- Stateless design allows horizontal scaling
+
+**Database Scaling:**
+- **Read Replicas:** Deploy read replicas for read-heavy workloads
+- **Sharding:** Shard database by user ID for write scaling
+- **Connection Pooling:** Use connection pooling to manage database connections
+
+**Caching:**
+- Distributed Redis cluster for high availability
+- Cache frequently accessed API responses
+- Reduces database load significantly
+
+### Availability
+
+**Replication:**
+- Database replication ensures data availability
+- Multi-region replication for disaster recovery
+
+**Failover:**
+- Automated failover mechanisms for API and data store layers
+- Health checks and monitoring for proactive failover
+- Circuit breaker pattern to prevent cascading failures
+
+**Geo-Distributed Deployment:**
+- Deploy service across multiple geographical regions
+- Reduces latency for users worldwide
+- Improves availability by eliminating single point of failure
+
+### Frontend Deployment
+
+**Build Process:**
+- **Production Build:** Optimized bundle with code splitting
+- **CDN Deployment:** Deploy static assets to CDN for fast global delivery
+- **Environment Variables:** `.env.production` for production config
+
+**Deployment Platforms:**
+- **Vercel / Netlify** - Automatic deployments from Git
+- **AWS S3 + CloudFront** - Static site hosting with CDN
+
+### Backend Deployment
+
+**Server Setup:**
+- **PM2:** Process manager with clustering for Node.js apps
+- **Nginx:** Load balancer and reverse proxy with SSL termination
+- **Docker:** Containerized deployment for consistency
+- **Kubernetes:** Container orchestration for auto-scaling
+
+**CI/CD Pipeline:**
+- **Automated Testing:** Run tests before deployment
+- **Zero-Downtime:** Rolling deployment strategy
+- **Health Checks:** Verify API endpoints are healthy
+- **Blue-Green Deployment:** Maintain two identical production environments
+
+### Database Deployment
+
+**MongoDB Setup:**
+- **MongoDB Atlas** - Managed MongoDB service with automatic backups
+- **Backup Strategy:** Daily automated backups with point-in-time recovery
+- **Indexing:** Proper indexes on frequently queried fields
+- **Replication:** Replica sets for high availability
+
+**Redis Setup:**
+- **Redis Cloud / AWS ElastiCache** - Managed Redis service
+- **Cluster Mode:** Redis cluster for high availability and performance
+- **Persistence:** RDB snapshots and AOF for data durability
+
+---
+
+# 12) Security Considerations
+
+### Rate Limiting
+
+- Implement rate limiting at API layer to prevent abuse
+- Limit number of requests per user/IP per minute/hour
+- Use Redis for distributed rate limiting across multiple servers
+
+### Input Validation
+
+- Validate all API inputs to ensure they meet requirements
+- Sanitize user input to prevent injection attacks
+- Check data types, ranges, and formats
+
+### HTTPS/TLS
+
+- All communication between clients and API encrypted using HTTPS
+- Prevents eavesdropping and man-in-the-middle attacks
+- SSL/TLS certificates for secure connections
+
+### Authentication and Authorization
+
+- **JWT Tokens:** Use JWT for stateless authentication
+- **Token Expiration:** Set appropriate token expiration times
+- **Role-Based Access Control:** Implement RBAC for authorization
+- **API Keys:** Use API keys for service-to-service authentication
+
+### Monitoring and Alerts
+
+- Set up monitoring for unusual activity patterns
+- Trigger alerts for potential DDoS attacks or misuse
+- Track metrics: request rates, error rates, response times
+- Log all operations for security auditing

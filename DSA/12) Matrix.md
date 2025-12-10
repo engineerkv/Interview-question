@@ -6,15 +6,15 @@
 
 <div align="center">
 
-[Recursion & Backtracking](10%20Recursion%20&%20Backtracking.md) • [Home: README](README.md) • [Trie →](13%20Trie.md)
+[← Previous: Recursion & Backtracking](10%29%20Recursion%20%26%20Backtracking.md) • [Home: README](README.md) • [Next: Trie →](13%29%20Trie.md)
 
-[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md)
 
 </div>
 
 ---
 
-## Q203. Valid Sudoku
+## Q203. ✅ Valid Sudoku
 
 **Problem:** Determine if a `9 x 9` Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
 
@@ -72,7 +72,7 @@ function isValidSudoku(board) {
 **Time Complexity:** O(1) - Fixed 9×9 grid, 81 cells
 **Space Complexity:** O(1) - Fixed size sets for rows, cols, boxes
 
-## Q204. Spiral Matrix
+## Q204. 📐 Spiral Matrix
 
 **Problem:** Given an `m x n` matrix, return all elements of the matrix in spiral order.
 
@@ -138,7 +138,7 @@ function spiralOrder(matrix) {
 **Time Complexity:** O(m × n) - Visit each cell once
 **Space Complexity:** O(1) - Excluding output array
 
-## Q205. Rotate Image
+## Q205. 💡 Rotate Image
 
 **Problem:** You are given an `n x n` 2D matrix representing an image, rotate the image by 90 degrees (clockwise). You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
 
@@ -177,7 +177,7 @@ function rotate(matrix) {
 **Time Complexity:** O(n²) - Transpose and reverse each row
 **Space Complexity:** O(1) - In-place modification
 
-## Q206. Set Matrix Zeroes
+## Q206. 📐 Set Matrix Zeroes
 
 **Problem:** Given an `m x n` integer matrix `matrix`, if an element is `0`, set its entire row and column to `0`'s. You must do it in place.
 
@@ -256,7 +256,7 @@ function setZeroes(matrix) {
 **Time Complexity:** O(m × n) - Three passes through matrix
 **Space Complexity:** O(1) - Using first row/col as markers
 
-## Q207. Game of Life
+## Q207. 💡 Game of Life
 
 **Problem:** According to Wikipedia's article: "The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970." The board is made up of an `m x n` grid of cells, where each cell has an initial state: live (represented by a `1`) or dead (represented by a `0`). Each cell interacts with its eight neighbors (horizontal, vertical, diagonal) using the following four rules:
 
@@ -340,8 +340,8 @@ function gameOfLife(board) {
 
 <div align="center">
 
-[Recursion & Backtracking](10%20Recursion%20&%20Backtracking.md) • [Home: README](README.md) • [Trie →](13%20Trie.md)
+[← Previous: Recursion & Backtracking](10%29%20Recursion%20%26%20Backtracking.md) • [Home: README](README.md) • [Next: Trie →](13%29%20Trie.md)
 
-[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md)
 
 </div>

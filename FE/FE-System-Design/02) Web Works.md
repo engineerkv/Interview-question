@@ -16,13 +16,13 @@
 
 ---
 
-## Q1. How the Web Works
+## Q1. 💡 How the Web Works
 
 When a user types a URL into a browser and presses Enter, a series of steps happen behind the scenes. The entire process can be broken down into **6 major stages**:
 
 ---
 
-## 1. Entering the URL (Understanding URLs)
+## 1. 💡 Entering the URL (Understanding URLs)
 
 When you type a URL into your browser, you're giving it instructions on where to go and what to ask for. A URL (Uniform Resource Locator) is like a complete address that tells the browser everything it needs to know.
 
@@ -86,7 +86,7 @@ https://www.example.com/products?id=10
 
 ---
 
-## 2. DNS Lookup (Finding the Server's IP Address)
+## 2. 🌍 DNS Lookup (Finding the Server's IP Address)
 
 Computers don't understand domain names; you need **IP addresses** to connect to servers. DNS (Domain Name System) is like a phone book that translates human-readable domain names into IP addresses that computers can use.
 
@@ -119,7 +119,7 @@ When you type a domain name, your browser goes through these steps to find the I
 
 ---
 
-## 3. Establishing a Connection (TCP Handshake + TLS Handshake)
+## 3. 📡 Establishing a Connection (TCP Handshake + TLS Handshake)
 
 Once the IP address is known, the browser needs to establish a connection with the server. This happens in two stages: first TCP (for a reliable connection), then TLS (for encryption if you're using HTTPS).
 
@@ -133,7 +133,7 @@ TCP (Transmission Control Protocol) ensures reliable, ordered delivery of data. 
 
 3. **Browser → "ACK"** - The browser sends an ACK (acknowledge) back, saying "Great, let's start sending data."
 
-This three-way exchange creates a **reliable connection** where both sides know these are ready to communicate and can track that data is being delivered correctly.
+This three-way exchange creates a **reliable connection** where both sides know they are ready to communicate and can track that data is being delivered correctly.
 
 ### 🔹 TLS Handshake (Only for HTTPS)
 
@@ -145,11 +145,11 @@ If you're using HTTPS (secure HTTP), after the TCP connection is established, yo
 
 3. **Generate encryption keys** - Both sides agree on encryption methods and generate shared secret keys that will be used to encrypt all the data you send back and forth.
 
-📌 **In simple terms**: TCP handshake establishes a reliable connection (both sides agree these are ready), and TLS handshake (for HTTPS) sets up encryption so all your data is protected. Together these ensure **secure, encrypted communication**.
+📌 **In simple terms**: TCP handshake establishes a reliable connection (both sides agree they are ready), and TLS handshake (for HTTPS) sets up encryption so all your data is protected. Together these handshakes ensure **secure, encrypted communication**.
 
 ---
 
-## 4. Browser Sends HTTP Request
+## 4. 🌐 Browser Sends HTTP Request
 
 After the connection is ready (TCP and TLS handshakes complete), the browser sends an **HTTP request** to the server. This request tells the server exactly what you want.
 
@@ -201,7 +201,7 @@ Accept: text/html
 
 ---
 
-## 5. Server Processes the Request
+## 5. 🖥️ Server Processes the Request
 
 Once the server receives your HTTP request, it needs to process it and generate a response. Here's what happens on the server side:
 
@@ -265,7 +265,7 @@ Set-Cookie: session=abc123
 
 ---
 
-## 6. Browser Receives the Response and Renders the Page
+## 6. 💡 Browser Receives the Response and Renders the Page
 
 Once the browser receives the HTTP response, it needs to turn that HTML, CSS, and JavaScript into a visual webpage you can see and interact with. This rendering process happens in several stages:
 
@@ -365,9 +365,9 @@ Transforming HTML/CSS/JS → visible webpage. The browser parses HTML into a DOM
 
 <div align="center">
 
-[01) Introduction.md](01%29%20Introduction.md) • [Questions Index](question.md) • [03) Networking.md →](03%29%20Networking.md)
+[← Previous: Introduction](01%29%20Introduction.md) • [Home: Questions Index](question.md) • [Next: Networking →](03%29%20Networking.md)
 
-[FE-System-Design Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md)
 
 </div>
 

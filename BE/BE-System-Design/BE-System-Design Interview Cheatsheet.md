@@ -2,7 +2,7 @@
 
 > **⏱️ Review Time: 60-75 minutes** | **Priority: ⭐⭐⭐ Critical** | Essential backend system design concepts for interviews
 >
-> **Coverage: Q1-Q225** (225 questions across 12 topics)
+> **Coverage: Q1-Q224** (224 questions across 12 topics)
 
 **Quick Review Checklist:**
 
@@ -14,21 +14,21 @@
 
 - [ ] API Scaling (Q51-Q65)
 
-- [ ] Messaging Systems (Q66-Q80)
+- [ ] Messaging Systems (Q66-Q94)
 
-- [ ] AWS Cloud Architecture (Q81-Q105)
+- [ ] AWS Cloud Architecture (Q95-Q119)
 
-- [ ] Observability (Q106-Q120)
+- [ ] Observability (Q120-Q134)
 
-- [ ] Database Design (Q121-Q155)
+- [ ] Database Design (Q135-Q169)
 
-- [ ] Node.js System Design (Q156-Q175)
+- [ ] Node.js System Design (Q170-Q189)
 
-- [ ] Git, Docker, CI/CD, Tooling (Q191-Q210)
+- [ ] Git, Docker, CI/CD, Tooling (Q190-Q209)
 
-- [ ] Code Quality + Debugging (Q211-Q220)
+- [ ] Code Quality + Debugging (Q210-Q219)
 
-- [ ] AI Tools (Q221-Q225)
+- [ ] AI Tools (Q220-Q224)
 
 ---
 
@@ -42,23 +42,23 @@
 
 - **Q51-Q65**: API Scaling
 
-- **Q66-Q80**: Messaging Systems
+- **Q66-Q94**: Messaging Systems
 
-- **Q81-Q105**: AWS Cloud Architecture
+- **Q95-Q119**: AWS Cloud Architecture
 
-- **Q106-Q120**: Observability
+- **Q120-Q134**: Observability
 
-- **Q121-Q155**: Database Design
+- **Q135-Q169**: Database Design
 
-- **Q156-Q175**: Node.js System Design
+- **Q170-Q189**: Node.js System Design
 
-- **Q191-Q210**: Git, Docker, CI/CD, Tooling
+- **Q190-Q209**: Git, Docker, CI/CD, Tooling
 
-- **Q211-Q220**: Code Quality + Debugging
+- **Q210-Q219**: Code Quality + Debugging
 
-- **Q221-Q225**: AI Tools
+- **Q220-Q224**: AI Tools
 
-**Total: 225 questions across 12 topics**
+**Total: 224 questions across 12 topics**
 
 ---
 
@@ -177,9 +177,9 @@ const getData = async (key) => {
 
 ## Communication Protocols
 
-### HTTP/1.1 vs HTTP/2 vs HTTP/3
+### HTTP/1.0 vs HTTP/1.1 vs HTTP/2 vs HTTP/3
 
-**Definition:** HTTP/1.1 uses one request per connection; HTTP/2 adds multiplexing and header compression; HTTP/3 uses QUIC over UDP for faster handshakes and built-in encryption.
+**Definition:** HTTP/1.0 requires a new connection per request; HTTP/1.1 uses persistent connections (one request per connection, but connection reuse); HTTP/2 adds multiplexing and header compression; HTTP/3 uses QUIC over UDP for faster handshakes and built-in encryption.
 
 ```javascript
 // HTTP/1.1 - One request per connection
@@ -198,9 +198,9 @@ const req = client.request({ ':path': '/data' });
 
 ```
 
-### WebSockets vs SSE vs Long Polling
+### WebSockets vs SSE vs Long Polling vs Short Polling
 
-**Definition:** WebSockets enable bidirectional real-time communication; SSE streams server-to-client events over HTTP; Long Polling keeps requests open until data is available.
+**Definition:** WebSockets enable bidirectional real-time communication; SSE streams server-to-client events over HTTP; Long Polling keeps requests open until data is available; Short Polling repeatedly requests server at fixed intervals.
 
 ```javascript
 // WebSocket - Full duplex
@@ -223,6 +223,13 @@ app.get('/poll', async (req, res) => {
   const data = await waitForData();
   res.json(data);
 });
+
+// Short Polling - Repeated requests at fixed intervals
+setInterval(async () => {
+  const response = await fetch('/status');
+  const data = await response.json();
+  updateUI(data);
+}, 5000); // Poll every 5 seconds
 
 ```
 

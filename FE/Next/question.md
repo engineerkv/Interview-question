@@ -149,17 +149,17 @@
 
 ## 📖 Complete Answer Guide
 
-- [1) Next.js Fundamentals](1%29%20Next.js%20Fundamentals.md) - Q1-10
+- [1) Next.js Fundamentals](01%29%20Next.js%20Fundamentals.md) - Q1-10
 
-- [2) Data Fetching & Rendering](2%29%20Data%20Fetching%20%26%20Rendering.md) - Q11-20
+- [2) Data Fetching & Rendering](02%29%20Data%20Fetching%20%26%20Rendering.md) - Q11-20
 
-- [3) Routing & Navigation](3%29%20Routing%20%26%20Navigation.md) - Q21-27
+- [3) Routing & Navigation](03%29%20Routing%20%26%20Navigation.md) - Q21-27
 
-- [4) Performance & Optimization](4%29%20Performance%20%26%20Optimization.md) - Q28-37
+- [4) Performance & Optimization](04%29%20Performance%20%26%20Optimization.md) - Q28-37
 
-- [5) Architecture & Best Practices](5%29%20Architecture%20%26%20Best%20Practices.md) - Q38-48
+- [5) Architecture & Best Practices](05%29%20Architecture%20%26%20Best%20Practices.md) - Q38-48
 
-- [6) Deployment & Tooling](6%29%20Deployment%20%26%20Tooling.md) - Q49-60
+- [6) Deployment & Tooling](06%29%20Deployment%20%26%20Tooling.md) - Q49-60
 
 ## 📝 Cheatsheet
 

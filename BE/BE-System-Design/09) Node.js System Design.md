@@ -1,4 +1,4 @@
-# 9. Node.js System Design (Q156–Q175)
+# 9. Node.js System Design (Q184–Q189)
 
 ---
 
@@ -16,13 +16,13 @@
 
 ---
 
-## Q156. 🔄 How Node.js handles concurrency
+## Q170. 🔄 How Node.js handles concurrency
 
 Node.js handles concurrency using an event loop that processes I/O operations asynchronously. When you make a database query or file read, Node.js doesn't wait for it to finish - instead, it registers a callback and moves on to handle other requests, allowing a single thread to handle thousands of concurrent connections.
 
 ---
 
-## 1. The Event Loop Model
+## 1. 🎯 The Event Loop Model
 
 Node.js uses an event loop to handle concurrency on a single thread.
 
@@ -38,7 +38,7 @@ Node.js uses an event loop to handle concurrency on a single thread.
 
 ---
 
-## 2. How Non-Blocking I/O Works
+## 2. 💡 How Non-Blocking I/O Works
 
 When you make an I/O operation, Node.js doesn't block waiting for it.
 
@@ -52,7 +52,7 @@ When you make an I/O operation, Node.js doesn't block waiting for it.
 
 ---
 
-## 3. Concurrent Request Handling
+## 3. 💡 Concurrent Request Handling
 
 Node.js can handle thousands of concurrent connections on a single thread.
 
@@ -82,7 +82,7 @@ app.get('/users/:id', async (req, res) => {
 
 ---
 
-## 4. Why This Works Well
+## 4. 💡 Why This Works Well
 
 The non-blocking I/O model is super efficient for I/O-heavy workloads.
 
@@ -96,7 +96,7 @@ The non-blocking I/O model is super efficient for I/O-heavy workloads.
 
 ---
 
-## 5. CPU-Intensive Tasks
+## 5. 💡 CPU-Intensive Tasks
 
 CPU-intensive tasks block the event loop and hurt performance.
 
@@ -110,7 +110,7 @@ CPU-intensive tasks block the event loop and hurt performance.
 
 ---
 
-## 6. Event Loop Phases
+## 6. 🎯 Event Loop Phases
 
 The event loop processes different types of operations in phases.
 
@@ -126,7 +126,7 @@ The event loop processes different types of operations in phases.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 This non-blocking I/O model is super efficient for I/O-heavy workloads like APIs and web servers.
 
@@ -162,13 +162,13 @@ If the event loop is blocked by CPU-intensive work, all requests are blocked and
 
 ---
 
-## Q157. ⚙️ Node.js event loop phases
+## Q171. ⚙️ Node.js event loop phases
 
 The Node.js event loop processes operations in six distinct phases that run in a specific order. Understanding these phases helps you predict when callbacks run and optimize performance, but the order can be confusing and requires careful understanding.
 
 ---
 
-## 1. The Six Event Loop Phases
+## 1. 🎯 The Six Event Loop Phases
 
 The event loop has six phases that execute in order.
 
@@ -188,7 +188,7 @@ The event loop has six phases that execute in order.
 
 ---
 
-## 2. Phase Execution Order
+## 2. 💡 Phase Execution Order
 
 Phases execute in a specific order, repeating continuously.
 
@@ -202,7 +202,7 @@ Phases execute in a specific order, repeating continuously.
 
 ---
 
-## 3. Timers Phase
+## 3. ⏰ ⏰ Timers Phase
 
 The timers phase executes scheduled callbacks.
 
@@ -216,7 +216,7 @@ The timers phase executes scheduled callbacks.
 
 ---
 
-## 4. Poll Phase
+## 4. 💡 Poll Phase
 
 The poll phase fetches new I/O events and processes them.
 
@@ -230,7 +230,7 @@ The poll phase fetches new I/O events and processes them.
 
 ---
 
-## 5. Check Phase
+## 5. ✅ Check Phase
 
 The check phase runs setImmediate callbacks.
 
@@ -244,7 +244,7 @@ The check phase runs setImmediate callbacks.
 
 ---
 
-## 6. Microtasks
+## 6. 💡 Microtasks
 
 Microtasks run after each phase, before moving to the next phase.
 
@@ -283,7 +283,7 @@ console.log('6. End');
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Understanding phases helps you predict when callbacks run and optimize performance.
 
@@ -344,13 +344,13 @@ console.log('6. End');
 
 ---
 
-## Q158. 🧵 When to use worker threads
+## Q172. 🧵 When to use worker threads
 
 Use worker threads when you have CPU-intensive tasks that would block the event loop. Worker threads run JavaScript in parallel on separate threads with their own V8 instance, allowing you to do heavy computation without blocking the main thread that handles I/O.
 
 ---
 
-## 1. What are Worker Threads
+## 1. 💡 What are Worker Threads
 
 Worker threads allow you to run JavaScript in parallel on separate threads.
 
@@ -366,7 +366,7 @@ Worker threads allow you to run JavaScript in parallel on separate threads.
 
 ---
 
-## 2. When to Use Worker Threads
+## 2. 💡 When to Use Worker Threads
 
 You use worker threads for CPU-intensive tasks that would block the event loop.
 
@@ -380,7 +380,7 @@ You use worker threads for CPU-intensive tasks that would block the event loop.
 
 ---
 
-## 3. Benefits of Worker Threads
+## 3. 💡 Benefits of Worker Threads
 
 Worker threads allow you to do CPU work in parallel without blocking the main thread.
 
@@ -394,7 +394,7 @@ Worker threads allow you to do CPU work in parallel without blocking the main th
 
 ---
 
-## 4. Communication Between Threads
+## 4. 💡 Communication Between Threads
 
 Worker threads communicate using message passing.
 
@@ -408,7 +408,7 @@ Worker threads communicate using message passing.
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 Worker threads allow you to do CPU work in parallel without blocking the main thread, which is great for performance.
 
@@ -422,7 +422,7 @@ Worker threads allow you to do CPU work in parallel without blocking the main th
 
 ---
 
-## 6. Example Use Cases
+## 6. 💡 Example Use Cases
 
 Here are common use cases for worker threads:
 
@@ -436,7 +436,7 @@ Here are common use cases for worker threads:
 
 ---
 
-## 7. Alternatives to Worker Threads
+## 7. 📱 Alternatives to Worker Threads
 
 You can use alternatives when worker threads aren't suitable.
 
@@ -498,21 +498,21 @@ parentPort.postMessage(processed);
 
 ---
 
-## Q159. 💪 Handling CPU-heavy tasks in Node.js
+## Q173. 💪 Handling CPU-heavy tasks in Node.js
 
 Handle CPU-heavy tasks by offloading them to worker threads, child processes, or external services - like using worker threads for image processing, spawning child processes for heavy computations, or calling a microservice that handles the work. You can also break work into smaller chunks and use setImmediate to yield back to the event loop between chunks.
 
-- **Trade-offs**: Offloading keeps your main thread responsive, but the catch is each approach has trade-offs - worker threads share memory but have overhead, child processes are more isolated but heavier, and external services add network latency. The tricky part is deciding which to use - worker threads for parallel JavaScript work, child processes for running other programs or when you need more isolation, and external services when you need to scale beyond one machine.
+* **Trade-offs**: Offloading keeps your main thread responsive, but the catch is each approach has trade-offs - worker threads share memory but have overhead, child processes are more isolated but heavier, and external services add network latency. The tricky part is deciding which to use - worker threads for parallel JavaScript work, child processes for running other programs or when you need more isolation, and external services when you need to scale beyond one machine.
 
 ---
 
-## Q160. 🔀 Node clustering and how it works
+## Q174. 🔀 Node clustering and how it works
 
 Node clustering creates multiple worker processes that share the same server port, allowing you to utilize multiple CPU cores. The master process listens on the port and distributes incoming connections to worker processes, with each worker running your application code in its own process with its own event loop.
 
 ---
 
-## 1. What is Node Clustering
+## 1. 🟢 What is Node Clustering
 
 Node clustering creates multiple worker processes that share the same server port.
 
@@ -528,7 +528,7 @@ Node clustering creates multiple worker processes that share the same server por
 
 ---
 
-## 2. How Clustering Works
+## 2. 💡 How Clustering Works
 
 The master process distributes connections to worker processes.
 
@@ -542,7 +542,7 @@ The master process distributes connections to worker processes.
 
 ---
 
-## 3. Worker Process Isolation
+## 3. 💡 Worker Process Isolation
 
 Each worker runs in its own process with its own event loop.
 
@@ -556,7 +556,7 @@ Each worker runs in its own process with its own event loop.
 
 ---
 
-## 4. Benefits of Clustering
+## 4. 💡 Benefits of Clustering
 
 Clustering provides several benefits.
 
@@ -570,7 +570,7 @@ Clustering provides several benefits.
 
 ---
 
-## 5. Shared State Challenges
+## 5. 📦 Shared State Challenges
 
 Workers don't share memory, so you need external storage for shared state.
 
@@ -584,7 +584,7 @@ Workers don't share memory, so you need external storage for shared state.
 
 ---
 
-## 6. Load Balancing
+## 6. 💡 Load Balancing
 
 Clustering uses round-robin by default, which doesn't account for worker load.
 
@@ -598,7 +598,7 @@ Clustering uses round-robin by default, which doesn't account for worker load.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Clustering allows you to use all CPU cores which improves performance for CPU-bound work.
 
@@ -667,13 +667,13 @@ if (cluster.isMaster) {
 
 ---
 
-## Q161. 📈 Scaling Node.js horizontally
+## Q175. 📈 Scaling Node.js horizontally
 
 Scale Node.js horizontally by running multiple instances behind a load balancer. When you scale horizontally, you run your application on multiple servers and use a load balancer to distribute traffic across them, allowing you to handle more traffic and improve fault tolerance.
 
 ---
 
-## 1. Horizontal Scaling Setup
+## 1. 📊 Horizontal Scaling Setup
 
 You scale horizontally by running multiple instances behind a load balancer.
 
@@ -689,7 +689,7 @@ You scale horizontally by running multiple instances behind a load balancer.
 
 ---
 
-## 2. Stateless Application Design
+## 2. 📦 Stateless Application Design
 
 Your application must be stateless for effective horizontal scaling.
 
@@ -703,7 +703,7 @@ Your application must be stateless for effective horizontal scaling.
 
 ---
 
-## 3. Shared Storage for State
+## 3. 📦 Shared Storage for State
 
 Use shared storage for any state that needs to be shared across instances.
 
@@ -717,7 +717,7 @@ Use shared storage for any state that needs to be shared across instances.
 
 ---
 
-## 4. Communication Between Instances
+## 4. 💡 Communication Between Instances
 
 Use message queues for communication between instances.
 
@@ -731,7 +731,7 @@ Use message queues for communication between instances.
 
 ---
 
-## 5. Benefits of Horizontal Scaling
+## 5. 📊 Benefits of Horizontal Scaling
 
 Horizontal scaling provides several benefits.
 
@@ -745,7 +745,7 @@ Horizontal scaling provides several benefits.
 
 ---
 
-## 6. Challenges with Horizontal Scaling
+## 6. 📊 Challenges with Horizontal Scaling
 
 Some things are harder to scale horizontally.
 
@@ -759,7 +759,7 @@ Some things are harder to scale horizontally.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Horizontal scaling allows you to handle way more traffic than vertical scaling and improves fault tolerance.
 
@@ -795,13 +795,13 @@ Horizontal scaling adds more servers (instances), while vertical scaling adds mo
 
 ---
 
-## Q162. 🔌 Designing WebSocket-based systems
+## Q176. 🔌 Designing WebSocket-based systems
 
-Design WebSocket systems by using a message broker like Redis pub/sub to share connections across servers. When you design WebSocket systems for scale, you need to handle stateful connections across multiple servers, implement reconnection logic, and manage backpressure when clients can't keep up with message rates.
+Design WebSocket systems by using a message broker like Redis pub/sub to share connections across servers. For general WebSocket concepts and comparison with SSE/polling, see [Q28: WebSockets vs SSE vs Long Polling vs Short Polling](../02%29%20Communication%20Protocols.md#q28--websockets-vs-sse-vs-long-polling-vs-short-polling). This question focuses on Node.js-specific WebSocket system design and scaling.
 
 ---
 
-## 1. WebSocket Scaling Challenge
+## 1. 🔌 WebSocket Scaling Challenge
 
 WebSockets are harder to scale horizontally because connections are stateful.
 
@@ -817,7 +817,7 @@ WebSockets are harder to scale horizontally because connections are stateful.
 
 ---
 
-## 2. Redis Pub/Sub Pattern
+## 2. 💡 Redis Pub/Sub Pattern
 
 Use Redis pub/sub to share messages across servers.
 
@@ -831,7 +831,7 @@ Use Redis pub/sub to share messages across servers.
 
 ---
 
-## 3. Connection Management
+## 3. 💡 Connection Management
 
 Manage WebSocket connections effectively across servers.
 
@@ -845,7 +845,7 @@ Manage WebSocket connections effectively across servers.
 
 ---
 
-## 4. Handling Backpressure
+## 4. 💡 Handling Backpressure
 
 Handle backpressure when clients can't keep up with message rates.
 
@@ -859,7 +859,7 @@ Handle backpressure when clients can't keep up with message rates.
 
 ---
 
-## 5. Reconnection Logic
+## 5. 💡 Reconnection Logic
 
 Implement robust reconnection logic for client connections.
 
@@ -873,7 +873,7 @@ Implement robust reconnection logic for client connections.
 
 ---
 
-## 6. Message Ordering
+## 6. 💡 Message Ordering
 
 Ensure messages are delivered in the correct order.
 
@@ -887,7 +887,7 @@ Ensure messages are delivered in the correct order.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 WebSockets give you real-time bidirectional communication which is great for chat, notifications, or live updates.
 
@@ -967,13 +967,13 @@ wss.on('connection', (ws, req) => {
 
 ---
 
-## Q163. 🌊 Streaming large files in Node.js
+## Q177. 🌊 Streaming large files in Node.js
 
 Stream large files using Node.js streams instead of loading the entire file into memory. When you stream files, you read and process data in chunks as it flows, allowing you to handle files larger than available memory without crashing and start sending data to clients immediately.
 
 ---
 
-## 1. What is Streaming
+## 1. 🌊 What is Streaming
 
 Streaming processes data in chunks as it flows, rather than loading everything into memory.
 
@@ -989,7 +989,7 @@ Streaming processes data in chunks as it flows, rather than loading everything i
 
 ---
 
-## 2. How Streaming Works
+## 2. 🌊 How Streaming Works
 
 Node.js streams process data in chunks.
 
@@ -1003,7 +1003,7 @@ Node.js streams process data in chunks.
 
 ---
 
-## 3. File Streaming Example
+## 3. 🌊 File Streaming Example
 
 Here's how you stream large files:
 
@@ -1039,7 +1039,7 @@ app.get('/download/:filename', (req, res) => {
 
 ---
 
-## 4. Benefits of Streaming
+## 4. 🌊 Benefits of Streaming
 
 Streaming provides several benefits for large files.
 
@@ -1053,7 +1053,7 @@ Streaming provides several benefits for large files.
 
 ---
 
-## 5. Handling Backpressure
+## 5. 💡 Handling Backpressure
 
 You need to handle backpressure when the client can't receive data fast enough.
 
@@ -1067,7 +1067,7 @@ You need to handle backpressure when the client can't receive data fast enough.
 
 ---
 
-## 6. Error Handling
+## 6. 💡 Error Handling
 
 Error handling is more complex because errors can happen at any point in the stream.
 
@@ -1081,7 +1081,7 @@ Error handling is more complex because errors can happen at any point in the str
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Streaming uses constant memory regardless of file size, which is essential for large files.
 
@@ -1147,15 +1147,15 @@ app.get('/download/:filename', (req, res) => {
 
 ---
 
-## Q164. 🚦 Designing a rate limiter in Node.js
+## Q178. 🚦 Designing a rate limiter in Node.js
 
-Design a rate limiter using Redis to track request counts per user or IP. When you design a rate limiter, you store counters, set expiration times, and reject requests when limits are exceeded, protecting your API from abuse and preventing one user from overwhelming your servers.
+Design a rate limiter using Redis to track request counts per user or IP. For general rate limiting concepts and algorithms, see [Q15: Rate limiting](../01%29%20System%20Design%20Fundamentals.md#q15--rate-limiting). This question focuses on Node.js-specific implementation.
 
 ---
 
-## 1. Basic Rate Limiting Approach
+## 1. 🔍 Basic Rate Limiting Approach
 
-Design a rate limiter using Redis to track request counts.
+Design a rate limiter using Redis to track request counts (see [Q15: Rate limiting](../01%29%20System%20Design%20Fundamentals.md#q15--rate-limiting) for algorithm details).
 
 * **Key storage** → Store a key with the user ID or IP address
 
@@ -1169,7 +1169,7 @@ Design a rate limiter using Redis to track request counts.
 
 ---
 
-## 2. Rate Limiting Algorithms
+## 2. ⚙️ Rate Limiting Algorithms
 
 You can use different algorithms for rate limiting.
 
@@ -1183,7 +1183,7 @@ You can use different algorithms for rate limiting.
 
 ---
 
-## 3. Redis Implementation
+## 3. 💡 Redis Implementation
 
 Here's a basic Redis-based rate limiter:
 
@@ -1225,7 +1225,7 @@ app.use(async (req, res, next) => {
 
 ---
 
-## 4. Different Limits for Different Endpoints
+## 4. ➖ Different Limits for Different Endpoints
 
 Consider different limits for different endpoints or user tiers.
 
@@ -1239,7 +1239,7 @@ Consider different limits for different endpoints or user tiers.
 
 ---
 
-## 5. Multi-Instance Considerations
+## 5. 💡 Multi-Instance Considerations
 
 You need shared storage for rate limiting across multiple instances.
 
@@ -1253,7 +1253,7 @@ You need shared storage for rate limiting across multiple instances.
 
 ---
 
-## 6. Choosing the Right Algorithm
+## 6. ⚙️ Choosing the Right Algorithm
 
 The tricky part is choosing the right algorithm for your needs.
 
@@ -1267,7 +1267,7 @@ The tricky part is choosing the right algorithm for your needs.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Rate limiting protects your API from abuse and prevents one user from overwhelming your servers.
 
@@ -1339,13 +1339,13 @@ app.use(async (req, res, next) => {
 
 ---
 
-## Q165. 🏗️ Large-scale Node.js project structure
+## Q179. 🏗️ Large-scale Node.js project structure
 
 Structure large Node.js projects by feature or domain. When you structure large projects, you organize by modules where each module has its own routes, controllers, services, and models, making it easier to find code and understand what each part does.
 
 ---
 
-## 1. Feature-Based Structure
+## 1. 💡 Feature-Based Structure
 
 Organize large projects by feature or domain.
 
@@ -1361,7 +1361,7 @@ Organize large projects by feature or domain.
 
 ---
 
-## 2. Module Structure
+## 2. 📦 Module Structure
 
 Each module should have its own structure.
 
@@ -1375,7 +1375,7 @@ Each module should have its own structure.
 
 ---
 
-## 3. Separation of Concerns
+## 3. 💡 Separation of Concerns
 
 Separate concerns to keep code organized.
 
@@ -1389,7 +1389,7 @@ Separate concerns to keep code organized.
 
 ---
 
-## 4. Shared Utilities
+## 4. 💡 Shared Utilities
 
 Keep shared utilities in a common folder.
 
@@ -1403,7 +1403,7 @@ Keep shared utilities in a common folder.
 
 ---
 
-## 5. Microservices Consideration
+## 5. 💡 Microservices Consideration
 
 Consider microservices if modules are truly independent.
 
@@ -1417,7 +1417,7 @@ Consider microservices if modules are truly independent.
 
 ---
 
-## 6. Benefits of Feature-Based Structure
+## 6. 💡 Benefits of Feature-Based Structure
 
 Feature-based structure provides several benefits.
 
@@ -1431,7 +1431,7 @@ Feature-based structure provides several benefits.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Feature-based structure makes it easier to find code and understand what each part does.
 
@@ -1467,13 +1467,13 @@ Keep truly shared code in a common folder, but be careful not to let it become a
 
 ---
 
-## Q166. 🏊 Connection pooling strategies
+## Q180. 🏊 Connection pooling strategies
 
 Connection pooling maintains a pool of reusable database connections to improve performance. When you use connection pooling, you reuse expensive connections instead of creating new ones for each query.
 
 ---
 
-## 1. What is Connection Pooling
+## 1. 💡 What is Connection Pooling
 
 Connection pooling maintains a pool of reusable database connections instead of creating a new connection for each query.
 
@@ -1489,7 +1489,7 @@ Connection pooling maintains a pool of reusable database connections instead of 
 
 ---
 
-## 2. Pool Configuration
+## 2. 💡 Pool Configuration
 
 Configure pool size based on your database's max connections and your app's concurrency.
 
@@ -1503,7 +1503,7 @@ Configure pool size based on your database's max connections and your app's conc
 
 ---
 
-## 3. Benefits
+## 3. 💡 Benefits
 
 Connection pooling reduces the overhead of creating connections which is expensive.
 
@@ -1517,7 +1517,7 @@ Connection pooling reduces the overhead of creating connections which is expensi
 
 ---
 
-## 4. Trade-offs
+## 4. 💡 Trade-offs
 
 Connection pooling reduces the overhead of creating connections which is expensive.
 
@@ -1531,7 +1531,7 @@ Connection pooling reduces the overhead of creating connections which is expensi
 
 ---
 
-## 5. Example
+## 5. 💡 Example
 
 Example connection pool:
 
@@ -1587,13 +1587,13 @@ Connection pool reuses connections across requests (better performance, lower ov
 
 ---
 
-## Q167. 🔁 Retry and exponential backoff
+## Q181. 🔁 Retry and exponential backoff
 
 Retry with exponential backoff handles transient failures by waiting longer between retry attempts. When you implement retries, you give transient failures time to recover while avoiding overwhelming a down service.
 
 ---
 
-## 1. What is Exponential Backoff
+## 1. 💡 What is Exponential Backoff
 
 Retry with exponential backoff means waiting longer between each retry attempt.
 
@@ -1609,7 +1609,7 @@ Retry with exponential backoff means waiting longer between each retry attempt.
 
 ---
 
-## 2. Why Use Exponential Backoff
+## 2. 💡 Why Use Exponential Backoff
 
 This gives transient failures time to recover while avoiding hammering a down service.
 
@@ -1623,7 +1623,7 @@ This gives transient failures time to recover while avoiding hammering a down se
 
 ---
 
-## 3. Jitter
+## 3. 💡 Jitter
 
 Use jitter to add randomness and prevent thundering herd problems.
 
@@ -1637,7 +1637,7 @@ Use jitter to add randomness and prevent thundering herd problems.
 
 ---
 
-## 4. Benefits
+## 4. 💡 Benefits
 
 Retries handle transient failures like network hiccups or temporary service overloads, which improves reliability.
 
@@ -1651,7 +1651,7 @@ Retries handle transient failures like network hiccups or temporary service over
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 Retries handle transient failures like network hiccups or temporary service overloads.
 
@@ -1665,7 +1665,7 @@ Retries handle transient failures like network hiccups or temporary service over
 
 ---
 
-## 6. Example
+## 6. 💡 Example
 
 Example retry with exponential backoff:
 
@@ -1723,13 +1723,13 @@ Jitter adds randomness to prevent thundering herd - if all clients retry at the 
 
 ---
 
-## Q168. 🔑 Idempotent API design in Node.js
+## Q182. 🔑 Idempotent API design in Node.js
 
 Idempotent APIs ensure that making the same request multiple times has the same effect as making it once. When you design idempotent APIs, you prevent duplicate operations from retries or network issues.
 
 ---
 
-## 1. What is Idempotency
+## 1. 💡 What is Idempotency
 
 Idempotent APIs ensure that making the same request multiple times has the same effect as making it once.
 
@@ -1745,7 +1745,7 @@ Idempotent APIs ensure that making the same request multiple times has the same 
 
 ---
 
-## 2. Idempotency Keys
+## 2. 💡 Idempotency Keys
 
 Design idempotent APIs by using idempotency keys - clients send a unique key with requests.
 
@@ -1759,7 +1759,7 @@ Design idempotent APIs by using idempotency keys - clients send a unique key wit
 
 ---
 
-## 3. Storage
+## 3. 💡 Storage
 
 Store keys in Redis with a TTL.
 
@@ -1773,7 +1773,7 @@ Store keys in Redis with a TTL.
 
 ---
 
-## 4. Truly Idempotent Operations
+## 4. 💡 Truly Idempotent Operations
 
 Make sure your operations are truly idempotent.
 
@@ -1787,7 +1787,7 @@ Make sure your operations are truly idempotent.
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 Idempotency prevents duplicate operations from retries or network issues, which is critical for things like payments or order creation.
 
@@ -1801,7 +1801,7 @@ Idempotency prevents duplicate operations from retries or network issues, which 
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Idempotency prevents duplicate operations from retries or network issues.
 
@@ -1815,7 +1815,7 @@ Idempotency prevents duplicate operations from retries or network issues.
 
 ---
 
-## 7. Example
+## 7. 💡 Example
 
 Example idempotent request handling:
 
@@ -1898,13 +1898,13 @@ app.post('/orders', handleIdempotentRequest, async (req, res) => {
 
 ---
 
-## Q169. 🔐 JWT authentication architecture
+## Q183. 🔐 JWT authentication architecture
 
 JWT authentication provides stateless authentication using tokens. When you use JWT authentication, you issue tokens after login that contain user info and expiration, and validate them without database lookups.
 
 ---
 
-## 1. How JWT Works
+## 1. 🎫 How JWT Works
 
 JWT authentication works by issuing a token after login that contains user info and expiration.
 
@@ -1920,7 +1920,7 @@ JWT authentication works by issuing a token after login that contains user info 
 
 ---
 
-## 2. Token Structure
+## 2. 💡 Token Structure
 
 JWT tokens contain header, payload, and signature.
 
@@ -1934,7 +1934,7 @@ JWT tokens contain header, payload, and signature.
 
 ---
 
-## 3. Refresh Tokens
+## 3. 💡 Refresh Tokens
 
 Use refresh tokens for long-lived sessions, store them securely, and implement token rotation for better security.
 
@@ -1948,7 +1948,7 @@ Use refresh tokens for long-lived sessions, store them securely, and implement t
 
 ---
 
-## 4. Benefits
+## 4. 💡 Benefits
 
 JWTs are stateless which makes them great for horizontal scaling since you don't need shared session storage.
 
@@ -1962,7 +1962,7 @@ JWTs are stateless which makes them great for horizontal scaling since you don't
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 JWTs are stateless which makes them great for horizontal scaling.
 
@@ -2046,13 +2046,13 @@ function authenticateToken(req, res, next) {
 
 ---
 
-## Q170. 🛡️ Preventing brute-force attacks
+## Q184. 🛡️ Preventing brute-force attacks
 
 Brute-force attacks attempt to guess passwords through repeated login attempts. When you prevent brute-force attacks, you rate limit login attempts and implement account protection mechanisms.
 
 ---
 
-## 1. Rate Limiting
+## 1. 💡 Rate Limiting
 
 Prevent brute-force attacks by rate limiting login attempts.
 
@@ -2068,7 +2068,7 @@ Prevent brute-force attacks by rate limiting login attempts.
 
 ---
 
-## 2. Tracking Attempts
+## 2. 💡 Tracking Attempts
 
 Track attempts in Redis with expiration.
 
@@ -2082,7 +2082,7 @@ Track attempts in Redis with expiration.
 
 ---
 
-## 3. Account Lockouts
+## 3. 💡 Account Lockouts
 
 Use account lockouts for repeated failures.
 
@@ -2096,7 +2096,7 @@ Use account lockouts for repeated failures.
 
 ---
 
-## 4. Progressive Delays
+## 4. 💡 Progressive Delays
 
 Consider progressive delays that increase with each failed attempt.
 
@@ -2110,7 +2110,7 @@ Consider progressive delays that increase with each failed attempt.
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 Rate limiting stops automated attacks effectively.
 
@@ -2124,7 +2124,7 @@ Rate limiting stops automated attacks effectively.
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Rate limiting stops automated attacks effectively.
 
@@ -2214,13 +2214,13 @@ app.post('/login', async (req, res) => {
 
 ---
 
-## Q171. 🛑 Graceful shutdown and why it's important
+## Q185. 🛑 Graceful shutdown and why it's important
 
 Graceful shutdown allows your server to finish processing current requests before shutting down. When you implement graceful shutdown, you prevent data corruption and ensure requests complete properly.
 
 ---
 
-## 1. What is Graceful Shutdown
+## 1. 💡 What is Graceful Shutdown
 
 Graceful shutdown allows your server to finish processing current requests before shutting down.
 
@@ -2236,7 +2236,7 @@ Graceful shutdown allows your server to finish processing current requests befor
 
 ---
 
-## 2. Shutdown Process
+## 2. 💡 Shutdown Process
 
 Like stopping to accept new connections, waiting for existing requests to complete, closing database connections, and then exiting.
 
@@ -2250,7 +2250,7 @@ Like stopping to accept new connections, waiting for existing requests to comple
 
 ---
 
-## 3. Benefits
+## 3. 💡 Benefits
 
 This prevents data corruption, incomplete operations, and poor user experience from abrupt shutdowns.
 
@@ -2264,7 +2264,7 @@ This prevents data corruption, incomplete operations, and poor user experience f
 
 ---
 
-## 4. Trade-offs
+## 4. 💡 Trade-offs
 
 Graceful shutdown prevents data loss and ensures requests complete properly.
 
@@ -2355,13 +2355,13 @@ process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
 ---
 
-## Q172. 📝 Logging architecture for Node.js services
+## Q186. 📝 Logging architecture for Node.js services
 
 Logging architecture provides visibility into your application's behavior. When you design logging, you use structured logging with consistent formats and centralized log aggregation.
 
 ---
 
-## 1. Structured Logging
+## 1. 📝 Structured Logging
 
 Design logging by using structured logging with consistent formats.
 
@@ -2377,7 +2377,7 @@ Design logging by using structured logging with consistent formats.
 
 ---
 
-## 2. Log Fields
+## 2. 💡 Log Fields
 
 Like JSON logs with timestamps, log levels, request IDs, and context.
 
@@ -2391,7 +2391,7 @@ Like JSON logs with timestamps, log levels, request IDs, and context.
 
 ---
 
-## 3. Centralized Logging
+## 3. 📝 Centralized Logging
 
 Send logs to a centralized system like ELK stack or CloudWatch.
 
@@ -2405,7 +2405,7 @@ Send logs to a centralized system like ELK stack or CloudWatch.
 
 ---
 
-## 4. Correlation IDs
+## 4. 💡 Correlation IDs
 
 Include correlation IDs to trace requests across services.
 
@@ -2419,7 +2419,7 @@ Include correlation IDs to trace requests across services.
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 Centralized logging gives you visibility across all services which is essential for debugging distributed systems.
 
@@ -2433,7 +2433,7 @@ Centralized logging gives you visibility across all services which is essential 
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Centralized logging gives you visibility across all services.
 
@@ -2527,13 +2527,13 @@ app.get('/users/:id', async (req, res) => {
 
 ---
 
-## Q173. 🛠️ Handling partial failures in Node.js
+## Q187. 🛠️ Handling partial failures in Node.js
 
 Partial failures occur when some parts of your system fail while others continue working. When you handle partial failures, you use circuit breakers, timeouts, fallbacks, and bulkheads to keep your system working.
 
 ---
 
-## 1. Circuit Breakers
+## 1. 💡 Circuit Breakers
 
 Handle partial failures by using circuit breakers.
 
@@ -2549,7 +2549,7 @@ Handle partial failures by using circuit breakers.
 
 ---
 
-## 2. Timeouts
+## 2. ⏰ ⏰ Timeouts
 
 Use timeouts to prevent waiting indefinitely.
 
@@ -2563,7 +2563,7 @@ Use timeouts to prevent waiting indefinitely.
 
 ---
 
-## 3. Fallbacks
+## 3. 💡 Fallbacks
 
 Use fallbacks - like if a database query times out, return cached data or a default response instead of failing the entire request.
 
@@ -2577,7 +2577,7 @@ Use fallbacks - like if a database query times out, return cached data or a defa
 
 ---
 
-## 4. Bulkheads
+## 4. 💡 Bulkheads
 
 Use bulkheads to isolate failures.
 
@@ -2591,7 +2591,7 @@ Use bulkheads to isolate failures.
 
 ---
 
-## 5. Health Checks
+## 5. ✅ Health Checks
 
 Use health checks to detect failing dependencies.
 
@@ -2605,7 +2605,7 @@ Use health checks to detect failing dependencies.
 
 ---
 
-## 6. Benefits
+## 6. 💡 Benefits
 
 Handling partial failures keeps your system working even when dependencies are down, which improves reliability.
 
@@ -2619,7 +2619,7 @@ Handling partial failures keeps your system working even when dependencies are d
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Handling partial failures keeps your system working even when dependencies are down.
 
@@ -2655,13 +2655,13 @@ You implement by isolating resources (separate connection pools, thread pools), 
 
 ---
 
-## Q174. ☁️ Designing Node.js + S3 upload flow
+## Q188. ☁️ Designing Node.js + S3 upload flow
 
 S3 upload flow allows clients to upload files directly to S3. When you design S3 uploads, you use pre-signed URLs to enable direct client-to-S3 uploads while maintaining security.
 
 ---
 
-## 1. Pre-signed URLs
+## 1. 💡 Pre-signed URLs
 
 Design S3 uploads by generating pre-signed URLs on your server.
 
@@ -2677,7 +2677,7 @@ Design S3 uploads by generating pre-signed URLs on your server.
 
 ---
 
-## 2. Upload Flow
+## 2. 💡 Upload Flow
 
 Clients request upload URLs, your server generates time-limited signed URLs from S3, clients upload directly to S3, then notify your server when done.
 
@@ -2691,7 +2691,7 @@ Clients request upload URLs, your server generates time-limited signed URLs from
 
 ---
 
-## 3. Large Files
+## 3. 💡 Large Files
 
 For large files, use multipart uploads.
 
@@ -2705,7 +2705,7 @@ For large files, use multipart uploads.
 
 ---
 
-## 4. Validation
+## 4. ✅ Validation
 
 Validate file types and sizes on both client and server.
 
@@ -2719,7 +2719,7 @@ Validate file types and sizes on both client and server.
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 Pre-signed URLs allow clients to upload directly to S3 which reduces load on your server and is faster.
 
@@ -2733,7 +2733,7 @@ Pre-signed URLs allow clients to upload directly to S3 which reduces load on you
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Pre-signed URLs allow clients to upload directly to S3 which reduces load on your server and is faster.
 
@@ -2826,13 +2826,13 @@ app.post('/upload/confirm', authenticateToken, async (req, res) => {
 
 ---
 
-## Q175. ⚙️ Handling environment configs in Node.js microservices
+## Q189. ⚙️ Handling environment configs in Node.js microservices
 
 Environment configuration management is critical for microservices. When you handle environment configs, you use environment variables for secrets and configuration while maintaining security and flexibility.
 
 ---
 
-## 1. Environment Variables
+## 1. 💡 Environment Variables
 
 Handle environment configs by using environment variables for secrets and configuration.
 
@@ -2848,7 +2848,7 @@ Handle environment configs by using environment variables for secrets and config
 
 ---
 
-## 2. Development vs Production
+## 2. ✖️ Development vs Production
 
 Like using dotenv for local development, AWS Secrets Manager or similar for production secrets, and config files for non-sensitive settings.
 
@@ -2862,7 +2862,7 @@ Like using dotenv for local development, AWS Secrets Manager or similar for prod
 
 ---
 
-## 3. Environment-Specific Configs
+## 3. 💡 Environment-Specific Configs
 
 Use different configs per environment (dev, staging, prod).
 
@@ -2876,7 +2876,7 @@ Use different configs per environment (dev, staging, prod).
 
 ---
 
-## 4. Validation
+## 4. ✅ Validation
 
 Validate required configs on startup.
 
@@ -2890,7 +2890,7 @@ Validate required configs on startup.
 
 ---
 
-## 5. Security
+## 5. 🛡️ Security
 
 Never commit secrets to code.
 
@@ -2904,7 +2904,7 @@ Never commit secrets to code.
 
 ---
 
-## 6. Benefits
+## 6. 💡 Benefits
 
 Environment variables keep secrets out of code and make it easy to change configs without redeploying.
 
@@ -2918,7 +2918,7 @@ Environment variables keep secrets out of code and make it easy to change config
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Environment variables keep secrets out of code and make it easy to change configs without redeploying.
 
@@ -3019,7 +3019,6 @@ init().catch(console.error);
 **[← Previous: Database Design](08%29%20Database%20Design.md)** | **[Next: Git, Docker, CI-CD, Tooling →](10%29%20Git%2C%20Docker%2C%20CI-CD%2C%20Tooling.md)**
 
 </div>
-
 
 ---
 

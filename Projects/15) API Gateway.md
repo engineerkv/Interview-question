@@ -372,6 +372,7 @@ App (Admin Dashboard)
 │       ├── ErrorLogs
 │       └── PerformanceMetrics
 └── Footer
+
 ```
 
 ### Key React Components
@@ -423,6 +424,7 @@ const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
     </div>
   );
 };
+
 ```
 
 ### State Management
@@ -465,6 +467,7 @@ const useSaveRoute = () => {
     }
   });
 };
+
 ```
 
 ### Component Interactions
@@ -536,6 +539,7 @@ The API Gateway routes requests based on path patterns to different microservice
 - **Description:** Get all configured routes (Admin only)
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -553,6 +557,7 @@ The API Gateway routes requests based on path patterns to different microservice
       ]
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 401 (Unauthorized), 403 (Forbidden)
@@ -566,6 +571,7 @@ The API Gateway routes requests based on path patterns to different microservice
 - **Description:** Configure a new route (Admin only)
 
 - **Request Body:**
+
   ```json
   {
     "path": "/api/v1/users/*",
@@ -576,9 +582,11 @@ The API Gateway routes requests based on path patterns to different microservice
       "maxRequests": 100
     }
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -589,6 +597,7 @@ The API Gateway routes requests based on path patterns to different microservice
       "createdAt": "2024-01-15T10:30:00Z"
     }
   }
+
   ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error), 401 (Unauthorized), 403 (Forbidden)
@@ -922,11 +931,479 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
 
 ---
 
+# 4) Algorithms
+
+## Consistent Hashing Algorithm
+
+**Purpose:** Distribute requests evenly across multiple service instances and minimize data movement when instances are added or removed.
+
+**Algorithm:**
+1. Create a hash ring (circular space) from 0 to 2^64 - 1
+2. Hash each service instance to multiple points on the ring (virtual nodes)
+3. Hash the request key (user ID, API key) to a point on the ring
+4. Find the first instance clockwise from the key's position
+
+**Implementation:**
+
+```typescript
+import crypto from 'crypto';
+
+class ConsistentHash {
+  private ring: Map<number, string> = new Map();
+  private sortedKeys: number[] = [];
+  private virtualNodes: number = 150;
+  
+  addInstance(instanceId: string): void {
+    for (let i = 0; i < this.virtualNodes; i++) {
+      const hash = this.hash(`${instanceId}-${i}`);
+      this.ring.set(hash, instanceId);
+      this.sortedKeys.push(hash);
+    }
+    this.sortedKeys.sort((a, b) => a - b);
+  }
+  
+  removeInstance(instanceId: string): void {
+    for (let i = 0; i < this.virtualNodes; i++) {
+      const hash = this.hash(`${instanceId}-${i}`);
+      this.ring.delete(hash);
+      const index = this.sortedKeys.indexOf(hash);
+      if (index > -1) {
+        this.sortedKeys.splice(index, 1);
+      }
+    }
+  }
+  
+  getInstance(key: string): string {
+    if (this.ring.size === 0) {
+      throw new Error('No instances available');
+    }
+    
+    const hash = this.hash(key);
+    
+    for (const ringKey of this.sortedKeys) {
+      if (ringKey >= hash) {
+        return this.ring.get(ringKey)!;
+      }
+    }
+    
+    return this.ring.get(this.sortedKeys[0])!;
+  }
+  
+  private hash(key: string): number {
+    const hash = crypto.createHash('md5').update(key).digest();
+    return hash.readUInt32BE(0);
+  }
+}
+
+```
+
+**Complexity:**
+- Time: O(log n) for instance lookup where n is number of virtual nodes
+- Space: O(v * s) where v is virtual nodes, s is number of instances
+- **Load Distribution:** Only ~1/n of requests move when adding/removing instances
+
+---
+
+## Circuit Breaker Algorithm
+
+**Purpose:** Prevent cascading failures by opening circuit when service fails repeatedly.
+
+**Algorithm:**
+1. Track service call failures and successes
+2. If failure rate exceeds threshold, open circuit
+3. When circuit open, reject requests immediately (fail-fast)
+4. After timeout, move to half-open state
+5. In half-open, allow test requests
+6. If test succeeds, close circuit; if fails, reopen
+
+**Implementation:**
+
+```typescript
+enum CircuitState {
+  CLOSED = 'closed',
+  OPEN = 'open',
+  HALF_OPEN = 'half-open'
+}
+
+class CircuitBreaker {
+  private state: CircuitState = CircuitState.CLOSED;
+  private failureCount: number = 0;
+  private successCount: number = 0;
+  private lastFailureTime: number = 0;
+  private failureThreshold: number = 5;
+  private successThreshold: number = 2;
+  private timeout: number = 30000; // 30 seconds
+  
+  async execute<T>(fn: () => Promise<T>): Promise<T> {
+    if (this.state === CircuitState.OPEN) {
+      if (Date.now() - this.lastFailureTime > this.timeout) {
+        this.state = CircuitState.HALF_OPEN;
+        this.successCount = 0;
+      } else {
+        throw new Error('Circuit breaker is open');
+      }
+    }
+    
+    try {
+      const result = await fn();
+      this.onSuccess();
+      return result;
+    } catch (error) {
+      this.onFailure();
+      throw error;
+    }
+  }
+  
+  private onSuccess(): void {
+    this.failureCount = 0;
+    
+    if (this.state === CircuitState.HALF_OPEN) {
+      this.successCount++;
+      if (this.successCount >= this.successThreshold) {
+        this.state = CircuitState.CLOSED;
+      }
+    }
+  }
+  
+  private onFailure(): void {
+    this.failureCount++;
+    this.lastFailureTime = Date.now();
+    
+    if (this.failureCount >= this.failureThreshold) {
+      this.state = CircuitState.OPEN;
+    }
+  }
+}
+
+```
+
+**Complexity:**
+- Time: O(1) for state checks
+- Space: O(1) for state tracking
+- **Failure Prevention:** Circuit breaker prevents cascading failures
+
+---
+
+# 5) Data Models
+
+## Request Logs Collection (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  requestId: String,        // Unique request ID, indexed
+  method: String,           // HTTP method
+  path: String,            // API path, indexed
+  service: String,          // Target microservice, indexed
+  statusCode: Number,       // Response status code
+  latency: Number,         // Response time in ms
+  userId: ObjectId,        // User reference (optional)
+  ipAddress: String,       // Client IP
+  userAgent: String,       // Client user agent
+  timestamp: Date,         // Request timestamp, indexed
+  responseSize: Number     // Response size in bytes
+}
+
+// Indexes:
+// - { requestId: 1 } (unique)
+// - { timestamp: -1 } (for time-based queries)
+// - { service: 1, timestamp: -1 } (compound)
+// - { path: 1, timestamp: -1 } (compound)
+// - { statusCode: 1, timestamp: -1 } (compound)
+
+```
+
+## Service Registry Collection (MongoDB/Consul)
+
+```javascript
+{
+  _id: ObjectId,
+  serviceId: String,        // Service identifier, indexed
+  serviceName: String,      // Service name, indexed
+  instances: [Object],      // Array of service instances
+  healthCheck: Object,      // Health check configuration
+  lastHealthCheck: Date,    // Last health check timestamp
+  status: String,          // healthy, unhealthy, unknown
+  createdAt: Date,
+  updatedAt: Date
+}
+
+// Indexes:
+// - { serviceId: 1 } (unique)
+// - { serviceName: 1, status: 1 } (compound)
+
+```
+
+---
+
+# 6) Database Transactions and Consistency
+
+### MongoDB Transactions
+
+**Transaction Usage:**
+- **Multi-Document Transactions** - For operations requiring ACID guarantees
+- **Example:** Request logging + metric update in single transaction
+- **Session Management:** Use MongoDB sessions for transaction control
+
+**Example:**
+
+```typescript
+const session = await mongoose.startSession();
+session.startTransaction();
+try {
+  await RequestLog.create([logData], { session });
+  await Metric.updateOne({ metricId }, { $inc: { requestCount: 1 } }, { session });
+  await session.commitTransaction();
+} catch (error) {
+  await session.abortTransaction();
+  throw error;
+} finally {
+  session.endSession();
+}
+
+```
+
+### Consistency Strategies
+
+**Data Consistency:**
+- **Request Logging:** Use transactions for request logging to ensure consistency
+- **Service Registry:** Accept eventual consistency for service registry (services may appear/disappear with slight delay)
+- **Cache Consistency:** Invalidate cache when service configuration changes
+
+---
+
+# 7) Protocols
+
+### REST API Protocol
+
+- **Protocol:** REST (Representational State Transfer)
+- **Data Format:** JSON
+- **HTTP Methods:** GET, POST, PUT, DELETE, PATCH
+- **Status Codes:** 200 (Success), 201 (Created), 400 (Bad Request), 401 (Unauthorized), 404 (Not Found), 429 (Rate Limited), 503 (Service Unavailable), 504 (Gateway Timeout)
+- **Authentication:** JWT Bearer token in Authorization header
+
+### Service Discovery Protocol
+
+- **Protocol:** HTTP REST or gRPC
+- **Service Registry:** Consul, Eureka, or custom service registry
+- **Health Checks:** HTTP health check endpoints
+- **Use Case:** Dynamic service discovery and routing
+
+---
+
+# 8) API Design
+
+### GET /api/v1/health
+
+- **URL:** `/api/v1/health`
+- **Method:** GET
+- **Description:** Health check endpoint for load balancer
+- **Response:**
+
+  ```json
+  {
+    "status": "healthy",
+    "timestamp": "2024-01-15T10:30:00Z",
+    "services": {
+      "user-service": "healthy",
+      "order-service": "healthy"
+    }
+  }
+
+  ```
+- **Status Codes:** 200 (Healthy), 503 (Unhealthy)
+
+### GET /api/v1/services
+
+- **URL:** `/api/v1/services`
+- **Method:** GET
+- **Description:** Get list of registered services (Admin only)
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "services": [
+        {
+          "serviceId": "user-service-1",
+          "serviceName": "user-service",
+          "status": "healthy",
+          "instances": 3,
+          "lastHealthCheck": "2024-01-15T10:30:00Z"
+        }
+      ]
+    }
+  }
+
+  ```
+- **Status Codes:** 200 (Success), 401 (Unauthorized), 403 (Forbidden)
+
+---
+
+# 9) Caching Strategy
+
+### Redis Cache
+
+**Cache Strategy:**
+- **Key Format:** `cache:response:{path}:{params}`, `service:registry:{serviceName}`
+- **Value:** Serialized JSON (API responses, service registry data)
+- **TTL:** 
+  - API responses: 60 seconds (configurable per endpoint)
+  - Service registry: 30 seconds (frequently updated)
+- **Eviction Policy:** LRU (Least Recently Used)
+
+**Cache Patterns:**
+- **Cache-Aside Pattern:** Check cache first, if miss route to service and update cache
+- **Write-Through Pattern:** Update cache when service responses change
+- **Cache Invalidation:** Invalidate cache on service configuration changes
+
+---
+
+# 10) Error Handling
+
+### Error Scenarios and Responses
+
+**Edge Cases Handling:**
+- **Service Unavailable:** Return 503 Service Unavailable when target service is down
+- **Route Not Found:** Return 404 Not Found when route doesn't match any service
+- **Authentication Failure:** Return 401 Unauthorized when token is invalid
+- **Rate Limit Exceeded:** Return 429 Too Many Requests with Retry-After header
+- **Gateway Timeout:** Return 504 Gateway Timeout when service exceeds timeout
+- **Circuit Breaker Open:** Return 503 Service Unavailable when circuit is open
+
+**Error Response Format:**
+
+```json
+{
+  "error": {
+    "code": "SERVICE_UNAVAILABLE",
+    "message": "Service temporarily unavailable",
+    "details": "user-service is currently unavailable",
+    "retryAfter": 30
+  }
+}
+
+```
+
+---
+
+# 11) Deployment and DevOps
+
+### Scalability
+
+**API Gateway Layer:**
+- Deploy API Gateway across multiple instances behind load balancer
+- Use auto-scaling based on CPU/memory metrics
+- Stateless design allows horizontal scaling
+
+**Service Discovery:**
+- **Service Registry:** Deploy service registry cluster (Consul/Eureka)
+- **Health Checks:** Configure health check intervals and timeouts
+- **Dynamic Updates:** Update routing table automatically when services change
+
+**Caching:**
+- Distributed Redis cluster for high availability
+- Cache API responses and service registry data
+- Reduces backend load significantly
+
+### Availability
+
+**Replication:**
+- Service registry replication ensures availability
+- Multi-region replication for disaster recovery
+
+**Failover:**
+- Automated failover mechanisms for API Gateway and service registry
+- Health checks and monitoring for proactive failover
+- Circuit breaker pattern to prevent cascading failures
+
+**Geo-Distributed Deployment:**
+- Deploy API Gateway across multiple geographical regions
+- Reduces latency for users worldwide
+- Improves availability by eliminating single point of failure
+
+### Frontend Deployment
+
+**Build Process:**
+- **Production Build:** Optimized bundle with code splitting
+- **CDN Deployment:** Deploy static assets to CDN for fast global delivery
+- **Environment Variables:** `.env.production` for production config
+
+**Deployment Platforms:**
+- **Vercel / Netlify** - Automatic deployments from Git
+- **AWS S3 + CloudFront** - Static site hosting with CDN
+
+### Backend Deployment
+
+**Server Setup:**
+- **PM2:** Process manager with clustering for Node.js apps
+- **Nginx:** Load balancer and reverse proxy with SSL termination
+- **Docker:** Containerized deployment for consistency
+- **Kubernetes:** Container orchestration for auto-scaling
+
+**CI/CD Pipeline:**
+- **Automated Testing:** Run tests before deployment
+- **Zero-Downtime:** Rolling deployment strategy
+- **Health Checks:** Verify API Gateway endpoints are healthy
+- **Blue-Green Deployment:** Maintain two identical production environments
+
+### Database Deployment
+
+**MongoDB Setup:**
+- **MongoDB Atlas** - Managed MongoDB service with automatic backups
+- **Backup Strategy:** Daily automated backups with point-in-time recovery
+- **Indexing:** Proper indexes on requestId, timestamp, service, path
+- **Replication:** Replica sets for high availability
+
+**Redis Setup:**
+- **Redis Cloud / AWS ElastiCache** - Managed Redis service
+- **Cluster Mode:** Redis cluster for high availability and performance
+- **Persistence:** RDB snapshots and AOF for data durability
+
+---
+
+# 12) Security Considerations
+
+### Rate Limiting
+
+- Implement rate limiting at API Gateway layer to prevent abuse
+- Limit number of requests per user/IP/API key per minute/hour
+- Use Redis for distributed rate limiting across multiple gateway instances
+
+### Input Validation
+
+- Validate all API requests before routing to services
+- Sanitize user input to prevent injection attacks
+- Validate request size to prevent DoS attacks
+
+### HTTPS/TLS
+
+- All communication between clients and API Gateway encrypted using HTTPS
+- Prevents eavesdropping and man-in-the-middle attacks
+- SSL/TLS certificates for secure connections
+
+### Authentication and Authorization
+
+- **JWT Tokens:** Validate JWT tokens before routing requests
+- **Token Expiration:** Check token expiration and reject expired tokens
+- **API Keys:** Support API key authentication for service-to-service communication
+- **OAuth:** Support OAuth 2.0 for third-party authentication
+
+### Monitoring and Alerts
+
+- Set up monitoring for unusual request patterns
+- Trigger alerts for potential DDoS attacks or abuse
+- Track metrics: request rates, error rates, latency, service health
+- Log all requests for security auditing
+
+---
+
 # 3) Interview Answers
 
 ---
 
-## Q1. Designing an API Gateway
+## Q1. 🔌 Designing an API Gateway
 
 **Situation:** Need to design an API Gateway that routes 1B+ requests per day to 100+ microservices with authentication, rate limiting, and monitoring.
 
@@ -956,7 +1433,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
 
 ---
 
-## Q2. Implementing service discovery
+## Q2. 💡 Implementing service discovery
 
 **Situation:** Microservices scale dynamically, need to route requests to available instances.
 
@@ -980,7 +1457,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
 
 ---
 
-## Q3. Handling circuit breaker pattern
+## Q3. 💡 Handling circuit breaker pattern
 
 **Situation:** When microservice fails, prevent cascading failures to other services.
 

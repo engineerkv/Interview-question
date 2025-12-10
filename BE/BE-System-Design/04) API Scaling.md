@@ -18,157 +18,145 @@
 
 ## Q51. 📊 Vertical vs horizontal API scaling
 
-Vertical and horizontal scaling are two different approaches to increasing API capacity. When you scale APIs, you choose between adding more resources to existing servers or adding more servers, each with different trade-offs.
+Vertical and horizontal scaling are two different approaches to increasing API capacity. For general scaling concepts, see [Q3: Vertical vs horizontal scaling](../01%29%20System%20Design%20Fundamentals.md#q3--vertical-vs-horizontal-scaling). This question focuses on API-specific scaling considerations.
 
 ---
 
-## 1. What is Vertical Scaling
+## 1. 📊 API-Specific Vertical Scaling
 
-Vertical scaling means adding more resources to your existing servers.
+Vertical scaling for APIs means adding more resources to your existing API servers.
 
-* **Definition** → Add more CPU, memory, or storage to existing servers
+* **API server upgrade** → Upgrade CPU, memory, or storage on API servers
 
-* **Example** → Upgrading from 2 CPU cores to 8 cores or increasing memory
+* **Example** → Upgrading API server from 2 CPU cores to 8 cores to handle more requests
 
-* **Single server** → Scaling up a single server
+* **Single API server** → Scaling up a single API server
 
-* **Resource upgrade** → Upgrade hardware resources
+* **Request handling** → More resources allow handling more concurrent requests
 
-📌 **In simple terms**: Make your existing servers more powerful.
-
----
-
-## 2. What is Horizontal Scaling
-
-Horizontal scaling means adding more servers to handle more requests.
-
-* **Definition** → Add more servers to handle more load
-
-* **Example** → Going from 2 API servers to 10 servers behind a load balancer
-
-* **Multiple servers** → Scale out across multiple servers
-
-* **Load distribution** → Distribute load across multiple servers
-
-📌 **In simple terms**: Add more servers to handle more requests.
+📌 **In simple terms**: Make your existing API servers more powerful to handle more requests.
 
 ---
 
-## 3. When to Choose Vertical Scaling
+## 2. 📊 API-Specific Horizontal Scaling
 
-Choose vertical scaling when you have a single server bottleneck.
+Horizontal scaling for APIs means adding more API servers behind a load balancer.
 
-* **Single bottleneck** → Single server is the bottleneck
+* **Multiple API servers** → Add more API servers to handle more load
 
-* **Cheaper upgrade** → It's cheaper to upgrade than add servers
+* **Example** → Going from 2 API servers to 10 servers behind ALB/NLB
 
-* **Simple** → Simpler than horizontal scaling
+* **Load distribution** → Load balancer distributes requests across servers
 
-* **Limited scale** → When you don't need to scale beyond one server
+* **Stateless requirement** → APIs must be stateless for effective horizontal scaling
 
----
-
-## 4. When to Choose Horizontal Scaling
-
-Choose horizontal scaling when you need to scale beyond one server's limits.
-
-* **Beyond limits** → Need to scale beyond one server's capacity
-
-* **Fault tolerance** → Want better fault tolerance
-
-* **Infinite scale** → Need to scale almost infinitely
-
-* **Cost efficiency** → Can use smaller, cheaper servers
+📌 **In simple terms**: Add more API servers behind a load balancer to handle more requests.
 
 ---
 
-## 5. Vertical Scaling Advantages
+## 3. 📊 API Scaling Considerations
 
-Vertical scaling provides simplicity.
+When scaling APIs, consider these API-specific factors.
 
-* **Simple** → Don't need to change architecture
+* **Stateless design** → APIs must be stateless for horizontal scaling (see [Q52: Stateless API design](#q52--stateless-api-design-for-scaling))
 
-* **No load balancing** → Don't need load balancing
+* **Load balancing** → Use ALB/NLB or API Gateway for request distribution
 
-* **Single server** → Manage single server
+* **Session management** → Store sessions in external storage (Redis, database) not server memory
 
-* **Quick** → Can be quicker to implement
+* **Connection pooling** → Manage database connections across multiple API servers
 
----
-
-## 6. Horizontal Scaling Advantages
-
-Horizontal scaling provides scalability and fault tolerance.
-
-* **Infinite scale** → Can scale almost infinitely
-
-* **Fault tolerance** → If one server fails, others continue
-
-* **Cost efficiency** → Can use smaller, cheaper servers
-
-* **Better distribution** → Better load distribution
+* **API Gateway** → Use API Gateway for rate limiting, authentication, and routing
 
 ---
 
-## 7. Trade-offs
+## 4. 📊 When to Choose Vertical Scaling for APIs
 
-Vertical scaling is simpler because you don't need to change your architecture.
+Choose vertical scaling for APIs when you have a single server bottleneck and simple architecture.
 
-* **Vertical pros** → Simpler, no architecture changes needed
+* **Single bottleneck** → Single API server is the bottleneck
 
-* **Vertical cons** → The catch is there's a hard limit - you can only make a server so powerful and it's expensive
+* **Simple architecture** → Don't need load balancing or stateless design
 
-* **Horizontal pros** → Can scale almost infinitely, more fault-tolerant
+* **Quick solution** → Faster to upgrade than redesign for horizontal scaling
 
-* **Horizontal cons** → The catch is you need stateless APIs and proper load balancing, which requires architectural changes
+* **Limited scale needs** → Don't need to scale beyond one server's capacity
+
+---
+
+## 5. 📊 When to Choose Horizontal Scaling for APIs
+
+Choose horizontal scaling for APIs when you need to scale beyond one server or want fault tolerance.
+
+* **Beyond single server** → Need more capacity than one server can provide
+
+* **Fault tolerance** → Want redundancy so one server failure doesn't take down API
+
+* **High availability** → Need high availability for production APIs
+
+* **Geographic distribution** → Want to place API servers in different regions
+
+---
+
+## 6. 🔌 API-Specific Trade-offs
+
+API scaling has specific trade-offs related to API design.
+
+* **Vertical pros** → Simpler, no architecture changes, no load balancing needed
+
+* **Vertical cons** → Hard limit on server capacity, expensive, single point of failure
+
+* **Horizontal pros** → Can scale almost infinitely, fault-tolerant, cost-effective with commodity hardware
+
+* **Horizontal cons** → Requires stateless API design, load balancing infrastructure, shared state management
 
 ---
 
 ## ⭐ Summary — 10-second Interview Version
 
-> "Vertical scaling means adding more resources to existing servers - like upgrading from 2 CPU cores to 8 cores. Horizontal scaling means adding more servers - like going from 2 API servers to 10 servers behind a load balancer. Choose vertical when you have a single server bottleneck, choose horizontal when you need to scale beyond one server's limits or want better fault tolerance."
+> "Vertical API scaling means adding more resources to existing API servers - like upgrading CPU or memory. Horizontal API scaling means adding more API servers behind a load balancer - like going from 2 to 10 servers. Choose vertical for simple cases with single server bottlenecks, choose horizontal when you need to scale beyond one server or want fault tolerance. The catch is horizontal scaling requires stateless API design."
 
 ---
 
 ## ⭐ Extra Points (If Interviewer Asks More)
 
-### What are the cost implications of vertical vs horizontal scaling?
+### What are the main challenges with horizontal API scaling?
 
-Vertical scaling can be expensive - high-end servers with lots of CPU and memory cost significantly more than multiple smaller servers. Horizontal scaling allows you to use commodity hardware, which is more cost-effective. The catch is horizontal scaling requires more infrastructure (load balancers, networking). The tricky part is finding the right balance - sometimes a few powerful servers are cheaper than many small ones.
+The main challenges are making your API stateless (see [Q52: Stateless API design](#q52--stateless-api-design-for-scaling)), implementing proper load balancing (see [Q53: Scaling APIs using ALB/NLB](#q53--scaling-apis-using-albnlb)), managing shared state (sessions, caches), and ensuring data consistency across servers. The catch is you need to design your API architecture for horizontal scaling from the start. The tricky part is handling stateful features like WebSockets or sessions that don't work well with horizontal scaling.
 
-### Can you combine vertical and horizontal scaling?
+### How do you handle sessions with horizontal API scaling?
 
-Yes, you can combine both - scale vertically to maximize each server's capacity, then scale horizontally when you need more capacity. This gives you the benefits of both approaches. The catch is you need to design for both from the start. The tricky part is determining when to scale vertically vs horizontally - typically scale vertically first, then horizontally.
+You store sessions in external storage like Redis or a database, not in server memory. Include session identifiers in requests (cookies, tokens), and any API server can look up the session from shared storage. The catch is this adds latency for session lookups. The tricky part is ensuring session data is accessible to all API servers and handling session expiration consistently.
 
-### What are the main challenges with horizontal scaling?
+### Can you combine vertical and horizontal scaling for APIs?
 
-The main challenges are making your API stateless, implementing proper load balancing, managing shared state, and ensuring data consistency across servers. The catch is you need to design your architecture for horizontal scaling from the start. The tricky part is handling stateful features like WebSockets or sessions that don't work well with horizontal scaling.
+Yes, you can combine both - scale vertically to maximize each API server's capacity (more CPU/memory per server), then scale horizontally when you need more capacity (add more servers). This gives you the benefits of both approaches. The catch is you still need stateless API design and load balancing for horizontal scaling. The tricky part is determining when to scale vertically vs horizontally - typically scale vertically first, then horizontally.
 
 ---
 
 ## Q52. 🔓 Stateless API design for scaling
 
-Stateless API design is essential for horizontal scaling. When you design stateless APIs, each request contains all the information needed to process it, enabling any server to handle any request.
+Stateless API design is essential for horizontal scaling. For general stateless vs stateful concepts, see [Q24: Stateless vs stateful design](../01%29%20System%20Design%20Fundamentals.md#q24--stateless-vs-stateful-design). This question focuses on API-specific stateless design patterns.
 
 ---
 
-## 1. What is Stateless API Design
+## 1. 📦 What is Stateless API Design
 
-Stateless APIs don't store session data on the server.
+Stateless APIs don't store session data on the server - each request contains all information needed to process it.
 
-* **No server state** → Server doesn't store session data
+* **No server state** → Server doesn't store session data in memory
 
-* **Request contains all** → Each request contains all needed information
+* **Request contains all** → Each request contains all needed information (tokens, context)
 
-* **Independent requests** → Each request is independent
+* **Independent requests** → Each request is independent and can be handled by any server
 
-* **Any server** → Any server can handle any request
+* **Any server** → Any API server can handle any request
 
-📌 **In simple terms**: Server doesn't remember previous requests, each request is independent.
+📌 **In simple terms**: API server doesn't remember previous requests, each request is independent and self-contained.
 
 ---
 
-## 2. How Stateless Design Works
+## 2. 📦 How Stateless Design Works
 
 Stateless design works by including all needed information in requests.
 
@@ -182,7 +170,7 @@ Stateless design works by including all needed information in requests.
 
 ---
 
-## 3. Enabling Horizontal Scaling
+## 3. 📊 Enabling Horizontal Scaling
 
 Stateless design enables horizontal scaling.
 
@@ -196,7 +184,7 @@ Stateless design enables horizontal scaling.
 
 ---
 
-## 4. Storing Session Data
+## 4. 💡 Storing Session Data
 
 Store session data in shared storage, not server memory.
 
@@ -230,7 +218,7 @@ app.post('/api/login', async (req, res) => {
 
 ---
 
-## 5. Authentication in Stateless APIs
+## 5. 📦 Authentication in Stateless APIs
 
 Handle authentication differently in stateless APIs.
 
@@ -244,7 +232,7 @@ Handle authentication differently in stateless APIs.
 
 ---
 
-## 6. Benefits
+## 6. 💡 Benefits
 
 Stateless design provides several benefits.
 
@@ -258,7 +246,7 @@ Stateless design provides several benefits.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Stateless design enables easy horizontal scaling and improves fault tolerance.
 
@@ -320,7 +308,7 @@ Application Load Balancer (ALB) and Network Load Balancer (NLB) are AWS load bal
 
 ---
 
-## 1. What is ALB (Application Load Balancer)
+## 1. 💡 What is ALB (Application Load Balancer)
 
 ALB distributes HTTP/HTTPS traffic across multiple API servers.
 
@@ -336,7 +324,7 @@ ALB distributes HTTP/HTTPS traffic across multiple API servers.
 
 ---
 
-## 2. What is NLB (Network Load Balancer)
+## 2. 💡 What is NLB (Network Load Balancer)
 
 NLB operates at layer 4 and handles TCP/UDP traffic.
 
@@ -352,7 +340,7 @@ NLB operates at layer 4 and handles TCP/UDP traffic.
 
 ---
 
-## 3. ALB Features
+## 3. 💡 ALB Features
 
 ALB provides advanced features for HTTP/HTTPS traffic.
 
@@ -368,7 +356,7 @@ ALB provides advanced features for HTTP/HTTPS traffic.
 
 ---
 
-## 4. NLB Features
+## 4. 💡 NLB Features
 
 NLB provides high-performance features for TCP/UDP traffic.
 
@@ -384,7 +372,7 @@ NLB provides high-performance features for TCP/UDP traffic.
 
 ---
 
-## 5. When to Use ALB
+## 5. 💡 When to Use ALB
 
 Use ALB for HTTP/HTTPS APIs with advanced routing needs.
 
@@ -398,7 +386,7 @@ Use ALB for HTTP/HTTPS APIs with advanced routing needs.
 
 ---
 
-## 6. When to Use NLB
+## 6. 💡 When to Use NLB
 
 Use NLB for high-performance scenarios.
 
@@ -412,7 +400,7 @@ Use NLB for high-performance scenarios.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 ALB provides advanced routing and integrates well with AWS services.
 
@@ -454,7 +442,7 @@ API Gateway scales automatically, but you can optimize scaling through various s
 
 ---
 
-## 1. API Gateway Auto-Scaling
+## 1. 📊 API Gateway Auto-Scaling
 
 API Gateway scales automatically to handle traffic spikes.
 
@@ -470,7 +458,7 @@ API Gateway scales automatically to handle traffic spikes.
 
 ---
 
-## 2. Optimizing API Gateway Scaling
+## 2. 📊 Optimizing API Gateway Scaling
 
 You can optimize scaling through several strategies.
 
@@ -484,7 +472,7 @@ You can optimize scaling through several strategies.
 
 ---
 
-## 3. Caching Strategy
+## 3. 💾 Caching Strategy
 
 Use caching to reduce backend load.
 
@@ -498,7 +486,7 @@ Use caching to reduce backend load.
 
 ---
 
-## 4. Throttling Configuration
+## 4. 💡 Throttling Configuration
 
 Enable throttling to protect backends.
 
@@ -512,7 +500,7 @@ Enable throttling to protect backends.
 
 ---
 
-## 5. Multi-Region Deployment
+## 5. 🚀 Multi-Region Deployment
 
 Use multiple API Gateway instances for very high traffic.
 
@@ -526,7 +514,7 @@ Use multiple API Gateway instances for very high traffic.
 
 ---
 
-## 6. Limits and Throttling
+## 6. 💡 Limits and Throttling
 
 API Gateway has per-account limits.
 
@@ -540,7 +528,7 @@ API Gateway has per-account limits.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 API Gateway auto-scales, which is convenient.
 
@@ -582,7 +570,7 @@ CDNs (Content Delivery Networks) cache API responses at edge locations close to 
 
 ---
 
-## 1. What is a CDN
+## 1. 💡 What is a CDN
 
 CDNs cache content at edge locations close to users.
 
@@ -598,7 +586,7 @@ CDNs cache content at edge locations close to users.
 
 ---
 
-## 2. How CDNs Reduce API Load
+## 2. 🌍 How CDNs Reduce API Load
 
 CDNs reduce API load by serving cached responses.
 
@@ -612,7 +600,7 @@ CDNs reduce API load by serving cached responses.
 
 ---
 
-## 3. Benefits
+## 3. 💡 Benefits
 
 CDNs provide several benefits for APIs.
 
@@ -626,7 +614,7 @@ CDNs provide several benefits for APIs.
 
 ---
 
-## 4. When to Use CDNs
+## 4. 🌍 When to Use CDNs
 
 Use CDNs for cacheable GET requests.
 
@@ -640,7 +628,7 @@ Use CDNs for cacheable GET requests.
 
 ---
 
-## 5. Cache Configuration
+## 5. 💡 Cache Configuration
 
 Configure cache headers to control caching.
 
@@ -654,7 +642,7 @@ Configure cache headers to control caching.
 
 ---
 
-## 6. Limitations
+## 6. 💡 Limitations
 
 CDNs have limitations.
 
@@ -668,7 +656,7 @@ CDNs have limitations.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 CDNs dramatically reduce API load and improve performance.
 
@@ -704,13 +692,13 @@ CDN caching happens at edge locations worldwide, closer to users, while API Gate
 
 ---
 
-## Q56. 🪣 Token Bucket vs Leaky Bucket algorithms
+## Q56. ⚙️ 🪣 Token Bucket vs Leaky Bucket algorithms
 
 Token Bucket and Leaky Bucket are two rate limiting algorithms with different characteristics. When you implement rate limiting, you choose between these algorithms based on whether you want to allow bursts or smooth traffic.
 
 ---
 
-## 1. What is Token Bucket
+## 1. 💡 What is Token Bucket
 
 Token Bucket allows bursts by accumulating tokens over time.
 
@@ -726,7 +714,7 @@ Token Bucket allows bursts by accumulating tokens over time.
 
 ---
 
-## 2. What is Leaky Bucket
+## 2. 💡 What is Leaky Bucket
 
 Leaky Bucket processes requests at a constant rate.
 
@@ -742,7 +730,7 @@ Leaky Bucket processes requests at a constant rate.
 
 ---
 
-## 3. Token Bucket Characteristics
+## 3. 💡 Token Bucket Characteristics
 
 Token Bucket allows bursts and handles traffic spikes.
 
@@ -787,7 +775,7 @@ class TokenBucket {
 
 ---
 
-## 4. Leaky Bucket Characteristics
+## 4. 💡 Leaky Bucket Characteristics
 
 Leaky Bucket smooths traffic and protects downstream systems.
 
@@ -840,7 +828,7 @@ class LeakyBucket {
 
 ---
 
-## 5. When to Use Token Bucket
+## 5. 💡 When to Use Token Bucket
 
 Use Token Bucket when you want to allow bursts.
 
@@ -854,7 +842,7 @@ Use Token Bucket when you want to allow bursts.
 
 ---
 
-## 6. When to Use Leaky Bucket
+## 6. 💡 When to Use Leaky Bucket
 
 Use Leaky Bucket when you need constant rate limiting.
 
@@ -868,7 +856,7 @@ Use Leaky Bucket when you need constant rate limiting.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Token Bucket allows bursts which is good for handling traffic spikes.
 
@@ -975,7 +963,7 @@ Multi-region API scaling involves deploying APIs across multiple geographic regi
 
 ---
 
-## 1. Multi-Region Deployment
+## 1. 🚀 Multi-Region Deployment
 
 Deploy API servers in each region.
 
@@ -991,7 +979,7 @@ Deploy API servers in each region.
 
 ---
 
-## 2. Routing Strategies
+## 2. 🗺️ Routing Strategies
 
 Use routing to send users to the nearest region.
 
@@ -1005,7 +993,7 @@ Use routing to send users to the nearest region.
 
 ---
 
-## 3. Data Replication
+## 3. 🔄 Data Replication
 
 Replicate data across regions.
 
@@ -1019,7 +1007,7 @@ Replicate data across regions.
 
 ---
 
-## 4. Stateless API Design
+## 4. 📦 Stateless API Design
 
 Design stateless APIs so any region can handle any request.
 
@@ -1033,7 +1021,7 @@ Design stateless APIs so any region can handle any request.
 
 ---
 
-## 5. Data Consistency
+## 5. ⚖️ Data Consistency
 
 Consider data consistency across regions.
 
@@ -1047,7 +1035,7 @@ Consider data consistency across regions.
 
 ---
 
-## 6. Benefits
+## 6. 💡 Benefits
 
 Multi-region deployment provides several benefits.
 
@@ -1061,7 +1049,7 @@ Multi-region deployment provides several benefits.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Multi-region deployment provides low latency worldwide and disaster recovery.
 
@@ -1103,7 +1091,7 @@ High-throughput API design patterns enable APIs to handle large volumes of reque
 
 ---
 
-## 1. Async Processing
+## 1. ⏳ ⏳ Async Processing
 
 Use async processing for long-running tasks.
 
@@ -1119,7 +1107,7 @@ Use async processing for long-running tasks.
 
 ---
 
-## 2. Batching Operations
+## 2. 💡 Batching Operations
 
 Batch multiple operations into single requests.
 
@@ -1133,7 +1121,7 @@ Batch multiple operations into single requests.
 
 ---
 
-## 3. Connection Pooling
+## 3. 💡 Connection Pooling
 
 Use connection pooling to reuse connections.
 
@@ -1147,7 +1135,7 @@ Use connection pooling to reuse connections.
 
 ---
 
-## 4. Efficient Caching
+## 4. 💾 Efficient Caching
 
 Implement efficient caching at multiple levels.
 
@@ -1161,7 +1149,7 @@ Implement efficient caching at multiple levels.
 
 ---
 
-## 5. Database Query Optimization
+## 5. 🗄️ Database Query Optimization
 
 Optimize database queries for performance.
 
@@ -1175,7 +1163,7 @@ Optimize database queries for performance.
 
 ---
 
-## 6. Minimize Round Trips
+## 6. ⬇️ ⬇️ Minimize Round Trips
 
 Design APIs to minimize round trips.
 
@@ -1189,7 +1177,7 @@ Design APIs to minimize round trips.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 High-throughput patterns improve performance and capacity.
 
@@ -1231,7 +1219,7 @@ API hotspots occur when certain resources or endpoints receive disproportionate 
 
 ---
 
-## 1. What are API Hotspots
+## 1. 🔌 What are API Hotspots
 
 API hotspots are resources or endpoints that receive disproportionate load.
 
@@ -1247,7 +1235,7 @@ API hotspots are resources or endpoints that receive disproportionate load.
 
 ---
 
-## 2. Consistent Hashing
+## 2. 🗝️ Consistent Hashing
 
 Use consistent hashing for load distribution.
 
@@ -1261,7 +1249,7 @@ Use consistent hashing for load distribution.
 
 ---
 
-## 3. Avoid Sequential IDs
+## 3. 💡 Avoid Sequential IDs
 
 Avoid sequential IDs that create hot partitions.
 
@@ -1275,7 +1263,7 @@ Avoid sequential IDs that create hot partitions.
 
 ---
 
-## 4. Load Distribution
+## 4. 💡 Load Distribution
 
 Distribute load evenly across shards or partitions.
 
@@ -1289,7 +1277,7 @@ Distribute load evenly across shards or partitions.
 
 ---
 
-## 5. Monitoring and Detection
+## 5. 👁️ Monitoring and Detection
 
 Monitor API usage patterns to identify hotspots.
 
@@ -1303,7 +1291,7 @@ Monitor API usage patterns to identify hotspots.
 
 ---
 
-## 6. Rate Limiting and Throttling
+## 6. 💡 Rate Limiting and Throttling
 
 Use rate limiting or throttling to prevent overload.
 
@@ -1317,7 +1305,7 @@ Use rate limiting or throttling to prevent overload.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Avoiding hotspots ensures even load distribution, which improves performance.
 
@@ -1355,13 +1343,13 @@ You fix hotspots by redistributing load, using better sharding strategies, avoid
 
 ## Q60. 🚦 API throttling vs rate limiting
 
-Rate limiting and throttling are two approaches to controlling API usage. When you protect APIs from overload, you choose between rejecting requests (rate limiting) or slowing them down (throttling).
+Rate limiting and throttling are two approaches to controlling API usage. For general rate limiting concepts and algorithms, see [Q15: Rate limiting](../01%29%20System%20Design%20Fundamentals.md#q15--rate-limiting). This question focuses on API-specific throttling vs rate limiting comparison.
 
 ---
 
-## 1. What is Rate Limiting
+## 1. 💡 What is Rate Limiting
 
-Rate limiting restricts how many requests a user or IP can make in a time window.
+Rate limiting restricts how many requests a user or IP can make in a time window (see [Q15: Rate limiting](../01%29%20System%20Design%20Fundamentals.md#q15--rate-limiting) for algorithms and implementation details).
 
 * **Definition** → Restrict number of requests in time window
 
@@ -1375,7 +1363,7 @@ Rate limiting restricts how many requests a user or IP can make in a time window
 
 ---
 
-## 2. What is Throttling
+## 2. 💡 What is Throttling
 
 Throttling slows down requests when limits are exceeded instead of rejecting them.
 
@@ -1391,7 +1379,7 @@ Throttling slows down requests when limits are exceeded instead of rejecting the
 
 ---
 
-## 3. Rate Limiting Characteristics
+## 3. 💡 Rate Limiting Characteristics
 
 Rate limiting provides simple protection.
 
@@ -1405,7 +1393,7 @@ Rate limiting provides simple protection.
 
 ---
 
-## 4. Throttling Characteristics
+## 4. 💡 Throttling Characteristics
 
 Throttling provides better user experience.
 
@@ -1419,7 +1407,7 @@ Throttling provides better user experience.
 
 ---
 
-## 5. When to Use Rate Limiting
+## 5. 💡 When to Use Rate Limiting
 
 Use rate limiting for simple protection.
 
@@ -1433,7 +1421,7 @@ Use rate limiting for simple protection.
 
 ---
 
-## 6. When to Use Throttling
+## 6. 💡 When to Use Throttling
 
 Use throttling for better user experience.
 
@@ -1447,7 +1435,7 @@ Use throttling for better user experience.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Rate limiting is simple and prevents overload.
 
@@ -1489,7 +1477,7 @@ Caching layers at multiple levels dramatically improve API performance and reduc
 
 ---
 
-## 1. Multi-Level Caching
+## 1. 💾 Multi-Level Caching
 
 Add caching layers at multiple levels.
 
@@ -1505,7 +1493,7 @@ Add caching layers at multiple levels.
 
 ---
 
-## 2. CDN Caching
+## 2. 💾 CDN Caching
 
 Use CDN caching for static responses.
 
@@ -1519,7 +1507,7 @@ Use CDN caching for static responses.
 
 ---
 
-## 3. API Gateway Caching
+## 3. 💾 API Gateway Caching
 
 Use API Gateway caching for frequently accessed data.
 
@@ -1533,7 +1521,7 @@ Use API Gateway caching for frequently accessed data.
 
 ---
 
-## 4. Application-Level Caching
+## 4. 💾 Application-Level Caching
 
 Use application-level caching with Redis for dynamic data.
 
@@ -1547,7 +1535,7 @@ Use application-level caching with Redis for dynamic data.
 
 ---
 
-## 5. Database Query Caching
+## 5. 💾 Database Query Caching
 
 Cache database queries to reduce database load.
 
@@ -1561,7 +1549,7 @@ Cache database queries to reduce database load.
 
 ---
 
-## 6. Cache Strategy
+## 6. 💡 Cache Strategy
 
 Design effective cache strategy.
 
@@ -1575,7 +1563,7 @@ Design effective cache strategy.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Caching dramatically improves performance and reduces backend load.
 
@@ -1617,7 +1605,7 @@ Efficient pagination is critical for APIs that return large datasets. When you d
 
 ---
 
-## 1. Cursor-Based Pagination
+## 1. 💡 Cursor-Based Pagination
 
 Use cursor-based pagination for large datasets.
 
@@ -1633,7 +1621,7 @@ Use cursor-based pagination for large datasets.
 
 ---
 
-## 2. Offset-Based Pagination
+## 2. 💡 Offset-Based Pagination
 
 Use offset/limit for smaller datasets.
 
@@ -1649,7 +1637,7 @@ Use offset/limit for smaller datasets.
 
 ---
 
-## 3. Keyset Pagination
+## 3. 💡 Keyset Pagination
 
 Use keyset pagination for databases by using indexed columns.
 
@@ -1663,7 +1651,7 @@ Use keyset pagination for databases by using indexed columns.
 
 ---
 
-## 4. Avoid Total Count Queries
+## 4. 💡 Avoid Total Count Queries
 
 Avoid total count queries which are expensive for large tables.
 
@@ -1677,7 +1665,7 @@ Avoid total count queries which are expensive for large tables.
 
 ---
 
-## 5. When to Use Each Strategy
+## 5. 💡 When to Use Each Strategy
 
 Choose based on dataset size and access patterns.
 
@@ -1691,7 +1679,7 @@ Choose based on dataset size and access patterns.
 
 ---
 
-## 6. Performance Comparison
+## 6. ⚡ Performance Comparison
 
 Different strategies have different performance characteristics.
 
@@ -1717,7 +1705,7 @@ GET /api/users?offset=0&limit=20
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Cursor-based pagination performs consistently regardless of position in the dataset.
 
@@ -1773,7 +1761,7 @@ Query batching reduces database load by combining multiple queries into single r
 
 ---
 
-## 1. What is Query Batching
+## 1. ❓ What is Query Batching
 
 Query batching combines multiple queries into single requests.
 
@@ -1789,7 +1777,7 @@ Query batching combines multiple queries into single requests.
 
 ---
 
-## 2. Batch Operations
+## 2. 💡 Batch Operations
 
 Use batch operations for inserts and updates.
 
@@ -1803,7 +1791,7 @@ Use batch operations for inserts and updates.
 
 ---
 
-## 3. Connection Pooling
+## 3. 💡 Connection Pooling
 
 Use database connection pooling to reuse connections.
 
@@ -1817,7 +1805,7 @@ Use database connection pooling to reuse connections.
 
 ---
 
-## 4. Query Result Caching
+## 4. 💾 Query Result Caching
 
 Implement query result caching.
 
@@ -1831,7 +1819,7 @@ Implement query result caching.
 
 ---
 
-## 5. Batch API Design
+## 5. 🔌 Batch API Design
 
 Design APIs to accept batch requests when possible.
 
@@ -1845,7 +1833,7 @@ Design APIs to accept batch requests when possible.
 
 ---
 
-## 6. Handling Partial Failures
+## 6. 💡 Handling Partial Failures
 
 Handle partial failures in batch operations.
 
@@ -1859,7 +1847,7 @@ Handle partial failures in batch operations.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Query batching reduces database round trips and improves performance.
 
@@ -1901,7 +1889,7 @@ Hypermedia-driven APIs include links in responses that enable clients to discove
 
 ---
 
-## 1. What is Hypermedia API Design
+## 1. 🔌 What is Hypermedia API Design
 
 Hypermedia APIs include links in responses that tell clients what actions are available.
 
@@ -1917,7 +1905,7 @@ Hypermedia APIs include links in responses that tell clients what actions are av
 
 ---
 
-## 2. Benefits
+## 2. 💡 Benefits
 
 Hypermedia APIs provide several benefits.
 
@@ -1931,7 +1919,7 @@ Hypermedia APIs provide several benefits.
 
 ---
 
-## 3. Formats
+## 3. 💡 Formats
 
 Use formats like HAL or JSON-LD to include links.
 
@@ -1945,7 +1933,7 @@ Use formats like HAL or JSON-LD to include links.
 
 ---
 
-## 4. Link Examples
+## 4. 💡 Link Examples
 
 Examples of links in hypermedia APIs.
 
@@ -1959,7 +1947,7 @@ Examples of links in hypermedia APIs.
 
 ---
 
-## 5. Client Implementation
+## 5. 💡 Client Implementation
 
 Clients need to parse and follow links.
 
@@ -1973,7 +1961,7 @@ Clients need to parse and follow links.
 
 ---
 
-## 6. Adoption Challenges
+## 6. 💡 Adoption Challenges
 
 Hypermedia APIs face adoption challenges.
 
@@ -1987,7 +1975,7 @@ Hypermedia APIs face adoption challenges.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Hypermedia APIs are more flexible and self-documenting.
 
@@ -2023,13 +2011,13 @@ Many APIs don't use hypermedia because it adds complexity, clients often ignore 
 
 ---
 
-## Q65. 🪝 Scaling webhooks API endpoints
+## Q65. 📊 🪝 Scaling webhooks API endpoints
 
 Scaling webhook endpoints requires handling asynchronous delivery, retries, and high volume. When you scale webhooks, you use message queues and workers to handle webhook delivery reliably.
 
 ---
 
-## 1. Message Queue Architecture
+## 1. 💡 Message Queue Architecture
 
 Use message queues to decouple webhook delivery from processing.
 
@@ -2045,7 +2033,7 @@ Use message queues to decouple webhook delivery from processing.
 
 ---
 
-## 2. Asynchronous Processing
+## 2. ⏳ ⏳ Asynchronous Processing
 
 Process webhooks asynchronously.
 
@@ -2059,7 +2047,7 @@ Process webhooks asynchronously.
 
 ---
 
-## 3. Retry Logic
+## 3. 💡 Retry Logic
 
 Use exponential backoff for retries.
 
@@ -2073,7 +2061,7 @@ Use exponential backoff for retries.
 
 ---
 
-## 4. Idempotency
+## 4. 💡 Idempotency
 
 Implement idempotency to handle duplicate deliveries.
 
@@ -2087,7 +2075,7 @@ Implement idempotency to handle duplicate deliveries.
 
 ---
 
-## 5. Webhook Signatures
+## 5. 🪝 🪝 Webhook Signatures
 
 Use webhook signatures to verify authenticity.
 
@@ -2101,7 +2089,7 @@ Use webhook signatures to verify authenticity.
 
 ---
 
-## 6. Horizontal Scaling
+## 6. 📊 Horizontal Scaling
 
 Scale workers horizontally to handle webhook volume.
 
@@ -2115,7 +2103,7 @@ Scale workers horizontally to handle webhook volume.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Queuing webhooks enables reliable delivery and horizontal scaling.
 
@@ -2154,7 +2142,6 @@ Queuing adds latency - webhooks aren't delivered immediately but are queued and 
 **[← Previous: REST vs GraphQL](03%29%20REST%20vs%20GraphQL.md)** | **[Next: Messaging Systems →](05%29%20Messaging%20Systems.md)**
 
 </div>
-
 
 ---
 

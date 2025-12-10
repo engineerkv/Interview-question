@@ -662,7 +662,7 @@ The system follows a fantasy sports architecture with real-time updates, contest
 
 ---
 
-# 2) Low Level Design (LLD)
+# 3) Low Level Design (LLD)
 
 ## Component Architecture
 
@@ -907,6 +907,7 @@ App
 │       ├── TransactionHistory
 │       └── AddMoneyButton
 └── SocketProvider (Real-time match updates)
+
 ```
 
 ### Key React Components
@@ -975,6 +976,7 @@ const ContestCard: React.FC<{ contest: Contest }> = ({ contest }) => {
     </div>
   );
 };
+
 ```
 
 ### State Management
@@ -1017,6 +1019,7 @@ const useJoinContest = () => {
     }
   });
 };
+
 ```
 
 ### Component Interactions
@@ -1191,6 +1194,7 @@ interface KYCDocument {
 - **Method:** POST
 
 - **Request Body:**
+
   ```json
   {
     "email": "user@example.com",
@@ -1199,9 +1203,11 @@ interface KYCDocument {
     "name": "John Doe",
     "userType": "B2C"
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1210,6 +1216,7 @@ interface KYCDocument {
       "token": "jwt_token_here"
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 400 (Validation Error), 409 (User Exists)
@@ -1221,14 +1228,17 @@ interface KYCDocument {
 - **Method:** POST
 
 - **Request Body:**
+
   ```json
   {
     "email": "user@example.com",
     "password": "securePassword123"
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1237,6 +1247,7 @@ interface KYCDocument {
       "token": "jwt_token_here"
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 401 (Invalid Credentials)
@@ -1256,6 +1267,7 @@ interface KYCDocument {
   - `limit`: number (items per page)
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1269,6 +1281,7 @@ interface KYCDocument {
       }
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 400 (Invalid Parameters)
@@ -1280,6 +1293,7 @@ interface KYCDocument {
 - **Method:** GET
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1288,6 +1302,7 @@ interface KYCDocument {
       "availableContests": [ /* Array of Contest objects */ ]
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 404 (Match Not Found)
@@ -1307,6 +1322,7 @@ interface KYCDocument {
   - `limit`: number
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1315,6 +1331,7 @@ interface KYCDocument {
       "pagination": { /* Pagination object */ }
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success)
@@ -1326,14 +1343,17 @@ interface KYCDocument {
 - **Method:** POST
 
 - **Request Body:**
+
   ```json
   {
     "teamId": "789",
     "paymentMethod": "wallet" | "gateway"
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1342,6 +1362,7 @@ interface KYCDocument {
       "transaction": { /* Transaction object */ }
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 400 (Invalid Request), 402 (Insufficient Balance)
@@ -1353,6 +1374,7 @@ interface KYCDocument {
 - **Method:** GET
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1370,6 +1392,7 @@ interface KYCDocument {
       "pagination": { /* Pagination object */ }
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success)
@@ -1383,6 +1406,7 @@ interface KYCDocument {
 - **Method:** GET
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1392,6 +1416,7 @@ interface KYCDocument {
       "teamB": [ /* Players from team B */ ]
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success)
@@ -1403,6 +1428,7 @@ interface KYCDocument {
 - **Method:** POST
 
 - **Request Body:**
+
   ```json
   {
     "matchId": "123",
@@ -1411,9 +1437,11 @@ interface KYCDocument {
       { "playerId": "p2", "isCaptain": false, "isViceCaptain": true }
     ]
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1421,6 +1449,7 @@ interface KYCDocument {
       "team": { /* FantasyTeam object */ }
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 400 (Validation Error - Invalid team composition)
@@ -1446,6 +1475,7 @@ interface KYCDocument {
 - **Method:** GET
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1454,6 +1484,7 @@ interface KYCDocument {
       "lockedAmount": 200
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success)
@@ -1465,14 +1496,17 @@ interface KYCDocument {
 - **Method:** POST
 
 - **Request Body:**
+
   ```json
   {
     "amount": 1000,
     "paymentMethod": "upi" | "card" | "netbanking"
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1481,6 +1515,7 @@ interface KYCDocument {
       "orderId": "order_123"
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 400 (Invalid Amount)
@@ -1497,6 +1532,7 @@ interface KYCDocument {
   - `type`: deposit | withdraw | contest_join | contest_win
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1505,6 +1541,7 @@ interface KYCDocument {
       "pagination": { /* Pagination object */ }
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success)
@@ -1523,6 +1560,7 @@ interface KYCDocument {
   - `documentImage`: File
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1530,6 +1568,7 @@ interface KYCDocument {
       "document": { /* KYCDocument object */ }
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 400 (Invalid Document)
@@ -1541,6 +1580,7 @@ interface KYCDocument {
 - **Method:** GET
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1550,6 +1590,7 @@ interface KYCDocument {
       "documents": [ /* Array of KYCDocument objects */ ]
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success)
@@ -1851,6 +1892,7 @@ router.get('/matches', async (req, res) => {
 ```
 
 **Frontend Implementation:**
+
   ```typescript
   // React component with pagination
   import { useState, useEffect, useCallback } from 'react';
@@ -1894,11 +1936,13 @@ router.get('/matches', async (req, res) => {
       </div>
     );
   };
+
   ```
 
 ### Debouncing/Throttling
 
 - **Search Debouncing:** 300ms delay for search inputs - waits until user stops typing before searching, like Google search
+
   ```typescript
   import { useMemo, useState, useEffect } from 'react';
   import { debounce } from 'lodash';
@@ -1929,6 +1973,7 @@ router.get('/matches', async (req, res) => {
       />
     );
   };
+
   ```
 
 - **API Call Throttling:** Prevent multiple rapid API calls using React Query's built-in deduplication
@@ -1963,6 +2008,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
 **Frontend Implementation:**
 
 - **API Error Handling:** Catches problems and shows friendly messages - like having a safety net that catches errors before they crash the app
+
   ```typescript
   // Axios interceptor for error handling
   import axios from 'axios';
@@ -2008,6 +2054,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
       return this.props.children;
     }
   }
+
   ```
 
 - **Network Error Handling:** Show offline message with Service Worker status
@@ -2370,8 +2417,10 @@ const KYCDocumentUpload: React.FC = () => {
 - **Code Splitting:**
   - Route-based: React.lazy() with Suspense for pages - only loads the page you're visiting, like opening one chapter of a book
   - Component-based: Dynamic imports for heavy components - loads heavy stuff only when needed
+
   ```typescript
   const MatchDetailPage = React.lazy(() => import('./pages/MatchDetailPage'));
+
   ```
 
 - **Image Optimization:**
@@ -2812,9 +2861,456 @@ try {
 
 ---
 
+# 4) Algorithms
+
+## Player Points Calculation Algorithm
+
+**Purpose:** Calculate fantasy points for players based on their real-world performance.
+
+**Algorithm:**
+1. Fetch player performance data (runs, wickets, catches, etc.)
+2. Apply point system rules (e.g., 1 run = 1 point, 1 wicket = 25 points)
+3. Calculate bonus points (century, 5-wicket haul, etc.)
+4. Apply penalty points (duck, negative strike rate, etc.)
+5. Sum all points for final score
+
+**Implementation:**
+
+```typescript
+function calculatePlayerPoints(
+  player: Player,
+  performance: PlayerPerformance,
+  sport: 'cricket' | 'football' | 'kabaddi'
+): number {
+  let points = 0;
+  
+  if (sport === 'cricket') {
+    // Batting points
+    points += performance.runs * 1;
+    points += performance.fours * 1;
+    points += performance.sixes * 2;
+    if (performance.runs >= 100) points += 16; // Century bonus
+    if (performance.runs === 0 && performance.dismissed) points -= 2; // Duck penalty
+    
+    // Bowling points
+    points += performance.wickets * 25;
+    points += performance.maidens * 12;
+    if (performance.wickets >= 5) points += 16; // 5-wicket haul bonus
+    
+    // Fielding points
+    points += performance.catches * 8;
+    points += performance.stumpings * 12;
+    points += performance.runOuts * 6;
+  }
+  
+  return points;
+}
+
+```
+
+**Complexity:**
+- Time: O(1) for point calculation
+- Space: O(1)
+- **Points Accuracy:** Real-time calculation ensures accurate scoring
+
+---
+
+## Leaderboard Ranking Algorithm
+
+**Purpose:** Rank teams in a contest based on total points.
+
+**Algorithm:**
+1. Calculate total points for each team
+2. Sort teams by total points (descending)
+3. Assign ranks (handle ties)
+4. Calculate prize distribution based on ranks
+
+**Implementation:**
+
+```typescript
+function calculateLeaderboard(teams: FantasyTeam[]): LeaderboardEntry[] {
+  // Calculate points for each team
+  const teamPoints = teams.map(team => ({
+    teamId: team.id,
+    userId: team.userId,
+    totalPoints: calculateTeamPoints(team),
+    team: team
+  }));
+  
+  // Sort by points (descending)
+  teamPoints.sort((a, b) => b.totalPoints - a.totalPoints);
+  
+  // Assign ranks (handle ties)
+  let currentRank = 1;
+  const leaderboard: LeaderboardEntry[] = [];
+  
+  for (let i = 0; i < teamPoints.length; i++) {
+    if (i > 0 && teamPoints[i].totalPoints < teamPoints[i - 1].totalPoints) {
+      currentRank = i + 1;
+    }
+    
+    leaderboard.push({
+      rank: currentRank,
+      ...teamPoints[i],
+      prize: calculatePrize(currentRank)
+    });
+  }
+  
+  return leaderboard;
+}
+
+```
+
+**Complexity:**
+- Time: O(n log n) for sorting where n is number of teams
+- Space: O(n) for leaderboard
+- **Ranking Accuracy:** Real-time ranking updates during matches
+
+---
+
+# 5) Data Models
+
+## Matches Collection (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  matchId: String,          // Unique match ID, indexed
+  sport: String,           // cricket, football, kabaddi, indexed
+  teamA: Object,           // Team A details
+  teamB: Object,           // Team B details
+  status: String,          // scheduled, live, completed, indexed
+  scheduledAt: Date,       // Match scheduled time, indexed
+  startedAt: Date,         // Match start time
+  completedAt: Date,       // Match completion time
+  venue: String,           // Match venue
+  score: Object,           // Current match score
+  createdAt: Date,
+  updatedAt: Date
+}
+
+// Indexes:
+// - { matchId: 1 } (unique)
+// - { sport: 1, status: 1, scheduledAt: -1 } (compound)
+// - { status: 1 } (indexed)
+
+```
+
+## Contests Collection (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  contestId: String,        // Unique contest ID, indexed
+  matchId: ObjectId,        // Match reference, indexed
+  name: String,            // Contest name
+  type: String,            // free, paid, private, public
+  entryFee: Number,        // Entry fee
+  prizePool: Number,       // Total prize pool
+  maxParticipants: Number, // Maximum participants
+  currentParticipants: Number, // Current participants
+  prizeDistribution: [Object], // Prize distribution structure
+  startTime: Date,         // Contest start time
+  endTime: Date,           // Contest end time
+  status: String,          // open, full, live, completed
+  createdAt: Date,
+  updatedAt: Date
+}
+
+// Indexes:
+// - { contestId: 1 } (unique)
+// - { matchId: 1, status: 1 } (compound)
+// - { type: 1, status: 1 } (compound)
+
+```
+
+---
+
+# 6) Database Transactions and Consistency
+
+### MongoDB Transactions
+
+**Transaction Usage:**
+- **Multi-Document Transactions** - For operations requiring ACID guarantees
+- **Example:** Contest join + wallet deduction + transaction record creation in single transaction
+- **Session Management:** Use MongoDB sessions for transaction control
+
+**Example:**
+
+```typescript
+const session = await mongoose.startSession();
+session.startTransaction();
+try {
+  await Contest.updateOne({ contestId }, { $inc: { currentParticipants: 1 } }, { session });
+  await Wallet.updateOne({ userId }, { $inc: { balance: -entryFee } }, { session });
+  await Transaction.create([{ userId, amount: entryFee, type: 'contest_join' }], { session });
+  await session.commitTransaction();
+} catch (error) {
+  await session.abortTransaction();
+  throw error;
+} finally {
+  session.endSession();
+}
+
+```
+
+### Consistency Strategies
+
+**Data Consistency:**
+- **Contest Consistency:** Use transactions for contest operations to ensure atomicity
+- **Wallet Consistency:** Ensure wallet balance updates are atomic
+- **Points Consistency:** Calculate points consistently across all teams
+- **Eventual Consistency:** Accept eventual consistency for leaderboard updates (may update with slight delay)
+
+---
+
+# 7) Protocols
+
+### REST API Protocol
+
+- **Protocol:** REST (Representational State Transfer)
+- **Data Format:** JSON
+- **HTTP Methods:** GET, POST, PUT, DELETE
+- **Status Codes:** 200 (Success), 201 (Created), 400 (Bad Request), 401 (Unauthorized), 404 (Not Found), 500 (Server Error)
+- **Authentication:** JWT Bearer token in Authorization header
+
+### WebSocket Protocol
+
+- **Protocol:** Socket.io over WebSocket
+- **Events:** `match:update`, `score:update`, `leaderboard:update`
+- **Authentication:** JWT token in handshake
+- **Use Case:** Real-time match updates and leaderboard changes
+
+---
+
+# 8) API Design
+
+### POST /api/v1/contests/:contestId/join
+
+- **URL:** `/api/v1/contests/:contestId/join`
+- **Method:** POST
+- **Description:** Join a contest with a team
+- **Request Body:**
+
+  ```json
+  {
+    "teamId": "team_abc123",
+    "paymentMethod": "wallet"
+  }
+
+  ```
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "contest": {...},
+      "transaction": {...}
+    }
+  }
+
+  ```
+- **Status Codes:** 200 (Success), 400 (Invalid Request), 402 (Insufficient Balance)
+
+### GET /api/v1/contests/:contestId/leaderboard
+
+- **URL:** `/api/v1/contests/:contestId/leaderboard?page=1&limit=50`
+- **Method:** GET
+- **Description:** Get contest leaderboard
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "leaderboard": [...],
+      "pagination": {...}
+    }
+  }
+
+  ```
+- **Status Codes:** 200 (Success), 404 (Contest Not Found)
+
+---
+
+# 9) Caching Strategy
+
+### Redis Cache
+
+**Cache Strategy:**
+- **Key Format:** `match:{matchId}`, `contest:{contestId}:leaderboard`, `player:{playerId}:points`
+- **Value:** Serialized JSON (match data, leaderboard, player points)
+- **TTL:** 
+  - Match data: 60 seconds (frequently updated during live matches)
+  - Leaderboard: 30 seconds (frequently updated during live matches)
+  - Player points: 60 seconds (frequently updated)
+- **Eviction Policy:** TTL-based eviction
+
+**Cache Patterns:**
+- **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
+- **Write-Through Pattern:** Update cache when match scores or points change
+- **Cache Invalidation:** Invalidate cache on match updates
+
+---
+
+# 10) Error Handling
+
+### Error Scenarios and Responses
+
+**Edge Cases Handling:**
+- **Contest Full:** Return 400 Bad Request with "Contest is full"
+- **Insufficient Balance:** Return 402 Payment Required with balance details
+- **Team Deadline Passed:** Return 400 Bad Request with "Team selection deadline has passed"
+- **Invalid Team:** Return 400 Bad Request with validation errors
+- **Contest Not Found:** Return 404 Not Found
+
+**Error Response Format:**
+
+```json
+{
+  "error": {
+    "code": "CONTEST_FULL",
+    "message": "Contest is full",
+    "details": "This contest has reached maximum participants"
+  }
+}
+
+```
+
+---
+
+# 11) Deployment and DevOps
+
+### Scalability
+
+**API Layer:**
+- Deploy API layer across multiple instances behind load balancer
+- Use auto-scaling based on CPU/memory metrics
+- Stateless design allows horizontal scaling
+
+**WebSocket Scaling:**
+- **Socket.io Redis Adapter:** Enable horizontal scaling of WebSocket connections
+- **Sticky Sessions:** Required for Socket.io (use session affinity in load balancer)
+- **Connection Management:** Monitor and manage WebSocket connections
+
+**Database Scaling:**
+- **Read Replicas:** Deploy read replicas for match and contest queries
+- **Sharding:** Shard contests by matchId for write scaling
+- **Connection Pooling:** Use connection pooling to manage database connections
+
+**Caching:**
+- Distributed Redis cluster for high availability
+- Cache match data and leaderboards
+- Reduces database load significantly
+
+### Availability
+
+**Replication:**
+- Database replication ensures data availability
+- Multi-region replication for disaster recovery
+
+**Failover:**
+- Automated failover mechanisms for API and data store layers
+- Health checks and monitoring for proactive failover
+- Circuit breaker pattern to prevent cascading failures
+
+**Geo-Distributed Deployment:**
+- Deploy service across multiple geographical regions
+- Reduces latency for users worldwide
+- Improves availability by eliminating single point of failure
+
+### Frontend Deployment
+
+**Build Process:**
+- **Production Build:** Optimized bundle with code splitting
+- **CDN Deployment:** Deploy static assets to CDN for fast global delivery
+- **Environment Variables:** `.env.production` for production config
+
+**Deployment Platforms:**
+- **Vercel / Netlify** - Automatic deployments from Git
+- **AWS S3 + CloudFront** - Static site hosting with CDN
+
+### Backend Deployment
+
+**Server Setup:**
+- **PM2:** Process manager with clustering for Node.js apps
+- **Nginx:** Load balancer and reverse proxy with SSL termination
+- **Docker:** Containerized deployment for consistency
+- **Kubernetes:** Container orchestration for auto-scaling
+
+**CI/CD Pipeline:**
+- **Automated Testing:** Run tests before deployment
+- **Zero-Downtime:** Rolling deployment strategy
+- **Health Checks:** Verify contest endpoints are healthy
+- **Blue-Green Deployment:** Maintain two identical production environments
+
+### Database Deployment
+
+**MongoDB Setup:**
+- **MongoDB Atlas** - Managed MongoDB service with automatic backups
+- **Backup Strategy:** Daily automated backups with point-in-time recovery
+- **Indexing:** Proper indexes on matchId, contestId, userId, status
+- **Replication:** Replica sets for high availability
+
+**Redis Setup:**
+- **Redis Cloud / AWS ElastiCache** - Managed Redis service
+- **Cluster Mode:** Redis cluster for high availability and performance
+- **Persistence:** RDB snapshots and AOF for data durability
+
+---
+
+# 12) Security Considerations
+
+### Rate Limiting
+
+- Implement rate limiting at API layer to prevent abuse
+- Limit number of contest joins per user per day
+- Use Redis for distributed rate limiting across multiple servers
+
+### Input Validation
+
+- Validate all API inputs (team data, contest data)
+- Sanitize user input to prevent XSS attacks
+- Validate team composition rules (e.g., 11 players, budget limit)
+
+### HTTPS/TLS
+
+- All communication between clients and API encrypted using HTTPS
+- Prevents eavesdropping and man-in-the-middle attacks
+- SSL/TLS certificates for secure connections
+
+### Authentication and Authorization
+
+- **JWT Tokens:** Use JWT for stateless authentication
+- **Token Expiration:** Set appropriate token expiration times
+- **Role-Based Access Control:** Implement RBAC for B2B vs B2C access
+- **Contest Access Control:** Verify user has permission before allowing contest access
+
+### Payment Security
+
+- **PCI-DSS Compliance:** Use payment gateway SDKs that handle PCI-DSS compliance
+- **Tokenization:** Never store full payment card details, use tokens
+- **Idempotency:** Use idempotency keys to prevent duplicate charges
+
+### KYC Compliance
+
+- **KYC Verification:** Verify user identity before allowing withdrawals
+- **Document Storage:** Securely store KYC documents in encrypted storage
+- **Compliance:** Follow regulatory requirements for fantasy sports
+
+### Monitoring and Alerts
+
+- Set up monitoring for unusual activity patterns
+- Trigger alerts for potential security issues
+- Track metrics: contest join rates, payment success rates, user activity
+- Log all operations for security auditing
+
+---
+
 # 3) Interview Answers
 
-## Q1. Most complex technical challenge in building the fantasy sports platform
+## Q1. 💡 Most complex technical challenge in building the fantasy sports platform
 
 **Situation:** Building a full-stack fantasy sports platform from scratch with a 2-person team, we needed to handle real-time match updates, payment gateway integration, KYC verification, support multiple sports, and ensure the system scales to handle 10,000+ concurrent users during peak match times.
 
@@ -2826,7 +3322,7 @@ try {
 
 ---
 
-## Q2. Designing the frontend architecture using React.js for scalability and maintainability
+## Q2. ⚛️ Designing the frontend architecture using React.js for scalability and maintainability
 
 **Situation:** The React.js frontend needed to handle complex state management (matches, contests, teams, wallet), support multiple sports, provide smooth navigation, and maintain performance as the application grew in features and users.
 
@@ -2838,7 +3334,7 @@ try {
 
 ---
 
-## Q3. Designing the backend architecture using Node.js and Express.js to handle high traffic
+## Q3. 🟢 Designing the backend architecture using Node.js and Express.js to handle high traffic
 
 **Situation:** The backend needed to handle 10,000+ concurrent users, process real-time match updates, manage payment transactions, handle KYC verifications, and scale horizontally as traffic grows.
 
@@ -2850,7 +3346,7 @@ try {
 
 ---
 
-## Q4. Implementing real-time match updates using Socket.io on both frontend and backend
+## Q4. ⏰ ⏰ ⏰ Implementing real-time match updates using Socket.io on both frontend and backend
 
 **Situation:** Users needed to see live match scores, player statistics, and contest leaderboards updating in real-time without page refreshes, while ensuring the system scales to handle thousands of concurrent connections.
 
@@ -2862,7 +3358,7 @@ try {
 
 ---
 
-## Q5. Handling state management complexity using Redux Toolkit in React.js
+## Q5. ⚛️ Handling state management complexity using Redux Toolkit in React.js
 
 **Situation:** The application had complex state requirements - matches data, contests, user teams, wallet balance, authentication state, and UI state needed to be shared across multiple components and screens.
 

@@ -222,6 +222,7 @@ App
 │       │   ├── ConditionSelector
 │       │   └── NotificationChannels
 └── SocketProvider (Real-time metrics and alerts)
+
 ```
 
 ### Key React Components
@@ -297,6 +298,7 @@ const AlertCard: React.FC<{ alert: Alert }> = ({ alert }) => {
     </div>
   );
 };
+
 ```
 
 ### State Management
@@ -337,6 +339,7 @@ const useMetric = (metricName: string, options: { timeRange: string }) => {
     refetchInterval: 10000 // Refetch every 10 seconds
   });
 };
+
 ```
 
 ### Component Interactions
@@ -395,6 +398,7 @@ interface Model {
 - **Description:** Ingest log entries (used by applications)
 
 - **Request Body:**
+
   ```json
   {
     "level": "error",
@@ -406,9 +410,11 @@ interface Model {
       "requestId": "req_abc123"
     }
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -417,6 +423,7 @@ interface Model {
       "ingestedAt": "2024-01-15T10:30:00Z"
     }
   }
+
   ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error)
@@ -436,6 +443,7 @@ interface Model {
   - `limit`: number (default: 50, max: 100)
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -455,6 +463,7 @@ interface Model {
       "limit": 50
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success)
@@ -472,6 +481,7 @@ interface Model {
   - `endTime`: ISO string (required)
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -484,6 +494,7 @@ interface Model {
       ]
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success)
@@ -1174,7 +1185,7 @@ try {
 
 ---
 
-## Q1. Designing a monitoring and logging system
+## Q1. 👁️ Designing a monitoring and logging system
 
 **Situation:** Need to design a monitoring and logging system for 100+ microservices that collects 1B+ log entries per day, provides real-time metrics, and enables log search and alerting.
 
@@ -1202,7 +1213,7 @@ try {
 
 ---
 
-## Q2. Handling high-volume log ingestion
+## Q2. 💡 Handling high-volume log ingestion
 
 **Situation:** 100+ services generate 1B+ log entries per day, need to ingest without losing logs.
 
@@ -1228,7 +1239,7 @@ try {
 
 ---
 
-## Q3. Implementing real-time alerting
+## Q3. ⏰ ⏰ ⏰ Implementing real-time alerting
 
 **Situation:** Need to alert on errors, high latency, or system failures in real-time.
 
@@ -1251,3 +1262,597 @@ try {
 **Result:** Alerts trigger within 30 seconds of issue. Alert deduplication reduces noise by 80%. On-call engineers receive timely notifications.
 
 **Takeaway:** Prometheus provides powerful alerting. Alertmanager handles routing and grouping. Fast evaluation enables real-time alerts.
+
+---
+
+## Q4. 💡 Building dashboards for metrics visualization
+
+**Situation:** Need to create customizable dashboards to visualize metrics and logs for different teams and use cases.
+
+**Action:** I implemented dashboard system:
+
+- **Dashboard Builder:** Create dashboards using Grafana with drag-and-drop widgets
+- **Metric Visualization:** Support multiple chart types (line, bar, area, pie, gauge)
+- **Time Range Selection:** Allow users to select time ranges (1h, 24h, 7d, 30d, custom)
+- **Dashboard Templates:** Provide pre-built dashboard templates for common use cases
+- **Real-time Updates:** Update dashboards in real-time via WebSocket or polling
+- **Dashboard Sharing:** Allow teams to share dashboards with permissions
+- **Custom Queries:** Support custom PromQL queries for advanced metrics
+- **Alert Integration:** Display active alerts on dashboards
+
+**Result:** Teams create custom dashboards for their needs. Dashboards load in < 2 seconds. Real-time updates every 10 seconds. 50+ dashboards created by different teams.
+
+**Takeaway:** Grafana provides powerful visualization. Custom queries enable advanced metrics. Dashboard sharing improves collaboration.
+
+---
+
+## Q5. 📊 Scaling the system for billions of log entries
+
+**Situation:** System needs to handle 1B+ log entries per day, scale storage, and maintain fast search performance.
+
+**Action:** I implemented scaling strategies:
+
+- **Log Partitioning:** Partition logs by date/service in Elasticsearch indexes
+- **Index Lifecycle Management:** Automatically move old indexes to cold storage, delete after retention period
+- **Sharding:** Shard Elasticsearch indexes across multiple nodes
+- **Log Sampling:** Sample logs for high-volume services to reduce storage
+- **Compression:** Compress old logs before archiving
+- **Cold Storage:** Archive old logs to S3/Glacier for cost savings
+- **Horizontal Scaling:** Add Elasticsearch nodes as log volume grows
+- **Query Optimization:** Optimize Elasticsearch queries, use filters instead of queries when possible
+
+**Result:** System handles 1B+ log entries per day. Storage costs reduced by 70% with lifecycle management. Search performance maintained < 1 second. Scales horizontally.
+
+**Takeaway:** Index lifecycle management reduces storage costs. Partitioning improves query performance. Horizontal scaling handles growth.
+
+---
+
+# 4) Algorithms
+
+## Log Aggregation Algorithm
+
+**Purpose:** Aggregate logs by service, level, or time window for analysis and alerting.
+
+**Algorithm:**
+1. Group logs by aggregation key (service, level, time window)
+2. Count occurrences or calculate statistics (sum, average, max, min)
+3. Store aggregated results in time-series database
+4. Use aggregated data for dashboards and alerts
+
+**Implementation:**
+
+```typescript
+class LogAggregator {
+  async aggregateLogs(
+    logs: LogEntry[],
+    groupBy: 'service' | 'level' | 'hour',
+    timeWindow: number = 3600000 // 1 hour
+  ): Promise<AggregatedLog[]> {
+    const groups = new Map<string, LogEntry[]>();
+    
+    // Group logs
+    for (const log of logs) {
+      let key: string;
+      
+      if (groupBy === 'service') {
+        key = log.service;
+      } else if (groupBy === 'level') {
+        key = log.level;
+      } else {
+        const hour = Math.floor(log.timestamp.getTime() / timeWindow);
+        key = hour.toString();
+      }
+      
+      if (!groups.has(key)) {
+        groups.set(key, []);
+      }
+      groups.get(key)!.push(log);
+    }
+    
+    // Aggregate each group
+    const aggregated: AggregatedLog[] = [];
+    for (const [key, groupLogs] of groups.entries()) {
+      aggregated.push({
+        key,
+        count: groupLogs.length,
+        errorCount: groupLogs.filter(l => l.level === 'error').length,
+        warnCount: groupLogs.filter(l => l.level === 'warn').length,
+        timestamp: new Date()
+      });
+    }
+    
+    return aggregated;
+  }
+}
+
+```
+
+**Complexity:**
+- Time: O(n) where n is number of logs
+- Space: O(n) for grouping
+- **Use Case:** Real-time log aggregation for dashboards and alerts
+
+---
+
+## Time-Series Downsampling Algorithm
+
+**Purpose:** Reduce time-series data points for long time ranges while preserving trends.
+
+**Algorithm:**
+1. Divide time range into buckets (e.g., 1-minute buckets for 1-hour range)
+2. Aggregate data points within each bucket (average, max, min, sum)
+3. Store downsampled data for efficient querying
+4. Use original data for recent time ranges, downsampled for historical
+
+**Implementation:**
+
+```typescript
+function downsampleTimeSeries(
+  dataPoints: DataPoint[],
+  targetInterval: number // milliseconds
+): DataPoint[] {
+  const buckets = new Map<number, number[]>();
+  
+  // Group data points into buckets
+  for (const point of dataPoints) {
+    const bucketTime = Math.floor(point.timestamp.getTime() / targetInterval) * targetInterval;
+    
+    if (!buckets.has(bucketTime)) {
+      buckets.set(bucketTime, []);
+    }
+    buckets.get(bucketTime)!.push(point.value);
+  }
+  
+  // Aggregate each bucket (average)
+  const downsampled: DataPoint[] = [];
+  for (const [timestamp, values] of buckets.entries()) {
+    const avg = values.reduce((sum, val) => sum + val, 0) / values.length;
+    downsampled.push({
+      timestamp: new Date(timestamp),
+      value: avg
+    });
+  }
+  
+  return downsampled.sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
+}
+
+```
+
+**Complexity:**
+- Time: O(n) where n is number of data points
+- Space: O(n) for buckets
+- **Use Case:** Efficient querying of long time ranges
+
+---
+
+# 5) Data Models
+
+## Logs Collection (Elasticsearch)
+
+```javascript
+{
+  _id: String,              // Elasticsearch document ID
+  logId: String,            // Unique log ID
+  level: String,            // error, warn, info, debug
+  message: String,          // Log message
+  service: String,          // Service name, indexed
+  timestamp: Date,          // Log timestamp, indexed
+  hostname: String,        // Server hostname
+  environment: String,     // production, staging, development
+  metadata: Object,         // Additional metadata (userId, requestId, etc.)
+  stackTrace: String,       // Stack trace (for errors)
+  tags: [String]           // Tags for filtering
+}
+
+// Indexes:
+// - logs-YYYY-MM-DD (daily indexes)
+// - Index template: logs-*
+// - Mappings: timestamp (date), service (keyword), level (keyword)
+
+```
+
+## Metrics Collection (Prometheus/Time-Series DB)
+
+```javascript
+{
+  metric: String,           // Metric name (cpu_usage, memory_usage, etc.)
+  service: String,          // Service name
+  value: Number,           // Metric value
+  timestamp: Date,         // Metric timestamp
+  labels: Object           // Labels (environment, instance, etc.)
+}
+
+// Storage:
+// - Prometheus time-series database
+// - Retention: 15 days (configurable)
+// - Downsampling: Aggregated metrics for longer retention
+
+```
+
+## Alerts Collection (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  alertId: String,         // Unique alert ID, indexed
+  name: String,            // Alert name
+  description: String,     // Alert description
+  metric: String,          // Metric name
+  condition: String,       // Alert condition (>, <, ==)
+  threshold: Number,       // Threshold value
+  severity: String,        // critical, warning, info
+  status: String,          // active, resolved, acknowledged
+  service: String,         // Service name, indexed
+  triggeredAt: Date,       // When alert was triggered, indexed
+  resolvedAt: Date,        // When alert was resolved
+  acknowledgedBy: ObjectId, // User who acknowledged
+  acknowledgedAt: Date,    // When alert was acknowledged
+  notifications: [Object], // Notification channels
+  createdAt: Date,
+  updatedAt: Date
+}
+
+// Indexes:
+// - { alertId: 1 } (unique)
+// - { status: 1, triggeredAt: -1 } (compound)
+// - { service: 1, status: 1 } (compound)
+// - { severity: 1, status: 1 } (compound)
+
+```
+
+---
+
+# 6) Database Transactions and Consistency
+
+### MongoDB Transactions
+
+**Transaction Usage:**
+- **Multi-Document Transactions** - For operations requiring ACID guarantees
+- **Example:** Alert creation + notification sending + metric update in single transaction
+- **Session Management:** Use MongoDB sessions for transaction control
+
+**Example:**
+
+```typescript
+const session = await mongoose.startSession();
+session.startTransaction();
+try {
+  await Alert.create([alertData], { session });
+  await Notification.create([notificationData], { session });
+  await Metric.updateOne({ metricId }, { $set: { alertId } }, { session });
+  await session.commitTransaction();
+} catch (error) {
+  await session.abortTransaction();
+  throw error;
+} finally {
+  session.endSession();
+}
+
+```
+
+### Consistency Strategies
+
+**Data Consistency:**
+- **Log Consistency:** Ensure logs are indexed in order using Kafka partitioning
+- **Metric Consistency:** Ensure metrics are aggregated correctly
+- **Alert Consistency:** Ensure alerts trigger correctly based on metrics
+- **Eventual Consistency:** Accept eventual consistency for log indexing (logs may appear slightly out of order)
+
+---
+
+# 7) Protocols
+
+### REST API Protocol
+
+- **Protocol:** REST (Representational State Transfer)
+- **Data Format:** JSON
+- **HTTP Methods:** GET, POST, PUT, DELETE
+- **Status Codes:** 200 (Success), 201 (Created), 400 (Bad Request), 401 (Unauthorized), 404 (Not Found), 500 (Server Error)
+- **Authentication:** JWT Bearer token in Authorization header
+
+### WebSocket Protocol
+
+- **Protocol:** WebSocket (via Socket.io)
+- **Events:**
+  - `metric-update` - Real-time metric updates
+  - `alert-triggered` - Alert triggered event
+  - `alert-resolved` - Alert resolved event
+  - `log-update` - New log entry (for real-time log streaming)
+- **Use Case:** Real-time dashboard updates
+
+### Message Queue Protocol (Kafka)
+
+- **Protocol:** Kafka message queue
+- **Topics:** `logs`, `metrics`, `alerts`
+- **Partitioning:** Partition by service/environment for parallel processing
+- **Use Case:** High-throughput log ingestion
+
+---
+
+# 8) API Design
+
+### POST /api/v1/logs
+
+- **URL:** `/api/v1/logs`
+- **Method:** POST
+- **Description:** Ingest log entries from applications
+- **Request Body:**
+
+  ```json
+  {
+    "level": "error",
+    "message": "Database connection failed",
+    "service": "user-service",
+    "timestamp": "2024-01-15T10:30:00Z",
+    "metadata": {
+      "userId": "user123",
+      "requestId": "req_abc123"
+    }
+  }
+
+  ```
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "logId": "log_abc123",
+      "ingestedAt": "2024-01-15T10:30:00Z"
+    }
+  }
+
+  ```
+- **Status Codes:** 201 (Created), 400 (Validation Error)
+
+### GET /api/v1/metrics/:metricName
+
+- **URL:** `/api/v1/metrics/:metricName?service=user-service&startTime=2024-01-15T00:00:00Z&endTime=2024-01-15T23:59:59Z`
+- **Method:** GET
+- **Description:** Get time-series metric data
+- **Query Parameters:**
+  - `service`: string (optional)
+  - `startTime`: ISO string (required)
+  - `endTime`: ISO string (required)
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "metric": "cpu_usage",
+      "service": "user-service",
+      "dataPoints": [
+        { "timestamp": "2024-01-15T10:00:00Z", "value": 45.2 },
+        { "timestamp": "2024-01-15T10:05:00Z", "value": 48.5 }
+      ]
+    }
+  }
+
+  ```
+- **Status Codes:** 200 (Success), 400 (Invalid Parameters)
+
+### POST /api/v1/alerts
+
+- **URL:** `/api/v1/alerts`
+- **Method:** POST
+- **Description:** Create alert rule
+- **Request Body:**
+
+  ```json
+  {
+    "name": "High Error Rate",
+    "description": "Alert when error rate exceeds 1%",
+    "metric": "error_rate",
+    "condition": ">",
+    "threshold": 0.01,
+    "severity": "critical",
+    "service": "user-service",
+    "notificationChannels": ["email", "slack"]
+  }
+
+  ```
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "alertId": "alert_abc123",
+      "name": "High Error Rate",
+      "status": "active",
+      "createdAt": "2024-01-15T10:30:00Z"
+    }
+  }
+
+  ```
+- **Status Codes:** 201 (Created), 400 (Validation Error)
+
+---
+
+# 9) Caching Strategy
+
+### Redis Cache
+
+**Cache Strategy:**
+- **Key Format:** `metrics:{service}:{metric}:{timeRange}`, `logs:query:{hash}`, `dashboard:{dashboardId}`
+- **Value:** Serialized JSON (metric data, log query results, dashboard config)
+- **TTL:** 
+  - Metrics: 60 seconds (frequently updated)
+  - Log queries: 300 seconds (5 minutes)
+  - Dashboard config: 3600 seconds (1 hour)
+- **Eviction Policy:** LRU (Least Recently Used)
+
+**Cache Patterns:**
+- **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
+- **Write-Through Pattern:** Update cache when metrics are collected
+- **Cache Invalidation:** Invalidate cache when new logs/metrics arrive
+
+### Cache Warming
+
+- **Pre-load Strategy:** Pre-load popular metrics and dashboards
+- **Update on Read:** Update cache on every query to keep data fresh
+- **TTL Extension:** Extend TTL for frequently accessed metrics
+
+---
+
+# 10) Error Handling
+
+### Error Scenarios and Responses
+
+**Edge Cases Handling:**
+- **Elasticsearch Unavailable:** Return 503 Service Unavailable, queue logs locally for retry
+- **Invalid Log Format:** Return 400 Bad Request with validation errors
+- **Query Timeout:** Return 504 Gateway Timeout when log query exceeds timeout
+- **Prometheus Unavailable:** Return 503 Service Unavailable, continue collecting metrics locally
+- **High Log Volume:** Implement rate limiting, return 429 Too Many Requests
+- **Invalid Metric Query:** Return 400 Bad Request with query error details
+
+**Error Response Format:**
+
+```json
+{
+  "error": {
+    "code": "ELASTICSEARCH_UNAVAILABLE",
+    "message": "Log storage service temporarily unavailable",
+    "details": "Elasticsearch cluster is down. Logs are being queued and will be processed when service is restored.",
+    "retryAfter": 60
+  }
+}
+
+```
+
+---
+
+# 11) Deployment and DevOps
+
+### Scalability
+
+**API Layer:**
+- Deploy API layer across multiple instances behind load balancer
+- Use auto-scaling based on CPU/memory metrics
+- Stateless design allows horizontal scaling
+
+**Log Processing:**
+- **Kafka Scaling:** Scale Kafka brokers and partitions for high throughput
+- **Consumer Scaling:** Scale log consumers horizontally
+- **Elasticsearch Scaling:** Add Elasticsearch nodes for storage and query capacity
+
+**Metrics Collection:**
+- **Prometheus Scaling:** Use Prometheus federation for scaling
+- **Scrape Interval:** Configure appropriate scrape intervals to balance freshness and load
+
+**Caching:**
+- Distributed Redis cluster for high availability
+- Cache metric queries and dashboard data
+- Reduces database load significantly
+
+### Availability
+
+**Replication:**
+- Elasticsearch replication ensures log availability
+- Prometheus replication for metrics availability
+- Multi-region replication for disaster recovery
+
+**Failover:**
+- Automated failover mechanisms for all services
+- Health checks and monitoring for proactive failover
+- Circuit breaker pattern to prevent cascading failures
+
+**Geo-Distributed Deployment:**
+- Deploy service across multiple geographical regions
+- Reduces latency for users worldwide
+- Improves availability by eliminating single point of failure
+
+### Frontend Deployment
+
+**Build Process:**
+- **Production Build:** Optimized bundle with code splitting
+- **CDN Deployment:** Deploy static assets to CDN for fast global delivery
+- **Environment Variables:** `.env.production` for production config
+
+**Deployment Platforms:**
+- **Vercel / Netlify** - Automatic deployments from Git
+- **AWS S3 + CloudFront** - Static site hosting with CDN
+
+### Backend Deployment
+
+**Server Setup:**
+- **PM2:** Process manager with clustering for Node.js apps
+- **Nginx:** Load balancer and reverse proxy with SSL termination
+- **Docker:** Containerized deployment for consistency
+- **Kubernetes:** Container orchestration for auto-scaling
+
+**CI/CD Pipeline:**
+- **Automated Testing:** Run tests before deployment
+- **Zero-Downtime:** Rolling deployment strategy
+- **Health Checks:** Verify monitoring endpoints are healthy
+- **Blue-Green Deployment:** Maintain two identical production environments
+
+### Database Deployment
+
+**Elasticsearch Setup:**
+- **Elasticsearch Cluster** - Managed service or self-hosted
+- **Index Management** - Configure index templates and lifecycle policies
+- **Retention Policy:** Configure index lifecycle management (hot → warm → cold → delete)
+- **Sharding:** Configure appropriate number of shards per index
+
+**Prometheus Setup:**
+- **Prometheus Server** - Time-series database for metrics
+- **Retention:** Configure metric retention period (15-30 days)
+- **Scraping:** Configure metric scraping from services
+- **Federation:** Use Prometheus federation for scaling
+
+**MongoDB Setup:**
+- **MongoDB Atlas** - Managed MongoDB service with automatic backups
+- **Backup Strategy:** Daily automated backups with point-in-time recovery
+- **Indexing:** Proper indexes on alertId, service, status, triggeredAt
+- **Replication:** Replica sets for high availability
+
+**Redis Setup:**
+- **Redis Cloud / AWS ElastiCache** - Managed Redis service
+- **Cluster Mode:** Redis cluster for high availability and performance
+- **Persistence:** RDB snapshots and AOF for data durability
+
+---
+
+# 12) Security Considerations
+
+### Rate Limiting
+
+- Implement rate limiting at API layer to prevent abuse
+- Limit number of log ingestion requests per service/IP per minute/hour
+- Use Redis for distributed rate limiting across multiple servers
+
+### Input Validation
+
+- Validate all API inputs (log entries, metric queries, alert rules)
+- Sanitize user input to prevent injection attacks
+- Validate log format before ingestion
+
+### HTTPS/TLS
+
+- All communication between clients and API encrypted using HTTPS
+- Prevents eavesdropping and man-in-the-middle attacks
+- SSL/TLS certificates for secure connections
+
+### Authentication and Authorization
+
+- **JWT Tokens:** Use JWT for stateless authentication
+- **Token Expiration:** Set appropriate token expiration times
+- **Role-Based Access Control:** Implement RBAC for admin vs viewer access
+- **Service Authentication:** Use API keys for service-to-service authentication (log ingestion)
+
+### Log Data Privacy
+
+- **PII Masking:** Mask personally identifiable information (PII) in logs
+- **Data Retention:** Implement log retention policies to comply with regulations
+- **Access Control:** Restrict access to sensitive logs
+- **Encryption:** Encrypt logs at rest and in transit
+
+### Monitoring and Alerts
+
+- Set up monitoring for unusual log patterns or metric anomalies
+- Trigger alerts for potential security issues
+- Track metrics: log ingestion rates, query performance, storage usage
+- Log all monitoring operations for security auditing

@@ -951,6 +951,7 @@ App
 │       ├── LeaderboardList
 │       └── UserStats
 └── SocketProvider (Real-time game updates)
+
 ```
 
 ### Key React Components
@@ -1056,6 +1057,7 @@ const PlayerControls: React.FC<{ gameState: GameState; onAction: (action: Player
     </div>
   );
 };
+
 ```
 
 ### State Management
@@ -1098,6 +1100,7 @@ const usePlayerAction = () => {
     }
   });
 };
+
 ```
 
 ### Component Interactions
@@ -1277,15 +1280,18 @@ interface ChatMessage {
 - **Method:** POST
 
 - **Request Body:**
+
   ```json
   {
     "username": "player123",
     "email": "player@example.com",
     "password": "securePassword123"
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1294,6 +1300,7 @@ interface ChatMessage {
       "token": "jwt_token_here"
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 400 (Validation Error), 409 (User Exists)
@@ -1305,14 +1312,17 @@ interface ChatMessage {
 - **Method:** POST
 
 - **Request Body:**
+
   ```json
   {
     "email": "player@example.com",
     "password": "securePassword123"
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1321,6 +1331,7 @@ interface ChatMessage {
       "token": "jwt_token_here"
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 401 (Invalid Credentials)
@@ -1340,6 +1351,7 @@ interface ChatMessage {
   - `limit`: number
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1353,6 +1365,7 @@ interface ChatMessage {
       }
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success)
@@ -1364,6 +1377,7 @@ interface ChatMessage {
 - **Method:** POST
 
 - **Request Body:**
+
   ```json
   {
     "name": "High Stakes Room",
@@ -1373,9 +1387,11 @@ interface ChatMessage {
     "bigBlind": 20,
     "buyIn": 1000
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1383,6 +1399,7 @@ interface ChatMessage {
       "room": { /* GameRoom object */ }
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 400 (Validation Error)
@@ -1394,6 +1411,7 @@ interface ChatMessage {
 - **Method:** GET
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1401,6 +1419,7 @@ interface ChatMessage {
       "room": { /* GameRoom object with full details */ }
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 404 (Room Not Found)
@@ -1412,13 +1431,16 @@ interface ChatMessage {
 - **Method:** POST
 
 - **Request Body:**
+
   ```json
   {
     "seatNumber": 1
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1427,6 +1449,7 @@ interface ChatMessage {
       "player": { /* Player object */ }
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 400 (Room Full), 403 (Invalid Seat)
@@ -1440,6 +1463,7 @@ interface ChatMessage {
 - **Method:** GET
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1447,6 +1471,7 @@ interface ChatMessage {
       "gameState": { /* GameState object */ }
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 404 (Game Not Found)
@@ -1458,6 +1483,7 @@ interface ChatMessage {
 - **Method:** GET
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1466,6 +1492,7 @@ interface ChatMessage {
       "pagination": { /* Pagination object */ }
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success)
@@ -1479,6 +1506,7 @@ interface ChatMessage {
 - **Method:** GET
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1486,6 +1514,7 @@ interface ChatMessage {
       "stats": { /* UserStats object */ }
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success)
@@ -1497,6 +1526,7 @@ interface ChatMessage {
 - **Method:** GET
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -1505,6 +1535,7 @@ interface ChatMessage {
       "pagination": { /* Pagination object */ }
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success)
@@ -2493,9 +2524,494 @@ try {
 
 ---
 
+# 4) Algorithms
+
+## Poker Hand Evaluation Algorithm
+
+**Purpose:** Evaluate poker hands and determine winner.
+
+**Algorithm:**
+1. Get player's hole cards and community cards
+2. Generate all possible 5-card combinations
+3. Evaluate each combination for hand rank
+4. Select best hand rank
+5. Compare hands to determine winner
+
+**Implementation:**
+
+```typescript
+enum HandRank {
+  HIGH_CARD = 1,
+  PAIR = 2,
+  TWO_PAIR = 3,
+  THREE_OF_A_KIND = 4,
+  STRAIGHT = 5,
+  FLUSH = 6,
+  FULL_HOUSE = 7,
+  FOUR_OF_A_KIND = 8,
+  STRAIGHT_FLUSH = 9,
+  ROYAL_FLUSH = 10
+}
+
+function evaluateHand(holeCards: Card[], communityCards: Card[]): Hand {
+  const allCards = [...holeCards, ...communityCards];
+  const combinations = generateCombinations(allCards, 5);
+  
+  let bestHand: Hand | null = null;
+  
+  for (const combo of combinations) {
+    const hand = evaluateFiveCards(combo);
+    if (!bestHand || compareHands(hand, bestHand) > 0) {
+      bestHand = hand;
+    }
+  }
+  
+  return bestHand!;
+}
+
+function evaluateFiveCards(cards: Card[]): Hand {
+  const sorted = sortCards(cards);
+  const ranks = getRanks(sorted);
+  const suits = getSuits(sorted);
+  
+  const isFlush = suits.every(s => s === suits[0]);
+  const isStraight = isConsecutive(ranks);
+  
+  if (isFlush && isStraight && ranks[0] === 14) {
+    return { rank: HandRank.ROYAL_FLUSH, cards: sorted };
+  }
+  if (isFlush && isStraight) {
+    return { rank: HandRank.STRAIGHT_FLUSH, cards: sorted };
+  }
+  
+  const rankCounts = countRanks(ranks);
+  // ... more hand evaluation logic
+  
+  return { rank: HandRank.HIGH_CARD, cards: sorted };
+}
+
+```
+
+**Complexity:**
+- Time: O(C(7,5) * 5) = O(21 * 5) = O(105) for hand evaluation
+- Space: O(1)
+- **Hand Evaluation:** Fast evaluation ensures responsive gameplay
+
+---
+
+## Betting Round Management Algorithm
+
+**Purpose:** Manage betting rounds and determine when round is complete.
+
+**Algorithm:**
+1. Start with first active player after dealer
+2. Wait for player action (fold, check, call, raise, all-in)
+3. Update pot and current bet
+4. Move to next active player
+5. Check if all players have acted (all called or folded)
+6. If complete, proceed to next phase (flop, turn, river, showdown)
+
+**Implementation:**
+
+```typescript
+class BettingRound {
+  private players: Player[];
+  private currentPlayerIndex: number;
+  private currentBet: number;
+  private pot: number;
+  
+  async processAction(playerId: string, action: PlayerAction): Promise<void> {
+    const player = this.players.find(p => p.id === playerId);
+    if (!player || !player.isTurn) {
+      throw new Error('Not player\'s turn');
+    }
+    
+    // Validate and process action
+    switch (action.action) {
+      case 'fold':
+        player.status = 'folded';
+        break;
+      case 'check':
+        if (this.currentBet > 0) {
+          throw new Error('Cannot check when bet is active');
+        }
+        break;
+      case 'call':
+        const callAmount = Math.min(this.currentBet - player.currentBet, player.chips);
+        player.chips -= callAmount;
+        player.currentBet += callAmount;
+        this.pot += callAmount;
+        break;
+      case 'raise':
+        if (action.amount! < this.currentBet * 2) {
+          throw new Error('Raise must be at least double current bet');
+        }
+        const raiseAmount = action.amount! - player.currentBet;
+        player.chips -= raiseAmount;
+        player.currentBet = action.amount!;
+        this.currentBet = action.amount!;
+        this.pot += raiseAmount;
+        break;
+    }
+    
+    // Move to next player
+    this.moveToNextPlayer();
+    
+    // Check if round is complete
+    if (this.isRoundComplete()) {
+      this.proceedToNextPhase();
+    }
+  }
+}
+
+```
+
+**Complexity:**
+- Time: O(n) where n is number of players
+- Space: O(1)
+- **Betting Management:** Ensures fair and consistent betting rounds
+
+---
+
+# 5) Data Models
+
+## Game Rooms Collection (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  roomId: String,          // Unique room ID, indexed
+  name: String,           // Room name
+  type: String,           // public, private
+  maxPlayers: Number,     // Maximum players (2-9)
+  currentPlayers: Number, // Current number of players
+  smallBlind: Number,     // Small blind amount
+  bigBlind: Number,       // Big blind amount
+  buyIn: Number,          // Buy-in amount
+  status: String,         // waiting, playing, finished, indexed
+  players: [ObjectId],    // Array of player IDs
+  currentHand: ObjectId,  // Current hand reference
+  createdAt: Date,
+  updatedAt: Date
+}
+
+// Indexes:
+// - { roomId: 1 } (unique)
+// - { status: 1, type: 1 } (compound)
+// - { players: 1 } (indexed)
+
+```
+
+## Game Hands Collection (MongoDB)
+
+```javascript
+{
+  _id: ObjectId,
+  handId: String,         // Unique hand ID, indexed
+  roomId: ObjectId,       // Room reference, indexed
+  phase: String,          // pre-flop, flop, turn, river, showdown, finished
+  communityCards: [Object], // Array of community cards
+  pot: Number,            // Current pot size
+  currentBet: Number,     // Current bet amount
+  dealerIndex: Number,    // Dealer position
+  activePlayers: [ObjectId], // Array of active player IDs
+  currentPlayerIndex: Number, // Current player to act
+  winners: [Object],      // Array of winners
+  startedAt: Date,        // Hand start time
+  completedAt: Date,      // Hand completion time
+  createdAt: Date,
+  updatedAt: Date
+}
+
+// Indexes:
+// - { handId: 1 } (unique)
+// - { roomId: 1, startedAt: -1 } (compound)
+
+```
+
+---
+
+# 6) Database Transactions and Consistency
+
+### MongoDB Transactions
+
+**Transaction Usage:**
+- **Multi-Document Transactions** - For operations requiring ACID guarantees
+- **Example:** Chip transfer + pot distribution + action logging in single transaction
+- **Session Management:** Use MongoDB sessions for transaction control
+
+**Example:**
+
+```typescript
+const session = await mongoose.startSession();
+session.startTransaction();
+try {
+  await Player.updateOne({ userId }, { $inc: { chips: -betAmount } }, { session });
+  await Game.updateOne({ roomId }, { $inc: { pot: betAmount } }, { session });
+  await Action.create([{ roomId, userId, action: 'bet', amount: betAmount }], { session });
+  await session.commitTransaction();
+} catch (error) {
+  await session.abortTransaction();
+  throw error;
+} finally {
+  session.endSession();
+}
+
+```
+
+### Consistency Strategies
+
+**Data Consistency:**
+- **Game State Consistency:** Use transactions for all game state changes to ensure atomicity
+- **Chip Consistency:** Ensure chip transfers are atomic
+- **Action Consistency:** Log all actions atomically with state changes
+- **Eventual Consistency:** Accept eventual consistency for game state broadcasts (may update with slight delay)
+
+---
+
+# 7) Protocols
+
+### REST API Protocol
+
+- **Protocol:** REST (Representational State Transfer)
+- **Data Format:** JSON
+- **HTTP Methods:** GET, POST, PUT, DELETE
+- **Status Codes:** 200 (Success), 201 (Created), 400 (Bad Request), 401 (Unauthorized), 404 (Not Found), 500 (Server Error)
+- **Authentication:** JWT Bearer token in Authorization header
+
+### WebSocket Protocol
+
+- **Protocol:** Socket.io over WebSocket
+- **Events:** `player-action`, `game-state-updated`, `cards-dealt`, `hand-completed`
+- **Authentication:** JWT token in handshake
+- **Use Case:** Real-time game state synchronization
+
+---
+
+# 8) API Design
+
+### POST /api/v1/rooms/:roomId/action
+
+- **URL:** `/api/v1/rooms/:roomId/action`
+- **Method:** POST
+- **Description:** Perform a game action (fold, call, raise, etc.)
+- **Request Body:**
+
+  ```json
+  {
+    "action": "raise",
+    "amount": 100
+  }
+
+  ```
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "actionId": "action_abc123",
+      "gameState": {...}
+    }
+  }
+
+  ```
+- **Status Codes:** 200 (Success), 400 (Invalid Action), 403 (Not Your Turn)
+
+### GET /api/v1/rooms/:roomId/state
+
+- **URL:** `/api/v1/rooms/:roomId/state`
+- **Method:** GET
+- **Description:** Get current game state
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "gameState": {...},
+      "players": [...],
+      "communityCards": [...]
+    }
+  }
+
+  ```
+- **Status Codes:** 200 (Success), 404 (Room Not Found)
+
+---
+
+# 9) Caching Strategy
+
+### Redis Cache
+
+**Cache Strategy:**
+- **Key Format:** `game:{roomId}:state`, `room:{roomId}:players`, `hand:{handId}`
+- **Value:** Serialized JSON (game state, player data, hand data)
+- **TTL:** 
+  - Game state: 60 seconds (frequently updated)
+  - Player data: 300 seconds (5 minutes)
+  - Hand data: 3600 seconds (1 hour) for completed hands
+- **Eviction Policy:** TTL-based eviction
+
+**Cache Patterns:**
+- **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
+- **Write-Through Pattern:** Update cache when game state changes
+- **Cache Invalidation:** Invalidate cache on game state updates
+
+---
+
+# 10) Error Handling
+
+### Error Scenarios and Responses
+
+**Edge Cases Handling:**
+- **Not Player's Turn:** Return 403 Forbidden with "Not your turn"
+- **Invalid Action:** Return 400 Bad Request with validation errors
+- **Insufficient Chips:** Return 400 Bad Request with "Insufficient chips"
+- **Room Not Found:** Return 404 Not Found
+- **Game Already Finished:** Return 400 Bad Request with "Game is finished"
+
+**Error Response Format:**
+
+```json
+{
+  "error": {
+    "code": "NOT_YOUR_TURN",
+    "message": "Not your turn",
+    "details": "Please wait for your turn to act"
+  }
+}
+
+```
+
+---
+
+# 11) Deployment and DevOps
+
+### Scalability
+
+**API Layer:**
+- Deploy API layer across multiple instances behind load balancer
+- Use auto-scaling based on CPU/memory metrics
+- Stateless design allows horizontal scaling
+
+**WebSocket Scaling:**
+- **Socket.io Redis Adapter:** Enable horizontal scaling of WebSocket connections
+- **Sticky Sessions:** Required for Socket.io (use session affinity in load balancer)
+- **Connection Management:** Monitor and manage WebSocket connections
+
+**Database Scaling:**
+- **Read Replicas:** Deploy read replicas for game state queries
+- **Sharding:** Shard game rooms by region for write scaling
+- **Connection Pooling:** Use connection pooling to manage database connections
+
+**Caching:**
+- Distributed Redis cluster for high availability
+- Cache game states and player data
+- Reduces database load significantly
+
+### Availability
+
+**Replication:**
+- Database replication ensures data availability
+- Multi-region replication for disaster recovery
+
+**Failover:**
+- Automated failover mechanisms for API and data store layers
+- Health checks and monitoring for proactive failover
+- Circuit breaker pattern to prevent cascading failures
+
+**Geo-Distributed Deployment:**
+- Deploy service across multiple geographical regions
+- Reduces latency for users worldwide
+- Improves availability by eliminating single point of failure
+
+### Frontend Deployment
+
+**Build Process:**
+- **Production Build:** Optimized bundle with code splitting
+- **CDN Deployment:** Deploy static assets to CDN for fast global delivery
+- **Environment Variables:** `.env.production` for production config
+
+**Deployment Platforms:**
+- **Vercel / Netlify** - Automatic deployments from Git
+- **AWS S3 + CloudFront** - Static site hosting with CDN
+
+### Backend Deployment
+
+**Server Setup:**
+- **PM2:** Process manager with clustering for Node.js apps
+- **Nginx:** Load balancer and reverse proxy with SSL termination
+- **Docker:** Containerized deployment for consistency
+- **Kubernetes:** Container orchestration for auto-scaling
+
+**CI/CD Pipeline:**
+- **Automated Testing:** Run tests before deployment
+- **Zero-Downtime:** Rolling deployment strategy
+- **Health Checks:** Verify game endpoints are healthy
+- **Blue-Green Deployment:** Maintain two identical production environments
+
+### Database Deployment
+
+**MongoDB Setup:**
+- **MongoDB Atlas** - Managed MongoDB service with automatic backups
+- **Backup Strategy:** Daily automated backups with point-in-time recovery
+- **Indexing:** Proper indexes on roomId, handId, userId
+- **Replication:** Replica sets for high availability
+
+**Redis Setup:**
+- **Redis Cloud / AWS ElastiCache** - Managed Redis service
+- **Cluster Mode:** Redis cluster for high availability and performance
+- **Persistence:** RDB snapshots and AOF for data durability
+
+---
+
+# 12) Security Considerations
+
+### Rate Limiting
+
+- Implement rate limiting at API layer to prevent abuse
+- Limit number of actions per player per second
+- Use Redis for distributed rate limiting across multiple servers
+
+### Input Validation
+
+- Validate all API inputs (actions, bet amounts)
+- Sanitize user input to prevent injection attacks
+- Validate game rules (betting limits, turn order)
+
+### HTTPS/TLS
+
+- All communication between clients and API encrypted using HTTPS
+- Prevents eavesdropping and man-in-the-middle attacks
+- SSL/TLS certificates for secure connections
+
+### Authentication and Authorization
+
+- **JWT Tokens:** Use JWT for stateless authentication
+- **Token Expiration:** Set appropriate token expiration times
+- **Role-Based Access Control:** Implement RBAC for game operations
+- **Room Access Control:** Verify user is in room before allowing actions
+
+### Game Security
+
+- **Server-Authoritative:** All game logic runs on server
+- **Action Validation:** Validate all actions against game rules
+- **Cheat Prevention:** Prevent client-side manipulation
+- **Secure Random:** Use cryptographically secure random for card dealing
+
+### Monitoring and Alerts
+
+- Set up monitoring for unusual activity patterns
+- Trigger alerts for potential security issues
+- Track metrics: action rates, game completion rates, player activity
+- Log all game actions for security auditing
+
+---
+
 # 3) Interview Answers
 
-## Q1. Most complex technical challenge in building the real-time poker game
+## Q1. ⏰ ⏰ ⏰ Most complex technical challenge in building the real-time poker game
 
 **Situation:** Building a real-time multiplayer poker game required handling simultaneous player actions, ensuring game state consistency across all players, preventing cheating, managing network latency, and maintaining smooth 60fps animations while supporting 1,000+ concurrent game rooms.
 
@@ -2507,7 +3023,7 @@ try {
 
 ---
 
-## Q2. Implementing real-time multiplayer synchronization using Socket.io in the MERN stack
+## Q2. ⏰ ⏰ ⏰ Implementing real-time multiplayer synchronization using Socket.io in the MERN stack
 
 **Situation:** Multiple players needed to see game actions (folds, bets, card deals) in real-time with minimal latency, while ensuring all players see the same game state simultaneously across different network conditions.
 
@@ -2519,7 +3035,7 @@ try {
 
 ---
 
-## Q3. Designing the game engine architecture in Node.js to prevent cheating
+## Q3. 🎯 Designing the game engine architecture in Node.js to prevent cheating
 
 **Situation:** The game needed to prevent players from manipulating game state, sending invalid actions, or exploiting client-side logic, ensuring fair gameplay for all players.
 
@@ -2531,7 +3047,7 @@ try {
 
 ---
 
-## Q4. Handling network latency and ensuring fair gameplay for all players
+## Q4. ⚡ Handling network latency and ensuring fair gameplay for all players
 
 **Situation:** Players from different locations experience varying network latencies (50ms to 500ms), which could give unfair advantages to players with lower latency if not handled properly.
 
@@ -2543,7 +3059,7 @@ try {
 
 ---
 
-## Q5. Managing game state complexity using React.js and Context API
+## Q5. ⚛️ Managing game state complexity using React.js and Context API
 
 **Situation:** The game had complex state requirements - current game phase, player actions, card states, chip counts, pot size, turn order, and UI state needed to be managed and synchronized with server state.
 

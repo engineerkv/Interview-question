@@ -237,21 +237,21 @@
 
 ## 📖 Complete Answer Guide
 
-- [1) Core JavaScript Fundamentals](1%29%20Core%20JavaScript%20Fundamentals.md) - Q1-15
+- [1) Core JavaScript Fundamentals](01%29%20Core%20JavaScript%20Fundamentals.md) - Q1-15
 
-- [2) Functions, Closures & Execution Context](2%29%20Functions%2C%20Closures%20%26%20Execution%20Context.md) - Q16-24
+- [2) Functions, Closures & Execution Context](02%29%20Functions%2C%20Closures%20%26%20Execution%20Context.md) - Q16-24
 
-- [3) Objects, Prototypes & Inheritance](3%29%20Objects%2C%20Prototypes%20%26%20Inheritance.md) - Q26-44
+- [3) Objects, Prototypes & Inheritance](03%29%20Objects%2C%20Prototypes%20%26%20Inheritance.md) - Q26-44
 
-- [4) ES6+ Features](4%29%20ES6%2B%20Features.md) - Q45-54
+- [4) ES6+ Features](04%29%20ES6%2B%20Features.md) - Q45-54
 
-- [5) Promises, Async/Await & Event Loop](5%29%20Promises%2C%20Async-Await%20%26%20Event%20Loop.md) - Q55-80
+- [5) Promises, Async/Await & Event Loop](05%29%20Promises%2C%20Async-Await%20%26%20Event%20Loop.md) - Q55-80
 
-- [6) Web Workers, Service Workers & Real-World Topics](6%29%20Web%20Workers%2C%20Service%20Workers%20%26%20Real-World%20Topics.md) - Q170-189
+- [6) Web Workers, Service Workers & Real-World Topics](06%29%20Web%20Workers%2C%20Service%20Workers%20%26%20Real-World%20Topics.md) - Q170-189
 
-- [7) Practical JavaScript Questions](7%29%20Practical%20JavaScript%20Questions.md) - Q81-126
+- [7) Practical JavaScript Questions](07%29%20Practical%20JavaScript%20Questions.md) - Q81-126
 
-- [8) JavaScript Output Questions](8%29%20JavaScript%20Output%20Questions.md) - Q190-248
+- [8) JavaScript Output Questions](08%29%20JavaScript%20Output%20Questions.md) - Q190-248
 
 ## 📝 Cheatsheet
 

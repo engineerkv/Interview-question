@@ -16,13 +16,13 @@
 
 ---
 
-## Q80. Local Storage
+## Q80. 💡 Local Storage
 
 Local Storage is a browser API that allows you to store data in the user's browser that persists even after you close the tab or browser. It's like a permanent sticky note that stays until you explicitly delete it or the user clears their browser data. Understanding when and how to use local storage effectively is important for building applications that provide a good user experience.
 
 ---
 
-## 1. What is Local Storage?
+## 1. 💡 What is Local Storage?
 
 ### 🔹 How It Works
 
@@ -79,13 +79,13 @@ localStorage persists until explicitly cleared. sessionStorage only lasts for th
 
 ---
 
-## Q81. Session Storage
+## Q81. 💡 Session Storage
 
 Session Storage is like Local Storage, but it only lasts for the current browser tab session. Close the tab, and the data is gone. It's perfect for temporary data that you only need while the user is actively using your site.
 
 ---
 
-## 1. What is Session Storage?
+## 1. 💡 What is Session Storage?
 
 ### 🔹 How It Works
 
@@ -139,13 +139,13 @@ Use sessionStorage for temporary data (form drafts, current session state) and l
 
 ---
 
-## Q82. Cookie Storage
+## Q82. 💡 Cookie Storage
 
 Cookies are small pieces of data that browsers send to the server with every request. Cookies are the oldest browser storage mechanism and are still widely used for authentication, tracking, and storing small amounts of data.
 
 ---
 
-## 1. What are Cookies?
+## 1. 💡 What are Cookies?
 
 ### 🔹 How Cookies Work
 
@@ -202,13 +202,13 @@ httpOnly cookies can only be accessed by the server (via Set-Cookie header), not
 
 ---
 
-## Q83. IndexedDB
+## Q83. 📇 IndexedDB
 
 IndexedDB is a powerful browser database that can store large amounts of structured data. Think of it as a full database in the browser - it supports indexes, transactions, and can store complex objects, files, and blobs.
 
 ---
 
-## 1. What is IndexedDB?
+## 1. 📇 What is IndexedDB?
 
 ### 🔹 How It Works
 
@@ -275,13 +275,13 @@ Use IndexedDB when you need to store large amounts of data (MBs+), need indexes 
 
 ---
 
-## Q84. Normalization
+## Q84. 💡 Normalization
 
 Normalization is organizing your data so you don't store the same information in multiple places. It's about having one source of truth for each piece of data, which makes updates easier and prevents inconsistencies.
 
 ---
 
-## 1. What is Normalization?
+## 1. 💡 What is Normalization?
 
 ### 🔹 The Problem
 
@@ -350,13 +350,13 @@ Denormalize (duplicate data) when you need faster reads and can accept the trade
 
 ---
 
-## Q85. HTTP Caching
+## Q85. 🌐 HTTP Caching
 
 HTTP caching uses browser and server mechanisms to store responses so you don't have to fetch the same data repeatedly. It's one of the most effective ways to make your app faster.
 
 ---
 
-## 1. How HTTP Caching Works
+## 1. 🌐 How HTTP Caching Works
 
 ### 🔹 Browser Cache
 
@@ -416,13 +416,13 @@ Cache-Control tells browser how long to cache. ETag allows browser to check if r
 
 ---
 
-## Q86. Service Worker Caching
+## Q86. 💾 Service Worker Caching
 
 Service Worker caching allows you to programmatically control what gets cached and how it's served. Unlike HTTP caching (which is automatic), you write code to decide caching strategies.
 
 ---
 
-## 1. How Service Worker Caching Works
+## 1. 💾 How Service Worker Caching Works
 
 ### 🔹 Programmatic Control
 
@@ -480,13 +480,13 @@ Version your cache names, delete old caches in the activate event, and show user
 
 ---
 
-## Q87. API Caching
+## Q87. 💾 API Caching
 
 API caching stores API responses so you don't make the same request repeatedly. It reduces server load, improves performance, and can enable offline functionality.
 
 ---
 
-## 1. API Caching Strategies
+## 1. 💾 API Caching Strategies
 
 ### 🔹 Client-Side Caching
 
@@ -545,13 +545,13 @@ Invalidate cache when data changes (after mutations), use time-based expiration,
 
 ---
 
-## Q88. State Management
+## Q88. 📦 State Management
 
 State management is how you store and share data across your app. When multiple components need the same data, you need a way to manage it centrally so everything stays in sync.
 
 ---
 
-## 1. Types of State
+## 1. 📦 Types of State
 
 ### 🔹 Local State
 
@@ -609,9 +609,9 @@ Client state is UI state and app state managed in memory (theme, form inputs). S
 
 <div align="center">
 
-[14) Performance.md](14%29%20Performance.md) • [Questions Index](question.md) • [16) Logging & Monitoring.md →](16%29%20Logging%20&%20Monitoring.md)
+[← Previous: Performance](18%29%20Performance.md) • [Home: Questions Index](question.md) • [Next: Logging & Monitoring →](20%29%20Logging%20%26%20Monitoring.md)
 
-[FE-System-Design Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md)
 
 </div>
 

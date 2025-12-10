@@ -1,4 +1,4 @@
-# 10. Git, Docker, CI/CD, Tooling (Q191–Q210)
+# 10. Git, Docker, CI/CD, Tooling (Q190–Q208)
 
 ---
 
@@ -16,13 +16,13 @@
 
 ---
 
-## Q191. 🔀 Git merge vs rebase
+## Q190. 🔀 Git merge vs rebase
 
 Git merge and rebase are two different ways to integrate changes from one branch into another. When you choose between them, you consider history preservation, linearity, and collaboration requirements.
 
 ---
 
-## 1. What is Git Merge
+## 1. 🔀 What is Git Merge
 
 Git merge creates a merge commit that combines two branches, preserving the history of both branches.
 
@@ -38,7 +38,7 @@ Git merge creates a merge commit that combines two branches, preserving the hist
 
 ---
 
-## 2. What is Git Rebase
+## 2. 💡 What is Git Rebase
 
 Git rebase replays commits from one branch onto another, creating a linear history without merge commits.
 
@@ -54,7 +54,7 @@ Git rebase replays commits from one branch onto another, creating a linear histo
 
 ---
 
-## 3. When to Use Merge
+## 3. 🔀 When to Use Merge
 
 Use merge to preserve branch history.
 
@@ -68,7 +68,7 @@ Use merge to preserve branch history.
 
 ---
 
-## 4. When to Use Rebase
+## 4. 💡 When to Use Rebase
 
 Use rebase to keep history clean and linear.
 
@@ -82,7 +82,7 @@ Use rebase to keep history clean and linear.
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 Merge preserves complete history which is good for understanding when branches were created and merged.
 
@@ -120,13 +120,13 @@ Merge preserves the branching structure (shows when branches diverged and merged
 
 ---
 
-## Q192. 🍒 Git cherry-pick
+## Q191. 🍒 Git cherry-pick
 
 Git cherry-pick applies a specific commit from one branch to another branch. When you cherry-pick, you select a commit by hash and apply its changes to your current branch without merging the entire branch.
 
 ---
 
-## 1. What is Cherry-pick
+## 1. 💡 What is Cherry-pick
 
 Git cherry-pick applies a specific commit from one branch to another branch.
 
@@ -142,7 +142,7 @@ Git cherry-pick applies a specific commit from one branch to another branch.
 
 ---
 
-## 2. Use Cases
+## 2. 💡 Use Cases
 
 This is useful for applying bug fixes or features from one branch to another without merging the entire branch.
 
@@ -156,7 +156,7 @@ This is useful for applying bug fixes or features from one branch to another wit
 
 ---
 
-## 3. How It Works
+## 3. 💡 How It Works
 
 Cherry-pick creates a new commit with the same changes but a different commit hash.
 
@@ -170,7 +170,7 @@ Cherry-pick creates a new commit with the same changes but a different commit ha
 
 ---
 
-## 4. Benefits
+## 4. 💡 Benefits
 
 Cherry-pick allows you to selectively apply commits, which is useful for hotfixes or backporting features.
 
@@ -184,7 +184,7 @@ Cherry-pick allows you to selectively apply commits, which is useful for hotfixe
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 Cherry-pick allows you to selectively apply commits, which is useful for hotfixes or backporting features.
 
@@ -220,13 +220,13 @@ If a commit depends on others, you might need to cherry-pick multiple commits in
 
 ---
 
-## Q193. 🔧 Fixing merge conflicts
+## Q192. 🔧 Fixing merge conflicts
 
 Merge conflicts occur when Git cannot automatically merge changes from different branches. When you fix merge conflicts, you manually resolve which changes to keep.
 
 ---
 
-## 1. Identifying Conflicts
+## 1. 💡 Identifying Conflicts
 
 Fix merge conflicts by opening conflicted files, finding conflict markers (<<<<<<, ======, >>>>>>).
 
@@ -242,7 +242,7 @@ Fix merge conflicts by opening conflicted files, finding conflict markers (<<<<<
 
 ---
 
-## 2. Resolving Conflicts
+## 2. 💡 Resolving Conflicts
 
 Manually resolve which changes to keep.
 
@@ -256,7 +256,7 @@ Manually resolve which changes to keep.
 
 ---
 
-## 3. Committing Resolution
+## 3. ✅ Committing Resolution
 
 Edit the file to remove conflict markers and keep the desired code, then stage the resolved file and commit.
 
@@ -270,7 +270,7 @@ Edit the file to remove conflict markers and keep the desired code, then stage t
 
 ---
 
-## 4. Tools
+## 4. 💡 Tools
 
 Use merge tools or IDE features to help visualize and resolve conflicts.
 
@@ -284,7 +284,7 @@ Use merge tools or IDE features to help visualize and resolve conflicts.
 
 ---
 
-## 5. Communication
+## 5. 💡 Communication
 
 For complex conflicts, communicate with the other developer to understand the changes.
 
@@ -298,7 +298,7 @@ For complex conflicts, communicate with the other developer to understand the ch
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Manual conflict resolution gives you control over the final code.
 
@@ -334,13 +334,13 @@ You resolve by choosing one version (yours or theirs), using specialized tools f
 
 ---
 
-## Q194. 🌳 GitFlow vs trunk-based development
+## Q193. 🌳 GitFlow vs trunk-based development
 
 GitFlow and trunk-based development are two different Git branching strategies. When you choose between them, you consider team size, release frequency, and integration speed requirements.
 
 ---
 
-## 1. What is GitFlow
+## 1. 💡 What is GitFlow
 
 GitFlow uses multiple long-lived branches.
 
@@ -358,7 +358,7 @@ GitFlow uses multiple long-lived branches.
 
 ---
 
-## 2. What is Trunk-Based Development
+## 2. 💡 What is Trunk-Based Development
 
 Trunk-based development uses a single main branch where everyone commits frequently.
 
@@ -374,7 +374,7 @@ Trunk-based development uses a single main branch where everyone commits frequen
 
 ---
 
-## 3. GitFlow Benefits
+## 3. 💡 GitFlow Benefits
 
 GitFlow provides more structure.
 
@@ -388,7 +388,7 @@ GitFlow provides more structure.
 
 ---
 
-## 4. Trunk-Based Benefits
+## 4. 💡 Trunk-Based Benefits
 
 Trunk-based enables faster integration.
 
@@ -402,7 +402,7 @@ Trunk-based enables faster integration.
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 GitFlow provides clear branching structure and separation of concerns.
 
@@ -440,13 +440,13 @@ Yes, you can use a hybrid - use trunk-based for main development, use release br
 
 ---
 
-## Q195. 🐳 Docker image vs container
+## Q194. 🐳 Docker image vs container
 
 Docker images and containers are fundamental Docker concepts. When you understand the difference, you can effectively use Docker for application deployment.
 
 ---
 
-## 1. What is a Docker Image
+## 1. 💡 What is a Docker Image
 
 A Docker image is a read-only template that defines how to create a container.
 
@@ -462,7 +462,7 @@ A Docker image is a read-only template that defines how to create a container.
 
 ---
 
-## 2. What is a Container
+## 2. 💡 What is a Container
 
 A container is a running instance of an image.
 
@@ -478,7 +478,7 @@ A container is a running instance of an image.
 
 ---
 
-## 3. Relationship
+## 3. 💡 Relationship
 
 When you run an image, Docker creates a container with a writable layer on top of the image.
 
@@ -492,7 +492,7 @@ When you run an image, Docker creates a container with a writable layer on top o
 
 ---
 
-## 4. Image Benefits
+## 4. 💡 Image Benefits
 
 Images are immutable and can be versioned and shared, which is great for consistency.
 
@@ -506,7 +506,7 @@ Images are immutable and can be versioned and shared, which is great for consist
 
 ---
 
-## 5. Container Benefits
+## 5. 💡 Container Benefits
 
 Containers are ephemeral and can be created and destroyed easily.
 
@@ -520,7 +520,7 @@ Containers are ephemeral and can be created and destroyed easily.
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Images are immutable and can be versioned and shared.
 
@@ -558,13 +558,13 @@ You don't update running containers - you update the image, stop old containers,
 
 ---
 
-## Q196. 🏗️ Docker multi-stage builds
+## Q195. 🏗️ Docker multi-stage builds
 
 Docker multi-stage builds use multiple build stages to reduce final image size. When you use multi-stage builds, you use different base images for building and running, copying only what's needed for runtime.
 
 ---
 
-## 1. What are Multi-Stage Builds
+## 1. 💡 What are Multi-Stage Builds
 
 Docker multi-stage builds use multiple FROM statements in one Dockerfile.
 
@@ -580,7 +580,7 @@ Docker multi-stage builds use multiple FROM statements in one Dockerfile.
 
 ---
 
-## 2. How They Work
+## 2. 💡 How They Work
 
 Allowing you to use different base images for building and running.
 
@@ -594,7 +594,7 @@ Allowing you to use different base images for building and running.
 
 ---
 
-## 3. Benefits
+## 3. 💡 Benefits
 
 This reduces final image size by excluding build tools and dependencies that aren't needed at runtime.
 
@@ -608,7 +608,7 @@ This reduces final image size by excluding build tools and dependencies that are
 
 ---
 
-## 4. Trade-offs
+## 4. 💡 Trade-offs
 
 Multi-stage builds significantly reduce image size, which improves deployment speed and reduces storage costs.
 
@@ -622,7 +622,7 @@ Multi-stage builds significantly reduce image size, which improves deployment sp
 
 ---
 
-## 5. Example
+## 5. 💡 Example
 
 Example multi-stage build:
 
@@ -671,13 +671,13 @@ You optimize by using smaller base images for runtime, minimizing layers, using 
 
 ---
 
-## Q197. 📦 Reducing Docker image size
+## Q196. 📦 Reducing Docker image size
 
 Reducing Docker image size improves deployment speed and reduces costs. When you optimize image size, you use smaller base images, multi-stage builds, and careful file management.
 
 ---
 
-## 1. Smaller Base Images
+## 1. 💡 Smaller Base Images
 
 Reduce Docker image size by using smaller base images (like Alpine Linux).
 
@@ -693,7 +693,7 @@ Reduce Docker image size by using smaller base images (like Alpine Linux).
 
 ---
 
-## 2. Multi-Stage Builds
+## 2. 💡 Multi-Stage Builds
 
 Use multi-stage builds to exclude build tools.
 
@@ -707,7 +707,7 @@ Use multi-stage builds to exclude build tools.
 
 ---
 
-## 3. Remove Unnecessary Files
+## 3. 🗑️ Remove Unnecessary Files
 
 Remove unnecessary files and dependencies.
 
@@ -721,7 +721,7 @@ Remove unnecessary files and dependencies.
 
 ---
 
-## 4. Layer Optimization
+## 4. 💡 Layer Optimization
 
 Combine RUN commands to reduce layers.
 
@@ -735,7 +735,7 @@ Combine RUN commands to reduce layers.
 
 ---
 
-## 5. .dockerignore
+## 5. 💡 .dockerignore
 
 Use .dockerignore to exclude files from the build context.
 
@@ -749,7 +749,7 @@ Use .dockerignore to exclude files from the build context.
 
 ---
 
-## 6. Benefits
+## 6. 💡 Benefits
 
 Smaller images deploy faster and use less storage, which improves performance and reduces costs.
 
@@ -763,7 +763,7 @@ Smaller images deploy faster and use less storage, which improves performance an
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Smaller images deploy faster and use less storage.
 
@@ -799,13 +799,13 @@ You include node_modules, .git, build artifacts, test files, documentation, and 
 
 ---
 
-## Q198. 🔧 Docker Compose use cases
+## Q197. 🔧 Docker Compose use cases
 
 Docker Compose simplifies running multi-container applications. When you use Docker Compose, you define services, networks, and volumes in a YAML file and start all containers together.
 
 ---
 
-## 1. What is Docker Compose
+## 1. 💡 What is Docker Compose
 
 Use Docker Compose to define and run multi-container applications locally.
 
@@ -821,7 +821,7 @@ Use Docker Compose to define and run multi-container applications locally.
 
 ---
 
-## 2. Use Cases
+## 2. 💡 Use Cases
 
 Use it for local development environments, testing multi-service applications, or running services that depend on each other.
 
@@ -835,7 +835,7 @@ Use it for local development environments, testing multi-service applications, o
 
 ---
 
-## 3. Benefits
+## 3. 💡 Benefits
 
 Compose simplifies managing multiple containers and their relationships.
 
@@ -849,7 +849,7 @@ Compose simplifies managing multiple containers and their relationships.
 
 ---
 
-## 4. Trade-offs
+## 4. 💡 Trade-offs
 
 Docker Compose makes it easy to run complex applications locally, which is great for development.
 
@@ -885,13 +885,13 @@ You can use Compose in production for small deployments, but it's not recommende
 
 ---
 
-## Q199. 🔐 Securing secrets in Docker
+## Q198. 🔐 Securing secrets in Docker
 
 Securing secrets in Docker is critical for security. When you secure secrets, you use secret management services and avoid hardcoding secrets in Dockerfiles or code.
 
 ---
 
-## 1. Secret Management Options
+## 1. 💡 Secret Management Options
 
 Secure secrets in Docker by using Docker secrets (in Swarm mode), mounting secrets as files instead of environment variables, using secret management services like AWS Secrets Manager, or using build-time secrets with BuildKit.
 
@@ -907,7 +907,7 @@ Secure secrets in Docker by using Docker secrets (in Swarm mode), mounting secre
 
 ---
 
-## 2. What Not to Do
+## 2. 💡 What Not to Do
 
 Never hardcode secrets in Dockerfiles or commit them to version control.
 
@@ -921,7 +921,7 @@ Never hardcode secrets in Dockerfiles or commit them to version control.
 
 ---
 
-## 3. Configuration Strategy
+## 3. 💡 Configuration Strategy
 
 Use environment variables for non-sensitive config, secrets services for sensitive data.
 
@@ -935,7 +935,7 @@ Use environment variables for non-sensitive config, secrets services for sensiti
 
 ---
 
-## 4. Benefits
+## 4. 💡 Benefits
 
 Proper secret management prevents credential leaks, which is critical for security.
 
@@ -949,7 +949,7 @@ Proper secret management prevents credential leaks, which is critical for securi
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 Proper secret management prevents credential leaks, which is critical for security.
 
@@ -985,13 +985,13 @@ You secure by using Kubernetes Secrets (base64 encoded, not encrypted by default
 
 ---
 
-## Q200. ☸️ Kubernetes vs Docker differences
+## Q199. ☸️ Kubernetes vs Docker differences
 
 Docker and Kubernetes serve different purposes in containerized applications. When you understand the difference, you can choose the right tool for your needs.
 
 ---
 
-## 1. What is Docker
+## 1. 💡 What is Docker
 
 Docker is a containerization platform that packages applications into containers.
 
@@ -1007,7 +1007,7 @@ Docker is a containerization platform that packages applications into containers
 
 ---
 
-## 2. What is Kubernetes
+## 2. 💡 What is Kubernetes
 
 Kubernetes is an orchestration platform that manages containers across multiple machines.
 
@@ -1025,7 +1025,7 @@ Kubernetes is an orchestration platform that manages containers across multiple 
 
 ---
 
-## 3. Relationship
+## 3. 💡 Relationship
 
 Docker creates and runs containers, Kubernetes manages containerized applications at scale.
 
@@ -1039,7 +1039,7 @@ Docker creates and runs containers, Kubernetes manages containerized application
 
 ---
 
-## 4. Docker Benefits
+## 4. 💡 Docker Benefits
 
 Docker is simpler and great for single-machine deployment or development.
 
@@ -1053,7 +1053,7 @@ Docker is simpler and great for single-machine deployment or development.
 
 ---
 
-## 5. Kubernetes Benefits
+## 5. 💡 Kubernetes Benefits
 
 Kubernetes provides orchestration features for production deployments.
 
@@ -1067,7 +1067,7 @@ Kubernetes provides orchestration features for production deployments.
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Docker is simpler and great for single-machine deployment or development.
 
@@ -1105,13 +1105,13 @@ You use Kubernetes when you need to manage containers across multiple machines, 
 
 ---
 
-## Q201. 🔄 CI/CD pipeline stages
+## Q200. 🔄 CI/CD pipeline stages
 
 CI/CD pipelines automate the software delivery process through multiple stages. When you design CI/CD pipelines, you define stages that run automatically to build, test, and deploy your application.
 
 ---
 
-## 1. Build Stage
+## 1. 💡 Build Stage
 
 Build stage compiles code and runs tests.
 
@@ -1127,7 +1127,7 @@ Build stage compiles code and runs tests.
 
 ---
 
-## 2. Test Stage
+## 2. 💡 Test Stage
 
 Test stage runs unit tests and integration tests.
 
@@ -1141,7 +1141,7 @@ Test stage runs unit tests and integration tests.
 
 ---
 
-## 3. Security Scan
+## 3. 🛡️ Security Scan
 
 Security scan performs vulnerability scanning and code analysis.
 
@@ -1155,7 +1155,7 @@ Security scan performs vulnerability scanning and code analysis.
 
 ---
 
-## 4. Deploy to Staging
+## 4. 💡 Deploy to Staging
 
 Deploy to staging deploys to test environment.
 
@@ -1169,7 +1169,7 @@ Deploy to staging deploys to test environment.
 
 ---
 
-## 5. Integration Tests
+## 5. 💡 Integration Tests
 
 Integration tests run end-to-end tests.
 
@@ -1183,7 +1183,7 @@ Integration tests run end-to-end tests.
 
 ---
 
-## 6. Deploy to Production
+## 6. ✖️ Deploy to Production
 
 Deploy to production deploys to live environment.
 
@@ -1197,7 +1197,7 @@ Deploy to production deploys to live environment.
 
 ---
 
-## 7. Pipeline Flow
+## 7. 💡 Pipeline Flow
 
 Each stage runs automatically when the previous stage succeeds, and failures stop the pipeline.
 
@@ -1211,7 +1211,7 @@ Each stage runs automatically when the previous stage succeeds, and failures sto
 
 ---
 
-## 8. Trade-offs
+## 8. 💡 Trade-offs
 
 Automated pipelines catch issues early and enable fast deployments, which is great.
 
@@ -1247,13 +1247,13 @@ You optimize by using caching (cache dependencies, build artifacts), parallelizi
 
 ---
 
-## Q202. 🔄 Blue-green vs canary deployments
+## Q201. 🔄 Blue-green vs canary deployments
 
 Blue-green and canary deployments are two strategies for deploying new versions with zero downtime. When you choose between them, you consider deployment speed, risk tolerance, and infrastructure requirements.
 
 ---
 
-## 1. What is Blue-Green Deployment
+## 1. 🚀 What is Blue-Green Deployment
 
 Blue-green deployment runs two identical production environments and switches traffic from one to the other.
 
@@ -1269,7 +1269,7 @@ Blue-green deployment runs two identical production environments and switches tr
 
 ---
 
-## 2. What is Canary Deployment
+## 2. 🚀 What is Canary Deployment
 
 Canary deployment gradually routes traffic to the new version.
 
@@ -1285,7 +1285,7 @@ Canary deployment gradually routes traffic to the new version.
 
 ---
 
-## 3. Blue-Green Characteristics
+## 3. 💡 Blue-Green Characteristics
 
 Blue-green is faster.
 
@@ -1299,7 +1299,7 @@ Blue-green is faster.
 
 ---
 
-## 4. Canary Characteristics
+## 4. 💡 Canary Characteristics
 
 Canary is safer.
 
@@ -1313,7 +1313,7 @@ Canary is safer.
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 Blue-green deployments are faster and provide instant rollback.
 
@@ -1351,13 +1351,13 @@ You implement by deploying new version alongside old, configuring traffic routin
 
 ---
 
-## Q203. ⚡ Zero-downtime deployment techniques
+## Q202. ⚡ Zero-downtime deployment techniques
 
 Zero-downtime deployments allow you to deploy new versions without interrupting service. When you achieve zero-downtime, you use techniques that ensure continuous availability during deployments.
 
 ---
 
-## 1. Rolling Updates
+## 1. 💡 Rolling Updates
 
 Achieve zero-downtime deployments by using rolling updates (replace instances gradually).
 
@@ -1373,7 +1373,7 @@ Achieve zero-downtime deployments by using rolling updates (replace instances gr
 
 ---
 
-## 2. Blue-Green Deployments
+## 2. 🚀 Blue-Green Deployments
 
 Use blue-green deployments (switch traffic instantly).
 
@@ -1387,7 +1387,7 @@ Use blue-green deployments (switch traffic instantly).
 
 ---
 
-## 3. Canary Deployments
+## 3. 🚀 Canary Deployments
 
 Use canary deployments (gradually route traffic).
 
@@ -1401,7 +1401,7 @@ Use canary deployments (gradually route traffic).
 
 ---
 
-## 4. Health Checks
+## 4. ✅ Health Checks
 
 Use health checks to ensure new instances are ready before routing traffic.
 
@@ -1415,7 +1415,7 @@ Use health checks to ensure new instances are ready before routing traffic.
 
 ---
 
-## 5. Connection Draining
+## 5. 💡 Connection Draining
 
 Drain connections from old instances gracefully.
 
@@ -1429,7 +1429,7 @@ Drain connections from old instances gracefully.
 
 ---
 
-## 6. Backward Compatibility
+## 6. 💡 Backward Compatibility
 
 Ensure backward compatibility so both versions can run simultaneously.
 
@@ -1443,7 +1443,7 @@ Ensure backward compatibility so both versions can run simultaneously.
 
 ---
 
-## 7. Benefits
+## 7. 💡 Benefits
 
 Zero-downtime deployments improve user experience and enable continuous deployment.
 
@@ -1457,7 +1457,7 @@ Zero-downtime deployments improve user experience and enable continuous deployme
 
 ---
 
-## 8. Trade-offs
+## 8. 💡 Trade-offs
 
 Zero-downtime deployments improve user experience and enable continuous deployment.
 
@@ -1493,13 +1493,13 @@ You ensure by avoiding breaking changes, using feature flags, versioning APIs, a
 
 ---
 
-## Q204. 🧪 Postman automated testing
+## Q203. 🧪 Postman automated testing
 
 Postman automated testing enables API testing through scripts that run after requests. When you use Postman for automated testing, you can validate responses, check status codes, and integrate tests into CI/CD pipelines.
 
 ---
 
-## 1. What is Postman Automated Testing
+## 1. 🧪 What is Postman Automated Testing
 
 Postman automated testing allows you to write test scripts that run after API requests.
 
@@ -1515,7 +1515,7 @@ Postman automated testing allows you to write test scripts that run after API re
 
 ---
 
-## 2. Test Capabilities
+## 2. 💡 Test Capabilities
 
 You can validate responses, check status codes, verify response times, and chain requests together.
 
@@ -1529,7 +1529,7 @@ You can validate responses, check status codes, verify response times, and chain
 
 ---
 
-## 3. Organization
+## 3. 💡 Organization
 
 Use Postman collections to organize tests, run them in CI/CD pipelines, and use environments to test against different stages.
 
@@ -1543,7 +1543,7 @@ Use Postman collections to organize tests, run them in CI/CD pipelines, and use 
 
 ---
 
-## 4. Benefits
+## 4. 💡 Benefits
 
 Automated API testing catches regressions early and ensures APIs work correctly, which is great.
 
@@ -1557,7 +1557,7 @@ Automated API testing catches regressions early and ensures APIs work correctly,
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 Automated API testing catches regressions early and ensures APIs work correctly.
 
@@ -1593,13 +1593,13 @@ You handle by using environment variables, generating test data dynamically, usi
 
 ---
 
-## Q205. 📦 npm vs Yarn differences
+## Q204. 📦 npm vs Yarn differences
 
 npm and Yarn are two package managers for Node.js. When you choose between them, you consider performance, features, and team preferences.
 
 ---
 
-## 1. What is npm
+## 1. 💡 What is npm
 
 npm is Node.js's default package manager that comes with Node.js.
 
@@ -1615,7 +1615,7 @@ npm is Node.js's default package manager that comes with Node.js.
 
 ---
 
-## 2. What is Yarn
+## 2. 💡 What is Yarn
 
 Yarn is an alternative package manager created by Facebook.
 
@@ -1631,7 +1631,7 @@ Yarn is an alternative package manager created by Facebook.
 
 ---
 
-## 3. Lock Files
+## 3. 💡 Lock Files
 
 Yarn uses yarn.lock, npm uses package-lock.json.
 
@@ -1645,7 +1645,7 @@ Yarn uses yarn.lock, npm uses package-lock.json.
 
 ---
 
-## 4. Performance
+## 4. ⚡ Performance
 
 Yarn was faster and had better dependency resolution, but modern npm has caught up.
 
@@ -1659,7 +1659,7 @@ Yarn was faster and had better dependency resolution, but modern npm has caught 
 
 ---
 
-## 5. Features
+## 5. 💡 Features
 
 Both work similarly, but Yarn has some features like workspaces and better offline support.
 
@@ -1673,7 +1673,7 @@ Both work similarly, but Yarn has some features like workspaces and better offli
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 npm is built-in and widely used, which is convenient.
 
@@ -1711,13 +1711,13 @@ Yarn workspaces allow you to manage multiple packages in a single repository (mo
 
 ---
 
-## Q206. 🔒 package-lock.json vs yarn.lock
+## Q205. 🔒 package-lock.json vs yarn.lock
 
 package-lock.json and yarn.lock are lock files that ensure consistent dependency installations. When you use lock files, you guarantee that dependencies install the same way across different environments.
 
 ---
 
-## 1. What is package-lock.json
+## 1. 💡 What is package-lock.json
 
 package-lock.json is npm's lock file that locks exact versions of all dependencies and their dependencies.
 
@@ -1733,7 +1733,7 @@ package-lock.json is npm's lock file that locks exact versions of all dependenci
 
 ---
 
-## 2. What is yarn.lock
+## 2. 💡 What is yarn.lock
 
 yarn.lock is Yarn's equivalent lock file that serves the same purpose.
 
@@ -1749,7 +1749,7 @@ yarn.lock is Yarn's equivalent lock file that serves the same purpose.
 
 ---
 
-## 3. Purpose
+## 3. 💡 Purpose
 
 Both ensure that `npm install` or `yarn install` produces the same dependency tree every time, regardless of when or where it runs.
 
@@ -1763,7 +1763,7 @@ Both ensure that `npm install` or `yarn install` produces the same dependency tr
 
 ---
 
-## 4. Benefits
+## 4. 💡 Benefits
 
 Lock files ensure consistent dependency versions, which prevents "works on my machine" issues.
 
@@ -1777,7 +1777,7 @@ Lock files ensure consistent dependency versions, which prevents "works on my ma
 
 ---
 
-## 5. Trade-offs
+## 5. 💡 Trade-offs
 
 Lock files ensure consistent dependency versions, which prevents "works on my machine" issues.
 
@@ -1813,13 +1813,13 @@ If you don't use lock files, dependency versions can vary across environments, c
 
 ---
 
-## Q207. 👥 Peer dependencies in npm
+## Q206. 👥 Peer dependencies in npm
 
 Peer dependencies are dependencies that your package expects the consuming application to provide. When you use peer dependencies, you prevent duplicate installations and ensure shared instances of dependencies.
 
 ---
 
-## 1. What are Peer Dependencies
+## 1. 💡 What are Peer Dependencies
 
 Peer dependencies are dependencies that your package expects the consuming application to provide.
 
@@ -1835,7 +1835,7 @@ Peer dependencies are dependencies that your package expects the consuming appli
 
 ---
 
-## 2. Purpose
+## 2. 💡 Purpose
 
 This prevents multiple versions of the same dependency from being installed, which is important for libraries that need to share a single instance of a dependency.
 
@@ -1849,7 +1849,7 @@ This prevents multiple versions of the same dependency from being installed, whi
 
 ---
 
-## 3. Benefits
+## 3. 💡 Benefits
 
 Peer dependencies prevent duplicate installations and version conflicts, which is good.
 
@@ -1863,7 +1863,7 @@ Peer dependencies prevent duplicate installations and version conflicts, which i
 
 ---
 
-## 4. Trade-offs
+## 4. 💡 Trade-offs
 
 Peer dependencies prevent duplicate installations and version conflicts, which is good.
 
@@ -1899,13 +1899,13 @@ You handle by specifying compatible version ranges, using peerDependenciesMeta f
 
 ---
 
-## Q208. 🔧 Solving dependency conflicts
+## Q207. 🔧 Solving dependency conflicts
 
 Dependency conflicts occur when different packages require incompatible versions of the same dependency. When you solve conflicts, you update packages, use dependency resolution, or force specific versions.
 
 ---
 
-## 1. Update Packages
+## 1. 💡 Update Packages
 
 Solve dependency conflicts by updating packages to compatible versions.
 
@@ -1921,7 +1921,7 @@ Solve dependency conflicts by updating packages to compatible versions.
 
 ---
 
-## 2. Dependency Resolution
+## 2. ✅ Dependency Resolution
 
 Use npm's dependency resolution (npm tries to find compatible versions).
 
@@ -1935,7 +1935,7 @@ Use npm's dependency resolution (npm tries to find compatible versions).
 
 ---
 
-## 3. Force Installation
+## 3. 💡 Force Installation
 
 Using `npm install --force` or `--legacy-peer-deps` to bypass conflicts (not recommended).
 
@@ -1949,7 +1949,7 @@ Using `npm install --force` or `--legacy-peer-deps` to bypass conflicts (not rec
 
 ---
 
-## 4. Resolutions/Overrides
+## 4. ✅ Resolutions/Overrides
 
 Use resolutions/overrides to force specific versions.
 
@@ -1963,7 +1963,7 @@ Use resolutions/overrides to force specific versions.
 
 ---
 
-## 5. Investigation
+## 5. 💡 Investigation
 
 Check which packages require conflicting versions, update them if possible.
 
@@ -1977,7 +1977,7 @@ Check which packages require conflicting versions, update them if possible.
 
 ---
 
-## 6. Benefits
+## 6. 💡 Benefits
 
 Resolving conflicts properly ensures compatibility and prevents runtime issues.
 
@@ -1991,7 +1991,7 @@ Resolving conflicts properly ensures compatibility and prevents runtime issues.
 
 ---
 
-## 7. Trade-offs
+## 7. 💡 Trade-offs
 
 Resolving conflicts properly ensures compatibility and prevents runtime issues.
 
@@ -2027,13 +2027,13 @@ You use by adding "resolutions" (Yarn) or "overrides" (npm) to package.json, spe
 
 ---
 
-## Q209. 🐛 Node.js performance debugging tools
+## Q208. 🐛 Node.js performance debugging tools
 
 Node.js performance debugging tools help identify bottlenecks and optimize performance. When you debug performance, you use profiling tools, memory monitoring, and APM tools to identify issues.
 
 ---
 
-## 1. Built-in Profiler
+## 1. 💡 Built-in Profiler
 
 Use Node.js performance debugging tools like the built-in profiler (`--prof`).
 
@@ -2049,7 +2049,7 @@ Use Node.js performance debugging tools like the built-in profiler (`--prof`).
 
 ---
 
-## 2. Chrome DevTools
+## 2. 💡 Chrome DevTools
 
 Use Chrome DevTools for CPU profiling.
 
@@ -2063,7 +2063,7 @@ Use Chrome DevTools for CPU profiling.
 
 ---
 
-## 3. Third-Party Tools
+## 3. 💡 Third-Party Tools
 
 Use `clinic.js` for performance analysis, or `0x` for flame graphs.
 
@@ -2077,7 +2077,7 @@ Use `clinic.js` for performance analysis, or `0x` for flame graphs.
 
 ---
 
-## 4. Memory Monitoring
+## 4. 👁️ Memory Monitoring
 
 Use `process.memoryUsage()` to monitor memory.
 
@@ -2091,7 +2091,7 @@ Use `process.memoryUsage()` to monitor memory.
 
 ---
 
-## 5. Timing
+## 5. ⬇️ ⬇️ Timing
 
 Use `console.time()` for timing.
 
@@ -2105,7 +2105,7 @@ Use `console.time()` for timing.
 
 ---
 
-## 6. APM Tools
+## 6. 💡 APM Tools
 
 Use APM tools like New Relic or DataDog for production monitoring.
 
@@ -2119,7 +2119,7 @@ Use APM tools like New Relic or DataDog for production monitoring.
 
 ---
 
-## 7. Benefits
+## 7. 💡 Benefits
 
 Performance tools help you identify and fix bottlenecks, which is essential for optimization.
 
@@ -2133,7 +2133,7 @@ Performance tools help you identify and fix bottlenecks, which is essential for 
 
 ---
 
-## 8. Trade-offs
+## 8. 💡 Trade-offs
 
 Performance tools help you identify and fix bottlenecks, which is essential for optimization.
 
@@ -2169,13 +2169,13 @@ You reduce by profiling only when needed, using sampling profilers (less overhea
 
 ---
 
-## Q210. 🌍 Postman environments vs globals
+## Q209. 🌍 Postman environments vs globals
 
 Postman environments and globals are two ways to manage variables in Postman. When you use them, you organize variables for different environments and shared values.
 
 ---
 
-## 1. What are Environments
+## 1. 💡 What are Environments
 
 Postman environments are sets of variables scoped to a specific environment.
 
@@ -2191,7 +2191,7 @@ Postman environments are sets of variables scoped to a specific environment.
 
 ---
 
-## 2. What are Globals
+## 2. 💡 What are Globals
 
 Globals are variables available across all requests regardless of environment.
 
@@ -2207,7 +2207,7 @@ Globals are variables available across all requests regardless of environment.
 
 ---
 
-## 3. When to Use Environments
+## 3. 💡 When to Use Environments
 
 Use environments for environment-specific config.
 
@@ -2221,7 +2221,7 @@ Use environments for environment-specific config.
 
 ---
 
-## 4. When to Use Globals
+## 4. 💡 When to Use Globals
 
 Use globals for values that are the same everywhere.
 
@@ -2235,7 +2235,7 @@ Use globals for values that are the same everywhere.
 
 ---
 
-## 5. Benefits
+## 5. 💡 Benefits
 
 Environments enable testing against different stages without changing requests, which is convenient.
 
@@ -2249,7 +2249,7 @@ Environments enable testing against different stages without changing requests, 
 
 ---
 
-## 6. Trade-offs
+## 6. 💡 Trade-offs
 
 Environments enable testing against different stages without changing requests, which is convenient.
 

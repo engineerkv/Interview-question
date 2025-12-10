@@ -16,13 +16,13 @@
 
 ---
 
-## Q21. DOM API
+## Q21. 🔌 DOM API
 
 The DOM (Document Object Model) API allows you to interact with HTML elements, manipulate the document structure, and handle events. It's how JavaScript talks to your HTML page. Understanding the DOM API is fundamental to web development - it's the bridge between your JavaScript code and the actual HTML elements users see and interact with.
 
 ---
 
-## 1. DOM Manipulation
+## 1. 💡 DOM Manipulation
 
 ### 🔹 Selecting Elements
 
@@ -145,7 +145,7 @@ element.style.color = 'red';
 
 ---
 
-## 2. Event Handling
+## 2. 🎯 Event Handling
 
 ### 🔹 Event Listeners
 
@@ -238,7 +238,7 @@ document.getElementById('list').addEventListener('click', (event) => {
 
 ---
 
-## 3. DOM Traversal
+## 3. 💡 DOM Traversal
 
 ```javascript
 // Parent/child navigation
@@ -271,13 +271,13 @@ Attaching event listener to parent element instead of each child. Useful for dyn
 
 ---
 
-## Q22. Fetch API
+## Q22. 🔌 Fetch API
 
 The Fetch API is the modern way to make HTTP requests from JavaScript. It's simpler and cleaner than the old XMLHttpRequest, and it uses promises which makes handling async operations much easier. Fetch is built into modern browsers and provides a more intuitive API for making network requests.
 
 ---
 
-## 1. Basic Fetch
+## 1. 💡 Basic Fetch
 
 ### 🔹 GET Request
 
@@ -395,7 +395,7 @@ async function fetchUserAndPosts(userId) {
 
 ---
 
-## 2. Request Options
+## 2. 💡 Request Options
 
 ### 🔹 Headers
 
@@ -500,7 +500,7 @@ function fetchWithTimeout(url, timeout = 5000) {
 
 ---
 
-## 3. Response Handling
+## 3. 💡 Response Handling
 
 ```javascript
 // Check status
@@ -536,13 +536,13 @@ Check response.ok, handle network errors in catch, and check response status cod
 
 ---
 
-## Q23. Web Storage APIs
+## Q23. 🔌 Web Storage APIs
 
 Web Storage APIs let you store data directly in the user's browser. Think of them as different types of storage boxes - some keep data forever, some clear when you close the tab, and some can store huge amounts of structured data.
 
 ---
 
-## 1. localStorage
+## 1. 💡 localStorage
 
 ### 🔹 What is localStorage?
 
@@ -588,7 +588,7 @@ const key = localStorage.key(0);
 
 ---
 
-## 2. sessionStorage
+## 2. 💡 sessionStorage
 
 ### 🔹 What is sessionStorage?
 
@@ -620,7 +620,7 @@ sessionStorage.removeItem('tempData');
 
 ---
 
-## 3. IndexedDB
+## 3. 📇 IndexedDB
 
 ### 🔹 What is IndexedDB?
 
@@ -690,13 +690,13 @@ Size limit (~5-10MB), synchronous (blocks main thread), string-only (must string
 
 ---
 
-## Q24. Geolocation API
+## Q24. 🔌 Geolocation API
 
 The Geolocation API allows web applications to access the user's geographic location.
 
 ---
 
-## 1. Getting Location
+## 1. 💡 Getting Location
 
 ### 🔹 Basic Usage
 
@@ -737,7 +737,7 @@ navigator.geolocation.getCurrentPosition(
 
 ---
 
-## 2. Watching Position
+## 2. 💡 Watching Position
 
 ```javascript
 const watchId = navigator.geolocation.watchPosition(
@@ -756,7 +756,7 @@ navigator.geolocation.clearWatch(watchId);
 
 ---
 
-## 3. Privacy & Permissions
+## 3. 💡 Privacy & Permissions
 
 * **User consent required**: Browser prompts for permission
 
@@ -786,13 +786,13 @@ GPS: ~10-20 meters. WiFi: ~50-100 meters. IP-based: city-level. Enable highAccur
 
 ---
 
-## Q25. Canvas API
+## Q25. 🔌 Canvas API
 
 The Canvas API provides methods to draw graphics, animations, and images on a canvas element.
 
 ---
 
-## 1. Basic Drawing
+## 1. 💡 Basic Drawing
 
 ### 🔹 Setup
 
@@ -838,7 +838,7 @@ ctx.fillText('Hello Canvas', 10, 50);
 
 ---
 
-## 2. Images
+## 2. 💡 Images
 
 ```javascript
 const img = new Image();
@@ -851,7 +851,7 @@ img.src = 'image.jpg';
 
 ---
 
-## 3. Animations
+## 3. ✨ Animations
 
 ```javascript
 function animate() {
@@ -889,13 +889,13 @@ Use requestAnimationFrame, minimize redraws, use offscreen canvas for complex op
 
 ---
 
-## Q26. Web Workers API
+## Q26. 🔌 Web Workers API
 
 Web Workers allow running JavaScript in background threads, preventing blocking of the main thread.
 
 ---
 
-## 1. Creating a Worker
+## 1. 💡 Creating a Worker
 
 ### 🔹 Worker File (worker.js)
 
@@ -946,7 +946,7 @@ worker.terminate();
 
 ---
 
-## 2. Shared Workers
+## 2. 💡 Shared Workers
 
 ```javascript
 // Shared worker (shared-worker.js)
@@ -968,7 +968,7 @@ worker.port.postMessage('Hello');
 
 ---
 
-## 3. Limitations
+## 3. 💡 Limitations
 
 * **No DOM access**: Workers can't access DOM
 
@@ -998,13 +998,13 @@ Use postMessage to send data (structured clone algorithm). For large data, use T
 
 ---
 
-## Q27. Intersection Observer API
+## Q27. 🖥️ Intersection Observer API
 
 The Intersection Observer API detects when elements enter or leave the viewport, useful for lazy loading, infinite scroll, and animations.
 
 ---
 
-## 1. Basic Usage
+## 1. 💡 Basic Usage
 
 ```javascript
 const observer = new IntersectionObserver((entries) => {
@@ -1033,7 +1033,7 @@ observer.observe(element);
 
 ---
 
-## 2. Lazy Loading Images
+## 2. 💡 Lazy Loading Images
 
 ```javascript
 const imageObserver = new IntersectionObserver((entries) => {
@@ -1055,7 +1055,7 @@ document.querySelectorAll('img.lazy').forEach(img => {
 
 ---
 
-## 3. Infinite Scroll
+## 3. 💡 Infinite Scroll
 
 ```javascript
 const sentinel = document.querySelector('#sentinel');
@@ -1089,13 +1089,13 @@ Threshold (0-1) determines when callback fires. 0 = any visibility, 0.5 = 50% vi
 
 ---
 
-## Q28. Notification API
+## Q28. 🔌 Notification API
 
 The Notification API displays system notifications to users, even when the browser is not in focus.
 
 ---
 
-## 1. Requesting Permission
+## 1. 💡 Requesting Permission
 
 ```javascript
 // Check if supported
@@ -1112,7 +1112,7 @@ if ('Notification' in window) {
 
 ---
 
-## 2. Showing Notifications
+## 2. 💡 Showing Notifications
 
 ```javascript
 function showNotification() {
@@ -1137,7 +1137,7 @@ function showNotification() {
 
 ---
 
-## 3. Service Worker Notifications
+## 3. 💡 Service Worker Notifications
 
 ```javascript
 // In service worker
@@ -1180,13 +1180,13 @@ Check current permission (Notification.permission: 'default', 'granted', 'denied
 
 ---
 
-## Q29. Media APIs
+## Q29. 🔌 Media APIs
 
 Media APIs include APIs for accessing camera, microphone, and playing audio/video.
 
 ---
 
-## 1. MediaDevices API (Camera/Microphone)
+## 1. 🔌 MediaDevices API (Camera/Microphone)
 
 ```javascript
 // Request camera/microphone access
@@ -1226,7 +1226,7 @@ navigator.mediaDevices.getUserMedia({
 
 ---
 
-## 2. MediaRecorder API
+## 2. 🔌 MediaRecorder API
 
 ```javascript
 let mediaRecorder;
@@ -1256,7 +1256,7 @@ mediaRecorder.stop();
 
 ---
 
-## 3. Audio/Video Elements
+## 3. 💡 Audio/Video Elements
 
 ```javascript
 const video = document.querySelector('video');
@@ -1296,13 +1296,13 @@ Always request permission, explain why you need access, allow users to revoke, a
 
 ---
 
-## Q30. File API
+## Q30. 🔌 File API
 
 The File API allows reading files selected by users through file input elements.
 
 ---
 
-## 1. Reading Files
+## 1. 💡 Reading Files
 
 ```javascript
 const input = document.querySelector('input[type="file"]');
@@ -1338,7 +1338,7 @@ input.addEventListener('change', (event) => {
 
 ---
 
-## 2. File Information
+## 2. 💡 File Information
 
 ```javascript
 const file = event.target.files[0];
@@ -1351,7 +1351,7 @@ console.log('Last modified:', file.lastModified);
 
 ---
 
-## 3. Drag and Drop
+## 3. 💡 Drag and Drop
 
 ```javascript
 const dropZone = document.querySelector('.drop-zone');
@@ -1389,13 +1389,13 @@ readAsText reads file as string (for text files). readAsDataURL reads as base64 
 
 ---
 
-## Q31. History API
+## Q31. 🔌 History API
 
 The History API allows manipulating the browser history and URL without page reloads, enabling single-page application navigation.
 
 ---
 
-## 1. Basic Navigation
+## 1. 🧭 Basic Navigation
 
 ```javascript
 // Push new state
@@ -1415,7 +1415,7 @@ history.go(-2); // Go back 2 pages
 
 ---
 
-## 2. Popstate Event
+## 2. 📦 Popstate Event
 
 ```javascript
 window.addEventListener('popstate', (event) => {
@@ -1428,7 +1428,7 @@ window.addEventListener('popstate', (event) => {
 
 ---
 
-## 3. SPA Routing
+## 3. 🗺️ SPA Routing
 
 ```javascript
 // Navigate
@@ -1472,13 +1472,13 @@ On page load, check window.location.pathname and render appropriate page. Ensure
 
 ---
 
-## Q32. WebSocket API
+## Q32. 🔌 WebSocket API
 
 The WebSocket API provides full-duplex communication between client and server, enabling real-time data exchange.
 
 ---
 
-## 1. Creating WebSocket Connection
+## 1. 🔌 Creating WebSocket Connection
 
 ```javascript
 // Create connection
@@ -1511,7 +1511,7 @@ socket.addEventListener('error', (error) => {
 
 ---
 
-## 2. Sending Data
+## 2. 💡 Sending Data
 
 ```javascript
 // Send text
@@ -1528,7 +1528,7 @@ socket.send(buffer);
 
 ---
 
-## 3. Connection States
+## 3. 📦 Connection States
 
 ```javascript
 // Check connection state
@@ -1570,9 +1570,9 @@ WebSocket maintains persistent connection (lower latency, less overhead). HTTP p
 
 <div align="center">
 
-[08) React Native Internals.md](08%29%20React%20Native%20Internals.md) • [Questions Index](question.md) • [10) High Level Design.md →](10%29%20High%20Level%20Design.md)
+[← Previous: React Native Internals](12%29%20React%20Native%20Internals.md) • [Home: Questions Index](question.md) • [Next: High Level Design →](14%29%20High%20Level%20Design.md)
 
-[FE-System-Design Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md)
 
 </div>
 

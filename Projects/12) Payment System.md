@@ -363,6 +363,7 @@ App
 │       │       └── DeleteButton
 │       └── AddPaymentMethodButton
 └── PaymentGatewayProvider (Payment SDK integration)
+
 ```
 
 ### Key React Components
@@ -434,6 +435,7 @@ const TransactionCard: React.FC<{ transaction: Transaction }> = ({ transaction }
     </div>
   );
 };
+
 ```
 
 ### State Management
@@ -478,6 +480,7 @@ const useTransactions = (filters?: TransactionFilters) => {
     staleTime: 30 * 1000 // Cache for 30 seconds
   });
 };
+
 ```
 
 ### Component Interactions
@@ -551,6 +554,7 @@ interface PaymentMethod {
 - **Method:** POST
 
 - **Request Body:**
+
   ```json
   {
     "amount": 100.50,
@@ -566,9 +570,11 @@ interface PaymentMethod {
     },
     "idempotencyKey": "unique_key_123"
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -581,6 +587,7 @@ interface PaymentMethod {
       "createdAt": "2024-01-15T10:30:00Z"
     }
   }
+
   ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error), 409 (Duplicate - Idempotency Key)
@@ -592,6 +599,7 @@ interface PaymentMethod {
 - **Method:** GET
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -606,6 +614,7 @@ interface PaymentMethod {
       "completedAt": "2024-01-15T10:30:05Z"
     }
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 404 (Not Found)
@@ -617,14 +626,17 @@ interface PaymentMethod {
 - **Method:** POST
 
 - **Request Body:**
+
   ```json
   {
     "amount": 50.25,
     "reason": "Customer request"
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
@@ -636,6 +648,7 @@ interface PaymentMethod {
       "createdAt": "2024-01-15T11:00:00Z"
     }
   }
+
   ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error), 404 (Not Found)
@@ -649,6 +662,7 @@ interface PaymentMethod {
 - **Description:** Webhook endpoint for payment gateway callbacks
 
 - **Request Body:**
+
   ```json
   {
     "event": "payment.succeeded",
@@ -659,14 +673,17 @@ interface PaymentMethod {
     },
     "signature": "webhook_signature"
   }
+
   ```
 
 - **Response:**
+
   ```json
   {
     "success": true,
     "message": "Webhook processed"
   }
+
   ```
 
 - **Status Codes:** 200 (Success), 400 (Invalid Signature), 401 (Unauthorized)
@@ -1275,11 +1292,501 @@ try {
 
 ---
 
+# 4) Algorithms
+
+## Idempotency Key Algorithm
+
+**Purpose:** Prevent duplicate payment processing using idempotency keys stored in Redis.
+
+**Algorithm:**
+1. Client sends payment request with idempotency key (or server generates UUID)
+2. Check if idempotency key exists in Redis
+3. If exists, return cached payment result
+4. If not exists, process payment and store result in Redis with TTL
+5. Return payment result
+
+**Implementation:**
+
+```typescript
+class PaymentService {
+  async processPaymentWithIdempotency(
+    paymentData: PaymentRequest,
+    idempotencyKey: string
+  ): Promise<PaymentResult> {
+    // Check if idempotency key exists
+    const cached = await redis.get(`idempotency:${idempotencyKey}`);
+    if (cached) {
+      return JSON.parse(cached);
+    }
+    
+    // Process payment
+    const result = await this.processPayment(paymentData);
+    
+    // Store result in Redis with 24-hour TTL
+    await redis.setex(
+      `idempotency:${idempotencyKey}`,
+      86400,
+      JSON.stringify(result)
+    );
+    
+    return result;
+  }
+}
+
+```
+
+**Complexity:**
+- Time: O(1) for Redis operations
+- Space: O(1) per idempotency key
+- **Duplicate Prevention:** 100% effective for duplicate requests
+
+---
+
+## Payment Retry Algorithm
+
+**Purpose:** Retry failed payment requests with exponential backoff.
+
+**Algorithm:**
+1. Attempt payment processing
+2. If fails, wait with exponential backoff (1s, 2s, 4s, 8s)
+3. Retry up to maximum attempts (3-5 retries)
+4. If all retries fail, mark payment as failed
+
+**Implementation:**
+
+```typescript
+async function retryPayment(
+  paymentData: PaymentRequest,
+  maxRetries: number = 3
+): Promise<PaymentResult> {
+  let lastError: Error;
+  
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      return await processPayment(paymentData);
+    } catch (error) {
+      lastError = error;
+      
+      // Don't retry on certain errors (e.g., invalid card)
+      if (error.code === 'INVALID_CARD' || error.code === 'INSUFFICIENT_FUNDS') {
+        throw error;
+      }
+      
+      // Exponential backoff
+      if (attempt < maxRetries - 1) {
+        const delay = Math.pow(2, attempt) * 1000; // 1s, 2s, 4s
+        await sleep(delay);
+      }
+    }
+  }
+  
+  throw lastError!;
+}
+
+```
+
+**Complexity:**
+- Time: O(k) where k is number of retries
+- Space: O(1)
+- **Retry Strategy:** Exponential backoff prevents overwhelming payment gateway
+
+---
+
+# 5) Data Models
+
+## Payments Collection (MongoDB/PostgreSQL)
+
+```javascript
+{
+  _id: ObjectId,
+  paymentId: String,        // Unique payment ID, indexed
+  orderId: String,          // Order reference, indexed
+  userId: ObjectId,         // User reference, indexed
+  amount: Number,           // Payment amount
+  currency: String,          // Currency code (USD, INR)
+  status: String,           // pending, processing, succeeded, failed, refunded
+  paymentMethod: String,    // card, upi, wallet, netbanking
+  paymentGateway: String,   // stripe, razorpay, paypal
+  gatewayTransactionId: String, // Payment gateway transaction ID
+  idempotencyKey: String,   // Idempotency key, indexed
+  failureReason: String,    // Failure reason if failed
+  metadata: Object,         // Additional metadata
+  processedAt: Date,         // When payment was processed
+  createdAt: Date,          // Created timestamp, indexed
+  updatedAt: Date          // Updated timestamp
+}
+
+// Indexes:
+// - { paymentId: 1 } (unique)
+// - { idempotencyKey: 1 } (unique)
+// - { userId: 1, createdAt: -1 } (compound)
+// - { orderId: 1 } (indexed)
+// - { status: 1, createdAt: -1 } (compound)
+// - { gatewayTransactionId: 1 } (indexed)
+
+```
+
+## Refunds Collection (MongoDB/PostgreSQL)
+
+```javascript
+{
+  _id: ObjectId,
+  refundId: String,         // Unique refund ID, indexed
+  paymentId: ObjectId,      // Payment reference, indexed
+  amount: Number,           // Refund amount
+  reason: String,           // Refund reason
+  status: String,           // pending, processing, succeeded, failed
+  gatewayRefundId: String,  // Payment gateway refund ID
+  processedAt: Date,         // When refund was processed
+  createdAt: Date,          // Created timestamp, indexed
+  updatedAt: Date          // Updated timestamp
+}
+
+// Indexes:
+// - { refundId: 1 } (unique)
+// - { paymentId: 1 } (indexed)
+// - { status: 1, createdAt: -1 } (compound)
+
+```
+
+---
+
+# 6) Database Transactions and Consistency
+
+### MongoDB/PostgreSQL Transactions
+
+**Transaction Usage:**
+- **Multi-Document Transactions** - For operations requiring ACID guarantees
+- **Example:** Payment creation + balance update + transaction log in single transaction
+- **Session Management:** Use database sessions for transaction control
+
+**Example:**
+
+```typescript
+const session = await mongoose.startSession();
+session.startTransaction();
+try {
+  await Payment.create([paymentData], { session });
+  await Wallet.updateOne({ userId }, { $inc: { balance: -amount } }, { session });
+  await TransactionLog.create([logData], { session });
+  await session.commitTransaction();
+} catch (error) {
+  await session.abortTransaction();
+  throw error;
+} finally {
+  session.endSession();
+}
+
+```
+
+### Consistency Strategies
+
+**Data Consistency:**
+- **Payment Consistency:** Use transactions for payment operations to ensure atomicity
+- **Idempotency:** Use idempotency keys to prevent duplicate payments
+- **Balance Consistency:** Ensure balance updates are atomic with payment creation
+- **Eventual Consistency:** Accept eventual consistency for webhook processing (webhooks may arrive out of order)
+
+---
+
+# 7) Protocols
+
+### REST API Protocol
+
+- **Protocol:** REST (Representational State Transfer)
+- **Data Format:** JSON
+- **HTTP Methods:** GET, POST, PUT
+- **Status Codes:** 200 (Success), 201 (Created), 400 (Bad Request), 401 (Unauthorized), 402 (Payment Required), 404 (Not Found), 409 (Duplicate Payment), 500 (Server Error)
+- **Authentication:** JWT Bearer token in Authorization header
+
+### Webhook Protocol
+
+- **Protocol:** HTTP POST
+- **Data Format:** JSON
+- **Signature Verification:** HMAC-SHA256 signature in header
+- **Idempotency:** Webhook ID for duplicate detection
+- **Use Case:** Payment gateway status updates
+
+---
+
+# 8) API Design
+
+### POST /api/v1/payments
+
+- **URL:** `/api/v1/payments`
+- **Method:** POST
+- **Description:** Process a payment
+- **Headers:**
+  - `Idempotency-Key`: string (optional) - Unique key to prevent duplicate charges
+- **Request Body:**
+
+  ```json
+  {
+    "orderId": "order_abc123",
+    "amount": 100.00,
+    "currency": "USD",
+    "paymentMethod": "card",
+    "paymentDetails": {
+      "cardToken": "tok_visa_1234"
+    }
+  }
+
+  ```
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "paymentId": "payment_abc123",
+      "orderId": "order_abc123",
+      "amount": 100.00,
+      "status": "succeeded",
+      "gatewayTransactionId": "txn_xyz789",
+      "processedAt": "2024-01-15T10:30:00Z"
+    }
+  }
+
+  ```
+- **Status Codes:** 201 (Created), 400 (Validation Error), 402 (Payment Failed), 409 (Duplicate Payment)
+
+### POST /api/v1/payments/:paymentId/refund
+
+- **URL:** `/api/v1/payments/:paymentId/refund`
+- **Method:** POST
+- **Description:** Process a refund
+- **Request Body:**
+
+  ```json
+  {
+    "amount": 100.00,
+    "reason": "Customer request"
+  }
+
+  ```
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "refundId": "refund_abc123",
+      "paymentId": "payment_abc123",
+      "amount": 100.00,
+      "status": "processing",
+      "createdAt": "2024-01-15T10:30:00Z"
+    }
+  }
+
+  ```
+- **Status Codes:** 201 (Created), 400 (Validation Error), 404 (Payment Not Found)
+
+### POST /api/v1/webhooks/payment
+
+- **URL:** `/api/v1/webhooks/payment`
+- **Method:** POST
+- **Description:** Payment gateway webhook endpoint
+- **Headers:**
+  - `X-Signature`: string (required) - HMAC-SHA256 signature
+- **Request Body:**
+
+  ```json
+  {
+    "event": "payment.succeeded",
+    "data": {
+      "paymentId": "payment_abc123",
+      "status": "succeeded",
+      "gatewayTransactionId": "txn_xyz789"
+    }
+  }
+
+  ```
+- **Response:**
+
+  ```json
+  {
+    "success": true,
+    "message": "Webhook processed"
+  }
+
+  ```
+- **Status Codes:** 200 (Success), 401 (Invalid Signature), 400 (Invalid Payload)
+
+---
+
+# 9) Caching Strategy
+
+### Redis Cache
+
+**Cache Strategy:**
+- **Key Format:** `idempotency:{key}`, `payment:{paymentId}`, `payment:status:{paymentId}`
+- **Value:** Serialized JSON (payment result, payment status)
+- **TTL:** 
+  - Idempotency keys: 86400 seconds (24 hours)
+  - Payment status: 3600 seconds (1 hour)
+  - Payment result: 86400 seconds (24 hours)
+- **Eviction Policy:** LRU (Least Recently Used)
+
+**Cache Patterns:**
+- **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
+- **Write-Through Pattern:** Update cache when payment status changes
+- **Cache Invalidation:** Invalidate payment cache on status updates
+
+---
+
+# 10) Error Handling
+
+### Error Scenarios and Responses
+
+**Edge Cases Handling:**
+- **Duplicate Payment:** Return 409 Conflict with cached payment result
+- **Payment Gateway Failure:** Return 502 Bad Gateway, retry with exponential backoff
+- **Invalid Payment Method:** Return 400 Bad Request with validation errors
+- **Insufficient Funds:** Return 402 Payment Required with error details
+- **Invalid Webhook Signature:** Return 401 Unauthorized, log for security audit
+- **Payment Timeout:** Return 504 Gateway Timeout, mark payment as pending
+
+**Error Response Format:**
+
+```json
+{
+  "error": {
+    "code": "PAYMENT_FAILED",
+    "message": "Payment processing failed",
+    "details": "Card declined by bank",
+    "paymentId": "payment_abc123",
+    "retryable": true
+  }
+}
+
+```
+
+---
+
+# 11) Deployment and DevOps
+
+### Scalability
+
+**API Layer:**
+- Deploy API layer across multiple instances behind load balancer
+- Use auto-scaling based on CPU/memory metrics
+- Stateless design allows horizontal scaling
+
+**Database Scaling:**
+- **Read Replicas:** Deploy read replicas for payment history queries
+- **Sharding:** Shard payments by userId or paymentId for write scaling
+- **Connection Pooling:** Use connection pooling to manage database connections
+
+**Caching:**
+- Distributed Redis cluster for high availability
+- Cache idempotency keys and payment status
+- Reduces database load significantly
+
+### Availability
+
+**Replication:**
+- Database replication ensures data availability
+- Multi-region replication for disaster recovery
+
+**Failover:**
+- Automated failover mechanisms for API and data store layers
+- Health checks and monitoring for proactive failover
+- Circuit breaker pattern to prevent cascading failures
+
+**Geo-Distributed Deployment:**
+- Deploy service across multiple geographical regions
+- Reduces latency for users worldwide
+- Improves availability by eliminating single point of failure
+
+### Frontend Deployment
+
+**Build Process:**
+- **Production Build:** Optimized bundle with code splitting
+- **CDN Deployment:** Deploy static assets to CDN for fast global delivery
+- **Environment Variables:** `.env.production` for production config
+
+**Deployment Platforms:**
+- **Vercel / Netlify** - Automatic deployments from Git
+- **AWS S3 + CloudFront** - Static site hosting with CDN
+
+### Backend Deployment
+
+**Server Setup:**
+- **PM2:** Process manager with clustering for Node.js apps
+- **Nginx:** Load balancer and reverse proxy with SSL termination
+- **Docker:** Containerized deployment for consistency
+- **Kubernetes:** Container orchestration for auto-scaling
+
+**CI/CD Pipeline:**
+- **Automated Testing:** Run tests before deployment
+- **Zero-Downtime:** Rolling deployment strategy
+- **Health Checks:** Verify payment endpoints are healthy
+- **Blue-Green Deployment:** Maintain two identical production environments
+
+### Database Deployment
+
+**MongoDB/PostgreSQL Setup:**
+- **Managed Database Service** - MongoDB Atlas or AWS RDS
+- **Backup Strategy:** Daily automated backups with point-in-time recovery
+- **Indexing:** Proper indexes on paymentId, orderId, userId, idempotencyKey
+- **Replication:** Replica sets for high availability
+
+**Redis Setup:**
+- **Redis Cloud / AWS ElastiCache** - Managed Redis service
+- **Cluster Mode:** Redis cluster for high availability and performance
+- **Persistence:** RDB snapshots and AOF for data durability
+
+---
+
+# 12) Security Considerations
+
+### PCI-DSS Compliance
+
+- **Never Store Card Data:** Use payment gateway tokens, never store full card numbers
+- **Tokenization:** Use payment gateway tokenization for card storage
+- **Encryption:** Encrypt all payment data in transit (HTTPS) and at rest
+- **Access Control:** Restrict access to payment data, use role-based access control
+
+### Payment Security
+
+- **Idempotency:** Use idempotency keys to prevent duplicate charges
+- **Webhook Verification:** Verify webhook signatures to prevent fraud
+- **Rate Limiting:** Implement rate limiting to prevent payment abuse
+- **Fraud Detection:** ML-based fraud detection analyzing transaction patterns
+
+### Input Validation
+
+- Validate all payment inputs (amount, currency, payment method)
+- Sanitize user input to prevent injection attacks
+- Validate payment gateway responses
+
+### HTTPS/TLS
+
+- All communication between clients and API encrypted using HTTPS
+- Prevents eavesdropping and man-in-the-middle attacks
+- SSL/TLS certificates for secure connections
+
+### Authentication and Authorization
+
+- **JWT Tokens:** Use JWT for stateless authentication
+- **Token Expiration:** Set appropriate token expiration times
+- **Role-Based Access Control:** Implement RBAC for payment operations
+- **API Keys:** Use API keys for service-to-service authentication
+
+### Monitoring and Alerts
+
+- Set up monitoring for unusual payment patterns
+- Trigger alerts for potential fraud or security issues
+- Track metrics: payment success rates, fraud detection rates, payment gateway latency
+- Log all payment operations for security auditing (without sensitive data)
+
+---
+
 # 3) Interview Answers
 
 ---
 
-## Q1. Designing a payment system
+## Q1. 💡 Designing a payment system
 
 **Situation:** Need to design a payment processing system for 1B+ transactions per day with 99.99% reliability, handling multiple payment methods and fraud detection.
 
@@ -1307,7 +1814,7 @@ try {
 
 ---
 
-## Q2. Ensuring idempotency in payment processing
+## Q2. 💡 Ensuring idempotency in payment processing
 
 **Situation:** Need to prevent duplicate charges when payment request is retried.
 
@@ -1329,7 +1836,7 @@ try {
 
 ---
 
-## Q3. Handling payment webhooks
+## Q3. 🪝 🪝 🪝 Handling payment webhooks
 
 **Situation:** Payment gateway sends webhooks to notify payment status changes.
 
@@ -1350,3 +1857,43 @@ try {
 **Result:** 99.9% webhook processing success rate. Payment status updates in real-time. Zero duplicate webhook processing.
 
 **Takeaway:** Webhook signature verification is critical for security. Async processing prevents blocking.
+
+---
+
+## Q4. 💡 Implementing payment retry logic
+
+**Situation:** Payment gateway may fail temporarily, need to retry failed payments without creating duplicate charges.
+
+**Action:** I implemented payment retry logic:
+
+- **Idempotency Keys:** Use same idempotency key for retries to prevent duplicate charges
+- **Exponential Backoff:** Retry with exponential backoff (1s, 2s, 4s, 8s) to avoid overwhelming gateway
+- **Max Retries:** Limit retries to 3-5 attempts to prevent infinite loops
+- **Error Classification:** Don't retry on certain errors (invalid card, insufficient funds)
+- **Retry Queue:** Queue failed payments for retry processing
+- **Status Tracking:** Track retry attempts and last retry time
+- **Notification:** Notify user after max retries exceeded
+
+**Result:** Payment success rate improved from 95% to 99.5%. Retry logic handles temporary gateway failures. Zero duplicate charges due to idempotency.
+
+**Takeaway:** Idempotency keys enable safe retries. Exponential backoff prevents gateway overload. Error classification avoids unnecessary retries.
+
+---
+
+## Q5. 💡 Handling payment refunds
+
+**Situation:** Users request refunds, need to process refunds securely and maintain refund history.
+
+**Action:** I implemented refund processing:
+
+- **Refund Validation:** Validate refund eligibility (within refund window, payment succeeded)
+- **Partial Refunds:** Support partial refunds for orders with multiple items
+- **Refund Processing:** Process refund through payment gateway API
+- **Status Tracking:** Track refund status (pending, processing, succeeded, failed)
+- **Webhook Handling:** Handle refund status updates via webhooks
+- **Refund History:** Maintain refund history linked to original payment
+- **Notification:** Notify user when refund is processed
+
+**Result:** Refunds processed within 24 hours. Refund success rate 99.9%. Complete refund history maintained. Users notified promptly.
+
+**Takeaway:** Refund validation prevents invalid refunds. Webhook handling provides real-time status updates. Refund history enables audit trail.

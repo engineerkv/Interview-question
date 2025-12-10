@@ -16,19 +16,21 @@
 
 ---
 
-## Q98. Service Workers
+## Q98. 💡 Service Workers
 
 Service workers are background scripts that run separately from your web page and can intercept network requests, cache resources, and handle push notifications. Service workers are the core building block for offline-first web apps. Understanding service workers is essential for building Progressive Web Apps (PWAs) and providing reliable experiences even when network connectivity is poor.
 
 ---
 
-## 1. How service workers work
+## 1. 💡 How service workers work
 
 ### 🔹 Lifecycle
 
 1. **Register** from the page:
+
    ```javascript
    navigator.serviceWorker.register('/sw.js');
+
    ```
 
 2. **Install** – cache initial assets in `install` event
@@ -41,7 +43,7 @@ Service workers are background scripts that run separately from your web page an
 
 ---
 
-## 2. Common strategies
+## 2. 💡 Common strategies
 
 * **Cache-first** – for static assets (icons, JS, CSS)
 
@@ -65,13 +67,13 @@ Use a versioned cache, delete old caches in `activate`, and show a “New versio
 
 ---
 
-## Q99. Progressive Web Applications (PWAs)
+## Q99. 💡 Progressive Web Applications (PWAs)
 
 Progressive Web Apps are web apps that use modern capabilities like service workers and manifests to deliver an app-like experience: installable, offline-capable, and fast.
 
 ---
 
-## 1. Core requirements
+## 1. 💡 Core requirements
 
 * **HTTPS** – secure origin
 
@@ -85,7 +87,7 @@ Progressive Web Apps are web apps that use modern capabilities like service work
 
 ---
 
-## 2. UX characteristics
+## 2. 💡 UX characteristics
 
 * Installable icon on home screen / app launcher
 
@@ -117,9 +119,9 @@ Identify critical user journeys (read last data, create drafts, view cached cont
 
 <div align="center">
 
-[17) Accessibility.md](17%29%20Accessibility.md) • [Questions Index](question.md) • [19) Patterns.md →](19%29%20Patterns.md)
+[← Previous: Accessibility](21%29%20Accessibility.md) • [Home: Questions Index](question.md) • [Next: Patterns →](23%29%20Patterns.md)
 
-[FE-System-Design Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md]
+[📋 Cheatsheet](FE-System-Design%20Interview%20Cheatsheet.md)
 
 </div>
 
