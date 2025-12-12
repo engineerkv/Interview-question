@@ -2,7 +2,7 @@
 
 > **⏱️ Review Time: 60-75 minutes** | **Priority: ⭐⭐⭐ Critical** | Essential backend system design concepts for interviews
 >
-> **Coverage: Q1-Q224** (224 questions across 12 topics)
+> **Coverage: Q1-Q214** (214 questions across 11 topics)
 
 **Quick Review Checklist:**
 
@@ -12,23 +12,21 @@
 
 - [ ] REST vs GraphQL (Q41-Q50)
 
-- [ ] API Scaling (Q51-Q65)
+- [ ] API Scaling (Q51-Q63)
 
 - [ ] Messaging Systems (Q66-Q94)
 
-- [ ] AWS Cloud Architecture (Q95-Q119)
+- [ ] AWS Cloud Architecture (Q95-Q117)
 
 - [ ] Observability (Q120-Q134)
 
-- [ ] Database Design (Q135-Q169)
+- [ ] Database Design (Q135-Q168)
 
-- [ ] Node.js System Design (Q170-Q189)
+- [ ] Node.js System Design (Q170-Q188)
 
 - [ ] Git, Docker, CI/CD, Tooling (Q190-Q209)
 
 - [ ] Code Quality + Debugging (Q210-Q219)
-
-- [ ] AI Tools (Q220-Q224)
 
 ---
 
@@ -40,25 +38,23 @@
 
 - **Q41-Q50**: REST vs GraphQL
 
-- **Q51-Q65**: API Scaling
+- **Q51-Q63**: API Scaling
 
 - **Q66-Q94**: Messaging Systems
 
-- **Q95-Q119**: AWS Cloud Architecture
+- **Q95-Q117**: AWS Cloud Architecture
 
 - **Q120-Q134**: Observability
 
-- **Q135-Q169**: Database Design
+- **Q135-Q168**: Database Design
 
-- **Q170-Q189**: Node.js System Design
+- **Q170-Q188**: Node.js System Design
 
 - **Q190-Q209**: Git, Docker, CI/CD, Tooling
 
 - **Q210-Q219**: Code Quality + Debugging
 
-- **Q220-Q224**: AI Tools
-
-**Total: 224 questions across 12 topics**
+**Total: 214 questions across 11 topics**
 
 ---
 

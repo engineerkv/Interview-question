@@ -109,6 +109,7 @@ Design and implement a cloud file storage system that addresses the following ch
 - **Read:Write Ratio**: 5:1 (downloading/viewing files vs uploading files)
 
 **Calculations:**
+
 - **Average Writes Per Second (WPS)**: 1B file uploads / 86,400 seconds ≈ 11,574 WPS
 - **Peak WPS**: 11,574 × 3 = 34,722 WPS
 - **Average Reads Per Second (RPS)**: 11,574 × 5 = 57,870 RPS
@@ -118,12 +119,14 @@ Design and implement a cloud file storage system that addresses the following ch
 ### Storage Estimation
 
 **Storage per File:**
+
 - File chunks: Variable (average 10 MB per file)
 - File metadata: 1 KB (id, userId, name, size, type, timestamps, version)
 - Chunk references: 500 bytes (chunk IDs, order)
 - **Total per File**: ~10.0015 MB average
 
 **Storage Requirements:**
+
 - **Files per Year**: 1B files/day × 365 = 365 billion files
 - **File Storage**: 365B × 10 MB ≈ 3.65 EB per year (before deduplication)
 - **With Deduplication (30% savings)**: 3.65 EB × 0.7 ≈ 2.555 EB per year
@@ -142,6 +145,7 @@ Design and implement a cloud file storage system that addresses the following ch
 ### Caching Estimation
 
 Following the **80-20 rule** where 20% of files generate 80% of traffic:
+
 - **Cache 20% of popular files**: 1B × 0.2 = 200M files
 - **Cache memory required**: 200M × 10 MB = 2 PB (CDN edge cache)
 - **Cache hit ratio**: 90% (only 10% of file requests hit origin)
@@ -225,6 +229,7 @@ The system follows a cloud file storage architecture with chunking, deduplicatio
 ### Complete Request Flow
 
 **File Upload Flow:**
+
 1. **Frontend**: User selects file to upload
 2. **Chunking**: Split file into chunks (e.g., 5MB chunks)
 3. **API Call**: POST request to upload API with file metadata
@@ -236,6 +241,7 @@ The system follows a cloud file storage architecture with chunking, deduplicatio
 9. **Frontend**: Show upload completion and file in browser
 
 **File Download Flow:**
+
 1. **Frontend**: User clicks to download file
 2. **API Call**: GET request to file API
 3. **Backend**: Fetch file metadata and chunk references from database
@@ -245,6 +251,7 @@ The system follows a cloud file storage architecture with chunking, deduplicatio
 7. **Frontend**: Download file chunks and reassemble, or download from CDN
 
 **File Synchronization Flow:**
+
 1. **Frontend**: Client app checks for file changes
 2. **API Call**: GET request to sync API with last sync timestamp
 3. **Backend**: Query database for files changed since last sync
@@ -253,6 +260,7 @@ The system follows a cloud file storage architecture with chunking, deduplicatio
 6. **Conflict Resolution**: Handle conflicts if same file modified on multiple devices
 
 **File Sharing Flow:**
+
 1. **Frontend**: User shares file with another user
 2. **API Call**: POST request to share API with file ID and permissions
 3. **Backend**: Create share record in database
@@ -371,7 +379,7 @@ const FileBrowser: React.FC<{ folderId?: string }> = ({ folderId }) => {
 
   return (
     <div className="file-browser">
-      <Toolbar 
+      <Toolbar
         viewMode={viewMode}
         onViewModeChange={setViewMode}
         sortBy={sortBy}
@@ -380,7 +388,7 @@ const FileBrowser: React.FC<{ folderId?: string }> = ({ folderId }) => {
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-        <FileGrid 
+        <FileGrid
           files={files}
           viewMode={viewMode}
           onFileClick={handleFileClick}
@@ -468,7 +476,7 @@ const useFiles = (folderId?: string, sortBy?: string) => {
 
 const useUploadFiles = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async ({ file, folderId }: { file: File; folderId?: string }) => {
       const formData = new FormData();
@@ -1405,6 +1413,7 @@ try {
 **Purpose:** Split large files into smaller chunks for efficient upload, storage, and deduplication.
 
 **Algorithm:**
+
 1. Read file in fixed-size chunks (e.g., 5MB)
 2. Calculate SHA-256 hash for each chunk
 3. Store chunk hash and metadata
@@ -1421,10 +1430,10 @@ async function chunkFile(filePath: string, chunkSize: number = 5 * 1024 * 1024):
   const chunks: Chunk[] = [];
   const fileStream = fs.createReadStream(filePath, { highWaterMark: chunkSize });
   let chunkIndex = 0;
-  
+
   for await (const chunk of fileStream) {
     const hash = crypto.createHash('sha256').update(chunk).digest('hex');
-    
+
     chunks.push({
       index: chunkIndex++,
       hash,
@@ -1432,17 +1441,17 @@ async function chunkFile(filePath: string, chunkSize: number = 5 * 1024 * 1024):
       data: chunk
     });
   }
-  
+
   return chunks;
 }
 
 async function uploadChunks(chunks: Chunk[]): Promise<string[]> {
   const chunkIds: string[] = [];
-  
+
   for (const chunk of chunks) {
     // Check if chunk already exists (deduplication)
     const existing = await checkChunkExists(chunk.hash);
-    
+
     if (existing) {
       chunkIds.push(existing.chunkId);
     } else {
@@ -1452,13 +1461,14 @@ async function uploadChunks(chunks: Chunk[]): Promise<string[]> {
       chunkIds.push(chunkId);
     }
   }
-  
+
   return chunkIds;
 }
 
 ```
 
 **Complexity:**
+
 - Time: O(n) where n is file size
 - Space: O(chunkSize) for streaming
 - **Deduplication:** Content-based hashing enables chunk-level deduplication
@@ -1470,6 +1480,7 @@ async function uploadChunks(chunks: Chunk[]): Promise<string[]> {
 **Purpose:** Identify and reuse duplicate file chunks to save storage space.
 
 **Algorithm:**
+
 1. Calculate SHA-256 hash for each file chunk
 2. Check if chunk hash exists in database
 3. If exists, increment reference count and reuse chunk
@@ -1484,11 +1495,11 @@ class DeduplicationService {
   async processFile(file: File): Promise<string[]> {
     const chunks = await chunkFile(file.path);
     const chunkIds: string[] = [];
-    
+
     for (const chunk of chunks) {
       // Check if chunk exists
       const existing = await ChunkMetadata.findOne({ hash: chunk.hash });
-      
+
       if (existing) {
         // Increment reference count
         await ChunkMetadata.updateOne(
@@ -1499,7 +1510,7 @@ class DeduplicationService {
       } else {
         // Upload new chunk
         const chunkId = await this.uploadChunk(chunk);
-        
+
         // Store metadata
         await ChunkMetadata.create({
           chunkId,
@@ -1507,24 +1518,24 @@ class DeduplicationService {
           size: chunk.size,
           referenceCount: 1
         });
-        
+
         chunkIds.push(chunkId);
       }
     }
-    
+
     return chunkIds;
   }
-  
+
   async deleteFile(fileId: string): Promise<void> {
     const file = await File.findById(fileId);
-    
+
     // Decrement reference count for each chunk
     for (const chunkId of file.chunkIds) {
       const result = await ChunkMetadata.updateOne(
         { chunkId },
         { $inc: { referenceCount: -1 } }
       );
-      
+
       // Delete chunk if no references
       if (result.modifiedCount > 0) {
         const chunk = await ChunkMetadata.findOne({ chunkId });
@@ -1540,6 +1551,7 @@ class DeduplicationService {
 ```
 
 **Complexity:**
+
 - Time: O(n) where n is number of chunks
 - Space: O(1) per chunk metadata
 - **Storage Savings:** Deduplication can save 30-50% storage space
@@ -1551,6 +1563,7 @@ class DeduplicationService {
 **Purpose:** Synchronize only changed chunks between client and server to reduce bandwidth.
 
 **Algorithm:**
+
 1. Client calculates chunk hashes for local file
 2. Server sends list of chunk hashes for server file
 3. Compare hashes to identify changed chunks
@@ -1563,7 +1576,7 @@ class DeduplicationService {
 async function syncFile(localFile: File, serverFile: File): Promise<void> {
   const localChunks = await getChunkHashes(localFile);
   const serverChunks = await getChunkHashes(serverFile);
-  
+
   // Find changed chunks
   const changedChunks: number[] = [];
   for (let i = 0; i < Math.max(localChunks.length, serverChunks.length); i++) {
@@ -1571,7 +1584,7 @@ async function syncFile(localFile: File, serverFile: File): Promise<void> {
       changedChunks.push(i);
     }
   }
-  
+
   // Download only changed chunks
   for (const index of changedChunks) {
     const chunk = await downloadChunk(serverFile.fileId, index);
@@ -1582,6 +1595,7 @@ async function syncFile(localFile: File, serverFile: File): Promise<void> {
 ```
 
 **Complexity:**
+
 - Time: O(n) where n is number of chunks
 - Space: O(k) where k is number of changed chunks
 - **Bandwidth Savings:** Delta sync reduces bandwidth by 70-90%
@@ -1672,6 +1686,7 @@ async function syncFile(localFile: File, serverFile: File): Promise<void> {
 ### MongoDB Transactions
 
 **Transaction Usage:**
+
 - **Multi-Document Transactions** - For operations requiring ACID guarantees
 - **Example:** File creation + folder update + user quota update in single transaction
 - **Session Management:** Use MongoDB sessions for transaction control
@@ -1698,6 +1713,7 @@ try {
 ### Consistency Strategies
 
 **Data Consistency:**
+
 - **File Consistency:** Use transactions for file operations to ensure atomicity
 - **Storage Quota Consistency:** Ensure quota updates are atomic with file creation
 - **Metadata Consistency:** Keep file metadata in sync with S3 (eventual consistency acceptable)
@@ -1740,6 +1756,7 @@ try {
   fileName: string (optional, defaults to original filename)
 
   ```
+
 - **Response:**
 
   ```json
@@ -1759,6 +1776,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 201 (Created), 400 (Validation Error), 413 (File Too Large), 507 (Storage Quota Exceeded)
 
 ### GET /api/v1/files/:fileId/download
@@ -1778,6 +1796,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 404 (File Not Found), 403 (Access Denied)
 
 ### POST /api/v1/files/:fileId/share
@@ -1794,6 +1813,7 @@ try {
   }
 
   ```
+
 - **Response:**
 
   ```json
@@ -1809,6 +1829,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 201 (Created), 400 (Validation Error), 404 (File Not Found)
 
 ---
@@ -1818,15 +1839,17 @@ try {
 ### Redis Cache
 
 **Cache Strategy:**
+
 - **Key Format:** `file:metadata:{fileId}`, `file:chunks:{fileId}`, `signed-url:{fileId}`
 - **Value:** Serialized JSON (file metadata, chunk list, signed URLs)
-- **TTL:** 
+- **TTL:**
   - File metadata: 3600 seconds (1 hour)
   - Signed URLs: 3600 seconds (1 hour)
   - Chunk list: 1800 seconds (30 minutes)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
+
 - **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
 - **Write-Through Pattern:** Update cache when file metadata changes
 - **Cache Invalidation:** Invalidate file cache on file updates or deletions
@@ -1834,6 +1857,7 @@ try {
 ### CDN Cache
 
 **Cache Strategy:**
+
 - **Static Files:** Cache frequently accessed files at CDN edge locations
 - **Cache Headers:** Use Cache-Control headers for cache control
 - **Cache Invalidation:** Purge CDN cache on file updates
@@ -1845,6 +1869,7 @@ try {
 ### Error Scenarios and Responses
 
 **Edge Cases Handling:**
+
 - **File Too Large:** Return 413 Payload Too Large when file exceeds size limit
 - **Storage Quota Exceeded:** Return 507 Insufficient Storage when user quota exceeded
 - **Invalid File Format:** Return 400 Bad Request with validation errors
@@ -1876,16 +1901,19 @@ try {
 ### Scalability
 
 **API Layer:**
+
 - Deploy API layer across multiple instances behind load balancer
 - Use auto-scaling based on CPU/memory metrics
 - Stateless design allows horizontal scaling
 
 **Storage Scaling:**
+
 - **S3 Scaling:** S3 automatically scales to handle any storage volume
 - **CDN Scaling:** CloudFront CDN scales globally for file delivery
 - **Database Scaling:** Shard file metadata by userId for write scaling
 
 **Caching:**
+
 - Distributed Redis cluster for high availability
 - Cache file metadata and signed URLs
 - Reduces database load significantly
@@ -1893,16 +1921,19 @@ try {
 ### Availability
 
 **Replication:**
+
 - S3 provides 99.999999999% (11 9's) durability
 - Database replication ensures metadata availability
 - Multi-region replication for disaster recovery
 
 **Failover:**
+
 - Automated failover mechanisms for API and data store layers
 - Health checks and monitoring for proactive failover
 - Circuit breaker pattern to prevent cascading failures
 
 **Geo-Distributed Deployment:**
+
 - Deploy service across multiple geographical regions
 - Reduces latency for users worldwide
 - Improves availability by eliminating single point of failure
@@ -1910,23 +1941,27 @@ try {
 ### Frontend Deployment
 
 **Build Process:**
+
 - **Production Build:** Optimized bundle with code splitting
 - **CDN Deployment:** Deploy static assets to CDN for fast global delivery
 - **Environment Variables:** `.env.production` for production config
 
 **Deployment Platforms:**
+
 - **Vercel / Netlify** - Automatic deployments from Git
 - **AWS S3 + CloudFront** - Static site hosting with CDN
 
 ### Backend Deployment
 
 **Server Setup:**
+
 - **PM2:** Process manager with clustering for Node.js apps
 - **Nginx:** Load balancer and reverse proxy with SSL termination
 - **Docker:** Containerized deployment for consistency
 - **Kubernetes:** Container orchestration for auto-scaling
 
 **CI/CD Pipeline:**
+
 - **Automated Testing:** Run tests before deployment
 - **Zero-Downtime:** Rolling deployment strategy
 - **Health Checks:** Verify file endpoints are healthy
@@ -1935,17 +1970,20 @@ try {
 ### Database Deployment
 
 **MongoDB Setup:**
+
 - **MongoDB Atlas** - Managed MongoDB service with automatic backups
 - **Backup Strategy:** Daily automated backups with point-in-time recovery
 - **Indexing:** Proper indexes on fileId, userId, folderId, hash
 - **Sharding:** Shard file metadata by userId for horizontal scaling
 
 **Redis Setup:**
+
 - **Redis Cloud / AWS ElastiCache** - Managed Redis service
 - **Cluster Mode:** Redis cluster for high availability and performance
 - **Persistence:** RDB snapshots and AOF for data durability
 
 **S3 Setup:**
+
 - **AWS S3** - Object storage for file chunks
 - **Lifecycle Policies:** Configure lifecycle policies (move to Glacier after 90 days)
 - **Versioning:** Enable versioning for file versioning feature

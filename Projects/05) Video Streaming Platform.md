@@ -287,6 +287,7 @@ Design and implement a video streaming platform that addresses the following cha
 - **Average Video Duration**: 10 minutes
 
 **Calculations:**
+
 - **Average Writes Per Second (WPS)**: (200M users × 0.1 uploads/day) / 86,400 seconds ≈ 231 WPS
 - **Peak WPS**: 231 × 3 = 693 WPS
 - **Average Reads Per Second (RPS)**: 200M users × 5 videos/day / 86,400 seconds ≈ 11,574 RPS
@@ -296,12 +297,14 @@ Design and implement a video streaming platform that addresses the following cha
 ### Storage Estimation
 
 **Storage per Video:**
+
 - Original video: 500 MB average (10-minute video at 1080p)
 - Transcoded versions: 360p (50 MB), 720p (150 MB), 1080p (300 MB), 4K (1 GB)
 - Thumbnails: 5 MB (multiple thumbnails)
 - **Total per Video**: ~2 GB (including all quality versions)
 
 **Storage Requirements:**
+
 - **Total Videos per Year**: 200M users × 0.1 uploads/day × 365 = 7.3 billion videos
 - **Video Storage**: 7.3B × 2 GB ≈ 14.6 PB per year
 - **User Data**: 200M users × 10 KB ≈ 2 TB
@@ -319,6 +322,7 @@ Design and implement a video streaming platform that addresses the following cha
 ### Caching Estimation
 
 Following the **80-20 rule** where 20% of videos generate 80% of traffic:
+
 - **Cache 20% of hot videos**: 7.3B × 0.2 = 1.46B videos
 - **Cache memory required**: 1.46B × 2 GB = 2.92 PB (CDN edge cache)
 - **Cache hit ratio**: 90% (only 10% of video requests hit origin)
@@ -492,6 +496,7 @@ The system follows a layered architecture with video processing pipeline and glo
 ### Complete Request Flow
 
 **Video Upload Flow:**
+
 1. **Frontend**: User selects video file and uploads
 2. **API Call**: POST request to upload API with video file
 3. **Backend**: Validate file, upload to S3, create video record in MongoDB
@@ -503,6 +508,7 @@ The system follows a layered architecture with video processing pipeline and glo
 9. **Frontend**: Show upload progress and processing status
 
 **Video Playback Flow:**
+
 1. **Frontend**: User clicks on video to watch
 2. **API Call**: GET request to video metadata API
 3. **Backend**: Fetch video metadata from MongoDB (or cache)
@@ -513,6 +519,7 @@ The system follows a layered architecture with video processing pipeline and glo
 8. **Analytics**: Track view count and watch time
 
 **Feed Loading Flow:**
+
 1. **Frontend**: User opens home feed
 2. **API Call**: GET request to feed API
 3. **Backend**: Generate personalized feed based on user preferences
@@ -752,8 +759,8 @@ const VideoPlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
   return (
     <div className="video-player-container">
       <video id="video-player" className="video-js" />
-      <QualitySelector 
-        qualities={video?.qualities || []} 
+      <QualitySelector
+        qualities={video?.qualities || []}
         current={quality}
         onChange={setQuality}
       />
@@ -775,7 +782,7 @@ const VideoUploadForm: React.FC = () => {
 
   const handleUpload = async () => {
     if (!file) return;
-    
+
     const formData = new FormData();
     formData.append('video', file);
     formData.append('title', title);
@@ -794,13 +801,13 @@ const VideoUploadForm: React.FC = () => {
   return (
     <div className="upload-form">
       <FileDropzone onFileSelect={handleFileSelect} />
-      <input 
-        type="text" 
+      <input
+        type="text"
         placeholder="Video Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <textarea 
+      <textarea
         placeholder="Description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
@@ -845,7 +852,7 @@ const useVideo = (videoId: string) => {
 
 const useUploadVideo = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (formData: FormData) => {
       const response = await axios.post('/api/v1/videos/upload', formData, {
@@ -1039,7 +1046,7 @@ export class VideoService {
     // Upload video to S3
     const videoKey = `videos/${userId}/${Date.now()}-${file.name}`;
     await this.s3Client.upload(file, videoKey);
-    
+
     // Create video record
     const video = await Video.create({
       ...metadata,
@@ -1047,10 +1054,10 @@ export class VideoService {
       videoUrl: this.getCDNUrl(videoKey),
       status: 'processing'
     });
-    
+
     // Queue processing job
     await this.processingQueue.add({ videoId: video.id, videoUrl: video.videoUrl });
-    
+
     return video;
   }
 
@@ -1058,11 +1065,11 @@ export class VideoService {
     // Check cache first
     const cached = await this.redis.get(`video:${videoId}`);
     if (cached) return JSON.parse(cached);
-    
+
     // Query database
     const video = await Video.findById(videoId);
     await this.redis.setex(`video:${videoId}`, 300, JSON.stringify(video));
-    
+
     return video;
   }
 
@@ -1081,23 +1088,23 @@ export class VideoProcessingService {
   async processVideo(videoId: string, videoUrl: string): Promise<void> {
     // Download video from S3
     const videoBuffer = await this.downloadFromS3(videoUrl);
-    
+
     // Transcode into multiple qualities
     const qualities = ['360p', '720p', '1080p', '4K'];
     for (const quality of qualities) {
       const transcoded = await this.transcode(videoBuffer, quality);
       await this.uploadToS3(`videos/${videoId}/${quality}.mp4`, transcoded);
     }
-    
+
     // Generate thumbnails
     const thumbnails = await this.generateThumbnails(videoBuffer);
     for (const thumbnail of thumbnails) {
       await this.uploadToS3(`thumbnails/${videoId}/${thumbnail.timestamp}.jpg`, thumbnail.buffer);
     }
-    
+
     // Update video status
     await Video.updateOne({ id: videoId }, { status: 'ready' });
-    
+
     // Index in Elasticsearch
     await this.searchService.indexVideo(videoId);
   }
@@ -1117,10 +1124,10 @@ export class CommentService {
       parentId,
       createdAt: new Date()
     });
-    
+
     // Update comment count
     await Video.updateOne({ id: videoId }, { $inc: { commentCount: 1 } });
-    
+
     return comment;
   }
 
@@ -1175,17 +1182,20 @@ server/
 ### iii) Implementation Details
 
 **Video Upload Implementation:**
+
 - Multipart upload to S3 with progress tracking
 - Queue video processing job after upload
 - Update video status throughout processing pipeline
 
 **Video Processing Implementation:**
+
 - FFmpeg transcoding into multiple quality formats
 - Thumbnail generation at key timestamps
 - HLS/DASH manifest generation for adaptive streaming
 - Error handling and retry logic for failed processing
 
 **Video Playback Implementation:**
+
 - Video.js player with HLS/DASH support
 - Adaptive bitrate streaming based on network conditions
 - Quality selector for manual quality selection
@@ -1636,6 +1646,7 @@ try {
 **Purpose:** Automatically select optimal video quality based on network conditions and buffer state.
 
 **Algorithm:**
+
 1. Monitor network bandwidth and buffer level
 2. Calculate available bandwidth (bytes downloaded / time)
 3. Select quality level that matches available bandwidth
@@ -1649,7 +1660,7 @@ class AdaptiveBitrateSelector {
   private qualities = ['360p', '720p', '1080p', '4K'];
   private currentQuality = 0;
   private bufferThreshold = 10; // seconds
-  
+
   selectQuality(networkSpeed: number, bufferLevel: number): string {
     // Calculate target quality based on network speed
     let targetQuality = 0;
@@ -1657,14 +1668,14 @@ class AdaptiveBitrateSelector {
     else if (networkSpeed > 5000000) targetQuality = 2; // 1080p
     else if (networkSpeed > 2000000) targetQuality = 1; // 720p
     else targetQuality = 0; // 360p
-    
+
     // Adjust based on buffer level
     if (bufferLevel < this.bufferThreshold && this.currentQuality > 0) {
       targetQuality = Math.max(0, this.currentQuality - 1);
     } else if (bufferLevel > this.bufferThreshold * 2 && targetQuality > this.currentQuality) {
       targetQuality = Math.min(3, this.currentQuality + 1);
     }
-    
+
     this.currentQuality = targetQuality;
     return this.qualities[targetQuality];
   }
@@ -1673,6 +1684,7 @@ class AdaptiveBitrateSelector {
 ```
 
 **Complexity:**
+
 - Time: O(1) for quality selection
 - Space: O(1)
 - **Adaptive Quality:** Improves playback experience based on network conditions
@@ -1684,6 +1696,7 @@ class AdaptiveBitrateSelector {
 **Purpose:** Recommend videos to users based on watch history, preferences, and trending content.
 
 **Algorithm:**
+
 1. Collect user watch history and preferences
 2. Calculate similarity scores with other users (collaborative filtering)
 3. Calculate content-based similarity (tags, category, channel)
@@ -1697,23 +1710,24 @@ function recommendVideos(userId: string, watchHistory: Video[]): Video[] {
   // Collaborative filtering
   const similarUsers = findSimilarUsers(userId);
   const collaborativeScore = calculateCollaborativeScore(similarUsers);
-  
+
   // Content-based filtering
   const userPreferences = extractPreferences(watchHistory);
   const contentScore = calculateContentScore(userPreferences);
-  
+
   // Trending boost
   const trendingScore = calculateTrendingScore();
-  
+
   // Combined score
   const finalScore = collaborativeScore * 0.4 + contentScore * 0.4 + trendingScore * 0.2;
-  
+
   return videos.sort((a, b) => b.finalScore - a.finalScore);
 }
 
 ```
 
 **Complexity:**
+
 - Time: O(n * m) where n is users, m is videos
 - Space: O(n + m)
 - **Recommendation Quality:** Hybrid approach improves recommendation accuracy
@@ -1781,6 +1795,7 @@ function recommendVideos(userId: string, watchHistory: Video[]): Video[] {
 ### MongoDB Transactions
 
 **Transaction Usage:**
+
 - **Multi-Document Transactions** - For operations requiring ACID guarantees
 - **Example:** Video upload + metadata creation + user update in single transaction
 - **Session Management:** Use MongoDB sessions for transaction control
@@ -1807,6 +1822,7 @@ try {
 ### Consistency Strategies
 
 **Data Consistency:**
+
 - **Video Metadata Consistency:** Use transactions for video operations to ensure atomicity
 - **View Count Consistency:** Use transactions for view count updates
 - **Playlist Consistency:** Ensure playlist updates are atomic
@@ -1852,6 +1868,7 @@ try {
   }
 
   ```
+
 - **Response:**
 
   ```json
@@ -1865,6 +1882,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 201 (Created), 400 (Validation Error)
 
 ### GET /api/v1/videos/:videoId/stream
@@ -1884,6 +1902,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 404 (Video Not Found)
 
 ---
@@ -1893,15 +1912,17 @@ try {
 ### Redis Cache
 
 **Cache Strategy:**
+
 - **Key Format:** `video:{videoId}`, `video:trending`, `video:recommendations:{userId}`
 - **Value:** Serialized JSON (video metadata, trending videos, recommendations)
-- **TTL:** 
+- **TTL:**
   - Video metadata: 3600 seconds (1 hour)
   - Trending videos: 300 seconds (5 minutes)
   - Recommendations: 1800 seconds (30 minutes)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
+
 - **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
 - **Write-Through Pattern:** Update cache when video metadata changes
 - **Cache Invalidation:** Invalidate video cache on video updates
@@ -1913,6 +1934,7 @@ try {
 ### Error Scenarios and Responses
 
 **Edge Cases Handling:**
+
 - **Video Not Found:** Return 404 Not Found when video doesn't exist
 - **Video Processing Failed:** Return 500 Server Error with processing error details
 - **Invalid Video Format:** Return 400 Bad Request with format validation errors
@@ -1939,21 +1961,25 @@ try {
 ### Scalability
 
 **API Layer:**
+
 - Deploy API layer across multiple instances behind load balancer
 - Use auto-scaling based on CPU/memory metrics
 - Stateless design allows horizontal scaling
 
 **Video Processing:**
+
 - **Worker Scaling:** Scale FFmpeg workers based on queue length
 - **Queue System:** Use message queue for video processing jobs
 - **CDN Scaling:** CloudFront CDN automatically scales globally
 
 **Database Scaling:**
+
 - **Read Replicas:** Deploy read replicas for video queries
 - **Sharding:** Shard videos by userId for write scaling
 - **Connection Pooling:** Use connection pooling to manage database connections
 
 **Caching:**
+
 - Distributed Redis cluster for high availability
 - Cache video metadata and trending videos
 - Reduces database load significantly
@@ -1961,16 +1987,19 @@ try {
 ### Availability
 
 **Replication:**
+
 - S3 provides 99.999999999% (11 9's) durability
 - Database replication ensures metadata availability
 - Multi-region replication for disaster recovery
 
 **Failover:**
+
 - Automated failover mechanisms for API and data store layers
 - Health checks and monitoring for proactive failover
 - Circuit breaker pattern to prevent cascading failures
 
 **Geo-Distributed Deployment:**
+
 - Deploy service across multiple geographical regions
 - Reduces latency for users worldwide
 - Improves availability by eliminating single point of failure
@@ -1978,23 +2007,27 @@ try {
 ### Frontend Deployment
 
 **Build Process:**
+
 - **Production Build:** Optimized bundle with code splitting
 - **CDN Deployment:** Deploy static assets to CDN for fast global delivery
 - **Environment Variables:** `.env.production` for production config
 
 **Deployment Platforms:**
+
 - **Vercel / Netlify** - Automatic deployments from Git
 - **AWS S3 + CloudFront** - Static site hosting with CDN
 
 ### Backend Deployment
 
 **Server Setup:**
+
 - **PM2:** Process manager with clustering for Node.js apps
 - **Nginx:** Load balancer and reverse proxy with SSL termination
 - **Docker:** Containerized deployment for consistency
 - **Kubernetes:** Container orchestration for auto-scaling
 
 **CI/CD Pipeline:**
+
 - **Automated Testing:** Run tests before deployment
 - **Zero-Downtime:** Rolling deployment strategy
 - **Health Checks:** Verify video endpoints are healthy
@@ -2003,17 +2036,20 @@ try {
 ### Database Deployment
 
 **MongoDB Setup:**
+
 - **MongoDB Atlas** - Managed MongoDB service with automatic backups
 - **Backup Strategy:** Daily automated backups with point-in-time recovery
 - **Indexing:** Proper indexes on videoId, userId, category, tags
 - **Replication:** Replica sets for high availability
 
 **Redis Setup:**
+
 - **Redis Cloud / AWS ElastiCache** - Managed Redis service
 - **Cluster Mode:** Redis cluster for high availability and performance
 - **Persistence:** RDB snapshots and AOF for data durability
 
 **S3 Setup:**
+
 - **AWS S3** - Object storage for video files
 - **Lifecycle Policies:** Configure lifecycle policies (move to Glacier after 90 days)
 - **Versioning:** Enable versioning for video files
@@ -2164,4 +2200,3 @@ I added **search autocomplete** using Elasticsearch completion suggester. I impl
 **Takeaway:** Elasticsearch is essential for video search. Proper field boosting improves relevance. Caching popular queries. Autocomplete enhances UX. Search analytics help optimization.
 
 ---
-

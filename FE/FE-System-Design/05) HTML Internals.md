@@ -27,12 +27,14 @@ HTML (HyperText Markup Language) is the standard markup language for creating we
 The first step in HTML parsing is breaking the HTML source into tokens:
 
 **What is Tokenization:**
+
 * Reads HTML character by character
 * Identifies HTML tags, attributes, text content
 * Handles special characters and entities
 * Produces stream of tokens for parser
 
 **Token Types:**
+
 * **Start tag tokens**: `<div>`, `<p>`, `<img>`
 * **End tag tokens**: `</div>`, `</p>`
 * **Self-closing tags**: `<img />`, `<br />`
@@ -42,6 +44,7 @@ The first step in HTML parsing is breaking the HTML source into tokens:
 * **DOCTYPE tokens**: `<!DOCTYPE html>`
 
 **Character Entity Handling:**
+
 * `&lt;` → `<`
 * `&gt;` → `>`
 * `&amp;` → `&`
@@ -57,12 +60,14 @@ The first step in HTML parsing is breaking the HTML source into tokens:
 ```
 
 Tokens produced:
+
 1. Start tag: `<div>`
 2. Attribute: `class="container"`
 3. Text: `Hello`
 4. End tag: `</div>`
 
 **Error Handling:**
+
 * Malformed tags are handled gracefully
 * Missing closing tags are auto-closed
 * Invalid attributes are ignored
@@ -73,6 +78,7 @@ Tokens produced:
 After tokenization, tokens are converted into a DOM tree:
 
 **How Tree Construction Works:**
+
 * Uses stack-based algorithm
 * Start tags create elements and push to stack
 * End tags pop from stack
@@ -80,6 +86,7 @@ After tokenization, tokens are converted into a DOM tree:
 * Builds parent-child relationships
 
 **DOM Tree Structure:**
+
 * **Document node**: Root of tree
 * **Element nodes**: HTML elements (`<div>`, `<p>`, etc.)
 * **Text nodes**: Text content
@@ -87,6 +94,7 @@ After tokenization, tokens are converted into a DOM tree:
 * **Comment nodes**: HTML comments
 
 **Tree Building Algorithm:**
+
 1. Create Document node
 2. For each token:
    - Start tag: Create element, add to current parent, push to stack
@@ -124,6 +132,7 @@ Document
 ```
 
 **Special Elements:**
+
 * **Void elements**: `<img>`, `<br>`, `<hr>` (no closing tag)
 * **Script tags**: Pause parsing, execute script, resume
 * **Style tags**: Parse CSS, apply styles
@@ -134,24 +143,28 @@ Document
 Browsers parse HTML incrementally (as it arrives):
 
 **Why Incremental Parsing:**
+
 * HTML arrives in chunks over network
 * Don't wait for entire document
 * Start rendering as soon as possible
 * Improves perceived performance
 
 **How It Works:**
+
 * Parse tokens as they arrive
 * Build DOM tree incrementally
 * Trigger rendering when enough content
 * Continue parsing in background
 
 **Benefits:**
+
 * Faster Time to First Paint (TTFP)
 * Better user experience
 * Progressive rendering
 * Can start executing scripts earlier
 
 **Challenges:**
+
 * Scripts can modify DOM during parsing
 * Need to handle incomplete trees
 * Re-parsing if scripts modify HTML
@@ -167,6 +180,7 @@ Browsers parse HTML incrementally (as it arrives):
 The DOM is a tree representation of HTML:
 
 **Node Types:**
+
 * **Document**: Root node (entire document)
 * **Element**: HTML elements (`<div>`, `<p>`, etc.)
 * **Text**: Text content
@@ -176,6 +190,7 @@ The DOM is a tree representation of HTML:
 * **DocumentFragment**: Temporary container
 
 **Node Relationships:**
+
 * **Parent**: Element containing this node
 * **Children**: Direct child nodes
 * **Siblings**: Nodes with same parent
@@ -183,6 +198,7 @@ The DOM is a tree representation of HTML:
 * **Ancestors**: All nodes from root to this node
 
 **Node Properties:**
+
 * `nodeType`: Type of node (1 = Element, 3 = Text, etc.)
 * `nodeName`: Name of node (tag name for elements)
 * `nodeValue`: Value of node (text content for text nodes)
@@ -207,6 +223,7 @@ console.log(div.firstChild.nodeValue); // Text content
 Elements extend Node with element-specific properties:
 
 **Element Properties:**
+
 * `tagName`: Tag name (uppercase)
 * `id`: Element ID
 * `className`: CSS class names
@@ -218,6 +235,7 @@ Elements extend Node with element-specific properties:
 * `innerText`: Visible text (respects CSS)
 
 **Element Methods:**
+
 * `getAttribute(name)`: Get attribute value
 * `setAttribute(name, value)`: Set attribute
 * `removeAttribute(name)`: Remove attribute
@@ -246,12 +264,14 @@ console.log(div.textContent); // "Hello"
 DOM collections can be live or static:
 
 **Live Collections:**
+
 * Update automatically when DOM changes
 * `childNodes`, `children`, `attributes`
 * Can cause performance issues
 * Iterate carefully (cache length)
 
 **Static Collections:**
+
 * Snapshot at time of query
 * `querySelectorAll()` returns NodeList (static in most cases)
 * Safer for iteration
@@ -283,12 +303,14 @@ console.log(nodes.length); // Not updated
 HTML5 introduced semantic elements for better structure:
 
 **Semantic Elements:**
+
 * `<header>`, `<footer>`, `<nav>`, `<main>`
 * `<article>`, `<section>`, `<aside>`
 * `<figure>`, `<figcaption>`
 * `<time>`, `<mark>`, `<progress>`
 
 **Benefits:**
+
 * Better accessibility (screen readers)
 * Clearer document structure
 * SEO improvements
@@ -321,11 +343,13 @@ HTML5 introduced semantic elements for better structure:
 HTML5 added new form input types and attributes:
 
 **New Input Types:**
+
 * `email`, `url`, `tel`, `number`, `date`, `time`
 * `color`, `range`, `search`, `file`
 * Browser provides native validation
 
 **New Attributes:**
+
 * `required`: Field must be filled
 * `pattern`: Regex validation
 * `placeholder`: Hint text
@@ -349,12 +373,14 @@ HTML5 added new form input types and attributes:
 HTML5 added native media support:
 
 **Video Element:**
+
 * `<video>`: Native video playback
 * Supports multiple formats (MP4, WebM, Ogg)
 * Controls, autoplay, loop attributes
 * JavaScript API for control
 
 **Audio Element:**
+
 * `<audio>`: Native audio playback
 * Similar to video element
 * Lighter weight
@@ -375,12 +401,14 @@ HTML5 added native media support:
 HTML5 provides graphics capabilities:
 
 **Canvas:**
+
 * `<canvas>`: 2D/3D graphics with JavaScript
 * Pixel-based rendering
 * Good for games, charts, animations
 * JavaScript API for drawing
 
 **SVG:**
+
 * `<svg>`: Vector graphics
 * XML-based, scalable
 * Good for icons, illustrations
@@ -415,11 +443,13 @@ HTML5 provides graphics capabilities:
 ARIA (Accessible Rich Internet Applications) enhances accessibility:
 
 **ARIA Roles:**
+
 * `role="button"`, `role="dialog"`, `role="menu"`
 * Define element purpose
 * Help screen readers understand
 
 **ARIA Properties:**
+
 * `aria-label`: Accessible name
 * `aria-labelledby`: Reference to labeling element
 * `aria-describedby`: Reference to description
@@ -441,15 +471,18 @@ ARIA (Accessible Rich Internet Applications) enhances accessibility:
 Use semantic HTML for better accessibility:
 
 **Headings:**
+
 * Use `<h1>` through `<h6>` in order
 * Don't skip levels
 * One `<h1>` per page
 
 **Lists:**
+
 * Use `<ul>`, `<ol>`, `<li>` for lists
 * Don't use divs for lists
 
 **Forms:**
+
 * Use `<label>` for form inputs
 * Associate labels with inputs (`for` attribute or wrapping)
 * Use `<fieldset>` and `<legend>` for groups
@@ -472,12 +505,14 @@ Use semantic HTML for better accessibility:
 Ensure keyboard accessibility:
 
 **Focus Management:**
+
 * All interactive elements should be focusable
 * Visible focus indicators
 * Logical tab order
 * Skip links for navigation
 
 **Keyboard Events:**
+
 * `Tab`: Move focus forward
 * `Shift+Tab`: Move focus backward
 * `Enter/Space`: Activate buttons/links
@@ -494,16 +529,19 @@ Ensure keyboard accessibility:
 Optimize HTML for better performance:
 
 **Minification:**
+
 * Remove whitespace and comments
 * Reduce file size
 * Faster download and parsing
 
 **Defer and Async Scripts:**
+
 * `defer`: Execute after HTML parsing
 * `async`: Execute as soon as available
 * Don't block HTML parsing
 
 **Preload and Prefetch:**
+
 * `<link rel="preload">`: Load critical resources early
 * `<link rel="prefetch">`: Load resources for next page
 * Improves perceived performance
@@ -527,11 +565,13 @@ Optimize HTML for better performance:
 Optimize the critical rendering path:
 
 **What is Critical Rendering Path:**
+
 * Sequence of steps to render page
 * HTML → DOM → CSSOM → Render Tree → Layout → Paint
 * Optimize for faster rendering
 
 **Optimization Strategies:**
+
 * Inline critical CSS
 * Defer non-critical CSS
 * Minimize render-blocking resources
@@ -574,4 +614,3 @@ When the browser encounters a `<script>` tag, it immediately stops HTML parsing,
 </div>
 
 ---
-

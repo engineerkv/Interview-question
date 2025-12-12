@@ -382,6 +382,7 @@ When a user types a URL into a browser and presses Enter, a series of steps happ
 A URL has parts like:
 
 ```
+
 <https://www.example.com/products?id=10>
 
 ```
@@ -644,12 +645,14 @@ File 3: Q27-Q35 (9 questions) ❌ Gap - missing Q26
 
 ### Solution 1: [Method Name] (Optimal/Alternative) (when applicable)
 ```javascript
+
 // Complete working code here
 
 // Test Cases:
 // Input: [example input]
 // Output: [example output]
 // Explanation: [brief explanation]
+
 ```
 
 **Time Complexity:** O(...) - [Brief explanation] (when applicable)
@@ -669,21 +672,25 @@ File 3: Q27-Q35 (9 questions) ❌ Gap - missing Q26
 ### Content Requirements
 
 **Problem Statement:**
+
 - Minimum 50 characters
 - Include constraints (array size, value ranges, etc.)
 - Clear and unambiguous
 
 **Approach:**
+
 - 30-500 characters
 - Mention key data structures/algorithms
 - 2-3 sentences maximum
 
 **Solution Code:**
+
 - Complete, runnable functions
 - Comments for complex logic (>10 lines need at least 2 comments)
 - Test cases as comments inside code block
 
 **Complexity:**
+
 - Big O notation required
 - Explanation ≥20 characters
 - Both time and space complexity
@@ -722,12 +729,14 @@ Q#. [Question]
 **Additional Guidelines for Project System Design:**
 
 #### ✅ Tech Stack Explanations
+
 - **Explain why you chose it** - Not just what it is, but why it fits the project
 - **Use real-world comparisons** - "Like a cashier" for payment gateway, "Like building with LEGO blocks" for component-based architecture
 - **Focus on benefits** - What problem it solves, not just features
 - **Keep it interview-friendly** - Easy to explain and remember
 
 **Examples:**
+
 - ❌ "Redux Toolkit provides predictable state updates with DevTools support" (textbook)
 - ✅ "Redux Toolkit is like a global storage box that any component can access - when you have lots of data that many components need, Redux keeps it organized" (conversational)
 
@@ -742,6 +751,7 @@ Q#. [Question]
 ### Content Structure
 
 **High Level Design (HLD) Files:**
+
 - Project overview with conversational tech stack descriptions
 - Requirements explained in simple terms
 - Tech choices with "why" explanations using analogies
@@ -749,6 +759,7 @@ Q#. [Question]
 - Key design decisions with conversational reasoning
 
 **Low Level Design (LLD) Files:**
+
 - Component architecture with clear explanations
 - Data models with practical examples
 - API designs with simple descriptions
@@ -917,7 +928,9 @@ Q#. [Question]
 
 **Implementation:**
 ```typescript
+
 // Complete code implementation
+
 ```
 
 **Complexity:**
@@ -1107,14 +1120,17 @@ Q#. [Question]
 ### Structure
 
 ```markdown
+
 # [Tech Stack] Interview Cheatsheet
 
 > **Review Time: X-Y minutes** | **Priority: High/Medium/Low** | Brief description
 
 **Quick Review Checklist:**
+
 - [ ] Topic 1
 - [ ] Topic 2
 - [ ] Topic 3
+
 ```
 
 ### Requirements

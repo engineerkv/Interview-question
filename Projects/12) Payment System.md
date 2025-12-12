@@ -113,6 +113,7 @@ Design and implement a secure payment processing system that addresses the follo
 - **Read:Write Ratio**: 10:1 (viewing payment history vs processing payments)
 
 **Calculations:**
+
 - **Average Writes Per Second (WPS)**: 1.2B transaction requests / 86,400 seconds ≈ 13,889 WPS
 - **Peak WPS**: 13,889 × 3 = 41,667 WPS
 - **Average Reads Per Second (RPS)**: 13,889 × 10 = 138,890 RPS
@@ -122,6 +123,7 @@ Design and implement a secure payment processing system that addresses the follo
 ### Storage Estimation
 
 **Storage per Transaction:**
+
 - Transaction metadata: 1 KB (id, userId, amount, status, payment method, timestamps)
 - Payment gateway response: 500 bytes (gateway transaction ID, response code, message)
 - Fraud detection data: 500 bytes (risk score, flags, analysis)
@@ -129,6 +131,7 @@ Design and implement a secure payment processing system that addresses the follo
 - **Total per Transaction**: ~3 KB
 
 **Storage Requirements:**
+
 - **Transactions per Year**: 1B transactions/day × 365 = 365 billion transactions
 - **Transaction Storage**: 365B × 3 KB ≈ 1.095 PB per year
 - **User Data**: 500M users × 5 KB ≈ 2.5 TB
@@ -146,6 +149,7 @@ Design and implement a secure payment processing system that addresses the follo
 ### Caching Estimation
 
 Following the **80-20 rule** where 20% of users generate 80% of traffic:
+
 - **Cache 20% of active users' payment methods**: 100M × 0.2 = 20M users
 - **Cache memory required**: 20M × 2 KB = 40 GB (distributed across Redis cluster)
 - **Cache hit ratio**: 95% (only 5% of payment method requests hit database)
@@ -160,7 +164,7 @@ Following the **80-20 rule** where 20% of users generate 80% of traffic:
 - **Message Queue**: RabbitMQ/Kafka cluster with 50-100 nodes for payment processing and webhooks
 - **Database**: PostgreSQL cluster with 100-200 nodes for ACID compliance and high read/write throughput
 - **Cache Layer**: Redis cluster with 50-100 nodes for high availability and performance
-- **Payment Gateways**: Stripe, PayPal, Razorpay with appropriate rate limits and failover
+- **Payment Gateways**: Multiple payment gateway providers with appropriate rate limits and failover
 
 ---
 
@@ -184,7 +188,7 @@ The system follows a secure payment processing architecture with idempotency, fr
    - **API State (React Query)**: Transaction data caching, refetching, optimistic updates
 
 3. **Payment Integration Layer**
-   - **Payment Gateway SDK**: Stripe/PayPal SDK integration for secure payment processing
+   - **Payment Gateway SDK**: Payment gateway SDK integration for secure payment processing
    - **Tokenization**: Tokenize payment methods for secure storage
    - **Payment Flow**: Handle payment initiation, confirmation, and status updates
 
@@ -229,11 +233,12 @@ The system follows a secure payment processing architecture with idempotency, fr
 ### Complete Request Flow
 
 **Payment Processing Flow:**
+
 1. **Frontend**: User initiates payment, sends payment request with idempotency key
 2. **API Call**: POST request to payment API with payment details and idempotency key
 3. **Idempotency Check**: Check Redis for existing transaction with same idempotency key
 4. **Fraud Detection**: Analyze transaction for fraud risk
-5. **Payment Gateway**: Process payment via payment gateway (Stripe/PayPal)
+5. **Payment Gateway**: Process payment via payment gateway
 6. **Database**: Create transaction record with status
 7. **Webhook**: Payment gateway sends webhook with payment status
 8. **Update**: Update transaction status based on webhook
@@ -241,6 +246,7 @@ The system follows a secure payment processing architecture with idempotency, fr
 10. **Frontend**: Show payment confirmation or error
 
 **Webhook Processing Flow:**
+
 1. **Payment Gateway**: Sends webhook with payment status update
 2. **Webhook Handler**: Receive and validate webhook signature
 3. **Idempotency Check**: Check if webhook already processed
@@ -249,6 +255,7 @@ The system follows a secure payment processing architecture with idempotency, fr
 6. **Response**: Send acknowledgment to payment gateway
 
 **Refund Processing Flow:**
+
 1. **Frontend**: User requests refund
 2. **API Call**: POST request to refund API
 3. **Validation**: Validate refund eligibility
@@ -268,7 +275,7 @@ The system follows a secure payment processing architecture with idempotency, fr
 - **Application Services**: Payment Service, Refund Service, Fraud Detection Service, Webhook Service
 - **Cache Layer (Redis)**: In-memory cache for idempotency keys, payment methods, transaction status
 - **Database (PostgreSQL)**: ACID-compliant database for transaction storage, ensures data consistency
-- **Payment Gateways**: Stripe, PayPal, Razorpay integration with failover support
+- **Payment Gateways**: Multiple payment gateway providers with failover support
 
 ---
 
@@ -372,9 +379,9 @@ App
 
 ```typescript
 // Payment Form Component
-const PaymentForm: React.FC<{ amount: number; onSuccess: (transactionId: string) => void }> = ({ 
-  amount, 
-  onSuccess 
+const PaymentForm: React.FC<{ amount: number; onSuccess: (transactionId: string) => void }> = ({
+  amount,
+  onSuccess
 }) => {
   const [paymentMethod, setPaymentMethod] = useState<'card' | 'wallet' | 'upi'>('card');
   const [cardData, setCardData] = useState({ number: '', expiry: '', cvv: '', name: '' });
@@ -382,7 +389,7 @@ const PaymentForm: React.FC<{ amount: number; onSuccess: (transactionId: string)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     processPaymentMutation.mutate({
       amount,
       paymentMethod,
@@ -407,8 +414,8 @@ const PaymentForm: React.FC<{ amount: number; onSuccess: (transactionId: string)
         />
       )}
       <BillingAddressForm />
-      <button 
-        type="submit" 
+      <button
+        type="submit"
         disabled={processPaymentMutation.isLoading}
       >
         {processPaymentMutation.isLoading ? 'Processing...' : `Pay $${amount}`}
@@ -455,7 +462,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 const useProcessPayment = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (paymentData: PaymentRequest) => {
       const response = await axios.post('/api/v1/payments', paymentData);
@@ -1299,6 +1306,7 @@ try {
 **Purpose:** Prevent duplicate payment processing using idempotency keys stored in Redis.
 
 **Algorithm:**
+
 1. Client sends payment request with idempotency key (or server generates UUID)
 2. Check if idempotency key exists in Redis
 3. If exists, return cached payment result
@@ -1318,17 +1326,17 @@ class PaymentService {
     if (cached) {
       return JSON.parse(cached);
     }
-    
+
     // Process payment
     const result = await this.processPayment(paymentData);
-    
+
     // Store result in Redis with 24-hour TTL
     await redis.setex(
       `idempotency:${idempotencyKey}`,
       86400,
       JSON.stringify(result)
     );
-    
+
     return result;
   }
 }
@@ -1336,6 +1344,7 @@ class PaymentService {
 ```
 
 **Complexity:**
+
 - Time: O(1) for Redis operations
 - Space: O(1) per idempotency key
 - **Duplicate Prevention:** 100% effective for duplicate requests
@@ -1347,6 +1356,7 @@ class PaymentService {
 **Purpose:** Retry failed payment requests with exponential backoff.
 
 **Algorithm:**
+
 1. Attempt payment processing
 2. If fails, wait with exponential backoff (1s, 2s, 4s, 8s)
 3. Retry up to maximum attempts (3-5 retries)
@@ -1360,18 +1370,18 @@ async function retryPayment(
   maxRetries: number = 3
 ): Promise<PaymentResult> {
   let lastError: Error;
-  
+
   for (let attempt = 0; attempt < maxRetries; attempt++) {
     try {
       return await processPayment(paymentData);
     } catch (error) {
       lastError = error;
-      
+
       // Don't retry on certain errors (e.g., invalid card)
       if (error.code === 'INVALID_CARD' || error.code === 'INSUFFICIENT_FUNDS') {
         throw error;
       }
-      
+
       // Exponential backoff
       if (attempt < maxRetries - 1) {
         const delay = Math.pow(2, attempt) * 1000; // 1s, 2s, 4s
@@ -1379,13 +1389,14 @@ async function retryPayment(
       }
     }
   }
-  
+
   throw lastError!;
 }
 
 ```
 
 **Complexity:**
+
 - Time: O(k) where k is number of retries
 - Space: O(1)
 - **Retry Strategy:** Exponential backoff prevents overwhelming payment gateway
@@ -1406,7 +1417,7 @@ async function retryPayment(
   currency: String,          // Currency code (USD, INR)
   status: String,           // pending, processing, succeeded, failed, refunded
   paymentMethod: String,    // card, upi, wallet, netbanking
-  paymentGateway: String,   // stripe, razorpay, paypal
+  paymentGateway: String,   // payment gateway provider identifier
   gatewayTransactionId: String, // Payment gateway transaction ID
   idempotencyKey: String,   // Idempotency key, indexed
   failureReason: String,    // Failure reason if failed
@@ -1456,6 +1467,7 @@ async function retryPayment(
 ### MongoDB/PostgreSQL Transactions
 
 **Transaction Usage:**
+
 - **Multi-Document Transactions** - For operations requiring ACID guarantees
 - **Example:** Payment creation + balance update + transaction log in single transaction
 - **Session Management:** Use database sessions for transaction control
@@ -1482,6 +1494,7 @@ try {
 ### Consistency Strategies
 
 **Data Consistency:**
+
 - **Payment Consistency:** Use transactions for payment operations to ensure atomicity
 - **Idempotency:** Use idempotency keys to prevent duplicate payments
 - **Balance Consistency:** Ensure balance updates are atomic with payment creation
@@ -1532,6 +1545,7 @@ try {
   }
 
   ```
+
 - **Response:**
 
   ```json
@@ -1548,6 +1562,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 201 (Created), 400 (Validation Error), 402 (Payment Failed), 409 (Duplicate Payment)
 
 ### POST /api/v1/payments/:paymentId/refund
@@ -1564,6 +1579,7 @@ try {
   }
 
   ```
+
 - **Response:**
 
   ```json
@@ -1579,6 +1595,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 201 (Created), 400 (Validation Error), 404 (Payment Not Found)
 
 ### POST /api/v1/webhooks/payment
@@ -1601,6 +1618,7 @@ try {
   }
 
   ```
+
 - **Response:**
 
   ```json
@@ -1610,6 +1628,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 401 (Invalid Signature), 400 (Invalid Payload)
 
 ---
@@ -1619,15 +1638,17 @@ try {
 ### Redis Cache
 
 **Cache Strategy:**
+
 - **Key Format:** `idempotency:{key}`, `payment:{paymentId}`, `payment:status:{paymentId}`
 - **Value:** Serialized JSON (payment result, payment status)
-- **TTL:** 
+- **TTL:**
   - Idempotency keys: 86400 seconds (24 hours)
   - Payment status: 3600 seconds (1 hour)
   - Payment result: 86400 seconds (24 hours)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
+
 - **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
 - **Write-Through Pattern:** Update cache when payment status changes
 - **Cache Invalidation:** Invalidate payment cache on status updates
@@ -1639,6 +1660,7 @@ try {
 ### Error Scenarios and Responses
 
 **Edge Cases Handling:**
+
 - **Duplicate Payment:** Return 409 Conflict with cached payment result
 - **Payment Gateway Failure:** Return 502 Bad Gateway, retry with exponential backoff
 - **Invalid Payment Method:** Return 400 Bad Request with validation errors
@@ -1668,16 +1690,19 @@ try {
 ### Scalability
 
 **API Layer:**
+
 - Deploy API layer across multiple instances behind load balancer
 - Use auto-scaling based on CPU/memory metrics
 - Stateless design allows horizontal scaling
 
 **Database Scaling:**
+
 - **Read Replicas:** Deploy read replicas for payment history queries
 - **Sharding:** Shard payments by userId or paymentId for write scaling
 - **Connection Pooling:** Use connection pooling to manage database connections
 
 **Caching:**
+
 - Distributed Redis cluster for high availability
 - Cache idempotency keys and payment status
 - Reduces database load significantly
@@ -1685,15 +1710,18 @@ try {
 ### Availability
 
 **Replication:**
+
 - Database replication ensures data availability
 - Multi-region replication for disaster recovery
 
 **Failover:**
+
 - Automated failover mechanisms for API and data store layers
 - Health checks and monitoring for proactive failover
 - Circuit breaker pattern to prevent cascading failures
 
 **Geo-Distributed Deployment:**
+
 - Deploy service across multiple geographical regions
 - Reduces latency for users worldwide
 - Improves availability by eliminating single point of failure
@@ -1701,23 +1729,27 @@ try {
 ### Frontend Deployment
 
 **Build Process:**
+
 - **Production Build:** Optimized bundle with code splitting
 - **CDN Deployment:** Deploy static assets to CDN for fast global delivery
 - **Environment Variables:** `.env.production` for production config
 
 **Deployment Platforms:**
+
 - **Vercel / Netlify** - Automatic deployments from Git
 - **AWS S3 + CloudFront** - Static site hosting with CDN
 
 ### Backend Deployment
 
 **Server Setup:**
+
 - **PM2:** Process manager with clustering for Node.js apps
 - **Nginx:** Load balancer and reverse proxy with SSL termination
 - **Docker:** Containerized deployment for consistency
 - **Kubernetes:** Container orchestration for auto-scaling
 
 **CI/CD Pipeline:**
+
 - **Automated Testing:** Run tests before deployment
 - **Zero-Downtime:** Rolling deployment strategy
 - **Health Checks:** Verify payment endpoints are healthy
@@ -1726,12 +1758,14 @@ try {
 ### Database Deployment
 
 **MongoDB/PostgreSQL Setup:**
+
 - **Managed Database Service** - MongoDB Atlas or AWS RDS
 - **Backup Strategy:** Daily automated backups with point-in-time recovery
 - **Indexing:** Proper indexes on paymentId, orderId, userId, idempotencyKey
 - **Replication:** Replica sets for high availability
 
 **Redis Setup:**
+
 - **Redis Cloud / AWS ElastiCache** - Managed Redis service
 - **Cluster Mode:** Redis cluster for high availability and performance
 - **Persistence:** RDB snapshots and AOF for data durability

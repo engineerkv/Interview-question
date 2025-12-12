@@ -7,14 +7,14 @@
 | Section | Topic | Questions | Difficulty |
 |---------|-------|-----------|------------|
 | [1️⃣](#1-nodejs-fundamentals--modules) | Node.js Fundamentals & Modules | Q1–18 | ⭐⭐ |
-| [2️⃣](#2-asynchronous-patterns--event-emitter) | Asynchronous Patterns & Event Emitter | Q19–28 | ⭐⭐⭐ |
+| [2️⃣](#2-asynchronous-patterns--event-emitter) | Async Patterns & Events | Q19–28 | ⭐⭐⭐ |
 | [3️⃣](#3-streams--buffers) | Streams & Buffers | Q29–38 | ⭐⭐⭐ |
-| [4️⃣](#4-nodejs-internals--performance) | Node.js Internals & Performance | Q39–49 | ⭐⭐⭐⭐ |
-| [5️⃣](#5-expressjs-core-concepts) | Express.js Core Concepts | Q50–59 | ⭐⭐⭐ |
-| [6️⃣](#6-rest-apis--practical-server-scenarios) | REST APIs & Practical Server Scenarios | Q60–69 | ⭐⭐⭐ |
-| [7️⃣](#7-authentication-security--encryption) | Authentication, Security & Encryption | Q70–79 | ⭐⭐⭐⭐ |
-| [8️⃣](#8-performance-optimization-scaling--monitoring) | Performance, Optimization, Scaling & Monitoring | Q80–88 | ⭐⭐⭐⭐ |
-| [9️⃣](#9-testing-debugging--deployment) | Testing, Debugging & Deployment | Q89–98 | ⭐⭐⭐⭐ |
+| [4️⃣](#4-nodejs-internals--performance) | Internals & Performance | Q39–49 | ⭐⭐⭐⭐ |
+| [5️⃣](#5-expressjs-core-concepts) | Express.js Fundamentals | Q50–59 | ⭐⭐⭐ |
+| [6️⃣](#6-rest-apis--practical-server-scenarios) | REST APIs & Server Scenarios | Q60–69 | ⭐⭐⭐ |
+| [7️⃣](#7-authentication-security--encryption) | Security & Authentication | Q70–79 | ⭐⭐⭐⭐ |
+| [8️⃣](#8-performance-optimization-scaling--monitoring) | Performance & Scaling | Q80–88 | ⭐⭐⭐⭐ |
+| [9️⃣](#9-testing-debugging--deployment) | Testing & Deployment | Q89–98 | ⭐⭐⭐⭐ |
 
 ## 🚀 1. Node.js Fundamentals & Modules
 
@@ -54,7 +54,7 @@
 
 18. 🛑 Handling graceful shutdown in Node.js
 
-## ⚡ 2. Asynchronous Patterns & Event Emitter
+## ⚡ 2. Async Patterns & Events
 
 19. 🔥 Callback hell and how to avoid it
 
@@ -98,7 +98,7 @@
 
 38. 🛠️ Creating custom streams
 
-## ⚙️ 4. Node.js Internals & Performance
+## ⚙️ 4. Internals & Performance
 
 39. ⚙️ Libuv and how it works with Node.js
 
@@ -122,7 +122,7 @@
 
 49. 📊 Performance characteristics of Node.js
 
-## 🌐 5. Express.js Core Concepts
+## 🌐 5. Express.js Fundamentals
 
 50. 🚀 Express.js and how it works
 
@@ -144,7 +144,7 @@
 
 59. 🔗 Integrating Express.js with the HTTP module
 
-## 🔌 6. REST APIs & Practical Server Scenarios
+## 🔌 6. REST APIs & Server Scenarios
 
 60. 🔗 RESTful APIs and how to design them
 
@@ -166,7 +166,7 @@
 
 69. 📚 Implementing API versioning and documentation
 
-## 🔐 7. Authentication, Security & Encryption
+## 🔐 7. Security & Authentication
 
 70. 🔐 Session-based vs token-based authentication
 
@@ -188,7 +188,7 @@
 
 79. 🔐 Managing secrets and API keys securely
 
-## ⚡ 8. Performance, Optimization, Scaling & Monitoring
+## ⚡ 8. Performance & Scaling
 
 80. 🔍 Identifying performance bottlenecks in Node.js applications
 
@@ -208,7 +208,7 @@
 
 88. 🏊 Implementing connection pooling and batching
 
-## 🧪 9. Testing, Debugging & Deployment
+## 🧪 9. Testing & Deployment
 
 89. 🧪 Writing unit tests with Jest or Mocha
 
@@ -234,23 +234,23 @@
 
 ## 📖 Complete Answer Guide
 
-- [1) Node.js Fundamentals](1%29%20Node.js%20Fundamentals.md) - Q1-18
+- [1) Node.js Fundamentals](01%29%20Node.js%20Fundamentals.md) - Q1-18
 
-- [2) Asynchronous Patterns & Event Emitter](2%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md) - Q19-28
+- [2) Asynchronous Patterns & Event Emitter](02%29%20Async%20Patterns%20%26%20Events.md) - Q19-28
 
-- [3) Streams & Buffers](3%29%20Streams%20%26%20Buffers.md) - Q29-38
+- [3) Streams & Buffers](03%29%20Streams%20%26%20Buffers.md) - Q29-38
 
-- [4) Node.js Internals & Performance](4%29%20Node.js%20Internals%20%26%20Performance.md) - Q39-49
+- [4) Node.js Internals & Performance](04%29%20Internals%20%26%20Performance.md) - Q39-49
 
-- [5) Express.js Core Concepts](5%29%20Express.js%20Core%20Concepts.md) - Q50-59
+- [5) Express.js Core Concepts](05%29%20Express.js%20Fundamentals.md) - Q50-59
 
-- [6) REST APIs & Practical Server Scenarios](6%29%20REST%20APIs%20%26%20Practical%20Server%20Scenarios.md) - Q60-69
+- [6) REST APIs & Practical Server Scenarios](06%29%20REST%20APIs%20%26%20Server%20Scenarios.md) - Q60-69
 
-- [7) Authentication, Security & Encryption](7%29%20Authentication%2C%20Security%20%26%20Encryption.md) - Q70-79
+- [7) Authentication, Security & Encryption](07%29%20Security%20%26%20Authentication.md) - Q70-79
 
-- [8) Performance, Optimization, Scaling & Monitoring](8%29%20Performance%2C%20Optimization%2C%20Scaling%20%26%20Monitoring.md) - Q80-88
+- [8) Performance, Optimization, Scaling & Monitoring](08%29%20Performance%20%26%20Scaling.md) - Q80-88
 
-- [9) Testing, Debugging & Deployment](9%29%20Testing%2C%20Debugging%20%26%20Deployment.md) - Q89-98
+- [9) Testing, Debugging & Deployment](09%29%20Testing%20%26%20Deployment.md) - Q89-98
 
 ## 📝 Cheatsheet
 

@@ -43,10 +43,10 @@ function isAnagram(s, t) {
   for (const char of t) {
     // If character doesn't exist in s, not an anagram
     if (!charFrequency.has(char)) return false;
-    
+
     const currentCount = charFrequency.get(char);
     const newCount = currentCount - 1;
-    
+
     if (newCount === 0) {
       // Remove character when count reaches zero
       charFrequency.delete(char);
@@ -83,12 +83,12 @@ function isAnagram(s, t) {
 function isAnagramSorting(s, t) {
   // Quick check: anagrams must have same length
   if (s.length !== t.length) return false;
-  
+
   // Sort both strings and compare
   // If anagrams, sorted versions will be identical
   const sortedS = s.split('').sort().join('');
   const sortedT = t.split('').sort().join('');
-  
+
   return sortedS === sortedT;
 }
 
@@ -129,7 +129,7 @@ function lengthOfLongestSubstring(s) {
 
     // Update last seen index of current character
     charToLastIndex.set(currentChar, windowEnd);
-    
+
     // Update maximum length found so far
     const currentWindowLength = windowEnd - windowStart + 1;
     maxSubstringLength = Math.max(maxSubstringLength, currentWindowLength);
@@ -1495,7 +1495,6 @@ function findSubstring(s, words) {
 [📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md)
 
 </div>
-
 
 ### Solution 1: Sliding Window with Word Matching (Optimal)
 

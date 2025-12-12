@@ -109,6 +109,7 @@ Design and implement a time-limited content system that addresses the following 
 - **Read:Write Ratio**: 20:1 (viewing content vs creating content)
 
 **Calculations:**
+
 - **Average Writes Per Second (WPS)**: 500M content items / 86,400 seconds ≈ 5,787 WPS
 - **Peak WPS**: 5,787 × 3 = 17,361 WPS
 - **Average Reads Per Second (RPS)**: 5,787 × 20 = 115,740 RPS
@@ -118,11 +119,13 @@ Design and implement a time-limited content system that addresses the following 
 ### Storage Estimation
 
 **Storage per Content Item:**
+
 - Media file: 5 MB average (image/video)
 - Metadata: 1 KB (id, userId, expiration, timestamps)
 - **Total per Content Item**: 5.001 MB
 
 **Storage Requirements:**
+
 - **Content Items per Year**: 500M content items/day × 365 = 182.5 billion content items
 - **Active Content Storage**: 500M active items × 5.001 MB ≈ 2.5 PB (at any given time, assuming 24-hour expiration)
 - **User Data**: 1B users × 5 KB ≈ 5 TB
@@ -140,6 +143,7 @@ Design and implement a time-limited content system that addresses the following 
 ### Caching Estimation
 
 Following the **80-20 rule** where 20% of content generates 80% of traffic:
+
 - **Cache 20% of active content**: 500M × 0.2 = 100M content items
 - **Cache memory required**: 100M × 5 MB = 500 TB (CDN edge cache)
 - **Cache hit ratio**: 90% (only 10% of content requests hit origin)
@@ -312,8 +316,8 @@ const ContentCard: React.FC<{ content: Content }> = ({ content }) => {
   return (
     <div className="content-card">
       <UserInfo user={content.user} />
-      <MediaDisplay 
-        mediaUrl={content.mediaUrl} 
+      <MediaDisplay
+        mediaUrl={content.mediaUrl}
         mediaType={content.mediaType}
       />
       <ExpirationCountdown timeRemaining={timeRemaining} />
@@ -359,7 +363,7 @@ const ContentCreationPage: React.FC = () => {
 
   return (
     <div className="content-creation">
-      <MediaUpload 
+      <MediaUpload
         file={file}
         onFileSelect={handleFileSelect}
         progress={uploadProgress}
@@ -368,8 +372,8 @@ const ContentCreationPage: React.FC = () => {
         duration={duration}
         onDurationChange={setDuration}
       />
-      <button 
-        onClick={handlePublish} 
+      <button
+        onClick={handlePublish}
         disabled={!file || createContentMutation.isLoading}
       >
         {createContentMutation.isLoading ? 'Publishing...' : 'Publish'}
@@ -412,7 +416,7 @@ const useContentFeed = () => {
 
 const useCreateContent = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (formData: FormData) => {
       const response = await axios.post('/api/v1/content', formData, {
@@ -624,6 +628,7 @@ interface Reaction {
 ### iii) Implementation Details
 
 **Content Upload Implementation:**
+
 - Multipart upload to S3 with progress tracking
 - Set expiration duration and calculate expiration timestamp
 - Create content record in MongoDB with TTL index
@@ -631,12 +636,14 @@ interface Reaction {
 - Return content ID and CDN URL
 
 **Content Viewing Implementation:**
+
 - Check if content exists and not expired (TTL check)
 - Track view in Redis and database
 - Serve content from CDN with expiration countdown
 - Handle expired content gracefully
 
 **Expiration Timer Implementation:**
+
 - Real-time countdown timer showing time remaining
 - Update timer every second
 - Hide/disable content when expired
@@ -656,10 +663,10 @@ export class ContentService {
     // Upload media to S3
     const mediaKey = `content/${userId}/${Date.now()}-${mediaFile.name}`;
     await this.s3Client.upload(mediaFile, mediaKey);
-    
+
     // Calculate expiration time
     const expiresAt = new Date(Date.now() + durationHours * 60 * 60 * 1000);
-    
+
     // Create content record with TTL
     const content = await Content.create({
       userId,
@@ -1037,6 +1044,7 @@ try {
 **Purpose:** Efficiently check if content has expired before serving it to users.
 
 **Algorithm:**
+
 1. Check Redis cache for expiration status (fast path)
 2. If not in cache, check database expiresAt field
 3. Compare current time with expiresAt
@@ -1052,25 +1060,26 @@ async function isContentExpired(contentId: string): Promise<boolean> {
   if (cached !== null) {
     return cached === 'true';
   }
-  
+
   // Check database
   const content = await Content.findById(contentId);
   if (!content) {
     return true; // Content doesn't exist
   }
-  
+
   const isExpired = content.expiresAt < new Date();
-  
+
   // Cache result
   const ttl = Math.max(0, Math.floor((content.expiresAt.getTime() - Date.now()) / 1000));
   await redis.setex(`content:expired:${contentId}`, ttl, isExpired ? 'true' : 'false');
-  
+
   return isExpired;
 }
 
 ```
 
 **Complexity:**
+
 - Time: O(1) for cache hit, O(1) for database lookup
 - Space: O(1) per content item
 - **Performance:** Cache reduces database queries significantly
@@ -1082,6 +1091,7 @@ async function isContentExpired(contentId: string): Promise<boolean> {
 **Purpose:** Prevent duplicate view counts from the same user viewing content multiple times.
 
 **Algorithm:**
+
 1. Check if user has already viewed content (Redis set)
 2. If not viewed, add user to viewed set
 3. Increment view count
@@ -1092,24 +1102,24 @@ async function isContentExpired(contentId: string): Promise<boolean> {
 ```typescript
 async function trackView(contentId: string, userId: string): Promise<void> {
   const viewKey = `content:views:${contentId}`;
-  
+
   // Check if user already viewed
   const hasViewed = await redis.sismember(viewKey, userId);
   if (hasViewed) {
     return; // Already viewed
   }
-  
+
   // Add user to viewed set
   await redis.sadd(viewKey, userId);
-  
+
   // Get expiration TTL
   const content = await Content.findById(contentId);
   const ttl = Math.max(0, Math.floor((content.expiresAt.getTime() - Date.now()) / 1000));
   await redis.expire(viewKey, ttl);
-  
+
   // Increment view count
   await redis.incr(`content:viewcount:${contentId}`);
-  
+
   // Store view record asynchronously
   await View.create({ contentId, userId, viewedAt: new Date() });
 }
@@ -1117,6 +1127,7 @@ async function trackView(contentId: string, userId: string): Promise<void> {
 ```
 
 **Complexity:**
+
 - Time: O(1) for Redis operations
 - Space: O(n) where n is number of unique viewers
 - **Deduplication:** Redis sets ensure unique view tracking
@@ -1177,6 +1188,7 @@ async function trackView(contentId: string, userId: string): Promise<void> {
 ### MongoDB Transactions
 
 **Transaction Usage:**
+
 - **Multi-Document Transactions** - For operations requiring ACID guarantees
 - **Example:** Content creation + metadata update + CDN upload in single transaction
 - **Session Management:** Use MongoDB sessions for transaction control
@@ -1202,6 +1214,7 @@ try {
 ### Consistency Strategies
 
 **Data Consistency:**
+
 - **Content Consistency:** Use transactions for content operations to ensure atomicity
 - **Expiration Consistency:** Ensure TTL indexes work correctly
 - **View Count Consistency:** Use Redis for view count updates, sync to database periodically
@@ -1239,6 +1252,7 @@ try {
   }
 
   ```
+
 - **Response:**
 
   ```json
@@ -1252,6 +1266,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 201 (Created), 400 (Validation Error)
 
 ### GET /api/v1/content/:contentId
@@ -1275,6 +1290,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 404 (Content Expired or Not Found)
 
 ---
@@ -1284,15 +1300,17 @@ try {
 ### Redis Cache
 
 **Cache Strategy:**
+
 - **Key Format:** `content:{contentId}`, `content:expired:{contentId}`, `content:views:{contentId}`
 - **Value:** Serialized JSON (content metadata, expiration status, view set)
-- **TTL:** 
+- **TTL:**
   - Content metadata: Until expiration
   - Expiration status: Until expiration
   - View set: Until expiration
 - **Eviction Policy:** TTL-based eviction
 
 **Cache Patterns:**
+
 - **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
 - **Write-Through Pattern:** Update cache when content is created
 - **Cache Invalidation:** Invalidate cache on content expiration
@@ -1304,6 +1322,7 @@ try {
 ### Error Scenarios and Responses
 
 **Edge Cases Handling:**
+
 - **Content Expired:** Return 404 Not Found with "Content has expired" message
 - **Content Not Found:** Return 404 Not Found
 - **Invalid Duration:** Return 400 Bad Request with validation errors
@@ -1330,16 +1349,19 @@ try {
 ### Scalability
 
 **API Layer:**
+
 - Deploy API layer across multiple instances behind load balancer
 - Use auto-scaling based on CPU/memory metrics
 - Stateless design allows horizontal scaling
 
 **Database Scaling:**
+
 - **Read Replicas:** Deploy read replicas for content queries
 - **Sharding:** Shard content by userId for write scaling
 - **Connection Pooling:** Use connection pooling to manage database connections
 
 **Caching:**
+
 - Distributed Redis cluster for high availability
 - Cache content metadata and expiration status
 - Reduces database load significantly
@@ -1347,15 +1369,18 @@ try {
 ### Availability
 
 **Replication:**
+
 - Database replication ensures data availability
 - Multi-region replication for disaster recovery
 
 **Failover:**
+
 - Automated failover mechanisms for API and data store layers
 - Health checks and monitoring for proactive failover
 - Circuit breaker pattern to prevent cascading failures
 
 **Geo-Distributed Deployment:**
+
 - Deploy service across multiple geographical regions
 - Reduces latency for users worldwide
 - Improves availability by eliminating single point of failure
@@ -1363,23 +1388,27 @@ try {
 ### Frontend Deployment
 
 **Build Process:**
+
 - **Production Build:** Optimized bundle with code splitting
 - **CDN Deployment:** Deploy static assets to CDN for fast global delivery
 - **Environment Variables:** `.env.production` for production config
 
 **Deployment Platforms:**
+
 - **Vercel / Netlify** - Automatic deployments from Git
 - **AWS S3 + CloudFront** - Static site hosting with CDN
 
 ### Backend Deployment
 
 **Server Setup:**
+
 - **PM2:** Process manager with clustering for Node.js apps
 - **Nginx:** Load balancer and reverse proxy with SSL termination
 - **Docker:** Containerized deployment for consistency
 - **Kubernetes:** Container orchestration for auto-scaling
 
 **CI/CD Pipeline:**
+
 - **Automated Testing:** Run tests before deployment
 - **Zero-Downtime:** Rolling deployment strategy
 - **Health Checks:** Verify content endpoints are healthy
@@ -1388,6 +1417,7 @@ try {
 ### Database Deployment
 
 **MongoDB Setup:**
+
 - **MongoDB Atlas** - Managed MongoDB service with automatic backups
 - **TTL Index Configuration** - Configure TTL indexes for automatic expiration
 - **Backup Strategy:** Daily automated backups with point-in-time recovery
@@ -1395,6 +1425,7 @@ try {
 - **Replication:** Replica sets for high availability
 
 **Redis Setup:**
+
 - **Redis Cloud / AWS ElastiCache** - Managed Redis service
 - **Cluster Mode:** Redis cluster for high availability and performance
 - **Persistence:** RDB snapshots and AOF for data durability

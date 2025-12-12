@@ -216,6 +216,7 @@ Design and implement a scalable notification system that addresses the following
 - **Read:Write Ratio**: 5:1 (reading notifications vs creating notifications)
 
 **Calculations:**
+
 - **Average Writes Per Second (WPS)**: 500M notifications / 86,400 seconds ≈ 5,787 WPS
 - **Peak WPS**: 5,787 × 3 = 17,361 WPS
 - **Average Reads Per Second (RPS)**: 5,787 × 5 = 28,935 RPS
@@ -225,11 +226,13 @@ Design and implement a scalable notification system that addresses the following
 ### Storage Estimation
 
 **Storage per Notification:**
+
 - Notification metadata: 500 bytes (id, userId, type, channel, status, timestamps)
 - Notification content: 500 bytes (title, message, action URL)
 - **Total per Notification**: 1 KB
 
 **Storage Requirements:**
+
 - **Notifications per Year**: 500M notifications/day × 365 = 182.5 billion notifications
 - **Notification Storage**: 182.5B × 1 KB ≈ 182.5 TB per year
 - **User Preferences**: 100M users × 2 KB ≈ 200 GB
@@ -247,6 +250,7 @@ Design and implement a scalable notification system that addresses the following
 ### Caching Estimation
 
 Following the **80-20 rule** where 20% of users generate 80% of traffic:
+
 - **Cache 20% of active users' notifications**: 50M × 0.2 = 10M users
 - **Cache memory required**: 10M users × 10 KB (recent notifications) = 100 GB (distributed across Redis cluster)
 - **Cache hit ratio**: 90% (only 10% of notification requests hit database)
@@ -328,6 +332,7 @@ The system follows a multi-channel notification architecture with message queues
 ### Complete Request Flow
 
 **Notification Creation Flow:**
+
 1. **Source**: User action, system event, or scheduled job triggers notification
 2. **API Call**: POST request to notification API with notification data
 3. **Validation**: Validate notification request, check user preferences
@@ -338,6 +343,7 @@ The system follows a multi-channel notification architecture with message queues
 8. **Tracking**: Update delivery status in database
 
 **In-App Notification Flow:**
+
 1. **Worker**: In-app worker processes notification from queue
 2. **WebSocket**: Check if user is online via WebSocket connection
 3. **Delivery**: If online, send notification via WebSocket to client
@@ -345,12 +351,14 @@ The system follows a multi-channel notification architecture with message queues
 5. **Frontend**: Client receives notification and displays in UI
 
 **Email Notification Flow:**
+
 1. **Worker**: Email worker processes notification from queue
 2. **Template**: Render email template with notification content
 3. **SendGrid**: Send email via SendGrid API
 4. **Tracking**: Update delivery status based on SendGrid webhook
 
 **Push Notification Flow:**
+
 1. **Worker**: Push worker processes notification from queue
 2. **FCM/APNS**: Send push notification via FCM (Android) or APNS (iOS)
 3. **Tracking**: Update delivery status based on FCM/APNS response
@@ -555,7 +563,7 @@ const NotificationItem: React.FC<{ notification: Notification }> = ({ notificati
   };
 
   return (
-    <div 
+    <div
       className={`notification-item ${notification.read ? 'read' : 'unread'}`}
       onClick={handleClick}
     >
@@ -599,7 +607,7 @@ const useNotifications = (filters?: { unreadOnly?: boolean }) => {
 
 const useMarkAsRead = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (notificationId: string) => {
       const response = await axios.put(`/api/v1/notifications/${notificationId}/read`);
@@ -1387,6 +1395,7 @@ const NotificationPreferences: React.FC = () => {
 **Purpose:** Batch multiple notifications for users who prefer batched delivery instead of real-time.
 
 **Algorithm:**
+
 1. Collect notifications for user over time window (e.g., 5 minutes)
 2. Group notifications by category
 3. Create batched notification with summary
@@ -1400,33 +1409,33 @@ class NotificationBatcher {
   private batches: Map<string, Notification[]> = new Map();
   private timers: Map<string, NodeJS.Timeout> = new Map();
   private batchWindow = 5 * 60 * 1000; // 5 minutes
-  
+
   addNotification(userId: string, notification: Notification): void {
     if (!this.batches.has(userId)) {
       this.batches.set(userId, []);
       this.startBatchTimer(userId);
     }
-    
+
     this.batches.get(userId)!.push(notification);
   }
-  
+
   private startBatchTimer(userId: string): void {
     const timer = setTimeout(() => {
       this.sendBatch(userId);
       this.batches.delete(userId);
       this.timers.delete(userId);
     }, this.batchWindow);
-    
+
     this.timers.set(userId, timer);
   }
-  
+
   private async sendBatch(userId: string): Promise<void> {
     const notifications = this.batches.get(userId) || [];
     if (notifications.length === 0) return;
-    
+
     // Group by category
     const grouped = this.groupByCategory(notifications);
-    
+
     // Send batched notification
     for (const [category, categoryNotifications] of Object.entries(grouped)) {
       await this.sendBatchedNotification(userId, category, categoryNotifications);
@@ -1437,6 +1446,7 @@ class NotificationBatcher {
 ```
 
 **Complexity:**
+
 - Time: O(n) where n is number of notifications
 - Space: O(n) for batching
 - **Batching Efficiency:** Reduces notification spam for users
@@ -1448,6 +1458,7 @@ class NotificationBatcher {
 **Purpose:** Prioritize urgent notifications over regular notifications for faster delivery.
 
 **Algorithm:**
+
 1. Assign priority levels to notifications (urgent, high, normal, low)
 2. Use priority queue to order notifications
 3. Process high-priority notifications first
@@ -1458,28 +1469,28 @@ class NotificationBatcher {
 ```typescript
 class PriorityNotificationQueue {
   private queues: Map<string, Notification[]> = new Map();
-  
+
   enqueue(notification: Notification): void {
     const priority = notification.priority || 'normal';
-    
+
     if (!this.queues.has(priority)) {
       this.queues.set(priority, []);
     }
-    
+
     this.queues.get(priority)!.push(notification);
   }
-  
+
   dequeue(): Notification | null {
     // Process in priority order: urgent > high > normal > low
     const priorities = ['urgent', 'high', 'normal', 'low'];
-    
+
     for (const priority of priorities) {
       const queue = this.queues.get(priority);
       if (queue && queue.length > 0) {
         return queue.shift()!;
       }
     }
-    
+
     return null;
   }
 }
@@ -1487,6 +1498,7 @@ class PriorityNotificationQueue {
 ```
 
 **Complexity:**
+
 - Time: O(1) for enqueue/dequeue
 - Space: O(n) for queues
 - **Priority Delivery:** Urgent notifications delivered faster
@@ -1550,6 +1562,7 @@ class PriorityNotificationQueue {
 ### MongoDB Transactions
 
 **Transaction Usage:**
+
 - **Multi-Document Transactions** - For operations requiring ACID guarantees
 - **Example:** Notification creation + preference check + status update in single transaction
 - **Session Management:** Use MongoDB sessions for transaction control
@@ -1575,6 +1588,7 @@ try {
 ### Consistency Strategies
 
 **Data Consistency:**
+
 - **Notification Consistency:** Use transactions for notification operations to ensure atomicity
 - **Preference Consistency:** Ensure preference updates are atomic
 - **Status Consistency:** Track notification status consistently
@@ -1628,6 +1642,7 @@ try {
   }
 
   ```
+
 - **Response:**
 
   ```json
@@ -1641,6 +1656,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 201 (Created), 400 (Validation Error)
 
 ### GET /api/v1/notifications
@@ -1664,6 +1680,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 401 (Unauthorized)
 
 ---
@@ -1673,15 +1690,17 @@ try {
 ### Redis Cache
 
 **Cache Strategy:**
+
 - **Key Format:** `notifications:{userId}:unread`, `preferences:{userId}`, `user:{userId}:online`
 - **Value:** Serialized JSON (notification list, preferences, online status)
-- **TTL:** 
+- **TTL:**
   - Unread notifications: 300 seconds (5 minutes)
   - User preferences: 3600 seconds (1 hour)
   - Online status: 60 seconds (frequently updated)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
+
 - **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
 - **Write-Through Pattern:** Update cache when notifications are created/updated
 - **Cache Invalidation:** Invalidate notification cache on new notifications
@@ -1693,6 +1712,7 @@ try {
 ### Error Scenarios and Responses
 
 **Edge Cases Handling:**
+
 - **Invalid User:** Return 404 Not Found when user doesn't exist
 - **Preference Check Failed:** Skip notification if user preferences don't allow it
 - **Delivery Failure:** Retry failed deliveries with exponential backoff
@@ -1720,21 +1740,25 @@ try {
 ### Scalability
 
 **API Layer:**
+
 - Deploy API layer across multiple instances behind load balancer
 - Use auto-scaling based on CPU/memory metrics
 - Stateless design allows horizontal scaling
 
 **Worker Scaling:**
+
 - **Worker Scaling:** Scale workers independently per channel based on queue length
 - **Queue System:** Use message queue for reliable notification delivery
 - **Horizontal Scaling:** Add more workers as notification volume grows
 
 **Database Scaling:**
+
 - **Read Replicas:** Deploy read replicas for notification queries
 - **Sharding:** Shard notifications by userId for write scaling
 - **Connection Pooling:** Use connection pooling to manage database connections
 
 **Caching:**
+
 - Distributed Redis cluster for high availability
 - Cache notifications and preferences
 - Reduces database load significantly
@@ -1742,15 +1766,18 @@ try {
 ### Availability
 
 **Replication:**
+
 - Database replication ensures data availability
 - Multi-region replication for disaster recovery
 
 **Failover:**
+
 - Automated failover mechanisms for API and data store layers
 - Health checks and monitoring for proactive failover
 - Circuit breaker pattern to prevent cascading failures
 
 **Geo-Distributed Deployment:**
+
 - Deploy service across multiple geographical regions
 - Reduces latency for users worldwide
 - Improves availability by eliminating single point of failure
@@ -1758,23 +1785,27 @@ try {
 ### Frontend Deployment
 
 **Build Process:**
+
 - **Production Build:** Optimized bundle with code splitting
 - **CDN Deployment:** Deploy static assets to CDN for fast global delivery
 - **Environment Variables:** `.env.production` for production config
 
 **Deployment Platforms:**
+
 - **Vercel / Netlify** - Automatic deployments from Git
 - **AWS S3 + CloudFront** - Static site hosting with CDN
 
 ### Backend Deployment
 
 **Server Setup:**
+
 - **PM2:** Process manager with clustering for Node.js apps
 - **Nginx:** Load balancer and reverse proxy with SSL termination
 - **Docker:** Containerized deployment for consistency
 - **Kubernetes:** Container orchestration for auto-scaling
 
 **CI/CD Pipeline:**
+
 - **Automated Testing:** Run tests before deployment
 - **Zero-Downtime:** Rolling deployment strategy
 - **Health Checks:** Verify notification endpoints are healthy
@@ -1783,12 +1814,14 @@ try {
 ### Database Deployment
 
 **MongoDB Setup:**
+
 - **MongoDB Atlas** - Managed MongoDB service with automatic backups
 - **Backup Strategy:** Daily automated backups with point-in-time recovery
 - **Indexing:** Proper indexes on notificationId, userId, status, createdAt
 - **Replication:** Replica sets for high availability
 
 **Redis Setup:**
+
 - **Redis Cloud / AWS ElastiCache** - Managed Redis service
 - **Cluster Mode:** Redis cluster for high availability and performance
 - **Persistence:** RDB snapshots and AOF for data durability

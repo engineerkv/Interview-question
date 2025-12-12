@@ -226,7 +226,7 @@
 
 - **Type:** Full-Stack Web Application (MERN Stack)
 
-- **Stack:** React.js, Node.js, Express.js, MongoDB, Redis, Elasticsearch, Razorpay/Stripe
+- **Stack:** React.js, Node.js, Express.js, MongoDB, Redis, Elasticsearch, Payment Gateway
 
 - **Key Features:** Product catalog, shopping cart, checkout, payment gateway, order management, reviews
 
@@ -1272,7 +1272,7 @@
 
 - **E-commerce:** Redux Toolkit for cart, user, products
 
-- **Youtube:** Redux Toolkit for videos, playlists, watch history
+- **Video Streaming Platform:** Redux Toolkit for videos, playlists, watch history
 
 - **News Feed:** Redux Toolkit for posts, feed, notifications
 
@@ -1286,7 +1286,7 @@
 
 - **E-commerce:** Elasticsearch search, CDN for images
 
-- **Youtube:** CDN for videos, video transcoding
+- **Video Streaming Platform:** CDN for videos, video transcoding
 
 - **News Feed:** Feed caching, infinite scroll
 
@@ -1304,7 +1304,7 @@
 
 - **E-commerce:** Elasticsearch for search, CDN for media
 
-- **Youtube:** CDN for videos, video processing queue
+- **Video Streaming Platform:** CDN for videos, video processing queue
 
 - **News Feed:** Feed pre-computation, Redis caching
 

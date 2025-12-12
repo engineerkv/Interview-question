@@ -6,12 +6,12 @@
 
 | Section | Topic | Questions | Difficulty |
 |---------|-------|-----------|------------|
-| [1️⃣](#1-mongodb-fundamentals) | MongoDB Fundamentals | Q1–16 | ⭐⭐ |
-| [2️⃣](#2-indexing--query-optimization) | Indexing & Query Optimization | Q17–29 | ⭐⭐⭐ |
+| [1️⃣](#1-mongodb-fundamentals) | Fundamentals & Basics | Q1–16 | ⭐⭐ |
+| [2️⃣](#2-indexing--query-optimization) | Indexing & Optimization | Q17–29 | ⭐⭐⭐ |
 | [3️⃣](#3-aggregation-framework) | Aggregation Framework | Q30–41 | ⭐⭐⭐ |
-| [4️⃣](#4-data-modeling--schema-design) | Data Modeling & Schema Design | Q42–57 | ⭐⭐⭐⭐ |
+| [4️⃣](#4-data-modeling--schema-design) | Data Modeling & Schema | Q42–57 | ⭐⭐⭐⭐ |
 
-## 🍃 1. MongoDB Fundamentals
+## 🍃 1. Fundamentals & Basics
 
 1. 🍃 MongoDB and what type of NoSQL database it is
 
@@ -45,7 +45,7 @@
 
 16. 🔄 Mongoose CRUD operations
 
-## 🔍 2. Indexing & Query Optimization
+## 🔍 2. Indexing & Optimization
 
 17. 🔍 Indexes in MongoDB and why they're important
 
@@ -99,7 +99,7 @@
 
 41. 🔄 Mongoose aggregation with populate alternative
 
-## 🏗️ 4. Data Modeling & Schema Design
+## 🏗️ 4. Data Modeling & Schema
 
 42. 🏗️ Designing schemas in MongoDB
 
@@ -137,13 +137,13 @@
 
 ## 📖 Complete Answer Guide
 
-- [1) MongoDB Fundamentals](01%29%20MongoDB%20Fundamentals.md) - Q1-16 (includes Q12-16 Mongoose Basics & Connection Pooling)
+- [1) MongoDB Fundamentals](01%29%20Fundamentals%20%26%20Basics.md) - Q1-16 (includes Q12-16 Mongoose Basics & Connection Pooling)
 
-- [2) Indexing & Query Optimization](02%29%20Indexing%20%26%20Query%20Optimization.md) - Q17-29 (includes Q27-29 Mongoose Indexing)
+- [2) Indexing & Query Optimization](02%29%20Indexing%20%26%20Optimization.md) - Q17-29 (includes Q27-29 Mongoose Indexing)
 
 - [3) Aggregation Framework](03%29%20Aggregation%20Framework.md) - Q30-41 (includes Q40-41 Mongoose Aggregation)
 
-- [4) Data Modeling & Schema Design](04%29%20Data%20Modeling%20%26%20Schema%20Design.md) - Q42-57 (includes Q52-57 Mongoose Schema Design)
+- [4) Data Modeling & Schema Design](04%29%20Data%20Modeling%20%26%20Schema.md) - Q42-57 (includes Q52-57 Mongoose Schema Design)
 
 ## 📝 Cheatsheet
 

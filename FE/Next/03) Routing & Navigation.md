@@ -1,4 +1,4 @@
-# 🧭 3. Routing & Navigation (Q21–33)
+# 🧭 3. Routing & Navigation (Q21–27)
 
 ---
 
@@ -25,13 +25,13 @@ Nested routes create layouts that wrap child pages, with `layout.js` files defin
 Example:
 
 ```javascript
-// app/layout.js - root layout
+// app/layout.js - root layout (wraps all pages)
 export default function RootLayout({ children }) {
   return (
     <html>
       <body>
-        <header>My App</header>
-        {children}
+        <header>My App</header> {/* Shared header across all pages */}
+        {children} {/* Child pages render here, layout persists on navigation */}
       </body>
     </html>
   );
@@ -194,237 +194,6 @@ const nextConfig = {
 
 ---
 
-## Q28. 🔧 What is Next.js middleware and how does it work
-
-Middleware runs before a request is completed, allowing you to modify the request/response, redirect, rewrite URLs, or add headers - runs on the Edge Runtime for better performance and executes before rendering. Use it for authentication, logging, A/B testing, or request modification.
-
-- **Trade-offs**: The catch is middleware runs on Edge Runtime for better performance and executes before rendering, but watch out - middleware runs on every matching request, so keep it lightweight and avoid heavy computations, and it has limited APIs compared to Node.js runtime.
-
-Example:
-
-```javascript
-// middleware.js (root of project)
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-
-export function middleware(request: NextRequest) {
-  // Modify request
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set('x-pathname', request.nextUrl.pathname);
-  
-  return NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  });
-}
-
-export const config = {
-  matcher: '/:path*',
-};
-
-```
-
----
-
-## Q29. 🔧 Using middleware for authentication and route protection
-
-Middleware intercepts requests before rendering, allowing you to check authentication tokens/cookies and redirect unauthorized users - runs on Edge Runtime for fast authentication checks. Use `NextResponse.redirect()` to send users to login, and check tokens/cookies from request headers.
-
-- **Trade-offs**: The catch is middleware provides fast authentication checks at the edge before rendering, but watch out - always validate tokens properly and don't trust client-side data, and combine with server-side checks for sensitive routes since middleware can be bypassed if misconfigured.
-
-Example:
-
-```javascript
-// middleware.js
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-
-export function middleware(request: NextRequest) {
-  const token = request.cookies.get('auth-token')?.value;
-  const { pathname } = request.nextUrl;
-  
-  // Protect admin routes
-  if (pathname.startsWith('/admin') && !token) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  }
-  
-  // Redirect authenticated users away from login
-  if (pathname === '/login' && token) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
-  }
-  
-  return NextResponse.next();
-}
-
-export const config = {
-  matcher: ['/admin/:path*', '/login', '/dashboard/:path*'],
-};
-
-```
-
----
-
-## Q30. 🔧 Middleware matcher configuration and path matching
-
-The `matcher` config controls which routes middleware runs on - use path patterns, regex, or arrays to match specific routes. Matcher runs before middleware executes, improving performance by skipping unnecessary middleware execution. Use negative lookahead to exclude paths.
-
-- **Trade-offs**: The catch is matcher improves performance by only running middleware on matching routes, but watch out - use specific matchers to avoid running middleware on every request (like static files), and test your matcher patterns thoroughly since incorrect patterns can break routing.
-
-Example:
-
-```javascript
-// middleware.js
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-
-export function middleware(request: NextRequest) {
-  // Your middleware logic
-  return NextResponse.next();
-}
-
-export const config = {
-  // Match specific paths
-  matcher: '/about/:path*',
-  
-  // Or use array for multiple paths
-  // matcher: ['/admin/:path*', '/dashboard/:path*'],
-  
-  // Or use regex for complex patterns
-  // matcher: [
-  //   '/((?!api|_next/static|_next/image|favicon.ico).*)',
-  // ],
-};
-
-```
-
----
-
-## Q31. 🔧 Modifying request and response in middleware
-
-Middleware can modify request headers, add custom headers to response, rewrite URLs internally, or redirect requests - use `NextResponse.next()` to continue, `NextResponse.rewrite()` for internal URL changes, or `NextResponse.redirect()` for external redirects. Headers can be read from request and set on response.
-
-- **Trade-offs**: The catch is middleware provides powerful request/response manipulation before rendering, but watch out - URL rewrites are internal (browser URL doesn't change), while redirects change the browser URL, and modifying headers can affect caching and security, so be careful with security headers.
-
-Example:
-
-```javascript
-// middleware.js
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-  
-  // Add custom header to request
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set('x-custom-header', 'value');
-  
-  // Rewrite URL internally (browser URL stays same)
-  if (pathname === '/old-path') {
-    return NextResponse.rewrite(new URL('/new-path', request.url));
-  }
-  
-  // Add response headers
-  const response = NextResponse.next({
-    request: { headers: requestHeaders },
-  });
-  response.headers.set('x-response-header', 'value');
-  
-  return response;
-}
-
-export const config = {
-  matcher: '/:path*',
-};
-
-```
-
----
-
-## Q32. 🔧 Using middleware for A/B testing and feature flags
-
-Middleware can check cookies/headers to determine user segments and rewrite URLs or add headers for A/B testing - runs before rendering so you can serve different content based on user segment. Use cookies to persist user's variant, and rewrite URLs to serve different page versions.
-
-- **Trade-offs**: The catch is middleware enables server-side A/B testing before rendering, which is faster than client-side, but watch out - persist user's variant in cookies to maintain consistency, and make sure your A/B test logic doesn't slow down requests since middleware runs on every matching request.
-
-Example:
-
-```javascript
-// middleware.js
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-  const variant = request.cookies.get('ab-variant')?.value || 
-    (Math.random() > 0.5 ? 'a' : 'b');
-  
-  // Set variant cookie if not exists
-  const response = NextResponse.next();
-  if (!request.cookies.get('ab-variant')) {
-    response.cookies.set('ab-variant', variant, { maxAge: 60 * 60 * 24 * 30 });
-  }
-  
-  // Rewrite to variant-specific page
-  if (pathname === '/home' && variant === 'b') {
-    return NextResponse.rewrite(new URL('/home-variant-b', request.url));
-  }
-  
-  return response;
-}
-
-export const config = {
-  matcher: '/home',
-};
-
-```
-
----
-
-## Q33. 🔧 Middleware Edge Runtime limitations and best practices
-
-Middleware runs on Edge Runtime (V8 isolates) which has limited APIs compared to Node.js - no Node.js APIs, limited async operations, and smaller bundle size requirements. Use for lightweight operations like auth checks, redirects, and header manipulation. Avoid heavy computations, file system access, or Node.js-specific APIs.
-
-- **Trade-offs**: The catch is Edge Runtime provides better performance and runs closer to users, but watch out - limited APIs mean you can't use Node.js modules, file system, or heavy computations, so keep middleware lightweight and move complex logic to API routes or server components.
-
-Example:
-
-```javascript
-// middleware.js
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-
-export function middleware(request: NextRequest) {
-  // ✅ Good: Lightweight operations
-  const token = request.cookies.get('token')?.value;
-  const pathname = request.nextUrl.pathname;
-  
-  // ✅ Good: Simple redirects
-  if (!token && pathname.startsWith('/protected')) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  }
-  
-  // ❌ Bad: Can't use Node.js APIs
-  // const fs = require('fs'); // Won't work
-  // const crypto = require('crypto'); // Use Web Crypto API instead
-  
-  return NextResponse.next();
-}
-
-export const config = {
-  matcher: '/:path*',
-};
-
-// Edge Runtime is default, but you can specify explicitly
-export const runtime = 'edge';
-
-```
-
----
-
----
-
 ## 📍 Navigation
 
 <div align="center">
@@ -436,3 +205,4 @@ export const runtime = 'edge';
 </div>
 
 ---
+

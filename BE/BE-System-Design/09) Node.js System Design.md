@@ -1,4 +1,4 @@
-# 9. Node.js System Design (Q184–Q189)
+# 9. Node.js System Design (Q170–Q188)
 
 ---
 
@@ -1467,127 +1467,7 @@ Keep truly shared code in a common folder, but be careful not to let it become a
 
 ---
 
-## Q180. 🏊 Connection pooling strategies
-
-Connection pooling maintains a pool of reusable database connections to improve performance. When you use connection pooling, you reuse expensive connections instead of creating new ones for each query.
-
----
-
-## 1. 💡 What is Connection Pooling
-
-Connection pooling maintains a pool of reusable database connections instead of creating a new connection for each query.
-
-* **Reusable connections** → Maintain pool of reusable connections
-
-* **Reuse** → Reuse connections instead of creating new ones
-
-* **Example** → Keep 10 connections open and reuse them
-
-* **Create when needed** → Create new ones only when pool is exhausted
-
-📌 **In simple terms**: Maintain a pool of reusable database connections instead of creating new ones for each query.
-
----
-
-## 2. 💡 Pool Configuration
-
-Configure pool size based on your database's max connections and your app's concurrency.
-
-* **Pool size** → Configure based on database max connections
-
-* **Concurrency** → Consider app's concurrency
-
-* **Balance** → Balance between too small and too large
-
-* **Timeouts** → Set timeouts to close idle connections
-
----
-
-## 3. 💡 Benefits
-
-Connection pooling reduces the overhead of creating connections which is expensive.
-
-* **Reduces overhead** → Reduces connection creation overhead
-
-* **Limits connections** → Limits number of connections
-
-* **Prevents overwhelming** → Prevents overwhelming database
-
-* **Performance** → Better performance
-
----
-
-## 4. 💡 Trade-offs
-
-Connection pooling reduces the overhead of creating connections which is expensive.
-
-* **Pros** → Reduces overhead, limits connections, prevents overwhelming database
-
-* **Cons** → The catch is you need to size the pool correctly - too small and requests wait for available connections, too large and you waste resources or hit database limits
-
-* **Connection failures** → The tricky part is handling connection failures - you need to detect dead connections and replace them in the pool
-
-* **Pool sizing** → Need to size pool correctly
-
----
-
-## 5. 💡 Example
-
-Example connection pool:
-
-```javascript
-const { Pool } = require('pg');
-
-// Connection pool with configuration
-const pool = new Pool({
-  host: 'localhost',
-  database: 'mydb',
-  user: 'user',
-  password: 'password',
-  max: 20, // Maximum pool size
-  min: 5,  // Minimum pool size
-  idleTimeoutMillis: 30000, // Close idle connections after 30s
-  connectionTimeoutMillis: 2000, // Timeout when acquiring connection
-});
-
-// Reuse connections from pool
-async function getUsers() {
-  const client = await pool.connect();
-  try {
-    const result = await client.query('SELECT * FROM users');
-    return result.rows;
-  } finally {
-    client.release(); // Return connection to pool
-  }
-}
-
-```
-
----
-
-## ⭐ Summary — 10-second Interview Version
-
-> "Connection pooling maintains a pool of reusable database connections instead of creating a new connection for each query - like keeping 10 connections open and reusing them, creating new ones only when the pool is exhausted. Configure pool size based on your database's max connections and your app's concurrency, and set timeouts to close idle connections."
-
----
-
-## ⭐ Extra Points (If Interviewer Asks More)
-
-### How do you determine the right pool size?
-
-You determine by considering database max connections, app concurrency (concurrent requests), query duration, and testing under load. Formula: pool size = (threads × avg query time) / target response time. The catch is optimal size depends on workload. The tricky part is balancing - start with reasonable size (10-20), monitor usage, and adjust based on metrics.
-
-### How do you handle connection failures in a pool?
-
-You handle by detecting dead connections (ping/health checks), removing dead connections from pool, creating new connections to replace dead ones, and implementing retry logic for failed queries. The catch is you need to detect failures quickly. The tricky part is balancing detection with overhead - use periodic health checks, detect failures on query errors, and replace connections proactively.
-
-### What's the difference between connection pool and connection per request?
-
-Connection pool reuses connections across requests (better performance, lower overhead), while connection per request creates a new connection for each request (simpler but much slower). The catch is connection per request is simpler but much slower. The tricky part is choosing - use connection pooling for production, connection per request only for simple scripts or low-traffic applications.
-
----
-
-## Q181. 🔁 Retry and exponential backoff
+## Q180. 🔁 Retry and exponential backoff
 
 Retry with exponential backoff handles transient failures by waiting longer between retry attempts. When you implement retries, you give transient failures time to recover while avoiding overwhelming a down service.
 
@@ -1723,7 +1603,7 @@ Jitter adds randomness to prevent thundering herd - if all clients retry at the 
 
 ---
 
-## Q182. 🔑 Idempotent API design in Node.js
+## Q181. 🔑 Idempotent API design in Node.js
 
 Idempotent APIs ensure that making the same request multiple times has the same effect as making it once. When you design idempotent APIs, you prevent duplicate operations from retries or network issues.
 
@@ -1898,7 +1778,7 @@ app.post('/orders', handleIdempotentRequest, async (req, res) => {
 
 ---
 
-## Q183. 🔐 JWT authentication architecture
+## Q182. 🔐 JWT authentication architecture
 
 JWT authentication provides stateless authentication using tokens. When you use JWT authentication, you issue tokens after login that contain user info and expiration, and validate them without database lookups.
 
@@ -1999,6 +1879,7 @@ Access tokens are short-lived (15 minutes to 1 hour) and used for API requests, 
 Example:
 
 ```javascript
+
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -2046,7 +1927,7 @@ function authenticateToken(req, res, next) {
 
 ---
 
-## Q184. 🛡️ Preventing brute-force attacks
+## Q183. 🛡️ Preventing brute-force attacks
 
 Brute-force attacks attempt to guess passwords through repeated login attempts. When you prevent brute-force attacks, you rate limit login attempts and implement account protection mechanisms.
 
@@ -2161,6 +2042,7 @@ You prevent by using progressive delays instead of hard lockouts, allowing accou
 Example:
 
 ```javascript
+
 const redis = require('redis');
 const client = redis.createClient();
 
@@ -2214,7 +2096,7 @@ app.post('/login', async (req, res) => {
 
 ---
 
-## Q185. 🛑 Graceful shutdown and why it's important
+## Q184. 🛑 Graceful shutdown and why it's important
 
 Graceful shutdown allows your server to finish processing current requests before shutting down. When you implement graceful shutdown, you prevent data corruption and ensure requests complete properly.
 
@@ -2301,6 +2183,7 @@ You coordinate by using orchestration tools (Kubernetes, Docker Compose), implem
 Example:
 
 ```javascript
+
 const express = require('express');
 const app = express();
 
@@ -2355,7 +2238,7 @@ process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
 ---
 
-## Q186. 📝 Logging architecture for Node.js services
+## Q185. 📝 Logging architecture for Node.js services
 
 Logging architecture provides visibility into your application's behavior. When you design logging, you use structured logging with consistent formats and centralized log aggregation.
 
@@ -2470,6 +2353,7 @@ You reduce by sampling logs (log only percentage of requests), filtering logs be
 Example:
 
 ```javascript
+
 const winston = require('winston');
 const { v4: uuidv4 } = require('uuid');
 
@@ -2527,7 +2411,7 @@ app.get('/users/:id', async (req, res) => {
 
 ---
 
-## Q187. 🛠️ Handling partial failures in Node.js
+## Q186. 🛠️ Handling partial failures in Node.js
 
 Partial failures occur when some parts of your system fail while others continue working. When you handle partial failures, you use circuit breakers, timeouts, fallbacks, and bulkheads to keep your system working.
 
@@ -2655,7 +2539,7 @@ You implement by isolating resources (separate connection pools, thread pools), 
 
 ---
 
-## Q188. ☁️ Designing Node.js + S3 upload flow
+## Q187. ☁️ Designing Node.js + S3 upload flow
 
 S3 upload flow allows clients to upload files directly to S3. When you design S3 uploads, you use pre-signed URLs to enable direct client-to-S3 uploads while maintaining security.
 
@@ -2770,6 +2654,7 @@ You secure by limiting URL expiration time, restricting upload paths, validating
 Example:
 
 ```javascript
+
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 
@@ -2826,7 +2711,7 @@ app.post('/upload/confirm', authenticateToken, async (req, res) => {
 
 ---
 
-## Q189. ⚙️ Handling environment configs in Node.js microservices
+## Q188. ⚙️ Handling environment configs in Node.js microservices
 
 Environment configuration management is critical for microservices. When you handle environment configs, you use environment variables for secrets and configuration while maintaining security and flexibility.
 
@@ -2955,6 +2840,7 @@ You handle by validating configs on startup, using feature flags, implementing b
 Example:
 
 ```javascript
+
 require('dotenv').config(); // Load .env in development
 const AWS = require('aws-sdk');
 

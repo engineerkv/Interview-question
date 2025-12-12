@@ -1,4 +1,4 @@
-# ⚡ 4. Performance & Optimization (Q34–43)
+# ⚡ 4. Performance & Optimization (Q28–37)
 
 ---
 
@@ -16,7 +16,7 @@
 
 ---
 
-## Q34. ▲ ▲ ▲ Optimizing images with `next/image`
+## Q28. ▲ ▲ ▲ Optimizing images with `next/image`
 
 `next/image` provides automatic optimization (converts to modern formats), lazy loading (loads only when in viewport), and responsive images (serves appropriate size for device) - significantly improves performance. Use `priority` for above-fold images to load immediately, and `placeholder="blur"` to show blur while loading.
 
@@ -44,7 +44,7 @@ export default function OptimizedImage() {
 
 ---
 
-## Q35. 💡 Implementing code splitting and lazy loading
+## Q29. 💡 Implementing code splitting and lazy loading
 
 `next/dynamic` enables code splitting (automatically splits code into chunks) and lazy loading of components (loads only when needed) - reduces initial bundle size and improves performance. You can disable SSR for client-only components with `ssr: false`, and show loading UI while component loads.
 
@@ -64,7 +64,7 @@ const LazyComponent = dynamic(() => import('./HeavyComponent'), {
 
 ---
 
-## Q36. ▲ ▲ ▲ Using `next/script` for third-party scripts
+## Q30. ▲ ▲ ▲ Using `next/script` for third-party scripts
 
 `next/script` optimizes third-party script loading with different strategies - `afterInteractive` (loads after page becomes interactive), `beforeInteractive` (loads before page becomes interactive), `lazyOnload` (loads when browser is idle), or `worker` (loads in web worker). Choose strategy based on script importance.
 
@@ -90,7 +90,7 @@ export default function Page() {
 
 ---
 
-## Q37. 💡 Core Web Vitals and how to optimize them
+## Q31. 💡 Core Web Vitals and how to optimize them
 
 Optimize LCP (Largest Contentful Paint) with `next/image` and `next/font`, FID (First Input Delay) with code splitting to reduce JavaScript execution time, and CLS (Cumulative Layout Shift) with proper sizing and loading states - Core Web Vitals affect SEO and user experience. Load critical resources first with `priority`, and show loading states to prevent layout shifts.
 
@@ -119,7 +119,7 @@ export default function Hero() {
 
 ---
 
-## Q38. ⚡ How SWC improves build performance
+## Q32. ⚡ How SWC improves build performance
 
 SWC is a fast Rust-based compiler that replaces Babel for faster builds - significantly faster builds and better minification than Terser. Enabled by default in Next.js 12+, and supports SWC plugins for customization.
 
@@ -137,7 +137,7 @@ const nextConfig = {
 
 ---
 
-## Q39. 🌊 Implementing streaming in SSR
+## Q33. 🌊 Implementing streaming in SSR
 
 Streaming sends HTML chunks as they're ready, improving Time to First Byte (TTFB) and providing better perceived performance - page loads progressively. Use Suspense with fallbacks to enable streaming, allowing slow components to load separately.
 
@@ -163,7 +163,7 @@ export default async function Page() {
 
 ---
 
-## Q40. 💾 Different caching strategies in Next.js
+## Q34. 💾 Different caching strategies in Next.js
 
 Use ISR (Incremental Static Regeneration) for static content with revalidation, edge caching for global performance, and revalidation tags for targeted cache invalidation - caching improves performance significantly. Control caching behavior with headers, and update cache at specified intervals with revalidation.
 
@@ -187,7 +187,7 @@ export async function getStaticProps() {
 
 ---
 
-## Q41. 🎨 Optimizing fonts and CSS in Next.js
+## Q35. 🎨 Optimizing fonts and CSS in Next.js
 
 Use `next/font` for font optimization (optimizes Google Fonts automatically) and inline critical CSS for faster rendering - reduces layout shifts and improves loading performance. Preload important fonts, and control font loading behavior with `font-display` option.
 
@@ -215,7 +215,7 @@ export default function RootLayout({ children }) {
 
 ---
 
-## Q42. ⚡ Monitoring performance in Next.js applications
+## Q36. ⚡ Monitoring performance in Next.js applications
 
 Use Vercel Analytics for Core Web Vitals monitoring, Google Analytics for comprehensive web analytics, and Sentry for error tracking and performance monitoring - performance monitoring is essential for optimization. Set and monitor performance targets (performance budgets), and track actual user experience with real user monitoring.
 
@@ -241,7 +241,7 @@ export default function RootLayout({ children }) {
 
 ---
 
-## Q43. ⚡ Common performance anti-patterns to avoid
+## Q37. ⚡ Common performance anti-patterns to avoid
 
 Avoid blocking SSR calls (use streaming with Suspense), large bundles (use code splitting for heavy libraries), unnecessary client-side JavaScript (use Server Components when possible), and unnecessary re-renders (optimize with React.memo and useMemo) - monitor bundle size and performance metrics with performance budgets.
 

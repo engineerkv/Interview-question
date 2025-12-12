@@ -18,7 +18,7 @@ Comprehensive interview materials for modern web development technologies with d
 | **TypeScript** | 53 | 5 | ✅ |
 | **Next.js** | 60 | 6 | ✅ |
 | **Node.js & Express** | 100 | 9 | ✅ |
-| **Backend System Design** | 225 | 12 | ✅ |
+| **Backend System Design** | 214 | 11 | ✅ |
 | **Frontend System Design** | 142 | 20 | ✅ |
 | **DSA (Top Interview 150+)** | 229 | 16 | ✅ |
 | **Project Discussion** | 100 | 20 Projects | ✅ |

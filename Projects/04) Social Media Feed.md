@@ -297,6 +297,7 @@ Design and implement a social media feed system that addresses the following cha
 - **Average Posts Per User**: 2 posts per day
 
 **Calculations:**
+
 - **Average Writes Per Second (WPS)**: (10M users × 2 posts) / 86,400 seconds ≈ 231 WPS
 - **Peak WPS**: 231 × 5 = 1,155 WPS
 - **Average Reads Per Second (RPS)**: 231 × 100 = 23,100 RPS
@@ -306,12 +307,14 @@ Design and implement a social media feed system that addresses the following cha
 ### Storage Estimation
 
 **Storage per Post:**
+
 - Post metadata: 1 KB (text, author, timestamp, etc.)
 - Post images: 500 KB average (1-3 images × 200 KB each)
 - Post videos: 5 MB average (optional)
 - **Total per Post**: ~1.5 KB (text) + 500 KB (images) = ~501.5 KB average
 
 **Storage Requirements:**
+
 - **Total Posts per Year**: 10M users × 2 posts/day × 365 = 7.3 billion posts
 - **Post Storage**: 7.3B × 501.5 KB ≈ 3.66 PB per year
 - **User Data**: 100M users × 10 KB ≈ 1 TB
@@ -329,6 +332,7 @@ Design and implement a social media feed system that addresses the following cha
 ### Caching Estimation
 
 Following the **80-20 rule** where 20% of posts generate 80% of traffic:
+
 - **Cache 20% of hot posts**: 7.3B × 0.2 = 1.46B posts
 - **Cache memory required**: 1.46B × 1.5 KB = 2.19 TB
 - **Cache hit ratio**: 80% (only 20% of feed requests hit database)
@@ -507,6 +511,7 @@ The system follows a layered architecture with real-time capabilities for instan
 ### Complete Request Flow
 
 **Feed Loading Flow:**
+
 1. **Frontend**: User opens home feed
 2. **Load Balancer**: Routes request to available API server
 3. **API Server**: Validates request, extracts user ID
@@ -516,6 +521,7 @@ The system follows a layered architecture with real-time capabilities for instan
 7. **Frontend**: Display posts with infinite scroll
 
 **Post Creation Flow:**
+
 1. **Frontend**: User creates post with text/image
 2. **API Call**: POST request to create post API
 3. **Backend**: Validate post, upload media to S3
@@ -526,6 +532,7 @@ The system follows a layered architecture with real-time capabilities for instan
 8. **Frontend**: Add post to feed immediately (optimistic update)
 
 **Like/Comment Flow:**
+
 1. **Frontend**: User likes or comments on post
 2. **API Call**: POST request to like/comment API
 3. **Backend**: Update engagement in MongoDB
@@ -815,7 +822,7 @@ const useFeed = () => {
 
 const useCreatePost = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (formData: FormData) => {
       const response = await axios.post('/api/v1/posts', formData, {
@@ -1558,6 +1565,7 @@ try {
 **Purpose:** Rank posts in user's feed by engagement score and time decay.
 
 **Algorithm:**
+
 1. Fetch posts from users you follow
 2. Calculate engagement score: (likes × 1) + (comments × 2) + (shares × 3)
 3. Apply time decay: exponential decay based on post age
@@ -1583,6 +1591,7 @@ function rankFeed(posts: Post[]): Post[] {
 ```
 
 **Complexity:**
+
 - Time: O(n log n) for sorting where n is number of posts
 - Space: O(n) for scoring
 - **Ranking Quality:** Engagement-based ranking improves feed relevance
@@ -1594,6 +1603,7 @@ function rankFeed(posts: Post[]): Post[] {
 **Purpose:** Distribute new posts to all followers' feeds efficiently.
 
 **Algorithm:**
+
 1. When user creates post, get list of followers
 2. For each follower, add post to their feed cache
 3. Use message queue for async fan-out
@@ -1607,9 +1617,9 @@ async function fanOutPost(post: Post, followers: string[]): Promise<void> {
   const batchSize = 100;
   for (let i = 0; i < followers.length; i += batchSize) {
     const batch = followers.slice(i, i + batchSize);
-    
+
     await Promise.all(
-      batch.map(followerId => 
+      batch.map(followerId =>
         redis.lpush(`feed:${followerId}`, post.id)
       )
     );
@@ -1619,6 +1629,7 @@ async function fanOutPost(post: Post, followers: string[]): Promise<void> {
 ```
 
 **Complexity:**
+
 - Time: O(n) where n is number of followers
 - Space: O(1) per follower
 - **Efficiency:** Batch processing improves performance
@@ -1684,6 +1695,7 @@ async function fanOutPost(post: Post, followers: string[]): Promise<void> {
 ### MongoDB Transactions
 
 **Transaction Usage:**
+
 - **Multi-Document Transactions** - For operations requiring ACID guarantees
 - **Example:** Post creation + user update + notification creation in single transaction
 - **Session Management:** Use MongoDB sessions for transaction control
@@ -1710,6 +1722,7 @@ try {
 ### Consistency Strategies
 
 **Data Consistency:**
+
 - **Feed Consistency:** Use transactions for feed updates to ensure atomicity
 - **Like Count Consistency:** Use transactions for like operations
 - **Comment Consistency:** Ensure comment updates are atomic
@@ -1756,6 +1769,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 401 (Unauthorized)
 
 ### POST /api/v1/posts
@@ -1774,6 +1788,7 @@ try {
   }
 
   ```
+
 - **Response:**
 
   ```json
@@ -1787,6 +1802,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 201 (Created), 400 (Validation Error)
 
 ---
@@ -1796,15 +1812,17 @@ try {
 ### Redis Cache
 
 **Cache Strategy:**
+
 - **Key Format:** `feed:{userId}`, `post:{postId}`, `user:{userId}`
 - **Value:** Serialized JSON (feed post IDs, post data, user data)
-- **TTL:** 
+- **TTL:**
   - Feed cache: 300 seconds (5 minutes)
   - Post data: 3600 seconds (1 hour)
   - User data: 1800 seconds (30 minutes)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
+
 - **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
 - **Write-Through Pattern:** Update cache when posts are created/updated
 - **Cache Invalidation:** Invalidate feed cache on new posts from followed users
@@ -1816,6 +1834,7 @@ try {
 ### Error Scenarios and Responses
 
 **Edge Cases Handling:**
+
 - **Post Not Found:** Return 404 Not Found when post doesn't exist
 - **Unauthorized Access:** Return 403 Forbidden when user doesn't have permission
 - **Invalid Post Data:** Return 400 Bad Request with validation errors
@@ -1841,16 +1860,19 @@ try {
 ### Scalability
 
 **API Layer:**
+
 - Deploy API layer across multiple instances behind load balancer
 - Use auto-scaling based on CPU/memory metrics
 - Stateless design allows horizontal scaling
 
 **Database Scaling:**
+
 - **Read Replicas:** Deploy read replicas for feed queries
 - **Sharding:** Shard posts by userId for write scaling
 - **Connection Pooling:** Use connection pooling to manage database connections
 
 **Caching:**
+
 - Distributed Redis cluster for high availability
 - Cache feeds and post data
 - Reduces database load significantly
@@ -1858,15 +1880,18 @@ try {
 ### Availability
 
 **Replication:**
+
 - Database replication ensures data availability
 - Multi-region replication for disaster recovery
 
 **Failover:**
+
 - Automated failover mechanisms for API and data store layers
 - Health checks and monitoring for proactive failover
 - Circuit breaker pattern to prevent cascading failures
 
 **Geo-Distributed Deployment:**
+
 - Deploy service across multiple geographical regions
 - Reduces latency for users worldwide
 - Improves availability by eliminating single point of failure
@@ -1874,23 +1899,27 @@ try {
 ### Frontend Deployment
 
 **Build Process:**
+
 - **Production Build:** Optimized bundle with code splitting
 - **CDN Deployment:** Deploy static assets to CDN for fast global delivery
 - **Environment Variables:** `.env.production` for production config
 
 **Deployment Platforms:**
+
 - **Vercel / Netlify** - Automatic deployments from Git
 - **AWS S3 + CloudFront** - Static site hosting with CDN
 
 ### Backend Deployment
 
 **Server Setup:**
+
 - **PM2:** Process manager with clustering for Node.js apps
 - **Nginx:** Load balancer and reverse proxy with SSL termination
 - **Docker:** Containerized deployment for consistency
 - **Kubernetes:** Container orchestration for auto-scaling
 
 **CI/CD Pipeline:**
+
 - **Automated Testing:** Run tests before deployment
 - **Zero-Downtime:** Rolling deployment strategy
 - **Health Checks:** Verify feed endpoints are healthy
@@ -1899,12 +1928,14 @@ try {
 ### Database Deployment
 
 **MongoDB Setup:**
+
 - **MongoDB Atlas** - Managed MongoDB service with automatic backups
 - **Backup Strategy:** Daily automated backups with point-in-time recovery
 - **Indexing:** Proper indexes on postId, userId, hashtags, createdAt
 - **Replication:** Replica sets for high availability
 
 **Redis Setup:**
+
 - **Redis Cloud / AWS ElastiCache** - Managed Redis service
 - **Cluster Mode:** Redis cluster for high availability and performance
 - **Persistence:** RDB snapshots and AOF for data durability
@@ -2032,4 +2063,3 @@ I implemented **ranking** - sort posts by score (highest first). I added **diver
 **Result:** Post interactions work seamlessly. Real-time updates provide instant feedback. Optimistic updates improve UX. Notifications keep users engaged.
 
 **Takeaway:** Optimistic updates improve UX. Real-time updates keep feed fresh. Atomic operations prevent race conditions. Notifications increase engagement.
-

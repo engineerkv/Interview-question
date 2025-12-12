@@ -1,4 +1,4 @@
-# 🗂️ 3. State Management (Q35–45)
+# 🗂️ 3. State Management (Q39–49)
 
 ---
 
@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[← Previous: React Hooks](02%29%20React%20Hooks.md) • [Home: README](../README.md) • [Next: Server State & Data Fetching →](04%29%20Server%20State%20%26%20Data%20Fetching.md)
+[← Previous: Hooks & Lifecycle](02%29%20Hooks%20%26%20Lifecycle.md) • [Home: README](../README.md) • [Next: Data Fetching & Server State →](04%29%20Data Fetching%20%26%20Server State.md)
 
 [📋 Cheatsheet](React%20Interview%20Cheatsheet.md)
 
@@ -16,7 +16,7 @@
 
 ---
 
-## Q35. 🔌 Context API and how to use it
+## Q39. 🔌 Context API and how to use it
 
 Context API shares data across the component tree without prop drilling - use it for global data like themes, user info, or language settings that many components need. Context shares data globally without prop drilling through multiple levels.
 
@@ -25,17 +25,22 @@ Context API shares data across the component tree without prop drilling - use it
 Example:
 
 ```jsx
+// Create context for sharing theme data
 const ThemeContext = createContext();
+
+// Provider component: wraps app to share context value
 function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('light'); // State managed in provider
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
-      {children}
+      {children} {/* All children can access context */}
     </ThemeContext.Provider>
   );
 }
+
+// Consumer component: accesses context without prop drilling
 function ThemedButton() {
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { theme, setTheme } = useContext(ThemeContext); // Get context value
   return (
     <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
       Toggle
@@ -47,7 +52,7 @@ function ThemedButton() {
 
 ---
 
-## Q36. 🔧 Redux and how it works
+## Q40. 🔧 Redux and how it works
 
 Redux manages app state in one store using actions and reducers - it follows unidirectional data flow for predictable updates, making state changes traceable and debuggable. Actions describe changes, reducers update state, store holds everything.
 
@@ -56,24 +61,27 @@ Redux manages app state in one store using actions and reducers - it follows uni
 Example:
 
 ```jsx
+// Reducer: pure function that updates state based on action
 const counterReducer = (state = { count: 0 }, action) => {
   switch (action.type) {
     case 'INCREMENT':
-      return { count: state.count + 1 };
+      return { count: state.count + 1 }; // Return new state, don't mutate
     case 'DECREMENT':
       return { count: state.count - 1 };
     default:
-      return state;
+      return state; // Return current state for unknown actions
   }
 };
+
+// Store: holds state and provides dispatch method
 const store = createStore(counterReducer);
-store.dispatch({ type: 'INCREMENT' });
+store.dispatch({ type: 'INCREMENT' }); // Dispatch action to update state
 
 ```
 
 ---
 
-## Q37. 💡 Redux: actions, reducers, and store
+## Q41. 💡 Redux: actions, reducers, and store
 
 Actions describe what happened, reducers specify how state changes, and the store holds state and provides access methods - together they create predictable state updates. Actions are plain objects with type and optional payload describing what happened, reducers are pure functions that take current state and action, return new state.
 
@@ -101,7 +109,7 @@ const reducer = (state = { count: 0 }, action) => {
 
 ---
 
-## Q38. 🔧 Redux middleware and how to use it
+## Q42. 🔧 Redux middleware and how to use it
 
 Middleware intercepts actions before they reach reducers, allowing you to modify, log, or delay actions - it's a function that receives the store, returns a function that receives the next middleware, which returns a function that receives the action. Use middleware for async operations, logging, error handling, or any side effects that need to happen between dispatch and reducer.
 
@@ -110,18 +118,20 @@ Middleware intercepts actions before they reach reducers, allowing you to modify
 Example:
 
 ```jsx
+// Middleware: intercepts actions before they reach reducer
+// Function signature: store => next => action
 const loggerMiddleware = (store) => (next) => (action) => {
-  console.log('Dispatching:', action);
-  const result = next(action);
-  console.log('New state:', store.getState());
-  return result;
+  console.log('Dispatching:', action); // Log before action
+  const result = next(action); // Pass action to next middleware/reducer
+  console.log('New state:', store.getState()); // Log after state update
+  return result; // Return result to previous middleware
 };
 
 ```
 
 ---
 
-## Q39. 🔧 Redux Thunk and how to use it
+## Q43. 🔧 Redux Thunk and how to use it
 
 Redux Thunk is middleware that allows action creators to return functions instead of plain objects - these functions receive dispatch and getState as arguments, enabling async operations like API calls, conditional dispatches, and accessing current state. Apply it to your store with `applyMiddleware(thunk)` and use it for async actions like fetching data or handling side effects.
 
@@ -130,13 +140,14 @@ Redux Thunk is middleware that allows action creators to return functions instea
 Example:
 
 ```jsx
+// Thunk: action creator that returns function instead of object
 const fetchUserThunk = (userId) => async (dispatch, getState) => {
-  dispatch({ type: 'FETCH_USER_START' });
+  dispatch({ type: 'FETCH_USER_START' }); // Dispatch loading state
   try {
-    const user = await api.getUser(userId);
-    dispatch({ type: 'FETCH_USER_SUCCESS', payload: user });
+    const user = await api.getUser(userId); // Async operation
+    dispatch({ type: 'FETCH_USER_SUCCESS', payload: user }); // Dispatch success
   } catch (e) {
-    dispatch({ type: 'FETCH_USER_ERROR', error: String(e) });
+    dispatch({ type: 'FETCH_USER_ERROR', error: String(e) }); // Dispatch error
   }
 };
 
@@ -144,7 +155,7 @@ const fetchUserThunk = (userId) => async (dispatch, getState) => {
 
 ---
 
-## Q40. 🤔 Redux Saga vs Redux Thunk
+## Q44. 🤔 Redux Saga vs Redux Thunk
 
 Redux Saga uses generator functions for complex async flows - it handles cancellation, debouncing, race conditions, and complex orchestration better than Thunk.
 
@@ -167,7 +178,7 @@ function* fetchUserSaga(action) {
 
 ---
 
-## Q41. 🤔 Redux Toolkit (RTK) and why to use it
+## Q45. 🤔 Redux Toolkit (RTK) and why to use it
 
 Redux Toolkit reduces Redux boilerplate with createSlice, configureStore, and Immer integration - it's the official recommended way to use Redux in modern apps. RTK combines actions and reducers in createSlice, reducing boilerplate.
 
@@ -192,7 +203,7 @@ const store = configureStore({
 
 ---
 
-## Q42. 🤔 Zustand vs Redux
+## Q46. 🤔 Zustand vs Redux
 
 Zustand is a lightweight state library with less boilerplate than Redux - no actions or reducers needed, just create a store and use it directly in components. Minimal boilerplate, simple API, no actions or reducers required.
 
@@ -210,7 +221,7 @@ const useStore = create((set) => ({
 
 ---
 
-## Q43. 🔧 Recoil and how it works
+## Q47. 🔧 Recoil and how it works
 
 Recoil uses atoms and selectors for fine-grained state - more React-like than Redux with automatic derived state, optimized for React's rendering model. Atoms are individual state pieces, selectors compute derived state automatically.
 
@@ -226,7 +237,7 @@ const [count, setCount] = useRecoilState(countState);
 
 ---
 
-## Q44. 📊 Local state vs global state
+## Q48. 📊 Local state vs global state
 
 Local state lives in one component and doesn't affect others, while global state is shared across multiple components and managed centrally with Context, Redux, or other solutions. Local state is component-specific, simpler to manage.
 
@@ -249,7 +260,7 @@ function Counter() {
 
 ---
 
-## Q45. 📊 When to use each state management solution
+## Q49. 📊 When to use each state management solution
 
 Use local state for component-specific UI, Context for simple global data, Redux/Zustand for complex shared state - choose based on app complexity and team needs. Start with local state, lift up when needed, use global state for shared data.
 
@@ -277,7 +288,7 @@ const count = useSelector(state => state.counter.count);
 
 <div align="center">
 
-[← Previous: React Hooks](02%29%20React%20Hooks.md) • [Home: README](../README.md) • [Next: Server State & Data Fetching →](04%29%20Server%20State%20%26%20Data%20Fetching.md)
+[← Previous: Hooks & Lifecycle](02%29%20Hooks%20%26%20Lifecycle.md) • [Home: README](../README.md) • [Next: Data Fetching & Server State →](04%29%20Data Fetching%20%26%20Server State.md)
 
 [📋 Cheatsheet](React%20Interview%20Cheatsheet.md)
 

@@ -211,7 +211,7 @@ export default function BlogCatchAll({ params }) {
   return <h1>Blog: {params.slug.join('/')}</h1>;
 }
 
-// app/blog/[...slug]/page.js - Optional catch-all
+// app/blog/[[...slug]]/page.js - Optional catch-all (double brackets)
 export default function BlogOptional({ params }) {
   if (params.slug) {
     return <h1>Blog: {params.slug.join('/')}</h1>;

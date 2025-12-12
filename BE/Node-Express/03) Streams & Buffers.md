@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[← Previous: Asynchronous Patterns & Event Emitter](02%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md) • [Home: Question List](question.md) • [Next: Node.js Internals & Performance →](04%29%20Node.js%20Internals%20%26%20Performance.md)
+[← Previous: Async Patterns & Events](02%29%20Async%20Patterns%20%26%20Events.md) • [Home: Question List](question.md) • [Next: Internals & Performance →](04%29%20Internals%20%26%20Performance.md)
 
 [📋 Cheatsheet](Node-Express%20Interview%20Cheatsheet.md)
 
@@ -24,9 +24,12 @@ Example:
 
 ```javascript
 const fs = require('fs');
+// Create readable stream: reads file in chunks (memory efficient)
 const readStream = fs.createReadStream('large-file.txt');
+// Create writable stream: writes data in chunks
 const writeStream = fs.createWriteStream('output.txt');
-readStream.pipe(writeStream);
+// Pipe: connects streams, automatically handles backpressure
+readStream.pipe(writeStream); // Data flows from readStream to writeStream
 
 ```
 
@@ -41,14 +44,16 @@ Example:
 ```javascript
 const { Readable, Writable, Transform } = require('stream');
 
+// Readable stream: source of data
 const readable = new Readable({
-  read() { this.push('data'); }
+  read() { this.push('data'); } // Push data when stream requests it
 });
 
+// Writable stream: destination for data
 const writable = new Writable({
   write(chunk, encoding, callback) {
-    console.log(chunk.toString());
-    callback();
+    console.log(chunk.toString()); // Process chunk
+    callback(); // Signal that chunk was processed (required)
   }
 });
 
@@ -67,19 +72,21 @@ const { Readable, Writable } = require('stream');
 
 const readable = new Readable({
   read() {
-    this.push('data chunk');
+    this.push('data chunk'); // Push data chunks
   }
 });
 
+// Writable stream with slow processing (simulates backpressure)
 const writable = new Writable({
   write(chunk, encoding, callback) {
     setTimeout(() => {
       console.log('Processed:', chunk.toString());
-      callback();
-    }, 100);
+      callback(); // Call callback when done (triggers drain event if needed)
+    }, 100); // Slow processing
   }
 });
 
+// pipe() automatically handles backpressure: pauses readable when writable is busy
 readable.pipe(writable);
 
 ```
@@ -93,11 +100,12 @@ A Buffer is a fixed-size memory allocation for handling binary data in Node.js -
 Example:
 
 ```javascript
-const buffer = Buffer.from('Hello World', 'utf8');
-console.log(buffer.length);
-console.log(buffer.toString());
+// Buffer: fixed-size binary data container
+const buffer = Buffer.from('Hello World', 'utf8'); // Create buffer from string
+console.log(buffer.length); // Size in bytes
+console.log(buffer.toString()); // Convert back to string
 
-const stream = fs.createReadStream('file.txt');
+const stream = fs.createReadStream('file.txt'); // Streams use buffers internally
 stream.on('data', (chunk) => {
   console.log('Received chunk:', chunk.length, 'bytes');
 });
@@ -251,7 +259,7 @@ generator.pipe(uppercase).pipe(process.stdout);
 
 <div align="center">
 
-[← Previous: Asynchronous Patterns & Event Emitter](02%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md) • [Home: Question List](question.md) • [Next: Node.js Internals & Performance →](04%29%20Node.js%20Internals%20%26%20Performance.md)
+[← Previous: Async Patterns & Events](02%29%20Async%20Patterns%20%26%20Events.md) • [Home: Question List](question.md) • [Next: Internals & Performance →](04%29%20Internals%20%26%20Performance.md)
 
 [📋 Cheatsheet](Node-Express%20Interview%20Cheatsheet.md)
 

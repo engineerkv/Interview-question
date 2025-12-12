@@ -1,19 +1,18 @@
 # 🎨 CSS Interview Questions
 
-68 carefully curated concepts covering CSS fundamentals to advanced architecture and performance.
+67 carefully curated concepts covering CSS fundamentals to advanced architecture and performance.
 
 ## 📋 Quick Navigation
 
 | Section | Topic | Questions | Difficulty |
 |---------|-------|-----------|------------|
-| [1️⃣](#1-beginner-level-css) | Beginner Level CSS | Q1–12 | ⭐⭐ |
-| [2️⃣](#2-intermediate-level-css) | Intermediate Level CSS | Q13–32 | ⭐⭐⭐ |
-| [3️⃣](#3-advanced-css-concepts) | Advanced CSS Concepts | Q33–40 | ⭐⭐⭐⭐ |
-| [4️⃣](#4-css-architecture--design-systems) | CSS Architecture & Design Systems | Q41–48 | ⭐⭐⭐⭐ |
-| [5️⃣](#5-performance--optimization) | Performance & Optimization | Q49–58 | ⭐⭐⭐⭐ |
-| [6️⃣](#6-practical-hands-on-challenges) | Practical & Hands-On Challenges | Q59–68 | ⭐⭐⭐⭐ |
+| [1️⃣](#1-beginner-level-css) | Fundamentals & Basics | Q1–12 | ⭐⭐ |
+| [2️⃣](#2-intermediate-level-css) | Layout & Styling | Q13–32, Q36, Q40 | ⭐⭐⭐ |
+| [3️⃣](#3-css-architecture--design-systems) | Architecture & Design Systems | Q41–48 | ⭐⭐⭐⭐ |
+| [4️⃣](#4-performance--optimization) | Performance & Optimization | Q48–57 | ⭐⭐⭐⭐ |
+| [5️⃣](#5-practical-hands-on-challenges) | Practical Challenges | Q58–67 | ⭐⭐⭐⭐ |
 
-## 🧒 1. Beginner Level CSS
+## 🧒 1. Fundamentals & Basics
 
 1. CSS and what it stands for
 
@@ -39,7 +38,7 @@
 
 12. `position: relative`, `absolute`, `fixed`, and `sticky`: differences
 
-## 🎯 2. Intermediate Level CSS
+## 🎯 2. Layout & Styling
 
 13. `visibility: hidden` vs `display: none`
 
@@ -81,25 +80,11 @@
 
 32. SASS vs LESS
 
-## 🚀 3. Advanced CSS Concepts
-
-33. CSS containment and how it improves performance
-
-34. CSS logical properties and their benefits
-
-35. CSS container queries and how they work
-
 36. CSS subgrid and its use cases
-
-37. CSS Houdini and how it works
-
-38. CSS layers and how they work
-
-39. CSS anchor positioning
 
 40. CSS `color-mix()` function and its usage
 
-## 🏗️ 4. CSS Architecture & Design Systems
+## 🏗️ 3. Architecture & Design Systems
 
 41. BEM methodology and how it works
 
@@ -117,7 +102,7 @@
 
 48. Design system implementation with CSS
 
-## ⚡ 5. Performance & Optimization
+## ⚡ 4. Performance & Optimization
 
 49. Optimizing CSS for performance
 
@@ -139,7 +124,7 @@
 
 58. CSS optimization and how to implement it
 
-## 🛠️ 6. Practical & Hands-On Challenges
+## 🛠️ 5. Practical Challenges
 
 59. Creating a responsive navigation menu
 
@@ -165,17 +150,15 @@
 
 ## 📖 Complete Answer Guide
 
-- [1) Beginner Level CSS](01%29%20Beginner%20Level%20CSS.md) - Q1-12
+- [1) Beginner Level CSS](01%29%20Fundamentals%20&%20Basics.md) - Q1-12
 
-- [2) Intermediate Level CSS](02%29%20Intermediate%20Level%20CSS.md) - Q13-32
+- [2) Intermediate Level CSS](02%29%20Layout%20&%20Styling.md) - Q13-32, Q36, Q40
 
-- [3) Advanced CSS Concepts](03%29%20Advanced%20CSS%20Concepts.md) - Q33-40
+- [3) CSS Architecture & Design Systems](04%29%20Architecture%20%26%20Design%20Systems.md) - Q41-48
 
-- [4) CSS Architecture & Design Systems](04%29%20CSS%20Architecture%20%26%20Design%20Systems.md) - Q41-48
+- [4) Performance & Optimization](05%29%20Performance%20%26%20Optimization.md) - Q48–57
 
-- [5) Performance & Optimization](05%29%20Performance%20%26%20Optimization.md) - Q49-58
-
-- [6) Practical & Hands-On Challenges](06%29%20Practical%20%26%20Hands-On%20Challenges.md) - Q59-68
+- [5) Practical & Hands-On Challenges](06%29%20Practical%20Challenges.md) - Q58-67
 
 ## 📝 Cheatsheet
 

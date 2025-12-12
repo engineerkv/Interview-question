@@ -112,6 +112,7 @@ Design and implement a real-time chat messaging system that addresses the follow
 - **Read:Write Ratio**: 10:1 (reading messages vs sending messages)
 
 **Calculations:**
+
 - **Average Writes Per Second (WPS)**: 100B messages / 86,400 seconds ≈ 1.16M WPS
 - **Peak WPS**: 1.16M × 3 = 3.48M WPS
 - **Average Reads Per Second (RPS)**: 1.16M × 10 = 11.6M RPS
@@ -121,11 +122,13 @@ Design and implement a real-time chat messaging system that addresses the follow
 ### Storage Estimation
 
 **Storage per Message:**
+
 - Text message: 100 bytes (message content) + 200 bytes (metadata) = 300 bytes
 - Media message: 1 MB (media file) + 200 bytes (metadata) = 1.0002 MB
 - **Average per Message**: 80% text (300 bytes) + 20% media (1.0002 MB) ≈ 200 KB
 
 **Storage Requirements:**
+
 - **Messages per Year**: 100B messages/day × 365 = 36.5 trillion messages
 - **Message Storage**: 36.5T × 200 KB ≈ 7.3 PB per year
 - **User Data**: 2B users × 5 KB ≈ 10 TB
@@ -143,6 +146,7 @@ Design and implement a real-time chat messaging system that addresses the follow
 ### Caching Estimation
 
 Following the **80-20 rule** where 20% of chats generate 80% of traffic:
+
 - **Cache 20% of active chats**: 500M × 0.2 = 100M chats
 - **Cache memory required**: 100M chats × 1 MB (recent messages) = 100 TB (distributed across Redis cluster)
 - **Cache hit ratio**: 90% (only 10% of message requests hit database)
@@ -261,6 +265,7 @@ The system follows a real-time messaging architecture with WebSocket connections
 ### Complete Request Flow
 
 **Message Sending Flow:**
+
 1. **Frontend**: User types message and sends
 2. **WebSocket**: Socket.io client emits 'send_message' event
 3. **Backend**: WebSocket server receives message, validates, stores in message queue
@@ -272,6 +277,7 @@ The system follows a real-time messaging architecture with WebSocket connections
 9. **Frontend**: Recipients receive message in real-time
 
 **Message Retrieval Flow:**
+
 1. **Frontend**: User opens chat or scrolls up for history
 2. **API Call**: GET request to messages API with chatId and pagination
 3. **Backend**: Check Redis cache for recent messages
@@ -280,6 +286,7 @@ The system follows a real-time messaging architecture with WebSocket connections
 6. **Frontend**: Display messages in chat window
 
 **Typing Indicator Flow:**
+
 1. **Frontend**: User starts typing
 2. **WebSocket**: Socket.io client emits 'typing_start' event
 3. **Backend**: WebSocket server broadcasts typing indicator to other participants
@@ -405,7 +412,7 @@ const ChatWindow: React.FC<{ chatId: string }> = ({ chatId }) => {
   useEffect(() => {
     // Join chat room
     socket.emit('join-chat', chatId);
-    
+
     // Listen for new messages
     socket.on('new-message', (message: Message) => {
       setMessages(prev => [...prev, message]);
@@ -725,18 +732,21 @@ interface Chat {
 ### iii) Implementation Details
 
 **WebSocket Integration:**
+
 - Socket.io client for real-time messaging
 - Auto-reconnect on connection loss
 - Heartbeat mechanism for connection health
 - Event handlers for message received, typing indicators, online/offline status
 
 **Message Sending Implementation:**
+
 - Optimistic UI updates for instant feedback
 - WebSocket emit for real-time delivery
 - Error handling and retry logic
 - Message status tracking (sent, delivered, read)
 
 **Message Retrieval Implementation:**
+
 - Pagination for message history
 - Infinite scroll for loading older messages
 - Caching recent messages in Redux
@@ -761,13 +771,13 @@ export class MessageService {
       createdAt: new Date(),
       status: 'sent'
     };
-    
+
     // Store in message queue (Kafka/RabbitMQ)
     await this.messageQueue.publish('messages', message);
-    
+
     // Send acknowledgment to sender via WebSocket
     this.webSocketService.sendToUser(senderId, 'message-sent', message);
-    
+
     return message;
   }
 
@@ -775,15 +785,15 @@ export class MessageService {
     // Check cache first
     const cached = await this.redis.get(`messages:${chatId}:${before || 'latest'}`);
     if (cached) return JSON.parse(cached);
-    
+
     // Query database
     const messages = await Message.find({ chatId })
       .sort({ createdAt: -1 })
       .limit(limit);
-    
+
     // Cache results
     await this.redis.setex(`messages:${chatId}:${before || 'latest'}`, 300, JSON.stringify(messages));
-    
+
     return messages;
   }
 }
@@ -798,11 +808,11 @@ export class WebSocketService {
 
   async handleConnection(socket: Socket, userId: string): Promise<void> {
     this.activeConnections.set(userId, socket);
-    
+
     // Join user's chat rooms
     const chats = await this.chatService.getUserChats(userId);
     chats.forEach(chat => socket.join(`chat:${chat.id}`));
-    
+
     socket.on('disconnect', () => {
       this.activeConnections.delete(userId);
     });
@@ -1590,6 +1600,7 @@ try {
 **Purpose:** Ensure messages are delivered and displayed in correct chronological order.
 
 **Algorithm:**
+
 1. Assign sequence number to each message in chat
 2. Store messages with sequence number and timestamp
 3. Sort messages by sequence number when retrieving
@@ -1602,7 +1613,7 @@ class MessageOrdering {
   async sendMessage(chatId: string, message: Message): Promise<void> {
     // Get next sequence number for chat
     const sequence = await this.getNextSequence(chatId);
-    
+
     // Store message with sequence
     await Message.create({
       ...message,
@@ -1610,7 +1621,7 @@ class MessageOrdering {
       sequence,
       timestamp: Date.now()
     });
-    
+
     // Broadcast to chat room
     io.to(`chat:${chatId}`).emit('message', {
       ...message,
@@ -1618,7 +1629,7 @@ class MessageOrdering {
       timestamp: Date.now()
     });
   }
-  
+
   async getMessages(chatId: string, limit: number = 50): Promise<Message[]> {
     return await Message.find({ chatId })
       .sort({ sequence: -1 })
@@ -1630,6 +1641,7 @@ class MessageOrdering {
 ```
 
 **Complexity:**
+
 - Time: O(n log n) for sorting where n is number of messages
 - Space: O(n)
 - **Message Ordering:** Sequence numbers ensure correct message order
@@ -1641,6 +1653,7 @@ class MessageOrdering {
 **Purpose:** Deliver messages to users when they come online after being offline.
 
 **Algorithm:**
+
 1. Check if recipient is online when message is sent
 2. If offline, store message in offline queue
 3. When user comes online, check for pending messages
@@ -1653,7 +1666,7 @@ class MessageOrdering {
 class OfflineMessageDelivery {
   async sendMessage(message: Message): Promise<void> {
     const recipient = await this.getUserStatus(message.recipientId);
-    
+
     if (recipient.isOnline) {
       // Deliver immediately via WebSocket
       await this.deliverMessage(message);
@@ -1665,17 +1678,17 @@ class OfflineMessageDelivery {
         message: message,
         createdAt: Date.now()
       });
-      
+
       // Send push notification
       await this.sendPushNotification(message.recipientId, message);
     }
   }
-  
+
   async onUserOnline(userId: string): Promise<void> {
     // Get all pending messages
     const pendingMessages = await OfflineQueue.find({ recipientId: userId })
       .sort({ createdAt: 1 });
-    
+
     // Deliver all messages
     for (const queueItem of pendingMessages) {
       await this.deliverMessage(queueItem.message);
@@ -1687,6 +1700,7 @@ class OfflineMessageDelivery {
 ```
 
 **Complexity:**
+
 - Time: O(n) where n is number of pending messages
 - Space: O(n) for offline queue
 - **Delivery Guarantee:** Offline queue ensures message delivery
@@ -1750,6 +1764,7 @@ class OfflineMessageDelivery {
 ### MongoDB Transactions
 
 **Transaction Usage:**
+
 - **Multi-Document Transactions** - For operations requiring ACID guarantees
 - **Example:** Message creation + chat update + notification creation in single transaction
 - **Session Management:** Use MongoDB sessions for transaction control
@@ -1776,6 +1791,7 @@ try {
 ### Consistency Strategies
 
 **Data Consistency:**
+
 - **Message Consistency:** Use transactions for message operations to ensure atomicity
 - **Chat Consistency:** Ensure chat updates are atomic
 - **Delivery Status Consistency:** Track message delivery status consistently
@@ -1819,6 +1835,7 @@ try {
   }
 
   ```
+
 - **Response:**
 
   ```json
@@ -1834,6 +1851,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 201 (Created), 400 (Validation Error), 429 (Rate Limited)
 
 ### GET /api/v1/chats/:chatId/messages
@@ -1857,6 +1875,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 404 (Chat Not Found)
 
 ---
@@ -1866,15 +1885,17 @@ try {
 ### Redis Cache
 
 **Cache Strategy:**
+
 - **Key Format:** `chat:{chatId}:messages`, `user:{userId}:online`, `chat:{chatId}:typing`
 - **Value:** Serialized JSON (recent messages, online status, typing indicators)
-- **TTL:** 
+- **TTL:**
   - Recent messages: 3600 seconds (1 hour)
   - Online status: 60 seconds (frequently updated)
   - Typing indicators: 10 seconds (short-lived)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
+
 - **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
 - **Write-Through Pattern:** Update cache when messages are sent
 - **Cache Invalidation:** Invalidate message cache on new messages
@@ -1886,6 +1907,7 @@ try {
 ### Error Scenarios and Responses
 
 **Edge Cases Handling:**
+
 - **Chat Not Found:** Return 404 Not Found when chat doesn't exist
 - **Rate Limit Exceeded:** Return 429 Too Many Requests with Retry-After header
 - **Connection Failure:** Handle WebSocket connection failures with automatic reconnection
@@ -1913,21 +1935,25 @@ try {
 ### Scalability
 
 **API Layer:**
+
 - Deploy API layer across multiple instances behind load balancer
 - Use auto-scaling based on CPU/memory metrics
 - Stateless design allows horizontal scaling
 
 **WebSocket Scaling:**
+
 - **Socket.io Redis Adapter:** Enable horizontal scaling of WebSocket connections
 - **Sticky Sessions:** Required for Socket.io (use session affinity in load balancer)
 - **Connection Management:** Monitor and manage WebSocket connections
 
 **Database Scaling:**
+
 - **Read Replicas:** Deploy read replicas for message queries
 - **Sharding:** Shard messages by chatId for write scaling
 - **Connection Pooling:** Use connection pooling to manage database connections
 
 **Caching:**
+
 - Distributed Redis cluster for high availability
 - Cache recent messages and online status
 - Reduces database load significantly
@@ -1935,15 +1961,18 @@ try {
 ### Availability
 
 **Replication:**
+
 - Database replication ensures data availability
 - Multi-region replication for disaster recovery
 
 **Failover:**
+
 - Automated failover mechanisms for API and data store layers
 - Health checks and monitoring for proactive failover
 - Circuit breaker pattern to prevent cascading failures
 
 **Geo-Distributed Deployment:**
+
 - Deploy service across multiple geographical regions
 - Reduces latency for users worldwide
 - Improves availability by eliminating single point of failure
@@ -1951,23 +1980,27 @@ try {
 ### Frontend Deployment
 
 **Build Process:**
+
 - **Production Build:** Optimized bundle with code splitting
 - **CDN Deployment:** Deploy static assets to CDN for fast global delivery
 - **Environment Variables:** `.env.production` for production config
 
 **Deployment Platforms:**
+
 - **Vercel / Netlify** - Automatic deployments from Git
 - **AWS S3 + CloudFront** - Static site hosting with CDN
 
 ### Backend Deployment
 
 **Server Setup:**
+
 - **PM2:** Process manager with clustering for Node.js apps
 - **Nginx:** Load balancer and reverse proxy with SSL termination
 - **Docker:** Containerized deployment for consistency
 - **Kubernetes:** Container orchestration for auto-scaling
 
 **CI/CD Pipeline:**
+
 - **Automated Testing:** Run tests before deployment
 - **Zero-Downtime:** Rolling deployment strategy
 - **Health Checks:** Verify messaging endpoints are healthy
@@ -1976,12 +2009,14 @@ try {
 ### Database Deployment
 
 **MongoDB Setup:**
+
 - **MongoDB Atlas** - Managed MongoDB service with automatic backups
 - **Backup Strategy:** Daily automated backups with point-in-time recovery
 - **Indexing:** Proper indexes on messageId, chatId, senderId, sequence
 - **Replication:** Replica sets for high availability
 
 **Redis Setup:**
+
 - **Redis Cloud / AWS ElastiCache** - Managed Redis service
 - **Cluster Mode:** Redis cluster for high availability and performance
 - **Persistence:** RDB snapshots and AOF for data durability

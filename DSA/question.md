@@ -612,21 +612,21 @@
 
 | Category | Count | Range | File |
 |----------|-------|-------|------|
-| Arrays | 33 | Q1-Q33 | [1) Arrays.md](1%20Arrays.md) |
-| Strings | 22 | Q34-Q55 | [2) Strings.md](2%20Strings.md) |
-| Linked List | 19 | Q56-Q74 | [3) Linked List.md](3%20Linked%20List.md) |
-| Stacks & Queues | 12 | Q75-Q86 | [4) Stacks & Queues.md](4%20Stacks%20&%20Queues.md) |
-| Binary Trees | 27 | Q87-Q113 | [5) Binary Trees.md](5%20Binary%20Trees.md) |
-| Binary Search Tree | 10 | Q114-Q123 | [6) Binary Search Tree.md](6%20Binary%20Search%20Tree.md) |
-| Heaps & Priority Queue | 12 | Q124-Q135 | [7) Heaps & Priority Queue.md](7%20Heaps%20&%20Priority%20Queue.md) |
-| Graphs | 24 | Q136-Q159 | [8) Graphs.md](8%20Graphs.md) |
-| Dynamic Programming | 33 | Q160-Q192 | [9) Dynamic Programming.md](9%20Dynamic%20Programming.md) |
-| Recursion & Backtracking | 10 | Q193-Q202 | [10) Recursion & Backtracking.md](10%20Recursion%20&%20Backtracking.md) |
-| Matrix | 5 | Q203-Q207 | [12) Matrix.md](12%20Matrix.md) |
-| Trie | 3 | Q208-Q210 | [13) Trie.md](13%20Trie.md) |
-| Binary Search | 7 | Q211-Q217 | [14) Binary Search.md](14%20Binary%20Search.md) |
-| Bit Manipulation | 6 | Q218-Q223 | [15) Bit Manipulation.md](15%20Bit%20Manipulation.md) |
-| Math | 6 | Q224-Q229 | [16) Math.md](16%20Math.md) |
+| Arrays | 33 | Q1-Q33 | [01) Arrays.md](01%29%20Arrays.md) |
+| Strings | 22 | Q34-Q55 | [02) Strings.md](02%29%20Strings.md) |
+| Linked List | 19 | Q56-Q74 | [03) Linked List.md](03%29%20Linked%20List.md) |
+| Stacks & Queues | 12 | Q75-Q86 | [04) Stacks & Queues.md](04%29%20Stacks%20%26%20Queues.md) |
+| Binary Trees | 27 | Q87-Q113 | [05) Binary Trees.md](05%29%20Binary%20Trees.md) |
+| Binary Search Tree | 10 | Q114-Q123 | [06) Binary Search Tree.md](06%29%20Binary%20Search%20Tree.md) |
+| Heaps & Priority Queue | 12 | Q124-Q135 | [07) Heaps & Priority Queue.md](07%29%20Heaps%20%26%20Priority%20Queue.md) |
+| Graphs | 24 | Q136-Q159 | [08) Graphs.md](08%29%20Graphs.md) |
+| Dynamic Programming | 33 | Q160-Q192 | [09) Dynamic Programming.md](09%29%20Dynamic%20Programming.md) |
+| Recursion & Backtracking | 10 | Q193-Q202 | [10) Recursion & Backtracking.md](10%29%20Recursion%20%26%20Backtracking.md) |
+| Matrix | 5 | Q203-Q207 | [12) Matrix.md](12%29%20Matrix.md) |
+| Trie | 3 | Q208-Q210 | [13) Trie.md](13%29%20Trie.md) |
+| Binary Search | 7 | Q211-Q217 | [14) Binary Search.md](14%29%20Binary%20Search.md) |
+| Bit Manipulation | 6 | Q218-Q223 | [15) Bit Manipulation.md](15%29%20Bit%20Manipulation.md) |
+| Math | 6 | Q224-Q229 | [16) Math.md](16%29%20Math.md) |
 
 ---
 

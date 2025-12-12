@@ -1314,6 +1314,7 @@ try {
 **Purpose:** Aggregate logs by service, level, or time window for analysis and alerting.
 
 **Algorithm:**
+
 1. Group logs by aggregation key (service, level, time window)
 2. Count occurrences or calculate statistics (sum, average, max, min)
 3. Store aggregated results in time-series database
@@ -1329,11 +1330,11 @@ class LogAggregator {
     timeWindow: number = 3600000 // 1 hour
   ): Promise<AggregatedLog[]> {
     const groups = new Map<string, LogEntry[]>();
-    
+
     // Group logs
     for (const log of logs) {
       let key: string;
-      
+
       if (groupBy === 'service') {
         key = log.service;
       } else if (groupBy === 'level') {
@@ -1342,13 +1343,13 @@ class LogAggregator {
         const hour = Math.floor(log.timestamp.getTime() / timeWindow);
         key = hour.toString();
       }
-      
+
       if (!groups.has(key)) {
         groups.set(key, []);
       }
       groups.get(key)!.push(log);
     }
-    
+
     // Aggregate each group
     const aggregated: AggregatedLog[] = [];
     for (const [key, groupLogs] of groups.entries()) {
@@ -1360,7 +1361,7 @@ class LogAggregator {
         timestamp: new Date()
       });
     }
-    
+
     return aggregated;
   }
 }
@@ -1368,6 +1369,7 @@ class LogAggregator {
 ```
 
 **Complexity:**
+
 - Time: O(n) where n is number of logs
 - Space: O(n) for grouping
 - **Use Case:** Real-time log aggregation for dashboards and alerts
@@ -1379,6 +1381,7 @@ class LogAggregator {
 **Purpose:** Reduce time-series data points for long time ranges while preserving trends.
 
 **Algorithm:**
+
 1. Divide time range into buckets (e.g., 1-minute buckets for 1-hour range)
 2. Aggregate data points within each bucket (average, max, min, sum)
 3. Store downsampled data for efficient querying
@@ -1392,17 +1395,17 @@ function downsampleTimeSeries(
   targetInterval: number // milliseconds
 ): DataPoint[] {
   const buckets = new Map<number, number[]>();
-  
+
   // Group data points into buckets
   for (const point of dataPoints) {
     const bucketTime = Math.floor(point.timestamp.getTime() / targetInterval) * targetInterval;
-    
+
     if (!buckets.has(bucketTime)) {
       buckets.set(bucketTime, []);
     }
     buckets.get(bucketTime)!.push(point.value);
   }
-  
+
   // Aggregate each bucket (average)
   const downsampled: DataPoint[] = [];
   for (const [timestamp, values] of buckets.entries()) {
@@ -1412,13 +1415,14 @@ function downsampleTimeSeries(
       value: avg
     });
   }
-  
+
   return downsampled.sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
 }
 
 ```
 
 **Complexity:**
+
 - Time: O(n) where n is number of data points
 - Space: O(n) for buckets
 - **Use Case:** Efficient querying of long time ranges
@@ -1507,6 +1511,7 @@ function downsampleTimeSeries(
 ### MongoDB Transactions
 
 **Transaction Usage:**
+
 - **Multi-Document Transactions** - For operations requiring ACID guarantees
 - **Example:** Alert creation + notification sending + metric update in single transaction
 - **Session Management:** Use MongoDB sessions for transaction control
@@ -1533,6 +1538,7 @@ try {
 ### Consistency Strategies
 
 **Data Consistency:**
+
 - **Log Consistency:** Ensure logs are indexed in order using Kafka partitioning
 - **Metric Consistency:** Ensure metrics are aggregated correctly
 - **Alert Consistency:** Ensure alerts trigger correctly based on metrics
@@ -1591,6 +1597,7 @@ try {
   }
 
   ```
+
 - **Response:**
 
   ```json
@@ -1603,6 +1610,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 201 (Created), 400 (Validation Error)
 
 ### GET /api/v1/metrics/:metricName
@@ -1630,6 +1638,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 400 (Invalid Parameters)
 
 ### POST /api/v1/alerts
@@ -1652,6 +1661,7 @@ try {
   }
 
   ```
+
 - **Response:**
 
   ```json
@@ -1666,6 +1676,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 201 (Created), 400 (Validation Error)
 
 ---
@@ -1675,15 +1686,17 @@ try {
 ### Redis Cache
 
 **Cache Strategy:**
+
 - **Key Format:** `metrics:{service}:{metric}:{timeRange}`, `logs:query:{hash}`, `dashboard:{dashboardId}`
 - **Value:** Serialized JSON (metric data, log query results, dashboard config)
-- **TTL:** 
+- **TTL:**
   - Metrics: 60 seconds (frequently updated)
   - Log queries: 300 seconds (5 minutes)
   - Dashboard config: 3600 seconds (1 hour)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
+
 - **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
 - **Write-Through Pattern:** Update cache when metrics are collected
 - **Cache Invalidation:** Invalidate cache when new logs/metrics arrive
@@ -1701,6 +1714,7 @@ try {
 ### Error Scenarios and Responses
 
 **Edge Cases Handling:**
+
 - **Elasticsearch Unavailable:** Return 503 Service Unavailable, queue logs locally for retry
 - **Invalid Log Format:** Return 400 Bad Request with validation errors
 - **Query Timeout:** Return 504 Gateway Timeout when log query exceeds timeout
@@ -1729,20 +1743,24 @@ try {
 ### Scalability
 
 **API Layer:**
+
 - Deploy API layer across multiple instances behind load balancer
 - Use auto-scaling based on CPU/memory metrics
 - Stateless design allows horizontal scaling
 
 **Log Processing:**
+
 - **Kafka Scaling:** Scale Kafka brokers and partitions for high throughput
 - **Consumer Scaling:** Scale log consumers horizontally
 - **Elasticsearch Scaling:** Add Elasticsearch nodes for storage and query capacity
 
 **Metrics Collection:**
+
 - **Prometheus Scaling:** Use Prometheus federation for scaling
 - **Scrape Interval:** Configure appropriate scrape intervals to balance freshness and load
 
 **Caching:**
+
 - Distributed Redis cluster for high availability
 - Cache metric queries and dashboard data
 - Reduces database load significantly
@@ -1750,16 +1768,19 @@ try {
 ### Availability
 
 **Replication:**
+
 - Elasticsearch replication ensures log availability
 - Prometheus replication for metrics availability
 - Multi-region replication for disaster recovery
 
 **Failover:**
+
 - Automated failover mechanisms for all services
 - Health checks and monitoring for proactive failover
 - Circuit breaker pattern to prevent cascading failures
 
 **Geo-Distributed Deployment:**
+
 - Deploy service across multiple geographical regions
 - Reduces latency for users worldwide
 - Improves availability by eliminating single point of failure
@@ -1767,23 +1788,27 @@ try {
 ### Frontend Deployment
 
 **Build Process:**
+
 - **Production Build:** Optimized bundle with code splitting
 - **CDN Deployment:** Deploy static assets to CDN for fast global delivery
 - **Environment Variables:** `.env.production` for production config
 
 **Deployment Platforms:**
+
 - **Vercel / Netlify** - Automatic deployments from Git
 - **AWS S3 + CloudFront** - Static site hosting with CDN
 
 ### Backend Deployment
 
 **Server Setup:**
+
 - **PM2:** Process manager with clustering for Node.js apps
 - **Nginx:** Load balancer and reverse proxy with SSL termination
 - **Docker:** Containerized deployment for consistency
 - **Kubernetes:** Container orchestration for auto-scaling
 
 **CI/CD Pipeline:**
+
 - **Automated Testing:** Run tests before deployment
 - **Zero-Downtime:** Rolling deployment strategy
 - **Health Checks:** Verify monitoring endpoints are healthy
@@ -1792,24 +1817,28 @@ try {
 ### Database Deployment
 
 **Elasticsearch Setup:**
+
 - **Elasticsearch Cluster** - Managed service or self-hosted
 - **Index Management** - Configure index templates and lifecycle policies
 - **Retention Policy:** Configure index lifecycle management (hot → warm → cold → delete)
 - **Sharding:** Configure appropriate number of shards per index
 
 **Prometheus Setup:**
+
 - **Prometheus Server** - Time-series database for metrics
 - **Retention:** Configure metric retention period (15-30 days)
 - **Scraping:** Configure metric scraping from services
 - **Federation:** Use Prometheus federation for scaling
 
 **MongoDB Setup:**
+
 - **MongoDB Atlas** - Managed MongoDB service with automatic backups
 - **Backup Strategy:** Daily automated backups with point-in-time recovery
 - **Indexing:** Proper indexes on alertId, service, status, triggeredAt
 - **Replication:** Replica sets for high availability
 
 **Redis Setup:**
+
 - **Redis Cloud / AWS ElastiCache** - Managed Redis service
 - **Cluster Mode:** Redis cluster for high availability and performance
 - **Persistence:** RDB snapshots and AOF for data durability

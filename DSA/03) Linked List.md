@@ -33,10 +33,10 @@ function reverseList(head) {
 
   while (currentNode !== null) {
     const nextNode = currentNode.next;  // Save reference to next node before reversing
-    
+
     // Reverse the link: point current node to previous
     currentNode.next = previousNode;
-    
+
     // Move pointers forward
     previousNode = currentNode;  // Previous becomes current
     currentNode = nextNode;      // Current moves to saved next
@@ -72,10 +72,10 @@ function reverseListRecursive(head) {
   // Recursively reverse the rest of the list
   // This returns the new head of the reversed sublist
   const newHead = reverseListRecursive(head.next);
-  
+
   // Reverse the link: make next node point back to current
   head.next.next = head;
-  
+
   // Current node becomes tail, so its next should be null
   head.next = null;
 
@@ -153,7 +153,7 @@ function hasCycleHashSet(head) {
     if (visitedNodes.has(currentNode)) {
       return true;
     }
-    
+
     // Mark current node as visited
     visitedNodes.add(currentNode);
     currentNode = currentNode.next;
@@ -1208,16 +1208,6 @@ class Node {
 **Space Complexity:** O(capacity) - Map and doubly linked list storage
 
 ---
-
-## 📍 Navigation
-
-<div align="center">
-
-[← Previous: Strings](02%29%20Strings.md) • [Home: README](README.md) • [Next: Stacks & Queues →](04%29%20Stacks%20%26%20Queues.md)
-
-[📋 Cheatsheet](DSA%20Interview%20Cheatsheet.md)
-
-</div>
 
 ## 📍 Navigation
 

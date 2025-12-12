@@ -107,6 +107,7 @@ Design and implement a real-time collaborative editing system that addresses the
 - **Read:Write Ratio**: 100:1 (viewing documents vs editing documents)
 
 **Calculations:**
+
 - **Average Writes Per Second (WPS)**: 10M documents × 1,000 ops / 86,400 seconds ≈ 115,740 WPS
 - **Peak WPS**: 115,740 × 3 = 347,220 WPS
 - **Average Reads Per Second (RPS)**: 115,740 × 100 = 11,574,000 RPS
@@ -116,12 +117,14 @@ Design and implement a real-time collaborative editing system that addresses the
 ### Storage Estimation
 
 **Storage per Document:**
+
 - Document content: 50 KB average (text, formatting)
 - Operations log: 1 MB (1,000 operations × 1 KB per operation)
 - Metadata: 1 KB (id, userId, timestamps, version)
 - **Total per Document**: ~1.05 MB
 
 **Storage Requirements:**
+
 - **Documents per Year**: 10M documents/day × 365 = 3.65 billion documents
 - **Document Storage**: 3.65B × 1.05 MB ≈ 3.83 PB per year
 - **User Data**: 1B users × 5 KB ≈ 5 TB
@@ -139,6 +142,7 @@ Design and implement a real-time collaborative editing system that addresses the
 ### Caching Estimation
 
 Following the **80-20 rule** where 20% of documents generate 80% of traffic:
+
 - **Cache 20% of active documents**: 10M × 0.2 = 2M documents
 - **Cache memory required**: 2M × 1.05 MB = 2.1 TB (distributed across Redis cluster)
 - **Cache hit ratio**: 90% (only 10% of document requests hit database)
@@ -225,6 +229,7 @@ The system follows a real-time collaborative editing architecture with Operation
 ### Complete Request Flow
 
 **Document Editing Flow:**
+
 1. **Frontend**: User types in editor, creates operation (insert/delete/format)
 2. **WebSocket**: Socket.io client emits operation to server
 3. **Backend**: Receive operation, transform against current document state using OT/CRDT
@@ -234,6 +239,7 @@ The system follows a real-time collaborative editing architecture with Operation
 7. **UI Update**: Editor re-renders with updated content
 
 **Document Loading Flow:**
+
 1. **Frontend**: User opens document
 2. **API Call**: GET request to document API
 3. **Backend**: Fetch document from database (or cache)
@@ -243,6 +249,7 @@ The system follows a real-time collaborative editing architecture with Operation
 7. **WebSocket**: Join document room for real-time updates
 
 **Presence Tracking Flow:**
+
 1. **Frontend**: User opens document, sends presence update
 2. **WebSocket**: Socket.io client emits presence event
 3. **Backend**: Update user presence in Redis, broadcast to other users
@@ -379,7 +386,7 @@ const CollaborativeEditor: React.FC<{ documentId: string }> = ({ documentId }) =
   const handleChange = (editorState: EditorState) => {
     // Detect changes and create operations
     const operations = detectOperations(editorState, content);
-    
+
     operations.forEach(op => {
       // Apply optimistically
       applyLocalOperation(op);
@@ -464,7 +471,7 @@ const useCollaborativeEditor = (documentId: string) => {
 
   useEffect(() => {
     socket.emit('document:join', documentId);
-    
+
     socket.on('operation:transformed', (operation: Operation) => {
       setContent(prev => applyOperation(prev, operation));
       setPendingOps(prev => prev.filter(op => op.id !== operation.id));
@@ -1327,6 +1334,7 @@ try {
 **Purpose:** Transform concurrent operations to resolve conflicts and maintain document consistency.
 
 **Algorithm:**
+
 1. Receive operation from client with version number
 2. Get all pending operations for document
 3. Transform operation against all pending operations
@@ -1350,7 +1358,7 @@ class OTService {
     // ... more transformation rules
     return op1;
   }
-  
+
   transformAgainstOps(operation: Operation, concurrentOps: Operation[]): Operation {
     let transformedOp = operation;
     for (const concurrentOp of concurrentOps) {
@@ -1363,6 +1371,7 @@ class OTService {
 ```
 
 **Complexity:**
+
 - Time: O(n) where n is number of concurrent operations
 - Space: O(1) per operation
 - **Conflict Resolution:** OT ensures zero data loss during concurrent edits
@@ -1374,6 +1383,7 @@ class OTService {
 **Purpose:** Alternative to OT, provides automatic conflict resolution without transformation.
 
 **Algorithm:**
+
 1. Each operation has unique ID and timestamp
 2. Operations are commutative and idempotent
 3. Apply operations in any order
@@ -1387,7 +1397,7 @@ class CRDTService {
   applyOperation(document: CRDTDocument, operation: Operation): CRDTDocument {
     // CRDT operations are commutative
     const newDocument = { ...document };
-    
+
     if (operation.type === 'insert') {
       // Insert with unique ID
       newDocument.operations.push({
@@ -1398,10 +1408,10 @@ class CRDTService {
         timestamp: Date.now()
       });
     }
-    
+
     // Sort operations by timestamp for consistent ordering
     newDocument.operations.sort((a, b) => a.timestamp - b.timestamp);
-    
+
     return newDocument;
   }
 }
@@ -1409,6 +1419,7 @@ class CRDTService {
 ```
 
 **Complexity:**
+
 - Time: O(n log n) for sorting where n is number of operations
 - Space: O(n) for operation history
 - **Conflict Resolution:** CRDT provides automatic conflict resolution
@@ -1469,6 +1480,7 @@ class CRDTService {
 ### MongoDB Transactions
 
 **Transaction Usage:**
+
 - **Multi-Document Transactions** - For operations requiring ACID guarantees
 - **Example:** Document creation + operation log + version update in single transaction
 - **Session Management:** Use MongoDB sessions for transaction control
@@ -1495,6 +1507,7 @@ try {
 ### Consistency Strategies
 
 **Data Consistency:**
+
 - **Document Consistency:** Use transactions for document operations to ensure atomicity
 - **Operation Consistency:** Ensure operations are applied in order using version numbers
 - **Version Consistency:** Maintain document version consistency across all clients
@@ -1543,6 +1556,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 404 (Document Not Found)
 
 ### POST /api/v1/documents/:documentId/operations
@@ -1563,6 +1577,7 @@ try {
   }
 
   ```
+
 - **Response:**
 
   ```json
@@ -1576,6 +1591,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 409 (Version Conflict), 400 (Invalid Operation)
 
 ---
@@ -1585,15 +1601,17 @@ try {
 ### Redis Cache
 
 **Cache Strategy:**
+
 - **Key Format:** `document:{documentId}`, `document:{documentId}:version`, `presence:{documentId}`
 - **Value:** Serialized JSON (document content, version, active users)
-- **TTL:** 
+- **TTL:**
   - Document content: 300 seconds (5 minutes)
   - Version: 60 seconds (frequently updated)
   - Presence: 30 seconds (short-lived)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
+
 - **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
 - **Write-Through Pattern:** Update cache when document is updated
 - **Cache Invalidation:** Invalidate document cache on operations
@@ -1605,6 +1623,7 @@ try {
 ### Error Scenarios and Responses
 
 **Edge Cases Handling:**
+
 - **Version Conflict:** Return 409 Conflict when client version is outdated
 - **Document Not Found:** Return 404 Not Found when document doesn't exist
 - **Invalid Operation:** Return 400 Bad Request with validation errors
@@ -1632,21 +1651,25 @@ try {
 ### Scalability
 
 **API Layer:**
+
 - Deploy API layer across multiple instances behind load balancer
 - Use auto-scaling based on CPU/memory metrics
 - Stateless design allows horizontal scaling
 
 **WebSocket Scaling:**
+
 - **Socket.io Redis Adapter:** Enable horizontal scaling of WebSocket connections
 - **Sticky Sessions:** Required for Socket.io (use session affinity in load balancer)
 - **Connection Management:** Monitor and manage WebSocket connections
 
 **Database Scaling:**
+
 - **Read Replicas:** Deploy read replicas for document queries
 - **Sharding:** Shard documents by userId for write scaling
 - **Connection Pooling:** Use connection pooling to manage database connections
 
 **Caching:**
+
 - Distributed Redis cluster for high availability
 - Cache document content and versions
 - Reduces database load significantly
@@ -1654,15 +1677,18 @@ try {
 ### Availability
 
 **Replication:**
+
 - Database replication ensures data availability
 - Multi-region replication for disaster recovery
 
 **Failover:**
+
 - Automated failover mechanisms for API and data store layers
 - Health checks and monitoring for proactive failover
 - Circuit breaker pattern to prevent cascading failures
 
 **Geo-Distributed Deployment:**
+
 - Deploy service across multiple geographical regions
 - Reduces latency for users worldwide
 - Improves availability by eliminating single point of failure
@@ -1670,23 +1696,27 @@ try {
 ### Frontend Deployment
 
 **Build Process:**
+
 - **Production Build:** Optimized bundle with code splitting
 - **CDN Deployment:** Deploy static assets to CDN for fast global delivery
 - **Environment Variables:** `.env.production` for production config
 
 **Deployment Platforms:**
+
 - **Vercel / Netlify** - Automatic deployments from Git
 - **AWS S3 + CloudFront** - Static site hosting with CDN
 
 ### Backend Deployment
 
 **Server Setup:**
+
 - **PM2:** Process manager with clustering for Node.js apps
 - **Nginx:** Load balancer and reverse proxy with SSL termination
 - **Docker:** Containerized deployment for consistency
 - **Kubernetes:** Container orchestration for auto-scaling
 
 **CI/CD Pipeline:**
+
 - **Automated Testing:** Run tests before deployment
 - **Zero-Downtime:** Rolling deployment strategy
 - **Health Checks:** Verify collaboration endpoints are healthy
@@ -1695,12 +1725,14 @@ try {
 ### Database Deployment
 
 **MongoDB Setup:**
+
 - **MongoDB Atlas** - Managed MongoDB service with automatic backups
 - **Backup Strategy:** Daily automated backups with point-in-time recovery
 - **Indexing:** Proper indexes on documentId, userId, version
 - **Replication:** Replica sets for high availability
 
 **Redis Setup:**
+
 - **Redis Cloud / AWS ElastiCache** - Managed Redis service
 - **Cluster Mode:** Redis cluster for high availability and performance
 - **Persistence:** RDB snapshots and AOF for data durability

@@ -131,6 +131,7 @@ function deleteNode(root, key) {
 ### Solution 1: Bounds Propagation (Optimal)
 
 ```javascript
+
 function isValidBST(root) {
   function validate(node, min, max) {
     if (!node) return true;
@@ -173,6 +174,7 @@ function isValidBST(root) {
 ### Solution 1: Iterative with BST Property (Optimal)
 
 ```javascript
+
 function lowestCommonAncestor(root, p, q) {
   const pVal = p.val;
   const qVal = q.val;
@@ -222,6 +224,7 @@ function lowestCommonAncestor(root, p, q) {
 ### Solution 1: Iterative Inorder (Optimal)
 
 ```javascript
+
 function kthSmallest(root, k) {
   const stack = [];
   let current = root;
@@ -277,6 +280,7 @@ function kthSmallest(root, k) {
 ### Solution 1: Stack-Based Iterator (Optimal)
 
 ```javascript
+
 class BSTIterator {
   constructor(root) {
     this.stack = [];
@@ -331,6 +335,7 @@ class BSTIterator {
 ### Solution 1: Inorder Inversion Detection (Optimal)
 
 ```javascript
+
 function recoverTree(root) {
   let prev = null;
   let first = null;  // First swapped node
@@ -385,6 +390,7 @@ function recoverTree(root) {
 ### Solution 1: Floor in BST
 
 ```javascript
+
 function floorBST(root, x) {
   let floor = null;
 
@@ -411,6 +417,7 @@ function floorBST(root, x) {
 ### Solution 2: Ceil in BST
 
 ```javascript
+
 function ceilBST(root, x) {
   let ceil = null;
 
@@ -462,6 +469,7 @@ function ceilBST(root, x) {
 ### Solution 1: Pruned DFS (Optimal)
 
 ```javascript
+
 function rangeSumBST(root, low, high) {
   if (!root) return 0;
 
@@ -518,6 +526,7 @@ function rangeSumBST(root, low, high) {
 ### Solution 1: Predecessor in BST
 
 ```javascript
+
 function predecessor(root, key) {
   let pred = null;
 
@@ -540,6 +549,7 @@ function predecessor(root, key) {
 ### Solution 2: Successor in BST
 
 ```javascript
+
 function successor(root, key) {
   let succ = null;
 
@@ -587,6 +597,7 @@ function successor(root, key) {
 ### Solution 1: Divide and Conquer (Optimal)
 
 ```javascript
+
 function sortedArrayToBST(nums) {
   function build(left, right) {
     if (left > right) return null;

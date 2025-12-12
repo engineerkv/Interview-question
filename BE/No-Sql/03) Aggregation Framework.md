@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[Indexing & Query Optimization](02%29%20Indexing%20%26%20Query%20Optimization.md) • [Home: Question List](question.md) • [Data Modeling & Schema Design →](04%29%20Data%20Modeling%20%26%20Schema%20Design.md)
+[Indexing & Query Optimization](02%29%20Indexing%20%26%20Optimization.md) • [Home: Question List](question.md) • [Data Modeling & Schema Design →](04%29%20Data%20Modeling%20%26%20Schema.md)
 
 [📋 Cheatsheet](MongoDB%20Interview%20Cheatsheet.md)
 
@@ -374,7 +374,7 @@ const orders = await Order.aggregate([
 
 <div align="center">
 
-[Indexing & Query Optimization](02%29%20Indexing%20%26%20Query%20Optimization.md) • [Home: Question List](question.md) • [Data Modeling & Schema Design →](04%29%20Data%20Modeling%20%26%20Schema%20Design.md)
+[Indexing & Query Optimization](02%29%20Indexing%20%26%20Optimization.md) • [Home: Question List](question.md) • [Data Modeling & Schema Design →](04%29%20Data%20Modeling%20%26%20Schema.md)
 
 [📋 Cheatsheet](MongoDB%20Interview%20Cheatsheet.md)
 

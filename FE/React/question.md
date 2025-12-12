@@ -1,21 +1,21 @@
 # ⚛️ React Interview Questions
 
-102 carefully curated concepts covering React fundamentals to advanced architecture and performance.
+100 carefully curated concepts covering React fundamentals to advanced architecture and performance.
 
 ## 📋 Quick Navigation
 
 | Section | Topic | Questions | Difficulty |
 |---------|-------|-----------|------------|
-| [1️⃣](#1-react-fundamentals) | React Fundamentals | Q1–17 | ⭐⭐ |
-| [2️⃣](#2-react-hooks) | React Hooks | Q18–38 | ⭐⭐⭐ |
+| [1️⃣](#1-react-fundamentals) | Core Concepts & Components | Q1–17 | ⭐⭐ |
+| [2️⃣](#2-react-hooks) | Hooks & Lifecycle | Q18–38 | ⭐⭐⭐ |
 | [3️⃣](#3-state-management) | State Management | Q39–49 | ⭐⭐⭐ |
-| [4️⃣](#4-server-state--data-fetching) | Server State & Data Fetching | Q50–59 | ⭐⭐⭐ |
-| [5️⃣](#5-react-latest-features) | React Latest Features | Q60–66 | ⭐⭐⭐⭐ |
-| [6️⃣](#6-performance-optimization) | Performance Optimization | Q67–80 | ⭐⭐⭐⭐⭐ |
+| [4️⃣](#4-server-state--data-fetching) | Data Fetching & Server State | Q50–59 | ⭐⭐⭐ |
+| [5️⃣](#5-react-latest-features) | Advanced Features & Concurrent Rendering | Q60–66 | ⭐⭐⭐⭐ |
+| [6️⃣](#6-performance-optimization) | Performance & Optimization | Q67–80 | ⭐⭐⭐⭐⭐ |
 | [7️⃣](#7-testing--debugging) | Testing & Debugging | Q81–90 | ⭐⭐⭐⭐ |
-| [8️⃣](#8-architecture--best-practices) | Architecture & Best Practices | Q91–100 | ⭐⭐⭐⭐⭐ |
+| [8️⃣](#8-architecture--best-practices) | Architecture & Patterns | Q91–100 | ⭐⭐⭐⭐⭐ |
 
-## ⚛️ 1. React Fundamentals
+## ⚛️ 1. Core Concepts & Components
 
 1. ⚛️ React and its purpose
 
@@ -51,7 +51,7 @@
 
 17. 📊 React Profiler API and when to use it
 
-## 🎣 2. React Hooks
+## 🎣 2. Hooks & Lifecycle
 
 18. 🎣 React Hooks and why they were introduced
 
@@ -119,7 +119,7 @@
 
 49. 🎯 When to use each state management solution
 
-## 🌐 4. Server State & Data Fetching
+## 🌐 4. Data Fetching & Server State
 
 50. 🖥️ Server state and how to manage it
 
@@ -141,7 +141,7 @@
 
 59. 📄 Implementing pagination and infinite scrolling
 
-## 🚀 5. React Latest Features
+## 🚀 5. Advanced Features & Concurrent Rendering
 
 60. ⚡ Concurrent Rendering in React 18
 
@@ -157,7 +157,7 @@
 
 66. 🖥️ React Server Components (RSC) and how they work
 
-## ⚡ 6. Performance Optimization
+## ⚡ 6. Performance & Optimization
 
 67. 🔄 Causes of re-renders in React and how to prevent them
 
@@ -209,7 +209,7 @@
 
 90. ✅ Best practices for React testing
 
-## 🏛️ 8. Architecture & Best Practices
+## 🏛️ 8. Architecture & Patterns
 
 91. 🏗️ Structuring a scalable React project
 
@@ -235,21 +235,21 @@
 
 ## 📖 Complete Answer Guide
 
-- [1) React Fundamentals](01%29%20React%20Fundamentals.md) - Q1-17
+- [1) Core Concepts & Components](01%29%20Core%20Concepts%20%26%20Components.md) - Q1-17
 
-- [2) React Hooks](02%29%20React%20Hooks.md) - Q18-38
+- [2) Hooks & Lifecycle](02%29%20Hooks%20%26%20Lifecycle.md) - Q18-38
 
 - [3) State Management](03%29%20State%20Management.md) - Q39-49
 
-- [4) Server State & Data Fetching](04%29%20Server%20State%20%26%20Data%20Fetching.md) - Q50-59
+- [4) Data Fetching & Server State](04%29%20Data%20Fetching%20%26%20Server%20State.md) - Q50-59
 
-- [5) React Latest Features](05%29%20React%20Latest%20Features.md) - Q60-66
+- [5) Advanced Features & Concurrent Rendering](05%29%20Advanced%20Features%20%26%20Concurrent%20Rendering.md) - Q60-66
 
-- [6) Performance Optimization](06%29%20Performance%20Optimization.md) - Q67-80
+- [6) Performance & Optimization](06%29%20Performance%20%26%20Optimization.md) - Q67-80
 
 - [7) Testing & Debugging](07%29%20Testing%20%26%20Debugging.md) - Q81-90
 
-- [8) Architecture & Best Practices](08%29%20Architecture%20%26%20Best%20Practices.md) - Q91-100
+- [8) Architecture & Patterns](08%29%20Architecture%20%26%20Patterns.md) - Q91-100
 
 ## 📝 Cheatsheet
 

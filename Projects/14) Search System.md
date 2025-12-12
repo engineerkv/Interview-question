@@ -107,6 +107,7 @@ Design and implement a full-text search system that addresses the following chal
 - **Read:Write Ratio**: 100:1 (search queries vs document indexing)
 
 **Calculations:**
+
 - **Average Writes Per Second (WPS)**: 100M document updates / 86,400 seconds ≈ 1,157 WPS
 - **Peak WPS**: 1,157 × 3 = 3,471 WPS
 - **Average Reads Per Second (RPS)**: 10M queries / 86,400 seconds ≈ 116 RPS
@@ -116,11 +117,13 @@ Design and implement a full-text search system that addresses the following chal
 ### Storage Estimation
 
 **Storage per Document:**
+
 - Document content: 10 KB average (text content)
 - Indexed fields: 5 KB (title, description, tags, metadata)
 - **Total per Document**: ~15 KB
 
 **Storage Requirements:**
+
 - **Documents**: 1B documents × 15 KB ≈ 15 TB
 - **Elasticsearch Index**: 1B documents × 20 KB (with inverted index) ≈ 20 TB
 - **User Data**: 100M users × 5 KB ≈ 500 GB
@@ -139,6 +142,7 @@ Design and implement a full-text search system that addresses the following chal
 ### Caching Estimation
 
 Following the **80-20 rule** where 20% of queries generate 80% of traffic:
+
 - **Cache 20% of popular queries**: 10M × 0.2 = 2M queries
 - **Cache memory required**: 2M queries × 50 KB = 100 GB (distributed across Redis cluster)
 - **Cache hit ratio**: 80% (only 20% of search queries hit Elasticsearch)
@@ -221,6 +225,7 @@ The system follows a full-text search architecture with Elasticsearch, inverted 
 ### Complete Request Flow
 
 **Search Query Flow:**
+
 1. **Frontend**: User types search query in search bar
 2. **API Call**: GET request to search API with query and filters
 3. **Cache Check**: Check Redis for cached search results
@@ -231,6 +236,7 @@ The system follows a full-text search architecture with Elasticsearch, inverted 
 8. **Frontend**: Display search results with highlighting
 
 **Document Indexing Flow:**
+
 1. **Document Update**: New document created or updated
 2. **Message Queue**: Add indexing task to message queue
 3. **Indexing Worker**: Worker processes indexing task
@@ -239,6 +245,7 @@ The system follows a full-text search architecture with Elasticsearch, inverted 
 6. **Response**: Confirm indexing completion
 
 **Autocomplete Flow:**
+
 1. **Frontend**: User types in search bar
 2. **API Call**: GET request to autocomplete API with partial query
 3. **Trie Lookup**: Query Trie data structure for suggestions
@@ -384,9 +391,9 @@ const SearchResultItem: React.FC<{ result: SearchResult }> = ({ result }) => {
 };
 
 // Filter Sidebar Component
-const FilterSidebar: React.FC<{ filters: SearchFilters; onFilterChange: (filters: SearchFilters) => void }> = ({ 
-  filters, 
-  onFilterChange 
+const FilterSidebar: React.FC<{ filters: SearchFilters; onFilterChange: (filters: SearchFilters) => void }> = ({
+  filters,
+  onFilterChange
 }) => {
   const handleCategoryChange = (category: string) => {
     onFilterChange({
@@ -1282,6 +1289,7 @@ try {
 **Purpose:** Build inverted index mapping words to document IDs for fast text search.
 
 **Algorithm:**
+
 1. Tokenize documents into words (lowercase, remove stop words)
 2. For each word, maintain list of documents containing that word
 3. Store word → [document IDs] mapping
@@ -1293,10 +1301,10 @@ try {
 ```typescript
 class InvertedIndex {
   private index: Map<string, Set<string>> = new Map();
-  
+
   indexDocument(docId: string, text: string): void {
     const words = this.tokenize(text);
-    
+
     for (const word of words) {
       if (!this.index.has(word)) {
         this.index.set(word, new Set());
@@ -1304,14 +1312,14 @@ class InvertedIndex {
       this.index.get(word)!.add(docId);
     }
   }
-  
+
   search(query: string): string[] {
     const queryWords = this.tokenize(query);
     let result: Set<string> | null = null;
-    
+
     for (const word of queryWords) {
       const docIds = this.index.get(word) || new Set();
-      
+
       if (result === null) {
         result = new Set(docIds);
       } else {
@@ -1319,10 +1327,10 @@ class InvertedIndex {
         result = new Set([...result].filter(id => docIds.has(id)));
       }
     }
-    
+
     return result ? Array.from(result) : [];
   }
-  
+
   private tokenize(text: string): string[] {
     return text
       .toLowerCase()
@@ -1330,7 +1338,7 @@ class InvertedIndex {
       .split(/\s+/)
       .filter(word => word.length > 0 && !this.isStopWord(word));
   }
-  
+
   private isStopWord(word: string): boolean {
     const stopWords = ['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at'];
     return stopWords.includes(word);
@@ -1340,6 +1348,7 @@ class InvertedIndex {
 ```
 
 **Complexity:**
+
 - Time: O(n) for indexing, O(m) for search where n is document size, m is query length
 - Space: O(n) where n is total number of words
 - **Search Speed:** Inverted index enables sub-100ms search even for billions of documents
@@ -1351,6 +1360,7 @@ class InvertedIndex {
 **Purpose:** Build trie data structure for fast autocomplete suggestions.
 
 **Algorithm:**
+
 1. Build trie where each node represents a character
 2. Store suggestions at each node (popular queries ending at that node)
 3. For prefix query, traverse trie to find node
@@ -1368,16 +1378,16 @@ class TrieNode {
 
 class AutocompleteTrie {
   private root: TrieNode = new TrieNode();
-  
+
   insert(query: string, popularity: number = 1): void {
     let node = this.root;
-    
+
     for (const char of query.toLowerCase()) {
       if (!node.children.has(char)) {
         node.children.set(char, new TrieNode());
       }
       node = node.children.get(char)!;
-      
+
       // Add to suggestions, keep top 10
       if (!node.suggestions.includes(query)) {
         node.suggestions.push(query);
@@ -1385,20 +1395,20 @@ class AutocompleteTrie {
         node.suggestions = node.suggestions.slice(0, 10);
       }
     }
-    
+
     node.isEndOfWord = true;
   }
-  
+
   search(prefix: string): string[] {
     let node = this.root;
-    
+
     for (const char of prefix.toLowerCase()) {
       if (!node.children.has(char)) {
         return [];
       }
       node = node.children.get(char)!;
     }
-    
+
     return node.suggestions;
   }
 }
@@ -1406,6 +1416,7 @@ class AutocompleteTrie {
 ```
 
 **Complexity:**
+
 - Time: O(m) for insert/search where m is query length
 - Space: O(n * m) where n is number of queries, m is average query length
 - **Response Time:** Trie enables < 10ms autocomplete response
@@ -1417,6 +1428,7 @@ class AutocompleteTrie {
 **Purpose:** Rank search results by relevance using BM25 (Best Matching 25) algorithm.
 
 **Algorithm:**
+
 1. Calculate term frequency (TF) for each query term in document
 2. Calculate inverse document frequency (IDF) for each query term
 3. Calculate BM25 score: sum of (IDF * TF * (k1 + 1)) / (TF + k1 * (1 - b + b * (docLength / avgDocLength)))
@@ -1430,34 +1442,34 @@ class BM25Ranker {
   private b: number = 0.75;  // Length normalization parameter
   private documents: Map<string, string[]> = new Map();
   private avgDocLength: number = 0;
-  
+
   calculateScore(docId: string, queryTerms: string[]): number {
     const doc = this.documents.get(docId)!;
     const docLength = doc.length;
     let score = 0;
-    
+
     for (const term of queryTerms) {
       const tf = this.termFrequency(doc, term);
       const idf = this.inverseDocumentFrequency(term);
-      
+
       const numerator = idf * tf * (this.k1 + 1);
       const denominator = tf + this.k1 * (1 - this.b + this.b * (docLength / this.avgDocLength));
-      
+
       score += numerator / denominator;
     }
-    
+
     return score;
   }
-  
+
   private termFrequency(doc: string[], term: string): number {
     return doc.filter(word => word === term).length;
   }
-  
+
   private inverseDocumentFrequency(term: string): number {
     const docCount = this.documents.size;
     const docsWithTerm = Array.from(this.documents.values())
       .filter(doc => doc.includes(term)).length;
-    
+
     return Math.log((docCount - docsWithTerm + 0.5) / (docsWithTerm + 0.5) + 1);
   }
 }
@@ -1465,6 +1477,7 @@ class BM25Ranker {
 ```
 
 **Complexity:**
+
 - Time: O(n * m) where n is number of documents, m is query length
 - Space: O(1) per document
 - **Ranking Quality:** BM25 provides good relevance ranking
@@ -1523,6 +1536,7 @@ class BM25Ranker {
 ### MongoDB Transactions
 
 **Transaction Usage:**
+
 - **Multi-Document Transactions** - For operations requiring ACID guarantees
 - **Example:** Document creation + search index update in single transaction
 - **Session Management:** Use MongoDB sessions for transaction control
@@ -1548,6 +1562,7 @@ try {
 ### Consistency Strategies
 
 **Data Consistency:**
+
 - **Search Index Consistency:** Keep Elasticsearch in sync with MongoDB (eventual consistency acceptable)
 - **Cache Consistency:** Invalidate search cache on document updates
 - **Eventual Consistency:** Handle eventual consistency between MongoDB and Elasticsearch (index updates may lag slightly)
@@ -1608,6 +1623,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 400 (Invalid Query)
 
 ### GET /api/v1/search/autocomplete
@@ -1633,6 +1649,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 400 (Invalid Query)
 
 ---
@@ -1642,14 +1659,16 @@ try {
 ### Redis Cache
 
 **Cache Strategy:**
+
 - **Key Format:** `search:query:{hash}`, `autocomplete:{prefix}`
 - **Value:** Serialized JSON (search results, autocomplete suggestions)
-- **TTL:** 
+- **TTL:**
   - Search results: 300 seconds (5 minutes)
   - Autocomplete: 3600 seconds (1 hour)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
+
 - **Cache-Aside Pattern:** Check cache first, if miss query Elasticsearch and update cache
 - **Cache Invalidation:** Invalidate search cache on document updates
 - **Cache Warming:** Pre-load popular search queries
@@ -1661,6 +1680,7 @@ try {
 ### Error Scenarios and Responses
 
 **Edge Cases Handling:**
+
 - **Invalid Query:** Return 400 Bad Request with validation errors
 - **Elasticsearch Unavailable:** Return 503 Service Unavailable, fallback to cached results
 - **Query Timeout:** Return 504 Gateway Timeout when search exceeds timeout
@@ -1687,16 +1707,19 @@ try {
 ### Scalability
 
 **API Layer:**
+
 - Deploy API layer across multiple instances behind load balancer
 - Use auto-scaling based on CPU/memory metrics
 - Stateless design allows horizontal scaling
 
 **Elasticsearch Scaling:**
+
 - **Sharding:** Shard indexes across multiple nodes for horizontal scaling
 - **Replication:** Replicate shards for high availability
 - **Node Scaling:** Add Elasticsearch nodes as document volume grows
 
 **Caching:**
+
 - Distributed Redis cluster for high availability
 - Cache search results and autocomplete suggestions
 - Reduces Elasticsearch load significantly
@@ -1704,15 +1727,18 @@ try {
 ### Availability
 
 **Replication:**
+
 - Elasticsearch replication ensures index availability
 - Multi-region replication for disaster recovery
 
 **Failover:**
+
 - Automated failover mechanisms for API and Elasticsearch
 - Health checks and monitoring for proactive failover
 - Circuit breaker pattern to prevent cascading failures
 
 **Geo-Distributed Deployment:**
+
 - Deploy service across multiple geographical regions
 - Reduces latency for users worldwide
 - Improves availability by eliminating single point of failure
@@ -1720,23 +1746,27 @@ try {
 ### Frontend Deployment
 
 **Build Process:**
+
 - **Production Build:** Optimized bundle with code splitting
 - **CDN Deployment:** Deploy static assets to CDN for fast global delivery
 - **Environment Variables:** `.env.production` for production config
 
 **Deployment Platforms:**
+
 - **Vercel / Netlify** - Automatic deployments from Git
 - **AWS S3 + CloudFront** - Static site hosting with CDN
 
 ### Backend Deployment
 
 **Server Setup:**
+
 - **PM2:** Process manager with clustering for Node.js apps
 - **Nginx:** Load balancer and reverse proxy with SSL termination
 - **Docker:** Containerized deployment for consistency
 - **Kubernetes:** Container orchestration for auto-scaling
 
 **CI/CD Pipeline:**
+
 - **Automated Testing:** Run tests before deployment
 - **Zero-Downtime:** Rolling deployment strategy
 - **Health Checks:** Verify search endpoints are healthy
@@ -1745,18 +1775,21 @@ try {
 ### Database Deployment
 
 **MongoDB Setup:**
+
 - **MongoDB Atlas** - Managed MongoDB service with automatic backups
 - **Backup Strategy:** Daily automated backups with point-in-time recovery
 - **Indexing:** Proper indexes on documentId, category, indexedAt
 - **Replication:** Replica sets for high availability
 
 **Elasticsearch Setup:**
+
 - **Elasticsearch Cluster** - Managed service or self-hosted
 - **Index Management** - Configure index templates and mappings
 - **Sharding:** Configure appropriate number of shards per index
 - **Replication:** Configure replica count for high availability
 
 **Redis Setup:**
+
 - **Redis Cloud / AWS ElastiCache** - Managed Redis service
 - **Cluster Mode:** Redis cluster for high availability and performance
 - **Persistence:** RDB snapshots and AOF for data durability

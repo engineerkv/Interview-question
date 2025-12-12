@@ -1010,9 +1010,9 @@ const GameTable: React.FC<{ tableId: string }> = ({ tableId }) => {
 };
 
 // Player Controls Component
-const PlayerControls: React.FC<{ gameState: GameState; onAction: (action: PlayerAction) => void }> = ({ 
-  gameState, 
-  onAction 
+const PlayerControls: React.FC<{ gameState: GameState; onAction: (action: PlayerAction) => void }> = ({
+  gameState,
+  onAction
 }) => {
   const [betAmount, setBetAmount] = useState(gameState.currentBet);
 
@@ -1092,7 +1092,7 @@ const useGameState = (tableId: string) => {
 
 const usePlayerAction = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async ({ tableId, action }: { tableId: string; action: PlayerAction }) => {
       const response = await axios.post(`/api/v1/tables/${tableId}/action`, action);
@@ -2561,16 +2561,16 @@ enum HandRank {
 function evaluateHand(holeCards: Card[], communityCards: Card[]): Hand {
   const allCards = [...holeCards, ...communityCards];
   const combinations = generateCombinations(allCards, 5);
-  
+
   let bestHand: Hand | null = null;
-  
+
   for (const combo of combinations) {
     const hand = evaluateFiveCards(combo);
     if (!bestHand || compareHands(hand, bestHand) > 0) {
       bestHand = hand;
     }
   }
-  
+
   return bestHand!;
 }
 
@@ -2578,20 +2578,20 @@ function evaluateFiveCards(cards: Card[]): Hand {
   const sorted = sortCards(cards);
   const ranks = getRanks(sorted);
   const suits = getSuits(sorted);
-  
+
   const isFlush = suits.every(s => s === suits[0]);
   const isStraight = isConsecutive(ranks);
-  
+
   if (isFlush && isStraight && ranks[0] === 14) {
     return { rank: HandRank.ROYAL_FLUSH, cards: sorted };
   }
   if (isFlush && isStraight) {
     return { rank: HandRank.STRAIGHT_FLUSH, cards: sorted };
   }
-  
+
   const rankCounts = countRanks(ranks);
   // ... more hand evaluation logic
-  
+
   return { rank: HandRank.HIGH_CARD, cards: sorted };
 }
 
@@ -2626,13 +2626,13 @@ class BettingRound {
   private currentPlayerIndex: number;
   private currentBet: number;
   private pot: number;
-  
+
   async processAction(playerId: string, action: PlayerAction): Promise<void> {
     const player = this.players.find(p => p.id === playerId);
     if (!player || !player.isTurn) {
       throw new Error('Not player\'s turn');
     }
-    
+
     // Validate and process action
     switch (action.action) {
       case 'fold':
@@ -2660,10 +2660,10 @@ class BettingRound {
         this.pot += raiseAmount;
         break;
     }
-    
+
     // Move to next player
     this.moveToNextPlayer();
-    
+
     // Check if round is complete
     if (this.isRoundComplete()) {
       this.proceedToNextPhase();

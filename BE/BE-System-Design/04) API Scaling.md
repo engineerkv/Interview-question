@@ -1,4 +1,4 @@
-# 4. API Scaling (Q51–Q65)
+# 4. API Scaling (Q51–Q63)
 
 ---
 
@@ -16,125 +16,7 @@
 
 ---
 
-## Q51. 📊 Vertical vs horizontal API scaling
-
-Vertical and horizontal scaling are two different approaches to increasing API capacity. For general scaling concepts, see [Q3: Vertical vs horizontal scaling](../01%29%20System%20Design%20Fundamentals.md#q3--vertical-vs-horizontal-scaling). This question focuses on API-specific scaling considerations.
-
----
-
-## 1. 📊 API-Specific Vertical Scaling
-
-Vertical scaling for APIs means adding more resources to your existing API servers.
-
-* **API server upgrade** → Upgrade CPU, memory, or storage on API servers
-
-* **Example** → Upgrading API server from 2 CPU cores to 8 cores to handle more requests
-
-* **Single API server** → Scaling up a single API server
-
-* **Request handling** → More resources allow handling more concurrent requests
-
-📌 **In simple terms**: Make your existing API servers more powerful to handle more requests.
-
----
-
-## 2. 📊 API-Specific Horizontal Scaling
-
-Horizontal scaling for APIs means adding more API servers behind a load balancer.
-
-* **Multiple API servers** → Add more API servers to handle more load
-
-* **Example** → Going from 2 API servers to 10 servers behind ALB/NLB
-
-* **Load distribution** → Load balancer distributes requests across servers
-
-* **Stateless requirement** → APIs must be stateless for effective horizontal scaling
-
-📌 **In simple terms**: Add more API servers behind a load balancer to handle more requests.
-
----
-
-## 3. 📊 API Scaling Considerations
-
-When scaling APIs, consider these API-specific factors.
-
-* **Stateless design** → APIs must be stateless for horizontal scaling (see [Q52: Stateless API design](#q52--stateless-api-design-for-scaling))
-
-* **Load balancing** → Use ALB/NLB or API Gateway for request distribution
-
-* **Session management** → Store sessions in external storage (Redis, database) not server memory
-
-* **Connection pooling** → Manage database connections across multiple API servers
-
-* **API Gateway** → Use API Gateway for rate limiting, authentication, and routing
-
----
-
-## 4. 📊 When to Choose Vertical Scaling for APIs
-
-Choose vertical scaling for APIs when you have a single server bottleneck and simple architecture.
-
-* **Single bottleneck** → Single API server is the bottleneck
-
-* **Simple architecture** → Don't need load balancing or stateless design
-
-* **Quick solution** → Faster to upgrade than redesign for horizontal scaling
-
-* **Limited scale needs** → Don't need to scale beyond one server's capacity
-
----
-
-## 5. 📊 When to Choose Horizontal Scaling for APIs
-
-Choose horizontal scaling for APIs when you need to scale beyond one server or want fault tolerance.
-
-* **Beyond single server** → Need more capacity than one server can provide
-
-* **Fault tolerance** → Want redundancy so one server failure doesn't take down API
-
-* **High availability** → Need high availability for production APIs
-
-* **Geographic distribution** → Want to place API servers in different regions
-
----
-
-## 6. 🔌 API-Specific Trade-offs
-
-API scaling has specific trade-offs related to API design.
-
-* **Vertical pros** → Simpler, no architecture changes, no load balancing needed
-
-* **Vertical cons** → Hard limit on server capacity, expensive, single point of failure
-
-* **Horizontal pros** → Can scale almost infinitely, fault-tolerant, cost-effective with commodity hardware
-
-* **Horizontal cons** → Requires stateless API design, load balancing infrastructure, shared state management
-
----
-
-## ⭐ Summary — 10-second Interview Version
-
-> "Vertical API scaling means adding more resources to existing API servers - like upgrading CPU or memory. Horizontal API scaling means adding more API servers behind a load balancer - like going from 2 to 10 servers. Choose vertical for simple cases with single server bottlenecks, choose horizontal when you need to scale beyond one server or want fault tolerance. The catch is horizontal scaling requires stateless API design."
-
----
-
-## ⭐ Extra Points (If Interviewer Asks More)
-
-### What are the main challenges with horizontal API scaling?
-
-The main challenges are making your API stateless (see [Q52: Stateless API design](#q52--stateless-api-design-for-scaling)), implementing proper load balancing (see [Q53: Scaling APIs using ALB/NLB](#q53--scaling-apis-using-albnlb)), managing shared state (sessions, caches), and ensuring data consistency across servers. The catch is you need to design your API architecture for horizontal scaling from the start. The tricky part is handling stateful features like WebSockets or sessions that don't work well with horizontal scaling.
-
-### How do you handle sessions with horizontal API scaling?
-
-You store sessions in external storage like Redis or a database, not in server memory. Include session identifiers in requests (cookies, tokens), and any API server can look up the session from shared storage. The catch is this adds latency for session lookups. The tricky part is ensuring session data is accessible to all API servers and handling session expiration consistently.
-
-### Can you combine vertical and horizontal scaling for APIs?
-
-Yes, you can combine both - scale vertically to maximize each API server's capacity (more CPU/memory per server), then scale horizontally when you need more capacity (add more servers). This gives you the benefits of both approaches. The catch is you still need stateless API design and load balancing for horizontal scaling. The tricky part is determining when to scale vertically vs horizontally - typically scale vertically first, then horizontally.
-
----
-
-## Q52. 🔓 Stateless API design for scaling
+## Q51. 🔓 Stateless API design for scaling
 
 Stateless API design is essential for horizontal scaling. For general stateless vs stateful concepts, see [Q24: Stateless vs stateful design](../01%29%20System%20Design%20Fundamentals.md#q24--stateless-vs-stateful-design). This question focuses on API-specific stateless design patterns.
 
@@ -302,7 +184,7 @@ app.post('/api/login', async (req, res) => {
 
 ---
 
-## Q53. ⚖️ Scaling APIs using ALB/NLB
+## Q52. ⚖️ Scaling APIs using ALB/NLB
 
 Application Load Balancer (ALB) and Network Load Balancer (NLB) are AWS load balancing solutions that enable horizontal scaling. When you scale APIs, you choose between ALB and NLB based on your performance and feature requirements.
 
@@ -436,7 +318,7 @@ You choose based on your needs - use ALB if you need HTTP/HTTPS routing, path-ba
 
 ---
 
-## Q54. 🚪 Scaling API Gateway
+## Q53. 🚪 Scaling API Gateway
 
 API Gateway scales automatically, but you can optimize scaling through various strategies. When you scale APIs using API Gateway, you leverage its auto-scaling capabilities while optimizing for performance and cost.
 
@@ -564,7 +446,7 @@ You use CloudFront with API Gateway for global distribution, lower latency world
 
 ---
 
-## Q55. 🌍 How CDNs reduce API load
+## Q54. 🌍 How CDNs reduce API load
 
 CDNs (Content Delivery Networks) cache API responses at edge locations close to users, reducing load on origin servers. When you use CDNs, requests are served from edge locations instead of your origin server, improving performance and reducing load.
 
@@ -692,7 +574,7 @@ CDN caching happens at edge locations worldwide, closer to users, while API Gate
 
 ---
 
-## Q57. 🌐 Multi-region API scaling strategies
+## Q55. 🌐 Multi-region API scaling strategies
 
 Multi-region API scaling involves deploying APIs across multiple geographic regions to reduce latency and improve availability. When you scale APIs across regions, you need to handle routing, data replication, and consistency.
 
@@ -820,7 +702,7 @@ You route users using DNS-based routing (Route53 latency-based routing), global 
 
 ---
 
-## Q58. ⚡ High-throughput API design patterns
+## Q56. ⚡ High-throughput API design patterns
 
 High-throughput API design patterns enable APIs to handle large volumes of requests efficiently. When you design high-throughput APIs, you use various techniques to maximize capacity and performance.
 
@@ -948,7 +830,7 @@ You optimize by using indexes, query batching, connection pooling, read replicas
 
 ---
 
-## Q59. 🔥 Avoiding API hotspots
+## Q57. 🔥 Avoiding API hotspots
 
 API hotspots occur when certain resources or endpoints receive disproportionate load, causing performance issues. When you design APIs, you need to avoid hotspots to ensure even load distribution.
 
@@ -1076,7 +958,7 @@ You fix hotspots by redistributing load, using better sharding strategies, avoid
 
 ---
 
-## Q60. 🚦 API throttling vs rate limiting
+## Q58. 🚦 API throttling vs rate limiting
 
 Rate limiting and throttling are two approaches to controlling API usage. For general rate limiting concepts and algorithms, see [Q15: Rate limiting](../01%29%20System%20Design%20Fundamentals.md#q15--rate-limiting). This question focuses on API-specific throttling vs rate limiting comparison.
 
@@ -1206,7 +1088,7 @@ Throttling can cause increased latency, timeouts if too aggressive, and resource
 
 ---
 
-## Q61. 💾 Scaling APIs with caching layers
+## Q59. 💾 Scaling APIs with caching layers
 
 Caching layers at multiple levels dramatically improve API performance and reduce backend load. When you scale APIs, you implement caching at different layers to maximize performance benefits.
 
@@ -1334,7 +1216,7 @@ CDN caching is at the edge for global distribution, API Gateway caching is at th
 
 ---
 
-## Q62. 📄 Efficient pagination strategies for large APIs
+## Q60. 📄 Efficient pagination strategies for large APIs
 
 Efficient pagination is critical for APIs that return large datasets. When you design pagination, you choose between cursor-based and offset-based pagination based on dataset size and access patterns.
 
@@ -1490,7 +1372,7 @@ GET /api/users?offset=0&limit=20
 
 ---
 
-## Q63. 📦 Reducing DB load via query batching
+## Q61. 📦 Reducing DB load via query batching
 
 Query batching reduces database load by combining multiple queries into single requests. When you optimize database access, you batch queries to reduce round trips and improve performance.
 
@@ -1618,7 +1500,7 @@ Query batching combines multiple queries into one request, while connection pool
 
 ---
 
-## Q64. 🔗 Hypermedia-driven API design
+## Q62. 🔗 Hypermedia-driven API design
 
 Hypermedia-driven APIs include links in responses that enable clients to discover available actions dynamically. When you design hypermedia APIs, you make APIs more flexible and easier to evolve.
 
@@ -1746,7 +1628,7 @@ Many APIs don't use hypermedia because it adds complexity, clients often ignore 
 
 ---
 
-## Q65. 📊 🪝 Scaling webhooks API endpoints
+## Q63. 📊 🪝 Scaling webhooks API endpoints
 
 Scaling webhook endpoints requires handling asynchronous delivery, retries, and high volume. When you scale webhooks, you use message queues and workers to handle webhook delivery reliably.
 

@@ -111,6 +111,7 @@ Design and implement a ride-sharing platform that addresses the following challe
 - **Read:Write Ratio**: 50:1 (viewing rides vs creating rides)
 
 **Calculations:**
+
 - **Average Writes Per Second (WPS)**: 15M ride requests / 86,400 seconds ≈ 174 WPS
 - **Peak WPS**: 174 × 3 = 522 WPS
 - **Average Reads Per Second (RPS)**: 174 × 50 = 8,700 RPS
@@ -121,12 +122,14 @@ Design and implement a ride-sharing platform that addresses the following challe
 ### Storage Estimation
 
 **Storage per Ride:**
+
 - Ride metadata: 2 KB (id, riderId, driverId, pickup, dropoff, status, timestamps)
 - Location tracking: 10 KB (100 location points × 100 bytes)
 - Payment data: 1 KB (fare, payment method, transaction ID)
 - **Total per Ride**: ~13 KB
 
 **Storage Requirements:**
+
 - **Rides per Year**: 10M rides/day × 365 = 3.65 billion rides
 - **Ride Storage**: 3.65B × 13 KB ≈ 47.45 TB per year
 - **User Data**: 100M users × 5 KB ≈ 500 GB
@@ -144,6 +147,7 @@ Design and implement a ride-sharing platform that addresses the following challe
 ### Caching Estimation
 
 Following the **80-20 rule** where 20% of active rides generate 80% of traffic:
+
 - **Cache 20% of active rides**: 1M × 0.2 = 200K rides
 - **Cache memory required**: 200K × 13 KB = 2.6 GB (distributed across Redis cluster)
 - **Cache hit ratio**: 90% (only 10% of ride requests hit database)
@@ -233,6 +237,7 @@ The system follows a real-time ride-sharing architecture with geospatial matchin
 ### Complete Request Flow
 
 **Ride Request Flow:**
+
 1. **Frontend**: User selects pickup and dropoff locations, requests ride
 2. **API Call**: POST request to ride API with locations
 3. **Backend**: Validate request, find nearest available drivers using geospatial query
@@ -243,6 +248,7 @@ The system follows a real-time ride-sharing architecture with geospatial matchin
 8. **Frontend**: Show ride confirmation with driver details and map
 
 **Location Tracking Flow:**
+
 1. **Frontend**: Driver/rider app sends location update every 5 seconds
 2. **WebSocket**: Socket.io client emits location update event
 3. **Backend**: Update location in geospatial database (Redis GeoHash)
@@ -250,6 +256,7 @@ The system follows a real-time ride-sharing architecture with geospatial matchin
 5. **Frontend**: Map component updates with new location markers
 
 **Ride Completion Flow:**
+
 1. **Frontend**: Driver marks ride as completed
 2. **API Call**: POST request to complete ride API
 3. **Backend**: Calculate fare based on distance and time
@@ -482,7 +489,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 const useRequestRide = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (rideData: RideRequest) => {
       const response = await axios.post('/api/v1/rides', rideData);
@@ -1370,6 +1377,7 @@ try {
 **Purpose:** Find the nearest available driver to a rider's location efficiently.
 
 **Algorithm:**
+
 1. Get rider's pickup location (latitude, longitude)
 2. Search for available drivers within radius using geospatial query
 3. Calculate distance to each driver
@@ -1399,19 +1407,19 @@ class RideMatchingService {
       'COUNT',
       10
     );
-    
+
     if (drivers.length === 0 && radius < 10) {
       // Expand search radius
       return this.findNearestDriver(userLat, userLon, 10);
     }
-    
+
     // Filter available drivers
     const availableDrivers = await this.filterAvailableDrivers(drivers);
-    
+
     if (availableDrivers.length === 0) {
       return null;
     }
-    
+
     // Return nearest driver
     return availableDrivers[0].driverId;
   }
@@ -1420,6 +1428,7 @@ class RideMatchingService {
 ```
 
 **Complexity:**
+
 - Time: O(log n + m) where n is number of drivers, m is results
 - Space: O(m) for results
 - **Matching Speed:** Geospatial queries enable < 100ms matching
@@ -1431,6 +1440,7 @@ class RideMatchingService {
 **Purpose:** Calculate ride fare based on distance, time, base fare, and surge pricing.
 
 **Algorithm:**
+
 1. Calculate base fare
 2. Calculate distance-based fare
 3. Calculate time-based fare
@@ -1451,7 +1461,7 @@ function calculateFare(
   const distanceFare = distance * perKmRate;
   const timeFare = duration * perMinRate;
   const totalFare = (baseFare + distanceFare + timeFare) * surgeMultiplier;
-  
+
   return Math.round(totalFare * 100) / 100; // Round to 2 decimal places
 }
 
@@ -1461,18 +1471,19 @@ function calculateSurgeMultiplier(
   currentSupply: number
 ): number {
   const demandSupplyRatio = currentDemand / currentSupply;
-  
+
   if (demandSupplyRatio > 2.0) return 2.5; // High surge
   if (demandSupplyRatio > 1.5) return 2.0;
   if (demandSupplyRatio > 1.2) return 1.5;
   if (demandSupplyRatio > 1.0) return 1.2;
-  
+
   return 1.0; // No surge
 }
 
 ```
 
 **Complexity:**
+
 - Time: O(1) for fare calculation
 - Space: O(1)
 - **Pricing Accuracy:** Dynamic pricing balances supply and demand
@@ -1542,6 +1553,7 @@ function calculateSurgeMultiplier(
 ### MongoDB Transactions
 
 **Transaction Usage:**
+
 - **Multi-Document Transactions** - For operations requiring ACID guarantees
 - **Example:** Ride creation + driver assignment + payment processing in single transaction
 - **Session Management:** Use MongoDB sessions for transaction control
@@ -1568,6 +1580,7 @@ try {
 ### Consistency Strategies
 
 **Data Consistency:**
+
 - **Ride Consistency:** Use transactions for ride operations to ensure atomicity
 - **Location Consistency:** Ensure location updates are consistent
 - **Payment Consistency:** Ensure payment and ride updates are atomic
@@ -1618,6 +1631,7 @@ try {
   }
 
   ```
+
 - **Response:**
 
   ```json
@@ -1633,6 +1647,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 201 (Created), 404 (No Driver Available), 400 (Validation Error)
 
 ### GET /api/v1/rides/:rideId
@@ -1655,6 +1670,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 404 (Ride Not Found)
 
 ---
@@ -1664,15 +1680,17 @@ try {
 ### Redis Cache
 
 **Cache Strategy:**
+
 - **Key Format:** `driver:location:{driverId}`, `ride:{rideId}`, `drivers:available`
 - **Value:** Serialized JSON (driver location, ride data, available drivers set)
-- **TTL:** 
+- **TTL:**
   - Driver locations: 60 seconds (frequently updated)
   - Ride data: 300 seconds (5 minutes)
   - Available drivers: 30 seconds (frequently updated)
 - **Eviction Policy:** TTL-based eviction
 
 **Cache Patterns:**
+
 - **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
 - **Write-Through Pattern:** Update cache when driver location changes
 - **Cache Invalidation:** Invalidate ride cache on status updates
@@ -1684,6 +1702,7 @@ try {
 ### Error Scenarios and Responses
 
 **Edge Cases Handling:**
+
 - **No Driver Available:** Return 404 Not Found with "No drivers available" message
 - **Invalid Location:** Return 400 Bad Request with validation errors
 - **Payment Failure:** Return 402 Payment Required with payment error details
@@ -1711,21 +1730,25 @@ try {
 ### Scalability
 
 **API Layer:**
+
 - Deploy API layer across multiple instances behind load balancer
 - Use auto-scaling based on CPU/memory metrics
 - Stateless design allows horizontal scaling
 
 **WebSocket Scaling:**
+
 - **Socket.io Redis Adapter:** Enable horizontal scaling of WebSocket connections
 - **Sticky Sessions:** Required for Socket.io (use session affinity in load balancer)
 - **Connection Management:** Monitor and manage WebSocket connections
 
 **Database Scaling:**
+
 - **Read Replicas:** Deploy read replicas for ride queries
 - **Sharding:** Shard rides by region or userId for write scaling
 - **Connection Pooling:** Use connection pooling to manage database connections
 
 **Caching:**
+
 - Distributed Redis cluster for high availability
 - Cache driver locations and ride data
 - Reduces database load significantly
@@ -1733,15 +1756,18 @@ try {
 ### Availability
 
 **Replication:**
+
 - Database replication ensures data availability
 - Multi-region replication for disaster recovery
 
 **Failover:**
+
 - Automated failover mechanisms for API and data store layers
 - Health checks and monitoring for proactive failover
 - Circuit breaker pattern to prevent cascading failures
 
 **Geo-Distributed Deployment:**
+
 - Deploy service across multiple geographical regions
 - Reduces latency for users worldwide
 - Improves availability by eliminating single point of failure
@@ -1749,23 +1775,27 @@ try {
 ### Frontend Deployment
 
 **Build Process:**
+
 - **Production Build:** Optimized bundle with code splitting
 - **CDN Deployment:** Deploy static assets to CDN for fast global delivery
 - **Environment Variables:** `.env.production` for production config
 
 **Deployment Platforms:**
+
 - **Vercel / Netlify** - Automatic deployments from Git
 - **AWS S3 + CloudFront** - Static site hosting with CDN
 
 ### Backend Deployment
 
 **Server Setup:**
+
 - **PM2:** Process manager with clustering for Node.js apps
 - **Nginx:** Load balancer and reverse proxy with SSL termination
 - **Docker:** Containerized deployment for consistency
 - **Kubernetes:** Container orchestration for auto-scaling
 
 **CI/CD Pipeline:**
+
 - **Automated Testing:** Run tests before deployment
 - **Zero-Downtime:** Rolling deployment strategy
 - **Health Checks:** Verify ride endpoints are healthy
@@ -1774,12 +1804,14 @@ try {
 ### Database Deployment
 
 **MongoDB Setup:**
+
 - **MongoDB Atlas** - Managed MongoDB service with automatic backups
 - **Backup Strategy:** Daily automated backups with point-in-time recovery
 - **Indexing:** Proper indexes on rideId, riderId, driverId, status, geospatial index on location
 - **Replication:** Replica sets for high availability
 
 **Redis Setup:**
+
 - **Redis Cloud / AWS ElastiCache** - Managed Redis service
 - **Cluster Mode:** Redis cluster for high availability and performance
 - **Persistence:** RDB snapshots and AOF for data durability

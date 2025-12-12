@@ -1863,7 +1863,6 @@ Yes, you can use both - use CloudWatch for AWS-native logging and New Relic for 
 
 </div>
 
-
 ---
 
 ## 📍 Navigation

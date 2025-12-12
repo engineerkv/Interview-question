@@ -1,4 +1,4 @@
-# 6. AWS Cloud Architecture (Q95–Q119)
+# 6. AWS Cloud Architecture (Q95–Q117)
 
 ---
 
@@ -1614,263 +1614,7 @@ You ensure consistency by using shared templates, standardizing pipeline stages,
 
 ---
 
-## Q107. 🔄 Blue-green deployment
-
-Blue-green deployment maintains two identical production environments for zero-downtime deployments. When you use blue-green deployment, you deploy to the inactive environment, test it, then switch traffic, enabling instant rollback if needed.
-
----
-
-## 1. 🚀 What is Blue-Green Deployment
-
-Blue-green deployment runs two identical production environments.
-
-* **Two environments** → Blue (current) and green (new version)
-
-* **Identical** → Both environments are identical
-
-* **Traffic switching** → Switch traffic between environments
-
-* **Zero downtime** → Zero downtime deployments
-
-📌 **In simple terms**: Two identical environments - deploy to one, switch traffic when ready.
-
----
-
-## 2. 🚀 Deployment Process
-
-You deploy the new version to green, test it, then switch traffic from blue to green.
-
-* **Deploy to green** → Deploy new version to green environment
-
-* **Test** → Test the new version in green
-
-* **Switch traffic** → Switch traffic from blue to green
-
-* **Rollback** → Switch back to blue if issues occur
-
----
-
-## 3. 💡 Instant Rollback
-
-If something goes wrong, you switch back to blue immediately.
-
-* **Instant rollback** → Switch back to blue immediately
-
-* **No downtime** → No downtime during rollback
-
-* **Risk reduction** → Reduces deployment risk
-
-* **Safety** → Safe deployment process
-
----
-
-## 4. 💡 Benefits
-
-Blue-green deployments eliminate downtime and provide instant rollback.
-
-* **Zero downtime** → Eliminates downtime
-
-* **Instant rollback** → Provides instant rollback
-
-* **Testing** → Test new version before switching
-
-* **Safety** → Safe deployment process
-
----
-
-## 5. 💡 Infrastructure Costs
-
-You need double the infrastructure during deployment which costs more.
-
-* **Double infrastructure** → Need two environments
-
-* **Cost** → Costs more during deployment
-
-* **Resource usage** → Uses more resources
-
-* **Temporary** → Temporary cost increase
-
----
-
-## 6. 📦 Stateful Services
-
-Managing stateful services requires careful handling.
-
-* **Databases** → Databases need careful handling
-
-* **Sessions** → Sessions need to be managed
-
-* **State** → State needs to be synchronized
-
-* **Complexity** → Adds complexity
-
----
-
-## 7. 💡 Trade-offs
-
-Blue-green deployments eliminate downtime and provide instant rollback.
-
-* **Pros** → Eliminate downtime, provide instant rollback, great for critical systems
-
-* **Cons** → The catch is you need double the infrastructure during deployment which costs more
-
-* **Stateful services** → The tricky part is managing stateful services - databases and sessions need to be handled carefully when switching environments
-
-* **Cost vs safety** → Balance cost with deployment safety
-
----
-
-## ⭐ Summary — 10-second Interview Version
-
-> "Blue-green deployment runs two identical production environments - blue is current, green is new version. You deploy the new version to green, test it, then switch traffic from blue to green. If something goes wrong, you switch back to blue immediately. This gives you instant rollback and zero downtime deployments."
-
----
-
-## ⭐ Extra Points (If Interviewer Asks More)
-
-### How do you handle databases in blue-green deployments?
-
-You handle databases by using shared databases (both environments use same database), database replication (replicate data to green), or read replicas. The catch is you need to handle schema changes carefully. The tricky part is ensuring data consistency - use backward-compatible migrations, or use shared databases with careful coordination.
-
-### How do you manage sessions during blue-green switch?
-
-You manage sessions by using external session stores (Redis, database), ensuring sessions are accessible from both environments, or using sticky sessions carefully. The catch is sessions need to be accessible from both environments. The tricky part is ensuring users don't lose sessions during switch - use external session stores that both environments can access.
-
-### When should you use blue-green vs rolling deployments?
-
-You use blue-green for critical systems where you need instant rollback and zero downtime. You use rolling deployments when you want to minimize resource usage and can accept gradual rollout. The catch is blue-green costs more. The tricky part is evaluating your needs - blue-green for critical systems, rolling for cost efficiency.
-
----
-
-## Q108. 🔄 Rolling updates with zero downtime
-
-Rolling updates deploy new versions gradually by replacing instances incrementally. When you use rolling updates, you launch new instances, verify they're healthy, then terminate old instances, minimizing downtime and resource usage.
-
----
-
-## 1. 💡 How Rolling Updates Work
-
-Rolling updates deploy new versions gradually by replacing instances one at a time.
-
-* **Gradual replacement** → Replace instances one at a time
-
-* **New instances** → Launch new instances with new version
-
-* **Health checks** → Wait for new instances to be healthy
-
-* **Terminate old** → Terminate old instances after new ones are healthy
-
-📌 **In simple terms**: Gradually replace instances one at a time with new version.
-
----
-
-## 2. ✅ Health Checks
-
-Use health checks to ensure new instances are ready before terminating old ones.
-
-* **Health checks** → Verify new instances are healthy
-
-* **Readiness** → Ensure new instances are ready
-
-* **Safety** → Don't terminate old instances until new ones are ready
-
-* **Validation** → Validate new instances before switching
-
----
-
-## 3. 💡 Connection Draining
-
-Configure your load balancer to drain connections from old instances gracefully.
-
-* **Connection draining** → Drain connections from old instances
-
-* **Graceful shutdown** → Graceful shutdown of old instances
-
-* **No dropped connections** → Don't drop active connections
-
-* **Smooth transition** → Smooth transition between versions
-
----
-
-## 4. 💡 Benefits
-
-Rolling updates minimize downtime and resource usage compared to blue-green.
-
-* **Minimal downtime** → Minimize downtime
-
-* **Resource efficiency** → More resource efficient than blue-green
-
-* **Gradual rollout** → Gradual rollout of new version
-
-* **Cost effective** → More cost effective
-
----
-
-## 5. 💡 Version Coexistence
-
-There's a window where both versions run simultaneously.
-
-* **Both versions** → Both old and new versions run simultaneously
-
-* **Backward compatibility** → Need backward compatibility
-
-* **API compatibility** → API must be compatible
-
-* **Data compatibility** → Data formats must be compatible
-
----
-
-## 6. 🚀 Failed Deployment Handling
-
-If new instances fail health checks, you need to stop the rollout and roll back.
-
-* **Health check failures** → If new instances fail health checks
-
-* **Stop rollout** → Stop the rollout process
-
-* **Roll back** → Roll back to previous version
-
-* **Failure handling** → Handle deployment failures
-
----
-
-## 7. 💡 Trade-offs
-
-Rolling updates minimize downtime and resource usage compared to blue-green.
-
-* **Pros** → Minimize downtime, resource efficient, cost effective
-
-* **Cons** → The catch is there's a window where both versions run simultaneously, so you need backward compatibility
-
-* **Failed deployments** → The tricky part is handling failed deployments - if new instances fail health checks, you need to stop the rollout and roll back
-
-* **Compatibility** → Need to ensure backward compatibility
-
----
-
-## ⭐ Summary — 10-second Interview Version
-
-> "Rolling updates deploy new versions gradually by replacing instances one at a time - you launch new instances with the new version, wait for them to be healthy, then terminate old instances. Use health checks to ensure new instances are ready before terminating old ones, and configure your load balancer to drain connections from old instances gracefully."
-
----
-
-## ⭐ Extra Points (If Interviewer Asks More)
-
-### How do you ensure backward compatibility in rolling updates?
-
-You ensure backward compatibility by maintaining API contracts, using versioning, ensuring data format compatibility, and testing both versions together. The catch is you need to design for compatibility. The tricky part is managing breaking changes - use API versioning, deprecation periods, or coordinate breaking changes carefully.
-
-### How do you handle failed rolling updates?
-
-You handle failed rolling updates by stopping the rollout when health checks fail, rolling back to previous version, investigating failures, and fixing issues before retrying. The catch is you need monitoring and alerting. The tricky part is detecting failures early - use health checks, monitoring, and automated rollback triggers.
-
-### What's the difference between rolling updates and blue-green?
-
-Rolling updates replace instances gradually (one at a time), while blue-green maintains two complete environments and switches traffic. Rolling updates are more resource efficient, blue-green provides instant rollback. The catch is rolling updates need backward compatibility, blue-green needs double infrastructure. The tricky part is choosing based on your needs - rolling for efficiency, blue-green for safety.
-
----
-
-## Q109. 🌍 CloudFront + S3 architecture
+## Q107. 🌍 CloudFront + S3 architecture
 
 CloudFront CDN sits in front of S3 to cache and serve content from edge locations. When you use CloudFront with S3, you improve performance by serving content from edge locations close to users, reducing latency and S3 costs.
 
@@ -1984,7 +1728,7 @@ CloudFront reduces S3 request costs by serving cached content, but adds CloudFro
 
 ---
 
-## Q110. 🔗 S3 pre-signed URL flow
+## Q108. 🔗 S3 pre-signed URL flow
 
 Pre-signed URLs provide temporary, secure access to S3 objects without exposing AWS credentials. When you use pre-signed URLs, your server generates signed URLs that clients can use to upload or download directly from S3.
 
@@ -2128,7 +1872,7 @@ const url = s3.getSignedUrl('putObject', params);
 
 ---
 
-## Q111. 🔐 Handling secrets with AWS Secrets Manager
+## Q109. 🔐 Handling secrets with AWS Secrets Manager
 
 AWS Secrets Manager provides secure storage and automatic rotation for secrets. When you manage secrets in AWS, you use Secrets Manager to store sensitive information like passwords and API keys, ensuring they're encrypted and automatically rotated.
 
@@ -2270,7 +2014,7 @@ You secure secrets by using Secrets Manager, retrieving secrets at runtime with 
 
 ---
 
-## Q112. 💰 AWS cost optimization best practices
+## Q110. 💰 AWS cost optimization best practices
 
 AWS cost optimization requires ongoing monitoring and strategic use of AWS services. When you optimize AWS costs, you balance cost savings with performance and reliability requirements.
 
@@ -2398,7 +2142,7 @@ You track costs by tagging resources with team/project tags, using Cost Explorer
 
 ---
 
-## Q113. 🗄️ RDS vs DynamoDB vs Mongo Atlas
+## Q111. 🗄️ RDS vs DynamoDB vs Mongo Atlas
 
 RDS, DynamoDB, and Mongo Atlas are three different database options in AWS with different use cases. When you choose a database, you consider data model, query patterns, scalability, and operational requirements.
 
@@ -2534,7 +2278,7 @@ Yes, you can use multiple databases - use RDS for relational data, DynamoDB for 
 
 ---
 
-## Q114. 🔑 DynamoDB partition key design
+## Q112. 🔑 DynamoDB partition key design
 
 DynamoDB partition key design is critical for performance and scalability. When you design DynamoDB tables, you choose partition keys that distribute data evenly and match your access patterns.
 
@@ -2648,7 +2392,7 @@ You can't change partition keys after table creation - you need to create a new 
 
 ---
 
-## Q115. ⚠️ DynamoDB throttling prevention
+## Q113. ⚠️ DynamoDB throttling prevention
 
 DynamoDB throttling occurs when requests exceed provisioned capacity. When you prevent throttling, you design for even distribution, use appropriate capacity modes, and implement monitoring and retry logic.
 
@@ -2778,7 +2522,7 @@ You monitor throttling by using CloudWatch metrics (ThrottledRequests, ConsumedR
 
 ---
 
-## Q116. 📋 Multi-AZ replication in RDS
+## Q114. 📋 Multi-AZ replication in RDS
 
 RDS Multi-AZ replication provides high availability by maintaining a standby replica in a different availability zone. When you configure Multi-AZ, you get automatic failover with zero data loss for production databases.
 
@@ -2892,7 +2636,7 @@ You use Multi-AZ for production databases where you need high availability and c
 
 ---
 
-## Q117. 📖 RDS read replicas
+## Q115. 📖 RDS read replicas
 
 RDS read replicas are asynchronous copies of your primary database that can serve read queries. When you scale read-heavy applications, you use read replicas to distribute read load and improve performance.
 
@@ -3020,7 +2764,7 @@ You use read replicas for read scaling and geographic distribution, use Multi-AZ
 
 ---
 
-## Q118. 🌐 DynamoDB Global Tables
+## Q116. 🌐 DynamoDB Global Tables
 
 DynamoDB Global Tables replicate your table across multiple regions automatically for global low latency and disaster recovery. When you use Global Tables, you can serve users from the nearest region while maintaining data consistency across regions.
 
@@ -3162,7 +2906,7 @@ Global Tables use DynamoDB Streams to replicate changes across regions. When you
 
 ---
 
-## Q119. ⚡ On-demand vs provisioned capacity
+## Q117. ⚡ On-demand vs provisioned capacity
 
 DynamoDB offers two capacity modes: on-demand and provisioned. When you choose a capacity mode, you balance cost, predictability, and operational complexity based on your workload characteristics.
 

@@ -1,21 +1,21 @@
 # ⚡️ JavaScript Interview Questions
 
-247 carefully curated questions covering JavaScript fundamentals to advanced topics, including 59 output-based questions.
+225 carefully curated questions covering JavaScript fundamentals to advanced topics, including 78 output-based questions.
 
 ## 📋 Quick Navigation
 
 | Section | Topic | Questions | Difficulty |
 |---------|-------|-----------|------------|
-| [1️⃣](#1-core-javascript-fundamentals) | Core JavaScript Fundamentals | Q1–15 | ⭐⭐ |
-| [2️⃣](#2-functions-closures--execution-context) | Functions, Closures & Execution Context | Q16–24 | ⭐⭐⭐ |
-| [3️⃣](#3-objects-prototypes--inheritance) | Objects, Prototypes & Inheritance | Q26–44 | ⭐⭐⭐ |
-| [4️⃣](#4-es6-features) | ES6+ Features | Q45–54 | ⭐⭐ |
-| [5️⃣](#5-promises-asyncawait-and-event-loop) | Promises, Async/Await & Event Loop | Q55–80 | ⭐⭐⭐⭐ |
-| [6️⃣](#6-web-workers-service-workers--real-world-topics) | Web Workers, Service Workers & Real-World Topics | Q170–189 | ⭐⭐⭐⭐ |
-| [7️⃣](#7-practical-javascript-questions) | Practical JavaScript Questions | Q81–126 | ⭐⭐⭐⭐ |
-| [8️⃣](#8-javascript-output-questions) | JavaScript Output Questions | Q190–248 | ⭐⭐⭐⭐ |
+| [1️⃣](#1-core-javascript-fundamentals) | Fundamentals & Core Concepts | Q1–15 | ⭐⭐ |
+| [2️⃣](#2-functions-closures--execution-context) | Functions & Execution Context | Q16–24 | ⭐⭐⭐ |
+| [3️⃣](#3-objects-prototypes--inheritance) | Objects & Prototypes | Q25–43 | ⭐⭐⭐ |
+| [4️⃣](#4-es6-features) | Modern JavaScript (ES6+) | Q45–54 | ⭐⭐ |
+| [5️⃣](#5-promises-asyncawait-and-event-loop) | Asynchronous Programming | Q55–80 | ⭐⭐⭐⭐ |
+| [6️⃣](#6-practical-javascript-questions) | Practical Coding Challenges | Q81–126 | ⭐⭐⭐⭐ |
+| [7️⃣](#7-web-workers-service-workers--real-world-topics) | Web APIs & Real-World Topics | Q128–147 | ⭐⭐⭐⭐ |
+| [8️⃣](#8-javascript-output-questions) | Output-Based Questions | Q148–225 | ⭐⭐⭐⭐ |
 
-## 🧠 1. Core JavaScript Fundamentals
+## 🧠 1. Fundamentals & Core Concepts
 
 1. Data types in JavaScript
 
@@ -47,7 +47,7 @@
 
 15. Different ways to create objects in JavaScript
 
-## 🧩 2. Functions, Closures & Execution Context
+## 🧩 2. Functions & Execution Context
 
 16. Closures in JavaScript
 
@@ -67,7 +67,7 @@
 
 24. How lexical environment relates to closures
 
-## 🏗️ 3. Objects, Prototypes & Inheritance
+## 🏗️ 3. Objects & Prototypes
 
 26. Objects in JavaScript
 
@@ -107,7 +107,7 @@
 
 44. ES6 classes vs prototype-based inheritance
 
-## 🎯 4. ES6+ Features
+## 🎯 4. Modern JavaScript (ES6+)
 
 45. Destructuring assignment
 
@@ -129,7 +129,7 @@
 
 54. Maps, Sets, WeakMaps, and WeakSets
 
-## ⚡ 5. Promises, Async/Await & Event Loop
+## ⚡ 5. Asynchronous Programming
 
 55. Promises in JavaScript
 
@@ -183,7 +183,11 @@
 
 80. Promise chaining and error propagation
 
-## 🔧 6. Web Workers, Service Workers & Real-World Topics
+## 🛠️ 6. Practical Coding Challenges
+
+81-126. Practical coding challenges covering debounce, throttle, promises (all, race, any, allSettled), closures, event loop, prototypes, array chunking, worker pools, and advanced language features.
+
+## 🔧 7. Web APIs & Real-World Topics
 
 170. Web Workers and how they work
 
@@ -225,11 +229,7 @@
 
 189. How JavaScript handles tail call optimization (TCO)
 
-## 🛠️ 7. Practical JavaScript Questions
-
-81-126. Practical coding challenges covering debounce, throttle, promises (all, race, any, allSettled), closures, event loop, prototypes, array chunking, worker pools, and advanced language features.
-
-## 📝 8. JavaScript Output Questions
+## 📝 8. Output-Based Questions
 
 190-248. Tricky JavaScript output-based questions covering event loop, async/await, closures, prototypes, `this` binding, and other JavaScript traps commonly asked in interviews.
 
@@ -237,21 +237,21 @@
 
 ## 📖 Complete Answer Guide
 
-- [1) Core JavaScript Fundamentals](01%29%20Core%20JavaScript%20Fundamentals.md) - Q1-15
+- [1) Fundamentals & Core Concepts](01%29%20Fundamentals%20%26%20Core%20Concepts.md) - Q1-15
 
-- [2) Functions, Closures & Execution Context](02%29%20Functions%2C%20Closures%20%26%20Execution%20Context.md) - Q16-24
+- [2) Functions & Execution Context](02%29%20Functions%20%26%20Execution%20Context.md) - Q16-24
 
-- [3) Objects, Prototypes & Inheritance](03%29%20Objects%2C%20Prototypes%20%26%20Inheritance.md) - Q26-44
+- [3) Objects & Prototypes](03%29%20Objects%20%26%20Prototypes.md) - Q25-43
 
-- [4) ES6+ Features](04%29%20ES6%2B%20Features.md) - Q45-54
+- [4) Modern JavaScript (ES6+)](04%29%20Modern%20JavaScript%20%28ES6%2B%29.md) - Q44-53
 
-- [5) Promises, Async/Await & Event Loop](05%29%20Promises%2C%20Async-Await%20%26%20Event%20Loop.md) - Q55-80
+- [5) Asynchronous Programming](05%29%20Asynchronous%20Programming.md) - Q54-79
 
-- [6) Web Workers, Service Workers & Real-World Topics](06%29%20Web%20Workers%2C%20Service%20Workers%20%26%20Real-World%20Topics.md) - Q170-189
+- [6) Practical Coding Challenges](06%29%20Practical%20Coding%20Challenges.md) - Q80-127
 
-- [7) Practical JavaScript Questions](07%29%20Practical%20JavaScript%20Questions.md) - Q81-126
+- [7) Web APIs & Real-World Topics](07%29%20Web%20APIs%20%26%20Real-World%20Topics.md) - Q128-147
 
-- [8) JavaScript Output Questions](08%29%20JavaScript%20Output%20Questions.md) - Q190-248
+- [8) Output-Based Questions](08%29%20Output-Based%20Questions.md) - Q148-225
 
 ## 📝 Cheatsheet
 

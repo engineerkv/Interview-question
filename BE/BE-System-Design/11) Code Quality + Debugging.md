@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[Git, Docker, CI-CD, Tooling](10%29%20Git%2C%20Docker%2C%20CI-CD%2C%20Tooling.md) • [Home: Question List](question.md) • [AI Tools →](12%29%20AI%20Tools.md)
+[Git, Docker, CI-CD, Tooling](10%29%20Git%2C%20Docker%2C%20CI-CD%2C%20Tooling.md) • [Home: Question List](question.md)
 
 [📋 Cheatsheet](BE-System-Design%20Interview%20Cheatsheet.md)
 
@@ -1370,7 +1370,7 @@ You use by tracking trends over time, setting goals based on metrics, taking act
 
 <div align="center">
 
-[Git, Docker, CI-CD, Tooling](10%29%20Git%2C%20Docker%2C%20CI-CD%2C%20Tooling.md) • [Home: Question List](question.md) • [AI Tools →](12%29%20AI%20Tools.md)
+[Git, Docker, CI-CD, Tooling](10%29%20Git%2C%20Docker%2C%20CI-CD%2C%20Tooling.md) • [Home: Question List](question.md)
 
 [📋 Cheatsheet](BE-System-Design%20Interview%20Cheatsheet.md)
 

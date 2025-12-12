@@ -181,6 +181,7 @@ function climbStairs(n) {
 ### Solution 1: Tabulation (Bottom-Up) (Optimal)
 
 ```javascript
+
 function coinChange(coins, amount) {
   const dp = new Array(amount + 1).fill(Infinity);
   dp[0] = 0;  // Base case: 0 coins needed for amount 0
@@ -299,6 +300,7 @@ function knap01(W, wt, val) {
 ### Solution 1: Patience Sorting with Binary Search (Optimal)
 
 ```javascript
+
 function lengthOfLIS(nums) {
   const tails = [];
 
@@ -332,6 +334,7 @@ function lengthOfLIS(nums) {
 ### Solution 2: DP with O(n²) Time
 
 ```javascript
+
 function lengthOfLIS(nums) {
   const n = nums.length;
   const dp = new Array(n).fill(1);
@@ -464,6 +467,7 @@ function longestCommonSubsequence(text1, text2) {
 ### Solution 1: 2D DP (Optimal)
 
 ```javascript
+
 function minDistance(word1, word2) {
   const m = word1.length;
   const n = word2.length;
@@ -573,6 +577,7 @@ function rodCutting(price, rodLength) {
 ### Solution 1: Subset Sum DP (Optimal)
 
 ```javascript
+
 function canPartition(nums) {
   const sum = nums.reduce((acc, num) => acc + num, 0);
 
@@ -698,6 +703,7 @@ function rob(nums) {
 ### Solution 1: Dynamic Programming (Optimal)
 
 ```javascript
+
 function rob2(nums) {
   if (nums.length === 1) return nums[0];
 
@@ -749,6 +755,7 @@ function rob2(nums) {
 ### Solution 1: DP Array (Optimal)
 
 ```javascript
+
 function numDecodings(s) {
   if (!s || s[0] === '0') return 0;
 
@@ -896,6 +903,7 @@ function uniquePaths(m, n) {
 ### Solution 1: Expand Around Centers (Optimal)
 
 ```javascript
+
 function countSubstrings(s) {
   let count = 0;
 
@@ -1005,6 +1013,7 @@ function maxCoins(nums) {
 ### Solution 1: DP with Binary Search (Optimal)
 
 ```javascript
+
 function jobScheduling(startTime, endTime, profit) {
   const n = startTime.length;
   const jobs = [];
@@ -1139,6 +1148,7 @@ function isMatch(s, p) {
 ### Solution 1: Boolean DP (0-1 Knapsack) (Optimal)
 
 ```javascript
+
 function subsetSum(nums, target) {
   const dp = new Array(target + 1).fill(false);
   dp[0] = true;  // Base case: sum 0 always achievable
@@ -1227,6 +1237,7 @@ function unboundedKnapsack(W, wt, val) {
 ### Solution 1: Histogram + Monotonic Stack (Optimal)
 
 ```javascript
+
 function maximalRectangle(matrix) {
   if (!matrix.length || !matrix[0].length) return 0;
 
@@ -1383,6 +1394,7 @@ function trap(height) {
 ### Solution 1: Optimized DP (Optimal)
 
 ```javascript
+
 function superEggDrop(k, n) {
   const dp = new Array(k + 1).fill(0);
   let moves = 0;
@@ -1483,6 +1495,7 @@ function matrixChainMultiplication(p) {
 ### Solution 1: DP Array (Optimal)
 
 ```javascript
+
 function minCostClimbingStairs(cost) {
   const n = cost.length;
   const dp = new Array(n + 1).fill(0);
@@ -1504,6 +1517,7 @@ function minCostClimbingStairs(cost) {
 ### Solution 2: Space-Optimized
 
 ```javascript
+
 function minCostClimbingStairs(cost) {
   let prev2 = 0;  // Cost to reach step 0
   let prev1 = 0;  // Cost to reach step 1
@@ -1602,6 +1616,7 @@ function maxProfit(prices) {
 ### Solution 1: DP (Optimal)
 
 ```javascript
+
 function wordBreak(s, wordDict) {
   const wordSet = new Set(wordDict);
   const dp = new Array(s.length + 1).fill(false);
@@ -1690,6 +1705,7 @@ function minimumTotal(triangle) {
 ### Solution 1: Space-Optimized DP (Optimal)
 
 ```javascript
+
 function uniquePathsWithObstacles(obstacleGrid) {
   const m = obstacleGrid.length;
   const n = obstacleGrid[0].length;
@@ -1807,6 +1823,7 @@ function isInterleave(s1, s2, s3) {
 ### Solution 1: State Tracking (Optimal)
 
 ```javascript
+
 function maxProfit(prices) {
   if (prices.length === 0) return 0;
 
@@ -1850,6 +1867,7 @@ function maxProfit(prices) {
 ### Solution 1: Dynamic Programming (Optimal)
 
 ```javascript
+
 function maxProfit(k, prices) {
   if (prices.length === 0 || k === 0) return 0;
 
@@ -1904,6 +1922,7 @@ function maxProfit(k, prices) {
 ### Solution 1: Dynamic Programming (Optimal)
 
 ```javascript
+
 function maximalSquare(matrix) {
   if (matrix.length === 0) return 0;
 
@@ -1954,6 +1973,7 @@ function maximalSquare(matrix) {
 ### Solution 1: Kadane's Algorithm (Optimal)
 
 ```javascript
+
 function maxSubarraySumCircular(nums) {
   let total = 0;
   let maxSum = nums[0];

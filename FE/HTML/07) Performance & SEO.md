@@ -1,4 +1,4 @@
-# ⚡ 7. Performance & SEO (Q86–101)
+# ⚡ 7. Performance & SEO (Q86–96)
 
 ---
 
@@ -6,8 +6,7 @@
 
 <div align="center">
 
-[Media Elements](06%29%20Media%20Elements.md) • [Home: README](../README.md) • [Advanced HTML Concepts →](08%29%20Advanced%20HTML%20Concepts.md)
-
+[← Previous: Media & Images](06%29%20Media%20%26%20Images.md) • [Home: README](../README.md)
 [📋 Cheatsheet](HTML%20Interview%20Cheatsheet.md)
 
 </div>
@@ -16,53 +15,7 @@
 
 ---
 
-## Q86. ⚡ Optimizing HTML for performance
-
-Optimize HTML structure, reduce file size, minimize render-blocking resources, and use efficient loading strategies - HTML optimization reduces initial load time and improves Core Web Vitals. Minimize HTML file size, inline critical CSS, defer non-critical resources.
-
-- **Trade-offs**: The catch is loading all resources at once, blocking initial render - use preload for critical resources, minify HTML. HTML optimization reduces initial load time and improves Core Web Vitals, but watch out - use lazy loading for images, optimize resource loading order.
-
-Example:
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preload" href="critical.css" as="style">
-</head>
-<body><!-- Content --></body>
-</html>
-
-```
-
----
-
-## Q87. 💡 Critical Rendering Path
-
-The critical rendering path is the sequence of steps browsers take to render a page, from HTML parsing to pixel painting - optimizing the critical path improves First Contentful Paint. HTML → CSS → JavaScript → Layout → Paint.
-
-- **Trade-offs**: The catch is loading all CSS and JavaScript synchronously - use async/defer for non-critical scripts, inline critical CSS. Optimizing the critical path improves First Contentful Paint, but watch out - render-blocking resources delay rendering, critical path determines initial render time.
-
-Example:
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="critical.css">
-  <script src="deferred.js" defer></script>
-</head>
-<body><!-- Content --></body>
-</html>
-
-```
-
----
-
-## Q88. 🔧 Implementing lazy loading
+## Q86. 🔧 Implementing lazy loading
 
 Lazy loading defers image loading until these are needed, improving initial page load performance - lazy loading is essential for pages with many images. `loading="lazy"` provides native lazy loading, JavaScript solution offers more control.
 
@@ -91,49 +44,7 @@ document.querySelectorAll('.lazy').forEach(img => {
 
 ---
 
-## Q89. 📄 Minifying HTML
-
-Minify HTML by removing whitespace, comments, and unnecessary characters while preserving functionality - minification is standard practice for production builds. Removes unnecessary whitespace and comments, reduces file size by 20-30%.
-
-- **Trade-offs**: The catch is not testing functionality after minification, breaking inline JavaScript - be careful with inline CSS and JavaScript, preserve required whitespace. Minification is standard practice for production builds, but watch out - use build tools for automatic minification (Webpack, Gulp, etc.).
-
-Example:
-
-```html
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Page Title</title></head><body><!-- Content --></body></html>
-
-```
-
----
-
-## Q90. 💡 Optimizing for mobile
-
-Optimize HTML for mobile by using responsive design, touch-friendly elements, and mobile-specific optimizations - mobile optimization is essential for modern web development. Use proper viewport meta tag, make touch targets at least 44px.
-
-- **Trade-offs**: The catch is not setting viewport meta tag, causing zoom issues - consider mobile-specific features, use responsive images. Mobile optimization is essential for modern web development, but watch out - optimize images for mobile screens, use appropriate input types.
-
-Example:
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mobile Optimized Page</title>
-</head>
-<body>
-  <button style="min-width: 44px; min-height: 44px;">Touch Target</button>
-  <img src="mobile-image.jpg" alt="Mobile image"
-       srcset="mobile-320w.jpg 320w, mobile-640w.jpg 640w"
-       sizes="100vw">
-</body>
-</html>
-
-```
-
----
-
-## Q91. 📄 Structuring HTML for SEO
+## Q87. 📄 Structuring HTML for SEO
 
 Proper HTML structure helps search engines understand content hierarchy and importance, improving search rankings - HTML structure is fundamental for SEO, not just styling. Use semantic HTML elements, create clear heading hierarchy (h1 → h2 → h3).
 
@@ -165,7 +76,7 @@ Example:
 
 ---
 
-## Q92. ❓ Meta tags and how to use them
+## Q88. ❓ Meta tags and how to use them
 
 Meta tags provide information about the page to search engines and social media platforms - meta tags are essential for SEO and social sharing. Title should be 50-60 characters, description should be 150-160 characters.
 
@@ -185,7 +96,7 @@ Example:
 
 ---
 
-## Q93. 🔧 Implementing structured data
+## Q89. 🔧 Implementing structured data
 
 Structured data uses schema.org markup to help search engines understand content and display rich snippets - structured data improves search result visibility. Helps search engines understand content, can result in rich snippets in search results.
 
@@ -209,32 +120,7 @@ Example:
 
 ---
 
-## Q94. 💡 Core Web Vitals
-
-Core Web Vitals measure user experience metrics that impact SEO rankings: LCP, FID, and CLS - Core Web Vitals directly impact search rankings. LCP (optimize largest contentful paint), FID (minimize JavaScript execution), CLS (prevent layout shifts).
-
-- **Trade-offs**: The catch is not specifying image dimensions, causing layout shifts - optimize LCP element, minimize render-blocking resources. Core Web Vitals directly impact search rankings, but watch out - use preload for critical resources, specify image dimensions.
-
-Example:
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <link rel="preload" href="lcp-image.jpg" as="image" fetchpriority="high">
-  <link rel="preload" href="critical.css" as="style">
-</head>
-<body>
-  <img src="lcp-image.jpg" fetchpriority="high" width="800" height="600" alt="LCP image">
-  <script defer src="non-critical.js"></script>
-</body>
-</html>
-
-```
-
----
-
-## Q95. 💾 Implementing caching
+## Q90. 💾 Implementing caching
 
 Implement proper caching strategies using HTTP headers and HTML meta tags to improve performance - caching improves performance but requires proper invalidation strategy. Use versioning for static resources, set appropriate cache headers server-side.
 
@@ -250,7 +136,7 @@ Example:
 
 ---
 
-## Q96. ⚡ Resource hints and how to use them to optimize page performance
+## Q91. ⚡ Resource hints and how to use them to optimize page performance
 
 Resource hints instruct the browser to perform actions ahead of time to improve loading performance - resource hints improve perceived performance by doing work early. preconnect (opens connection), dns-prefetch (DNS lookup), preload (critical resources), prefetch (future pages).
 
@@ -269,7 +155,7 @@ Example:
 
 ---
 
-## Q97. ⚡ `fetchpriority` and how to use it to optimize resource loading
+## Q92. ⚡ `fetchpriority` and how to use it to optimize resource loading
 
 `fetchpriority` is an HTML attribute that controls the relative priority of resource fetches, helping browsers prioritize critical resources - fetchpriority is modern browser feature for resource prioritization. `high` for LCP images and critical CSS/JS, `low` for below-the-fold content.
 
@@ -287,7 +173,7 @@ Example:
 
 ---
 
-## Q98. ⚡ SEO and how to optimize it
+## Q93. ⚡ SEO and how to optimize it
 
 SEO is the practice of improving website visibility in search engine results through on-page, technical, and off-page optimizations - SEO is ongoing process requiring technical and content optimization. On-page (title tags, meta descriptions, headings), technical (Core Web Vitals, structured data), off-page (backlinks).
 
@@ -325,7 +211,7 @@ Example:
 
 ---
 
-## Q99. ❓ `sitemap.xml` and how to create it
+## Q94. ❓ `sitemap.xml` and how to create it
 
 A sitemap.xml is an XML file that lists all pages on a website, helping search engines discover and index content efficiently - sitemaps are essential for large sites with many pages. Helps search engines discover all pages, especially deep pages not linked internally.
 
@@ -348,7 +234,7 @@ Example:
 
 ---
 
-## Q100. ❓ `robots.txt` and how to use it
+## Q95. ❓ `robots.txt` and how to use it
 
 robots.txt is a text file in the root directory that instructs web crawlers which pages or directories crawlers can or cannot access - robots.txt is a guideline, not security (bad bots may ignore it). Control crawler access, prevent crawling of sensitive or duplicate content.
 
@@ -367,7 +253,7 @@ Sitemap: https://example.com/sitemap.xml
 
 ---
 
-## Q101. ❓ Open Graph tags and how to use them
+## Q96. ❓ Open Graph tags and how to use them
 
 Open Graph tags are HTML meta tags that control how content appears when shared on social media platforms - Open Graph tags improve social sharing appearance and engagement. Control how links appear when shared on social platforms, creates rich previews.
 
@@ -394,8 +280,7 @@ Example:
 
 <div align="center">
 
-[Media Elements](06%29%20Media%20Elements.md) • [Home: README](../README.md) • [Advanced HTML Concepts →](08%29%20Advanced%20HTML%20Concepts.md)
-
+[← Previous: Media & Images](06%29%20Media%20%26%20Images.md) • [Home: README](../README.md)
 [📋 Cheatsheet](HTML%20Interview%20Cheatsheet.md)
 
 </div>

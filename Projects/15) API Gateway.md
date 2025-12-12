@@ -110,6 +110,7 @@ Design and implement an API Gateway that addresses the following challenges:
 - **Read:Write Ratio**: 10:1 (read requests vs write requests)
 
 **Calculations:**
+
 - **Average Requests Per Second (RPS)**: 1B requests / 86,400 seconds ≈ 11,574 RPS
 - **Peak RPS**: 11,574 × 3 = 34,722 RPS
 - **Concurrent Connections**: 1 million concurrent connections
@@ -118,11 +119,13 @@ Design and implement an API Gateway that addresses the following challenges:
 ### Storage Estimation
 
 **Storage per Request:**
+
 - Request log: 500 bytes (method, path, headers, timestamp)
 - Response log: 500 bytes (status, headers, timestamp)
 - **Total per Request**: ~1 KB
 
 **Storage Requirements:**
+
 - **Requests per Year**: 1B requests/day × 365 = 365 billion requests
 - **Log Storage**: 365B × 1 KB ≈ 365 TB per year
 - **Configuration Data**: 100 services × 10 KB ≈ 1 MB
@@ -141,6 +144,7 @@ Design and implement an API Gateway that addresses the following challenges:
 ### Caching Estimation
 
 Following the **80-20 rule** where 20% of requests generate 80% of traffic:
+
 - **Cache 20% of popular requests**: 1B × 0.2 = 200M requests
 - **Cache memory required**: 200M × 5 KB (response) = 1 TB (distributed across Redis cluster)
 - **Cache hit ratio**: 50% (50% of requests served from cache)
@@ -214,6 +218,7 @@ The system follows an API Gateway architecture with request routing, authenticat
 ### Complete Request Flow
 
 **Request Routing Flow:**
+
 1. **Client**: Sends HTTP request to API Gateway
 2. **Load Balancer**: Distributes request to available API Gateway instance
 3. **Authentication**: Validate JWT token or API key
@@ -227,6 +232,7 @@ The system follows an API Gateway architecture with request routing, authenticat
 11. **Response**: Return response to client
 
 **Service Discovery Flow:**
+
 1. **Service Registration**: Microservice registers with service registry
 2. **Health Checks**: Service registry performs health checks
 3. **Service Lookup**: API Gateway queries service registry for available instances
@@ -234,6 +240,7 @@ The system follows an API Gateway architecture with request routing, authenticat
 5. **Request Forwarding**: Forward request to selected instance
 
 **Circuit Breaker Flow:**
+
 1. **Monitor**: Monitor error rates and latency for each service
 2. **Threshold**: If error rate exceeds threshold, open circuit breaker
 3. **Fail Fast**: Return error immediately without calling service
@@ -455,7 +462,7 @@ const useRoutes = () => {
 
 const useSaveRoute = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (routeConfig: RouteConfig) => {
       const response = await axios.post('/api/v1/gateway/routes', routeConfig);
@@ -938,6 +945,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
 **Purpose:** Distribute requests evenly across multiple service instances and minimize data movement when instances are added or removed.
 
 **Algorithm:**
+
 1. Create a hash ring (circular space) from 0 to 2^64 - 1
 2. Hash each service instance to multiple points on the ring (virtual nodes)
 3. Hash the request key (user ID, API key) to a point on the ring
@@ -952,7 +960,7 @@ class ConsistentHash {
   private ring: Map<number, string> = new Map();
   private sortedKeys: number[] = [];
   private virtualNodes: number = 150;
-  
+
   addInstance(instanceId: string): void {
     for (let i = 0; i < this.virtualNodes; i++) {
       const hash = this.hash(`${instanceId}-${i}`);
@@ -961,7 +969,7 @@ class ConsistentHash {
     }
     this.sortedKeys.sort((a, b) => a - b);
   }
-  
+
   removeInstance(instanceId: string): void {
     for (let i = 0; i < this.virtualNodes; i++) {
       const hash = this.hash(`${instanceId}-${i}`);
@@ -972,23 +980,23 @@ class ConsistentHash {
       }
     }
   }
-  
+
   getInstance(key: string): string {
     if (this.ring.size === 0) {
       throw new Error('No instances available');
     }
-    
+
     const hash = this.hash(key);
-    
+
     for (const ringKey of this.sortedKeys) {
       if (ringKey >= hash) {
         return this.ring.get(ringKey)!;
       }
     }
-    
+
     return this.ring.get(this.sortedKeys[0])!;
   }
-  
+
   private hash(key: string): number {
     const hash = crypto.createHash('md5').update(key).digest();
     return hash.readUInt32BE(0);
@@ -998,6 +1006,7 @@ class ConsistentHash {
 ```
 
 **Complexity:**
+
 - Time: O(log n) for instance lookup where n is number of virtual nodes
 - Space: O(v * s) where v is virtual nodes, s is number of instances
 - **Load Distribution:** Only ~1/n of requests move when adding/removing instances
@@ -1009,6 +1018,7 @@ class ConsistentHash {
 **Purpose:** Prevent cascading failures by opening circuit when service fails repeatedly.
 
 **Algorithm:**
+
 1. Track service call failures and successes
 2. If failure rate exceeds threshold, open circuit
 3. When circuit open, reject requests immediately (fail-fast)
@@ -1033,7 +1043,7 @@ class CircuitBreaker {
   private failureThreshold: number = 5;
   private successThreshold: number = 2;
   private timeout: number = 30000; // 30 seconds
-  
+
   async execute<T>(fn: () => Promise<T>): Promise<T> {
     if (this.state === CircuitState.OPEN) {
       if (Date.now() - this.lastFailureTime > this.timeout) {
@@ -1043,7 +1053,7 @@ class CircuitBreaker {
         throw new Error('Circuit breaker is open');
       }
     }
-    
+
     try {
       const result = await fn();
       this.onSuccess();
@@ -1053,10 +1063,10 @@ class CircuitBreaker {
       throw error;
     }
   }
-  
+
   private onSuccess(): void {
     this.failureCount = 0;
-    
+
     if (this.state === CircuitState.HALF_OPEN) {
       this.successCount++;
       if (this.successCount >= this.successThreshold) {
@@ -1064,11 +1074,11 @@ class CircuitBreaker {
       }
     }
   }
-  
+
   private onFailure(): void {
     this.failureCount++;
     this.lastFailureTime = Date.now();
-    
+
     if (this.failureCount >= this.failureThreshold) {
       this.state = CircuitState.OPEN;
     }
@@ -1078,6 +1088,7 @@ class CircuitBreaker {
 ```
 
 **Complexity:**
+
 - Time: O(1) for state checks
 - Space: O(1) for state tracking
 - **Failure Prevention:** Circuit breaker prevents cascading failures
@@ -1141,6 +1152,7 @@ class CircuitBreaker {
 ### MongoDB Transactions
 
 **Transaction Usage:**
+
 - **Multi-Document Transactions** - For operations requiring ACID guarantees
 - **Example:** Request logging + metric update in single transaction
 - **Session Management:** Use MongoDB sessions for transaction control
@@ -1166,6 +1178,7 @@ try {
 ### Consistency Strategies
 
 **Data Consistency:**
+
 - **Request Logging:** Use transactions for request logging to ensure consistency
 - **Service Registry:** Accept eventual consistency for service registry (services may appear/disappear with slight delay)
 - **Cache Consistency:** Invalidate cache when service configuration changes
@@ -1211,6 +1224,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Healthy), 503 (Unhealthy)
 
 ### GET /api/v1/services
@@ -1237,6 +1251,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 401 (Unauthorized), 403 (Forbidden)
 
 ---
@@ -1246,14 +1261,16 @@ try {
 ### Redis Cache
 
 **Cache Strategy:**
+
 - **Key Format:** `cache:response:{path}:{params}`, `service:registry:{serviceName}`
 - **Value:** Serialized JSON (API responses, service registry data)
-- **TTL:** 
+- **TTL:**
   - API responses: 60 seconds (configurable per endpoint)
   - Service registry: 30 seconds (frequently updated)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
+
 - **Cache-Aside Pattern:** Check cache first, if miss route to service and update cache
 - **Write-Through Pattern:** Update cache when service responses change
 - **Cache Invalidation:** Invalidate cache on service configuration changes
@@ -1265,6 +1282,7 @@ try {
 ### Error Scenarios and Responses
 
 **Edge Cases Handling:**
+
 - **Service Unavailable:** Return 503 Service Unavailable when target service is down
 - **Route Not Found:** Return 404 Not Found when route doesn't match any service
 - **Authentication Failure:** Return 401 Unauthorized when token is invalid
@@ -1293,16 +1311,19 @@ try {
 ### Scalability
 
 **API Gateway Layer:**
+
 - Deploy API Gateway across multiple instances behind load balancer
 - Use auto-scaling based on CPU/memory metrics
 - Stateless design allows horizontal scaling
 
 **Service Discovery:**
+
 - **Service Registry:** Deploy service registry cluster (Consul/Eureka)
 - **Health Checks:** Configure health check intervals and timeouts
 - **Dynamic Updates:** Update routing table automatically when services change
 
 **Caching:**
+
 - Distributed Redis cluster for high availability
 - Cache API responses and service registry data
 - Reduces backend load significantly
@@ -1310,15 +1331,18 @@ try {
 ### Availability
 
 **Replication:**
+
 - Service registry replication ensures availability
 - Multi-region replication for disaster recovery
 
 **Failover:**
+
 - Automated failover mechanisms for API Gateway and service registry
 - Health checks and monitoring for proactive failover
 - Circuit breaker pattern to prevent cascading failures
 
 **Geo-Distributed Deployment:**
+
 - Deploy API Gateway across multiple geographical regions
 - Reduces latency for users worldwide
 - Improves availability by eliminating single point of failure
@@ -1326,23 +1350,27 @@ try {
 ### Frontend Deployment
 
 **Build Process:**
+
 - **Production Build:** Optimized bundle with code splitting
 - **CDN Deployment:** Deploy static assets to CDN for fast global delivery
 - **Environment Variables:** `.env.production` for production config
 
 **Deployment Platforms:**
+
 - **Vercel / Netlify** - Automatic deployments from Git
 - **AWS S3 + CloudFront** - Static site hosting with CDN
 
 ### Backend Deployment
 
 **Server Setup:**
+
 - **PM2:** Process manager with clustering for Node.js apps
 - **Nginx:** Load balancer and reverse proxy with SSL termination
 - **Docker:** Containerized deployment for consistency
 - **Kubernetes:** Container orchestration for auto-scaling
 
 **CI/CD Pipeline:**
+
 - **Automated Testing:** Run tests before deployment
 - **Zero-Downtime:** Rolling deployment strategy
 - **Health Checks:** Verify API Gateway endpoints are healthy
@@ -1351,12 +1379,14 @@ try {
 ### Database Deployment
 
 **MongoDB Setup:**
+
 - **MongoDB Atlas** - Managed MongoDB service with automatic backups
 - **Backup Strategy:** Daily automated backups with point-in-time recovery
 - **Indexing:** Proper indexes on requestId, timestamp, service, path
 - **Replication:** Replica sets for high availability
 
 **Redis Setup:**
+
 - **Redis Cloud / AWS ElastiCache** - Managed Redis service
 - **Cluster Mode:** Redis cluster for high availability and performance
 - **Persistence:** RDB snapshots and AOF for data durability

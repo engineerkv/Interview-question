@@ -1,146 +1,123 @@
 # 🧠 TypeScript Interview Questions
 
-53 carefully curated questions covering TypeScript fundamentals to advanced compiler internals.
+44 carefully curated questions covering TypeScript fundamentals to advanced types and OOP.
 
 ## 📋 Quick Navigation
 
 | Section | Topic | Questions | Difficulty |
 |---------|-------|-----------|------------|
-| [1️⃣](#1-typescript-fundamentals) | TypeScript Fundamentals | Q1–9 | ⭐⭐ |
-| [2️⃣](#2-type-system--interfaces) | Type System & Interfaces | Q10–21 | ⭐⭐⭐ |
-| [3️⃣](#3-functions--advanced-type-features) | Functions & Advanced Type Features | Q22–31 | ⭐⭐⭐⭐ |
-| [4️⃣](#4-classes--object-oriented-features) | Classes & Object-Oriented Features | Q32–39 | ⭐⭐⭐⭐ |
-| [5️⃣](#5-advanced-typescript-internals) | Advanced TypeScript Internals | Q40–53 | ⭐⭐⭐⭐⭐ |
+| [1️⃣](#1-typescript-fundamentals) | Fundamentals & Setup | Q1–10 | ⭐⭐ |
+| [2️⃣](#2-type-system--interfaces) | Types & Interfaces | Q11–24 | ⭐⭐⭐ |
+| [3️⃣](#3-functions--advanced-type-features) | Advanced Types & Generics | Q25–36 | ⭐⭐⭐⭐ |
+| [4️⃣](#4-classes--object-oriented-features) | Classes & OOP | Q37–44 | ⭐⭐⭐⭐ |
 
-## 🧠 1. TypeScript Fundamentals
+## 🧠 1. Fundamentals & Setup
 
 1. TypeScript and how it differs from JavaScript
 
-2. Key benefits of using TypeScript in large-scale applications
+2. Key features of TypeScript
 
-3. Installing and setting up TypeScript
+3. How TypeScript improves code quality and development in large-scale applications
 
-4. Type inference
+4. Installing and setting up TypeScript
 
-5. Primitive types
+5. Type inference
 
-6. Differences between `any`, `unknown`, and `never`
+6. Primitive types
 
-7. Tuples and how to use them
+7. Differences between `any`, `unknown`, and `never`
 
-8. Enums and how to use them
+8. Tuples and how to use them
 
-9. Purpose of `tsconfig.json` and key compiler options
+9. Enums and how to use them
 
-## 🏗️ 2. Type System & Interfaces
+10. Purpose of `tsconfig.json` and key compiler options
 
-10. Type in TypeScript
+## 🏗️ 2. Types & Interfaces
 
-11. Interface in TypeScript
+11. Type in TypeScript
 
-12. Difference between `type` and `interface`
+12. Interface in TypeScript
 
-13. Optional and readonly properties
+13. Difference between `type` and `interface`
 
-14. Index signatures and how to use them
+14. Optional and readonly properties
 
-15. Structural typing
+15. Index signatures and how to use them
 
-16. Excess property checking
+16. Structural typing
 
-17. Type assertion and how to use it
+17. How TypeScript handles type compatibility and structural typing
 
-18. Literal types and how to use them
+18. Excess property checking
 
-19. Template literal types and how to use them
+19. Type assertion and how to use it
 
-20. Discriminated unions and how to use them
+20. How to create and use custom types in TypeScript
 
-21. Intersection and union types
+21. Literal types and how to use them
 
-## ⚡ 3. Functions & Advanced Type Features
+22. Template literal types and how to use them
 
-22. Function overloading and overriding
+23. Discriminated unions and how to use them
 
-23. Default and rest parameters
+24. Intersection and union types
 
-24. Generics and how to use them
+## ⚡ 3. Advanced Types & Generics
 
-25. Generic constraints and how to use them
+25. Function overloading and overriding
 
-26. Utility types and how to use them
+26. Difference between optional and default parameters in TypeScript
 
-27. Mapped types and how to use them
+27. Default and rest parameters
 
-28. Conditional types and how to use them
+28. Generics and how to use them
 
-29. `infer` keyword and how to use it
+29. Generic constraints and how to use them
 
-30. `keyof` and `typeof` operators
+30. Utility types and how to use them
 
-31. Indexed access types and lookup types
+31. Mapped types and how to use them
 
-## 🏛️ 4. Classes & Object-Oriented Features
+32. Conditional types and how to use them
 
-32. Access modifiers
+33. `infer` keyword and how to use it
 
-33. Difference between abstract classes and interfaces
+34. `keyof` and `typeof` operators
 
-34. Inheritance
+35. Covariance and contravariance
 
-35. Polymorphism
+36. Performance considerations when using TypeScript
 
-36. Static properties and methods
+## 🏛️ 4. Classes & OOP
 
-37. Readonly properties
+37. Access modifiers
 
-38. Decorators and how to use them
+38. Difference between abstract classes and interfaces
 
-39. Mixins and how to use them
+39. Inheritance
 
-## ⚙️ 5. Advanced TypeScript Internals
+40. Polymorphism
 
-40. Module resolution
+41. Static properties and methods
 
-41. Internal classic module resolution strategy
+42. Readonly properties
 
-42. Internal node module resolution strategy
+43. Decorators and how to use them
 
-43. Declaration files and how to create them
-
-44. Ambient modules and how to use them
-
-45. `declare` keyword and how to use it
-
-46. Difference between namespaces and ES modules
-
-47. Strict mode and why it's important
-
-48. Difference between compile-time and runtime type checking
-
-49. How TypeScript handles JSX
-
-50. Compiler flags and how to use them
-
-51. Generics with default types
-
-52. Covariance and contravariance
-
-53. Performance considerations when using TypeScript
+44. Mixins and how to use them
 
 ---
 
 ## 📖 Complete Answer Guide
 
-- [1) TypeScript Fundamentals](01%29%20TypeScript%20Fundamentals.md) - Q1-9
+- [1) TypeScript Fundamentals](01%29%20Fundamentals%20&%20Setup.md) - Q1-10
 
-- [2) Type System & Interfaces](02%29%20Type%20System%20%26%20Interfaces.md) - Q10-21
+- [2) Types & Interfaces](02%29%20Types%20%26%20Interfaces.md) - Q11-24
 
-- [3) Functions & Advanced Type Features](03%29%20Functions%20%26%20Advanced%20Type%20Features.md) - Q22-31
+- [3) Advanced Types & Generics](03%29%20Advanced%20Types%20%26%20Generics.md) - Q25-36
 
-- [4) Classes & Object-Oriented Features](04%29%20Classes%20%26%20Object-Oriented%20Features.md) - Q32-39
-
-- [5) Advanced TypeScript Internals](05%29%20Advanced%20TypeScript%20Internals.md) - Q40-53
+- [4) Classes & OOP](04%29%20Classes%20%26%20OOP.md) - Q37-44
 
 ## 📝 Cheatsheet
 

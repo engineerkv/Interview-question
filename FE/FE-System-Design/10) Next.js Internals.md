@@ -27,30 +27,35 @@ Next.js is a React framework that provides server-side rendering, static site ge
 Next.js is built on top of React and provides several layers of abstraction that work together to create a powerful full-stack framework:
 
 **React Layer:**
+
 * Next.js uses React as its UI library - all components are React components
 * Extends React with server-side capabilities and optimizations
 * Supports both Server Components and Client Components
 * Uses React's reconciliation and rendering algorithms
 
 **Next.js Framework Layer:**
+
 * Provides routing system (App Router or Pages Router)
 * Handles code splitting and bundling automatically
 * Manages server-side rendering and static generation
 * Provides built-in optimizations (images, fonts, scripts)
 
 **Build System Layer:**
+
 * Uses Webpack (legacy) or Turbopack (new) for bundling
 * Handles transpilation (Babel/SWC), minification, and optimization
 * Creates optimized production builds with code splitting
 * Generates static HTML for SSG pages
 
 **Runtime Layer:**
+
 * Node.js runtime for server-side execution
 * Edge Runtime for middleware and edge functions
 * Browser runtime for client-side React hydration
 * Handles both server and client execution contexts
 
 **Why This Architecture Matters:**
+
 * Separation of concerns - each layer has specific responsibilities
 * Optimizations happen at multiple levels (build time, server, client)
 * Framework handles complexity so developers can focus on features
@@ -61,6 +66,7 @@ Next.js is built on top of React and provides several layers of abstraction that
 Next.js has two routing systems that work differently under the hood:
 
 **Pages Router (Legacy):**
+
 * File-based routing in `pages/` directory
 * Each file becomes a route automatically
 * Uses `getServerSideProps`, `getStaticProps`, `getStaticPaths` for data fetching
@@ -68,6 +74,7 @@ Next.js has two routing systems that work differently under the hood:
 * Simpler mental model but less flexible
 
 **How Pages Router Works:**
+
 * File system maps directly to routes: `pages/about.js` → `/about`
 * Dynamic routes use brackets: `pages/blog/[slug].js` → `/blog/:slug`
 * `_app.js` wraps all pages for global state and layouts
@@ -75,6 +82,7 @@ Next.js has two routing systems that work differently under the hood:
 * Build time: Analyzes pages directory, generates route manifest, pre-renders static pages
 
 **App Router (Modern, Next.js 13+):**
+
 * File-based routing in `app/` directory
 * Uses React Server Components by default
 * Supports layouts, loading states, error boundaries
@@ -82,6 +90,7 @@ Next.js has two routing systems that work differently under the hood:
 * Better performance with Server Components
 
 **How App Router Works:**
+
 * `page.js` files define routes (similar to Pages Router)
 * `layout.js` files wrap routes and persist across navigation
 * `loading.js` shows loading states automatically
@@ -91,6 +100,7 @@ Next.js has two routing systems that work differently under the hood:
 * Client Components must be explicitly marked with 'use client'
 
 **Key Differences:**
+
 * App Router uses Server Components by default (better performance)
 * App Router has better code splitting (layouts don't re-render)
 * App Router supports streaming and Suspense better
@@ -102,6 +112,7 @@ Next.js has two routing systems that work differently under the hood:
 Understanding the difference between Server and Client Components is crucial for Next.js performance:
 
 **Server Components:**
+
 * Execute on the server during rendering
 * No JavaScript sent to the client (reduces bundle size)
 * Can directly access databases, file system, and server APIs
@@ -111,6 +122,7 @@ Understanding the difference between Server and Client Components is crucial for
 * Cannot handle user interactions (onClick, onChange)
 
 **How Server Components Work:**
+
 * Rendered on server during request (SSR) or build time (SSG)
 * HTML is sent to client (no JavaScript for Server Components)
 * Can fetch data directly without API routes
@@ -118,6 +130,7 @@ Understanding the difference between Server and Client Components is crucial for
 * Better SEO since content is in initial HTML
 
 **Client Components:**
+
 * Execute in the browser
 * JavaScript is sent to client and executed
 * Can use browser APIs and React hooks
@@ -126,6 +139,7 @@ Understanding the difference between Server and Client Components is crucial for
 * Hydrated on client after initial render
 
 **How Client Components Work:**
+
 * Marked with 'use client' at top of file
 * Bundled and sent to browser
 * Hydrated after Server Components render
@@ -133,6 +147,7 @@ Understanding the difference between Server and Client Components is crucial for
 * Interactivity happens in browser
 
 **Component Boundary:**
+
 * 'use client' creates a boundary - all children become Client Components
 * You can mix Server and Client Components
 * Pass Server Component output as props to Client Components
@@ -146,7 +161,7 @@ async function Page() {
   // This runs on server
   const data = await fetch('https://api.example.com/data');
   const posts = await data.json();
-  
+
   return (
     <div>
       <h1>Posts</h1>
@@ -163,7 +178,7 @@ import { useState } from 'react';
 export function InteractiveButton({ posts }) {
   // This runs in browser
   const [count, setCount] = useState(0);
-  
+
   return (
     <button onClick={() => setCount(count + 1)}>
       Clicked {count} times
@@ -184,6 +199,7 @@ export function InteractiveButton({ posts }) {
 Next.js uses different bundlers depending on the version and configuration:
 
 **Webpack (Legacy, Default in Next.js 12 and earlier):**
+
 * Mature, battle-tested bundler
 * Extensive plugin ecosystem
 * Slower builds for large projects
@@ -191,6 +207,7 @@ Next.js uses different bundlers depending on the version and configuration:
 * Can be customized with `next.config.js`
 
 **How Webpack Works in Next.js:**
+
 * Analyzes entry points (pages or app directory)
 * Creates dependency graph of all imports
 * Bundles code into chunks (code splitting)
@@ -199,6 +216,7 @@ Next.js uses different bundlers depending on the version and configuration:
 * Generates source maps for debugging
 
 **Turbopack (Next.js 13+, Opt-in, Default in Next.js 14+):**
+
 * Rust-based bundler (much faster than Webpack)
 * Built by Vercel team specifically for Next.js
 * Incremental compilation (only rebuilds what changed)
@@ -206,6 +224,7 @@ Next.js uses different bundlers depending on the version and configuration:
 * Better performance for large codebases
 
 **How Turbopack Works:**
+
 * Written in Rust for performance
 * Incremental compilation - caches results
 * Only recompiles changed files and dependencies
@@ -214,12 +233,14 @@ Next.js uses different bundlers depending on the version and configuration:
 * Better tree-shaking and dead code elimination
 
 **Performance Comparison:**
+
 * Turbopack: ~700x faster than Webpack for large apps
 * Webpack: Mature but slower, especially for large projects
 * Turbopack: Better for development (faster HMR)
 * Both: Similar production output quality
 
 **Migration:**
+
 * Next.js 13: Turbopack opt-in with `--turbo` flag
 * Next.js 14+: Turbopack default for development
 * Production builds still use Webpack (for now)
@@ -230,18 +251,21 @@ Next.js uses different bundlers depending on the version and configuration:
 Next.js uses SWC for transpilation instead of Babel:
 
 **What is SWC:**
+
 * Rust-based compiler (written in Rust, not JavaScript)
 * 20x faster than Babel
 * Used for both development and production
 * Handles JSX, TypeScript, and modern JavaScript features
 
 **How SWC Works:**
+
 * Parses JavaScript/TypeScript to AST
 * Transforms AST (JSX → React.createElement, TypeScript → JavaScript)
 * Generates optimized JavaScript output
 * Much faster than Babel (written in JavaScript)
 
 **SWC Features:**
+
 * Transpiles TypeScript to JavaScript
 * Transforms JSX to React.createElement
 * Minifies code (replaces Terser)
@@ -249,12 +273,14 @@ Next.js uses SWC for transpilation instead of Babel:
 * Tree-shaking and dead code elimination
 
 **Why SWC is Faster:**
+
 * Written in Rust (compiled language, not interpreted)
 * Parallel processing
 * Better algorithms and optimizations
 * No JavaScript overhead
 
 **Configuration:**
+
 * Enabled by default in Next.js 12+
 * Can configure in `next.config.js`:
 
@@ -273,6 +299,7 @@ module.exports = {
 Understanding the Next.js build process helps you optimize your application:
 
 **Development Build:**
+
 1. **File Watching**: Watches for file changes
 2. **Incremental Compilation**: Only compiles changed files
 3. **Fast Refresh**: Updates components without losing state
@@ -280,6 +307,7 @@ Understanding the Next.js build process helps you optimize your application:
 5. **No Minification**: Code is readable for debugging
 
 **Production Build Steps:**
+
 1. **Analysis Phase**:
    * Scans `app/` or `pages/` directory
    * Identifies all routes and pages
@@ -324,6 +352,7 @@ Understanding the Next.js build process helps you optimize your application:
 ```
 
 **Code Splitting Strategy:**
+
 * Each page gets its own bundle
 * Shared code goes into common chunks
 * Dynamic imports create separate chunks
@@ -341,12 +370,14 @@ Understanding the Next.js build process helps you optimize your application:
 Next.js uses the file system as the routing system - no configuration needed:
 
 **How File-Based Routing Works:**
+
 * File structure maps directly to URL structure
 * `app/page.js` or `pages/index.js` → `/`
 * `app/about/page.js` or `pages/about.js` → `/about`
 * `app/blog/[slug]/page.js` or `pages/blog/[slug].js` → `/blog/:slug`
 
 **Route Matching Algorithm:**
+
 1. Normalize request path (remove query params, hash)
 2. Match against file system structure
 3. Handle dynamic segments (`[param]`)
@@ -355,16 +386,19 @@ Next.js uses the file system as the routing system - no configuration needed:
 6. Return matched route and params
 
 **Dynamic Routes:**
+
 * `[param]` - Single dynamic segment
 * `[...slug]` - Catch-all (matches all segments)
 * `[...slug]` - Optional catch-all (matches zero or more)
 
 **Route Groups:**
+
 * `(folder)` - Groups routes without affecting URL
 * Used for organization and shared layouts
 * Example: `app/(marketing)/about/page.js` → `/about` (not `/marketing/about`)
 
 **Route Resolution:**
+
 * More specific routes match first
 * Static routes take precedence over dynamic
 * Catch-all routes match last
@@ -375,6 +409,7 @@ Next.js uses the file system as the routing system - no configuration needed:
 Next.js uses client-side navigation for better performance:
 
 **How Client-Side Navigation Works:**
+
 * `<Link>` component prefetches pages on hover
 * Uses `router.push()` for programmatic navigation
 * Updates URL without full page reload
@@ -382,12 +417,14 @@ Next.js uses client-side navigation for better performance:
 * Updates page content with React reconciliation
 
 **Prefetching Strategy:**
+
 * Prefetches linked pages on hover (development) or viewport (production)
 * Downloads JavaScript bundles in background
 * Prefetches data for Server Components
 * Improves perceived performance
 
 **Navigation Flow:**
+
 1. User clicks link or calls `router.push()`
 2. Next.js checks if page is already loaded
 3. If not, fetches page bundle and data
@@ -396,6 +433,7 @@ Next.js uses client-side navigation for better performance:
 6. Scrolls to top (or preserves scroll position)
 
 **Shallow Routing:**
+
 * Updates URL without running data fetching
 * Useful for query params and filters
 * Doesn't trigger `getServerSideProps` or Server Component re-fetch
@@ -406,6 +444,7 @@ Next.js uses client-side navigation for better performance:
 For Server Components and SSR, routing happens on the server:
 
 **Server-Side Route Handling:**
+
 * Request comes to Next.js server
 * Server matches route to file system
 * Executes Server Components or `getServerSideProps`
@@ -414,12 +453,14 @@ For Server Components and SSR, routing happens on the server:
 * Sends HTML to client
 
 **Streaming SSR:**
+
 * Server sends HTML in chunks
 * Uses React Suspense boundaries
 * Client can start rendering before all data loads
 * Improves Time to First Byte (TTFB)
 
 **Route Handlers (App Router):**
+
 * `route.js` files create API endpoints
 * Handle HTTP methods (GET, POST, PUT, DELETE)
 * Run on server (Node.js or Edge Runtime)
@@ -436,36 +477,42 @@ For Server Components and SSR, routing happens on the server:
 SSG pre-renders pages at build time:
 
 **How SSG Works:**
+
 * Pages are rendered during build
 * HTML is generated and saved to disk
 * Served as static files (very fast)
 * No server needed at runtime (can use CDN)
 
 **When SSG Runs:**
+
 * During `next build` command
 * Executes `getStaticProps` for each page
 * Generates HTML for all static paths
 * Creates JSON files for page props
 
 **Build-Time Execution:**
+
 * Runs in Node.js environment
 * Can access file system, databases, APIs
 * No access to request object (no cookies, headers)
 * Same data for all users (unless using ISR)
 
 **Output:**
+
 * Static HTML files in `.next/server/pages/`
 * JSON files with page props
 * Optimized JavaScript bundles
 * Can be deployed to CDN
 
 **Advantages:**
+
 * Fastest possible performance (pre-rendered HTML)
 * Can be served from CDN (global distribution)
 * No server costs (static hosting)
 * Great SEO (content in HTML)
 
 **Limitations:**
+
 * Data can be stale (generated at build time)
 * Rebuild required for content updates
 * Can't access request data (cookies, headers)
@@ -475,6 +522,7 @@ SSG pre-renders pages at build time:
 SSR renders pages on each request:
 
 **How SSR Works:**
+
 * Request comes to Next.js server
 * Server executes `getServerSideProps` or Server Components
 * Fetches fresh data for each request
@@ -482,12 +530,14 @@ SSR renders pages on each request:
 * Sends HTML to client
 
 **Request-Time Execution:**
+
 * Runs on server for each request
 * Has access to request object (cookies, headers, query params)
 * Can personalize content per user
 * Always fresh data
 
 **Execution Flow:**
+
 1. User requests page
 2. Server receives request
 3. Executes data fetching (getServerSideProps or Server Component)
@@ -496,12 +546,14 @@ SSR renders pages on each request:
 6. Client hydrates React components
 
 **Advantages:**
+
 * Always fresh data (fetched on each request)
 * Can access request data (cookies, headers)
 * Personalized content per user
 * Good SEO (content in HTML)
 
 **Limitations:**
+
 * Slower than SSG (renders on each request)
 * Requires server (can't use static hosting)
 * Higher server costs
@@ -512,23 +564,27 @@ SSR renders pages on each request:
 ISR combines SSG and SSR benefits:
 
 **How ISR Works:**
+
 * Pages are pre-rendered at build time (like SSG)
 * Pages are regenerated in background after revalidation period
 * Serves stale content while regenerating
 * Updates page after regeneration completes
 
 **Revalidation:**
+
 * `revalidate: 60` - Regenerate after 60 seconds
 * First request after revalidation period triggers regeneration
 * Subsequent requests get stale content while regenerating
 * New content served after regeneration
 
 **On-Demand Revalidation:**
+
 * `revalidateTag()` or `revalidatePath()` triggers immediate regeneration
 * Useful for content updates (CMS, database changes)
 * Can be called from API routes or Server Actions
 
 **Execution Flow:**
+
 1. Build time: Generate static pages
 2. Request comes in: Check if revalidation needed
 3. If stale: Serve stale content, trigger regeneration in background
@@ -536,12 +592,14 @@ ISR combines SSG and SSR benefits:
 5. Next request: Serve fresh content
 
 **Advantages:**
+
 * Fast performance (served as static files)
 * Fresh data (regenerates periodically)
 * Can use CDN (static files)
 * Best of both worlds
 
 **Limitations:**
+
 * Slight delay for first request after revalidation
 * More complex than pure SSG or SSR
 
@@ -550,17 +608,20 @@ ISR combines SSG and SSR benefits:
 CSR renders in the browser:
 
 **How CSR Works:**
+
 * Server sends minimal HTML shell
 * JavaScript downloads and executes
 * React renders components in browser
 * Data fetched via API calls
 
 **When CSR is Used:**
+
 * Pages without `getServerSideProps` or `getStaticProps`
 * Client Components that fetch data with `useEffect`
 * Pages marked with `getStaticProps` but using `fallback: 'blocking'`
 
 **Execution Flow:**
+
 1. Server sends HTML shell
 2. JavaScript bundles download
 3. React hydrates components
@@ -569,11 +630,13 @@ CSR renders in the browser:
 6. Components re-render with data
 
 **Advantages:**
+
 * Fast initial load (small HTML)
 * Can use static hosting
 * Good for highly interactive apps
 
 **Limitations:**
+
 * Poor SEO (content not in initial HTML)
 * Slower Time to Interactive (waits for JS)
 * Requires JavaScript enabled
@@ -589,6 +652,7 @@ CSR renders in the browser:
 Server Components can fetch data directly:
 
 **How It Works:**
+
 * Server Components are async functions
 * Can use `fetch` directly (no API route needed)
 * Runs on server during rendering
@@ -602,7 +666,7 @@ async function PostsPage() {
   // This runs on server
   const res = await fetch('https://api.example.com/posts');
   const posts = await res.json();
-  
+
   return (
     <div>
       {posts.map(post => (
@@ -615,12 +679,14 @@ async function PostsPage() {
 ```
 
 **Fetch Caching:**
+
 * Next.js extends `fetch` with caching
 * `cache: 'force-cache'` - Cache forever (default)
 * `cache: 'no-store'` - Don't cache
 * `next: { revalidate: 60 }` - Revalidate after 60 seconds
 
 **Request Deduplication:**
+
 * Same `fetch` calls are deduplicated
 * Multiple components fetching same URL = one request
 * Improves performance
@@ -630,6 +696,7 @@ async function PostsPage() {
 Fetches data on each request:
 
 **How It Works:**
+
 * Runs on server for each request
 * Has access to request context
 * Returns props to page component
@@ -641,10 +708,10 @@ Fetches data on each request:
 // pages/posts.js
 export async function getServerSideProps(context) {
   const { req, res, params, query } = context;
-  
+
   const data = await fetch('https://api.example.com/posts');
   const posts = await data.json();
-  
+
   return {
     props: { posts }
   };
@@ -657,6 +724,7 @@ function PostsPage({ posts }) {
 ```
 
 **Context Object:**
+
 * `req` - HTTP request object
 * `res` - HTTP response object
 * `params` - Dynamic route parameters
@@ -669,6 +737,7 @@ function PostsPage({ posts }) {
 Fetches data at build time:
 
 **How It Works:**
+
 * Runs during build
 * Executes for each static page
 * Returns props to page component
@@ -681,7 +750,7 @@ Fetches data at build time:
 export async function getStaticProps() {
   const data = await fetch('https://api.example.com/posts');
   const posts = await data.json();
-  
+
   return {
     props: { posts },
     revalidate: 60 // ISR: regenerate every 60 seconds
@@ -691,6 +760,7 @@ export async function getStaticProps() {
 ```
 
 **ISR with revalidate:**
+
 * `revalidate: 60` - Regenerate after 60 seconds
 * First request after period triggers regeneration
 * Serves stale content while regenerating
@@ -700,6 +770,7 @@ export async function getStaticProps() {
 Fetch data in Client Components:
 
 **How It Works:**
+
 * Use `useEffect` to fetch data
 * Data fetched after component mounts
 * Can use SWR, React Query, or fetch
@@ -713,19 +784,20 @@ import { useEffect, useState } from 'react';
 
 function PostsPage() {
   const [posts, setPosts] = useState([]);
-  
+
   useEffect(() => {
     fetch('/api/posts')
       .then(res => res.json())
       .then(data => setPosts(data));
   }, []);
-  
+
   return <div>{/* render posts */}</div>;
 }
 
 ```
 
 **When to Use:**
+
 * User-specific data
 * Real-time data
 * Data that changes frequently
@@ -742,24 +814,28 @@ function PostsPage() {
 Next.js has multiple caching layers for performance:
 
 **1. Request Memoization:**
+
 * Deduplicates identical `fetch` requests
 * Same URL + options = cached result
 * Lasts for the duration of the request
 * Automatic, no configuration needed
 
 **2. Data Cache:**
+
 * Caches results of `fetch` requests
 * Persistent across requests
 * Configured with `cache` option
 * Can be revalidated with tags or time
 
 **3. Full Route Cache:**
+
 * Caches entire rendered pages (SSG)
 * Generated during build
 * Served as static files
 * Can be revalidated with ISR
 
 **4. Router Cache:**
+
 * Caches client-side route segments
 * Stored in browser memory
 * Improves navigation performance
@@ -806,16 +882,19 @@ revalidatePath('/posts');
 ### 🔹 Cache Invalidation Strategies
 
 **Time-Based Revalidation:**
+
 * Set `revalidate` time in seconds
 * Automatically revalidates after period
 * Good for content that updates periodically
 
 **On-Demand Revalidation:**
+
 * Call `revalidateTag()` or `revalidatePath()`
 * Immediate invalidation
 * Good for content updates (CMS, database)
 
 **Tag-Based Revalidation:**
+
 * Group related data with tags
 * Invalidate all data with tag at once
 * More precise than path-based
@@ -831,6 +910,7 @@ revalidatePath('/posts');
 Next.js optimizes images automatically:
 
 **How It Works:**
+
 * Images are optimized on-demand
 * Converts to modern formats (WebP, AVIF)
 * Generates multiple sizes (responsive)
@@ -838,6 +918,7 @@ Next.js optimizes images automatically:
 * Blur placeholder support
 
 **Optimization Process:**
+
 1. Request comes for image
 2. Next.js checks if optimized version exists
 3. If not, generates optimized version
@@ -845,22 +926,26 @@ Next.js optimizes images automatically:
 5. Serves optimized version
 
 **Image Formats:**
+
 * Automatically serves WebP or AVIF if supported
 * Falls back to original format if not
 * Reduces file size significantly
 
 **Responsive Images:**
+
 * Generates multiple sizes
 * Serves appropriate size for device
 * Uses `srcset` for browser selection
 * Reduces bandwidth usage
 
 **Lazy Loading:**
+
 * Images load when entering viewport
 * Reduces initial page load
 * Improves performance
 
 **Blur Placeholder:**
+
 * Shows low-quality placeholder while loading
 * Improves perceived performance
 * Generated from image data
@@ -882,6 +967,7 @@ import Image from 'next/image';
 ```
 
 **Key Props:**
+
 * `width` and `height` - Required for layout
 * `priority` - Load immediately (above fold)
 * `placeholder` - Blur or empty
@@ -898,16 +984,19 @@ import Image from 'next/image';
 Next.js automatically splits code:
 
 **Route-Based Splitting:**
+
 * Each page gets its own bundle
 * Only loads code for current page
 * Reduces initial bundle size
 
 **Component-Based Splitting:**
+
 * Use `dynamic()` for lazy loading
 * Components load when needed
 * Further reduces bundle size
 
 **How It Works:**
+
 * Analyzes imports and dependencies
 * Creates separate chunks for each route
 * Shared code goes into common chunks
@@ -927,6 +1016,7 @@ const HeavyComponent = dynamic(() => import('./HeavyComponent'), {
 ```
 
 **Benefits:**
+
 * Reduces initial bundle size
 * Loads code only when needed
 * Improves performance
@@ -964,18 +1054,21 @@ ANALYZE=true npm run build
 HMR updates code without full page reload:
 
 **Development HMR:**
+
 * Watches for file changes
 * Updates changed modules only
 * Preserves component state
 * Fast refresh (React Fast Refresh)
 
 **Fast Refresh:**
+
 * Updates React components without losing state
 * Only updates changed components
 * Preserves component state and hooks
 * Much faster than full reload
 
 **How It Works:**
+
 1. File change detected
 2. Webpack/Turbopack recompiles module
 3. Sends update to browser via WebSocket
@@ -984,6 +1077,7 @@ HMR updates code without full page reload:
 6. State preserved
 
 **Limitations:**
+
 * Can't preserve state across component type changes
 * Some changes require full reload
 * Error boundaries reset on error
@@ -997,17 +1091,20 @@ HMR updates code without full page reload:
 ### 🔹 Build Optimizations
 
 **Minification:**
+
 * JavaScript minified with SWC/Terser
 * CSS minified
 * HTML minified
 * Reduces bundle size
 
 **Tree Shaking:**
+
 * Removes unused code
 * Analyzes imports/exports
 * Reduces bundle size significantly
 
 **Dead Code Elimination:**
+
 * Removes unreachable code
 * Removes unused functions
 * Optimizes bundle size
@@ -1015,16 +1112,19 @@ HMR updates code without full page reload:
 ### 🔹 Runtime Optimizations
 
 **Automatic Static Optimization:**
+
 * Pages without data fetching are static
 * Pre-rendered at build time
 * Served as static files
 
 **Prefetching:**
+
 * Prefetches linked pages
 * Downloads bundles in background
 * Improves navigation performance
 
 **Font Optimization:**
+
 * `next/font` optimizes fonts
 * Self-hosts fonts
 * Reduces layout shift
@@ -1067,4 +1167,3 @@ SSG (Static Site Generation) pre-renders pages at build time - fastest but data 
 </div>
 
 ---
-

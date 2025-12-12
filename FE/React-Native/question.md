@@ -1,23 +1,25 @@
 # ⚛️ React Native Interview Questions
 
-95 carefully curated questions covering React Native fundamentals to advanced platform internals.
+125 carefully curated questions covering React Native fundamentals to advanced platform internals.
 
 ## 📋 Quick Navigation
 
 | Section | Topic | Questions | Difficulty |
 |---------|-------|-----------|------------|
-| [1️⃣](#1-react-native-fundamentals) | React Native Fundamentals | Q1–10 | ⭐⭐ |
-| [2️⃣](#2-native-modules--platform-integrations) | Native Modules & Platform Integrations | Q11–20 | ⭐⭐⭐ |
-| [3️⃣](#3-android--ios-platform-internals) | Android & iOS Platform Internals | Q21–30 | ⭐⭐⭐ |
-| [4️⃣](#4-navigation--lifecycle) | Navigation & Lifecycle | Q31–40 | ⭐⭐⭐ |
-| [5️⃣](#5-performance-optimization--measurement) | Performance Optimization & Measurement | Q41–50 | ⭐⭐⭐⭐ |
-| [6️⃣](#6-state-management--data-handling) | State Management & Data Handling | Q51–60 | ⭐⭐⭐ |
-| [7️⃣](#7-codepush--ota-updates) | CodePush & OTA Updates | Q61–68 | ⭐⭐⭐⭐ |
-| [8️⃣](#8-debugging--testing) | Debugging & Testing | Q69–78 | ⭐⭐⭐⭐ |
-| [9️⃣](#9-build-deployment--stores) | Build, Deployment & Stores | Q79–90 | ⭐⭐⭐⭐⭐ |
-| [🔟](#10-push-notifications--messaging) | Push Notifications & Messaging | Q91–95 | ⭐⭐⭐ |
+| [1️⃣](#1-core-concepts--architecture) | Core Concepts & Architecture | Q1–10 | ⭐⭐ |
+| [2️⃣](#2-state-management--data-persistence) | State Management & Data Persistence | Q11–21 | ⭐⭐⭐ |
+| [3️⃣](#3-navigation--app-lifecycle) | Navigation & App Lifecycle | Q22–31 | ⭐⭐⭐ |
+| [4️⃣](#4-native-modules--platform-apis) | Native Modules & Platform APIs | Q32–41 | ⭐⭐⭐ |
+| [5️⃣](#5-platform-specific-development) | Platform-Specific Development | Q42–51 | ⭐⭐⭐ |
+| [6️⃣](#6-performance--profiling) | Performance & Profiling | Q52–66 | ⭐⭐⭐⭐ |
+| [7️⃣](#7-animations--graphics) | Animations & Graphics | Q67–73 | ⭐⭐⭐⭐ |
+| [8️⃣](#8-hardware--system-apis) | Hardware & System APIs | Q74–84 | ⭐⭐⭐⭐⭐ |
+| [9️⃣](#9-testing--debugging) | Testing & Debugging | Q85–98 | ⭐⭐⭐⭐ |
+| [🔟](#10-build--release-management) | Build & Release Management | Q99–112 | ⭐⭐⭐⭐⭐ |
+| [1️⃣1️⃣](#11-over-the-air-updates) | Over-The-Air Updates | Q113–120 | ⭐⭐⭐⭐ |
+| [1️⃣2️⃣](#12-notifications--messaging) | Notifications & Messaging | Q121–125 | ⭐⭐⭐ |
 
-## ⚛️ 1. React Native Fundamentals
+## ⚛️ 1. Core Concepts & Architecture
 
 1. React Native and how it differs from React.js
 
@@ -39,217 +41,285 @@
 
 10. How Flexbox works in React Native compared to CSS
 
-## 🔧 2. Native Modules & Platform Integrations
+## 🗃️ 2. State Management & Data Persistence
 
-11. Native modules in React Native
+11. State management tools available for React Native
 
-12. Creating custom native modules for Android
+12. Implementing Redux Toolkit in React Native
 
-13. Creating custom native modules for iOS
+13. Using Recoil for state management
 
-14. Difference between JSI and the old bridge
+14. Implementing Zustand for state management
 
-15. TurboModules and how they work
+15. Using MobX for state management
 
-16. Accessing native APIs like Camera, Location, and Sensors
+16. Using Context API for state management
 
-17. Headless JS and when to use it
+17. Persisting data locally with AsyncStorage
 
-18. How autolinking works in React Native
+18. MMKV and how it compares to AsyncStorage
 
-19. Difference between bridged and JSI-based modules
+19. Implementing offline-first apps
 
-20. Handling permissions in React Native
+20. Handling background data synchronization
 
-## 📱 3. Android & iOS Platform Internals
+21. Implementing data batching for performance
 
-21. AndroidManifest.xml and how to configure it
+## 🧭 3. Navigation & App Lifecycle
 
-22. Info.plist and how to configure it
+22. Different navigation solutions available for React Native
 
-23. Difference between MainActivity.java and MainApplication.java
+23. implement stack navigation
 
-24. How the Android lifecycle works in React Native
+24. implement tab navigation
 
-25. App Delegates in iOS and how they work
+25. implement drawer navigation
 
-26. Configuring app permissions for both platforms
+26. handle deep linking in React Native
 
-27. Setting up app icons and splash screens
+27. implement universal links for iOS
 
-28. Difference between Gradle and Xcode build systems
+28. handle app lifecycle changes with AppState API
 
-29. Creating debug vs release builds
+29. use `useFocusEffect` for screen focus handling
 
-30. Handling app signing and provisioning
+30. handle the hardware back button on Android
 
-## 🧭 4. Navigation & Lifecycle
+31. persist navigation state
 
-31. Different navigation solutions available for React Native
+## 🔧 4. Native Modules & Platform APIs
 
-32. implement stack navigation
+32. Native modules in React Native
 
-33. implement tab navigation
+33. Creating custom native modules for Android
 
-34. implement drawer navigation
+34. Creating custom native modules for iOS
 
-35. handle deep linking in React Native
+35. Difference between JSI and the old bridge
 
-36. implement universal links for iOS
+36. TurboModules and how they work
 
-37. handle app lifecycle changes with AppState API
+37. Accessing native APIs like Camera, Location, and Sensors
 
-38. use `useFocusEffect` for screen focus handling
+38. Headless JS and when to use it
 
-39. handle the hardware back button on Android
+39. How autolinking works in React Native
 
-40. persist navigation state
+40. Difference between bridged and JSI-based modules
 
-## ⚡ 5. Performance Optimization & Measurement
+41. Handling permissions in React Native
 
-41. Common performance issues in React Native
+## 📱 5. Platform-Specific Development
 
-42. Hermes engine and how it improves performance
+42. AndroidManifest.xml and how to configure it
 
-43. Measuring performance in React Native apps
+43. Info.plist and how to configure it
 
-44. Using Flipper for debugging React Native apps
+44. Difference between MainActivity.java and MainApplication.java
 
-45. Optimizing FlatList for large datasets
+45. How the Android lifecycle works in React Native
 
-46. Difference between FlatList and ScrollView
+46. App Delegates in iOS and how they work
 
-47. Implementing virtualization in React Native
+47. Configuring app permissions for both platforms
 
-48. Optimizing `renderItem` functions
+48. Setting up app icons and splash screens
 
-49. Implementing pagination with `onEndReached`
+49. Difference between Gradle and Xcode build systems
 
-50. Using `removeClippedSubviews` for performance
+50. Creating debug vs release builds
 
-## 🗃️ 6. State Management & Data Handling
+51. Handling app signing and provisioning
 
-51. State management tools available for React Native
+## ⚡ 6. Performance & Profiling
 
-52. Implementing Redux in React Native
+52. Common performance issues in React Native
 
-53. Using Recoil for state management
+53. Hermes engine and how it improves performance
 
-54. Implementing Zustand for state management
+54. Measuring performance in React Native apps
 
-55. Using Context API for state management
+55. Using Flipper for debugging React Native apps
 
-56. Persisting data locally with AsyncStorage
+56. Optimizing FlatList for large datasets
 
-57. MMKV and how it compares to AsyncStorage
+57. Difference between FlatList and ScrollView
 
-58. Implementing offline-first apps
+58. Implementing virtualization in React Native
 
-59. Handling background data synchronization
+59. Optimizing `renderItem` functions
 
-60. Implementing data batching for performance
+60. Implementing pagination with `onEndReached`
 
-## 🔄 7. CodePush & OTA Updates
+61. Using `removeClippedSubviews` for performance
 
-61. Microsoft CodePush and how it works
+62. Using Xcode Instruments for iOS performance profiling
 
-62. Integrating CodePush in React Native
+63. Using Android Studio Profiler for Android performance profiling
 
-63. Limitations of CodePush
+64. Profiling memory leaks in React Native apps
 
-64. Implementing rollbacks with CodePush
+65. Analyzing native crash logs and stack traces
 
-65. Handling version mismatches with CodePush
+66. Optimizing JavaScript bundle size and startup time
 
-66. Securing CodePush deployments
+## 🎨 7. Animations & Graphics
 
-67. Difference between CodePush and Expo EAS OTA
+67. React Native Reanimated 2/3 and how it works
 
-68. Monitoring crashes and errors with CodePush
+68. Worklets and UI thread animations in Reanimated
 
-## 🐛 8. Debugging & Testing
+69. Gesture handling with Reanimated
 
-69. Debugging React Native apps
+70. React Native Skia and when to use it
 
-70. Using Flipper for React Native debugging
+71. Custom drawing and animations with Skia
 
-71. Debugging with Chrome DevTools
+72. Performance considerations for animations
 
-72. Creating custom Flipper plugins
+73. Choosing between Reanimated and Skia
 
-73. Writing unit tests with Jest
+## 🔌 8. Hardware & System APIs
 
-74. Implementing end-to-end testing with Detox
+74. Implementing Bluetooth functionality in React Native
 
-75. Mocking native modules in tests
+75. Using Bluetooth Low Energy (BLE) in React Native
 
-76. Testing asynchronous behavior in React Native
+76. Background services and tasks in React Native
 
-77. Simulating gestures in tests
+77. Implementing background sync on Android
 
-78. Monitoring app performance and crashes
+78. Implementing background tasks on iOS
 
-## 🚀 9. Build, Deployment & Stores
+79. File system operations in React Native
 
-79. Creating Android release builds
+80. Reading and writing files on Android
 
-80. Creating iOS release builds
+81. Reading and writing files on iOS
 
-81. Handling build numbers and versioning
+82. Handling file permissions and security
 
-82. Submitting apps to Google Play Store
+83. Accessing device sensors and hardware APIs
 
-83. Submitting apps to Apple App Store
+84. Platform-specific API integrations
 
-84. Implementing phased rollouts
+## 🐛 9. Testing & Debugging
 
-85. Automating builds with Fastlane
+85. Debugging React Native apps
 
-86. Handling store rejections and resubmissions
+86. Using Flipper for React Native debugging
 
-87. Reducing app size for store submission
+87. Debugging with Chrome DevTools
 
-88. Implementing analytics in React Native apps
+88. Creating custom Flipper plugins
 
-89. Handling app signing and certificates
+89. Debugging native crashes on Android
 
-90. Setting up CI/CD pipelines for React Native
+90. Debugging native crashes on iOS
 
-## 📱 10. Push Notifications & Messaging
+91. Using Xcode Instruments for debugging
 
-91. Difference between local and push notifications
+92. Using Android Studio Profiler for debugging
 
-92. Implementing Firebase Cloud Messaging (FCM) for Android
+93. Writing unit tests with Jest
 
-93. Implementing Apple Push Notification service (APNs) for iOS
+94. Implementing end-to-end testing with Detox
 
-94. Handling background and foreground notifications
+95. Mocking native modules in tests
 
-95. Managing notification permissions and channels
+96. Testing asynchronous behavior in React Native
+
+97. Simulating gestures in tests
+
+98. Monitoring app performance and crashes
+
+## 🚀 10. Build & Release Management
+
+99. Creating Android release builds
+
+100. Creating iOS release builds
+
+101. Handling build numbers and versioning
+
+102. Submitting apps to Google Play Store
+
+103. Submitting apps to Apple App Store
+
+104. Implementing phased rollouts
+
+105. Setting up Fastlane for iOS automation
+
+106. Setting up Fastlane for Android automation
+
+107. Configuring Fastlane lanes and actions
+
+108. Handling store rejections and resubmissions
+
+109. Reducing app size for store submission
+
+110. Implementing analytics in React Native apps
+
+111. Handling app signing and certificates
+
+112. Setting up CI/CD pipelines for React Native
+
+## 🔄 11. Over-The-Air Updates
+
+113. Microsoft CodePush and how it works
+
+114. Integrating CodePush in React Native
+
+115. Limitations of CodePush
+
+116. Implementing rollbacks with CodePush
+
+117. Handling version mismatches with CodePush
+
+118. Securing CodePush deployments
+
+119. Difference between CodePush and Expo EAS OTA
+
+120. Monitoring crashes and errors with CodePush
+
+## 📱 12. Notifications & Messaging
+
+121. Difference between local and push notifications
+
+122. Implementing Firebase Cloud Messaging (FCM) for Android
+
+123. Implementing Apple Push Notification service (APNs) for iOS
+
+124. Handling background and foreground notifications
+
+125. Managing notification permissions and channels
 
 ---
 
 ## 📖 Complete Answer Guide
 
-- [1) React Native Fundamentals](01%29%20React%20Native%20Fundamentals.md) - Q1-10
+- [1) Core Concepts & Architecture](01%29%20Core%20Concepts%20%26%20Architecture.md) - Q1-10
 
-- [2) Native Modules & Platform Integrations](02%29%20Native%20Modules%20%26%20Platform%20Integrations.md) - Q11-20
+- [2) State Management & Data Persistence](02%29%20State%20Management%20%26%20Data%20Persistence.md) - Q11-21
 
-- [3) Android & iOS Platform Internals](03%29%20Android%20%26%20iOS%20Platform%20Internals.md) - Q21-30
+- [3) Navigation & App Lifecycle](03%29%20Navigation%20%26%20App%20Lifecycle.md) - Q22-31
 
-- [4) Navigation & Lifecycle](04%29%20Navigation%20%26%20Lifecycle.md) - Q31-40
+- [4) Native Modules & Platform APIs](04%29%20Native%20Modules%20%26%20Platform%20APIs.md) - Q32-41
 
-- [5) Performance Optimization & Measurement](05%29%20Performance%20Optimization%20%26%20Measurement.md) - Q41-50
+- [5) Platform-Specific Development](05%29%20Platform-Specific%20Development.md) - Q42-51
 
-- [6) State Management & Data Handling](06%29%20State%20Management%20%26%20Data%20Handling.md) - Q51-60
+- [6) Performance & Profiling](06%29%20Performance%20%26%20Profiling.md) - Q52-66
 
-- [7) CodePush & OTA Updates](07%29%20CodePush%20%26%20OTA%20Updates.md) - Q61-68
+- [7) Animations & Graphics](07%29%20Animations%20%26%20Graphics.md) - Q67-73
 
-- [8) Debugging & Testing](08%29%20Debugging%20%26%20Testing.md) - Q69-78
+- [8) Hardware & System APIs](08%29%20Hardware%20%26%20System%20APIs.md) - Q74-84
 
-- [9) Build, Deployment & Stores](09%29%20Build%2C%20Deployment%20%26%20Stores.md) - Q79-90
+- [9) Testing & Debugging](09%29%20Testing%20%26%20Debugging.md) - Q85-98
 
-- [10) Push Notifications & Messaging](10%29%20Push%20Notifications%20%26%20Messaging.md) - Q91-95
+- [10) Build & Release Management](10%29%20Build%20%26%20Release%20Management.md) - Q99-112
+
+- [11) Over-The-Air Updates](11%29%20Over-The-Air%20Updates.md) - Q113-120
+
+- [12) Notifications & Messaging](12%29%20Notifications%20%26%20Messaging.md) - Q121-125
 
 ## 📝 Cheatsheet
 

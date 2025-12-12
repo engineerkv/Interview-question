@@ -341,7 +341,7 @@ const useSeatMap = (showtimeId: string) => {
 
 const useBookTickets = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (bookingData: BookingRequest) => {
       const response = await axios.post('/api/v1/bookings', bookingData);
@@ -1225,17 +1225,17 @@ import { v4 as uuidv4 } from 'uuid';
 class DistributedLock {
   private client: redis.RedisClient;
   private lockValue: string;
-  
+
   constructor(client: redis.RedisClient) {
     this.client = client;
     this.lockValue = uuidv4();
   }
-  
+
   async acquireLock(key: string, ttl: number = 300): Promise<boolean> {
     const result = await this.client.set(key, this.lockValue, 'EX', ttl, 'NX');
     return result === 'OK';
   }
-  
+
   async releaseLock(key: string): Promise<boolean> {
     const script = `
       if redis.call("get", KEYS[1]) == ARGV[1] then
@@ -1244,11 +1244,11 @@ class DistributedLock {
         return 0
       end
     `;
-    
+
     const result = await this.client.eval(script, 1, key, this.lockValue);
     return result === 1;
   }
-  
+
   async extendLock(key: string, ttl: number): Promise<boolean> {
     const script = `
       if redis.call("get", KEYS[1]) == ARGV[1] then
@@ -1257,7 +1257,7 @@ class DistributedLock {
         return 0
       end
     `;
-    
+
     const result = await this.client.eval(script, 1, key, this.lockValue, ttl);
     return result === 1;
   }
@@ -1290,34 +1290,34 @@ class DistributedLock {
 async function bookSeatOptimistic(seatId: string, userId: string): Promise<boolean> {
   const maxRetries = 3;
   let retries = 0;
-  
+
   while (retries < maxRetries) {
     const seat = await Seat.findById(seatId);
-    
+
     if (seat.status !== 'available') {
       return false;
     }
-    
+
     const result = await Seat.updateOne(
-      { 
-        _id: seatId, 
+      {
+        _id: seatId,
         version: seat.version,  // Only update if version matches
-        status: 'available' 
+        status: 'available'
       },
-      { 
+      {
         $set: { status: 'booked', userId },
         $inc: { version: 1 }  // Increment version
       }
     );
-    
+
     if (result.modifiedCount === 1) {
       return true;  // Success
     }
-    
+
     retries++;
     await sleep(100 * retries);  // Exponential backoff
   }
-  
+
   return false;  // Failed after retries
 }
 
@@ -1438,7 +1438,7 @@ session.startTransaction();
 try {
   // Create booking
   const booking = await Booking.create([bookingData], { session });
-  
+
   // Update seats
   for (const seatId of bookingData.seatIds) {
     await Seat.updateOne(
@@ -1447,10 +1447,10 @@ try {
       { session }
     );
   }
-  
+
   // Create payment record
   await Payment.create([paymentData], { session });
-  
+
   await session.commitTransaction();
   return booking[0];
 } catch (error) {

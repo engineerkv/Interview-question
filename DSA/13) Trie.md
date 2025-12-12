@@ -104,6 +104,7 @@ class Trie {
 ### Solution 1: Trie with DFS (Optimal)
 
 ```javascript
+
 class WordDictionary {
   constructor() {
     this.root = {};
@@ -269,6 +270,7 @@ class Trie {
 **Concept:** Prefix tree storing characters per edge; supports insert, search, prefix search in O(L).
 
 ```javascript
+
 class Trie {
   constructor() {
     this.root = {};

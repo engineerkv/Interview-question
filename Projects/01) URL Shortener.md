@@ -384,37 +384,37 @@ Frontend Application
   - Component-based architecture for reusability
   - React Query for efficient API state management
   - Responsive design for mobile and desktop
-  
+
 - **CDN/Edge**:
   - Global distribution of static assets
   - Edge caching for redirects to reduce latency
   - DDoS protection and rate limiting at edge
-  
+
 - **Load Balancer**:
   - Distributes traffic across API servers
   - SSL/TLS termination
   - Health checks and automatic failover
-  
+
 - **API Servers**:
   - Stateless design for horizontal scaling
   - Handle URL shortening, redirection, and analytics APIs
   - Can add/remove instances based on load
-  
+
 - **Application Services**:
   - URL Generation Service (Base62 encoding, custom aliases)
   - Validation Service (URL format, expiration checks)
   - Analytics Service (event tracking, aggregation)
-  
+
 - **Cache Layer (Redis)**:
   - In-memory cache for 20% hot URLs (80-20 rule)
   - Session data and rate limiting counters
   - 90% cache hit rate target
-  
+
 - **Database (MongoDB)**:
   - Sharded across multiple nodes for horizontal scaling
   - Consistent hashing for even distribution
   - Read replicas for analytics queries
-  
+
 - **Message Queue**:
   - RabbitMQ/Kafka for async analytics processing
   - Decouples analytics from core redirect functionality
@@ -468,13 +468,13 @@ const URLShortenerForm: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    
+
     try {
       const response = await axios.post('/api/v1/shorten', {
         url: originalUrl,
         customAlias: customAlias || undefined
       });
-      
+
       setShortUrl(response.data.shortUrl);
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to shorten URL');
@@ -485,12 +485,12 @@ const URLShortenerForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <URLInput 
+      <URLInput
         value={originalUrl}
         onChange={setOriginalUrl}
         placeholder="Enter long URL"
       />
-      <CustomAliasInput 
+      <CustomAliasInput
         value={customAlias}
         onChange={setCustomAlias}
         placeholder="Custom alias (optional)"
@@ -574,7 +574,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 const useShortenURL = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async ({ url, customAlias }: { url: string; customAlias?: string }) => {
       const response = await axios.post('/api/v1/shorten', { url, customAlias });
@@ -820,27 +820,27 @@ const BASE62_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 
 function encodeToBase62(id: number): string {
   if (id === 0) return BASE62_CHARS[0];
-  
+
   let result = '';
   let num = id;
-  
+
   while (num > 0) {
     result = BASE62_CHARS[num % 62] + result;
     num = Math.floor(num / 62);
   }
-  
+
   return result.padStart(7, '0'); // Ensure minimum 7 characters
 }
 
 function decodeFromBase62(shortCode: string): number {
   let id = 0;
-  
+
   for (let i = 0; i < shortCode.length; i++) {
     const char = shortCode[i];
     const charIndex = BASE62_CHARS.indexOf(char);
     id = id * 62 + charIndex;
   }
-  
+
   return id;
 }
 
@@ -873,13 +873,13 @@ import crypto from 'crypto';
 function hashBasedEncoding(originalUrl: string, length: number = 7): string {
   // Step 1: Generate hash
   const hash = crypto.createHash('md5').update(originalUrl).digest('hex');
-  
+
   // Step 2: Take first 6 bytes (12 hex characters)
   const hexSubstring = hash.substring(0, 12);
-  
+
   // Step 3: Convert hex to decimal
   const decimal = parseInt(hexSubstring, 16);
-  
+
   // Step 4: Encode to Base62
   return encodeToBase62(decimal).substring(0, length);
 }
@@ -893,19 +893,19 @@ async function generateUniqueShortCode(originalUrl: string): Promise<string> {
   let shortCode = hashBasedEncoding(originalUrl);
   let attempts = 0;
   const maxAttempts = 10;
-  
+
   while (attempts < maxAttempts) {
     const exists = await checkIfShortCodeExists(shortCode);
-    
+
     if (!exists) {
       return shortCode;
     }
-    
+
     // Append attempt number to create variation
     shortCode = hashBasedEncoding(originalUrl + attempts.toString());
     attempts++;
   }
-  
+
   throw new Error('Unable to generate unique short code');
 }
 
@@ -939,7 +939,7 @@ class ConsistentHash {
   private ring: Map<number, string> = new Map();
   private sortedKeys: number[] = [];
   private virtualNodes: number = 150; // Virtual nodes per shard
-  
+
   addShard(shardId: string): void {
     for (let i = 0; i < this.virtualNodes; i++) {
       const hash = this.hash(`${shardId}-${i}`);
@@ -948,7 +948,7 @@ class ConsistentHash {
     }
     this.sortedKeys.sort((a, b) => a - b);
   }
-  
+
   removeShard(shardId: string): void {
     for (let i = 0; i < this.virtualNodes; i++) {
       const hash = this.hash(`${shardId}-${i}`);
@@ -959,25 +959,25 @@ class ConsistentHash {
       }
     }
   }
-  
+
   getShard(shortCode: string): string {
     if (this.ring.size === 0) {
       throw new Error('No shards available');
     }
-    
+
     const hash = this.hash(shortCode);
-    
+
     // Find first shard clockwise
     for (const key of this.sortedKeys) {
       if (key >= hash) {
         return this.ring.get(key)!;
       }
     }
-    
+
     // Wrap around to first shard
     return this.ring.get(this.sortedKeys[0])!;
   }
-  
+
   private hash(key: string): number {
     const hash = crypto.createHash('md5').update(key).digest();
     return hash.readUInt32BE(0);
@@ -1017,42 +1017,42 @@ async function generateShortUrl(
   if (!isValidUrl(originalUrl)) {
     throw new Error('Invalid URL format');
   }
-  
+
   let shortCode: string;
-  
+
   if (customAlias) {
     // Custom alias path
     if (!isValidAlias(customAlias)) {
       throw new Error('Invalid alias format');
     }
-    
+
     const exists = await checkAliasExists(customAlias);
     if (exists) {
       throw new Error('Alias already exists');
     }
-    
+
     shortCode = customAlias;
   } else {
     // Auto-generate path
     shortCode = await generateUniqueShortCode(originalUrl);
   }
-  
+
   // Store in database with transaction
   const session = await mongoose.startSession();
   session.startTransaction();
-  
+
   try {
     await Url.create([{
       shortCode,
       originalUrl,
       createdAt: new Date()
     }], { session });
-    
+
     await session.commitTransaction();
     return shortCode;
   } catch (error) {
     await session.abortTransaction();
-    
+
     // Retry if collision occurred
     if (error.code === 11000) { // Duplicate key error
       if (!customAlias) {
@@ -1060,7 +1060,7 @@ async function generateShortUrl(
       }
       throw new Error('Alias collision detected');
     }
-    
+
     throw error;
   } finally {
     session.endSession();
@@ -1095,7 +1095,7 @@ class LRUCache {
   private cache: Map<string, { value: string; node: Node }> = new Map();
   private head: Node;
   private tail: Node;
-  
+
   constructor(capacity: number) {
     this.capacity = capacity;
     this.head = new Node('', '');
@@ -1103,56 +1103,56 @@ class LRUCache {
     this.head.next = this.tail;
     this.tail.prev = this.head;
   }
-  
+
   get(key: string): string | null {
     const item = this.cache.get(key);
-    
+
     if (!item) {
       return null;
     }
-    
+
     // Move to front (most recently used)
     this.moveToFront(item.node);
     return item.value;
   }
-  
+
   put(key: string, value: string): void {
     const existing = this.cache.get(key);
-    
+
     if (existing) {
       existing.value = value;
       this.moveToFront(existing.node);
       return;
     }
-    
+
     // Check capacity
     if (this.cache.size >= this.capacity) {
       this.evictLRU();
     }
-    
+
     // Add new node
     const node = new Node(key, value);
     this.addToFront(node);
     this.cache.set(key, { value, node });
   }
-  
+
   private moveToFront(node: Node): void {
     this.removeNode(node);
     this.addToFront(node);
   }
-  
+
   private addToFront(node: Node): void {
     node.prev = this.head;
     node.next = this.head.next;
     this.head.next!.prev = node;
     this.head.next = node;
   }
-  
+
   private removeNode(node: Node): void {
     node.prev!.next = node.next;
     node.next!.prev = node.prev;
   }
-  
+
   private evictLRU(): void {
     const lru = this.tail.prev!;
     this.removeNode(lru);
@@ -1165,7 +1165,7 @@ class Node {
   value: string;
   prev: Node | null = null;
   next: Node | null = null;
-  
+
   constructor(key: string, value: string) {
     this.key = key;
     this.value = value;
@@ -1198,7 +1198,7 @@ function getShardForShortCode(shortCode: string, numShards: number): number {
   // Hash the shortCode
   const hash = crypto.createHash('md5').update(shortCode).digest();
   const hashValue = hash.readUInt32BE(0);
-  
+
   // Map to shard using modulo
   return hashValue % numShards;
 }
@@ -1723,7 +1723,7 @@ try {
 
 ---
 
-## Q1. 💡 How would you design a scalable URL shortener system?
+## Q1. 💡 Designing a scalable URL shortener system
 
 **The Challenge:** We need to handle 100M+ requests per day with a 10:1 read/write ratio, support billions of URLs, and keep redirect latency under 100ms.
 
@@ -1755,7 +1755,7 @@ Analytics go through a message queue - RabbitMQ or Kafka - so tracking clicks do
 
 ---
 
-## Q2. 💡 How do you handle URL collisions and ensure uniqueness?
+## Q2. 💡 Handling URL collisions and ensuring uniqueness
 
 **The Problem:** With concurrent requests, we need to guarantee no two URLs get the same short code, especially for custom aliases where users might try the same name.
 
@@ -1820,7 +1820,7 @@ try {
 
 ---
 
-## Q3. 🗄️ How do you scale the database to handle billions of URLs?
+## Q3. 🗄️ Scaling the database to handle billions of URLs
 
 **The Challenge:** A single database can't handle billions of URLs. We need horizontal scaling that maintains performance and allows us to add capacity without downtime.
 
@@ -1858,7 +1858,7 @@ class ShardRouter {
   getShard(shortCode: string): string {
     return this.consistentHash.getShard(shortCode);
   }
-  
+
   routeRequest(shortCode: string, operation: 'read' | 'write') {
     const shard = this.getShard(shortCode);
     // Use read replica for analytics, primary for writes
@@ -1879,7 +1879,7 @@ class ShardRouter {
 
 ---
 
-## Q4. 💡 How do you handle expired URLs and cleanup?
+## Q4. 💡 Handling expired URLs and cleanup
 
 **The Problem:** URLs can expire, and we need to prevent redirects to expired URLs while cleaning up old data to keep the database manageable.
 
@@ -1911,26 +1911,26 @@ On the frontend, we show expiration warnings for URLs expiring within 7 days. Us
 // Real-time check - happens on every redirect
 async function redirect(shortCode: string) {
   const url = await getUrl(shortCode);
-  
+
   if (url?.expiresAt && new Date() > url.expiresAt) {
     await invalidateCache(shortCode);
     throw new GoneError('URL expired');
   }
-  
+
   return url.originalUrl;
 }
 
 // Background job - runs daily
 async function cleanupExpired() {
   const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-  
+
   // Soft delete in batches
   const batch = await Url.find({ expiresAt: { $lt: cutoff } }).limit(1000);
   for (const url of batch) {
     await invalidateCache(url.shortCode);
     await url.updateOne({ isActive: false, deletedAt: new Date() });
   }
-  
+
   // Hard delete after grace period
   await Url.deleteMany({
     isActive: false,
@@ -1951,7 +1951,7 @@ async function cleanupExpired() {
 
 ---
 
-## Q5. 💡 How do you implement analytics tracking for URL clicks?
+## Q5. 💡 Implementing analytics tracking for URL clicks
 
 **The Challenge:** Track detailed analytics - clicks, location, device, referrer - without slowing down redirects. We're talking millions of events per day.
 
@@ -1995,7 +1995,7 @@ async function trackClick(shortCode: string, req: Request) {
     userAgent: req.headers['user-agent'],
     referrer: req.headers['referer']
   };
-  
+
   // Fire and forget - don't wait
   messageQueue.publish('analytics', event);
 }
@@ -2003,11 +2003,11 @@ async function trackClick(shortCode: string, req: Request) {
 // Worker - processes in batches
 async function processEvents() {
   const batch = await queue.consume('analytics', { batchSize: 100 });
-  
+
   // Enrich and store
   const enriched = batch.map(enrichEvent); // Add geo, device, etc.
   await Analytics.insertMany(enriched);
-  
+
   // Update aggregates incrementally
   for (const event of enriched) {
     await incrementAggregate(event.shortCode, event);
@@ -2018,7 +2018,7 @@ async function processEvents() {
 async function getAnalytics(shortCode: string, range: string) {
   const cached = await redis.get(`analytics:${shortCode}:${range}`);
   if (cached) return JSON.parse(cached);
-  
+
   const data = await AnalyticsAggregate.findOne({ shortCode, range });
   await redis.setex(`analytics:${shortCode}:${range}`, 300, JSON.stringify(data));
   return data;

@@ -1,21 +1,20 @@
 # 🌐 HTML Interview Questions
 
-110 carefully curated questions covering HTML fundamentals to advanced web standards.
+78 carefully curated questions covering HTML fundamentals to advanced web standards.
 
 ## 📋 Quick Navigation
 
 | Section | Topic | Questions | Difficulty |
 |---------|-------|-----------|------------|
-| [1️⃣](#1-html-fundamentals) | HTML Fundamentals | Q1–15 | ⭐⭐ |
-| [2️⃣](#2-semantic-html) | Semantic HTML & Structure | Q16–30 | ⭐⭐⭐ |
-| [3️⃣](#3-forms-inputs) | Forms & Input Elements | Q31–45 | ⭐⭐⭐ |
-| [4️⃣](#4-accessibility-a11y) | Accessibility (A11y) | Q46–60 | ⭐⭐⭐⭐ |
-| [5️⃣](#5-html5-features) | HTML5 Features & APIs | Q61–75 | ⭐⭐⭐ |
-| [6️⃣](#6-media-elements) | Media Elements | Q76–85 | ⭐⭐ |
-| [7️⃣](#7-performance-seo) | Performance & SEO | Q86–101 | ⭐⭐⭐⭐ |
-| [8️⃣](#8-advanced-html) | Advanced HTML Concepts | Q102–110 | ⭐⭐⭐⭐ |
+| [1️⃣](#1-html-fundamentals) | Fundamentals & Basics | Q1–13 | ⭐⭐ |
+| [2️⃣](#2-semantic-html) | Semantic HTML | Q16–26 | ⭐⭐⭐ |
+| [3️⃣](#3-forms-inputs) | Forms & Inputs | Q31–43 | ⭐⭐⭐ |
+| [4️⃣](#4-accessibility-a11y) | Accessibility | Q46–58 | ⭐⭐⭐⭐ |
+| [5️⃣](#5-html5-features) | HTML5 & Modern APIs | Q61–71 | ⭐⭐⭐ |
+| [6️⃣](#6-media-elements) | Media & Images | Q76–85 | ⭐⭐ |
+| [7️⃣](#7-performance-seo) | Performance & SEO | Q86–96 | ⭐⭐⭐⭐ |
 
-## 🧠 1. HTML Fundamentals
+## 🧠 1. Fundamentals & Basics
 
 1. HTML and what it stands for
 
@@ -25,29 +24,25 @@
 
 4. Block vs inline elements
 
-5. Basic structure elements of an HTML document
+5. DOCTYPE declaration and its importance
 
-6. DOCTYPE declaration and its importance
+6. `<div>` vs `<span>`
 
-7. HTML comments and how to write them
+7. HTML entities and when to use them
 
-8. `<div>` vs `<span>`
+8. `<strong>` vs `<b>` tags
 
-9. HTML entities and when to use them
+9. `<em>` vs `<i>` tags
 
-10. `<strong>` vs `<b>` tags
+10. Creating hyperlinks in HTML
 
-11. `<em>` vs `<i>` tags
+11. Different types of lists in HTML
 
-12. Creating hyperlinks in HTML
+12. Creating tables in HTML
 
-13. Different types of lists in HTML
+13. Purpose of the `<meta>` tag
 
-14. Creating tables in HTML
-
-15. Purpose of the `<meta>` tag
-
-## 🏗️ 2. Semantic HTML & Structure
+## 🏗️ 2. Semantic HTML
 
 16. Semantic HTML and its importance
 
@@ -57,29 +52,21 @@
 
 19. Purpose of the `<nav>` element
 
-20. Document outline and how to create it
+20. `<main>` vs `<body>`
 
-21. `<main>` vs `<body>`
+21. Purpose of the `<aside>` element
 
-22. Purpose of the `<aside>` element
+22. `<figure>` vs `<img>`
 
-23. `<figure>` vs `<img>`
+23. Purpose of the `<figcaption>` element
 
-24. Purpose of the `<figcaption>` element
+24. Purpose of the `<mark>` element
 
-25. `<time>` vs `<date>`
+25. Landmark regions and landmark roles and their usage
 
-26. Purpose of the `<mark>` element
+26. Purpose of the `<details>` and `<summary>` elements
 
-27. Landmark regions and landmark roles and their usage
-
-28. `<address>` vs `<footer>`
-
-29. Purpose of the `<details>` and `<summary>` elements
-
-30. Creating a proper document structure
-
-## 📝 3. Forms & Input Elements
+## 📝 3. Forms & Inputs
 
 31. Different input types in HTML5
 
@@ -105,13 +92,9 @@
 
 42. Creating hidden form fields
 
-43. Form validation and how to implement it
+43. Creating error messages for forms
 
-44. Creating error messages for forms
-
-45. Purpose of the `<output>` element
-
-## ♿ 4. Accessibility (A11y)
+## ♿ 4. Accessibility
 
 46. Accessibility and its importance
 
@@ -139,43 +122,33 @@
 
 58. WCAG guidelines
 
-59. Semantic HTML5 elements and their usage
+## 🚀 5. HTML5 & Modern APIs
 
-60. HTML5 APIs overview
+61. Canvas API and its usage
 
-## 🚀 5. HTML5 Features & APIs
+62. Drag and Drop API
 
-61. New semantic elements in HTML5
+63. Geolocation API
 
-62. Canvas API and its usage
+64. Web Storage (localStorage and sessionStorage)
 
-63. Drag and Drop API
+65. History API
 
-64. Geolocation API
+66. Offline Web Apps
 
-65. Web Storage (localStorage and sessionStorage)
+67. Web Workers
 
-66. History API
+68. Intersection Observer API
 
-67. Offline Web Apps
+69. Web Components
 
-68. Web Workers
+70. Custom Elements
 
-69. Intersection Observer API
+71. Shadow DOM
 
-70. Web Components
+72. WebRTC
 
-71. Custom Elements
-
-72. Shadow DOM
-
-73. WebRTC
-
-74. Service Workers
-
-75. Progressive Web Apps (PWAs)
-
-## 🎬 6. Media Elements
+## 🎬 6. Media & Images
 
 76. Embedding videos in HTML
 
@@ -199,77 +172,44 @@
 
 ## ⚡ 7. Performance & SEO
 
-86. Optimizing HTML for performance
+86. Implementing lazy loading
 
-87. Critical Rendering Path
+87. Structuring HTML for SEO
 
-88. Implementing lazy loading
+86. Meta tags and their usage
 
-89. Minifying HTML
+89. Implementing structured data
 
-90. Optimizing for mobile
+90. Implementing caching
 
-91. Structuring HTML for SEO
+87. Resource hints and their usage for optimizing page performance
 
-92. Meta tags and their usage
+86. `fetchpriority` and its usage for optimizing resource loading
 
-93. Implementing structured data
+89. SEO and how to optimize it
 
-94. Core Web Vitals
+94. `sitemap.xml` and how to create it
 
-95. Implementing caching
+90. `robots.txt` and its usage
 
-96. Resource hints and their usage for optimizing page performance
+87. Open Graph tags and their usage
 
-97. `fetchpriority` and its usage for optimizing resource loading
-
-98. SEO and how to optimize it
-
-99. `sitemap.xml` and how to create it
-
-100. `robots.txt` and its usage
-
-101. Open Graph tags and their usage
-
-## 🔧 8. Advanced HTML Concepts
-
-102. HTML vs XML
-
-103. Creating custom attributes
-
-104. Purpose of the `<template>` element
-
-105. Creating accessible SPAs
-
-106. Including CSS in HTML
-
-107. Creating responsive layouts
-
-108. Creating data visualizations
-
-109. Implementing internationalization
-
-110. Creating interactive components
-
----
 
 ## 📖 Complete Answer Guide
 
-- [1) HTML Fundamentals](01%29%20HTML%20Fundamentals.md) - Q1-15
+- [1) HTML Fundamentals](01%29%20Fundamentals%20&%20Basics.md) - Q1-15
 
 - [2) Semantic HTML & Structure](02%29%20Semantic%20HTML%20%26%20Structure.md) - Q16-30
 
 - [3) Forms & Input Elements](03%29%20Forms%20%26%20Input%20Elements.md) - Q31-45
 
-- [4) Accessibility (A11y)](04%29%20Accessibility%20%28A11y%29.md) - Q46-60
+- [4) Accessibility (A11y)](04%29%20Accessibility.md) - Q46-60
 
 - [5) HTML5 Features & APIs](05%29%20HTML5%20Features%20%26%20APIs.md) - Q61-75
 
-- [6) Media Elements](06%29%20Media%20Elements.md) - Q76-85
+- [6) Media Elements](06%29%20Media%20&%20Images.md) - Q76-85
 
-- [7) Performance & SEO](07%29%20Performance%20%26%20SEO.md) - Q86-101
-
-- [8) Advanced HTML Concepts](08%29%20Advanced%20HTML%20Concepts.md) - Q102-110
+- [7) Performance & SEO](07%29%20Performance%20%26%20SEO.md) - Q86-96
 
 ## 📝 Cheatsheet
 

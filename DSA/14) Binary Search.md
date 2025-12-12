@@ -77,6 +77,7 @@ Given an integer `target`, return `true` if `target` is in `matrix` or `false` o
 ### Solution 1: Binary Search on Flattened Array (Optimal)
 
 ```javascript
+
 function searchMatrix(matrix, target) {
   if (!matrix.length || !matrix[0].length) return false;
 
@@ -169,6 +170,7 @@ function findPeakElement(nums) {
 ### Solution 1: Binary Search with Rotation Handling (Optimal)
 
 ```javascript
+
 function search(nums, target) {
   let left = 0, right = nums.length - 1;
 
@@ -307,6 +309,7 @@ Notice that rotating an array `[a[0], a[1], a[2], ..., a[n-1]` 1 time results in
 ### Solution 1: Binary Search (Optimal)
 
 ```javascript
+
 function findMin(nums) {
   let left = 0, right = nums.length - 1;
 

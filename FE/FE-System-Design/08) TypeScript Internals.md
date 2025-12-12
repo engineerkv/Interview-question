@@ -295,7 +295,7 @@ function process(value: string | number) {
 }
 
 // Discriminated union
-type Shape = 
+type Shape =
   | { kind: "circle"; radius: number }
   | { kind: "rectangle"; width: number; height: number };
 

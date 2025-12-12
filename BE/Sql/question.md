@@ -6,13 +6,13 @@
 
 | Section | Topic | Questions | Difficulty |
 |---------|-------|-----------|------------|
-| [1️⃣](#1-sql-fundamentals) | SQL Fundamentals | Q1–10 | ⭐⭐ |
-| [2️⃣](#2-querying--joins) | Querying & Joins | Q11–20 | ⭐⭐⭐ |
-| [3️⃣](#3-filtering-grouping--aggregation) | Filtering, Grouping & Aggregation | Q21–30 | ⭐⭐⭐ |
-| [4️⃣](#4-database-design-indexing--performance) | Database Design, Indexing & Performance | Q31–40 | ⭐⭐⭐⭐ |
-| [5️⃣](#5-transactions-concurrency--stored-logic) | Transactions, Concurrency & Stored Logic | Q41–50 | ⭐⭐⭐⭐⭐ |
+| [1️⃣](#1-sql-fundamentals) | Fundamentals & Basics | Q1–10 | ⭐⭐ |
+| [2️⃣](#2-querying--joins) | Queries & Joins | Q11–20 | ⭐⭐⭐ |
+| [3️⃣](#3-filtering-grouping--aggregation) | Filtering & Aggregation | Q21–30 | ⭐⭐⭐ |
+| [4️⃣](#4-database-design-indexing--performance) | Design & Performance | Q31–40 | ⭐⭐⭐⭐ |
+| [5️⃣](#5-transactions-concurrency--stored-logic) | Transactions & Concurrency | Q41–50 | ⭐⭐⭐⭐⭐ |
 
-## 🧠 1. SQL Fundamentals
+## 🧠 1. Fundamentals & Basics
 
 1. 💾 SQL and what it stands for
 
@@ -34,7 +34,7 @@
 
 10. 🏷️ Aliases in SQL and how to use them
 
-## 🔍 2. Querying & Joins
+## 🔍 2. Queries & Joins
 
 11. 🔗 Different types of JOINs in SQL
 
@@ -56,7 +56,7 @@
 
 20. 💰 Finding the second-highest salary from a table
 
-## 📊 3. Filtering, Grouping & Aggregation
+## 📊 3. Filtering & Aggregation
 
 21. 🔍 Difference between WHERE and HAVING clauses
 
@@ -78,7 +78,7 @@
 
 30. 📊 Creating pivot tables in SQL
 
-## 🏗️ 4. Database Design, Indexing & Performance
+## 🏗️ 4. Design & Performance
 
 31. 📊 Database normalization and why it's important
 
@@ -100,7 +100,7 @@
 
 40. 🐌 Identifying and fixing slow queries
 
-## ⚡ 5. Transactions, Concurrency & Stored Logic
+## ⚡ 5. Transactions & Concurrency
 
 41. 🔄 Transaction in SQL
 
@@ -126,11 +126,11 @@
 
 ## 📖 Complete Answer Guide
 
-- [1) SQL Fundamentals](01%29%20SQL%20Fundamentals.md) - Q1-10
+- [1) SQL Fundamentals](01%29%20Fundamentals%20&%20Basics.md) - Q1-10
 
-- [2) Querying & Joins](02%29%20Querying%20%26%20Joins.md) - Q11-20
+- [2) Querying & Joins](02%29%20Queries%20%26%20Joins.md) - Q11-20
 
-- [3) Filtering, Grouping & Aggregation](03%29%20Filtering%2C%20Grouping%20%26%20Aggregation.md) - Q21-30
+- [3) Filtering, Grouping & Aggregation](03%29%20Filtering%20%26%20Aggregation.md) - Q21-30
 
 - [4) Database Design, Indexing & Performance](04%29%20Database%20Design%2C%20Indexing%20%26%20Performance.md) - Q31-40
 

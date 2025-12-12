@@ -255,7 +255,7 @@ Design and implement a full-featured e-commerce platform that addresses the foll
 
 ### Payment Gateway
 
-- **Razorpay / Stripe:** Payment gateway for processing payments
+- **Payment Gateway:** Payment gateway for processing payments
   - **Multiple methods** - Cards, UPI, net banking, wallets
   - **Secure** - PCI-DSS compliant
   - **Easy integration** - Simple API, good documentation
@@ -272,6 +272,7 @@ Design and implement a full-featured e-commerce platform that addresses the foll
 - **Average Page Views per User**: 10 pages per session
 
 **Calculations:**
+
 - **Average Requests Per Second (RPS)**: (100,000 users × 10 pages) / 86,400 seconds ≈ 11,600 RPS
 - **Peak RPS**: 11,600 × 10 = 116,000 RPS during sales events
 - **Write Operations**: 11,600 / 20 ≈ 580 WPS (orders, cart updates)
@@ -280,11 +281,13 @@ Design and implement a full-featured e-commerce platform that addresses the foll
 ### Storage Estimation
 
 **Storage per Product:**
+
 - Product metadata: 2 KB (name, description, price, etc.)
 - Product images: 500 KB average (5 images × 100 KB each)
 - **Total per Product**: ~502 KB
 
 **Storage Requirements:**
+
 - **Total Products**: 10 million products
 - **Product Storage**: 10M × 502 KB ≈ 5 TB
 - **User Data**: 1M users × 10 KB ≈ 10 GB
@@ -302,6 +305,7 @@ Design and implement a full-featured e-commerce platform that addresses the foll
 ### Caching Estimation
 
 Following the **80-20 rule** where 20% of products generate 80% of traffic:
+
 - **Cache 20% of hot products**: 10M × 0.2 = 2M products
 - **Cache memory required**: 2M × 2 KB = 4 GB
 - **Cache hit ratio**: 80% (only 20% of product requests hit database)
@@ -397,7 +401,8 @@ Following the **80-20 rule** where 20% of products generate 80% of traffic:
                     │   External   │
                     │   Services   │
                     │              │
-                    │  - Razorpay  │
+                    │  - Payment   │
+                    │    Gateway  │
                     │  - AWS S3    │
                     │  - CDN       │
                     └──────────────┘
@@ -460,6 +465,7 @@ The system follows a layered architecture with clear separation of concerns acro
 ### Complete Request Flow
 
 **Product Browsing Flow:**
+
 1. **Frontend**: User navigates to product listing page
 2. **Load Balancer**: Routes request to available API server
 3. **API Server**: Validates request, extracts query parameters
@@ -469,6 +475,7 @@ The system follows a layered architecture with clear separation of concerns acro
 7. **Frontend**: Display products with images from CDN
 
 **Add to Cart Flow:**
+
 1. **Frontend**: User clicks "Add to Cart" button
 2. **Redux Action**: Dispatch addToCart action
 3. **API Call**: POST request to cart API
@@ -478,10 +485,11 @@ The system follows a layered architecture with clear separation of concerns acro
 7. **Frontend**: Update Redux store, show cart badge with item count
 
 **Checkout Flow:**
+
 1. **Frontend**: User proceeds to checkout
 2. **API Call**: POST request to checkout API with cart items and address
 3. **Backend**: Validate cart, check inventory, calculate totals
-4. **Payment Gateway**: Process payment via Razorpay/Stripe
+4. **Payment Gateway**: Process payment via payment gateway
 5. **Order Creation**: Create order in MongoDB with transaction
 6. **Inventory Update**: Decrement inventory quantities
 7. **Response**: Return order confirmation to frontend
@@ -497,7 +505,7 @@ The system follows a layered architecture with clear separation of concerns acro
 - **Cache Layer (Redis)**: In-memory cache for hot products (20% of traffic), cart data, sessions
 - **Database (MongoDB)**: Sharded across multiple nodes for horizontal scaling, stores products, users, orders, reviews
 - **Search (Elasticsearch)**: Fast full-text search for products, handles complex filters and sorting
-- **Payment Gateway**: Razorpay/Stripe for secure payment processing
+- **Payment Gateway**: Payment gateway for secure payment processing
 - **Image Storage (AWS S3)**: Stores product images, served via CDN
 
 1. **React.js for Frontend:** Perfect for interactive e-commerce - product filters, cart updates, search all need fast UI updates
@@ -770,8 +778,8 @@ const CartItem: React.FC<{ item: CartItem }> = ({ item }) => {
         <h4>{item.product.name}</h4>
         <div className="price">${item.product.price}</div>
       </div>
-      <QuantitySelector 
-        quantity={item.quantity} 
+      <QuantitySelector
+        quantity={item.quantity}
         onChange={handleQuantityChange}
         max={item.product.stock}
       />
@@ -812,7 +820,7 @@ const useProducts = (filters: ProductFilters) => {
 const useAddToCart = () => {
   const queryClient = useQueryClient();
   const dispatch = useAppDispatch();
-  
+
   return useMutation({
     mutationFn: async ({ productId, quantity }: { productId: string; quantity: number }) => {
       const response = await axios.post('/api/v1/cart/items', { productId, quantity });
@@ -1419,8 +1427,8 @@ router.post('/create-payment', authenticate, async (req, res) => {
   const { orderId } = req.body;
   const order = await Order.findById(orderId);
 
-  // Create payment order with Razorpay
-  const razorpayOrder = await razorpay.orders.create({
+  // Create payment order with payment gateway
+  const paymentOrder = await paymentGateway.orders.create({
     amount: order.total * 100, // Convert to paise
     currency: 'INR',
     receipt: orderId
@@ -1429,9 +1437,9 @@ router.post('/create-payment', authenticate, async (req, res) => {
   res.json({
     success: true,
     data: {
-      orderId: razorpayOrder.id,
-      amount: razorpayOrder.amount,
-      key: process.env.RAZORPAY_KEY_ID
+      orderId: paymentOrder.id,
+      amount: paymentOrder.amount,
+      key: process.env.PAYMENT_GATEWAY_KEY_ID
     }
   });
 });
@@ -1477,7 +1485,7 @@ const ProductImage: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
 
 ### Payment Gateway Protocol
 
-- **Provider:** Payment Gateway (Razorpay/Stripe)
+- **Provider:** Payment Gateway
 
 - **Integration:** SDK and Webhooks
 
@@ -1532,11 +1540,11 @@ const ProductImage: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
 ```typescript
 // Backend: Validate payment webhook
 router.post('/payment-webhook', async (req, res) => {
-  const signature = req.headers['x-razorpay-signature'];
-  const isValid = razorpay.validateWebhookSignature(
+  const signature = req.headers['x-payment-gateway-signature'];
+  const isValid = paymentGateway.validateWebhookSignature(
     JSON.stringify(req.body),
     signature,
-    process.env.RAZORPAY_WEBHOOK_SECRET
+    process.env.PAYMENT_GATEWAY_WEBHOOK_SECRET
   );
 
   if (!isValid) {
@@ -1548,7 +1556,7 @@ router.post('/payment-webhook', async (req, res) => {
 
   if (status === 'captured') {
     await Order.updateOne(
-      { razorpayOrderId: order_id },
+      { paymentGatewayOrderId: order_id },
       { paymentStatus: 'paid', paymentId: payment_id }
     );
   }
@@ -1814,7 +1822,7 @@ try {
 
 **Integration:**
 
-- **SDK:** Payment gateway SDK (Razorpay/Stripe)
+- **SDK:** Payment gateway SDK
 
 - **Webhooks:** Secure webhook handling
 
@@ -1849,6 +1857,7 @@ try {
 **Purpose:** Rank product search results by relevance, popularity, and business metrics.
 
 **Algorithm:**
+
 1. Calculate BM25 relevance score for text matching
 2. Apply business boosts (popularity, sales, rating, recency)
 3. Combine scores with weighted formula
@@ -1861,15 +1870,15 @@ function rankProducts(products: Product[], query: string): Product[] {
   return products.map(product => {
     // BM25 relevance score
     const relevanceScore = calculateBM25(product, query);
-    
+
     // Business boosts
     const popularityBoost = product.salesCount * 0.1;
     const ratingBoost = product.rating * 0.2;
     const recencyBoost = getRecencyBoost(product.createdAt);
-    
+
     // Combined score
     const finalScore = relevanceScore * 0.6 + popularityBoost * 0.2 + ratingBoost * 0.15 + recencyBoost * 0.05;
-    
+
     return { ...product, score: finalScore };
   }).sort((a, b) => b.score - a.score);
 }
@@ -1877,6 +1886,7 @@ function rankProducts(products: Product[], query: string): Product[] {
 ```
 
 **Complexity:**
+
 - Time: O(n * m) where n is number of products, m is query length
 - Space: O(n) for scoring
 - **Ranking Quality:** Combined scoring improves search relevance
@@ -1888,6 +1898,7 @@ function rankProducts(products: Product[], query: string): Product[] {
 **Purpose:** Merge client-side and server-side cart when user logs in.
 
 **Algorithm:**
+
 1. Load server cart and client cart
 2. Merge items by product ID
 3. For duplicates, use maximum quantity
@@ -1899,16 +1910,16 @@ function rankProducts(products: Product[], query: string): Product[] {
 ```typescript
 function mergeCarts(serverCart: CartItem[], clientCart: CartItem[]): CartItem[] {
   const merged = new Map<string, CartItem>();
-  
+
   // Add server cart items
   for (const item of serverCart) {
     merged.set(item.productId, { ...item });
   }
-  
+
   // Merge client cart items
   for (const item of clientCart) {
     const existing = merged.get(item.productId);
-    
+
     if (existing) {
       // Use maximum quantity
       existing.quantity = Math.max(existing.quantity, item.quantity);
@@ -1916,13 +1927,14 @@ function mergeCarts(serverCart: CartItem[], clientCart: CartItem[]): CartItem[] 
       merged.set(item.productId, { ...item });
     }
   }
-  
+
   return Array.from(merged.values());
 }
 
 ```
 
 **Complexity:**
+
 - Time: O(n + m) where n and m are cart sizes
 - Space: O(n + m)
 - **Cart Consistency:** Merge algorithm ensures no items are lost
@@ -1992,6 +2004,7 @@ function mergeCarts(serverCart: CartItem[], clientCart: CartItem[]): CartItem[] 
 ### MongoDB Transactions
 
 **Transaction Usage:**
+
 - **Multi-Document Transactions** - For operations requiring ACID guarantees
 - **Example:** Order creation + inventory update + payment processing in single transaction
 - **Session Management:** Use MongoDB sessions for transaction control
@@ -2024,6 +2037,7 @@ try {
 ### Consistency Strategies
 
 **Data Consistency:**
+
 - **Order Consistency:** Use transactions for order operations to ensure atomicity
 - **Inventory Consistency:** Ensure inventory updates are atomic with order creation
 - **Payment Consistency:** Ensure payment and order updates are atomic
@@ -2070,6 +2084,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success)
 
 ### POST /api/v1/cart
@@ -2086,6 +2101,7 @@ try {
   }
 
   ```
+
 - **Response:**
 
   ```json
@@ -2100,6 +2116,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 201 (Created), 400 (Validation Error), 404 (Product Not Found)
 
 ---
@@ -2109,15 +2126,17 @@ try {
 ### Redis Cache
 
 **Cache Strategy:**
+
 - **Key Format:** `product:{productId}`, `search:{query}:{filters}`, `cart:{userId}`
 - **Value:** Serialized JSON (product data, search results, cart data)
-- **TTL:** 
+- **TTL:**
   - Product data: 3600 seconds (1 hour)
   - Search results: 300 seconds (5 minutes)
   - Cart data: 86400 seconds (24 hours)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
+
 - **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
 - **Write-Through Pattern:** Update cache when product data changes
 - **Cache Invalidation:** Invalidate product cache on product updates
@@ -2129,6 +2148,7 @@ try {
 ### Error Scenarios and Responses
 
 **Edge Cases Handling:**
+
 - **Product Out of Stock:** Return 409 Conflict when adding out-of-stock product to cart
 - **Invalid Payment:** Return 402 Payment Required with payment error details
 - **Order Not Found:** Return 404 Not Found
@@ -2154,16 +2174,19 @@ try {
 ### Scalability
 
 **API Layer:**
+
 - Deploy API layer across multiple instances behind load balancer
 - Use auto-scaling based on CPU/memory metrics
 - Stateless design allows horizontal scaling
 
 **Database Scaling:**
+
 - **Read Replicas:** Deploy read replicas for product queries
 - **Sharding:** Shard products by category or productId for write scaling
 - **Connection Pooling:** Use connection pooling to manage database connections
 
 **Caching:**
+
 - Distributed Redis cluster for high availability
 - Cache product data and search results
 - Reduces database load significantly
@@ -2171,15 +2194,18 @@ try {
 ### Availability
 
 **Replication:**
+
 - Database replication ensures data availability
 - Multi-region replication for disaster recovery
 
 **Failover:**
+
 - Automated failover mechanisms for API and data store layers
 - Health checks and monitoring for proactive failover
 - Circuit breaker pattern to prevent cascading failures
 
 **Geo-Distributed Deployment:**
+
 - Deploy service across multiple geographical regions
 - Reduces latency for users worldwide
 - Improves availability by eliminating single point of failure
@@ -2187,23 +2213,27 @@ try {
 ### Frontend Deployment
 
 **Build Process:**
+
 - **Production Build:** Optimized bundle with code splitting
 - **CDN Deployment:** Deploy static assets to CDN for fast global delivery
 - **Environment Variables:** `.env.production` for production config
 
 **Deployment Platforms:**
+
 - **Vercel / Netlify** - Automatic deployments from Git
 - **AWS S3 + CloudFront** - Static site hosting with CDN
 
 ### Backend Deployment
 
 **Server Setup:**
+
 - **PM2:** Process manager with clustering for Node.js apps
 - **Nginx:** Load balancer and reverse proxy with SSL termination
 - **Docker:** Containerized deployment for consistency
 - **Kubernetes:** Container orchestration for auto-scaling
 
 **CI/CD Pipeline:**
+
 - **Automated Testing:** Run tests before deployment
 - **Zero-Downtime:** Rolling deployment strategy
 - **Health Checks:** Verify API endpoints are healthy
@@ -2212,12 +2242,14 @@ try {
 ### Database Deployment
 
 **MongoDB Setup:**
+
 - **MongoDB Atlas** - Managed MongoDB service with automatic backups
 - **Backup Strategy:** Daily automated backups with point-in-time recovery
 - **Indexing:** Proper indexes on productId, category, price, status
 - **Replication:** Replica sets for high availability
 
 **Redis Setup:**
+
 - **Redis Cloud / AWS ElastiCache** - Managed Redis service
 - **Cluster Mode:** Redis cluster for high availability and performance
 - **Persistence:** RDB snapshots and AOF for data durability
@@ -2348,4 +2380,3 @@ I implemented **idempotency** using unique order IDs to prevent duplicate proces
 **Result:** Payment integration is secure and reliable. 98%+ payment success rate. Webhook processing ensures real-time status updates. Zero security incidents. Refund processing works seamlessly.
 
 **Takeaway:** Payment integration requires careful error handling and webhook management. Always verify webhook signatures. Implement idempotency. Never store sensitive payment data. Proper state management is essential.
-

@@ -1,6 +1,6 @@
 # 🎯 Backend System Design Interview Questions
 
-224 carefully curated questions covering backend system design fundamentals to real-world scenarios, including API scaling, REST vs GraphQL, communication protocols, database design, Node.js system design, AWS cloud architecture, observability, and more.
+214 carefully curated questions covering backend system design fundamentals to real-world scenarios, including API scaling, REST vs GraphQL, communication protocols, database design, Node.js system design, AWS cloud architecture, observability, and more.
 
 ## 📋 Quick Navigation
 
@@ -9,15 +9,14 @@
 | [1️⃣](#1-system-design-fundamentals) | System Design Fundamentals | Q1–25 | ⭐⭐ |
 | [2️⃣](#2-communication-protocols) | Communication Protocols | Q26–40 | ⭐⭐⭐⭐ |
 | [3️⃣](#3-rest-vs-graphql) | REST vs GraphQL | Q41–50 | ⭐⭐⭐ |
-| [4️⃣](#4-api-scaling) | API Scaling | Q51–65 | ⭐⭐⭐⭐ |
+| [4️⃣](#4-api-scaling) | API Scaling | Q51–63 | ⭐⭐⭐⭐ |
 | [5️⃣](#5-messaging-systems) | Messaging Systems | Q66–94 | ⭐⭐⭐⭐ |
-| [6️⃣](#6-aws-cloud-architecture) | AWS Cloud Architecture | Q95–119 | ⭐⭐⭐⭐ |
+| [6️⃣](#6-aws-cloud-architecture) | AWS Cloud Architecture | Q95–117 | ⭐⭐⭐⭐ |
 | [7️⃣](#7-observability) | Observability | Q120–134 | ⭐⭐⭐⭐ |
-| [8️⃣](#8-database-design) | Database Design | Q135–169 | ⭐⭐⭐ |
-| [9️⃣](#9-nodejs-system-design) | Node.js System Design | Q170–189 | ⭐⭐⭐ |
+| [8️⃣](#8-database-design) | Database Design | Q135–168 | ⭐⭐⭐ |
+| [9️⃣](#9-nodejs-system-design) | Node.js System Design | Q170–188 | ⭐⭐⭐ |
 | [🔟](#10-git-docker-cicd-tooling) | Git, Docker, CI/CD, Tooling | Q190–209 | ⭐⭐⭐ |
 | [1️⃣1️⃣](#11-code-quality--debugging) | Code Quality + Debugging | Q210–219 | ⭐⭐⭐⭐ |
-| [1️⃣2️⃣](#12-ai-tools) | AI Tools | Q220–224 | ⭐⭐ |
 
 ---
 
@@ -135,35 +134,31 @@
 
 ## 🟫 4. API Scaling
 
-51. 📈 Vertical vs horizontal API scaling
+51. 📦 Stateless API design for scaling
 
-52. 📦 Stateless API design for scaling
+52. ⚖️ Scaling APIs using ALB/NLB
 
-53. ⚖️ Scaling APIs using ALB/NLB
+53. 🚪 Scaling API Gateway
 
-54. 🚪 Scaling API Gateway
+54. 🌐 How CDNs reduce API load
 
-55. 🌐 How CDNs reduce API load
+55. 🌍 Multi-region API scaling strategies
 
-56. 🪣 Token Bucket vs Leaky Bucket algorithms
+56. ⚡ High-throughput API design patterns
 
-57. 🌍 Multi-region API scaling strategies
+57. 🔥 Avoiding API hotspots
 
-58. ⚡ High-throughput API design patterns
+58. 🚦 API throttling vs rate limiting
 
-59. 🔥 Avoiding API hotspots
+59. 💾 Scaling APIs with caching layers
 
-60. 🚦 API throttling vs rate limiting
+60. 📄 Efficient pagination strategies for large APIs
 
-61. 💾 Scaling APIs with caching layers
+61. 📊 Reducing DB load via query batching
 
-62. 📄 Efficient pagination strategies for large APIs
+62. 🔗 Hypermedia-driven API design
 
-63. 📊 Reducing DB load via query batching
-
-64. 🔗 Hypermedia-driven API design
-
-65. 🪝 Scaling webhooks API endpoints
+63. 🪝 Scaling webhooks API endpoints
 
 ---
 
@@ -255,31 +250,27 @@
 
 106. 🔄 CI/CD pipelines for microservices
 
-107. 🔵🟢 Blue-green deployment
+107. 🌐 CloudFront + S3 architecture
 
-108. 🔄 Rolling updates with zero downtime
+108. 🔗 S3 pre-signed URL flow
 
-109. 🌐 CloudFront + S3 architecture
+109. 🔐 Handling secrets with AWS Secrets Manager
 
-110. 🔗 S3 pre-signed URL flow
+110. 💰 AWS cost optimization best practices
 
-111. 🔐 Handling secrets with AWS Secrets Manager
+111. 💾 RDS vs DynamoDB vs Mongo Atlas
 
-112. 💰 AWS cost optimization best practices
+112. 🔑 DynamoDB partition key design
 
-113. 💾 RDS vs DynamoDB vs Mongo Atlas
+113. ⚠️ DynamoDB throttling prevention
 
-114. 🔑 DynamoDB partition key design
+114. 🔄 Multi-AZ replication in RDS
 
-115. ⚠️ DynamoDB throttling prevention
+115. 📖 RDS read replicas
 
-116. 🔄 Multi-AZ replication in RDS
+116. 🌍 DynamoDB Global Tables
 
-117. 📖 RDS read replicas
-
-118. 🌍 DynamoDB Global Tables
-
-119. ⚡ On-demand vs provisioned capacity
+117. ⚡ On-demand vs provisioned capacity
 
 ---
 
@@ -363,31 +354,29 @@
 
 156. 📇 Indexing best practices in Mongo
 
-157. ⏰ TTL index use cases
+157. 📊 Time-series schema design
 
-158. 📊 Time-series schema design
+158. ⚡ Mongo high-throughput strategies
 
-159. ⚡ Mongo high-throughput strategies
+159. 🌊 Change streams use cases
 
-160. 🌊 Change streams use cases
+160. ❌ MongoDB anti-patterns
 
-161. ❌ MongoDB anti-patterns
+161. 💾 Redis architecture
 
-162. 💾 Redis architecture
+162. 💾 Redis AOF vs RDB persistence
 
-163. 💾 Redis AOF vs RDB persistence
+163. 📢 Redis pub/sub pros and cons
 
-164. 📢 Redis pub/sub pros and cons
+164. 🔀 Redis clustering and how it works
 
-165. 🔀 Redis clustering and how it works
+165. 🔒 Distributed locking with Redis
 
-166. 🔒 Distributed locking with Redis
+166. 🗑️ Cache invalidation best practices
 
-167. 🗑️ Cache invalidation best practices
+167. 💾 Avoiding memory eviction issues
 
-168. 💾 Avoiding memory eviction issues
-
-169. 🔀 Redis vs Memcached differences
+168. 🔀 Redis vs Memcached differences
 
 ---
 
@@ -413,25 +402,23 @@
 
 179. 🏗️ Large-scale Node.js project structure
 
-180. 🏊 Connection pooling strategies
+180. 🔁 Retry and exponential backoff
 
-181. 🔁 Retry and exponential backoff
+181. 🔑 Idempotent API design in Node.js
 
-182. 🔑 Idempotent API design in Node.js
+182. 🔐 JWT authentication architecture
 
-183. 🔐 JWT authentication architecture
+183. 🛡️ Preventing brute-force attacks
 
-184. 🛡️ Preventing brute-force attacks
+184. 🛑 Graceful shutdown and why it's important
 
-185. 🛑 Graceful shutdown and why it's important
+185. 📝 Logging architecture for Node.js services
 
-186. 📝 Logging architecture for Node.js services
+186. 🛠️ Handling partial failures in Node.js
 
-187. 🛠️ Handling partial failures in Node.js
+187. ☁️ Designing Node.js + S3 upload flow
 
-188. ☁️ Designing Node.js + S3 upload flow
-
-189. ⚙️ Handling environment configs in Node.js microservices
+188. ⚙️ Handling environment configs in Node.js microservices
 
 ---
 
@@ -503,20 +490,6 @@
 
 ---
 
-## 🟧 12. AI Tools
-
-220. 🤖 Using GitHub Copilot effectively
-
-221. ⚠️ Risks of AI-generated code
-
-222. 🔍 Reviewing AI-generated code securely
-
-223. ⚡ Cursor productivity benefits
-
-224. 🔧 Using AI for refactoring safely
-
----
-
 ## 📖 Complete Answer Guide
 
 - [1) System Design Fundamentals](01%29%20System%20Design%20Fundamentals.md) - Q1-25
@@ -525,23 +498,21 @@
 
 - [3) REST vs GraphQL](03%29%20REST%20vs%20GraphQL.md) - Q41-50
 
-- [4) API Scaling](04%29%20API%20Scaling.md) - Q51-65
+- [4) API Scaling](04%29%20API%20Scaling.md) - Q51-63
 
 - [5) Messaging Systems](05%29%20Messaging%20Systems.md) - Q66-94
 
-- [6) AWS Cloud Architecture](06%29%20AWS%20Cloud%20Architecture.md) - Q95-119
+- [6) AWS Cloud Architecture](06%29%20AWS%20Cloud%20Architecture.md) - Q95-117
 
 - [7) Observability](07%29%20Observability.md) - Q120-134
 
 - [8) Database Design](08%29%20Database%20Design.md) - Q135-169
 
-- [9) Node.js System Design](09%29%20Node.js%20System%20Design.md) - Q170-189
+- [9) Node.js System Design](09%29%20Node.js%20System%20Design.md) - Q170-188
 
 - [10) Git, Docker, CI-CD, Tooling](10%29%20Git%2C%20Docker%2C%20CI-CD%2C%20Tooling.md) - Q190-209
 
 - [11) Code Quality + Debugging](11%29%20Code%20Quality%20%2B%20Debugging.md) - Q210-219
-
-- [12) AI Tools](12%29%20AI%20Tools.md) - Q220-224
 
 ## 📝 Cheatsheet
 

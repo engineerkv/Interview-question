@@ -4,6 +4,7 @@
 > **Frontend:** React.js Web Application
 > **Backend:** Node.js, Express.js, MongoDB, REST APIs
 > **Tech Stack:**
+>
 > - **Frontend:** React.js, TypeScript, React Router, Redux Toolkit, Axios, Material-UI
 > - **Backend:** Node.js, Express.js, MongoDB, Redis, Socket.io, JWT
 > - **Services:** Cashfree Payment Gateway, AWS S3 (for file storage)
@@ -335,7 +336,7 @@ Design and implement a fantasy sports platform that addresses the following chal
 - **React Router v6:** Like GPS for your app - tells it which page to show
   - **Declarative:** You describe what you want, React Router figures out how - like saying "I want to go to matches page"
   - **Route Guards:** Protects pages - like a bouncer checking if you're logged in before letting you in
-  - **Deep Linking:** Share a link to a specific match - works like sharing a YouTube video at a specific timestamp
+  - **Deep Linking:** Share a link to a specific match - works like sharing a video at a specific timestamp
   - **Code Splitting:** Only loads the code for the page you're on - like opening one chapter of a book instead of the whole library
 
 ### UI Components & Styling
@@ -475,6 +476,7 @@ Design and implement a fantasy sports platform that addresses the following chal
 - **Read:Write Ratio**: 20:1 (viewing matches/contests vs creating teams/joining contests)
 
 **Calculations:**
+
 - **Average Writes Per Second (WPS)**: 5M contest joins / 86,400 seconds ≈ 58 WPS
 - **Peak WPS**: 58 × 10 = 580 WPS
 - **Average Reads Per Second (RPS)**: 58 × 20 = 1,160 RPS
@@ -484,12 +486,14 @@ Design and implement a fantasy sports platform that addresses the following chal
 ### Storage Estimation
 
 **Storage per Team Selection:**
+
 - Team metadata: 1 KB (id, userId, matchId, players, points, timestamps)
 - Contest join: 500 bytes (contestId, entryFee, status)
 - Payment data: 500 bytes (amount, payment method, transaction ID)
 - **Total per Team Selection**: ~2 KB
 
 **Storage Requirements:**
+
 - **Team Selections per Year**: 10M selections/day × 365 = 3.65 billion selections
 - **Team Storage**: 3.65B × 2 KB ≈ 7.3 TB per year
 - **User Data**: 10M users × 5 KB ≈ 50 GB
@@ -509,6 +513,7 @@ Design and implement a fantasy sports platform that addresses the following chal
 ### Caching Estimation
 
 Following the **80-20 rule** where 20% of matches generate 80% of traffic:
+
 - **Cache 20% of popular matches**: 10K × 0.2 = 2K matches
 - **Cache memory required**: 2K matches × 100 KB = 200 MB (distributed across Redis cluster)
 - **Cache hit ratio**: 90% (only 10% of match/contest requests hit database)
@@ -925,7 +930,7 @@ const TeamSelectionPage: React.FC<{ matchId: string }> = ({ matchId }) => {
   const handlePlayerSelect = (player: Player) => {
     if (selectedPlayers.length >= 11) return;
     if (selectedPlayers.find(p => p.id === player.id)) return;
-    
+
     setSelectedPlayers(prev => [...prev, player]);
   };
 
@@ -1007,7 +1012,7 @@ const useMatches = (filters?: MatchFilters) => {
 
 const useJoinContest = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (contestId: string) => {
       const response = await axios.post(`/api/v1/contests/${contestId}/join`);
@@ -2868,6 +2873,7 @@ try {
 **Purpose:** Calculate fantasy points for players based on their real-world performance.
 
 **Algorithm:**
+
 1. Fetch player performance data (runs, wickets, catches, etc.)
 2. Apply point system rules (e.g., 1 run = 1 point, 1 wicket = 25 points)
 3. Calculate bonus points (century, 5-wicket haul, etc.)
@@ -2883,7 +2889,7 @@ function calculatePlayerPoints(
   sport: 'cricket' | 'football' | 'kabaddi'
 ): number {
   let points = 0;
-  
+
   if (sport === 'cricket') {
     // Batting points
     points += performance.runs * 1;
@@ -2891,24 +2897,25 @@ function calculatePlayerPoints(
     points += performance.sixes * 2;
     if (performance.runs >= 100) points += 16; // Century bonus
     if (performance.runs === 0 && performance.dismissed) points -= 2; // Duck penalty
-    
+
     // Bowling points
     points += performance.wickets * 25;
     points += performance.maidens * 12;
     if (performance.wickets >= 5) points += 16; // 5-wicket haul bonus
-    
+
     // Fielding points
     points += performance.catches * 8;
     points += performance.stumpings * 12;
     points += performance.runOuts * 6;
   }
-  
+
   return points;
 }
 
 ```
 
 **Complexity:**
+
 - Time: O(1) for point calculation
 - Space: O(1)
 - **Points Accuracy:** Real-time calculation ensures accurate scoring
@@ -2920,6 +2927,7 @@ function calculatePlayerPoints(
 **Purpose:** Rank teams in a contest based on total points.
 
 **Algorithm:**
+
 1. Calculate total points for each team
 2. Sort teams by total points (descending)
 3. Assign ranks (handle ties)
@@ -2936,32 +2944,33 @@ function calculateLeaderboard(teams: FantasyTeam[]): LeaderboardEntry[] {
     totalPoints: calculateTeamPoints(team),
     team: team
   }));
-  
+
   // Sort by points (descending)
   teamPoints.sort((a, b) => b.totalPoints - a.totalPoints);
-  
+
   // Assign ranks (handle ties)
   let currentRank = 1;
   const leaderboard: LeaderboardEntry[] = [];
-  
+
   for (let i = 0; i < teamPoints.length; i++) {
     if (i > 0 && teamPoints[i].totalPoints < teamPoints[i - 1].totalPoints) {
       currentRank = i + 1;
     }
-    
+
     leaderboard.push({
       rank: currentRank,
       ...teamPoints[i],
       prize: calculatePrize(currentRank)
     });
   }
-  
+
   return leaderboard;
 }
 
 ```
 
 **Complexity:**
+
 - Time: O(n log n) for sorting where n is number of teams
 - Space: O(n) for leaderboard
 - **Ranking Accuracy:** Real-time ranking updates during matches
@@ -3031,6 +3040,7 @@ function calculateLeaderboard(teams: FantasyTeam[]): LeaderboardEntry[] {
 ### MongoDB Transactions
 
 **Transaction Usage:**
+
 - **Multi-Document Transactions** - For operations requiring ACID guarantees
 - **Example:** Contest join + wallet deduction + transaction record creation in single transaction
 - **Session Management:** Use MongoDB sessions for transaction control
@@ -3057,6 +3067,7 @@ try {
 ### Consistency Strategies
 
 **Data Consistency:**
+
 - **Contest Consistency:** Use transactions for contest operations to ensure atomicity
 - **Wallet Consistency:** Ensure wallet balance updates are atomic
 - **Points Consistency:** Calculate points consistently across all teams
@@ -3099,6 +3110,7 @@ try {
   }
 
   ```
+
 - **Response:**
 
   ```json
@@ -3111,6 +3123,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 400 (Invalid Request), 402 (Insufficient Balance)
 
 ### GET /api/v1/contests/:contestId/leaderboard
@@ -3130,6 +3143,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 404 (Contest Not Found)
 
 ---
@@ -3139,15 +3153,17 @@ try {
 ### Redis Cache
 
 **Cache Strategy:**
+
 - **Key Format:** `match:{matchId}`, `contest:{contestId}:leaderboard`, `player:{playerId}:points`
 - **Value:** Serialized JSON (match data, leaderboard, player points)
-- **TTL:** 
+- **TTL:**
   - Match data: 60 seconds (frequently updated during live matches)
   - Leaderboard: 30 seconds (frequently updated during live matches)
   - Player points: 60 seconds (frequently updated)
 - **Eviction Policy:** TTL-based eviction
 
 **Cache Patterns:**
+
 - **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
 - **Write-Through Pattern:** Update cache when match scores or points change
 - **Cache Invalidation:** Invalidate cache on match updates
@@ -3159,6 +3175,7 @@ try {
 ### Error Scenarios and Responses
 
 **Edge Cases Handling:**
+
 - **Contest Full:** Return 400 Bad Request with "Contest is full"
 - **Insufficient Balance:** Return 402 Payment Required with balance details
 - **Team Deadline Passed:** Return 400 Bad Request with "Team selection deadline has passed"
@@ -3185,21 +3202,25 @@ try {
 ### Scalability
 
 **API Layer:**
+
 - Deploy API layer across multiple instances behind load balancer
 - Use auto-scaling based on CPU/memory metrics
 - Stateless design allows horizontal scaling
 
 **WebSocket Scaling:**
+
 - **Socket.io Redis Adapter:** Enable horizontal scaling of WebSocket connections
 - **Sticky Sessions:** Required for Socket.io (use session affinity in load balancer)
 - **Connection Management:** Monitor and manage WebSocket connections
 
 **Database Scaling:**
+
 - **Read Replicas:** Deploy read replicas for match and contest queries
 - **Sharding:** Shard contests by matchId for write scaling
 - **Connection Pooling:** Use connection pooling to manage database connections
 
 **Caching:**
+
 - Distributed Redis cluster for high availability
 - Cache match data and leaderboards
 - Reduces database load significantly
@@ -3207,15 +3228,18 @@ try {
 ### Availability
 
 **Replication:**
+
 - Database replication ensures data availability
 - Multi-region replication for disaster recovery
 
 **Failover:**
+
 - Automated failover mechanisms for API and data store layers
 - Health checks and monitoring for proactive failover
 - Circuit breaker pattern to prevent cascading failures
 
 **Geo-Distributed Deployment:**
+
 - Deploy service across multiple geographical regions
 - Reduces latency for users worldwide
 - Improves availability by eliminating single point of failure
@@ -3223,23 +3247,27 @@ try {
 ### Frontend Deployment
 
 **Build Process:**
+
 - **Production Build:** Optimized bundle with code splitting
 - **CDN Deployment:** Deploy static assets to CDN for fast global delivery
 - **Environment Variables:** `.env.production` for production config
 
 **Deployment Platforms:**
+
 - **Vercel / Netlify** - Automatic deployments from Git
 - **AWS S3 + CloudFront** - Static site hosting with CDN
 
 ### Backend Deployment
 
 **Server Setup:**
+
 - **PM2:** Process manager with clustering for Node.js apps
 - **Nginx:** Load balancer and reverse proxy with SSL termination
 - **Docker:** Containerized deployment for consistency
 - **Kubernetes:** Container orchestration for auto-scaling
 
 **CI/CD Pipeline:**
+
 - **Automated Testing:** Run tests before deployment
 - **Zero-Downtime:** Rolling deployment strategy
 - **Health Checks:** Verify contest endpoints are healthy
@@ -3248,12 +3276,14 @@ try {
 ### Database Deployment
 
 **MongoDB Setup:**
+
 - **MongoDB Atlas** - Managed MongoDB service with automatic backups
 - **Backup Strategy:** Daily automated backups with point-in-time recovery
 - **Indexing:** Proper indexes on matchId, contestId, userId, status
 - **Replication:** Replica sets for high availability
 
 **Redis Setup:**
+
 - **Redis Cloud / AWS ElastiCache** - Managed Redis service
 - **Cluster Mode:** Redis cluster for high availability and performance
 - **Persistence:** RDB snapshots and AOF for data durability
@@ -3369,4 +3399,3 @@ try {
 **Takeaway:** Redux Toolkit simplifies Redux boilerplate and makes state management more maintainable. Use RTK Query for server state, Redux for client state. Normalized state structure prevents data duplication. Proper slice organization makes the codebase scalable.
 
 ---
-

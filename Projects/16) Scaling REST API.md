@@ -338,7 +338,7 @@ const useMetrics = (timeRange: string = '1h') => {
 
 const useSaveScalingConfig = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (config: ScalingConfig) => {
       const response = await axios.post('/api/v1/scaling/config', config);
@@ -829,6 +829,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
 **Purpose:** Distribute requests evenly across multiple servers and minimize data movement when servers are added or removed.
 
 **Algorithm:**
+
 1. Create a hash ring (circular space) from 0 to 2^64 - 1
 2. Hash each server to multiple points on the ring (virtual nodes)
 3. Hash the request key to a point on the ring
@@ -843,7 +844,7 @@ class ConsistentHash {
   private ring: Map<number, string> = new Map();
   private sortedKeys: number[] = [];
   private virtualNodes: number = 150;
-  
+
   addServer(serverId: string): void {
     for (let i = 0; i < this.virtualNodes; i++) {
       const hash = this.hash(`${serverId}-${i}`);
@@ -852,7 +853,7 @@ class ConsistentHash {
     }
     this.sortedKeys.sort((a, b) => a - b);
   }
-  
+
   removeServer(serverId: string): void {
     for (let i = 0; i < this.virtualNodes; i++) {
       const hash = this.hash(`${serverId}-${i}`);
@@ -863,23 +864,23 @@ class ConsistentHash {
       }
     }
   }
-  
+
   getServer(key: string): string {
     if (this.ring.size === 0) {
       throw new Error('No servers available');
     }
-    
+
     const hash = this.hash(key);
-    
+
     for (const ringKey of this.sortedKeys) {
       if (ringKey >= hash) {
         return this.ring.get(ringKey)!;
       }
     }
-    
+
     return this.ring.get(this.sortedKeys[0])!;
   }
-  
+
   private hash(key: string): number {
     const hash = crypto.createHash('md5').update(key).digest();
     return hash.readUInt32BE(0);
@@ -889,6 +890,7 @@ class ConsistentHash {
 ```
 
 **Complexity:**
+
 - Time: O(log n) for server lookup where n is number of virtual nodes
 - Space: O(v * s) where v is virtual nodes, s is number of servers
 - **Data Movement:** Only ~1/n of data moves when adding/removing servers
@@ -900,6 +902,7 @@ class ConsistentHash {
 **Purpose:** Manage Redis cache efficiently by evicting least recently used items when cache is full.
 
 **Algorithm:**
+
 1. Maintain a doubly-linked list of cached items ordered by access time
 2. Use a hash map for O(1) lookup
 3. On access: move item to front (most recently used)
@@ -913,7 +916,7 @@ class LRUCache {
   private cache: Map<string, { value: any; node: Node }> = new Map();
   private head: Node;
   private tail: Node;
-  
+
   constructor(capacity: number) {
     this.capacity = capacity;
     this.head = new Node('', '');
@@ -921,53 +924,53 @@ class LRUCache {
     this.head.next = this.tail;
     this.tail.prev = this.head;
   }
-  
+
   get(key: string): any {
     const item = this.cache.get(key);
-    
+
     if (!item) {
       return null;
     }
-    
+
     this.moveToFront(item.node);
     return item.value;
   }
-  
+
   put(key: string, value: any): void {
     const existing = this.cache.get(key);
-    
+
     if (existing) {
       existing.value = value;
       this.moveToFront(existing.node);
       return;
     }
-    
+
     if (this.cache.size >= this.capacity) {
       this.evictLRU();
     }
-    
+
     const node = new Node(key, value);
     this.addToFront(node);
     this.cache.set(key, { value, node });
   }
-  
+
   private moveToFront(node: Node): void {
     this.removeNode(node);
     this.addToFront(node);
   }
-  
+
   private addToFront(node: Node): void {
     node.prev = this.head;
     node.next = this.head.next;
     this.head.next!.prev = node;
     this.head.next = node;
   }
-  
+
   private removeNode(node: Node): void {
     node.prev!.next = node.next;
     node.next!.prev = node.prev;
   }
-  
+
   private evictLRU(): void {
     const lru = this.tail.prev!;
     this.removeNode(lru);
@@ -980,7 +983,7 @@ class Node {
   value: any;
   prev: Node | null = null;
   next: Node | null = null;
-  
+
   constructor(key: string, value: any) {
     this.key = key;
     this.value = value;
@@ -990,6 +993,7 @@ class Node {
 ```
 
 **Complexity:**
+
 - Time: O(1) for get and put operations
 - Space: O(capacity)
 
@@ -1048,6 +1052,7 @@ class Node {
 ### MongoDB Transactions
 
 **Transaction Usage:**
+
 - **Multi-Document Transactions** - For operations requiring ACID guarantees
 - **Example:** User creation + account initialization in single transaction
 - **Session Management:** Use MongoDB sessions for transaction control
@@ -1073,6 +1078,7 @@ try {
 ### Consistency Strategies
 
 **Data Consistency:**
+
 - **Read Consistency:** Use read replicas for eventual consistency, primary for strong consistency
 - **Cache Consistency:** Invalidate cache on data updates to prevent serving stale data
 - **Distributed Consistency:** Use distributed locks for critical operations across servers
@@ -1119,6 +1125,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Healthy), 503 (Unhealthy)
 
 ### GET /api/v1/metrics
@@ -1144,6 +1151,7 @@ try {
   }
 
   ```
+
 - **Status Codes:** 200 (Success), 401 (Unauthorized), 403 (Forbidden)
 
 ---
@@ -1153,12 +1161,14 @@ try {
 ### Redis Cache
 
 **Cache Strategy:**
+
 - **Key Format:** `cache:{endpoint}:{params}` or `cache:user:{userId}`
 - **Value:** Serialized JSON response
 - **TTL:** 5 minutes (configurable per endpoint)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
+
 - **Cache-Aside Pattern:** Check cache first, if miss query database and update cache
 - **Write-Through Pattern:** Write to cache and database simultaneously (for critical data)
 - **Cache Warming:** Pre-load cache with popular data during low-traffic periods
@@ -1166,6 +1176,7 @@ try {
 ### CDN Cache
 
 **Cache Strategy:**
+
 - **Static Assets:** Cache JS, CSS, images with long TTL (1 year)
 - **API Responses:** Cache GET responses with short TTL (5 minutes)
 - **Cache Headers:** Use Cache-Control headers for cache control
@@ -1178,6 +1189,7 @@ try {
 ### Error Scenarios and Responses
 
 **Edge Cases Handling:**
+
 - **Database Connection Failure:** Return 503 Service Unavailable with retry suggestion
 - **Cache Failure:** Fail-open, continue without cache (graceful degradation)
 - **Timeout Errors:** Return 504 Gateway Timeout when request exceeds timeout
@@ -1207,16 +1219,19 @@ try {
 ### Scalability
 
 **API Layer:**
+
 - Deploy API layer across multiple instances behind load balancer
 - Use auto-scaling based on CPU/memory metrics
 - Stateless design allows horizontal scaling
 
 **Database Scaling:**
+
 - **Read Replicas:** Deploy read replicas for read-heavy workloads
 - **Sharding:** Shard database by user ID for write scaling
 - **Connection Pooling:** Use connection pooling to manage database connections
 
 **Caching:**
+
 - Distributed Redis cluster for high availability
 - Cache frequently accessed API responses
 - Reduces database load significantly
@@ -1224,15 +1239,18 @@ try {
 ### Availability
 
 **Replication:**
+
 - Database replication ensures data availability
 - Multi-region replication for disaster recovery
 
 **Failover:**
+
 - Automated failover mechanisms for API and data store layers
 - Health checks and monitoring for proactive failover
 - Circuit breaker pattern to prevent cascading failures
 
 **Geo-Distributed Deployment:**
+
 - Deploy service across multiple geographical regions
 - Reduces latency for users worldwide
 - Improves availability by eliminating single point of failure
@@ -1240,23 +1258,27 @@ try {
 ### Frontend Deployment
 
 **Build Process:**
+
 - **Production Build:** Optimized bundle with code splitting
 - **CDN Deployment:** Deploy static assets to CDN for fast global delivery
 - **Environment Variables:** `.env.production` for production config
 
 **Deployment Platforms:**
+
 - **Vercel / Netlify** - Automatic deployments from Git
 - **AWS S3 + CloudFront** - Static site hosting with CDN
 
 ### Backend Deployment
 
 **Server Setup:**
+
 - **PM2:** Process manager with clustering for Node.js apps
 - **Nginx:** Load balancer and reverse proxy with SSL termination
 - **Docker:** Containerized deployment for consistency
 - **Kubernetes:** Container orchestration for auto-scaling
 
 **CI/CD Pipeline:**
+
 - **Automated Testing:** Run tests before deployment
 - **Zero-Downtime:** Rolling deployment strategy
 - **Health Checks:** Verify API endpoints are healthy
@@ -1265,12 +1287,14 @@ try {
 ### Database Deployment
 
 **MongoDB Setup:**
+
 - **MongoDB Atlas** - Managed MongoDB service with automatic backups
 - **Backup Strategy:** Daily automated backups with point-in-time recovery
 - **Indexing:** Proper indexes on frequently queried fields
 - **Replication:** Replica sets for high availability
 
 **Redis Setup:**
+
 - **Redis Cloud / AWS ElastiCache** - Managed Redis service
 - **Cluster Mode:** Redis cluster for high availability and performance
 - **Persistence:** RDB snapshots and AOF for data durability

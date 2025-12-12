@@ -1285,9 +1285,23 @@ Canary deployment gradually routes traffic to the new version.
 
 ---
 
-## 3. 💡 Blue-Green Characteristics
+## 3. 💡 Blue-Green Deployment Process
 
-Blue-green is faster.
+Blue-green deployment process involves deploying to inactive environment, testing, then switching traffic.
+
+* **Deploy to green** → Deploy new version to green environment
+
+* **Test** → Test the new version in green before switching
+
+* **Switch traffic** → Switch traffic from blue to green
+
+* **Instant rollback** → Switch back to blue immediately if issues occur
+
+---
+
+## 4. 💡 Blue-Green Characteristics
+
+Blue-green is faster and provides instant rollback.
 
 * **Faster** → Faster deployment
 
@@ -1297,23 +1311,43 @@ Blue-green is faster.
 
 * **Quick rollback** → Quick rollback
 
+* **Zero downtime** → Eliminates downtime
+
+* **Testing** → Test new version before switching
+
 ---
 
-## 4. 💡 Canary Characteristics
+## 5. 💡 Blue-Green Infrastructure Considerations
 
-Canary is safer.
+Blue-green deployments require careful handling of infrastructure and stateful services.
+
+* **Double infrastructure** → Need two identical environments (costs more)
+
+* **Stateful services** → Databases and sessions need careful handling
+
+* **Shared databases** → Both environments can use shared database or replication
+
+* **Session management** → Use external session stores (Redis, database) accessible from both environments
+
+---
+
+## 6. 💡 Canary Characteristics
+
+Canary is safer with gradual rollout.
 
 * **Safer** → Safer deployment
 
 * **Gradual** → Gradual rollout
 
-* **Risk reduction** → Reduces risk
+* **Risk reduction** → Reduces risk by testing with small percentage first
 
-* **Testing** → Tests with small percentage first
+* **Testing** → Tests with real users gradually
+
+* **Monitoring** → Monitor metrics before increasing traffic
 
 ---
 
-## 5. 💡 Trade-offs
+## 7. 💡 Trade-offs
 
 Blue-green deployments are faster and provide instant rollback.
 
@@ -1345,6 +1379,14 @@ You use blue-green when you want fast deployments, have infrastructure for two e
 
 You implement by maintaining two identical environments, deploying new version to inactive environment, testing new version, switching traffic (load balancer configuration), and keeping old environment for rollback. The catch is you need double infrastructure. The tricky part is switching - use load balancer to switch traffic, test thoroughly, and keep old environment for rollback.
 
+### How do you handle databases in blue-green deployments?
+
+You handle databases by using shared databases (both environments use same database), database replication (replicate data to green), or read replicas. The catch is you need to handle schema changes carefully. The tricky part is ensuring data consistency - use backward-compatible migrations, or use shared databases with careful coordination.
+
+### How do you manage sessions during blue-green switch?
+
+You manage sessions by using external session stores (Redis, database), ensuring sessions are accessible from both environments, or using sticky sessions carefully. The catch is sessions need to be accessible from both environments. The tricky part is ensuring users don't lose sessions during switch - use external session stores that both environments can access.
+
 ### How do you implement canary deployment?
 
 You implement by deploying new version alongside old, configuring traffic routing (10% to new, 90% to old), monitoring metrics (errors, latency, performance), gradually increasing traffic (10% → 50% → 100%), and rolling back if issues detected. The catch is it's more complex. The tricky part is monitoring - monitor closely, increase gradually, and roll back quickly if issues.
@@ -1361,13 +1403,13 @@ Zero-downtime deployments allow you to deploy new versions without interrupting 
 
 Achieve zero-downtime deployments by using rolling updates (replace instances gradually).
 
-* **Rolling updates** → Replace instances gradually
+* **Rolling updates** → Replace instances gradually, one at a time
 
-* **Gradual replacement** → Replace instances one at a time
+* **Gradual replacement** → Launch new instances with new version, verify health, then terminate old instances
 
-* **Continuous service** → Service remains available
+* **Continuous service** → Service remains available throughout deployment
 
-* **Gradual rollout** → Gradual rollout of new version
+* **Gradual rollout** → Gradual rollout of new version allows monitoring before full deployment
 
 📌 **In simple terms**: Replace instances gradually to maintain service availability.
 
@@ -1401,59 +1443,69 @@ Use canary deployments (gradually route traffic).
 
 ---
 
-## 4. ✅ Health Checks
+## 4. ✅ Health Checks and Validation
 
-Use health checks to ensure new instances are ready before routing traffic.
+Use health checks to ensure new instances are ready before routing traffic and terminating old ones.
 
-* **Health checks** → Ensure new instances are ready
+* **Health checks** → Verify new instances are healthy before switching traffic
 
-* **Readiness** → Check instance readiness
+* **Readiness** → Ensure new instances are ready to handle requests
 
 * **Traffic routing** → Route traffic only to healthy instances
 
-* **Safety** → Ensures safety
+* **Safety** → Don't terminate old instances until new ones are healthy
+
+* **Failed deployment** → If new instances fail health checks, stop rollout and roll back
 
 ---
 
 ## 5. 💡 Connection Draining
 
-Drain connections from old instances gracefully.
+Drain connections from old instances gracefully during rolling updates.
 
-* **Connection draining** → Drain connections gracefully
+* **Connection draining** → Configure load balancer to drain connections from old instances gracefully
 
-* **Graceful shutdown** → Graceful shutdown of old instances
+* **Graceful shutdown** → Graceful shutdown of old instances without dropping active connections
 
-* **Complete requests** → Complete in-flight requests
+* **Complete requests** → Complete in-flight requests before terminating instances
 
-* **No interruption** → No interruption to users
+* **No interruption** → No interruption to users during transition
 
----
-
-## 6. 💡 Backward Compatibility
-
-Ensure backward compatibility so both versions can run simultaneously.
-
-* **Backward compatibility** → Ensure compatibility
-
-* **Simultaneous versions** → Both versions can run simultaneously
-
-* **No breaking changes** → No breaking changes
-
-* **Smooth transition** → Smooth transition
+* **Smooth transition** → Smooth transition between old and new instances
 
 ---
 
-## 7. 💡 Benefits
+## 6. 💡 Version Coexistence and Backward Compatibility
 
-Zero-downtime deployments improve user experience and enable continuous deployment.
+During rolling updates, both versions run simultaneously, requiring backward compatibility.
 
-* **User experience** → Improves user experience
+* **Version coexistence** → Both old and new versions run simultaneously during transition
 
-* **Continuous deployment** → Enables continuous deployment
+* **Backward compatibility** → Ensure API and data formats are backward compatible
 
-* **Availability** → Maintains availability
+* **No breaking changes** → Avoid breaking changes that would cause issues during transition
 
-* **Reliability** → Improves reliability
+* **API compatibility** → API must be compatible between versions
+
+* **Data compatibility** → Data formats must be compatible
+
+---
+
+## 7. 💡 Rolling Updates Benefits
+
+Rolling updates minimize downtime and resource usage compared to blue-green deployments.
+
+* **Minimal downtime** → Minimize downtime compared to full restarts
+
+* **Resource efficiency** → More resource efficient than blue-green (no double infrastructure needed)
+
+* **Cost effective** → More cost effective than maintaining two complete environments
+
+* **Gradual rollout** → Gradual rollout allows monitoring and early detection of issues
+
+* **User experience** → Improves user experience with continuous availability
+
+* **Continuous deployment** → Enables continuous deployment without service interruption
 
 ---
 

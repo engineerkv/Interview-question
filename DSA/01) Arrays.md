@@ -29,21 +29,21 @@
 ```javascript
 function twoSum(nums, target) {
   const numToIndex = new Map(); // Maps number -> its index
-  
+
   for (let currentIndex = 0; currentIndex < nums.length; currentIndex++) {
     const currentNum = nums[currentIndex];
     const complement = target - currentNum;
-    
+
     // Check if complement exists in our map
     if (numToIndex.has(complement)) {
       const complementIndex = numToIndex.get(complement);
       return [complementIndex, currentIndex];
     }
-    
+
     // Store current number and its index for future lookups
     numToIndex.set(currentNum, currentIndex);
   }
-  
+
   return []; // No solution found (shouldn't happen per problem constraints)
 }
 
@@ -74,13 +74,13 @@ function twoSumBruteForce(nums, target) {
     for (let secondIndex = firstIndex + 1; secondIndex < nums.length; secondIndex++) {
       const firstNum = nums[firstIndex];
       const secondNum = nums[secondIndex];
-      
+
       if (firstNum + secondNum === target) {
         return [firstIndex, secondIndex];
       }
     }
   }
-  
+
   return []; // No solution found
 }
 
@@ -113,7 +113,7 @@ function maxProfit(prices) {
   for (const currentPrice of prices) {
     // Update minimum buy price if current price is lower
     minBuyPrice = Math.min(minBuyPrice, currentPrice);
-    
+
     // Calculate profit if we sell at current price and update maximum
     const profitIfSellNow = currentPrice - minBuyPrice;
     maxProfitSoFar = Math.max(maxProfitSoFar, profitIfSellNow);
@@ -151,7 +151,7 @@ function maxProfitTwoPointers(prices) {
   while (sellDayIndex < prices.length) {
     const buyPrice = prices[buyDayIndex];
     const sellPrice = prices[sellDayIndex];
-    
+
     // If selling today is profitable, update max profit
     if (buyPrice < sellPrice) {
       const currentProfit = sellPrice - buyPrice;
@@ -160,7 +160,7 @@ function maxProfitTwoPointers(prices) {
       // If current price is lower, it's a better buy opportunity
       buyDayIndex = sellDayIndex;
     }
-    
+
     sellDayIndex++; // Move to next day
   }
 
@@ -193,11 +193,11 @@ function maxSubArray(nums) {
 
   for (let i = 1; i < nums.length; i++) {
     const currentNum = nums[i];
-    
+
     // Either extend previous subarray or start new one
     // Start new if previous sum is negative (would reduce total)
     currentSubarraySum = Math.max(currentNum, currentSubarraySum + currentNum);
-    
+
     // Update global maximum
     maxSubarraySum = Math.max(maxSubarraySum, currentSubarraySum);
   }
@@ -374,7 +374,7 @@ function merge(intervals) {
 
   for (const [currentStart, currentEnd] of intervals) {
     const lastMerged = mergedIntervals[mergedIntervals.length - 1];
-    
+
     // If no previous interval or current doesn't overlap with last
     if (mergedIntervals.length === 0 || currentStart > lastMerged[1]) {
       mergedIntervals.push([currentStart, currentEnd]);
@@ -423,13 +423,13 @@ function merge(intervals) {
 ```javascript
 function findMax(nums) {
   let maximumValue = nums[0];
-  
+
   for (let i = 1; i < nums.length; i++) {
     if (nums[i] > maximumValue) {
       maximumValue = nums[i];
     }
   }
-  
+
   return maximumValue;
 }
 
@@ -747,13 +747,13 @@ function majorityElementHashMap(nums) {
   for (const currentNum of nums) {
     const currentCount = (elementCount.get(currentNum) || 0) + 1;
     elementCount.set(currentNum, currentCount);
-    
+
     // Early return when we find majority
     if (currentCount > majorityThreshold) {
       return currentNum;
     }
   }
-  
+
   return null; // Should not reach here if majority exists
 }
 
@@ -1289,7 +1289,7 @@ function maxProfit(prices) {
 
   for (let day = 1; day < prices.length; day++) {
     const priceIncrease = prices[day] - prices[day - 1];
-    
+
     // Capture all positive price increases
     if (priceIncrease > 0) {
       totalProfit += priceIncrease;
@@ -1437,7 +1437,7 @@ function hIndex(citations) {
   for (let index = 0; index < citations.length; index++) {
     const paperCount = index + 1; // Number of papers we're considering
     const citationCount = citations[index]; // Citations of current paper
-    
+
     // If this paper has fewer citations than paper count, h-index is previous count
     if (citationCount < paperCount) {
       return index; // h-index is the number of papers before this one

@@ -105,6 +105,7 @@ The `'.'` character indicates empty cells.
 ### Solution 1: Backtracking with Constraint Tracking (Optimal)
 
 ```javascript
+
 function solveSudoku(board) {
   const R = Array.from({ length: 9 }, () => new Set());  // Row constraints
   const C = Array.from({ length: 9 }, () => new Set());  // Column constraints
@@ -284,6 +285,7 @@ function combine(n, k) {
 ### Solution 1: Iterative (Optimal)
 
 ```javascript
+
 function subsets(nums) {
   const res = [];
 
@@ -301,6 +303,7 @@ function subsets(nums) {
 ### Solution 2: Backtracking
 
 ```javascript
+
 function subsets(nums) {
   const res = [];
   const cur = [];
@@ -404,6 +407,7 @@ function generateParenthesis(n) {
 ### Solution 1: DFS with Backtracking (Optimal)
 
 ```javascript
+
 function exist(board, word) {
   const m = board.length;
   const n = board[0].length;
@@ -547,6 +551,7 @@ function ratMaze(maze) {
 ### Solution 1: Backtracking (Optimal)
 
 ```javascript
+
 function combinationSum(candidates, target) {
   candidates.sort((a, b) => a - b);
   const res = [];
@@ -677,6 +682,7 @@ function letterCombinations(digits) {
 ### Solution 1: Backtracking (Optimal)
 
 ```javascript
+
 function partition(s) {
   const res = [];
   const cur = [];

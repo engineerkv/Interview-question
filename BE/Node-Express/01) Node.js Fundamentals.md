@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[Home: Question List](question.md) • [Next: Asynchronous Patterns & Event Emitter →](02%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md)
+[Home: Question List](question.md) • [Next: Async Patterns & Events →](02%29%20Async%20Patterns%20%26%20Events.md)
 
 [📋 Cheatsheet](Node-Express%20Interview%20Cheatsheet.md)
 
@@ -25,11 +25,13 @@ Node.js is a JavaScript runtime built on Chrome's V8 engine that enables server-
 Example:
 
 ```javascript
-const http = require('http');
+const http = require('http'); // Node.js built-in HTTP module
+// Create server with request handler callback
 const server = http.createServer((req, res) => {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello World!');
+  res.writeHead(200, {'Content-Type': 'text/plain'}); // Set response headers
+  res.end('Hello World!'); // Send response and end connection
 });
+// Start server listening on port 3000
 server.listen(3000, () => console.log('Server running on port 3000'));
 
 ```
@@ -119,12 +121,13 @@ After **each phase**, Node.js processes microtasks before moving to the next pha
 Example:
 
 ```javascript
-console.log('1');
-setTimeout(() => console.log('2'), 0);
-setImmediate(() => console.log('3'));
-process.nextTick(() => console.log('4'));
-console.log('5');
+console.log('1'); // Synchronous: executes immediately
+setTimeout(() => console.log('2'), 0); // Timer: scheduled for next tick
+setImmediate(() => console.log('3')); // Check phase: runs after poll
+process.nextTick(() => console.log('4')); // Microtask: highest priority
+console.log('5'); // Synchronous: executes immediately
 // Output: 1, 5, 4, 2, 3
+// Order: sync code → nextTick (microtask) → setTimeout (timer) → setImmediate (check)
 
 ```
 
@@ -1105,7 +1108,7 @@ server = app.listen(3000, () => {
 
 <div align="center">
 
-[Home: Question List](question.md) • [Next: Asynchronous Patterns & Event Emitter →](02%29%20Asynchronous%20Patterns%20%26%20Event%20Emitter.md)
+[Home: Question List](question.md) • [Next: Async Patterns & Events →](02%29%20Async%20Patterns%20%26%20Events.md)
 
 [📋 Cheatsheet](Node-Express%20Interview%20Cheatsheet.md)
 

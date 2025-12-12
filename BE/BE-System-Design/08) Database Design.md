@@ -2638,111 +2638,7 @@ You use partial indexes for queries that filter on specific conditions - they're
 
 ---
 
-## Q157. 📇 ⏰ TTL index use cases
-
-TTL (Time-To-Live) indexes automatically delete documents after a specified time period. When you use TTL indexes, MongoDB automatically cleans up old data without manual intervention.
-
----
-
-## 1. 📇 What are TTL Indexes
-
-Use TTL indexes to automatically delete documents after a time period.
-
-* **Automatic deletion** → Automatically delete documents after time period
-
-* **Examples** → Expiring sessions after 24 hours, cleaning up temporary data
-
-* **Automation** → Automates data cleanup
-
-* **Convenience** → Convenient for time-based data
-
-📌 **In simple terms**: Automatically delete documents after a specified time period.
-
----
-
-## 2. 📇 How TTL Indexes Work
-
-MongoDB automatically deletes documents when the indexed date field is older than the TTL value, running a background task every 60 seconds.
-
-* **Date field** → Indexed date field determines expiration
-
-* **Background task** → Background task runs every 60 seconds
-
-* **Automatic** → Automatic deletion
-
-* **Periodic** → Checks periodically
-
----
-
-## 3. 💡 Benefits
-
-TTL indexes automate data cleanup which is convenient.
-
-* **Automation** → Automates data cleanup
-
-* **Convenient** → Convenient for time-based data
-
-* **No manual cleanup** → No need for manual cleanup
-
-* **Maintenance** → Reduces maintenance
-
----
-
-## 4. 💡 Trade-offs
-
-TTL indexes automate data cleanup which is convenient.
-
-* **Pros** → Automates data cleanup, convenient
-
-* **Cons** → The catch is deletion isn't immediate - there's up to 60 seconds delay, and the background task adds overhead
-
-* **Limitations** → The tricky part is you can only have one TTL index per collection, and it only works on date fields, so you need to design your schema accordingly
-
-* **Delay** → Deletion isn't immediate
-
----
-
-## 5. 💡 Example
-
-Example TTL index:
-
-```javascript
-// Create TTL index on created_at field, expire after 3600 seconds (1 hour)
-db.sessions.createIndex({ created_at: 1 }, { expireAfterSeconds: 3600 });
-
-// Documents automatically deleted when created_at is older than 1 hour
-db.sessions.insertOne({
-  user_id: 123,
-  created_at: new Date()
-});
-
-```
-
----
-
-## ⭐ Summary — 10-second Interview Version
-
-> "Use TTL indexes to automatically delete documents after a time period - like expiring sessions after 24 hours, or cleaning up temporary data. MongoDB automatically deletes documents when the indexed date field is older than the TTL value, running a background task every 60 seconds."
-
----
-
-## ⭐ Extra Points (If Interviewer Asks More)
-
-### Why is there a 60-second delay in TTL deletion?
-
-The delay exists because MongoDB runs a background task every 60 seconds to check for expired documents. The catch is deletion isn't immediate. The tricky part is accounting for the delay - if you need immediate deletion, use application-level cleanup; if 60 seconds is acceptable, TTL indexes are convenient.
-
-### Can you have multiple TTL indexes?
-
-No, you can only have one TTL index per collection. The catch is you need to choose which field to use for expiration. The tricky part is designing your schema - if you need multiple expiration times, use separate collections or application-level cleanup.
-
-### What happens if a document doesn't have the TTL field?
-
-If a document doesn't have the TTL field, it won't be deleted by the TTL index. The catch is you need to ensure all documents have the field. The tricky part is handling missing fields - either ensure all documents have the field, or use sparse indexes if the field is optional.
-
----
-
-## Q158. 📊 Time-series schema design
+## Q157. 📊 Time-series schema design
 
 Time-series data requires specialized schema design for efficient storage and queries. When you design time-series schemas, you optimize for writes and time-range queries while balancing granularity and detail.
 
@@ -2856,7 +2752,7 @@ You handle metadata by storing it separately (separate collection or document), 
 
 ---
 
-## Q159. ⚡ Mongo high-throughput strategies
+## Q158. ⚡ Mongo high-throughput strategies
 
 High-throughput MongoDB workloads require optimizing for write performance. When you design for high throughput, you use sharding, write concerns, batching, and connection pooling to maximize performance.
 
@@ -2984,7 +2880,7 @@ You monitor by tracking write throughput (operations per second), write latency 
 
 ---
 
-## Q160. 🌊 Change streams use cases
+## Q159. 🌊 Change streams use cases
 
 MongoDB change streams provide real-time notifications of database changes. When you use change streams, you can react to changes as they happen, keeping systems in sync.
 
@@ -3089,7 +2985,7 @@ You scale by using multiple consumers (process different collections or filters)
 
 ---
 
-## Q161. ❌ MongoDB anti-patterns
+## Q160. ❌ MongoDB anti-patterns
 
 MongoDB anti-patterns are common mistakes that hurt performance and maintainability. When you avoid anti-patterns, you design schemas and queries that leverage MongoDB's strengths.
 
@@ -3179,7 +3075,7 @@ You fix by identifying the anti-pattern, understanding the root cause, redesigni
 
 ---
 
-## Q162. 💾 Redis architecture
+## Q161. 💾 Redis architecture
 
 Redis is an in-memory data store optimized for speed. When you use Redis, you get extremely fast access to data stored in RAM, with optional persistence and various deployment options.
 
@@ -3281,7 +3177,7 @@ You use persistence when you need data to survive restarts, can't afford data lo
 
 ---
 
-## Q163. 💾 Redis AOF vs RDB persistence
+## Q162. 💾 Redis AOF vs RDB persistence
 
 Redis offers two persistence options: RDB and AOF. When you choose persistence, you balance performance, durability, and resource usage based on your requirements.
 
@@ -3404,7 +3300,7 @@ You optimize by using appendfsync everysec (balance between performance and dura
 
 ---
 
-## Q164. 📢 Redis pub/sub pros and cons
+## Q163. 📢 Redis pub/sub pros and cons
 
 Redis pub/sub provides real-time messaging between publishers and subscribers. When you use pub/sub, you can broadcast messages to multiple subscribers in real-time.
 
@@ -3523,7 +3419,7 @@ You scale by using multiple Redis instances (partition channels), using Redis St
 
 ---
 
-## Q165. 🔀 Redis clustering and how it works
+## Q164. 🔀 Redis clustering and how it works
 
 Redis clustering enables horizontal scaling by distributing data across multiple nodes. When you use Redis Cluster, you can scale beyond single-machine memory limits and achieve high availability.
 
@@ -3623,7 +3519,7 @@ You add/remove by using redis-cli cluster commands, moving hash slots from old n
 
 ---
 
-## Q166. 🔒 Distributed locking with Redis
+## Q165. 🔒 Distributed locking with Redis
 
 Redis distributed locking coordinates access to shared resources across multiple processes. When you use Redis for locking, you ensure only one process can access a resource at a time.
 
@@ -3754,7 +3650,7 @@ You implement by periodically extending lock expiration (before it expires), usi
 
 ---
 
-## Q167. 🗑️ Cache invalidation best practices
+## Q166. 🗑️ Cache invalidation best practices
 
 Cache invalidation ensures cached data stays fresh. When you invalidate cache, you choose strategies based on data change frequency and freshness requirements.
 
@@ -3862,7 +3758,7 @@ You implement by storing tag-to-key mappings, invalidating all keys with a tag w
 
 ---
 
-## Q168. 💾 Avoiding memory eviction issues
+## Q167. 💾 Avoiding memory eviction issues
 
 Memory eviction occurs when Redis runs out of memory and needs to remove data. When you avoid eviction issues, you manage memory proactively to prevent unexpected data loss.
 
@@ -3976,7 +3872,7 @@ If you set noeviction, Redis won't evict data when memory is full - writes will 
 
 ---
 
-## Q169. 🔀 Redis vs Memcached differences
+## Q168. 🔀 Redis vs Memcached differences
 
 Redis and Memcached are both in-memory data stores, but they serve different use cases. When you choose between them, you consider features, persistence, and complexity requirements.
 
@@ -4083,7 +3979,6 @@ You choose Memcached when you need maximum performance for simple key-value oper
 **[← Previous: Observability](07%29%20Observability.md)** | **[Next: Node.js System Design →](09%29%20Node.js%20System%20Design.md)**
 
 </div>
-
 
 ---
 

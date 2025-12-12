@@ -69,6 +69,7 @@ function addBinary(a, b) {
 ### Solution 1: Bit Extraction and Shifting (Optimal)
 
 ```javascript
+
 function reverseBits(n) {
   let result = 0;
   let count = 32;
@@ -161,6 +162,7 @@ function hammingWeight(n) {
 ### Solution 1: XOR (Optimal)
 
 ```javascript
+
 function singleNumber(nums) {
   let result = 0;
   for (const num of nums) {
@@ -243,6 +245,7 @@ function singleNumber(nums) {
 ### Solution 1: Common Prefix (Optimal)
 
 ```javascript
+
 function rangeBitwiseAnd(m, n) {
   let shift = 0;
 
@@ -288,6 +291,7 @@ function rangeBitwiseAnd(m, n) {
 **Concept:** Use bitwise ops to encode sets, parity, and arithmetic tricks efficiently.
 
 ```javascript
+
 // Single number where every other element appears twice
 function singleNumber(arr) {
   let x = 0;
