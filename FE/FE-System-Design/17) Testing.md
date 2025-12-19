@@ -16,13 +16,7 @@
 
 ---
 
-## Q70. 🧪 Unit and Integration Testing
-
-Unit and integration tests verify that your front-end code works correctly at different levels: small, isolated pieces (units) and combined components or modules (integrations). Together these tests give you fast feedback and confidence that changes don't break core behavior. Understanding when and how to write effective tests is essential for building maintainable, reliable frontend applications - it's like having a safety net that catches bugs before they reach production.
-
----
-
-## 1. 🧪 What is Unit Testing?
+## 1. 🧪 Unit Testing
 
 Unit testing focuses on testing the smallest pieces of your code in complete isolation. When you write a unit test, you're checking that a single function, hook, or component behaves correctly when you give it specific inputs, without any dependencies on external systems.
 
@@ -166,7 +160,7 @@ test('updates localStorage when value changes', () => {
 
 ---
 
-## 2. 🧪 What is Integration Testing?
+### 🔹 🧪 Integration Testing
 
 Integration testing verifies that multiple pieces of your application work together correctly. Unlike unit tests that test things in isolation, integration tests check how components, modules, and services actually interact with each other in practice.
 
@@ -407,7 +401,7 @@ test('displays products from Redux store', () => {
 
 ---
 
-## 3. 💡 When to Use Which?
+### 🔹 💡 Unit vs Integration Testing: When to Use Which
 
 Understanding when to write unit tests versus integration tests helps you build a balanced test suite that gives you confidence without slowing down your development workflow - you want fast feedback where it matters most.
 
@@ -511,27 +505,9 @@ Understanding when to write unit tests versus integration tests helps you build 
 
 ---
 
-## ⭐ Summary — 10-second Interview Version
+### 🔹 🧪 End-to-End (E2E) Testing
 
-> "Unit tests verify small pieces of logic in isolation; integration tests verify how components and modules work together. I use fast unit tests for core logic and slower integration tests for critical user flows."
-
----
-
-## ⭐ Extra Points (If Interviewer Asks More)
-
-### What tools do you use?
-
-Jest/Vitest for unit tests, React Testing Library for integration tests, and occasionally MSW to mock network calls.
-
----
-
-## Q71. 🧪 E2E and Automation Testing
-
-End-to-end (E2E) and automation tests simulate real user behavior in a real browser against a running application. These tests verify that the entire stack (frontend, backend, infrastructure) works as expected from the user's perspective - like having a robot user actually click through your app.
-
----
-
-## 1. 🧪 What is E2E Testing?
+End-to-end (E2E) tests simulate real user behavior in a real browser against a running application. These tests verify that the entire stack (frontend, backend, infrastructure) works as expected from the user's perspective - like having a robot user actually click through your app.
 
 ### 🔹 Characteristics
 
@@ -541,57 +517,103 @@ End-to-end (E2E) and automation tests simulate real user behavior in a real brow
 
 * Talks to real or staging backend
 
-### 🔹 Example tools
+* Verifies complete user flows from start to finish
 
-* Cypress, Playwright, WebdriverIO, Selenium
+### 🔹 Example Tools
 
-📌 **In simple terms**: E2E tests act like a robot user clicking through your app.
+* **Cypress** - Modern E2E testing framework with great developer experience
+* **Playwright** - Cross-browser testing with multiple browser support
+* **WebdriverIO** - WebDriver protocol-based testing
+* **Selenium** - Original browser automation tool
+
+### 🔹 What to Test with E2E
+
+**Critical User Flows:**
+
+* User registration and login
+* Complete purchase/checkout flow
+* Form submissions with validation
+* Navigation between pages
+* Search and filtering workflows
+
+**Example: E2E Test for Login Flow**
+
+```javascript
+// cypress/integration/login.spec.js
+describe('Login Flow', () => {
+  it('allows user to log in successfully', () => {
+    cy.visit('/login');
+    cy.get('[data-testid="email-input"]').type('user@example.com');
+    cy.get('[data-testid="password-input"]').type('password123');
+    cy.get('[data-testid="login-button"]').click();
+    cy.url().should('include', '/dashboard');
+    cy.get('[data-testid="user-menu"]').should('be.visible');
+  });
+
+  it('shows error for invalid credentials', () => {
+    cy.visit('/login');
+    cy.get('[data-testid="email-input"]').type('user@example.com');
+    cy.get('[data-testid="password-input"]').type('wrong-password');
+    cy.get('[data-testid="login-button"]').click();
+    cy.get('[data-testid="error-message"]').should('contain', 'Invalid credentials');
+  });
+});
+```
+
+### 🔹 Automation Testing Beyond E2E
+
+**Smoke Tests:**
+
+* Quick checks after each deploy to ensure app is up and basic paths work
+* Verify critical pages load without errors
+* Test essential functionality still works
+* Fast execution (minutes, not hours)
+
+**Regression Suites:**
+
+* Ensure old bugs don't come back
+* Test previously fixed issues
+* Verify features still work after changes
+* Comprehensive coverage of core functionality
+
+**Visual Regression Tests:**
+
+* Detect unexpected UI changes
+* Compare screenshots before/after changes
+* Catch layout shifts and styling issues
+* Tools: Percy, Chromatic, BackstopJS
+
+### 🔹 Trade-offs
+
+**Pros:**
+
+* Highest confidence – covers full stack
+* Works great for critical flows (signup, purchase, payments)
+* Catches integration issues between frontend and backend
+* Tests real user scenarios
+
+**Cons:**
+
+* Slower and more brittle
+* Can be harder to maintain and debug
+* Requires stable test environment
+* Flaky tests can slow down development
+
+### 🔹 Best Practices
+
+1. **Keep E2E tests focused** - Test critical paths only
+2. **Use data-testid attributes** - More stable than CSS selectors
+3. **Isolate tests** - Each test should be independent
+4. **Use page object pattern** - Reusable page interactions
+5. **Run in CI/CD** - Catch issues before deployment
+
+📌 **In simple terms**: E2E tests act like a robot user clicking through your app in a real browser. They're slower but give the highest confidence that the whole system works from the user's point of view.
 
 ---
 
-## 2. 🧪 Automation Testing beyond E2E
-
-* **Smoke tests** – quick checks after each deploy to ensure app is up and basic paths work - like making sure the app actually loads
-
-* **Regression suites** – ensure old bugs don't come back - catch things that broke before
-
-* **Visual regression tests** – detect unexpected UI changes - catch when something looks different than expected
-
----
-
-## 3. 💡 Trade-offs
-
-* **Pros**:
-  * Highest confidence – covers full stack
-  * Works great for critical flows (signup, purchase, payments)
-
-* **Cons**:
-  * Slower and more brittle
-  * Can be harder to maintain and debug
-
----
-
-## ⭐ Summary — 10-second Interview Version
-
-> "E2E tests drive a real browser through critical user flows against a real backend. These tests are slower but give the highest confidence that the whole system works from the user's point of view."
-
----
-
-## ⭐ Extra Points (If Interviewer Asks More)
-
-### How many E2E tests do you write?
-
-I keep a **small, focused set** of E2E tests for the most important flows and rely on unit/integration tests for the rest.
-
----
-
-## Q72. 🧪 A/B Testing
+### 🔹 🧪 A/B Testing
 
 A/B testing is a technique where you show two or more variants of a feature to different user groups and use data to decide which performs better. It's essential for making data-driven product and UX decisions instead of guessing what works.
-
----
-
-## 1. 🧪 How A/B testing works
 
 1. Define a **goal metric** (conversion, click-through, retention) - what you're trying to improve
 
@@ -607,7 +629,7 @@ A/B testing is a technique where you show two or more variants of a feature to d
 
 ---
 
-## 2. 💡 Frontend responsibilities
+### 🔹 💡 Frontend responsibilities
 
 * Integrate with **experimentation platform** (e.g., LaunchDarkly, Optimizely, homegrown) - this handles the variant assignment
 
@@ -616,31 +638,53 @@ A/B testing is a technique where you show two or more variants of a feature to d
   * No **flicker** (showing both variants briefly) - avoid showing one variant then switching to another
   * Events are sent correctly for each variant - track which variant the user saw so you can measure impact
 
+### 🔹 Implementation Example
+
+```javascript
+// A/B Testing with LaunchDarkly
+import { useFlags } from 'launchdarkly-react-client-sdk';
+
+function CheckoutButton() {
+  const { newCheckoutDesign } = useFlags();
+
+  // Consistent variant per user (handled by SDK)
+  if (newCheckoutDesign) {
+    return <NewCheckoutButton />; // Variant B
+  }
+  return <OldCheckoutButton />; // Variant A
+}
+
+// Track events for analysis
+function trackCheckoutClick(variant) {
+  analytics.track('checkout_clicked', {
+    variant: variant,
+    timestamp: Date.now()
+  });
+}
+```
+
+### 🔹 Avoiding Flicker
+
+**Problem:** User sees variant A, then it switches to variant B (bad UX)
+
+**Solutions:**
+
+* Load experiment decision server-side (SSR)
+* Use CSS to hide content until variant is determined
+* Bootstrap experiment config early in app lifecycle
+* Use feature flags that load synchronously
+
+📌 **In simple terms**: A/B testing shows different variants to different users and measures which one improves a target metric. On the frontend, handle variant rendering, event tracking, and avoid visual flicker by loading decisions early.
+
 ---
 
-## ⭐ Summary — 10-second Interview Version
+### 🔹 ⚡ Performance Testing
 
-> "A/B testing shows different variants to different users and measures which one improves a target metric. On the frontend I handle variant rendering, event tracking, and avoiding visual flicker."
+Performance testing checks how fast your application loads, responds, and behaves under different conditions. It helps you find bottlenecks before users actually feel them. This section covers testing methodology; for performance optimization and monitoring strategies, see [Performance](18%29%20Performance.md).
 
----
+### 🔹 Types of Performance Testing
 
-## ⭐ Extra Points (If Interviewer Asks More)
-
-### How do you avoid UX issues with A/B tests?
-
-Load experiment decisions as early as possible (server-side or at app bootstrap) and avoid re-rendering entire pages after the user sees them.
-
----
-
-## Q73. ⚡ Performance Testing
-
-Performance testing checks how fast your application loads, responds, and behaves under different conditions. It helps you find bottlenecks before users actually feel them. This section covers testing methodology; for performance optimization and monitoring strategies, see [Performance](12%29%20Performance.md).
-
----
-
-## 1. ⚡ Types of performance testing
-
-### 🔹 Frontend Performance Testing
+**Frontend Performance Testing:**
 
 **Page Load Metrics:**
 
@@ -684,13 +728,29 @@ Performance testing checks how fast your application loads, responds, and behave
 
 * Ensure UI remains responsive during high load - users should still be able to interact even when things are slow
 
+**Load and Stress Testing:**
+
+**Backend/API Testing:**
+
+* Simulated traffic to backend and APIs - send lots of requests to see how it handles load
+* Tests how the system handles concurrent users - what happens when many people use it at once
+* Identifies bottlenecks and breaking points - find where things slow down or break
+* Tools: k6, JMeter, Gatling, Artillery - these tools simulate the load
+
+**Frontend Considerations:**
+
+* Test how frontend handles slow API responses - make sure the UI doesn't freeze when APIs are slow
+* Verify error handling under load - ensure errors are shown properly even when things are slow
+* Test rate limiting and retry logic - make sure your retry logic works correctly
+* Ensure UI remains responsive during high load - users should still be able to interact even when things are slow
+
 📌 **In simple terms**: Performance testing asks "how fast is it, and does it stay fast when many users hit it?" - it measures both individual page performance and system behavior under load.
 
 ---
 
-## 2. ⚡ Frontend performance testing workflow
+### 🔹 Frontend Performance Testing Workflow
 
-### 🔹 Establish Baselines
+**Establish Baselines:**
 
 * Measure current performance metrics before making changes - know where you're starting from
 
@@ -698,7 +758,7 @@ Performance testing checks how fast your application loads, responds, and behave
 
 * Set performance budgets (e.g., LCP < 2.5s, bundle size < 200KB) - define what "good enough" means
 
-### 🔹 Identify Bottlenecks
+**Identify Bottlenecks:**
 
 **Common Issues to Test For:**
 
@@ -712,7 +772,7 @@ Performance testing checks how fast your application loads, responds, and behave
 
 * **Unoptimized images**: Large images without compression or lazy loading - images that are way bigger than needed
 
-### 🔹 Test and Measure
+**Test and Measure:**
 
 1. **Lab Testing**: Use Lighthouse and DevTools in controlled environments - test in ideal conditions first
 
@@ -722,45 +782,22 @@ Performance testing checks how fast your application loads, responds, and behave
 
 4. **Regression Testing**: Compare before/after metrics when making changes - make sure you didn't make things worse
 
-### 🔹 Continuous Monitoring
+**Continuous Monitoring:**
 
 * Integrate performance checks into CI/CD pipelines - catch regressions before they go live
-
 * Set up alerts for performance regressions - get notified when things get slow
-
 * Track performance trends over time - see if performance is getting better or worse over time
-
-* See [Q75. Performance Monitoring](12%29%20Performance.md#q75-performance-monitoring) for monitoring strategies
-
----
-
-## ⭐ Summary — 10-second Interview Version
-
-> "Performance testing measures how quickly users see and interact with your app and how it behaves under load. I use Lighthouse for lab testing, WebPageTest for real-world scenarios, and RUM for production monitoring. For optimization strategies, see the Performance section."
+* See [Performance Monitoring](18%29%20Performance.md#q75-performance-monitoring) for monitoring strategies
 
 ---
 
-## ⭐ Extra Points (If Interviewer Asks More)
+### 🔹 🛡️ Security Testing
 
-### How do you integrate performance checks into CI?
+Security testing looks for vulnerabilities in your application before attackers do. For frontend-heavy apps, it focuses on issues like XSS, CSRF, misconfigured CORS, and insecure dependencies. This section covers the testing perspective of security - how you actually test for these issues; for detailed security concepts and prevention strategies, see [Security](16%29%20Security.md).
 
-Run Lighthouse in CI on key pages with performance budgets, fail builds when regressions exceed thresholds, and track performance metrics over time to catch gradual degradation.
+### 🔹 Types of Security Testing
 
-### What's the difference between lab and real user monitoring?
-
-Lab testing (Lighthouse, DevTools) gives you controlled, repeatable measurements in ideal conditions. RUM collects data from actual users in production, showing real-world performance across different devices and networks. Both are important - lab testing catches issues early, RUM shows what users actually experience.
-
----
-
-## Q74. 🛡️ Security Testing
-
-Security testing looks for vulnerabilities in your application before attackers do. For frontend-heavy apps, it focuses on issues like XSS, CSRF, misconfigured CORS, and insecure dependencies. This section covers the testing perspective of security - how you actually test for these issues; for detailed security concepts and prevention strategies, see [Security](10%29%20Security.md).
-
----
-
-## 1. 🛡️ Types of security testing
-
-### 🔹 Static Analysis (SAST)
+**Static Analysis (SAST):**
 
 * Scans source code for insecure patterns without running the application - looks at your code for known bad patterns
 
@@ -770,7 +807,7 @@ Security testing looks for vulnerabilities in your application before attackers 
 
 * Runs in CI/CD pipelines to catch issues early - find problems before code goes to production
 
-### 🔹 Dependency Scanning
+**Dependency Scanning:**
 
 * Checks npm packages for known vulnerabilities (CVEs) - looks for packages with known security issues
 
@@ -780,7 +817,7 @@ Security testing looks for vulnerabilities in your application before attackers 
 
 * Should run on every build and block deployments with critical vulnerabilities - don't deploy if there are critical issues
 
-### 🔹 Dynamic Analysis (DAST)
+**Dynamic Analysis (DAST):**
 
 * Tests running application like an external attacker would - actually tries to break in
 
@@ -790,7 +827,7 @@ Security testing looks for vulnerabilities in your application before attackers 
 
 * Finds runtime issues that static analysis might miss - catches things that only show up when the app is running
 
-### 🔹 Manual Security Testing
+**Manual Security Testing:**
 
 * Targeted tests based on threat models - test for specific attack scenarios
 
@@ -804,9 +841,9 @@ Security testing looks for vulnerabilities in your application before attackers 
 
 ---
 
-## 2. 🛡️ Frontend engineer's role in security testing
+### 🔹 Frontend Engineer's Role in Security Testing
 
-### 🔹 During Development
+**During Development:**
 
 * Run dependency audits regularly (`npm audit`, Dependabot) - check for vulnerable packages often
 
@@ -816,43 +853,34 @@ Security testing looks for vulnerabilities in your application before attackers 
 
 * Test input validation and sanitization - make sure user input is actually being cleaned
 
-### 🔹 Common Security Issues to Test
+**Common Security Issues to Test:**
 
 **XSS (Cross-Site Scripting):**
 
 * Test all user inputs with script payloads - try injecting `<script>alert(1)</script>` into every input field
-
 * Verify that user-generated content is properly escaped - make sure it's displayed as text, not executed as code
-
 * Check for unsafe use of `dangerouslySetInnerHTML` or `innerHTML` - these are red flags that need extra scrutiny
-
-* See [Q55. Cross-Site Scripting (XSS)](10%29%20Security.md#q55-cross-site-scripting-xss) for prevention details
+* See [Cross-Site Scripting (XSS)](16%29%20Security.md) for prevention details
 
 **CSRF (Cross-Site Request Forgery):**
 
 * Verify CSRF tokens are present in forms - make sure forms include the token
-
 * Test that state-changing requests require authentication - ensure you can't make changes without being logged in
-
-* See [Q68. Cross-Site Request Forgery (CSRF)](10%29%20Security.md#q68-cross-site-request-forgery-csrf) for prevention details
+* See [Cross-Site Request Forgery (CSRF)](16%29%20Security.md) for prevention details
 
 **CORS Misconfiguration:**
 
 * Test cross-origin requests to ensure proper CORS headers - make sure CORS is configured correctly
-
 * Verify sensitive endpoints don't allow wildcard origins - don't allow `*` for authenticated endpoints
-
-* See [Q67. Cross-Origin Resource Sharing (CORS)](10%29%20Security.md#q67-cross-origin-resource-sharing-cors) for details
+* See [Cross-Origin Resource Sharing (CORS)](16%29%20Security.md) for details
 
 **Insecure Dependencies:**
 
 * Regularly audit dependencies for known vulnerabilities - check your packages often
-
 * Keep dependencies updated to patched versions - update when security fixes are released
+* See [Dependency Security](16%29%20Security.md) for management strategies
 
-* See [Q60. Dependency Security](10%29%20Security.md#q60-dependency-security) for management strategies
-
-### 🔹 Testing Workflow
+**Testing Workflow:**
 
 1. **Pre-commit**: Run linting with security rules - catch issues before you even commit
 
@@ -864,23 +892,25 @@ Security testing looks for vulnerabilities in your application before attackers 
 
 ---
 
+📌 **In simple terms**: Security testing combines automated scanners (SAST, dependency scanning, DAST) and manual checks to find vulnerabilities. On the frontend, run audits regularly, test for XSS/CSRF/CORS issues, and coordinate with security teams for comprehensive coverage. For detailed security concepts, see the Security section.
+
+---
+
 ## ⭐ Summary — 10-second Interview Version
 
-> "Security testing combines automated scanners (SAST, dependency scanning, DAST) and manual checks to find vulnerabilities. On the frontend I run audits regularly, test for XSS/CSRF/CORS issues, and coordinate with security teams for comprehensive coverage. For detailed security concepts, see the Security section."
+> "Testing includes unit tests (isolated, fast), integration tests (components working together), E2E tests (real browser, full stack), A/B testing (data-driven decisions), performance testing (speed and load), and security testing (vulnerability scanning). Use the right test type for each scenario - fast unit tests for logic, integration tests for flows, E2E for critical paths."
 
 ---
 
 ## ⭐ Extra Points (If Interviewer Asks More)
 
-### How do you test for XSS in practice?
+### What's your testing strategy?
 
-Try injecting simple payloads like `<script>alert(1)</script>` into all user inputs, review how data flows into the DOM, verify CSP headers are working, and check that React's default escaping is in place. See [Q55. Cross-Site Scripting (XSS)](10%29%20Security.md#q55-cross-site-scripting-xss) for comprehensive prevention strategies.
+I use a testing pyramid: many fast unit tests for core logic, fewer integration tests for component interactions, and a small set of E2E tests for critical user flows. This gives fast feedback while maintaining confidence.
 
-### How do you integrate security testing into CI/CD?
+### How do you handle flaky tests?
 
-Run `npm audit` and security linting on every commit, use Dependabot for automated dependency updates, run SAST tools in CI, and perform DAST scans on staging before production deployments.
-
----
+Identify root causes (timing issues, test isolation problems), use proper wait strategies, ensure test data is clean, and retry flaky tests with exponential backoff. Fix the underlying issue rather than just retrying.
 
 ---
 

@@ -1,4 +1,4 @@
-# 4. Native Modules & Platform APIs (Q32–41)
+# 4. Native Modules & Platform APIs (Q32–39)
 
 ---
 
@@ -18,140 +18,180 @@
 
 ## Q32. 📱 Native modules in React Native
 
-Native Modules are JavaScript interfaces to native platform APIs, needed to access device features not available through React Native's built-in components - different implementations for iOS and Android (platform specific). Access to device-specific functionality (platform APIs).
+Native Modules are JavaScript interfaces to native platform APIs, needed to access device features not available through React Native's built-in components - uses TurboModule architecture with JSI. Access to device-specific functionality (platform APIs).
 
-- **Trade-offs**: The catch is camera, sensors, file system, etc. (device features) - uses bridge to communicate with native code. Different implementations for iOS and Android (platform specific), but watch out - native code runs faster than JavaScript (performance).
+- **Trade-offs**: The catch is camera, sensors, file system, etc. (device features) - TurboModules use JSI for direct communication (better performance). Uses TurboModule architecture with JSI, but watch out - TurboModules provide lazy loading and type safety through codegen (New Architecture).
 
 Example:
 
 ```jsx
-import { NativeModules } from 'react-native';
-
-const { MyNativeModule } = NativeModules;
-
-MyNativeModule.doSomething().then(result => console.log(result));
-
+// TurboModule approach (New Architecture)
+import { TurboModuleRegistry } from 'react-native';
+const MyTurboModule = TurboModuleRegistry.get('MyTurboModule');
+const result = await MyTurboModule.doSomething();
 ```
 
 ---
 
 ## Q33. 📱 Creating custom native modules for Android
 
-Create a native module by extending ReactContextBaseJavaModule and registering it in the ReactPackage - must be registered in ReactPackage. Base class for native modules (ReactContextBaseJavaModule).
+Create a native module using TurboModule - TurboModules use codegen for type safety and lazy loading. Base class for TurboModules (TurboModuleSpec).
 
-- **Trade-offs**: The catch is `@ReactMethod` exposes methods to JavaScript - promise handles asynchronous results and errors. Must be registered in ReactPackage, but watch out - `getName()` returns module name used in JavaScript.
+- **Trade-offs**: The catch is TurboModules provide better performance and type safety - uses JSI for direct communication (20-500x faster). TurboModules use codegen for type safety and lazy loading, but watch out - TurboModules require TypeScript spec definition and codegen setup (New Architecture).
 
 Example:
 
 ```java
+// TurboModule approach (New Architecture)
 package com.myapp;
 
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.Promise;
+import com.facebook.react.module.annotations.ReactModule;
+import com.facebook.react.turbomodule.core.interfaces.TurboModule;
 
-public class MyNativeModule extends ReactContextBaseJavaModule {
-  @ReactMethod
-  public void doSomething(Promise promise) {
-    promise.resolve("Result from native");
+@ReactModule(name = MyModuleSpec.NAME)
+public class MyModule extends MyModuleSpec {
+  public MyModule(ReactApplicationContext reactContext) {
+    super(reactContext);
+  }
+
+  @Override
+  public String doSomething(String input) {
+    return "Result: " + input;
   }
 }
-
 ```
 
 ---
 
 ## Q34. 📱 Creating custom native modules for iOS
 
-Create a native module by implementing RCTBridgeModule protocol and using RCT_EXPORT_MODULE macro - Objective-C is primary language for iOS native modules. Protocol for native modules (RCTBridgeModule).
+Create a native module using TurboModule - TurboModules use codegen for type safety and support Swift/Objective-C. Protocol for TurboModules (RCTTurboModule).
 
-- **Trade-offs**: The catch is `RCT_EXPORT_METHOD` exports methods to JavaScript - promise blocks handle resolve and reject callbacks. Objective-C is primary language for iOS native modules, but watch out - `RCT_EXPORT_MODULE` exports module to JavaScript.
+- **Trade-offs**: The catch is TurboModules provide better performance and type safety - uses JSI for direct communication (20-500x faster). TurboModules use codegen for type safety and support Swift/Objective-C, but watch out - TurboModules require TypeScript spec definition and codegen setup (New Architecture).
 
 Example:
 
 ```objc
-// MyNativeModule.m
-#import "MyNativeModule.h"
-#import <React/RCTLog.h>
+// TurboModule approach (New Architecture)
+// MyModule.mm
+#import <React/RCTBridgeModule.h>
+#import <React/RCTTurboModule.h>
 
-@implementation MyNativeModule
+@interface RCT_EXTERN_MODULE(MyModule, NSObject)
 
-RCT_EXPORT_MODULE();
-
-RCT_EXPORT_METHOD(doSomething:(RCTPromiseResolveBlock)resolve
+RCT_EXTERN_METHOD(doSomething:(NSString *)input
+                  resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
-{
-  resolve(@"Result from native");
-}
 
 @end
 
+// MyModule.swift (Swift implementation)
+@objc(MyModule)
+class MyModule: NSObject, MyModuleSpec {
+  @objc
+  static func requiresMainQueueSetup() -> Bool {
+    return false
+  }
+
+  @objc
+  func doSomething(_ input: String, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
+    resolve("Result: \(input)")
+  }
+}
 ```
 
 ---
 
-## Q35. 🤔 Difference between JSI and the old bridge
+## Q35. 🧩 TurboModules and how they work
 
-JSI allows direct function calls between JavaScript and native code, eliminating serialization overhead and enabling synchronous communication - better type checking and error handling (type safety). JavaScript can directly call native functions (direct calls).
+TurboModules are the native module system that uses JSI for direct communication, providing better performance and type safety - part of React Native's New Architecture (now stable in 0.73+). Uses JSI for direct communication with lazy loading and codegen.
 
-- **Trade-offs**: The catch is eliminates data serialization overhead (no serialization) - faster communication between JS and native (better performance). Better type checking and error handling (type safety), but watch out - enables synchronous communication when needed (synchronous).
-
-Example:
-
-```jsx
-// Old Bridge approach (asynchronous)
-const result = await NativeModules.MyModule.doSomething(data);
-
-// JSI approach (synchronous)
-const result = MyModule.doSomething(data);
-
-```
-
----
-
-## Q36. 🧩 TurboModules and how they work
-
-TurboModules are the new native module system that uses JSI for direct communication, providing better performance and type safety - part of React Native's new architecture (future architecture). Uses JSI for direct communication (JSI integration).
-
-- **Trade-offs**: The catch is faster than bridge-based modules - can make synchronous calls when needed (synchronous). Part of React Native's new architecture (future architecture), but watch out - better type checking and validation (type safety).
+- **Trade-offs**: The catch is faster than bridge-based modules (20-500x faster) - can make synchronous calls when needed (synchronous). Part of React Native's New Architecture (now stable in 0.73+), but watch out - uses codegen for type safety and lazy loading (modules load on demand).
 
 Example:
 
 ```jsx
-import { NativeModules } from 'react-native';
+// TurboModule with TypeScript spec (codegen)
+// NativeMyModule.ts (spec file)
+import { TurboModule, TurboModuleRegistry } from 'react-native';
 
-const { MyTurboModule } = NativeModules;
-// Direct function call through JSI
-
-```
-
----
-
-## Q37. 📱 Accessing native APIs like Camera, Location, and Sensors
-
-Use third-party libraries or create custom native modules to access device APIs, with proper permissions and platform-specific implementations - consider performance implications of native APIs. Use existing libraries for common APIs (third-party libraries).
-
-- **Trade-offs**: The catch is handle iOS and Android differences (platform differences) - proper error handling for device APIs. Consider performance implications of native APIs, but watch out - request appropriate permissions at runtime (permissions).
-
-Example:
-
-```jsx
-import { RNCamera } from 'react-native-camera';
-
-function CameraScreen() {
-  const takePicture = async () => {
-    if (cameraRef.current) {
-      const options = { quality: 0.5, base64: true };
-      const data = await cameraRef.current.takePictureAsync(options);
-    }
+export interface Spec extends TurboModule {
+  readonly getConstants: () => {
+    readonly apiKey: string;
   };
-  return <RNCamera ref={cameraRef} />;
+  readonly doSomething: (input: string) => Promise<string>;
+  readonly measureSync: (nodeId: number) => { width: number; height: number };
 }
 
+export default TurboModuleRegistry.get<Spec>('MyModule');
+
+// Usage
+import MyModule from './NativeMyModule';
+
+// Lazy loaded - module loads here on first use
+const result = await MyModule.doSomething('input');
+const { width, height } = MyModule.measureSync(123); // Synchronous call
+const apiKey = MyModule.getConstants().apiKey;
 ```
 
 ---
 
-## Q38. 💡 ⏰ Headless JS and when to use it
+## Q36. 📱 Accessing native APIs like Camera, Location, and Sensors
+
+Use third-party libraries or create custom native modules to access device APIs, with proper permissions and platform-specific implementations - modern libraries use TurboModules for better performance. Use existing libraries for common APIs (third-party libraries).
+
+- **Trade-offs**: The catch is handle iOS and Android differences (platform differences) - proper error handling for device APIs. Modern libraries use TurboModules for better performance, but watch out - request appropriate permissions at runtime (permissions).
+
+Example:
+
+```jsx
+// Camera - react-native-vision-camera (recommended, uses TurboModules)
+import { Camera, useCameraDevice } from 'react-native-vision-camera';
+
+function CameraScreen() {
+  const device = useCameraDevice('back');
+  const camera = useRef<Camera>(null);
+
+  const takePicture = async () => {
+    if (camera.current) {
+      const photo = await camera.current.takePhoto({
+        qualityPrioritization: 'speed',
+        flash: 'off'
+      });
+      console.log('Photo taken:', photo.path);
+    }
+  };
+
+  if (!device) return null;
+
+  return (
+    <Camera
+      ref={camera}
+      device={device}
+      isActive={true}
+      photo={true}
+    />
+  );
+}
+
+// Location - react-native-geolocation-service
+import Geolocation from 'react-native-geolocation-service';
+
+const getLocation = async () => {
+  const position = await Geolocation.getCurrentPosition(
+    (position) => {
+      console.log(position.coords.latitude, position.coords.longitude);
+    },
+    (error) => console.error(error),
+    { enableHighAccuracy: true, timeout: 15000 }
+  );
+};
+```
+
+---
+
+## Q37. 💡 ⏰ Headless JS and when to use it
 
 Headless JS tasks run JavaScript code in the background on Android, useful for background processing and notifications - limited access to UI and some APIs (restrictions). Available only on Android platform (Android only).
 
@@ -173,46 +213,44 @@ AppRegistry.registerHeadlessTask('BackgroundTask', () => HeadlessTask);
 
 ---
 
-## Q39. 📱 How autolinking works in React Native
+## Q38. 📱 How autolinking works in React Native
 
-Autolinking automatically links native dependencies by scanning package.json and configuring native projects, eliminating manual linking steps - replaces manual linking process (migration). No manual linking required (automatic linking).
+Autolinking automatically links native dependencies by scanning package.json and configuring native projects, eliminating manual linking steps - standard feature in React Native 0.60+ (no configuration needed). No manual linking required (automatic linking).
 
-- **Trade-offs**: The catch is automatically configures native projects (configuration) - works for both iOS and Android (platform support). Replaces manual linking process (migration), but watch out - scans package.json for native dependencies (package scanning).
+- **Trade-offs**: The catch is automatically configures native projects (configuration) - works for both iOS and Android (platform support). Standard feature in React Native 0.60+ (no configuration needed), but watch out - scans package.json for native dependencies and configures native projects automatically (package scanning).
 
 Example:
 
 ```json
 {
   "dependencies": {
-    "react-native-camera": "^4.0.0",
-    "react-native-vector-icons": "^9.0.0"
+    "react-native-vision-camera": "^4.0.0",
+    "react-native-vector-icons": "^10.0.0"
   }
 }
 
+// After npm install, autolinking automatically:
+// - Adds native dependencies to iOS Podfile
+// - Configures Android gradle files
+// - No manual linking required
+
+// To disable autolinking for a specific package:
+// react-native.config.js
+module.exports = {
+  dependencies: {
+    'some-package': {
+      platforms: {
+        android: null, // disable Android autolinking
+        ios: null, // disable iOS autolinking
+      },
+    },
+  },
+};
 ```
 
 ---
 
-## Q40. 🧩 Difference between bridged and JSI-based modules
-
-Bridged modules use the old bridge system with serialization, while JSI-based modules use direct function calls for better performance - JSI is the future of React Native modules. Bridge system uses serialization and message passing; JSI system uses direct function calls without serialization.
-
-- **Trade-offs**: The catch is JSI enables synchronous calls (synchronous) - gradual migration from bridge to JSI. JSI is the future of React Native modules, but watch out - JSI is faster than bridge (performance).
-
-Example:
-
-```jsx
-// Bridged module (old)
-const result = await NativeModules.BridgedModule.doSomething(data);
-
-// JSI-based module (new)
-const result = JSIModule.doSomething(data);
-
-```
-
----
-
-## Q41. 📱 Handling permissions in React Native
+## Q39. 📱 Handling permissions in React Native
 
 Use platform-specific permission systems and libraries like react-native-permissions to request and check permissions at runtime - follow platform-specific permission guidelines (app store guidelines). Different permission systems for iOS and Android (platform differences).
 

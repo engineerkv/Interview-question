@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[← Previous: Advanced Features & Concurrent Rendering](05%29%20Advanced Features%20%26%20Concurrent Rendering.md) • [Home: README](../README.md) • [Next: Testing & Debugging →](07%29%20Testing%20%26%20Debugging.md)
+[← Previous: Advanced Features & Concurrent Rendering](05%29%20Advanced%20Features%20%26%20Concurrent%20Rendering.md) • [Home: README](../README.md) • [Next: Testing & Debugging →](07%29%20Testing%20%26%20Debugging.md)
 
 [📋 Cheatsheet](React%20Interview%20Cheatsheet.md)
 
@@ -83,7 +83,7 @@ const ExpensiveComponent = React.memo(({ data, onUpdate }) => {
       name: item.name.toUpperCase() // Expensive transformation
     }));
   }, [data]); // Only recompute when data changes
-  
+
   // useCallback: caches function reference (handleUpdate)
   const handleUpdate = useCallback(
     () => onUpdate(processedData),
@@ -403,7 +403,7 @@ const MemoizedComponent = React.memo(({ data }) => {
 
 <div align="center">
 
-[← Previous: Advanced Features & Concurrent Rendering](05%29%20Advanced Features%20%26%20Concurrent Rendering.md) • [Home: README](../README.md) • [Next: Testing & Debugging →](07%29%20Testing%20%26%20Debugging.md)
+[← Previous: Advanced Features & Concurrent Rendering](05%29%20Advanced%20Features%20%26%20Concurrent%20Rendering.md) • [Home: README](../README.md) • [Next: Testing & Debugging →](07%29%20Testing%20%26%20Debugging.md)
 
 [📋 Cheatsheet](React%20Interview%20Cheatsheet.md)
 

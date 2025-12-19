@@ -206,42 +206,42 @@ Design and implement a full-featured e-commerce platform that addresses the foll
 ### Frontend Framework
 
 - **React.js:** Perfect for building interactive e-commerce interfaces
-  - **Component-based** - Product cards, cart items, filters are reusable components
-  - **Fast updates** - Virtual DOM makes product list updates smooth
-  - **Code splitting** - Load product pages only when needed
-  - **TypeScript** - Type safety for product data, cart, orders
+ - **Component-based** - Product cards, cart items, filters are reusable components
+ - **Fast updates** - Virtual DOM makes product list updates smooth
+ - **Code splitting** - Load product pages only when needed
+ - **TypeScript** - Type safety for product data, cart, orders
 
 ### State Management
 
 - **Redux Toolkit:** Manages complex state (cart, user, products, orders)
-  - **Cart state** - Products in cart, quantities, totals
-  - **User state** - Authentication, profile, addresses
-  - **Product state** - Product list, filters, search results
-  - **Order state** - Current order, order history
+ - **Cart state** - Products in cart, quantities, totals
+ - **User state** - Authentication, profile, addresses
+ - **Product state** - Product list, filters, search results
+ - **Order state** - Current order, order history
 
 ### Routing
 
 - **React Router v6:** Client-side routing for smooth navigation
-  - **Product pages** - `/products/:id` for product details
-  - **Category pages** - `/category/:name` for category browsing
-  - **Cart page** - `/cart` for shopping cart
-  - **Checkout** - `/checkout` for payment
+ - **Product pages** - `/products/:id` for product details
+ - **Category pages** - `/category/:name` for category browsing
+ - **Cart page** - `/cart` for shopping cart
+ - **Checkout** - `/checkout` for payment
 
 ### UI Components
 
 - **Material-UI:** Pre-built components for faster development
-  - **Product cards** - Consistent product display
-  - **Forms** - Checkout forms, search forms
-  - **Modals** - Quick view, product zoom
-  - **Responsive grid** - Product grid that adapts to screen size
+ - **Product cards** - Consistent product display
+ - **Forms** - Checkout forms, search forms
+ - **Modals** - Quick view, product zoom
+ - **Responsive grid** - Product grid that adapts to screen size
 
 ### Search
 
 - **Client-side search:** For small catalogs, search in browser
 
 - **Server-side search:** For large catalogs, search on server (Elasticsearch)
-  - **Why server-side?** Can't load all products in browser
-  - **Elasticsearch** - Fast full-text search, filters, sorting
+ - **Why server-side?** Can't load all products in browser
+ - **Elasticsearch** - Fast full-text search, filters, sorting
 
 ### Image Handling
 
@@ -256,68 +256,9 @@ Design and implement a full-featured e-commerce platform that addresses the foll
 ### Payment Gateway
 
 - **Payment Gateway:** Payment gateway for processing payments
-  - **Multiple methods** - Cards, UPI, net banking, wallets
-  - **Secure** - PCI-DSS compliant
-  - **Easy integration** - Simple API, good documentation
-
----
-
-## d) Capacity Estimation
-
-### Throughput Requirements
-
-- **Daily Active Users**: 100,000 users per day
-- **Peak Traffic**: 10x average during sales events (1,000,000 users per day)
-- **Read:Write Ratio**: 20:1 (browsing vs purchasing)
-- **Average Page Views per User**: 10 pages per session
-
-**Calculations:**
-
-- **Average Requests Per Second (RPS)**: (100,000 users × 10 pages) / 86,400 seconds ≈ 11,600 RPS
-- **Peak RPS**: 11,600 × 10 = 116,000 RPS during sales events
-- **Write Operations**: 11,600 / 20 ≈ 580 WPS (orders, cart updates)
-- **Read Operations**: 11,600 - 580 ≈ 11,020 RPS (product browsing, search)
-
-### Storage Estimation
-
-**Storage per Product:**
-
-- Product metadata: 2 KB (name, description, price, etc.)
-- Product images: 500 KB average (5 images × 100 KB each)
-- **Total per Product**: ~502 KB
-
-**Storage Requirements:**
-
-- **Total Products**: 10 million products
-- **Product Storage**: 10M × 502 KB ≈ 5 TB
-- **User Data**: 1M users × 10 KB ≈ 10 GB
-- **Order Data**: 1M orders/year × 5 KB ≈ 5 GB/year
-- **Total Storage**: ~5 TB (products) + 10 GB (users) + 5 GB (orders) ≈ 5.015 TB
-
-### Bandwidth Estimation
-
-- **Average Page Size**: 2 MB (including images, CSS, JS)
-- **Daily Bandwidth**: 100,000 users × 10 pages × 2 MB = 2 TB/day
-- **Peak Bandwidth**: 2 TB × 10 = 20 TB/day during sales events
-- **Average Bandwidth**: 2 TB / 86,400 seconds ≈ 23 MB/s
-- **Peak Bandwidth**: 23 MB/s × 10 ≈ 230 MB/s
-
-### Caching Estimation
-
-Following the **80-20 rule** where 20% of products generate 80% of traffic:
-
-- **Cache 20% of hot products**: 10M × 0.2 = 2M products
-- **Cache memory required**: 2M × 2 KB = 4 GB
-- **Cache hit ratio**: 80% (only 20% of product requests hit database)
-- **Requests hitting DB**: 11,020 × 0.20 ≈ 2,204 RPS (manageable with proper indexing)
-
-### Infrastructure Sizing
-
-- **API Servers**: 20-30 instances behind load balancer, each handling 500-1,000 RPS
-- **Database**: MongoDB cluster with 10-15 nodes for storage and high read/write throughput
-- **Search**: Elasticsearch cluster with 5-8 nodes for product search
-- **Cache Layer**: Redis cluster with 5-8 nodes for high availability and performance
-- **CDN**: CloudFront/Cloudflare for global image and static asset delivery
+ - **Multiple methods** - Cards, UPI, net banking, wallets
+ - **Secure** - PCI-DSS compliant
+ - **Easy integration** - Simple API, good documentation
 
 ---
 
@@ -326,86 +267,86 @@ Following the **80-20 rule** where 20% of products generate 80% of traffic:
 ```
 
 ┌─────────────────────────────────────────────────────────┐
-│              Frontend (React.js) - Client Side           │
-│  (This is what users see in their browser)              │
+│ Frontend (React.js) - Client Side │
+│ (This is what users see in their browser) │
 ├─────────────────────────────────────────────────────────┤
-│  ┌──────────────────────────────────────────────────┐   │
-│  │         Browser (Chrome, Firefox, Safari)        │   │
-│  │  ┌────────────────────────────────────────────┐  │   │
-│  │  │     React.js Application (SPA)             │  │   │
-│  │  │  ┌──────────────────────────────────────┐  │  │   │
-│  │  │  │  React Router (Client-side Routing)  │  │  │   │
-│  │  │  └──────────────────────────────────────┘  │  │   │
-│  │  │  ┌──────────────────────────────────────┐  │  │   │
-│  │  │  │  Redux Toolkit (State Management)    │  │  │   │
-│  │  │  │  - Cart, User, Products, Orders      │  │  │   │
-│  │  │  └──────────────────────────────────────┘  │  │   │
-│  │  │  ┌──────────────────────────────────────┐  │  │   │
-│  │  │  │  Material-UI Components              │  │  │   │
-│  │  │  └──────────────────────────────────────┘  │  │   │
-│  │  └────────────────────────────────────────────┘  │   │
-│  └──────────────────────────────────────────────────┘   │
+│ ┌──────────────────────────────────────────────────┐ │
+│ │ Browser (Chrome, Firefox, Safari) │ │
+│ │ ┌────────────────────────────────────────────┐ │ │
+│ │ │ React.js Application (SPA) │ │ │
+│ │ │ ┌──────────────────────────────────────┐ │ │ │
+│ │ │ │ React Router (Client-side Routing) │ │ │ │
+│ │ │ └──────────────────────────────────────┘ │ │ │
+│ │ │ ┌──────────────────────────────────────┐ │ │ │
+│ │ │ │ Redux Toolkit (State Management) │ │ │ │
+│ │ │ │ - Cart, User, Products, Orders │ │ │ │
+│ │ │ └──────────────────────────────────────┘ │ │ │
+│ │ │ ┌──────────────────────────────────────┐ │ │ │
+│ │ │ │ Material-UI Components │ │ │ │
+│ │ │ └──────────────────────────────────────┘ │ │ │
+│ │ └────────────────────────────────────────────┘ │ │
+│ └──────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────┘
-                        │
-                        │ HTTP/REST API Calls
-                        ▼
+ │
+ │ HTTP/REST API Calls
+ ▼
 ┌─────────────────────────────────────────────────────────┐
-│              Backend (Node.js + Express.js)              │
-│  (Server that handles business logic and data)          │
+│ Backend (Node.js + Express.js) │
+│ (Server that handles business logic and data) │
 ├─────────────────────────────────────────────────────────┤
-│  ┌──────────────────────────────────────────────────┐   │
-│  │         Load Balancer / API Gateway              │   │
-│  └──────────────────────────────────────────────────┘   │
-│                        │                                 │
-│        ┌───────────────┼───────────────┐                │
-│        ▼               ▼               ▼                │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐             │
-│  │ Express  │  │ Express  │  │ Express  │             │
-│  │ Server 1 │  │ Server 2 │  │ Server 3 │             │
-│  └──────────┘  └──────────┘  └──────────┘             │
-│        │               │               │                │
-│        └───────────────┼───────────────┘                │
-│                        ▼                                 │
-│  ┌──────────────────────────────────────────────────┐   │
-│  │         Business Logic Layer                     │   │
-│  │  - Product Service (catalog, search)             │   │
-│  │  - Cart Service (cart management)                │   │
-│  │  - Order Service (order processing)              │   │
-│  │  - User Service (authentication, profiles)       │   │
-│  │  - Review Service (reviews, ratings)             │   │
-│  └──────────────────────────────────────────────────┘   │
-│                        ▼                                 │
-│  ┌──────────────────────────────────────────────────┐   │
-│  │         Data Access Layer                        │   │
-│  │  - MongoDB (Products, users, orders)             │   │
-│  │  - Elasticsearch (Product search)                │   │
-│  │  - Redis (Caching, sessions)                     │   │
-│  └──────────────────────────────────────────────────┘   │
+│ ┌──────────────────────────────────────────────────┐ │
+│ │ Load Balancer / API Gateway │ │
+│ └──────────────────────────────────────────────────┘ │
+│ │ │
+│ ┌───────────────┼───────────────┐ │
+│ ▼ ▼ ▼ │
+│ ┌──────────┐ ┌──────────┐ ┌──────────┐ │
+│ │ Express │ │ Express │ │ Express │ │
+│ │ Server 1 │ │ Server 2 │ │ Server 3 │ │
+│ └──────────┘ └──────────┘ └──────────┘ │
+│ │ │ │ │
+│ └───────────────┼───────────────┘ │
+│ ▼ │
+│ ┌──────────────────────────────────────────────────┐ │
+│ │ Business Logic Layer │ │
+│ │ - Product Service (catalog, search) │ │
+│ │ - Cart Service (cart management) │ │
+│ │ - Order Service (order processing) │ │
+│ │ - User Service (authentication, profiles) │ │
+│ │ - Review Service (reviews, ratings) │ │
+│ └──────────────────────────────────────────────────┘ │
+│ ▼ │
+│ ┌──────────────────────────────────────────────────┐ │
+│ │ Data Access Layer │ │
+│ │ - MongoDB (Products, users, orders) │ │
+│ │ - Elasticsearch (Product search) │ │
+│ │ - Redis (Caching, sessions) │ │
+│ └──────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────┘
-        │                    │                    │
-        ▼                    ▼                    ▼
-┌──────────────┐  ┌──────────────┐  ┌──────────────┐
-│   MongoDB    │  │ Elasticsearch│  │    Redis     │
-│  (Database)  │  │   (Search)   │  │   (Cache)    │
-│              │  │              │  │              │
-│  - Products  │  │  - Product   │  │  - Product   │
-│  - Users     │  │    Index     │  │    Cache     │
-│  - Orders    │  │  - Search    │  │  - Sessions  │
-│  - Reviews   │  │    Results   │  │              │
-└──────────────┘  └──────────────┘  └──────────────┘
-        │                    │                    │
-        └────────────────────┼────────────────────┘
-                             │
-                             ▼
-                    ┌──────────────┐
-                    │   External   │
-                    │   Services   │
-                    │              │
-                    │  - Payment   │
-                    │    Gateway  │
-                    │  - AWS S3    │
-                    │  - CDN       │
-                    └──────────────┘
+ │ │ │
+ ▼ ▼ ▼
+┌──────────────┐ ┌──────────────┐ ┌──────────────┐
+│ MongoDB │ │ Elasticsearch│ │ Redis │
+│ (Database) │ │ (Search) │ │ (Cache) │
+│ │ │ │ │ │
+│ - Products │ │ - Product │ │ - Product │
+│ - Users │ │ Index │ │ Cache │
+│ - Orders │ │ - Search │ │ - Sessions │
+│ - Reviews │ │ Results │ │ │
+└──────────────┘ └──────────────┘ └──────────────┘
+ │ │ │
+ └────────────────────┼────────────────────┘
+ │
+ ▼
+ ┌──────────────┐
+ │ External │
+ │ Services │
+ │ │
+ │ - Payment │
+ │ Gateway │
+ │ - AWS S3 │
+ │ - CDN │
+ └──────────────┘
 
 ```
 
@@ -416,30 +357,30 @@ The system follows a layered architecture with clear separation of concerns acro
 **Frontend Layers:**
 
 1. **Presentation Layer (React Components)**
-   - **UI Components**: Reusable components (ProductCard, CartItem, Button, Input)
-   - **Feature Components**: ProductList, ShoppingCart, CheckoutForm, OrderHistory
-   - **Layout Components**: Header, Footer, Navigation, MainLayout
-   - **Page Components**: HomePage, ProductPage, CartPage, CheckoutPage
+ - **UI Components**: Reusable components (ProductCard, CartItem, Button, Input)
+ - **Feature Components**: ProductList, ShoppingCart, CheckoutForm, OrderHistory
+ - **Layout Components**: Header, Footer, Navigation, MainLayout
+ - **Page Components**: HomePage, ProductPage, CartPage, CheckoutPage
 
 2. **State Management Layer**
-   - **Local State (useState)**: Component-specific UI state (form inputs, loading, errors)
-   - **Server State (Redux Toolkit)**: Global state for cart, user, products, orders
-   - **API State (React Query)**: Product data caching, refetching, optimistic updates
+ - **Local State (useState)**: Component-specific UI state (form inputs, loading, errors)
+ - **Server State (Redux Toolkit)**: Global state for cart, user, products, orders
+ - **API State (React Query)**: Product data caching, refetching, optimistic updates
 
 3. **API Integration Layer**
-   - **API Client**: Axios instance with interceptors for auth, error handling
-   - **Redux Thunks**: Async actions for API operations (fetchProducts, addToCart)
-   - **Request/Response Transformation**: Data normalization and error handling
+ - **API Client**: Axios instance with interceptors for auth, error handling
+ - **Redux Thunks**: Async actions for API operations (fetchProducts, addToCart)
+ - **Request/Response Transformation**: Data normalization and error handling
 
 4. **Routing Layer (React Router)**
-   - **Route Configuration**: Define routes and protected routes
-   - **Navigation**: Programmatic and declarative navigation
-   - **Route Guards**: Authentication and authorization checks
+ - **Route Configuration**: Define routes and protected routes
+ - **Navigation**: Programmatic and declarative navigation
+ - **Route Guards**: Authentication and authorization checks
 
 5. **Build & Deployment Layer**
-   - **Build Process**: Webpack/Vite bundling with code splitting
-   - **Static Assets**: Served from CDN (CloudFront/Cloudflare)
-   - **Environment Configuration**: Environment-specific API endpoints and configs
+ - **Build Process**: Webpack/Vite bundling with code splitting
+ - **Static Assets**: Served from CDN (CloudFront/Cloudflare)
+ - **Environment Configuration**: Environment-specific API endpoints and configs
 
 **Frontend Request Flow:**
 
@@ -450,12 +391,6 @@ The system follows a layered architecture with clear separation of concerns acro
 5. **Response Handling** → Success/error state updates Redux store or React Query cache
 6. **UI Update** → Components re-render with new data
 
-### Backend Architecture
-
-**Backend Layers:**
-
-1. **API Gateway/Load Balancer** - Entry point for all requests
-2. **API Server Layer** - Stateless servers handling HTTP requests
 3. **Application Service Layer** - Business logic and orchestration
 4. **Cache Layer** - In-memory caching for performance
 5. **Database Layer** - Persistent data storage
@@ -509,29 +444,29 @@ The system follows a layered architecture with clear separation of concerns acro
 - **Image Storage (AWS S3)**: Stores product images, served via CDN
 
 1. **React.js for Frontend:** Perfect for interactive e-commerce - product filters, cart updates, search all need fast UI updates
-   - **Component-based** - Product cards, cart items are reusable
-   - **Fast navigation** - No page reloads, smooth transitions
-   - **Code splitting** - Product pages load only when needed
+ - **Component-based** - Product cards, cart items are reusable
+ - **Fast navigation** - No page reloads, smooth transitions
+ - **Code splitting** - Product pages load only when needed
 
 2. **Redux Toolkit for State:** Complex state needs (cart, user, products) - Redux keeps it organized
-   - **Cart state** - Products, quantities, totals - many components need this
-   - **User state** - Authentication, profile - shared across app
-   - **Product state** - Search results, filters - shared between pages
+ - **Cart state** - Products, quantities, totals - many components need this
+ - **User state** - Authentication, profile - shared across app
+ - **Product state** - Search results, filters - shared between pages
 
 3. **Server-side Search:** Can't load all products in browser - use Elasticsearch for fast search
-   - **Why Elasticsearch?** Fast full-text search, handles millions of products
-   - **Filters & sorting** - Elasticsearch handles complex queries efficiently
-   - **Scalable** - Can handle growing product catalog
+ - **Why Elasticsearch?** Fast full-text search, handles millions of products
+ - **Filters & sorting** - Elasticsearch handles complex queries efficiently
+ - **Scalable** - Can handle growing product catalog
 
 4. **CDN for Images:** Product images are large - CDN makes them load faster globally
-   - **Why CDN?** Images served from edge locations - closer to users
-   - **Faster loading** - Especially important for product images
-   - **Reduces server load** - Images don't hit main server
+ - **Why CDN?** Images served from edge locations - closer to users
+ - **Faster loading** - Especially important for product images
+ - **Reduces server load** - Images don't hit main server
 
 5. **Guest Checkout:** Users can buy without account - reduces friction, increases conversions
-   - **Why important?** Many users don't want to create account
-   - **Better UX** - Faster checkout process
-   - **More sales** - Less friction = more purchases
+ - **Why important?** Many users don't want to create account
+ - **Better UX** - Faster checkout process
+ - **More sales** - Less friction = more purchases
 
 ---
 
@@ -549,87 +484,87 @@ The system follows a layered architecture with clear separation of concerns acro
 
 App (Root Component - Entry Point)
 ├── Layout (Main Layout with Navigation)
-│   ├── Header
-│   │   ├── Logo
-│   │   ├── SearchBar (with autocomplete)
-│   │   ├── NavigationMenu
-│   │   └── UserMenu (Cart icon, User account)
-│   ├── Sidebar (Mobile Menu)
-│   │   ├── CategoryMenu
-│   │   └── UserMenu
-│   └── Main Content Area
-│       ├── HomePage
-│       │   ├── HeroBanner
-│       │   ├── CategoryGrid
-│       │   ├── FeaturedProducts
-│       │   └── DealsSection
-│       ├── ProductListPage
-│       │   ├── FilterSidebar
-│       │   │   ├── PriceFilter
-│       │   │   ├── BrandFilter
-│       │   │   ├── RatingFilter
-│       │   │   └── AvailabilityFilter
-│       │   ├── ProductGrid
-│       │   │   └── ProductCard
-│       │   │       ├── ProductImage
-│       │   │       ├── ProductTitle
-│       │   │       ├── ProductPrice
-│       │   │       ├── ProductRating
-│       │   │       └── AddToCartButton
-│       │   └── Pagination
-│       ├── ProductDetailPage
-│       │   ├── ProductImageGallery
-│       │   ├── ProductInfo
-│       │   │   ├── ProductTitle
-│       │   │   ├── ProductPrice
-│       │   │   ├── ProductRating
-│       │   │   ├── ProductDescription
-│       │   │   ├── AddToCartButton
-│       │   │   └── BuyNowButton
-│       │   ├── ProductSpecifications
-│       │   ├── ProductReviews
-│       │   │   ├── ReviewSummary
-│       │   │   └── ReviewList
-│       │   │       └── ReviewCard
-│       │   └── RelatedProducts
-│       ├── CartPage
-│       │   ├── CartItemList
-│       │   │   └── CartItem
-│       │   │       ├── ProductImage
-│       │   │       ├── ProductInfo
-│       │   │       ├── QuantitySelector
-│       │   │       ├── Price
-│       │   │       └── RemoveButton
-│       │   ├── CartSummary
-│       │   │   ├── Subtotal
-│       │   │   ├── Shipping
-│       │   │   ├── Discount
-│       │   │   ├── Total
-│       │   │   └── CheckoutButton
-│       │   └── EmptyCartState
-│       ├── CheckoutPage
-│       │   ├── AddressForm
-│       │   ├── PaymentMethodSelection
-│       │   ├── OrderSummary
-│       │   └── PlaceOrderButton
-│       ├── OrderHistoryPage
-│       │   ├── OrderList
-│       │   │   └── OrderCard
-│       │   │       ├── OrderInfo
-│       │   │       ├── OrderItems
-│       │   │       ├── OrderStatus
-│       │   │       └── TrackOrderButton
-│       │   └── EmptyState
-│       └── WishlistPage
-│           ├── WishlistItems
-│           │   └── WishlistItem
-│           │       ├── ProductCard
-│           │       └── RemoveButton
-│           └── EmptyState
+│ ├── Header
+│ │ ├── Logo
+│ │ ├── SearchBar (with autocomplete)
+│ │ ├── NavigationMenu
+│ │ └── UserMenu (Cart icon, User account)
+│ ├── Sidebar (Mobile Menu)
+│ │ ├── CategoryMenu
+│ │ └── UserMenu
+│ └── Main Content Area
+│ ├── HomePage
+│ │ ├── HeroBanner
+│ │ ├── CategoryGrid
+│ │ ├── FeaturedProducts
+│ │ └── DealsSection
+│ ├── ProductListPage
+│ │ ├── FilterSidebar
+│ │ │ ├── PriceFilter
+│ │ │ ├── BrandFilter
+│ │ │ ├── RatingFilter
+│ │ │ └── AvailabilityFilter
+│ │ ├── ProductGrid
+│ │ │ └── ProductCard
+│ │ │ ├── ProductImage
+│ │ │ ├── ProductTitle
+│ │ │ ├── ProductPrice
+│ │ │ ├── ProductRating
+│ │ │ └── AddToCartButton
+│ │ └── Pagination
+│ ├── ProductDetailPage
+│ │ ├── ProductImageGallery
+│ │ ├── ProductInfo
+│ │ │ ├── ProductTitle
+│ │ │ ├── ProductPrice
+│ │ │ ├── ProductRating
+│ │ │ ├── ProductDescription
+│ │ │ ├── AddToCartButton
+│ │ │ └── BuyNowButton
+│ │ ├── ProductSpecifications
+│ │ ├── ProductReviews
+│ │ │ ├── ReviewSummary
+│ │ │ └── ReviewList
+│ │ │ └── ReviewCard
+│ │ └── RelatedProducts
+│ ├── CartPage
+│ │ ├── CartItemList
+│ │ │ └── CartItem
+│ │ │ ├── ProductImage
+│ │ │ ├── ProductInfo
+│ │ │ ├── QuantitySelector
+│ │ │ ├── Price
+│ │ │ └── RemoveButton
+│ │ ├── CartSummary
+│ │ │ ├── Subtotal
+│ │ │ ├── Shipping
+│ │ │ ├── Discount
+│ │ │ ├── Total
+│ │ │ └── CheckoutButton
+│ │ └── EmptyCartState
+│ ├── CheckoutPage
+│ │ ├── AddressForm
+│ │ ├── PaymentMethodSelection
+│ │ ├── OrderSummary
+│ │ └── PlaceOrderButton
+│ ├── OrderHistoryPage
+│ │ ├── OrderList
+│ │ │ └── OrderCard
+│ │ │ ├── OrderInfo
+│ │ │ ├── OrderItems
+│ │ │ ├── OrderStatus
+│ │ │ └── TrackOrderButton
+│ │ └── EmptyState
+│ └── WishlistPage
+│ ├── WishlistItems
+│ │ └── WishlistItem
+│ │ ├── ProductCard
+│ │ └── RemoveButton
+│ └── EmptyState
 └── Footer
-    ├── Links
-    ├── SocialMedia
-    └── Copyright
+ ├── Links
+ ├── SocialMedia
+ └── Copyright
 
 ```
 
@@ -654,71 +589,71 @@ App (Root Component - Entry Point)
 ```
 App
 ├── Header
-│   ├── Logo
-│   ├── SearchBar (with autocomplete)
-│   ├── NavigationMenu
-│   └── UserMenu (Cart, Profile, Sign out)
+│ ├── Logo
+│ ├── SearchBar (with autocomplete)
+│ ├── NavigationMenu
+│ └── UserMenu (Cart, Profile, Sign out)
 ├── MainContent
-│   ├── ProductListPage
-│   │   ├── FilterSidebar
-│   │   │   ├── CategoryFilter
-│   │   │   ├── PriceRangeFilter
-│   │   │   ├── BrandFilter
-│   │   │   └── RatingFilter
-│   │   ├── ProductGrid
-│   │   │   └── ProductCard
-│   │   │       ├── ProductImage
-│   │   │       ├── ProductTitle
-│   │   │       ├── ProductPrice
-│   │   │       ├── ProductRating
-│   │   │       └── AddToCartButton
-│   │   └── Pagination
-│   ├── ProductDetailPage
-│   │   ├── ProductImages
-│   │   ├── ProductInfo
-│   │   │   ├── ProductTitle
-│   │   │   ├── ProductPrice
-│   │   │   ├── ProductRating
-│   │   │   ├── QuantitySelector
-│   │   │   ├── AddToCartButton
-│   │   │   └── BuyNowButton
-│   │   ├── ProductDescription
-│   │   ├── ProductReviews
-│   │   │   ├── ReviewList
-│   │   │   └── ReviewForm
-│   │   └── RelatedProducts
-│   ├── CartPage
-│   │   ├── CartItemList
-│   │   │   └── CartItem
-│   │   │       ├── ProductImage
-│   │   │       ├── ProductInfo
-│   │   │       ├── QuantitySelector
-│   │   │       ├── Price
-│   │   │       └── RemoveButton
-│   │   ├── CartSummary
-│   │   │   ├── Subtotal
-│   │   │   ├── Shipping
-│   │   │   ├── Discount
-│   │   │   ├── Total
-│   │   │   └── CheckoutButton
-│   │   └── EmptyCartState
-│   ├── CheckoutPage
-│   │   ├── AddressForm
-│   │   ├── PaymentMethodSelection
-│   │   ├── OrderSummary
-│   │   └── PlaceOrderButton
-│   └── OrderHistoryPage
-│       ├── OrderList
-│       │   └── OrderCard
-│       │       ├── OrderInfo
-│       │       ├── OrderItems
-│       │       ├── OrderStatus
-│       │       └── TrackOrderButton
-│       └── EmptyState
+│ ├── ProductListPage
+│ │ ├── FilterSidebar
+│ │ │ ├── CategoryFilter
+│ │ │ ├── PriceRangeFilter
+│ │ │ ├── BrandFilter
+│ │ │ └── RatingFilter
+│ │ ├── ProductGrid
+│ │ │ └── ProductCard
+│ │ │ ├── ProductImage
+│ │ │ ├── ProductTitle
+│ │ │ ├── ProductPrice
+│ │ │ ├── ProductRating
+│ │ │ └── AddToCartButton
+│ │ └── Pagination
+│ ├── ProductDetailPage
+│ │ ├── ProductImages
+│ │ ├── ProductInfo
+│ │ │ ├── ProductTitle
+│ │ │ ├── ProductPrice
+│ │ │ ├── ProductRating
+│ │ │ ├── QuantitySelector
+│ │ │ ├── AddToCartButton
+│ │ │ └── BuyNowButton
+│ │ ├── ProductDescription
+│ │ ├── ProductReviews
+│ │ │ ├── ReviewList
+│ │ │ └── ReviewForm
+│ │ └── RelatedProducts
+│ ├── CartPage
+│ │ ├── CartItemList
+│ │ │ └── CartItem
+│ │ │ ├── ProductImage
+│ │ │ ├── ProductInfo
+│ │ │ ├── QuantitySelector
+│ │ │ ├── Price
+│ │ │ └── RemoveButton
+│ │ ├── CartSummary
+│ │ │ ├── Subtotal
+│ │ │ ├── Shipping
+│ │ │ ├── Discount
+│ │ │ ├── Total
+│ │ │ └── CheckoutButton
+│ │ └── EmptyCartState
+│ ├── CheckoutPage
+│ │ ├── AddressForm
+│ │ ├── PaymentMethodSelection
+│ │ ├── OrderSummary
+│ │ └── PlaceOrderButton
+│ └── OrderHistoryPage
+│ ├── OrderList
+│ │ └── OrderCard
+│ │ ├── OrderInfo
+│ │ ├── OrderItems
+│ │ ├── OrderStatus
+│ │ └── TrackOrderButton
+│ └── EmptyState
 └── Footer
-    ├── Links
-    ├── SocialMedia
-    └── Copyright
+ ├── Links
+ ├── SocialMedia
+ └── Copyright
 
 ```
 
@@ -726,143 +661,896 @@ App
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Product Card Component
-const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
-  const dispatch = useAppDispatch();
-  const [loading, setLoading] = useState(false);
+const ProductCard<{ product: Product }> = ({ product }) => {
+ const dispatch = useAppDispatch();
+ const [loading, setLoading] = useState(false);
 
-  const handleAddToCart = async () => {
-    setLoading(true);
-    try {
-      await dispatch(addToCart({ productId: product.id, quantity: 1 })).unwrap();
-      // Show success toast
-    } catch (err) {
-      // Show error toast
-    } finally {
-      setLoading(false);
-    }
-  };
+ const handleAddToCart = async () => {
+ setLoading(true);
+ try {
+ await dispatch(addToCart({ productId: product.id, quantity: 1 })).unwrap();
+ // Show success toast
+ } catch (err) {
+ // Show error toast
+ } finally {
+ setLoading(false);
+ }
+ };
 
-  return (
-    <div className="product-card">
-      <Link to={`/products/${product.id}`}>
-        <img src={product.image} alt={product.name} />
-        <h3>{product.name}</h3>
-        <div className="price">${product.price}</div>
-        <div className="rating">{product.rating} ⭐</div>
-      </Link>
-      <button onClick={handleAddToCart} disabled={loading}>
-        {loading ? 'Adding...' : 'Add to Cart'}
-      </button>
-    </div>
-  );
+ return (
+ <div className="product-card">
+ <Link to={`/products/${product.id}`}>
+ <img src={product.image} alt={product.name} />
+ <h3>{product.name}</h3>
+ <div className="price">${product.price}</div>
+ <div className="rating">{product.rating} ⭐</div>
+ </Link>
+ <button onClick={handleAddToCart} disabled={loading}>
+ {loading ? 'Adding...' : 'Add to Cart'}
+ </button>
+ </div>
+ );
 };
 
 // Cart Item Component
-const CartItem: React.FC<{ item: CartItem }> = ({ item }) => {
-  const dispatch = useAppDispatch();
+const CartItem<{ item: CartItem }> = ({ item }) => {
+ const dispatch = useAppDispatch();
 
-  const handleQuantityChange = (newQuantity: number) => {
-    dispatch(updateCartItem({ itemId: item.id, quantity: newQuantity }));
-  };
+ const handleQuantityChange = (newQuantity) => {
+ dispatch(updateCartItem({ itemId: item.id, quantity: newQuantity }));
+ };
 
-  const handleRemove = () => {
-    dispatch(removeFromCart(item.id));
-  };
+ const handleRemove = () => {
+ dispatch(removeFromCart(item.id));
+ };
 
-  return (
-    <div className="cart-item">
-      <img src={item.product.image} alt={item.product.name} />
-      <div className="item-info">
-        <h4>{item.product.name}</h4>
-        <div className="price">${item.product.price}</div>
-      </div>
-      <QuantitySelector
-        quantity={item.quantity}
-        onChange={handleQuantityChange}
-        max={item.product.stock}
-      />
-      <div className="item-total">${item.product.price * item.quantity}</div>
-      <button onClick={handleRemove}>Remove</button>
-    </div>
-  );
+ return (
+ <div className="cart-item">
+ <img src={item.product.image} alt={item.product.name} />
+ <div className="item-info">
+ <h4>{item.product.name}</h4>
+ <div className="price">${item.product.price}</div>
+ </div>
+ <QuantitySelector
+ quantity={item.quantity}
+ onChange={handleQuantityChange}
+ max={item.product.stock}
+ />
+ <div className="item-total">${item.product.price * item.quantity}</div>
+ <button onClick={handleRemove}>Remove</button>
+ </div>
+ );
 };
 
 ```
 
 ### ii) State Management
 
-**State Management Strategy:**
+**State Management Strategy (React 19):**
 
 - **Local State (useState)**: Form inputs, UI state (loading, errors, modals, dropdowns)
-- **Component State**: Each component manages its own UI state
-- **API State**: React Query or SWR for server state (product data, search results, order history) - caching, refetching, optimistic updates
+- **Optimistic Updates (useOptimistic)**: React 19 hook for optimistic cart/product updates
+- **Form Actions (useActionState)**: React 19 hook for checkout forms and server actions
+- **Deferred Values (useDeferredValue)**: React 19 hook for search debouncing
+- **Transitions (useTransition)**: React 19 hook for non-urgent UI updates
+- **API State**: React Query for server state (product data, search results, order history) - caching, refetching
 - **Global State (Redux Toolkit)**: Cart items, user authentication, wishlist, selected filters
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Using React Query for API state management
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 const useProducts = (filters: ProductFilters) => {
-  return useQuery({
-    queryKey: ['products', filters],
-    queryFn: async () => {
-      const response = await axios.get('/api/v1/products', { params: filters });
-      return response.data;
-    },
-    staleTime: 5 * 60 * 1000 // Cache for 5 minutes
-  });
+ return useQuery({
+ queryKey: ['products', filters],
+ queryFn: async () => {
+ const response = await axios.get('/api/v1/products', { params: filters });
+ return response.data;
+ },
+ staleTime: 5 * 60 * 1000 // Cache for 5 minutes
+ });
 };
 
 const useAddToCart = () => {
-  const queryClient = useQueryClient();
-  const dispatch = useAppDispatch();
+ const queryClient = useQueryClient();
+ const dispatch = useAppDispatch();
 
-  return useMutation({
-    mutationFn: async ({ productId, quantity }: { productId: string; quantity: number }) => {
-      const response = await axios.post('/api/v1/cart/items', { productId, quantity });
-      return response.data;
-    },
-    onSuccess: (data) => {
-      // Update Redux cart state
-      dispatch(setCart(data.cart));
-      // Invalidate cart queries
-      queryClient.invalidateQueries({ queryKey: ['cart'] });
-    }
-  });
+ return useMutation({
+ mutationFn: async ({ productId, quantity }: { productId; quantity}) => {
+ const response = await axios.post('/api/v1/cart/items', { productId, quantity });
+ return response.data;
+ },
+ onSuccess: (data) => {
+ // Update Redux cart state
+ dispatch(setCart(data.cart));
+ // Invalidate cart queries
+ queryClient.invalidateQueries({ queryKey: ['cart'] });
+ }
+ });
 };
 
 ```
 
-### iii) Implementation Details
+### iii) Advanced Shopping Cart Patterns
+
+**Optimistic Cart Updates with React 19:**
+
+```javascript
+import { useOptimistic, useTransition } from 'react';
+
+const ShoppingCart= () => {
+ const [cart, setCart] = useState({ items: [] });
+ const [isPending, startTransition] = useTransition();
+
+ // React 19: useOptimistic for cart updates
+ const [optimisticCart, addOptimisticItem] = useOptimistic(
+ cart,
+ (state, newItem: CartItem) => ({
+ ...state,
+ items: [...state.items, { ...newItem, id: 'temp', syncing: true }]
+ })
+ );
+
+ const handleAddToCart = async (product: Product, quantity) => {
+ const newItem: CartItem = {
+ id: 'temp',
+ productId: product.id,
+ product,
+ quantity,
+ price: product.price
+ };
+
+ // Optimistically add to UI
+ startTransition(() => {
+ addOptimisticItem(newItem);
+ });
+
+ try {
+ const result = await addToCartAPI({ productId: product.id, quantity });
+ // Update with real data from server
+ setCart(result.cart);
+ toast.success('Added to cart!');
+ } catch (error) {
+ // Rollback on error - remove temp item
+ setCart(prev => ({
+ ...prev,
+ items: prev.items.filter(item => item.id !== 'temp')
+ }));
+ toast.error('Failed to add item to cart');
+ }
+ };
+
+ return (
+ <div className="cart">
+ {optimisticCart.items.map(item => (
+ <CartItem key={item.id} item={item} />
+ ))}
+ </div>
+ );
+};
+```
+
+**Cart Persistence:**
+
+```javascript
+// Persist cart to localStorage
+const cartMiddleware: Middleware = (store) => (next) => (action) => {
+ const result = next(action);
+
+ if (action.type.startsWith('cart/')) {
+ const state = store.getState();
+ localStorage.setItem('cart', JSON.stringify(state.cart));
+ }
+
+ return result;
+};
+
+// Hydrate cart on app load
+useEffect(() => {
+ const savedCart = localStorage.getItem('cart');
+ if (savedCart) {
+ const cart = JSON.parse(savedCart);
+ dispatch(setCart(cart));
+ // Sync with backend
+ syncCartWithBackend(cart);
+ }
+}, []);
+```
+
+**Quantity Selector with Validation:**
+
+```javascript
+const QuantitySelector<{
+ quantity;
+ max;
+ onChange: (qty) => void;
+}> = ({ quantity, max, onChange }) => {
+ const [localQty, setLocalQty] = useState(quantity);
+ const [error, setError] = useState('');
+
+ const handleChange = (value) => {
+ const num = parseInt(value);
+
+ if (isNaN(num) || num < 1) {
+ setError('Quantity must be at least 1');
+ return;
+ }
+
+ if (num > max) {
+ setError(`Only ${max} available`);
+ return;
+ }
+
+ setError('');
+ setLocalQty(num);
+ onChange(num);
+ };
+
+ const increment = () => {
+ if (localQty < max) {
+ handleChange((localQty + 1).toString());
+ }
+ };
+
+ const decrement = () => {
+ if (localQty > 1) {
+ handleChange((localQty - 1).toString());
+ }
+ };
+
+ return (
+ <div className="quantity-selector">
+ <button onClick={decrement} disabled={localQty <= 1}>-</button>
+ <input
+ type="number"
+ value={localQty}
+ onChange={(e) => handleChange(e.target.value)}
+ min={1}
+ max={max}
+ aria-label="Quantity"
+ />
+ <button onClick={increment} disabled={localQty >= max}>+</button>
+ {error && <span className="error">{error}</span>}
+ {localQty >= max && <span className="warning">Max available</span>}
+ </div>
+ );
+};
+```
+
+### iv) Product Catalog UI Patterns
+
+**Advanced Product Search with Autocomplete:**
+
+```javascript
+const SearchBar= () => {
+ const [query, setQuery] = useState('');
+ const [suggestions, setSuggestions] = useState([]);
+ const [showSuggestions, setShowSuggestions] = useState(false);
+
+ const { data: searchResults } = useQuery({
+ queryKey: ['search', query],
+ queryFn: () => searchProducts(query),
+ enabled: query.length >= 2,
+ staleTime: 30000
+ });
+
+ useEffect(() => {
+ if (searchResults) {
+ setSuggestions(searchResults.slice(0, 5));
+ setShowSuggestions(true);
+ }
+ }, [searchResults]);
+
+ return (
+ <div className="search-bar">
+ <input
+ type="text"
+ value={query}
+ onChange={(e) => setQuery(e.target.value)}
+ onFocus={() => setShowSuggestions(true)}
+ placeholder="Search products..."
+ aria-label="Search products"
+ />
+ {showSuggestions && suggestions.length > 0 && (
+ <ul className="suggestions" role="listbox">
+ {suggestions.map(product => (
+ <li
+ key={product.id}
+ onClick={() => {
+ navigate(`/products/${product.id}`);
+ setShowSuggestions(false);
+ }}
+ role="option"
+ >
+ <img src={product.image} alt={product.name} />
+ <span>{product.name}</span>
+ <span className="price">${product.price}</span>
+ </li>
+ ))}
+ </ul>
+ )}
+ </div>
+ );
+};
+```
+
+**Product Image Gallery with Zoom:**
+
+```javascript
+const ProductImageGallery<{ images[] }> = ({ images }) => {
+ const [selectedIndex, setSelectedIndex] = useState(0);
+ const [zoom, setZoom] = useState(false);
+ const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
+
+ const handleMouseMove = (e: React.MouseEvent) => {
+ if (!zoom) return;
+
+ const rect = e.currentTarget.getBoundingClientRect();
+ const x = ((e.clientX - rect.left) / rect.width) * 100;
+ const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+ setZoomPosition({ x, y });
+ };
+
+ return (
+ <div className="product-gallery">
+ <div
+ className="main-image"
+ onMouseEnter={() => setZoom(true)}
+ onMouseLeave={() => setZoom(false)}
+ onMouseMove={handleMouseMove}
+ >
+ <img
+ src={images[selectedIndex]}
+ alt={`Product image ${selectedIndex + 1}`}
+ style={{
+ transform: zoom ? `scale(2) translate(-${zoomPosition.x}%, -${zoomPosition.y}%)` : 'scale(1)',
+ transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`
+ }}
+ />
+ </div>
+ <div className="thumbnail-list">
+ {images.map((img, index) => (
+ <button
+ key={index}
+ onClick={() => setSelectedIndex(index)}
+ className={selectedIndex === index ? 'active' : ''}
+ aria-label={`View image ${index + 1}`}
+ >
+ <img src={img} alt={`Thumbnail ${index + 1}`} />
+ </button>
+ ))}
+ </div>
+ </div>
+ );
+};
+```
+
+**Infinite Scroll Product List:**
+
+```javascript
+const ProductList<{ filters: ProductFilters }> = ({ filters }) => {
+ const {
+ data,
+ fetchNextPage,
+ hasNextPage,
+ isFetchingNextPage,
+ isLoading
+ } = useInfiniteQuery({
+ queryKey: ['products', filters],
+ queryFn: ({ pageParam = 1 }) => fetchProducts({ ...filters, page: pageParam }),
+ getNextPageParam: (lastPage, pages) => {
+ return lastPage.hasNextPage ? pages.length + 1 : undefined;
+ }
+ });
+
+ const observerTarget = useRef(null);
+
+ useEffect(() => {
+ const observer = new IntersectionObserver(
+ (entries) => {
+ if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+ fetchNextPage();
+ }
+ },
+ { threshold: 0.1 }
+ );
+
+ if (observerTarget.current) {
+ observer.observe(observerTarget.current);
+ }
+
+ return () => observer.disconnect();
+ }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+ const products = data?.pages.flatMap(page => page.products) || [];
+
+ return (
+ <div className="product-list">
+ {products.map(product => (
+ <ProductCard key={product.id} product={product} />
+ ))}
+ <div ref={observerTarget} className="load-more-trigger">
+ {isFetchingNextPage && <LoadingSpinner />}
+ </div>
+ </div>
+ );
+};
+```
+
+**Filter Sidebar with URL State:**
+
+```javascript
+const FilterSidebar= () => {
+ const [searchParams, setSearchParams] = useSearchParams();
+ const [filters, setFilters] = useState({
+ minPrice: searchParams.get('minPrice') || '',
+ maxPrice: searchParams.get('maxPrice') || '',
+ brands: searchParams.get('brands')?.split(',') || [],
+ rating: searchParams.get('rating') || ''
+ });
+
+ const updateFilters = (newFilters: Partial<typeof filters>) => {
+ const updated = { ...filters, ...newFilters };
+ setFilters(updated);
+
+ // Update URL params
+ const params = new URLSearchParams();
+ if (updated.minPrice) params.set('minPrice', updated.minPrice);
+ if (updated.maxPrice) params.set('maxPrice', updated.maxPrice);
+ if (updated.brands.length) params.set('brands', updated.brands.join(','));
+ if (updated.rating) params.set('rating', updated.rating);
+
+ setSearchParams(params);
+ };
+
+ return (
+ <aside className="filter-sidebar">
+ <h3>Filters</h3>
+
+ <div className="filter-group">
+ <label>Price Range</label>
+ <div className="price-inputs">
+ <input
+ type="number"
+ placeholder="Min"
+ value={filters.minPrice}
+ onChange={(e) => updateFilters({ minPrice: e.target.value })}
+ />
+ <span>-</span>
+ <input
+ type="number"
+ placeholder="Max"
+ value={filters.maxPrice}
+ onChange={(e) => updateFilters({ maxPrice: e.target.value })}
+ />
+ </div>
+ </div>
+
+ <div className="filter-group">
+ <label>Brand</label>
+ {brands.map(brand => (
+ <label key={brand} className="checkbox-label">
+ <input
+ type="checkbox"
+ checked={filters.brands.includes(brand)}
+ onChange={(e) => {
+ const brands = e.target.checked
+ ? [...filters.brands, brand]
+ : filters.brands.filter(b => b !== brand);
+ updateFilters({ brands });
+ }}
+ />
+ {brand}
+ </label>
+ ))}
+ </div>
+
+ <button onClick={() => {
+ setFilters({ minPrice: '', maxPrice: '', brands: [], rating: '' });
+ setSearchParams({});
+ }}>
+ Clear Filters
+ </button>
+ </aside>
+ );
+};
+```
+
+### v) Checkout Flow Implementation
+
+**Multi-Step Checkout Form:**
+
+```javascript
+const CheckoutPage= () => {
+ const [step, setStep] = useState(1);
+ const [formData, setFormData] = useState({
+ address: {},
+ payment: {},
+ shipping: {}
+ });
+
+ const steps = [
+ { id: 1, name: 'Shipping Address', component: AddressForm },
+ { id: 2, name: 'Payment Method', component: PaymentForm },
+ { id: 3, name: 'Review Order', component: OrderReview }
+ ];
+
+ const CurrentStepComponent = steps[step - 1].component;
+
+ const handleNext = (data: any) => {
+ setFormData(prev => ({ ...prev, ...data }));
+ if (step < steps.length) {
+ setStep(step + 1);
+ }
+ };
+
+ const handleBack = () => {
+ if (step > 1) {
+ setStep(step - 1);
+ }
+ };
+
+ return (
+ <div className="checkout-page">
+ <div className="checkout-steps">
+ {steps.map((s, index) => (
+ <div
+ key={s.id}
+ className={`step ${step === s.id ? 'active' : step > s.id ? 'completed' : ''}`}
+ >
+ <div className="step-number">{s.id}</div>
+ <div className="step-name">{s.name}</div>
+ </div>
+ ))}
+ </div>
+
+ <CurrentStepComponent
+ data={formData}
+ onNext={handleNext}
+ onBack={handleBack}
+ isLastStep={step === steps.length}
+ />
+ </div>
+ );
+};
+```
+
+**Address Form with Validation:**
+
+```javascript
+const AddressForm = ({ data, onNext }) => {
+ const [formData, setFormData] = useState(data.address);
+ const [errors, setErrors] = useState>({});
+
+ const validate = ()=> {
+ const newErrors: Record<string, string> = {};
+ if (!formData.fullName.trim()) newErrors.fullName = 'Full name is required';
+ if (!formData.addressLine1.trim()) newErrors.addressLine1 = 'Address is required';
+ if (!formData.city.trim()) newErrors.city = 'City is required';
+ if (!formData.state) newErrors.state = 'State is required';
+ if (!formData.zipCode.trim()) newErrors.zipCode = 'Zip code is required';
+
+ setErrors(newErrors);
+ return Object.keys(newErrors).length === 0;
+ };
+
+ const onSubmit = (e) => {
+ e.preventDefault();
+ if (validate()) {
+ onNext({ address: formData });
+ }
+ };
+
+ return (
+ <form onSubmit={onSubmit}>
+ <div className="form-group">
+ <label>Full Name</label>
+ <input
+ value={formData.fullName}
+ onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+ aria-invalid={errors.fullName ? 'true' : 'false'}
+ />
+ {errors.fullName && <span className="error">{errors.fullName}</span>}
+ </div>
+
+ <div className="form-group">
+ <label>Address Line 1</label>
+ <input
+ value={formData.addressLine1}
+ onChange={(e) => setFormData({ ...formData, addressLine1: e.target.value })}
+ />
+ {errors.addressLine1 && <span className="error">{errors.addressLine1}</span>}
+ </div>
+
+ <div className="form-group">
+ <label>City</label>
+ <input
+ value={formData.city}
+ onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+ />
+ {errors.city && <span className="error">{errors.city}</span>}
+ </div>
+
+ <div className="form-row">
+ <div className="form-group">
+ <label>State</label>
+ <select
+ value={formData.state}
+ onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+ >
+ {states.map(state => (
+ <option key={state} value={state}>{state}</option>
+ ))}
+ </select>
+ </div>
+
+ <div className="form-group">
+ <label>ZIP Code</label>
+ <input {...register('zipCode')} />
+ </div>
+ </div>
+
+ <button type="submit">Continue to Payment</button>
+ </form>
+ );
+};
+```
+
+**Payment Integration:**
+
+```javascript
+const PaymentForm = ({ data, onNext }) => {
+ const [paymentMethod, setPaymentMethod] = useState('card');
+ const [cardElement, setCardElement] = useState(null);
+
+ const handlePayment = async (paymentData: PaymentData) => {
+ try {
+ // Process payment via payment gateway
+ const result = await processPayment({
+ amount: data.orderTotal,
+ method: paymentMethod,
+ ...paymentData
+ });
+
+ if (result.success) {
+ onNext({ payment: { ...paymentData, transactionId: result.id } });
+ } else {
+ toast.error('Payment failed. Please try again.');
+ }
+ } catch (error) {
+ toast.error('Payment error occurred');
+ }
+ };
+
+ return (
+ <div className="payment-form">
+ <div className="payment-methods">
+ <button
+ className={paymentMethod === 'card' ? 'active' : ''}
+ onClick={() => setPaymentMethod('card')}
+ >
+ Credit/Debit Card
+ </button>
+ <button
+ className={paymentMethod === 'upi' ? 'active' : ''}
+ onClick={() => setPaymentMethod('upi')}
+ >
+ UPI
+ </button>
+ <button
+ className={paymentMethod === 'cod' ? 'active' : ''}
+ onClick={() => setPaymentMethod('cod')}
+ >
+ Cash on Delivery
+ </button>
+ </div>
+
+ {paymentMethod === 'card' && (
+ <CardElement
+ options={{
+ style: { base: { fontSize: '16px' } }
+ }}
+ onReady={(element: any) => setCardElement(element)}
+ />
+ )}
+
+ {paymentMethod === 'upi' && (
+ <UPIInput onComplete={handlePayment} />
+ )}
+
+ {paymentMethod === 'cod' && (
+ <div>
+ <p>Pay cash when your order is delivered</p>
+ <button onClick={() => handlePayment({ method: 'cod' })}>
+ Place Order
+ </button>
+ </div>
+ )}
+ </div>
+ );
+};
+```
+
+### vi) Performance Optimizations
+
+**Image Lazy Loading & Optimization:**
+
+```javascript
+const ProductImage<{ src; alt; priority?}> = ({
+ src,
+ alt,
+ priority = false
+}) => {
+ const [loaded, setLoaded] = useState(false);
+ const [error, setError] = useState(false);
+
+ return (
+ <div className="product-image-wrapper">
+ {!loaded && !error && (
+ <div className="image-skeleton" aria-hidden="true" />
+ )}
+ <img
+ src={error ? '/placeholder.png' : src}
+ alt={alt}
+ loading={priority ? 'eager' : 'lazy'}
+ decoding="async"
+ onLoad={() => setLoaded(true)}
+ onError={() => {
+ setError(true);
+ setLoaded(true);
+ }}
+ className={loaded ? 'loaded' : 'loading'}
+ style={{ opacity: loaded ? 1 : 0 }}
+ />
+ </div>
+ );
+};
+```
+
+**Virtual Scrolling for Product Lists:**
+
+```javascript
+const VirtualizedProductList<{ products: Product[] }> = ({ products }) => {
+ const parentRef = useRef(null);
+
+ const virtualizer = useVirtualizer({
+ count: products.length,
+ getScrollElement: () => parentRef.current,
+ estimateSize: () => 400, // Estimated product card height
+ overscan: 5
+ });
+
+ return (
+ <div ref={parentRef} style={{ height: '100vh', overflow: 'auto' }}>
+ <div
+ style={{
+ height: `${virtualizer.getTotalSize()}px`,
+ width: '100%',
+ position: 'relative'
+ }}
+ >
+ {virtualizer.getVirtualItems().map(virtualItem => (
+ <div
+ key={virtualItem.key}
+ style={{
+ position: 'absolute',
+ top: 0,
+ left: 0,
+ width: '100%',
+ height: `${virtualItem.size}px`,
+ transform: `translateY(${virtualItem.start}px)`
+ }}
+ >
+ <ProductCard product={products[virtualItem.index]} />
+ </div>
+ ))}
+ </div>
+ </div>
+ );
+};
+```
+
+**Debounced Search:**
+
+```javascript
+const useDebouncedSearch = (query, delay= 300) => {
+ const [debouncedQuery, setDebouncedQuery] = useState(query);
+
+ useEffect(() => {
+ const timer = setTimeout(() => {
+ setDebouncedQuery(query);
+ }, delay);
+
+ return () => clearTimeout(timer);
+ }, [query, delay]);
+
+ return debouncedQuery;
+};
+
+const ProductSearch= () => {
+ const [query, setQuery] = useState('');
+ const debouncedQuery = useDebouncedSearch(query);
+
+ const { data: results } = useQuery({
+ queryKey: ['search', debouncedQuery],
+ queryFn: () => searchProducts(debouncedQuery),
+ enabled: debouncedQuery.length >= 2
+ });
+
+ return (
+ <input
+ type="text"
+ value={query}
+ onChange={(e) => setQuery(e.target.value)}
+ placeholder="Search products..."
+ />
+ );
+};
+```
+
+### vii) Real-time Inventory Updates
+
+**WebSocket Integration for Stock Updates:**
+
+```javascript
+const useProductStock = (productId) => {
+ const [stock, setStock] = useState(null);
+ const socketRef = useRef<WebSocket | null>(null);
+
+ useEffect(() => {
+ socketRef.current = new WebSocket(`ws://api.example.com/products/${productId}/stock`);
+
+ socketRef.current.onmessage = (event) => {
+ const data = JSON.parse(event.data);
+ setStock(data.stock);
+
+ if (data.stock === 0) {
+ toast.error('Product is out of stock');
+ }
+ };
+
+ return () => {
+ socketRef.current?.close();
+ };
+ }, [productId]);
+
+ return stock;
+};
+```
+
+### viii) Implementation Details
 
 **Data Flow:**
 
-1. **Product Browsing** → ProductListPage fetches products via React Query, displays ProductCard components
-2. **Product Selection** → User clicks ProductCard, navigates to ProductDetailPage
-3. **Add to Cart** → User clicks AddToCartButton, updates Redux cart state and syncs with backend
-4. **Cart View** → CartPage displays cart items from Redux, allows quantity updates
-5. **Checkout** → CheckoutPage collects address and payment, creates order via API
+1. **Product Browsing** → ProductListPage fetches products via React Query with infinite scroll, displays ProductCard components with lazy-loaded images
+2. **Product Selection** → User clicks ProductCard, navigates to ProductDetailPage with image gallery and zoom
+3. **Add to Cart** → User clicks AddToCartButton, optimistically updates Redux cart state, syncs with backend, shows toast notification
+4. **Cart View** → CartPage displays cart items from Redux with quantity selector, allows real-time updates
+5. **Checkout** → Multi-step checkout form collects address and payment, processes payment via gateway, creates order
 
 **Event Handling:**
 
-- Product search triggers debounced API call
-- Add to cart updates Redux state optimistically
-- Cart quantity changes sync with backend
-- Form submissions validate before API calls
-- Real-time inventory updates via polling or WebSocket
+- Product search triggers debounced API call with autocomplete suggestions
+- Add to cart updates Redux state optimistically with rollback on error
+- Cart quantity changes sync with backend and update totals in real-time
+- Form submissions validate client-side before API calls
+- Real-time inventory updates via WebSocket for stock availability
+- Payment processing with loading states and error handling
 
-### UI/UX Considerations
+**UI/UX Considerations:**
 
-- **Loading States**: Show skeleton loaders for product lists, spinners for actions
-- **Error Handling**: Display user-friendly error messages with retry options
-- **Validation**: Client-side form validation before submission
-- **Responsive Design**: Mobile-first layout using CSS Grid/Flexbox, collapsible filters on mobile
-- **Accessibility**: ARIA labels, keyboard navigation, screen reader support, focus management
-- **Performance**: Image lazy loading, virtual scrolling for long product lists, code splitting per route
+- **Loading States**: Skeleton loaders for product lists, spinners for actions, progress indicators for multi-step forms
+- **Error Handling**: User-friendly error messages with retry options, toast notifications for actions
+- **Validation**: Real-time client-side form validation with helpful error messages
+- **Responsive Design**: Mobile-first layout using CSS Grid/Flexbox, collapsible filters on mobile, touch-friendly buttons
+- **Accessibility**: ARIA labels, keyboard navigation, screen reader support, focus management, semantic HTML
+- **Performance**: Image lazy loading with WebP/AVIF formats, virtual scrolling for long product lists, code splitting per route, service worker for offline support
+- **Progressive Enhancement**: Works without JavaScript for basic browsing, enhanced experience with JS enabled
 
 ---
 
@@ -870,93 +1558,93 @@ const useAddToCart = () => {
 
 ### Product Model
 
-```typescript
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  originalPrice?: number;  // For discounts
-  images: string[];        // Array of image URLs
-  category: string;
-  brand: string;
-  rating: number;          // Average rating (1-5)
-  reviewCount: number;
-  stock: number;           // Available quantity
-  specifications: Record<string, string>;  // Key-value pairs
-  tags: string[];
-  createdAt: Date;
-  updatedAt: Date;
-}
+```javascript
+// Product structure:
+//
+ id;
+ name;
+ description;
+ price;
+ originalPrice?; // For discounts
+ images[]; // Array of image URLs
+ category;
+ brand;
+ rating; // Average rating (1-5)
+ reviewCount;
+ stock; // Available quantity
+ specifications: Record<string, string>; // Key-value pairs
+ tags[];
+ createdAt;
+ updatedAt;
 
 ```
 
 ### Cart Item Model
 
-```typescript
-interface CartItem {
-  productId: string;
-  product: Product;        // Populated product data
-  quantity: number;
-  price: number;           // Price at time of adding to cart
-}
+```javascript
+// CartItem structure:
+//
+ productId;
+ product: Product; // Populated product data
+ quantity;
+ price; // Price at time of adding to cart
 
 ```
 
 ### Order Model
 
-```typescript
-interface Order {
-  id: string;
-  userId: string;
-  items: OrderItem[];
-  shippingAddress: Address;
-  billingAddress: Address;
-  paymentMethod: string;
-  paymentStatus: 'pending' | 'paid' | 'failed' | 'refunded';
-  orderStatus: 'pending' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled';
-  subtotal: number;
-  shipping: number;
-  discount: number;
-  total: number;
-  orderDate: Date;
-  estimatedDelivery?: Date;
-  trackingNumber?: string;
-}
+```javascript
+// Order structure:
+//
+ id;
+ userId;
+ items: OrderItem[];
+ shippingAddress: Address;
+ billingAddress: Address;
+ paymentMethod;
+ paymentStatus: 'pending' | 'paid' | 'failed' | 'refunded';
+ orderStatus: 'pending' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled';
+ subtotal;
+ shipping;
+ discount;
+ total;
+ orderDate;
+ estimatedDelivery?;
+ trackingNumber?;
 
 ```
 
 ### Review Model
 
-```typescript
-interface Review {
-  id: string;
-  productId: string;
-  userId: string;
-  userName: string;
-  rating: number;          // 1-5 stars
-  title: string;
-  comment: string;
-  verifiedPurchase: boolean;
-  helpfulCount: number;
-  createdAt: Date;
-}
+```javascript
+// Review structure:
+//
+ id;
+ productId;
+ userId;
+ userName;
+ rating; // 1-5 stars
+ title;
+ comment;
+ verifiedPurchase;
+ helpfulCount;
+ createdAt;
 
 ```
 
 ### User Model
 
-```typescript
-interface User {
-  id: string;
-  email: string;
-  name: string;
-  phone?: string;
-  addresses: Address[];
-  paymentMethods: PaymentMethod[];
-  wishlist: string[];      // Array of product IDs
-  createdAt: Date;
-}
+```javascript
+// User structure:
+//
+ id;
+ email;
+ name;
+ phone?;
+ addresses: Address[];
+ paymentMethods: PaymentMethod[];
+ wishlist[]; // Array of product IDs
+ createdAt;
 
 ```
 
@@ -968,7 +1656,6 @@ interface User {
 
 ### Product APIs
 
-**Backend Implementation:** Express.js routes handle product logic
 **Frontend Implementation:** React components call these APIs and display products
 
 #### GET /api/products
@@ -978,32 +1665,32 @@ interface User {
 - **Method:** GET
 
 - **Query Parameters:**
-  - `category` - Filter by category
-  - `page` - Page number
-  - `limit` - Items per page
-  - `sort` - Sort field (price, rating, name)
-  - `order` - Sort order (asc, desc)
-  - `minPrice`, `maxPrice` - Price range
-  - `brand` - Filter by brand
-  - `rating` - Minimum rating
+ - `category` - Filter by category
+ - `page` - Page number
+ - `limit` - Items per page
+ - `sort` - Sort field (price, rating, name)
+ - `order` - Sort order (asc, desc)
+ - `minPrice`, `maxPrice` - Price range
+ - `brand` - Filter by brand
+ - `rating` - Minimum rating
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "products": [/* Product objects */],
-      "pagination": {
-        "page": 1,
-        "limit": 20,
-        "total": 150,
-        "totalPages": 8
-      }
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "products": [/* Product objects */],
+ "pagination": {
+ "page": 1,
+ "limit": 20,
+ "total": 150,
+ "totalPages": 8
+ }
+ }
+ }
 
-  ```
+ ```
 
 #### GET /api/products/:id
 
@@ -1013,15 +1700,15 @@ interface User {
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "product": {/* Product object with full details */}
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "product": {/* Product object with full details */}
+ }
+ }
 
-  ```
+ ```
 
 #### GET /api/products/search
 
@@ -1033,17 +1720,17 @@ interface User {
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "products": [/* Product objects */],
-      "suggestions": ["laptop bag", "laptop stand"],
-      "pagination": {/* pagination info */}
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "products": [/* Product objects */],
+ "suggestions": ["laptop bag", "laptop stand"],
+ "pagination": {/* pagination info */}
+ }
+ }
 
-  ```
+ ```
 
 ### Cart APIs
 
@@ -1057,18 +1744,18 @@ interface User {
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "items": [/* CartItem objects */],
-      "subtotal": 5000,
-      "shipping": 100,
-      "total": 5100
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "items": [/* CartItem objects */],
+ "subtotal": 5000,
+ "shipping": 100,
+ "total": 5100
+ }
+ }
 
-  ```
+ ```
 
 #### POST /api/cart/add
 
@@ -1078,13 +1765,13 @@ interface User {
 
 - **Request Body:**
 
-  ```json
-  {
-    "productId": "123",
-    "quantity": 2
-  }
+ ```json
+ {
+ "productId": "123",
+ "quantity": 2
+ }
 
-  ```
+ ```
 
 #### PUT /api/cart/update
 
@@ -1094,13 +1781,13 @@ interface User {
 
 - **Request Body:**
 
-  ```json
-  {
-    "productId": "123",
-    "quantity": 3
-  }
+ ```json
+ {
+ "productId": "123",
+ "quantity": 3
+ }
 
-  ```
+ ```
 
 #### DELETE /api/cart/remove/:productId
 
@@ -1118,14 +1805,14 @@ interface User {
 
 - **Request Body:**
 
-  ```json
-  {
-    "shippingAddress": {/* Address object */},
-    "paymentMethod": "card",
-    "paymentDetails": {/* Payment details */}
-  }
+ ```json
+ {
+ "shippingAddress": {/* Address object */},
+ "paymentMethod": "card",
+ "paymentDetails": {/* Payment details */}
+ }
 
-  ```
+ ```
 
 #### GET /api/orders
 
@@ -1135,15 +1822,15 @@ interface User {
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "orders": [/* Order objects */]
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "orders": [/* Order objects */]
+ }
+ }
 
-  ```
+ ```
 
 #### GET /api/orders/:id
 
@@ -1155,316 +1842,34 @@ interface User {
 
 ## b) Backend
 
-### i) Services
+*Note: Backend implementation details are kept minimal. Focus is on frontend integration.*
 
-**Product Service:**
+**API Endpoints Reference:**
 
-```typescript
-export class ProductService {
-  async getProducts(filters: ProductFilters): Promise<Product[]> {
-    // If search query, use Elasticsearch
-    if (filters.search) {
-      return await this.searchProducts(filters.search, filters);
-    }
-    // Otherwise, query MongoDB
-    const query = this.buildMongoQuery(filters);
-    const products = await Product.find(query)
-      .skip((filters.page - 1) * filters.limit)
-      .limit(filters.limit)
-      .sort(this.buildSort(filters));
-    return products;
-  }
+- `GET /api/products` - Get products with filters
+- `GET /api/products/search` - Search products with autocomplete
+- `GET /api/products/:id` - Get product details
+- `POST /api/cart/items` - Add item to cart
+- `PUT /api/cart/items/:id` - Update cart item quantity
+- `DELETE /api/cart/items/:id` - Remove item from cart
+- `POST /api/orders` - Create order
+- `POST /api/orders/create-payment` - Initialize payment
+- `GET /api/orders` - Get order history
 
-  async searchProducts(query: string, filters: ProductFilters): Promise<Product[]> {
-    // Search in Elasticsearch
-    const result = await elasticsearchClient.search({
-      index: 'products',
-      body: {
-        query: {
-          bool: {
-            must: [
-              { match: { name: query } },
-              { range: { price: { gte: filters.minPrice, lte: filters.maxPrice } } }
-            ]
-          }
-        }
-      }
-    });
-    return result.hits.hits.map(hit => hit._source);
-  }
-}
+---
 
-```
-
-**Cart Service:**
-
-```typescript
-export class CartService {
-  async addToCart(userId: string, productId: string, quantity: number): Promise<Cart> {
-    // Get product
-    const product = await Product.findById(productId);
-    if (!product || product.stock < quantity) {
-      throw new Error('Product not available');
-    }
-    // Get or create cart
-    let cart = await Cart.findOne({ userId });
-    if (!cart) {
-      cart = await Cart.create({ userId, items: [] });
-    }
-    // Check if product already in cart
-    const existingItem = cart.items.find(item => item.productId === productId);
-    if (existingItem) {
-      existingItem.quantity += quantity;
-    } else {
-      cart.items.push({ productId, quantity, price: product.price });
-    }
-    await cart.save();
-    return cart;
-  }
-}
-
-```
-
-**Order Service:**
-
-```typescript
-export class OrderService {
-  async createOrder(userId: string, cartId: string, address: Address, paymentMethod: string): Promise<Order> {
-    // Get cart
-    const cart = await Cart.findById(cartId);
-    if (!cart || cart.items.length === 0) {
-      throw new Error('Cart is empty');
-    }
-    // Check inventory
-    for (const item of cart.items) {
-      const product = await Product.findById(item.productId);
-      if (product.stock < item.quantity) {
-        throw new Error(`Insufficient stock for ${product.name}`);
-      }
-    }
-    // Process payment
-    const payment = await this.paymentService.processPayment(cart.total, paymentMethod);
-    // Create order
-    const order = await Order.create({
-      userId,
-      items: cart.items,
-      address,
-      total: cart.total,
-      paymentId: payment.id,
-      status: 'confirmed'
-    });
-    // Update inventory
-    for (const item of cart.items) {
-      await Product.updateOne(
-        { _id: item.productId },
-        { $inc: { stock: -item.quantity } }
-      );
-    }
-    // Clear cart
-    await Cart.deleteOne({ _id: cartId });
-    return order;
-  }
-}
-
-```
-
-### ii) Server Structure
-
-**Express.js Server Structure:**
-
-**Backend Architecture:**
-
-```
-
-Backend Server (Node.js + Express.js)
-├── Routes (API Endpoints)
-│   ├── /api/products/* - Product routes
-│   ├── /api/cart/* - Cart routes
-│   ├── /api/orders/* - Order routes
-│   ├── /api/reviews/* - Review routes
-│   ├── /api/auth/* - Authentication routes
-│   └── /api/users/* - User routes
-├── Middleware
-│   ├── Authentication (JWT verification)
-│   ├── Validation (Request validation)
-│   ├── Rate Limiting
-│   └── Error Handling
-├── Controllers (Business Logic)
-│   ├── ProductController
-│   ├── CartController
-│   ├── OrderController
-│   ├── ReviewController
-│   └── UserController
-├── Services (Data Access)
-│   ├── ProductService
-│   ├── CartService
-│   ├── OrderService
-│   ├── SearchService (Elasticsearch)
-│   └── PaymentService
-└── Models (Database Schemas)
-    ├── Product Model
-    ├── Order Model
-    ├── User Model
-    └── Review Model
-
-```
-
-### iii) Implementation Details
-
-**Note:** Implementation details are split between frontend (React.js) and backend (Node.js/Express.js). Each section indicates where the code runs.
-
-### Product Search with Autocomplete
-
-**Frontend Implementation:** React component handles search input and displays suggestions
-**Backend Implementation:** Express.js API provides search results from Elasticsearch
-
-**Backend (Express.js):**
-
-```typescript
-// Backend: routes/products.ts
-router.get('/search', async (req, res) => {
-  const { q, limit = 10 } = req.query;
-
-  // Search in Elasticsearch
-  const result = await elasticsearchClient.search({
-    index: 'products',
-    body: {
-      query: {
-        multi_match: {
-          query: q,
-          fields: ['name^2', 'description', 'tags']
-        }
-      },
-      size: limit
-    }
-  });
-
-  const products = result.hits.hits.map(hit => hit._source);
-  const suggestions = await getSearchSuggestions(q);
-
-  res.json({
-    success: true,
-    data: { products, suggestions }
-  });
-});
-
-```
-
-**Frontend Implementation:**
-
-```typescript
-// Frontend: components/SearchBar.tsx
-const SearchBar: React.FC = () => {
-  const [query, setQuery] = useState('');
-  const [suggestions, setSuggestions] = useState<string[]>([]);
-
-  const debouncedSearch = useMemo(
-    () => debounce(async (q: string) => {
-      if (q.length > 2) {
-        const response = await axios.get(`/api/products/search?q=${q}`);
-        setSuggestions(response.data.data.suggestions);
-      }
-    }, 300),
-    []
-  );
-
-  useEffect(() => {
-    debouncedSearch(query);
-  }, [query, debouncedSearch]);
-
-  return (
-    <Autocomplete
-      options={suggestions}
-      onInputChange={(e, value) => setQuery(value)}
-      renderInput={(params) => <TextField {...params} placeholder="Search products" />}
-    />
-  );
-};
-
-```
-
-### Shopping Cart Management
-
-**Frontend Implementation:** Redux manages cart state, React components display cart
-**Backend Implementation:** Express.js API handles cart persistence
-
-**Frontend (Redux):**
-
-```typescript
-// Frontend: Redux slice for cart
-const cartSlice = createSlice({
-  name: 'cart',
-  initialState: { items: [], loading: false },
-  reducers: {
-    addToCart: (state, action) => {
-      const { product, quantity } = action.payload;
-      const existingItem = state.items.find(item => item.productId === product.id);
-
-      if (existingItem) {
-        existingItem.quantity += quantity;
-      } else {
-        state.items.push({ productId: product.id, product, quantity, price: product.price });
-      }
-    },
-    removeFromCart: (state, action) => {
-      state.items = state.items.filter(item => item.productId !== action.payload);
-    }
-  }
-});
-
-```
-
-### Payment Gateway Integration
-
-**Frontend Implementation:** React component initiates payment
-**Backend Implementation:** Express.js handles payment gateway integration
-
-**Backend (Express.js):**
-
-```typescript
-// Backend: routes/orders.ts
-router.post('/create-payment', authenticate, async (req, res) => {
-  const { orderId } = req.body;
-  const order = await Order.findById(orderId);
-
-  // Create payment order with payment gateway
-  const paymentOrder = await paymentGateway.orders.create({
-    amount: order.total * 100, // Convert to paise
-    currency: 'INR',
-    receipt: orderId
-  });
-
-  res.json({
-    success: true,
-    data: {
-      orderId: paymentOrder.id,
-      amount: paymentOrder.amount,
-      key: process.env.PAYMENT_GATEWAY_KEY_ID
-    }
-  });
-});
-
-```
-
-### Image Optimization and CDN
-
-**Frontend Implementation:** React components lazy load images
-**Backend Implementation:** Express.js serves image URLs from S3/CDN
-
-**Frontend:**
-
-```typescript
+```javascript
 // Frontend: components/ProductImage.tsx
-const ProductImage: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
-  return (
-    <img
-      src={src}
-      alt={alt}
-      loading="lazy"
-      srcSet={`${src}?w=300 300w, ${src}?w=600 600w, ${src}?w=900 900w`}
-      sizes="(max-width: 600px) 300px, (max-width: 900px) 600px, 900px"
-    />
-  );
+const ProductImage<{ src; alt}> = ({ src, alt }) => {
+ return (
+ <img
+ src={src}
+ alt={alt}
+ loading="lazy"
+ srcSet={`${src}?w=300 300w, ${src}?w=600 600w, ${src}?w=900 900w`}
+ sizes="(max-width: 600px) 300px, (max-width: 900px) 600px, 900px"
+ />
+ );
 };
 
 ```
@@ -1504,7 +1909,6 @@ const ProductImage: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
 ## Performance Optimizations
 
 **Frontend Optimizations:** React.js code splitting, lazy loading, memoization
-**Backend Optimizations:** Database indexing, Redis caching, Elasticsearch for search
 
 ### Frontend Optimizations
 
@@ -1515,8 +1919,6 @@ const ProductImage: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
 - **Memoization:** Memoize expensive calculations (cart totals, filters)
 
 - **Virtual Scrolling:** For large product lists
-
-### Backend Optimizations
 
 - **Database Indexing:** Index product fields (category, brand, price)
 
@@ -1531,37 +1933,36 @@ const ProductImage: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
 ## Security Implementation
 
 **Frontend Security:** XSS protection, input validation, secure token storage
-**Backend Security:** Authentication, authorization, data validation, encryption
 
 ### Payment Security
 
 **Backend (Express.js):**
 
-```typescript
+```javascript
 // Backend: Validate payment webhook
 router.post('/payment-webhook', async (req, res) => {
-  const signature = req.headers['x-payment-gateway-signature'];
-  const isValid = paymentGateway.validateWebhookSignature(
-    JSON.stringify(req.body),
-    signature,
-    process.env.PAYMENT_GATEWAY_WEBHOOK_SECRET
-  );
+ const signature = req.headers['x-payment-gateway-signature'];
+ const isValid = paymentGateway.validateWebhookSignature(
+ JSON.stringify(req.body),
+ signature,
+ process.env.PAYMENT_GATEWAY_WEBHOOK_SECRET
+ );
 
-  if (!isValid) {
-    return res.status(400).json({ error: 'Invalid signature' });
-  }
+ if (!isValid) {
+ return res.status(400).json({ error: 'Invalid signature' });
+ }
 
-  // Process payment
-  const { order_id, payment_id, status } = req.body.payload.payment.entity;
+ // Process payment
+ const { order_id, payment_id, status } = req.body.payload.payment.entity;
 
-  if (status === 'captured') {
-    await Order.updateOne(
-      { paymentGatewayOrderId: order_id },
-      { paymentStatus: 'paid', paymentId: payment_id }
-    );
-  }
+ if (status === 'captured') {
+ await Order.updateOne(
+ { paymentGatewayOrderId: order_id },
+ { paymentStatus: 'paid', paymentId: payment_id }
+ );
+ }
 
-  res.json({ success: true });
+ res.json({ success: true });
 });
 
 ```
@@ -1592,26 +1993,6 @@ router.post('/payment-webhook', async (req, res) => {
 
 - **Test Scenarios:** Product search, cart, checkout, payment flow
 
-### Backend Testing (Node.js/Express.js)
-
-**Unit Testing:**
-
-- **Jest + Supertest** - Test API endpoints and services
-
-- **Mocking:** Mock database, Elasticsearch, payment gateway
-
-**Integration Testing:**
-
-- **MongoDB Memory Server** - Test database operations
-
-- **Test Database:** Separate test database for integration tests
-
-**Load Testing:**
-
-- **Artillery / k6** - Test system under load
-
-- **Peak Traffic Simulation:** Black Friday traffic simulation
-
 ---
 
 ## Deployment & DevOps
@@ -1625,16 +2006,6 @@ router.post('/payment-webhook', async (req, res) => {
 - **CDN:** Deploy static assets to CDN (CloudFront/Cloudflare)
 
 - **CI/CD:** Automated deployment from Git (Vercel/Netlify)
-
-### Backend Deployment
-
-**Server Setup:**
-
-- **PM2:** Process manager for Node.js
-
-- **Nginx:** Reverse proxy and load balancer
-
-- **Docker:** Containerized deployment option
 
 **CI/CD Pipeline:**
 
@@ -1797,19 +2168,19 @@ AWS_ACCESS_KEY_ID=xxx
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await Order.create([orderData], { session });
-  await Product.updateOne({ _id: productId }, { $inc: { stock: -quantity } }, { session });
-  await Payment.create([paymentData], { session });
-  await session.commitTransaction();
+ await Order.create([orderData], { session });
+ await Product.updateOne({ _id: productId }, { $inc: { stock: -quantity } }, { session });
+ await Payment.create([paymentData], { session });
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -1865,22 +2236,22 @@ try {
 
 **Implementation:**
 
-```typescript
-function rankProducts(products: Product[], query: string): Product[] {
-  return products.map(product => {
-    // BM25 relevance score
-    const relevanceScore = calculateBM25(product, query);
+```javascript
+function rankProducts(products: Product[], query): Product[] {
+ return products.map(product => {
+ // BM25 relevance score
+ const relevanceScore = calculateBM25(product, query);
 
-    // Business boosts
-    const popularityBoost = product.salesCount * 0.1;
-    const ratingBoost = product.rating * 0.2;
-    const recencyBoost = getRecencyBoost(product.createdAt);
+ // Business boosts
+ const popularityBoost = product.salesCount * 0.1;
+ const ratingBoost = product.rating * 0.2;
+ const recencyBoost = getRecencyBoost(product.createdAt);
 
-    // Combined score
-    const finalScore = relevanceScore * 0.6 + popularityBoost * 0.2 + ratingBoost * 0.15 + recencyBoost * 0.05;
+ // Combined score
+ const finalScore = relevanceScore * 0.6 + popularityBoost * 0.2 + ratingBoost * 0.15 + recencyBoost * 0.05;
 
-    return { ...product, score: finalScore };
-  }).sort((a, b) => b.score - a.score);
+ return { ...product, score: finalScore };
+ }).sort((a, b) => b.score - a.score);
 }
 
 ```
@@ -1907,28 +2278,28 @@ function rankProducts(products: Product[], query: string): Product[] {
 
 **Implementation:**
 
-```typescript
+```javascript
 function mergeCarts(serverCart: CartItem[], clientCart: CartItem[]): CartItem[] {
-  const merged = new Map<string, CartItem>();
+ const merged = new Map<string, CartItem>();
 
-  // Add server cart items
-  for (const item of serverCart) {
-    merged.set(item.productId, { ...item });
-  }
+ // Add server cart items
+ for (const item of serverCart) {
+ merged.set(item.productId, { ...item });
+ }
 
-  // Merge client cart items
-  for (const item of clientCart) {
-    const existing = merged.get(item.productId);
+ // Merge client cart items
+ for (const item of clientCart) {
+ const existing = merged.get(item.productId);
 
-    if (existing) {
-      // Use maximum quantity
-      existing.quantity = Math.max(existing.quantity, item.quantity);
-    } else {
-      merged.set(item.productId, { ...item });
-    }
-  }
+ if (existing) {
+ // Use maximum quantity
+ existing.quantity = Math.max(existing.quantity, item.quantity);
+ } else {
+ merged.set(item.productId, { ...item });
+ }
+ }
 
-  return Array.from(merged.values());
+ return Array.from(merged.values());
 }
 
 ```
@@ -1947,22 +2318,22 @@ function mergeCarts(serverCart: CartItem[], clientCart: CartItem[]): CartItem[] 
 
 ```javascript
 {
-  _id: ObjectId,
-  productId: String,        // Unique product ID, indexed
-  name: String,            // Product name, indexed
-  description: String,      // Product description
-  price: Number,           // Product price, indexed
-  category: String,        // Product category, indexed
-  brand: String,           // Brand name, indexed
-  images: [String],        // Array of image URLs
-  specifications: Object,   // Product specifications
-  rating: Number,          // Average rating (0-5)
-  reviewCount: Number,     // Number of reviews
-  salesCount: Number,      // Number of sales
-  stock: Number,           // Available stock, indexed
-  status: String,          // active, inactive, out_of_stock
-  createdAt: Date,         // Created timestamp, indexed
-  updatedAt: Date          // Updated timestamp
+ _id: ObjectId,
+ productId: String, // Unique product ID, indexed
+ name: String, // Product name, indexed
+ description: String, // Product description
+ price: Number, // Product price, indexed
+ category: String, // Product category, indexed
+ brand: String, // Brand name, indexed
+ images: [String], // Array of image URLs
+ specifications: Object, // Product specifications
+ rating: Number, // Average rating (0-5)
+ reviewCount: Number, // Number of reviews
+ salesCount: Number, // Number of sales
+ stock: Number, // Available stock, indexed
+ status: String, // active, inactive, out_of_stock
+ createdAt, // Created timestamp, indexed
+ updatedAt// Updated timestamp
 }
 
 // Indexes:
@@ -1978,16 +2349,16 @@ function mergeCarts(serverCart: CartItem[], clientCart: CartItem[]): CartItem[] 
 
 ```javascript
 {
-  _id: ObjectId,
-  orderId: String,          // Unique order ID, indexed
-  userId: ObjectId,         // User reference, indexed
-  items: [Object],          // Array of order items
-  totalAmount: Number,      // Total order amount
-  status: String,           // pending, confirmed, shipped, delivered, cancelled
-  shippingAddress: Object,  // Shipping address
-  paymentId: ObjectId,      // Payment reference
-  createdAt: Date,         // Created timestamp, indexed
-  updatedAt: Date          // Updated timestamp
+ _id: ObjectId,
+ orderId: String, // Unique order ID, indexed
+ userId: ObjectId, // User reference, indexed
+ items: [Object], // Array of order items
+ totalAmount: Number, // Total order amount
+ status: String, // pending, confirmed, shipped, delivered, cancelled
+ shippingAddress: Object, // Shipping address
+ paymentId: ObjectId, // Payment reference
+ createdAt, // Created timestamp, indexed
+ updatedAt// Updated timestamp
 }
 
 // Indexes:
@@ -2011,25 +2382,25 @@ function mergeCarts(serverCart: CartItem[], clientCart: CartItem[]): CartItem[] 
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await Order.create([orderData], { session });
-  for (const item of orderData.items) {
-    await Product.updateOne(
-      { productId: item.productId },
-      { $inc: { stock: -item.quantity } },
-      { session }
-    );
-  }
-  await Payment.create([paymentData], { session });
-  await session.commitTransaction();
+ await Order.create([orderData], { session });
+ for (const item of orderData.items) {
+ await Product.updateOne(
+ { productId: item.productId },
+ { $inc: { stock: -item.quantity } },
+ { session }
+ );
+ }
+ await Payment.create([paymentData], { session });
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -2065,25 +2436,25 @@ try {
 - **Method:** GET
 - **Description:** Search and filter products
 - **Query Parameters:**
-  - `q`: string (optional) - Search query
-  - `category`: string (optional) - Filter by category
-  - `minPrice`, `maxPrice`: number (optional) - Price range filter
-  - `page`: number (default: 1)
-  - `limit`: number (default: 20)
+ - `q`(optional) - Search query
+ - `category`(optional) - Filter by category
+ - `minPrice`, `maxPrice`(optional) - Price range filter
+ - `page`(default: 1)
+ - `limit`(default: 20)
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "products": [...],
-      "total": 1250,
-      "page": 1,
-      "limit": 20
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "products": [...],
+ "total": 1250,
+ "page": 1,
+ "limit": 20
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success)
 
@@ -2094,28 +2465,28 @@ try {
 - **Description:** Add item to cart
 - **Request Body:**
 
-  ```json
-  {
-    "productId": "product_abc123",
-    "quantity": 2
-  }
+ ```json
+ {
+ "productId": "product_abc123",
+ "quantity": 2
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "cart": {
-        "items": [...],
-        "total": 199.98
-      }
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "cart": {
+ "items": [...],
+ "total": 199.98
+ }
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error), 404 (Product Not Found)
 
@@ -2130,9 +2501,9 @@ try {
 - **Key Format:** `product:{productId}`, `search:{query}:{filters}`, `cart:{userId}`
 - **Value:** Serialized JSON (product data, search results, cart data)
 - **TTL:**
-  - Product data: 3600 seconds (1 hour)
-  - Search results: 300 seconds (5 minutes)
-  - Cart data: 86400 seconds (24 hours)
+ - Product data: 3600 seconds (1 hour)
+ - Search results: 300 seconds (5 minutes)
+ - Cart data: 86400 seconds (24 hours)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
@@ -2158,11 +2529,11 @@ try {
 
 ```json
 {
-  "error": {
-    "code": "OUT_OF_STOCK",
-    "message": "Product is out of stock",
-    "details": "Product product_abc123 has 0 units available"
-  }
+ "error": {
+ "code": "OUT_OF_STOCK",
+ "message": "Product is out of stock",
+ "details": "Product product_abc123 has 0 units available"
+ }
 }
 
 ```
@@ -2222,22 +2593,6 @@ try {
 
 - **Vercel / Netlify** - Automatic deployments from Git
 - **AWS S3 + CloudFront** - Static site hosting with CDN
-
-### Backend Deployment
-
-**Server Setup:**
-
-- **PM2:** Process manager with clustering for Node.js apps
-- **Nginx:** Load balancer and reverse proxy with SSL termination
-- **Docker:** Containerized deployment for consistency
-- **Kubernetes:** Container orchestration for auto-scaling
-
-**CI/CD Pipeline:**
-
-- **Automated Testing:** Run tests before deployment
-- **Zero-Downtime:** Rolling deployment strategy
-- **Health Checks:** Verify API endpoints are healthy
-- **Blue-Green Deployment:** Maintain two identical production environments
 
 ### Database Deployment
 

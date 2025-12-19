@@ -95,70 +95,6 @@ Design and implement a real-time collaborative editing system that addresses the
 
 ---
 
-## d) Capacity Estimation
-
-### Throughput Requirements
-
-- **Total Users**: 1 billion users
-- **Daily Active Users (DAU)**: 500 million users per day
-- **Peak Traffic**: 3x average during peak hours (1.5 billion users per day)
-- **Documents per Day**: 10 million documents created/edited
-- **Operations per Document**: 1,000 operations per document per day (edits, cursor movements)
-- **Read:Write Ratio**: 100:1 (viewing documents vs editing documents)
-
-**Calculations:**
-
-- **Average Writes Per Second (WPS)**: 10M documents × 1,000 ops / 86,400 seconds ≈ 115,740 WPS
-- **Peak WPS**: 115,740 × 3 = 347,220 WPS
-- **Average Reads Per Second (RPS)**: 115,740 × 100 = 11,574,000 RPS
-- **Peak RPS**: 11,574,000 × 3 = 34,722,000 RPS
-- **Concurrent Editors**: 50 million concurrent editors across all documents
-
-### Storage Estimation
-
-**Storage per Document:**
-
-- Document content: 50 KB average (text, formatting)
-- Operations log: 1 MB (1,000 operations × 1 KB per operation)
-- Metadata: 1 KB (id, userId, timestamps, version)
-- **Total per Document**: ~1.05 MB
-
-**Storage Requirements:**
-
-- **Documents per Year**: 10M documents/day × 365 = 3.65 billion documents
-- **Document Storage**: 3.65B × 1.05 MB ≈ 3.83 PB per year
-- **User Data**: 1B users × 5 KB ≈ 5 TB
-- **Operations Log**: 3.65B documents × 1 MB ≈ 3.65 PB/year
-- **Total Storage**: ~3.83 PB (documents) + 5 TB (users) + 3.65 PB (operations) ≈ 7.48 PB/year
-
-### Bandwidth Estimation
-
-- **Average Operation Size**: 1 KB per operation
-- **Daily Bandwidth**: 10M documents × 1,000 ops × 1 KB = 10 TB/day
-- **Peak Bandwidth**: 10 TB × 3 = 30 TB/day during peak hours
-- **Average Bandwidth**: 10 TB / 86,400 seconds ≈ 115 MB/s
-- **Peak Bandwidth**: 115 MB/s × 3 ≈ 345 MB/s
-
-### Caching Estimation
-
-Following the **80-20 rule** where 20% of documents generate 80% of traffic:
-
-- **Cache 20% of active documents**: 10M × 0.2 = 2M documents
-- **Cache memory required**: 2M × 1.05 MB = 2.1 TB (distributed across Redis cluster)
-- **Cache hit ratio**: 90% (only 10% of document requests hit database)
-- **Requests hitting Database**: 11,574,000 × 0.10 ≈ 1,157,400 RPS (manageable with sharding)
-
-### Infrastructure Sizing
-
-- **WebSocket Servers**: 5,000-10,000 instances behind load balancer, each handling 5,000-10,000 concurrent connections
-- **API Servers**: 2,000-5,000 instances for REST API, each handling 2,000-5,000 RPS
-- **Message Queue**: RabbitMQ/Kafka cluster with 50-100 nodes for operation distribution
-- **Database**: MongoDB cluster with 200-300 nodes for storage and high read/write throughput
-- **Cache Layer**: Redis cluster with 100-200 nodes for high availability and performance
-- **OT/CRDT Service**: 100-200 instances for conflict resolution processing
-
----
-
 ## e) Architecture Overview
 
 The system follows a real-time collaborative editing architecture with Operational Transformation (OT) or CRDT for conflict resolution, WebSocket for real-time communication, and distributed document storage. Here's how the complete system works:
@@ -168,40 +104,40 @@ The system follows a real-time collaborative editing architecture with Operation
 **Frontend Layers:**
 
 1. **Presentation Layer (React Components)**
-   - **UI Components**: Reusable components (Editor, CursorIndicator, PresenceList, CommentPanel)
-   - **Feature Components**: DocumentEditor, CollaborationPanel, VersionHistory, CommentThread
-   - **Layout Components**: Header, Sidebar, Toolbar, MainLayout
-   - **Page Components**: DocumentPage, DashboardPage, SettingsPage
+ - **UI Components**: Reusable components (Editor, CursorIndicator, PresenceList, CommentPanel)
+ - **Feature Components**: DocumentEditor, CollaborationPanel, VersionHistory, CommentThread
+ - **Layout Components**: Header, Sidebar, Toolbar, MainLayout
+ - **Page Components**: DocumentPage, DashboardPage, SettingsPage
 
 2. **State Management Layer**
-   - **Local State (useState)**: Component-specific UI state (editor content, cursor position, loading, errors)
-   - **Server State (Redux Toolkit)**: Global state for documents, users, presence, operations
-   - **WebSocket State**: Real-time operation updates, presence updates, cursor positions
+ - **Local State (useState)**: Component-specific UI state (editor content, cursor position, loading, errors)
+ - **Server State (Redux Toolkit)**: Global state for documents, users, presence, operations
+ - **WebSocket State**: Real-time operation updates, presence updates, cursor positions
 
 3. **Editor Layer**
-   - **Rich Text Editor**: Quill/Slate/Draft.js for document editing
-   - **Operation Tracking**: Track local operations and apply remote operations
-   - **Conflict Resolution**: Apply OT/CRDT transformations for conflict resolution
+ - **Rich Text Editor**: Quill/Slate/Draft.js for document editing
+ - **Operation Tracking**: Track local operations and apply remote operations
+ - **Conflict Resolution**: Apply OT/CRDT transformations for conflict resolution
 
 4. **API Integration Layer**
-   - **API Client**: Axios instance with interceptors for auth, error handling
-   - **Redux Thunks**: Async actions for API operations (createDocument, fetchDocument, saveDocument)
-   - **Request/Response Transformation**: Data normalization and error handling
+ - **API Client**: Axios instance with interceptors for auth, error handling
+ - **Redux Thunks**: Async actions for API operations (createDocument, fetchDocument, saveDocument)
+ - **Request/Response Transformation**: Data normalization and error handling
 
 5. **WebSocket Layer**
-   - **Socket.io Client**: WebSocket connection for real-time collaboration
-   - **Event Handlers**: Operation received, presence update, cursor movement
-   - **Connection Management**: Auto-reconnect, heartbeat, connection state
+ - **Socket.io Client**: WebSocket connection for real-time collaboration
+ - **Event Handlers**: Operation received, presence update, cursor movement
+ - **Connection Management**: Auto-reconnect, heartbeat, connection state
 
 6. **Routing Layer (React Router)**
-   - **Route Configuration**: Define routes and protected routes
-   - **Navigation**: Programmatic and declarative navigation
-   - **Route Guards**: Authentication and authorization checks
+ - **Route Configuration**: Define routes and protected routes
+ - **Navigation**: Programmatic and declarative navigation
+ - **Route Guards**: Authentication and authorization checks
 
 7. **Build & Deployment Layer**
-   - **Build Process**: Webpack/Vite bundling with code splitting
-   - **Static Assets**: Served from CDN (CloudFront/Cloudflare)
-   - **Environment Configuration**: Environment-specific API endpoints and WebSocket URLs
+ - **Build Process**: Webpack/Vite bundling with code splitting
+ - **Static Assets**: Served from CDN (CloudFront/Cloudflare)
+ - **Environment Configuration**: Environment-specific API endpoints and WebSocket URLs
 
 **Frontend Request Flow:**
 
@@ -281,31 +217,31 @@ The system follows a real-time collaborative editing architecture with Operation
 
 ### Document Service
 
-```typescript
+```javascript
 class DocumentService {
-  async createDocument(userId: string, title: string): Promise<Document> {
-    // Create new document
-    // Initialize version
-    // Return document ID
-  }
+ async createDocument(userId, title){
+ // Create new document
+ // Initialize version
+ // Return document ID
+ }
 
-  async applyOperation(documentId: string, operation: Operation): Promise<void> {
-    // Transform operation against current state
-    // Apply to document
-    // Broadcast to other users
-  }
+ async applyOperation(documentId, operation: Operation){
+ // Transform operation against current state
+ // Apply to document
+ // Broadcast to other users
+ }
 }
 
 ```
 
 ### Operation Transformation Service
 
-```typescript
+```javascript
 class OTService {
-  transform(op1: Operation, op2: Operation): Operation {
-    // Transform operation op1 against op2
-    // Return transformed operation
-  }
+ transform(op1: Operation, op2: Operation): Operation {
+ // Transform operation op1 against op2
+ // Return transformed operation
+ }
 }
 
 ```
@@ -314,11 +250,11 @@ class OTService {
 
 ## Service Components
 
-```typescript
+```javascript
 class Service {
-  async processRequest(data: any) {
-    // Implementation details
-  }
+ async processRequest(data: any) {
+ // Implementation details
+ }
 }
 
 ```
@@ -336,39 +272,39 @@ Think of the frontend as a tree of React components - each component handles a s
 ```
 App
 ├── Header
-│   ├── Logo
-│   ├── DocumentTitle
-│   ├── PresenceIndicator (Active users)
-│   └── DocumentActions (Share, Export, History)
+│ ├── Logo
+│ ├── DocumentTitle
+│ ├── PresenceIndicator (Active users)
+│ └── DocumentActions (Share, Export, History)
 ├── MainContent
-│   ├── DocumentEditor
-│   │   ├── Toolbar
-│   │   │   ├── FormatButtons (Bold, Italic, etc.)
-│   │   │   ├── HeadingSelector
-│   │   │   └── InsertOptions
-│   │   ├── EditorArea
-│   │   │   ├── RichTextEditor (Draft.js/Slate)
-│   │   │   ├── UserCursors (Other users' cursors)
-│   │   │   └── UserSelections (Other users' selections)
-│   │   └── StatusBar
-│   │       ├── ConnectionStatus
-│   │       └── VersionNumber
-│   ├── Sidebar
-│   │   ├── UserList
-│   │   │   └── UserItem
-│   │   │       ├── Avatar
-│   │   │       ├── UserName
-│   │   │       └── CursorIndicator
-│   │   ├── CommentsPanel
-│   │   │   ├── CommentList
-│   │   │   └── AddCommentButton
-│   │   └── VersionHistory
-│   │       ├── VersionList
-│   │       └── RestoreButton
-│   └── ShareDialog
-│       ├── ShareLinkInput
-│       ├── PermissionSelector
-│       └── InviteButton
+│ ├── DocumentEditor
+│ │ ├── Toolbar
+│ │ │ ├── FormatButtons (Bold, Italic, etc.)
+│ │ │ ├── HeadingSelector
+│ │ │ └── InsertOptions
+│ │ ├── EditorArea
+│ │ │ ├── RichTextEditor (Draft.js/Slate)
+│ │ │ ├── UserCursors (Other users' cursors)
+│ │ │ └── UserSelections (Other users' selections)
+│ │ └── StatusBar
+│ │ ├── ConnectionStatus
+│ │ └── VersionNumber
+│ ├── Sidebar
+│ │ ├── UserList
+│ │ │ └── UserItem
+│ │ │ ├── Avatar
+│ │ │ ├── UserName
+│ │ │ └── CursorIndicator
+│ │ ├── CommentsPanel
+│ │ │ ├── CommentList
+│ │ │ └── AddCommentButton
+│ │ └── VersionHistory
+│ │ ├── VersionList
+│ │ └── RestoreButton
+│ └── ShareDialog
+│ ├── ShareLinkInput
+│ ├── PermissionSelector
+│ └── InviteButton
 └── SocketProvider (WebSocket connection)
 
 ```
@@ -377,148 +313,314 @@ App
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Collaborative Editor Component
-const CollaborativeEditor: React.FC<{ documentId: string }> = ({ documentId }) => {
-  const { content, applyLocalOperation, activeUsers } = useCollaborativeEditor(documentId);
-  const editorRef = useRef<any>(null);
+const CollaborativeEditor<{ documentId}> = ({ documentId }) => {
+ const { content, applyLocalOperation, activeUsers } = useCollaborativeEditor(documentId);
+ const editorRef = useRef<any>(null);
 
-  const handleChange = (editorState: EditorState) => {
-    // Detect changes and create operations
-    const operations = detectOperations(editorState, content);
+ const handleChange = (editorState: EditorState) => {
+ // Detect changes and create operations
+ const operations = detectOperations(editorState, content);
 
-    operations.forEach(op => {
-      // Apply optimistically
-      applyLocalOperation(op);
-    });
-  };
+ operations.forEach(op => {
+ // Apply optimistically
+ applyLocalOperation(op);
+ });
+ };
 
-  return (
-    <div className="collaborative-editor">
-      <Toolbar />
-      <div className="editor-container">
-        <RichTextEditor
-          ref={editorRef}
-          value={content}
-          onChange={handleChange}
-        />
-        {/* Render other users' cursors */}
-        {activeUsers.map(user => (
-          <UserCursor
-            key={user.id}
-            userId={user.id}
-            position={user.cursorPosition}
-            color={user.color}
-          />
-        ))}
-      </div>
-      <StatusBar />
-    </div>
-  );
+ return (
+ <div className="collaborative-editor">
+ <Toolbar />
+ <div className="editor-container">
+ <RichTextEditor
+ ref={editorRef}
+ value={content}
+ onChange={handleChange}
+ />
+ {/* Render other users' cursors */}
+ {activeUsers.map(user => (
+ <UserCursor
+ key={user.id}
+ userId={user.id}
+ position={user.cursorPosition}
+ color={user.color}
+ />
+ ))}
+ </div>
+ <StatusBar />
+ </div>
+ );
 };
 
 // Presence Indicator Component
-const PresenceIndicator: React.FC<{ documentId: string }> = ({ documentId }) => {
-  const { activeUsers } = usePresence(documentId);
+const PresenceIndicator<{ documentId}> = ({ documentId }) => {
+ const { activeUsers } = usePresence(documentId);
 
-  return (
-    <div className="presence-indicator">
-      {activeUsers.map(user => (
-        <Avatar
-          key={user.id}
-          userId={user.id}
-          name={user.name}
-          color={user.color}
-        />
-      ))}
-      <span className="user-count">{activeUsers.length} active</span>
-    </div>
-  );
+ return (
+ <div className="presence-indicator">
+ {activeUsers.map(user => (
+ <Avatar
+ key={user.id}
+ userId={user.id}
+ name={user.name}
+ color={user.color}
+ />
+ ))}
+ <span className="user-count">{activeUsers.length} active</span>
+ </div>
+ );
 };
 
 ```
 
 ### ii) State Management
 
-**State Management Strategy:**
+**State Management Strategy (React 19):**
 
 - **Local State (useState)**: Editor content, UI state (loading, errors, modals, cursor position)
-- **Component State**: Each component manages its own UI state
-- **API State**: React Query or SWR for server state (document content, version history) - caching, refetching
+- **Optimistic Updates (useOptimistic)**: React 19 hook for optimistic operation application
+- **use() Hook**: React 19 hook for reading WebSocket operation promises and async document loading
+- **Transitions (useTransition)**: React 19 hook for non-urgent editor updates and operation batching
+- **API State**: React Query for server state (document content, version history) - caching, refetching
 - **Global State (Context API/Redux)**: Document state, active users, operation queue, connection status
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Using React Query for API state management
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-const useDocument = (documentId: string) => {
-  return useQuery({
-    queryKey: ['document', documentId],
-    queryFn: async () => {
-      const response = await axios.get(`/api/v1/documents/${documentId}`);
-      return response.data;
-    },
-    staleTime: 5 * 60 * 1000 // Cache for 5 minutes
-  });
+const useDocument = (documentId) => {
+ return useQuery({
+ queryKey: ['document', documentId],
+ queryFn: async () => {
+ const response = await axios.get(`/api/v1/documents/${documentId}`);
+ return response.data;
+ },
+ staleTime: 5 * 60 * 1000 // Cache for 5 minutes
+ });
 };
 
-const useCollaborativeEditor = (documentId: string) => {
-  const [content, setContent] = useState('');
-  const [pendingOps, setPendingOps] = useState<Operation[]>([]);
-  const { socket } = useSocket();
+const useCollaborativeEditor = (documentId) => {
+ const [content, setContent] = useState('');
+ const [pendingOps, setPendingOps] = useState([]);
+ const { socket } = useSocket();
 
-  useEffect(() => {
-    socket.emit('document:join', documentId);
+ useEffect(() => {
+ socket.emit('document:join', documentId);
 
-    socket.on('operation:transformed', (operation: Operation) => {
-      setContent(prev => applyOperation(prev, operation));
-      setPendingOps(prev => prev.filter(op => op.id !== operation.id));
-    });
+ socket.on('operation:transformed', (operation: Operation) => {
+ setContent(prev => applyOperation(prev, operation));
+ setPendingOps(prev => prev.filter(op => op.id !== operation.id));
+ });
 
-    return () => {
-      socket.emit('document:leave', documentId);
-    };
-  }, [documentId, socket]);
+ return () => {
+ socket.emit('document:leave', documentId);
+ };
+ }, [documentId, socket]);
 
-  const applyLocalOperation = (operation: Operation) => {
-    setContent(prev => applyOperation(prev, operation));
-    setPendingOps(prev => [...prev, operation]);
-    socket.emit('operation', { documentId, operation });
-  };
+ const applyLocalOperation = (operation: Operation) => {
+ setContent(prev => applyOperation(prev, operation));
+ setPendingOps(prev => [...prev, operation]);
+ socket.emit('operation', { documentId, operation });
+ };
 
-  return { content, applyLocalOperation, pendingOps };
+ return { content, applyLocalOperation, pendingOps };
 };
 
 ```
 
-### Component Interactions
+### iii) Advanced Collaboration Patterns with React 19
+
+**Real-time Editor with React 19:**
+
+```javascript
+import { useOptimistic, useTransition, use } from 'react';
+
+const CollaborativeEditor<{ documentId}> = ({ documentId }) => {
+ const [content, setContent] = useState('');
+ const [pendingOps, setPendingOps] = useState([]);
+ const [isPending, startTransition] = useTransition();
+ const { socket } = useSocket();
+
+ // React 19: use() hook for document loading
+ const documentPromise = useMemo(() => fetchDocument(documentId), [documentId]);
+ const document = use(documentPromise);
+
+ // React 19: useOptimistic for operation application
+ const [optimisticContent, applyOptimisticOp] = useOptimistic(
+ content,
+ (state, operation: Operation) => applyOperation(state, operation)
+ );
+
+ useEffect(() => {
+ if (document) {
+ setContent(document.content);
+ }
+
+ socket.emit('document:join', documentId);
+
+ socket.on('operation:transformed', (operation: Operation) => {
+ startTransition(() => {
+ setContent(prev => applyOperation(prev, operation));
+ setPendingOps(prev => prev.filter(op => op.id !== operation.id));
+ });
+ });
+
+ socket.on('user:cursor', (data: { userId; position}) => {
+ // Update cursor positions
+ });
+
+ return () => {
+ socket.emit('document:leave', documentId);
+ };
+ }, [documentId, socket, document]);
+
+ const handleChange = (newContent) => {
+ const operation = createOperation(content, newContent);
+
+ // Optimistically apply operation
+ startTransition(() => {
+ applyOptimisticOp(operation);
+ setPendingOps(prev => [...prev, operation]);
+ });
+
+ // Send to server
+ socket.emit('operation', { documentId, operation, version: document.version });
+ };
+
+ return (
+ <div className="collaborative-editor">
+ <RichTextEditor
+ value={optimisticContent}
+ onChange={handleChange}
+ />
+ {pendingOps.length > 0 && (
+ <div className="syncing-indicator">Syncing...</div>
+ )}
+ </div>
+ );
+};
+```
+
+**Presence Indicators with React 19:**
+
+```javascript
+import { use, useTransition } from 'react';
+
+const PresenceIndicator<{ documentId}> = ({ documentId }) => {
+ const [activeUsers, setActiveUsers] = useState([]);
+ const [isPending, startTransition] = useTransition();
+ const { socket } = useSocket();
+
+ useEffect(() => {
+ socket.on('user:joined', (user: User) => {
+ startTransition(() => {
+ setActiveUsers(prev => [...prev, user]);
+ });
+ });
+
+ socket.on('user:left', ({ userId }: { userId}) => {
+ startTransition(() => {
+ setActiveUsers(prev => prev.filter(u => u.id !== userId));
+ });
+ });
+
+ socket.on('user:cursor', (data: { userId; position}) => {
+ startTransition(() => {
+ setActiveUsers(prev => prev.map(u =>
+ u.id === data.userId ? { ...u, cursorPosition: data.position } : u
+ ));
+ });
+ });
+
+ return () => {
+ socket.off('user:joined');
+ socket.off('user:left');
+ socket.off('user:cursor');
+ };
+ }, [socket]);
+
+ return (
+ <div className="presence-indicator">
+ {activeUsers.map(user => (
+ <UserCursor
+ key={user.id}
+ userId={user.id}
+ position={user.cursorPosition}
+ color={user.color}
+ name={user.name}
+ />
+ ))}
+ <span className="user-count">{activeUsers.length} active</span>
+ </div>
+ );
+};
+```
+
+**Operation Batching with React 19:**
+
+```javascript
+import { useTransition, useDeferredValue } from 'react';
+
+const useOperationBatching = (documentId) => {
+ const [operations, setOperations] = useState([]);
+ const [isPending, startTransition] = useTransition();
+ const { socket } = useSocket();
+
+ // React 19: useDeferredValue for batching operations
+ const deferredOps = useDeferredValue(operations);
+
+ useEffect(() => {
+ if (deferredOps.length > 0) {
+ // Batch send operations
+ socket.emit('operations:batch', {
+ documentId,
+ operations: deferredOps,
+ version: currentVersion
+ });
+
+ setOperations([]);
+ }
+ }, [deferredOps, documentId, socket]);
+
+ const addOperation = (operation: Operation) => {
+ startTransition(() => {
+ setOperations(prev => [...prev, operation]);
+ });
+ };
+
+ return { addOperation, isPending };
+};
+```
+
+### iv) Implementation Details
 
 **Data Flow:**
 
-1. **Document Loading** → Editor fetches document via React Query, initializes editor state
-2. **User Edits** → Editor detects changes, creates operations, applies optimistically
-3. **Operation Broadcasting** → Operations sent via Socket.io, server transforms and broadcasts
-4. **Operation Reception** → Editor receives transformed operations, applies to content
-5. **Presence Updates** → Socket.io updates active users and cursor positions in real-time
+1. **Document Loading** → Editor fetches document via React 19 use() hook, initializes editor state
+2. **User Edits** → Editor detects changes, creates operations, applies optimistically with useOptimistic
+3. **Operation Broadcasting** → Operations sent via Socket.io with batching using useDeferredValue
+4. **Operation Reception** → Editor receives transformed operations, applies to content with useTransition
+5. **Presence Updates** → Socket.io updates active users and cursor positions in real-time with transitions
 
 **Event Handling:**
 
-- Text changes trigger operation creation and sending
-- Socket.io events update editor content and presence
-- Cursor movements broadcast to other users
-- Version history loads on demand
-- Conflict resolution handles version mismatches
+- Text changes trigger operation creation and optimistic application
+- Socket.io events update editor content and presence with React 19 transitions
+- Cursor movements broadcast to other users with debouncing
+- Version history loads on demand using use() hook
+- Conflict resolution handles version mismatches with error boundaries
 
-### UI/UX Considerations
+**UI/UX Considerations:**
 
-- **Loading States**: Show skeleton loaders for document loading, spinners for operations
-- **Error Handling**: Display user-friendly error messages, handle connection failures gracefully
-- **Validation**: Client-side validation for document operations
-- **Responsive Design**: Mobile-friendly layout, touch-optimized editor controls
-- **Accessibility**: ARIA labels, keyboard navigation, screen reader support, keyboard shortcuts
-- **Performance**: Debounce operation sending, batch operations, virtual rendering for large documents
+- **Loading States**: Skeleton loaders for document loading, syncing indicators for operations
+- **Error Handling**: User-friendly error messages, handle connection failures gracefully, conflict resolution UI
+- **Validation**: Client-side validation for document operations with React 19 form validation
+- **Responsive Design**: Mobile-friendly layout, touch-optimized editor controls, adaptive UI
+- **Accessibility**: ARIA labels, keyboard navigation, screen reader support, keyboard shortcuts (Ctrl+B for bold, etc.)
+- **Performance**: Debounce operation sending with useDeferredValue, batch operations, virtual rendering for large documents, React 19 transitions for smooth updates
 
 ---
 
@@ -526,33 +628,33 @@ const useCollaborativeEditor = (documentId: string) => {
 
 ### Document Model
 
-```typescript
-interface Document {
-  documentId: string;
-  title: string;
-  content: string;
-  version: number;
-  ownerId: string;
-  collaborators: string[];
-  createdAt: Date;
-  updatedAt: Date;
-}
+```javascript
+// Document structure:
+//
+ documentId;
+ title;
+ content;
+ version;
+ ownerId;
+ collaborators[];
+ createdAt;
+ updatedAt;
 
 ```
 
 ### Operation Model
 
-```typescript
-interface Operation {
-  operationId: string;
-  documentId: string;
-  userId: string;
-  type: 'insert' | 'delete' | 'retain';
-  position: number;
-  content?: string;
-  version: number;
-  timestamp: Date;
-}
+```javascript
+// Operation structure:
+//
+ operationId;
+ documentId;
+ userId;
+ type: 'insert' | 'delete' | 'retain';
+ position;
+ content?;
+ version;
+ timestamp;
 
 ```
 
@@ -560,13 +662,13 @@ interface Operation {
 
 ## Model Interface
 
-```typescript
-interface Model {
-  id: string;
-  // Model fields
-  createdAt: Date;
-  updatedAt: Date;
-}
+```javascript
+// Model structure:
+//
+ id;
+ // Model fields
+ createdAt;
+ updatedAt;
 
 ```
 
@@ -582,28 +684,28 @@ interface Model {
 
 - **Request Body:**
 
-  ```json
-  {
-    "title": "My Document",
-    "content": ""
-  }
+ ```json
+ {
+ "title": "My Document",
+ "content": ""
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "documentId": "doc_abc123",
-      "title": "My Document",
-      "version": 0,
-      "createdAt": "2024-01-15T10:30:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "documentId": "doc_abc123",
+ "title": "My Document",
+ "version": 0,
+ "createdAt": "2024-01-15T10:30:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error), 401 (Unauthorized)
 
@@ -615,19 +717,19 @@ interface Model {
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "documentId": "doc_abc123",
-      "title": "My Document",
-      "content": "Document content...",
-      "version": 5,
-      "updatedAt": "2024-01-15T11:00:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "documentId": "doc_abc123",
+ "title": "My Document",
+ "content": "Document content...",
+ "version": 5,
+ "updatedAt": "2024-01-15T11:00:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 404 (Not Found)
 
@@ -639,26 +741,26 @@ interface Model {
 
 - **Request Body:**
 
-  ```json
-  {
-    "title": "Updated Title"
-  }
+ ```json
+ {
+ "title": "Updated Title"
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "documentId": "doc_abc123",
-      "title": "Updated Title",
-      "version": 6
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "documentId": "doc_abc123",
+ "title": "Updated Title",
+ "version": 6
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 404 (Not Found), 409 (Version Conflict)
 
@@ -694,11 +796,11 @@ server/
 
 ### Service Implementation
 
-```typescript
+```javascript
 class Service {
-  async processRequest(data: any) {
-    // Implementation details
-  }
+ async processRequest(data: any) {
+ // Implementation details
+ }
 }
 
 ```
@@ -752,106 +854,106 @@ class Service {
 
 **Backend (Express.js):**
 
-```typescript
+```javascript
 // Backend: services/OTService.ts
 import { transform } from 'ot-text';
 
-interface Operation {
-  type: 'insert' | 'delete' | 'retain';
-  position: number;
-  content?: string;
-  length?: number;
-}
+// Operation structure:
+//
+ type: 'insert' | 'delete' | 'retain';
+ position;
+ content?;
+ length?;
 
 class OTService {
-  // Transform operation op1 against op2
-  transform(op1: Operation, op2: Operation): Operation {
-    // Use OT library (ot-text) for text operations
-    return transform(op1, op2);
-  }
+ // Transform operation op1 against op2
+ transform(op1: Operation, op2: Operation): Operation {
+ // Use OT library (ot-text) for text operations
+ return transform(op1, op2);
+ }
 
-  // Apply operation to document content
-  apply(content: string, operation: Operation): string {
-    let result = content;
-    let pos = 0;
+ // Apply operation to document content
+ apply(content, operation: Operation){
+ let result = content;
+ let pos = 0;
 
-    if (operation.type === 'insert') {
-      result = result.slice(0, operation.position) +
-               operation.content +
-               result.slice(operation.position);
-    } else if (operation.type === 'delete') {
-      result = result.slice(0, operation.position) +
-               result.slice(operation.position + (operation.length || 0));
-    }
+ if (operation.type === 'insert') {
+ result = result.slice(0, operation.position) +
+ operation.content +
+ result.slice(operation.position);
+ } else if (operation.type === 'delete') {
+ result = result.slice(0, operation.position) +
+ result.slice(operation.position + (operation.length || 0));
+ }
 
-    return result;
-  }
+ return result;
+ }
 
-  // Transform operation against multiple concurrent operations
-  transformAgainstOps(operation: Operation, concurrentOps: Operation[]): Operation {
-    let transformedOp = operation;
+ // Transform operation against multiple concurrent operations
+ transformAgainstOps(operation: Operation, concurrentOps: Operation[]): Operation {
+ let transformedOp = operation;
 
-    for (const concurrentOp of concurrentOps) {
-      transformedOp = this.transform(transformedOp, concurrentOp);
-    }
+ for (const concurrentOp of concurrentOps) {
+ transformedOp = this.transform(transformedOp, concurrentOp);
+ }
 
-    return transformedOp;
-  }
+ return transformedOp;
+ }
 }
 
 ```
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // React hook for operational transformation
 import { useState, useCallback } from 'react';
 import { io, Socket } from 'socket.io-client';
 
-const useCollaborativeEditor = (documentId: string) => {
-  const [content, setContent] = useState('');
-  const [pendingOps, setPendingOps] = useState<Operation[]>([]);
-  const [socket, setSocket] = useState<Socket | null>(null);
+const useCollaborativeEditor = (documentId) => {
+ const [content, setContent] = useState('');
+ const [pendingOps, setPendingOps] = useState([]);
+ const [socket, setSocket] = useState(null);
 
-  useEffect(() => {
-    const newSocket = io(process.env.REACT_APP_SOCKET_URL || '');
+ useEffect(() => {
+ const newSocket = io(process.env.REACT_APP_SOCKET_URL || '');
 
-    newSocket.on('connect', () => {
-      newSocket.emit('document:join', documentId);
-    });
+ newSocket.on('connect', () => {
+ newSocket.emit('document:join', documentId);
+ });
 
-    // Receive transformed operation from server
-    newSocket.on('operation:transformed', (operation: Operation) => {
-      // Apply transformed operation to local content
-      setContent(prev => applyOperation(prev, operation));
+ // Receive transformed operation from server
+ newSocket.on('operation:transformed', (operation: Operation) => {
+ // Apply transformed operation to local content
+ setContent(prev => applyOperation(prev, operation));
 
-      // Remove from pending ops if it was pending
-      setPendingOps(prev => prev.filter(op => op.id !== operation.id));
-    });
+ // Remove from pending ops if it was pending
+ setPendingOps(prev => prev.filter(op => op.id !== operation.id));
+ });
 
-    setSocket(newSocket);
+ setSocket(newSocket);
 
-    return () => {
-      newSocket.disconnect();
-    };
-  }, [documentId]);
+ return () => {
+ newSocket.disconnect();
+ };
+ }, [documentId]);
 
-  const applyLocalOperation = useCallback((operation: Operation) => {
-    // Apply optimistically to local content
-    setContent(prev => applyOperation(prev, operation));
+ const applyLocalOperation = useCallback((operation: Operation) => {
+ // Apply optimistically to local content
+ setContent(prev => applyOperation(prev, operation));
 
-    // Add to pending operations
-    setPendingOps(prev => [...prev, operation]);
+ // Add to pending operations
+ setPendingOps(prev => [...prev, operation]);
 
-    // Send to server
-    socket?.emit('operation', {
-      documentId,
-      operation,
-      version: getCurrentVersion()
-    });
-  }, [socket, documentId]);
+ // Send to server
+ socket?.emit('operation', {
+ documentId,
+ operation,
+ version: getCurrentVersion()
+ });
+ }, [socket, documentId]);
 
-  return { content, applyLocalOperation };
+ return { content, applyLocalOperation };
 };
 
 ```
@@ -867,94 +969,94 @@ const useCollaborativeEditor = (documentId: string) => {
 
 **Backend (Express.js):**
 
-```typescript
+```javascript
 // Backend: socket/collaborationSocket.ts
 import { Server } from 'socket.io';
 import { OTService } from '../services/OTService';
 
 export const setupCollaborationSocket = (io: Server) => {
-  const otService = new OTService();
-  const operationQueues = new Map<string, Operation[]>(); // documentId -> operations
+ const otService = new OTService();
+ const operationQueues = new Map<string, Operation[]>(); // documentId -> operations
 
-  io.on('connection', (socket) => {
-    // Join document room
-    socket.on('document:join', async (documentId: string) => {
-      socket.join(`document:${documentId}`);
+ io.on('connection', (socket) => {
+ // Join document room
+ socket.on('document:join', async (documentId) => {
+ socket.join(`document:${documentId}`);
 
-      // Send current document state
-      const document = await Document.findById(documentId);
-      socket.emit('document:state', {
-        content: document.content,
-        version: document.version
-      });
-    });
+ // Send current document state
+ const document = await Document.findById(documentId);
+ socket.emit('document:state', {
+ content: document.content,
+ version: document.version
+ });
+ });
 
-    // Handle incoming operation
-    socket.on('operation', async (data: { documentId: string; operation: Operation; version: number }) => {
-      const { documentId, operation, version } = data;
+ // Handle incoming operation
+ socket.on('operation', async (data: { documentId; operation: Operation; version}) => {
+ const { documentId, operation, version } = data;
 
-      // Get pending operations for this document
-      const pendingOps = operationQueues.get(documentId) || [];
+ // Get pending operations for this document
+ const pendingOps = operationQueues.get(documentId) || [];
 
-      // Transform operation against pending operations
-      const transformedOp = otService.transformAgainstOps(operation, pendingOps);
+ // Transform operation against pending operations
+ const transformedOp = otService.transformAgainstOps(operation, pendingOps);
 
-      // Apply to document
-      const document = await Document.findById(documentId);
-      document.content = otService.apply(document.content, transformedOp);
-      document.version += 1;
-      await document.save();
+ // Apply to document
+ const document = await Document.findById(documentId);
+ document.content = otService.apply(document.content, transformedOp);
+ document.version += 1;
+ await document.save();
 
-      // Add to pending queue
-      pendingOps.push(transformedOp);
-      operationQueues.set(documentId, pendingOps);
+ // Add to pending queue
+ pendingOps.push(transformedOp);
+ operationQueues.set(documentId, pendingOps);
 
-      // Broadcast transformed operation to all clients in room
-      io.to(`document:${documentId}`).emit('operation:transformed', {
-        ...transformedOp,
-        version: document.version
-      });
+ // Broadcast transformed operation to all clients in room
+ io.to(`document:${documentId}`).emit('operation:transformed', {
+ ...transformedOp,
+ version: document.version
+ });
 
-      // Clean up old operations from queue
-      if (pendingOps.length > 100) {
-        pendingOps.shift();
-      }
-    });
-  });
+ // Clean up old operations from queue
+ if (pendingOps.length > 100) {
+ pendingOps.shift();
+ }
+ });
+ });
 };
 
 ```
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // React component for collaborative editor
 import { useEffect, useRef } from 'react';
 import { useCollaborativeEditor } from '../hooks/useCollaborativeEditor';
 
-const CollaborativeEditor: React.FC<{ documentId: string }> = ({ documentId }) => {
-  const { content, applyLocalOperation } = useCollaborativeEditor(documentId);
-  const editorRef = useRef<HTMLTextAreaElement>(null);
+const CollaborativeEditor<{ documentId}> = ({ documentId }) => {
+ const { content, applyLocalOperation } = useCollaborativeEditor(documentId);
+ const editorRef = useRef(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newContent = e.target.value;
-    const oldContent = content;
+ const handleChange = (e: React.ChangeEvent) => {
+ const newContent = e.target.value;
+ const oldContent = content;
 
-    // Calculate operation (simplified - in real implementation, use diff algorithm)
-    const operation = calculateOperation(oldContent, newContent);
+ // Calculate operation (simplified - in real implementation, use diff algorithm)
+ const operation = calculateOperation(oldContent, newContent);
 
-    // Apply operation
-    applyLocalOperation(operation);
-  };
+ // Apply operation
+ applyLocalOperation(operation);
+ };
 
-  return (
-    <textarea
-      ref={editorRef}
-      value={content}
-      onChange={handleChange}
-      placeholder="Start typing..."
-    />
-  );
+ return (
+ <textarea
+ ref={editorRef}
+ value={content}
+ onChange={handleChange}
+ placeholder="Start typing..."
+ />
+ );
 };
 
 ```
@@ -966,75 +1068,75 @@ const CollaborativeEditor: React.FC<{ documentId: string }> = ({ documentId }) =
 
 **Backend (Express.js):**
 
-```typescript
+```javascript
 // Backend: middleware/errorHandler.ts
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error('Error:', err);
+ console.error('Error:', err);
 
-  if (err.name === 'ValidationError') {
-    return res.status(400).json({ error: 'Invalid operation', details: err.message });
-  }
+ if (err.name === 'ValidationError') {
+ return res.status(400).json({ error: 'Invalid operation', details: err.message });
+ }
 
-  if (err.message === 'Version conflict') {
-    return res.status(409).json({
-      error: 'Document version conflict. Please refresh and try again.',
-      currentVersion: err.currentVersion
-    });
-  }
+ if (err.message === 'Version conflict') {
+ return res.status(409).json({
+ error: 'Document version conflict. Please refresh and try again.',
+ currentVersion: err.currentVersion
+ });
+ }
 
-  if (err.message === 'Document not found') {
-    return res.status(404).json({ error: 'Document not found' });
-  }
+ if (err.message === 'Document not found') {
+ return res.status(404).json({ error: 'Document not found' });
+ }
 
-  res.status(500).json({ error: 'Internal server error' });
+ res.status(500).json({ error: 'Internal server error' });
 };
 
 ```
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // React error handling with reconnection
-const useReconnectingSocket = (url: string) => {
-  const [socket, setSocket] = useState<Socket | null>(null);
-  const [reconnectAttempts, setReconnectAttempts] = useState(0);
+const useReconnectingSocket = (url) => {
+ const [socket, setSocket] = useState(null);
+ const [reconnectAttempts, setReconnectAttempts] = useState(0);
 
-  useEffect(() => {
-    const connect = () => {
-      const newSocket = io(url, {
-        reconnection: true,
-        reconnectionDelay: 1000 * Math.min(reconnectAttempts, 5),
-        reconnectionAttempts: 10
-      });
+ useEffect(() => {
+ const connect = () => {
+ const newSocket = io(url, {
+ reconnection: true,
+ reconnectionDelay: 1000 * Math.min(reconnectAttempts, 5),
+ reconnectionAttempts: 10
+ });
 
-      newSocket.on('connect', () => {
-        setReconnectAttempts(0);
-      });
+ newSocket.on('connect', () => {
+ setReconnectAttempts(0);
+ });
 
-      newSocket.on('disconnect', () => {
-        setReconnectAttempts(prev => prev + 1);
-      });
+ newSocket.on('disconnect', () => {
+ setReconnectAttempts(prev => prev + 1);
+ });
 
-      newSocket.on('error', (error) => {
-        console.error('Socket error:', error);
-        // Handle version conflicts
-        if (error.type === 'version_conflict') {
-          // Refresh document state
-          refreshDocument();
-        }
-      });
+ newSocket.on('error', (error) => {
+ console.error('Socket error:', error);
+ // Handle version conflicts
+ if (error.type === 'version_conflict') {
+ // Refresh document state
+ refreshDocument();
+ }
+ });
 
-      setSocket(newSocket);
-    };
+ setSocket(newSocket);
+ };
 
-    connect();
+ connect();
 
-    return () => {
-      socket?.disconnect();
-    };
-  }, [url, reconnectAttempts]);
+ return () => {
+ socket?.disconnect();
+ };
+ }, [url, reconnectAttempts]);
 
-  return socket;
+ return socket;
 };
 
 ```
@@ -1274,19 +1376,19 @@ SOCKET_IO_REDIS_URL=redis://...
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await Document.create([documentData], { session });
-  await Operation.create([operationData], { session });
-  await Version.create([versionData], { session });
-  await session.commitTransaction();
+ await Document.create([documentData], { session });
+ await Operation.create([operationData], { session });
+ await Version.create([versionData], { session });
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -1344,28 +1446,28 @@ try {
 
 **Implementation:**
 
-```typescript
+```javascript
 class OTService {
-  transform(op1: Operation, op2: Operation): Operation {
-    // Transform op1 against op2
-    if (op1.type === 'insert' && op2.type === 'insert') {
-      if (op1.position <= op2.position) {
-        return op1; // op1 comes before op2, no transformation needed
-      } else {
-        return { ...op1, position: op1.position + op2.content!.length };
-      }
-    }
-    // ... more transformation rules
-    return op1;
-  }
+ transform(op1: Operation, op2: Operation): Operation {
+ // Transform op1 against op2
+ if (op1.type === 'insert' && op2.type === 'insert') {
+ if (op1.position <= op2.position) {
+ return op1; // op1 comes before op2, no transformation needed
+ } else {
+ return { ...op1, position: op1.position + op2.content!.length };
+ }
+ }
+ // ... more transformation rules
+ return op1;
+ }
 
-  transformAgainstOps(operation: Operation, concurrentOps: Operation[]): Operation {
-    let transformedOp = operation;
-    for (const concurrentOp of concurrentOps) {
-      transformedOp = this.transform(transformedOp, concurrentOp);
-    }
-    return transformedOp;
-  }
+ transformAgainstOps(operation: Operation, concurrentOps: Operation[]): Operation {
+ let transformedOp = operation;
+ for (const concurrentOp of concurrentOps) {
+ transformedOp = this.transform(transformedOp, concurrentOp);
+ }
+ return transformedOp;
+ }
 }
 
 ```
@@ -1392,28 +1494,28 @@ class OTService {
 
 **Implementation:**
 
-```typescript
+```javascript
 class CRDTService {
-  applyOperation(document: CRDTDocument, operation: Operation): CRDTDocument {
-    // CRDT operations are commutative
-    const newDocument = { ...document };
+ applyOperation(document: CRDTDocument, operation: Operation): CRDTDocument {
+ // CRDT operations are commutative
+ const newDocument = { ...document };
 
-    if (operation.type === 'insert') {
-      // Insert with unique ID
-      newDocument.operations.push({
-        id: generateUniqueId(),
-        type: 'insert',
-        position: operation.position,
-        content: operation.content,
-        timestamp: Date.now()
-      });
-    }
+ if (operation.type === 'insert') {
+ // Insert with unique ID
+ newDocument.operations.push({
+ id: generateUniqueId(),
+ type: 'insert',
+ position: operation.position,
+ content: operation.content,
+ timestamp.now()
+ });
+ }
 
-    // Sort operations by timestamp for consistent ordering
-    newDocument.operations.sort((a, b) => a.timestamp - b.timestamp);
+ // Sort operations by timestamp for consistent ordering
+ newDocument.operations.sort((a, b) => a.timestamp - b.timestamp);
 
-    return newDocument;
-  }
+ return newDocument;
+ }
 }
 
 ```
@@ -1432,16 +1534,16 @@ class CRDTService {
 
 ```javascript
 {
-  _id: ObjectId,
-  documentId: String,       // Unique document ID, indexed
-  userId: ObjectId,         // Owner reference, indexed
-  title: String,           // Document title
-  content: String,         // Document content
-  version: Number,         // Current version number, indexed
-  collaborators: [ObjectId], // Array of collaborator user IDs
-  permissions: Object,      // { read: [userId], write: [userId] }
-  createdAt: Date,         // Created timestamp, indexed
-  updatedAt: Date          // Updated timestamp
+ _id: ObjectId,
+ documentId: String, // Unique document ID, indexed
+ userId: ObjectId, // Owner reference, indexed
+ title: String, // Document title
+ content: String, // Document content
+ version: Number, // Current version number, indexed
+ collaborators: [ObjectId], // Array of collaborator user IDs
+ permissions: Object, // { read: [userId], write: [userId] }
+ createdAt, // Created timestamp, indexed
+ updatedAt// Updated timestamp
 }
 
 // Indexes:
@@ -1455,16 +1557,16 @@ class CRDTService {
 
 ```javascript
 {
-  _id: ObjectId,
-  operationId: String,      // Unique operation ID, indexed
-  documentId: ObjectId,     // Document reference, indexed
-  userId: ObjectId,         // User who created operation
-  type: String,            // insert, delete, format
-  position: Number,        // Character position
-  content: String,         // Content (for insert)
-  length: Number,          // Length (for delete)
-  version: Number,         // Document version when operation created
-  createdAt: Date,         // Created timestamp, indexed
+ _id: ObjectId,
+ operationId: String, // Unique operation ID, indexed
+ documentId: ObjectId, // Document reference, indexed
+ userId: ObjectId, // User who created operation
+ type: String, // insert, delete, format
+ position: Number, // Character position
+ content: String, // Content (for insert)
+ length: Number, // Length (for delete)
+ version: Number, // Document version when operation created
+ createdAt, // Created timestamp, indexed
 }
 
 // Indexes:
@@ -1487,19 +1589,19 @@ class CRDTService {
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await Document.create([documentData], { session });
-  await Operation.create([operationData], { session });
-  await Version.create([versionData], { session });
-  await session.commitTransaction();
+ await Document.create([documentData], { session });
+ await Operation.create([operationData], { session });
+ await Version.create([versionData], { session });
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -1543,19 +1645,19 @@ try {
 - **Description:** Get document with current version
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "documentId": "doc_abc123",
-      "title": "My Document",
-      "content": "Document content...",
-      "version": 42,
-      "collaborators": ["user_1", "user_2"]
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "documentId": "doc_abc123",
+ "title": "My Document",
+ "content": "Document content...",
+ "version": 42,
+ "collaborators": ["user_1", "user_2"]
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 404 (Document Not Found)
 
@@ -1566,31 +1668,31 @@ try {
 - **Description:** Apply operation to document
 - **Request Body:**
 
-  ```json
-  {
-    "operation": {
-      "type": "insert",
-      "position": 10,
-      "content": "Hello"
-    },
-    "version": 42
-  }
+ ```json
+ {
+ "operation": {
+ "type": "insert",
+ "position": 10,
+ "content": "Hello"
+ },
+ "version": 42
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "operationId": "op_abc123",
-      "transformedOperation": {...},
-      "newVersion": 43
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "operationId": "op_abc123",
+ "transformedOperation": {...},
+ "newVersion": 43
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 409 (Version Conflict), 400 (Invalid Operation)
 
@@ -1605,9 +1707,9 @@ try {
 - **Key Format:** `document:{documentId}`, `document:{documentId}:version`, `presence:{documentId}`
 - **Value:** Serialized JSON (document content, version, active users)
 - **TTL:**
-  - Document content: 300 seconds (5 minutes)
-  - Version: 60 seconds (frequently updated)
-  - Presence: 30 seconds (short-lived)
+ - Document content: 300 seconds (5 minutes)
+ - Version: 60 seconds (frequently updated)
+ - Presence: 30 seconds (short-lived)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
@@ -1634,12 +1736,12 @@ try {
 
 ```json
 {
-  "error": {
-    "code": "VERSION_CONFLICT",
-    "message": "Document version conflict",
-    "details": "Your version (40) is outdated. Current version is 42.",
-    "currentVersion": 42
-  }
+ "error": {
+ "code": "VERSION_CONFLICT",
+ "message": "Document version conflict",
+ "details": "Your version (40) is outdated. Current version is 42.",
+ "currentVersion": 42
+ }
 }
 
 ```

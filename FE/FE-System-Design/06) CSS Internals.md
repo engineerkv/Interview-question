@@ -14,13 +14,13 @@
 
 ---
 
-## Q8.6. How CSS Works Internally
+## 1.6. How CSS Works Internally
 
 CSS (Cascading Style Sheets) is the language for styling web pages. Understanding how CSS works under the hood helps you write better styles, debug layout issues, and optimize performance. When browsers process CSS, they handle parsing, cascade resolution, specificity calculation, layout computation, and rendering. This knowledge is crucial for senior developers - it helps you understand why certain CSS patterns work better, how to optimize CSS for performance, and how browsers interpret your styles.
 
 ---
 
-## 1. 🎨 CSS Parsing Process
+### 🔹 🎨 CSS Parsing Process
 
 ### 🔹 Tokenization
 
@@ -82,15 +82,21 @@ After tokenization, tokens are converted into CSS rules:
 **How Parsing Works:**
 
 * Groups tokens into rules
+
 * Identifies selectors and declarations
+
 * Builds rule objects with selector and properties
+
 * Handles at-rules (`@media`, `@keyframes`, etc.)
 
 **Rule Structure:**
 
 * **Selector**: Which elements the rule applies to
+
 * **Declarations**: Property-value pairs
+
 * **Specificity**: Calculated from selector
+
 * **Source**: Origin (author, user, user-agent)
 
 **Example:**
@@ -114,9 +120,13 @@ Parsed rule:
 **At-Rules:**
 
 * `@media`: Media queries
+
 * `@keyframes`: Animations
+
 * `@import`: Import other stylesheets
+
 * `@font-face`: Font definitions
+
 * `@supports`: Feature queries
 
 ### 🔹 CSSOM Construction
@@ -126,28 +136,36 @@ The browser builds a CSSOM (CSS Object Model) tree:
 **CSSOM Structure:**
 
 * Tree representing CSS rules
+
 * Similar to DOM but for styles
+
 * Represents cascade and inheritance
+
 * Used to compute final styles
 
 **How CSSOM is Built:**
 
 * Rules are added to CSSOM in order
+
 * Specificity is calculated for each rule
+
 * Cascade order is determined
+
 * Inheritance relationships are established
 
 **CSSOM vs DOM:**
 
 * DOM: Structure of HTML elements
+
 * CSSOM: Structure of CSS rules
+
 * Combined to create render tree
 
 📌 **In simple terms**: CSS parsing breaks source into tokens, then builds rules with selectors and declarations. The browser constructs a CSSOM tree representing all CSS rules, which is used to compute final styles for elements.
 
 ---
 
-## 2. 💡 Cascade and Specificity
+### 🔹 💡 Cascade and Specificity
 
 ### 🔹 Cascade Order
 
@@ -156,14 +174,19 @@ The cascade determines which styles apply when multiple rules target the same el
 **Cascade Layers (Priority Order):**
 
 1. **User-agent styles**: Browser defaults (lowest priority)
+
 2. **User styles**: User preferences (medium priority)
+
 3. **Author styles**: Your CSS (highest priority)
+
 4. **Important declarations**: `!important` (overrides all)
 
 **Within Same Origin:**
 
 * Later rules override earlier ones (if specificity is equal)
+
 * Source order matters
+
 * More specific selectors win
 
 **Example:**
@@ -187,25 +210,37 @@ Specificity determines which rule wins when multiple rules apply:
 **Specificity Formula:**
 
 * (a, b, c, d)
+
 * a: Inline styles (always wins)
+
 * b: ID selectors
+
 * c: Class, attribute, pseudo-class selectors
+
 * d: Element, pseudo-element selectors
 
 **Specificity Examples:**
 
 * `p`: (0, 0, 0, 1) - 1 element
+
 * `.container`: (0, 0, 1, 0) - 1 class
+
 * `#header`: (0, 1, 0, 0) - 1 ID
+
 * `.container p`: (0, 0, 1, 1) - 1 class + 1 element
+
 * `#header .nav a:hover`: (0, 1, 2, 1) - 1 ID + 2 classes + 1 element + 1 pseudo-class
+
 * `style="color: red"`: (1, 0, 0, 0) - inline style
 
 **Specificity Rules:**
 
 * Higher specificity wins
+
 * If specificity is equal, later rule wins
+
 * `!important` overrides specificity
+
 * Universal selector (`*`) has no specificity
 
 **Example:**
@@ -232,20 +267,27 @@ Some CSS properties are inherited by child elements:
 **Inherited Properties:**
 
 * `color`, `font-family`, `font-size`
+
 * `line-height`, `text-align`
+
 * `visibility`, `cursor`
 
 **Non-Inherited Properties:**
 
 * `margin`, `padding`, `border`
+
 * `width`, `height`, `background`
+
 * `display`, `position`
 
 **How Inheritance Works:**
 
 * Child elements inherit computed values from parents
+
 * Can override inherited values
+
 * `inherit` keyword explicitly inherits
+
 * `initial` resets to initial value
 
 **Example:**
@@ -268,7 +310,7 @@ p {
 
 ---
 
-## 3. 📐 Layout Systems
+### 🔹 📐 Layout Systems
 
 ### 🔹 Box Model
 
@@ -277,13 +319,17 @@ Every element is a rectangular box with specific areas:
 **Box Model Components:**
 
 * **Content**: Actual content (text, images)
+
 * **Padding**: Space inside border
+
 * **Border**: Border around padding
+
 * **Margin**: Space outside border
 
 **Box Sizing:**
 
 * `content-box` (default): Width/height = content only
+
 * `border-box`: Width/height = content + padding + border
 
 **Example:**
@@ -310,21 +356,29 @@ Default layout algorithm (block and inline):
 **Block Elements:**
 
 * Stack vertically
+
 * Take full width of container
+
 * Respect margin collapsing
+
 * Examples: `<div>`, `<p>`, `<h1>`
 
 **Inline Elements:**
 
 * Flow horizontally
+
 * Only take needed width
+
 * Don't respect top/bottom margins
+
 * Examples: `<span>`, `<a>`, `<strong>`
 
 **Inline-Block:**
 
 * Flows horizontally like inline
+
 * Respects width/height like block
+
 * Useful for horizontal layouts
 
 ### 🔹 Flexbox
@@ -334,23 +388,33 @@ Flexbox provides flexible one-dimensional layouts:
 **Flex Container:**
 
 * `display: flex` creates flex container
+
 * Children become flex items
+
 * Main axis and cross axis
 
 **Flex Properties:**
 
 * `flex-direction`: Row (default) or column
+
 * `justify-content`: Alignment on main axis
+
 * `align-items`: Alignment on cross axis
+
 * `flex-wrap`: Wrap items to new line
+
 * `gap`: Space between items
 
 **Flex Items:**
 
 * `flex-grow`: How much item grows
+
 * `flex-shrink`: How much item shrinks
+
 * `flex-basis`: Initial size before growing/shrinking
+
 * `flex`: Shorthand for grow, shrink, basis
+
 * `align-self`: Override container alignment
 
 **Example:**
@@ -372,8 +436,11 @@ Flexbox provides flexible one-dimensional layouts:
 **How Flexbox Works:**
 
 * Calculates available space
+
 * Distributes space based on flex values
+
 * Aligns items on main and cross axes
+
 * Handles wrapping and alignment
 
 ### 🔹 CSS Grid
@@ -383,24 +450,35 @@ Grid provides two-dimensional layouts:
 **Grid Container:**
 
 * `display: grid` creates grid container
+
 * Defines rows and columns
+
 * Children become grid items
 
 **Grid Properties:**
 
 * `grid-template-columns`: Define columns
+
 * `grid-template-rows`: Define rows
+
 * `grid-template-areas`: Named grid areas
+
 * `gap`: Space between grid items
+
 * `justify-items`: Horizontal alignment
+
 * `align-items`: Vertical alignment
 
 **Grid Items:**
 
 * `grid-column`: Column placement
+
 * `grid-row`: Row placement
+
 * `grid-area`: Area placement
+
 * `justify-self`: Override horizontal alignment
+
 * `align-self`: Override vertical alignment
 
 **Example:**
@@ -426,8 +504,11 @@ Grid provides two-dimensional layouts:
 **How Grid Works:**
 
 * Creates explicit grid lines
+
 * Places items in grid cells
+
 * Handles implicit tracks (auto-created)
+
 * Aligns items within cells
 
 ### 🔹 Positioning
@@ -437,14 +518,19 @@ Positioning controls element placement:
 **Position Values:**
 
 * `static` (default): Normal flow
+
 * `relative`: Offset from normal position
+
 * `absolute`: Positioned relative to nearest positioned ancestor
+
 * `fixed`: Positioned relative to viewport
+
 * `sticky`: Switches between relative and fixed
 
 **Positioning Properties:**
 
 * `top`, `right`, `bottom`, `left`: Offsets
+
 * `z-index`: Stacking order
 
 **Example:**
@@ -474,7 +560,7 @@ Positioning controls element placement:
 
 ---
 
-## 4. 🎨 Rendering Pipeline
+### 🔹 🎨 Rendering Pipeline
 
 ### 🔹 Style Calculation
 
@@ -483,16 +569,23 @@ Browsers calculate computed styles for each element:
 **Process:**
 
 1. Collect all rules matching element
+
 2. Resolve cascade (origin, specificity, order)
+
 3. Apply inheritance
+
 4. Calculate computed values
+
 5. Store in computed style object
 
 **Computed Values:**
 
 * Resolved values (percentages → pixels)
+
 * Inherited values applied
+
 * Default values for missing properties
+
 * Used for layout and painting
 
 **Example:**
@@ -517,24 +610,35 @@ Layout calculates position and size of elements:
 **Layout Process:**
 
 1. Calculate width/height of each element
+
 2. Determine position of each element
+
 3. Handle floats and positioning
+
 4. Calculate margins and padding
+
 5. Build layout tree
 
 **What Triggers Layout:**
 
 * DOM changes (add/remove elements)
+
 * Style changes (width, height, position)
+
 * Window resize
+
 * Font loading
+
 * Content changes (text, images)
 
 **Layout Performance:**
 
 * Layout is expensive (recalculates positions)
+
 * Minimize layout triggers
+
 * Use `transform` and `opacity` (don't trigger layout)
+
 * Batch DOM reads/writes
 
 ### 🔹 Paint
@@ -544,23 +648,33 @@ Paint fills pixels with colors and images:
 **Paint Process:**
 
 1. Create paint layers
+
 2. Fill backgrounds
+
 3. Draw borders
+
 4. Render text
+
 5. Paint images
+
 6. Apply effects (shadows, gradients)
 
 **Paint Layers:**
 
 * Elements with `transform`, `opacity`, `filter` get own layer
+
 * Layers are composited together
+
 * Enables hardware acceleration
+
 * Improves performance
 
 **What Triggers Paint:**
 
 * Style changes (color, background, border)
+
 * Layout changes (triggers repaint)
+
 * Visibility changes
 
 ### 🔹 Composite
@@ -570,29 +684,38 @@ Composite combines paint layers:
 **Compositing Process:**
 
 1. Combine paint layers
+
 2. Apply transforms and opacity
+
 3. Handle z-index stacking
+
 4. Output final pixels to screen
 
 **GPU Acceleration:**
 
 * Transforms and opacity use GPU
+
 * Faster than CPU painting
+
 * Enables smooth animations
+
 * Reduces main thread load
 
 **Composite-Only Properties:**
 
 * `transform`
+
 * `opacity`
+
 * `filter` (some browsers)
+
 * Don't trigger layout or paint
 
 📌 **In simple terms**: Style calculation resolves cascade and computes values. Layout calculates positions and sizes. Paint fills pixels. Composite combines layers. Optimize by minimizing layout/paint triggers and using composite-only properties.
 
 ---
 
-## 5. ⚡ Performance Optimization
+### 🔹 ⚡ Performance Optimization
 
 ### 🔹 CSS Performance Techniques
 
@@ -601,25 +724,33 @@ Optimize CSS for better performance:
 **Minification:**
 
 * Remove whitespace and comments
+
 * Reduce file size
+
 * Faster download and parsing
 
 **Critical CSS:**
 
 * Inline above-the-fold CSS
+
 * Defer non-critical CSS
+
 * Improves First Contentful Paint
 
 **Avoid Expensive Selectors:**
 
 * Avoid deep descendant selectors
+
 * Avoid universal selector (`*`)
+
 * Use classes instead of complex selectors
 
 **Use Efficient Properties:**
 
 * Prefer `transform` over `top/left`
+
 * Prefer `opacity` over `visibility`
+
 * Use `will-change` for animations
 
 **Example:**
@@ -651,14 +782,19 @@ CSS blocks rendering until parsed:
 **Why CSS Blocks:**
 
 * Prevents Flash of Unstyled Content (FOUC)
+
 * Browser needs styles before painting
+
 * All CSS must be parsed before first paint
 
 **Optimization Strategies:**
 
 * Inline critical CSS
+
 * Defer non-critical CSS
+
 * Use `media` attribute for conditional loading
+
 * Split CSS into multiple files
 
 **Example:**
@@ -681,19 +817,25 @@ Optimize animations for smooth performance:
 **Use Transform and Opacity:**
 
 * These properties use GPU
+
 * Don't trigger layout or paint
+
 * Smooth 60fps animations
 
 **Avoid Layout-Triggering Properties:**
 
 * `width`, `height`, `top`, `left`
+
 * `margin`, `padding`
+
 * Trigger expensive layout calculations
 
 **Use `will-change`:**
 
 * Hints browser to optimize
+
 * Use sparingly (has cost)
+
 * Remove when animation ends
 
 **Example:**

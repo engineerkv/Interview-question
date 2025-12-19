@@ -101,74 +101,6 @@ Design and implement a food delivery platform that addresses the following chall
 
 ---
 
-## d) Capacity Estimation
-
-### Throughput Requirements
-
-- **Total Users**: 50 million users
-- **Daily Active Users (DAU)**: 25 million users per day
-- **Peak Traffic**: 3x average during peak hours (lunch/dinner) (75 million users per day)
-- **Orders per Day**: 10 million orders
-- **Order Requests per Day**: 15 million order requests (some cancelled)
-- **Read:Write Ratio**: 100:1 (browsing restaurants/menus vs placing orders)
-
-**Calculations:**
-
-- **Average Writes Per Second (WPS)**: 15M order requests / 86,400 seconds ≈ 174 WPS
-- **Peak WPS**: 174 × 3 = 522 WPS
-- **Average Reads Per Second (RPS)**: 174 × 100 = 17,400 RPS
-- **Peak RPS**: 17,400 × 3 = 52,200 RPS
-- **Concurrent Active Orders**: 500,000 concurrent active orders
-- **Location Updates**: 10M orders × 50 location updates/order = 500M location updates/day ≈ 5,787 updates/second
-
-### Storage Estimation
-
-**Storage per Order:**
-
-- Order metadata: 2 KB (id, userId, restaurantId, items, status, timestamps)
-- Location tracking: 5 KB (50 location points × 100 bytes)
-- Payment data: 1 KB (total, payment method, transaction ID)
-- **Total per Order**: ~8 KB
-
-**Storage Requirements:**
-
-- **Orders per Year**: 10M orders/day × 365 = 3.65 billion orders
-- **Order Storage**: 3.65B × 8 KB ≈ 29.2 TB per year
-- **User Data**: 50M users × 5 KB ≈ 250 GB
-- **Restaurant Data**: 100K restaurants × 50 KB ≈ 5 GB
-- **Menu Data**: 100K restaurants × 500 KB ≈ 50 GB
-- **Total Storage**: ~29.2 TB (orders) + 250 GB (users) + 5 GB (restaurants) + 50 GB (menus) ≈ 29.5 TB/year
-
-### Bandwidth Estimation
-
-- **Average Location Update Size**: 100 bytes per update
-- **Daily Bandwidth**: 500M location updates × 100 bytes = 50 GB/day
-- **Peak Bandwidth**: 50 GB × 3 = 150 GB/day during peak hours
-- **Average Bandwidth**: 50 GB / 86,400 seconds ≈ 579 KB/s
-- **Peak Bandwidth**: 579 KB/s × 3 ≈ 1.74 MB/s
-
-### Caching Estimation
-
-Following the **80-20 rule** where 20% of restaurants generate 80% of traffic:
-
-- **Cache 20% of popular restaurants**: 100K × 0.2 = 20K restaurants
-- **Cache memory required**: 20K × 550 KB (restaurant + menu) = 11 GB (distributed across Redis cluster)
-- **Cache hit ratio**: 90% (only 10% of restaurant/menu requests hit database)
-- **Requests hitting Database**: 17,400 × 0.10 ≈ 1,740 RPS (manageable with sharding)
-
-### Infrastructure Sizing
-
-- **WebSocket Servers**: 1,000-2,000 instances behind load balancer, each handling 2,000-5,000 concurrent connections
-- **API Servers**: 500-1,000 instances for REST API, each handling 50-100 RPS
-- **Matching Service**: 50-100 instances for delivery partner matching
-- **Message Queue**: RabbitMQ/Kafka cluster with 20-50 nodes for order processing and assignment
-- **Database**: MongoDB cluster with 50-100 nodes for storage and high read/write throughput, with geospatial indexes
-- **Cache Layer**: Redis cluster with 50-100 nodes for high availability and performance
-- **Maps API**: Google Maps/Mapbox API for route calculation and ETA
-- **Payment Gateway**: Stripe/PayPal for payment processing
-
----
-
 ## e) Architecture Overview
 
 The system follows a food delivery architecture with real-time order tracking, geospatial matching, and distributed order management. Here's how the complete system works:
@@ -178,40 +110,40 @@ The system follows a food delivery architecture with real-time order tracking, g
 **Frontend Layers:**
 
 1. **Presentation Layer (React Components)**
-   - **UI Components**: Reusable components (RestaurantCard, MenuItem, OrderCard, TrackingMap)
-   - **Feature Components**: RestaurantList, MenuView, OrderPlacer, OrderTracker, PaymentForm
-   - **Layout Components**: Header, Sidebar, Navigation, MainLayout
-   - **Page Components**: HomePage, RestaurantPage, OrderPage, TrackingPage
+ - **UI Components**: Reusable components (RestaurantCard, MenuItem, OrderCard, TrackingMap)
+ - **Feature Components**: RestaurantList, MenuView, OrderPlacer, OrderTracker, PaymentForm
+ - **Layout Components**: Header, Sidebar, Navigation, MainLayout
+ - **Page Components**: HomePage, RestaurantPage, OrderPage, TrackingPage
 
 2. **State Management Layer**
-   - **Local State (useState)**: Component-specific UI state (selected items, cart, loading, errors)
-   - **Server State (Redux Toolkit)**: Global state for restaurants, orders, cart, user
-   - **WebSocket State**: Real-time order status updates, delivery location updates
+ - **Local State (useState)**: Component-specific UI state (selected items, cart, loading, errors)
+ - **Server State (Redux Toolkit)**: Global state for restaurants, orders, cart, user
+ - **WebSocket State**: Real-time order status updates, delivery location updates
 
 3. **Map Integration Layer**
-   - **Map Component**: Google Maps/Mapbox integration for restaurant and delivery tracking
-   - **Location Services**: Get current location, geocoding, route calculation
-   - **Marker Management**: Display restaurants, delivery partner locations, route visualization
+ - **Map Component**: Google Maps/Mapbox integration for restaurant and delivery tracking
+ - **Location Services**: Get current location, geocoding, route calculation
+ - **Marker Management**: Display restaurants, delivery partner locations, route visualization
 
 4. **API Integration Layer**
-   - **API Client**: Axios instance with interceptors for auth, error handling
-   - **Redux Thunks**: Async actions for API operations (placeOrder, trackOrder, processPayment)
-   - **Request/Response Transformation**: Data normalization and error handling
+ - **API Client**: Axios instance with interceptors for auth, error handling
+ - **Redux Thunks**: Async actions for API operations (placeOrder, trackOrder, processPayment)
+ - **Request/Response Transformation**: Data normalization and error handling
 
 5. **WebSocket Layer**
-   - **Socket.io Client**: WebSocket connection for real-time updates
-   - **Event Handlers**: Order status change, delivery location update, ETA update
-   - **Connection Management**: Auto-reconnect, heartbeat, connection state
+ - **Socket.io Client**: WebSocket connection for real-time updates
+ - **Event Handlers**: Order status change, delivery location update, ETA update
+ - **Connection Management**: Auto-reconnect, heartbeat, connection state
 
 6. **Routing Layer (React Router)**
-   - **Route Configuration**: Define routes and protected routes
-   - **Navigation**: Programmatic and declarative navigation
-   - **Route Guards**: Authentication and authorization checks
+ - **Route Configuration**: Define routes and protected routes
+ - **Navigation**: Programmatic and declarative navigation
+ - **Route Guards**: Authentication and authorization checks
 
 7. **Build & Deployment Layer**
-   - **Build Process**: Webpack/Vite bundling with code splitting
-   - **Static Assets**: Served from CDN (CloudFront/Cloudflare)
-   - **Environment Configuration**: Environment-specific API endpoints and WebSocket URLs
+ - **Build Process**: Webpack/Vite bundling with code splitting
+ - **Static Assets**: Served from CDN (CloudFront/Cloudflare)
+ - **Environment Configuration**: Environment-specific API endpoints and WebSocket URLs
 
 **Frontend Request Flow:**
 
@@ -296,11 +228,11 @@ The system follows a food delivery architecture with real-time order tracking, g
 
 ### Service Components
 
-```typescript
+```javascript
 class Service {
-  async processRequest(data: any) {
-    // Implementation details
-  }
+ async processRequest(data: any) {
+ // Implementation details
+ }
 }
 
 ```
@@ -318,66 +250,66 @@ Think of the frontend as a tree of React components - each component handles a s
 ```
 App
 ├── Header
-│   ├── Logo
-│   ├── LocationSelector
-│   ├── SearchBar
-│   └── CartIcon (with item count)
+│ ├── Logo
+│ ├── LocationSelector
+│ ├── SearchBar
+│ └── CartIcon (with item count)
 ├── MainContent
-│   ├── RestaurantListPage
-│   │   ├── FilterBar
-│   │   │   ├── CuisineFilter
-│   │   │   ├── PriceFilter
-│   │   │   └── RatingFilter
-│   │   ├── RestaurantGrid
-│   │   │   └── RestaurantCard
-│   │   │       ├── RestaurantImage
-│   │   │       ├── RestaurantName
-│   │   │       ├── CuisineType
-│   │   │       ├── Rating
-│   │   │       ├── DeliveryTime
-│   │   │       └── DeliveryFee
-│   │   └── Pagination
-│   ├── RestaurantDetailPage
-│   │   ├── RestaurantHeader
-│   │   │   ├── RestaurantImage
-│   │   │   ├── RestaurantInfo
-│   │   │   └── Rating
-│   │   ├── MenuSection
-│   │   │   └── MenuItem
-│   │   │       ├── ItemImage
-│   │   │       ├── ItemName
-│   │   │       ├── ItemDescription
-│   │   │       ├── ItemPrice
-│   │   │       └── AddToCartButton
-│   │   └── CartSummary
-│   ├── CartPage
-│   │   ├── CartItemList
-│   │   │   └── CartItem
-│   │   │       ├── ItemInfo
-│   │   │       ├── QuantitySelector
-│   │   │       └── RemoveButton
-│   │   ├── OrderSummary
-│   │   │   ├── Subtotal
-│   │   │   ├── DeliveryFee
-│   │   │   ├── Tax
-│   │   │   ├── Total
-│   │   │   └── CheckoutButton
-│   │   └── DeliveryAddressForm
-│   ├── OrderTrackingPage
-│   │   ├── OrderStatusTimeline
-│   │   ├── MapView
-│   │   │   ├── RestaurantLocation
-│   │   │   ├── DeliveryPartnerLocation
-│   │   │   └── UserLocation
-│   │   ├── DeliveryPartnerInfo
-│   │   └── EstimatedArrival
-│   └── OrderHistoryPage
-│       ├── OrderList
-│       │   └── OrderCard
-│       │       ├── OrderInfo
-│       │       ├── OrderItems
-│       │       ├── OrderStatus
-│       │       └── ReorderButton
+│ ├── RestaurantListPage
+│ │ ├── FilterBar
+│ │ │ ├── CuisineFilter
+│ │ │ ├── PriceFilter
+│ │ │ └── RatingFilter
+│ │ ├── RestaurantGrid
+│ │ │ └── RestaurantCard
+│ │ │ ├── RestaurantImage
+│ │ │ ├── RestaurantName
+│ │ │ ├── CuisineType
+│ │ │ ├── Rating
+│ │ │ ├── DeliveryTime
+│ │ │ └── DeliveryFee
+│ │ └── Pagination
+│ ├── RestaurantDetailPage
+│ │ ├── RestaurantHeader
+│ │ │ ├── RestaurantImage
+│ │ │ ├── RestaurantInfo
+│ │ │ └── Rating
+│ │ ├── MenuSection
+│ │ │ └── MenuItem
+│ │ │ ├── ItemImage
+│ │ │ ├── ItemName
+│ │ │ ├── ItemDescription
+│ │ │ ├── ItemPrice
+│ │ │ └── AddToCartButton
+│ │ └── CartSummary
+│ ├── CartPage
+│ │ ├── CartItemList
+│ │ │ └── CartItem
+│ │ │ ├── ItemInfo
+│ │ │ ├── QuantitySelector
+│ │ │ └── RemoveButton
+│ │ ├── OrderSummary
+│ │ │ ├── Subtotal
+│ │ │ ├── DeliveryFee
+│ │ │ ├── Tax
+│ │ │ ├── Total
+│ │ │ └── CheckoutButton
+│ │ └── DeliveryAddressForm
+│ ├── OrderTrackingPage
+│ │ ├── OrderStatusTimeline
+│ │ ├── MapView
+│ │ │ ├── RestaurantLocation
+│ │ │ ├── DeliveryPartnerLocation
+│ │ │ └── UserLocation
+│ │ ├── DeliveryPartnerInfo
+│ │ └── EstimatedArrival
+│ └── OrderHistoryPage
+│ ├── OrderList
+│ │ └── OrderCard
+│ │ ├── OrderInfo
+│ │ ├── OrderItems
+│ │ ├── OrderStatus
+│ │ └── ReorderButton
 └── SocketProvider (Real-time order updates)
 
 ```
@@ -386,151 +318,337 @@ App
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Restaurant Card Component
-const RestaurantCard: React.FC<{ restaurant: Restaurant }> = ({ restaurant }) => {
-  return (
-    <div className="restaurant-card" onClick={() => navigate(`/restaurants/${restaurant.id}`)}>
-      <img src={restaurant.image} alt={restaurant.name} />
-      <h3>{restaurant.name}</h3>
-      <div className="cuisine-type">{restaurant.cuisineType}</div>
-      <div className="restaurant-meta">
-        <span className="rating">⭐ {restaurant.rating}</span>
-        <span className="delivery-time">{restaurant.deliveryTime} min</span>
-        <span className="delivery-fee">${restaurant.deliveryFee}</span>
-      </div>
-    </div>
-  );
+const RestaurantCard<{ restaurant: Restaurant }> = ({ restaurant }) => {
+ return (
+ <div className="restaurant-card" onClick={() => navigate(`/restaurants/${restaurant.id}`)}>
+ <img src={restaurant.image} alt={restaurant.name} />
+ <h3>{restaurant.name}</h3>
+ <div className="cuisine-type">{restaurant.cuisineType}</div>
+ <div className="restaurant-meta">
+ <span className="rating">⭐ {restaurant.rating}</span>
+ <span className="delivery-time">{restaurant.deliveryTime} min</span>
+ <span className="delivery-fee">${restaurant.deliveryFee}</span>
+ </div>
+ </div>
+ );
 };
 
 // Menu Item Component
-const MenuItem: React.FC<{ item: MenuItem; restaurantId: string }> = ({ item, restaurantId }) => {
-  const dispatch = useAppDispatch();
+const MenuItem<{ item: MenuItem; restaurantId}> = ({ item, restaurantId }) => {
+ const dispatch = useAppDispatch();
 
-  const handleAddToCart = () => {
-    dispatch(addToCart({ item, restaurantId }));
-  };
+ const handleAddToCart = () => {
+ dispatch(addToCart({ item, restaurantId }));
+ };
 
-  return (
-    <div className="menu-item">
-      <img src={item.image} alt={item.name} />
-      <div className="item-info">
-        <h4>{item.name}</h4>
-        <p>{item.description}</p>
-        <div className="item-price">${item.price}</div>
-      </div>
-      <button onClick={handleAddToCart}>Add</button>
-    </div>
-  );
+ return (
+ <div className="menu-item">
+ <img src={item.image} alt={item.name} />
+ <div className="item-info">
+ <h4>{item.name}</h4>
+ <p>{item.description}</p>
+ <div className="item-price">${item.price}</div>
+ </div>
+ <button onClick={handleAddToCart}>Add</button>
+ </div>
+ );
 };
 
 // Order Tracking Component
-const OrderTrackingPage: React.FC<{ orderId: string }> = ({ orderId }) => {
-  const { data: order } = useOrder(orderId);
-  const { socket } = useSocket();
+const OrderTrackingPage<{ orderId}> = ({ orderId }) => {
+ const { data: order } = useOrder(orderId);
+ const { socket } = useSocket();
 
-  useEffect(() => {
-    socket.on('order-status-update', (status: OrderStatus) => {
-      // Update order status
-    });
+ useEffect(() => {
+ socket.on('order-status-update', (status: OrderStatus) => {
+ // Update order status
+ });
 
-    socket.on('delivery-location-update', (location: Location) => {
-      // Update delivery partner location on map
-    });
+ socket.on('delivery-location-update', (location: Location) => {
+ // Update delivery partner location on map
+ });
 
-    return () => {
-      socket.off('order-status-update');
-      socket.off('delivery-location-update');
-    };
-  }, [socket]);
+ return () => {
+ socket.off('order-status-update');
+ socket.off('delivery-location-update');
+ };
+ }, [socket]);
 
-  return (
-    <div className="order-tracking">
-      <OrderStatusTimeline status={order?.status} />
-      <MapView
-        restaurantLocation={order?.restaurantLocation}
-        deliveryPartnerLocation={order?.deliveryPartnerLocation}
-        userLocation={order?.userLocation}
-      />
-      <DeliveryPartnerInfo partner={order?.deliveryPartner} />
-      <EstimatedArrival eta={order?.eta} />
-    </div>
-  );
+ return (
+ <div className="order-tracking">
+ <OrderStatusTimeline status={order?.status} />
+ <MapView
+ restaurantLocation={order?.restaurantLocation}
+ deliveryPartnerLocation={order?.deliveryPartnerLocation}
+ userLocation={order?.userLocation}
+ />
+ <DeliveryPartnerInfo partner={order?.deliveryPartner} />
+ <EstimatedArrival eta={order?.eta} />
+ </div>
+ );
 };
 
 ```
 
-### State Management
+### ii) State Management
 
-**State Management Strategy:**
+**State Management Strategy (React 19):**
 
 - **Local State (useState)**: Form inputs, UI state (loading, errors, selected filters)
-- **Component State**: Each component manages its own UI state
-- **API State**: React Query or SWR for server state (restaurants, menu, orders) - caching, refetching
+- **Optimistic Updates (useOptimistic)**: React 19 hook for optimistic cart updates and order placement
+- **Form Actions (useActionState)**: React 19 hook for checkout forms with server actions
+- **use() Hook**: React 19 hook for reading WebSocket order status promises
+- **Transitions (useTransition)**: React 19 hook for non-urgent map updates and location changes
+- **API State**: React Query for server state (restaurants, menu, orders) - caching, refetching
 - **Global State (Redux Toolkit)**: User authentication, cart items, selected location, active order
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Using React Query for API state management
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 const useRestaurants = (filters: RestaurantFilters) => {
-  return useQuery({
-    queryKey: ['restaurants', filters],
-    queryFn: async () => {
-      const response = await axios.get('/api/v1/restaurants', { params: filters });
-      return response.data;
-    },
-    staleTime: 5 * 60 * 1000 // Cache for 5 minutes
-  });
+ return useQuery({
+ queryKey: ['restaurants', filters],
+ queryFn: async () => {
+ const response = await axios.get('/api/v1/restaurants', { params: filters });
+ return response.data;
+ },
+ staleTime: 5 * 60 * 1000 // Cache for 5 minutes
+ });
 };
 
 const usePlaceOrder = () => {
-  const queryClient = useQueryClient();
+ const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: async (orderData: OrderRequest) => {
-      const response = await axios.post('/api/v1/orders', orderData);
-      return response.data;
-    },
-    onSuccess: (data) => {
-      // Navigate to order tracking
-      navigate(`/orders/${data.orderId}/tracking`);
-      // Clear cart
-      dispatch(clearCart());
-    }
-  });
+ return useMutation({
+ mutationFn: async (orderData: OrderRequest) => {
+ const response = await axios.post('/api/v1/orders', orderData);
+ return response.data;
+ },
+ onSuccess: (data) => {
+ // Navigate to order tracking
+ navigate(`/orders/${data.orderId}/tracking`);
+ // Clear cart
+ dispatch(clearCart());
+ }
+ });
 };
 
 ```
 
-### Component Interactions
+### iii) Advanced Patterns with React 19
+
+**Optimistic Cart Updates:**
+
+```javascript
+import { useOptimistic, useTransition } from 'react';
+
+const MenuItem<{ item: MenuItem; restaurantId}> = ({ item, restaurantId }) => {
+ const [cart, setCart] = useState([]);
+ const [isPending, startTransition] = useTransition();
+
+ // React 19: useOptimistic for cart updates
+ const [optimisticCart, addOptimisticItem] = useOptimistic(
+ cart,
+ (state, newItem: CartItem) => [...state, { ...newItem, id: 'temp', syncing: true }]
+ );
+
+ const handleAddToCart = async () => {
+ const newItem: CartItem = {
+ id: 'temp',
+ itemId: item.id,
+ name: item.name,
+ price: item.price,
+ quantity: 1,
+ restaurantId
+ };
+
+ // Optimistically add to cart
+ startTransition(() => {
+ addOptimisticItem(newItem);
+ });
+
+ try {
+ await addToCartAPI(newItem);
+ // Update cart with real data
+ setCart(prev => [...prev, { ...newItem, id: item.id }]);
+ } catch (error) {
+ // Rollback on error
+ setCart(cart);
+ }
+ };
+
+ return (
+ <div className="menu-item">
+ <img src={item.image} alt={item.name} />
+ <div className="item-info">
+ <h4>{item.name}</h4>
+ <p>{item.description}</p>
+ <div className="item-price">${item.price}</div>
+ </div>
+ <button onClick={handleAddToCart} disabled={isPending}>
+ Add
+ </button>
+ </div>
+ );
+};
+```
+
+**Order Placement with React 19:**
+
+```javascript
+import { useActionState, useFormStatus, useTransition } from 'react';
+
+// React 19: Server Action for order placement
+async function placeOrderAction(
+ prevState: { error?},
+ formData: FormData
+) {
+ const orderData = {
+ restaurantId: formData.get('restaurantId') as string,
+ items: JSON.parse(formData.get('items') as string),
+ deliveryAddress: JSON.parse(formData.get('deliveryAddress') as string),
+ paymentMethod: formData.get('paymentMethod') as string
+ };
+
+ try {
+ const order = await placeOrderAPI(orderData);
+ return { success: true, orderId: order.orderId };
+ } catch (error) {
+ return { error: 'Failed to place order. Please try again.' };
+ }
+}
+
+const CheckoutButton= () => {
+ const { pending } = useFormStatus(); // React 19 hook
+
+ return (
+ <button type="submit" disabled={pending}>
+ {pending ? 'Placing Order...' : 'Place Order'}
+ </button>
+ );
+};
+
+const CheckoutPage= () => {
+ const cart = useSelector((state: RootState) => state.cart.items);
+
+ // React 19: useActionState for checkout form
+ const [state, formAction] = useActionState(placeOrderAction, {});
+
+ const handleSubmit = (formData: FormData) => {
+ formData.append('items', JSON.stringify(cart));
+ formAction(formData);
+ };
+
+ useEffect(() => {
+ if (state.success && state.orderId) {
+ navigate(`/orders/${state.orderId}/tracking`);
+ dispatch(clearCart());
+ }
+ }, [state]);
+
+ return (
+ <form action={handleSubmit}>
+ <DeliveryAddressForm />
+ <PaymentMethodSelector />
+ <OrderSummary items={cart} />
+ {state.error && <span className="error">{state.error}</span>}
+ <CheckoutButton />
+ </form>
+ );
+};
+```
+
+**Real-time Order Tracking:**
+
+```javascript
+import { useOptimistic, useTransition, use } from 'react';
+
+const OrderTrackingPage<{ orderId}> = ({ orderId }) => {
+ const [order, setOrder] = useState(null);
+ const [isPending, startTransition] = useTransition();
+ const { socket } = useSocket();
+
+ // React 19: use() hook for order data promise
+ const orderPromise = useMemo(() => fetchOrder(orderId), [orderId]);
+ const initialOrder = use(orderPromise);
+
+ // React 19: useOptimistic for order status updates
+ const [optimisticOrder, updateOrderStatus] = useOptimistic(
+ order || initialOrder,
+ (state, update: Partial) => ({ ...state, ...update })
+ );
+
+ useEffect(() => {
+ if (initialOrder) {
+ setOrder(initialOrder);
+ }
+
+ socket.on('order-status-update', (data: { orderId; status: OrderStatus }) => {
+ if (data.orderId === orderId) {
+ startTransition(() => {
+ updateOrderStatus({ status: data.status });
+ });
+ }
+ });
+
+ socket.on('delivery-location-update', (location: Location) => {
+ startTransition(() => {
+ updateOrderStatus({ deliveryPartnerLocation: location });
+ });
+ });
+
+ return () => {
+ socket.off('order-status-update');
+ socket.off('delivery-location-update');
+ };
+ }, [orderId, socket, initialOrder]);
+
+ return (
+ <div className="order-tracking">
+ <OrderStatusTimeline status={optimisticOrder?.status} />
+ <MapView
+ restaurantLocation={optimisticOrder?.restaurantLocation}
+ deliveryPartnerLocation={optimisticOrder?.deliveryPartnerLocation}
+ userLocation={optimisticOrder?.userLocation}
+ />
+ <DeliveryPartnerInfo partner={optimisticOrder?.deliveryPartner} />
+ <EstimatedArrival eta={optimisticOrder?.eta} />
+ </div>
+ );
+};
+```
+
+### iv) Implementation Details
 
 **Data Flow:**
 
-1. **Restaurant Browsing** → RestaurantListPage fetches restaurants, displays RestaurantCard components
-2. **Menu Viewing** → User clicks restaurant, navigates to RestaurantDetailPage with menu
-3. **Cart Management** → User adds items to cart, updates Redux cart state
-4. **Order Placement** → Checkout creates order, navigates to OrderTrackingPage
-5. **Real-time Tracking** → Socket.io updates order status and delivery partner location
+1. **Restaurant Browsing** → RestaurantListPage fetches restaurants via React Query, displays RestaurantCard components with lazy-loaded images
+2. **Menu Viewing** → User clicks restaurant, navigates to RestaurantDetailPage with menu using React 19 use() hook
+3. **Cart Management** → User adds items to cart with optimistic updates using useOptimistic
+4. **Order Placement** → Checkout creates order with React 19 useActionState, navigates to OrderTrackingPage
+5. **Real-time Tracking** → Socket.io updates order status and delivery partner location with useOptimistic
 
 **Event Handling:**
 
-- Restaurant search triggers debounced API call
-- Cart updates sync with Redux state
-- Order placement triggers payment processing
-- Socket.io events update order status and tracking
-- Location updates refresh nearby restaurants
+- Restaurant search triggers debounced API call using useDeferredValue
+- Cart updates sync optimistically with useOptimistic hook
+- Order placement triggers payment processing with React 19 form actions
+- Socket.io events update order status and tracking with transitions
+- Location updates refresh nearby restaurants with useTransition
 
-### UI/UX Considerations
+**UI/UX Considerations:**
 
-- **Loading States**: Show skeleton loaders for restaurant lists, spinners for actions
-- **Error Handling**: Display user-friendly error messages with retry options
-- **Validation**: Client-side validation for address and payment
-- **Responsive Design**: Mobile-first layout, optimized for touch interactions
-- **Accessibility**: ARIA labels, keyboard navigation, screen reader support
-- **Performance**: Image lazy loading, virtual scrolling for long lists, efficient map rendering
+- **Loading States**: Skeleton loaders for restaurant lists, spinners for actions, loading indicators for order tracking
+- **Error Handling**: User-friendly error messages with retry options, error boundaries for order failures
+- **Validation**: Client-side validation for address and payment with React 19 form validation
+- **Responsive Design**: Mobile-first layout, optimized for touch interactions, adaptive map sizing
+- **Accessibility**: ARIA labels, keyboard navigation, screen reader support, focus management
+- **Performance**: Image lazy loading with Intersection Observer, virtual scrolling for long lists, efficient map rendering with React 19 transitions
 
 ---
 
@@ -538,13 +656,13 @@ const usePlaceOrder = () => {
 
 ### Model Interface
 
-```typescript
-interface Model {
-  id: string;
-  // Model fields
-  createdAt: Date;
-  updatedAt: Date;
-}
+```javascript
+// Model structure:
+//
+ id;
+ // Model fields
+ createdAt;
+ updatedAt;
 
 ```
 
@@ -560,44 +678,44 @@ interface Model {
 
 - **Request Body:**
 
-  ```json
-  {
-    "restaurantId": "restaurant_abc123",
-    "items": [
-      {
-        "itemId": "item_xyz789",
-        "quantity": 2,
-        "price": 15.99
-      }
-    ],
-    "deliveryAddress": {
-      "street": "123 Main St",
-      "city": "New York",
-      "zipCode": "10001",
-      "latitude": 40.7128,
-      "longitude": -74.0060
-    },
-    "paymentMethod": "card"
-  }
+ ```json
+ {
+ "restaurantId": "restaurant_abc123",
+ "items": [
+ {
+ "itemId": "item_xyz789",
+ "quantity": 2,
+ "price": 15.99
+ }
+ ],
+ "deliveryAddress": {
+ "street": "123 Main St",
+ "city": "New York",
+ "zipCode": "10001",
+ "latitude": 40.7128,
+ "longitude": -74.0060
+ },
+ "paymentMethod": "card"
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "orderId": "order_abc123",
-      "restaurantId": "restaurant_abc123",
-      "status": "placed",
-      "estimatedDeliveryTime": 30,
-      "totalAmount": 31.98,
-      "createdAt": "2024-01-15T10:30:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "orderId": "order_abc123",
+ "restaurantId": "restaurant_abc123",
+ "status": "placed",
+ "estimatedDeliveryTime": 30,
+ "totalAmount": 31.98,
+ "createdAt": "2024-01-15T10:30:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error)
 
@@ -609,31 +727,31 @@ interface Model {
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "orderId": "order_abc123",
-      "status": "out_for_delivery",
-      "restaurant": {
-        "name": "Restaurant Name",
-        "address": "123 Restaurant St"
-      },
-      "deliveryPartner": {
-        "name": "John Doe",
-        "phone": "+1234567890",
-        "location": {
-          "latitude": 40.7150,
-          "longitude": -74.0080
-        }
-      },
-      "estimatedDeliveryTime": 15,
-      "items": [...],
-      "totalAmount": 31.98
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "orderId": "order_abc123",
+ "status": "out_for_delivery",
+ "restaurant": {
+ "name": "Restaurant Name",
+ "address": "123 Restaurant St"
+ },
+ "deliveryPartner": {
+ "name": "John Doe",
+ "phone": "+1234567890",
+ "location": {
+ "latitude": 40.7150,
+ "longitude": -74.0080
+ }
+ },
+ "estimatedDeliveryTime": 15,
+ "items": [...],
+ "totalAmount": 31.98
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 404 (Not Found)
 
@@ -644,37 +762,60 @@ interface Model {
 - **Method:** GET
 
 - **Query Parameters:**
-  - `latitude`: number (required)
-  - `longitude`: number (required)
-  - `radius`: number (default: 5km)
-  - `cuisine`: string (optional)
+ - `latitude`(required)
+ - `longitude`(required)
+ - `radius`(default: 5km)
+ - `cuisine`(optional)
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "restaurants": [
-        {
-          "restaurantId": "restaurant_abc123",
-          "name": "Restaurant Name",
-          "cuisine": "Italian",
-          "rating": 4.5,
-          "distance": 2.5,
-          "estimatedDeliveryTime": 25
-        }
-      ]
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "restaurants": [
+ {
+ "restaurantId": "restaurant_abc123",
+ "name": "Restaurant Name",
+ "cuisine": "Italian",
+ "rating": 4.5,
+ "distance": 2.5,
+ "estimatedDeliveryTime": 25
+ }
+ ]
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success)
 
 ---
 
-## Backend Implementation Details
+## b) Backend
+
+*Note: Backend implementation details are kept minimal. Focus is on frontend integration.*
+
+**API Endpoints Reference:**
+
+- `GET /api/v1/restaurants` - Get restaurants with filters
+- `GET /api/v1/restaurants/:id` - Get restaurant details
+- `GET /api/v1/restaurants/:id/menu` - Get restaurant menu
+- `POST /api/v1/orders` - Place order
+- `GET /api/v1/orders/:orderId` - Get order details
+- `GET /api/v1/orders` - Get user orders
+- `PUT /api/v1/orders/:orderId/cancel` - Cancel order
+
+**WebSocket Events:**
+
+- `order:join` - Join order room for tracking
+- `order:status-update` - Order status changed
+- `order:status:changed` - Receive order status update
+- `delivery-location-update` - Delivery partner location update
+- `delivery:location:changed` - Receive delivery location update
+- `eta:update` - ETA update
+
+---
 
 ### Express.js Server Structure
 
@@ -690,22 +831,22 @@ server/
 
 ### Order Service
 
-```typescript
+```javascript
 class OrderService {
-  async createOrder(orderData: OrderRequest): Promise<Order> {
-    // Validate order
-    // Assign restaurant
-    // Process payment
-    // Create order
-    // Assign delivery partner
-    // Return order
-  }
+ async createOrder(orderData: OrderRequest){
+ // Validate order
+ // Assign restaurant
+ // Process payment
+ // Create order
+ // Assign delivery partner
+ // Return order
+ }
 
-  async findNearbyRestaurants(lat: number, lon: number, radius: number): Promise<Restaurant[]> {
-    // Geospatial query
-    // Filter by radius
-    // Return restaurants
-  }
+ async findNearbyRestaurants(lat, lon, radius){
+ // Geospatial query
+ // Filter by radius
+ // Return restaurants
+ }
 }
 
 ```
@@ -767,145 +908,145 @@ class OrderService {
 
 **Backend (Express.js):**
 
-```typescript
+```javascript
 // Backend: services/OrderService.ts
 import redis from '../config/redis';
 
 class OrderService {
-  async findNearbyRestaurants(lat: number, lon: number, radius: number = 5): Promise<Restaurant[]> {
-    // Geospatial query using Redis GeoHash
-    const restaurants = await redis.georadius(
-      'restaurants:available',
-      lon,
-      lat,
-      radius,
-      'km',
-      'WITHCOORD',
-      'WITHDIST',
-      'ASC'
-    );
+ async findNearbyRestaurants(lat, lon, radius= 5){
+ // Geospatial query using Redis GeoHash
+ const restaurants = await redis.georadius(
+ 'restaurants:available',
+ lon,
+ lat,
+ radius,
+ 'km',
+ 'WITHCOORD',
+ 'WITHDIST',
+ 'ASC'
+ );
 
-    return restaurants.map((restaurant: any) => ({
-      restaurantId: restaurant[0],
-      distance: restaurant[1],
-      coordinates: {
-        latitude: restaurant[2][1],
-        longitude: restaurant[2][0]
-      }
-    }));
-  }
+ return restaurants.map((restaurant: any) => ({
+ restaurantId: restaurant[0],
+ distance: restaurant[1],
+ coordinates: {
+ latitude: restaurant[2][1],
+ longitude: restaurant[2][0]
+ }
+ }));
+ }
 
-  async createOrder(orderData: OrderRequest): Promise<Order> {
-    const session = await mongoose.startSession();
-    session.startTransaction();
+ async createOrder(orderData: OrderRequest){
+ const session = await mongoose.startSession();
+ session.startTransaction();
 
-    try {
-      // Find nearby restaurant
-      const restaurants = await this.findNearbyRestaurants(
-        orderData.deliveryAddress.latitude,
-        orderData.deliveryAddress.longitude
-      );
+ try {
+ // Find nearby restaurant
+ const restaurants = await this.findNearbyRestaurants(
+ orderData.deliveryAddress.latitude,
+ orderData.deliveryAddress.longitude
+ );
 
-      if (restaurants.length === 0) {
-        throw new Error('No restaurants available in your area');
-      }
+ if (restaurants.length === 0) {
+ throw new Error('No restaurants available in your area');
+ }
 
-      const restaurant = restaurants[0];
+ const restaurant = restaurants[0];
 
-      // Process payment
-      const payment = await paymentService.processPayment({
-        amount: orderData.totalAmount,
-        paymentMethod: orderData.paymentMethod
-      });
+ // Process payment
+ const payment = await paymentService.processPayment({
+ amount: orderData.totalAmount,
+ paymentMethod: orderData.paymentMethod
+ });
 
-      // Create order
-      const order = await Order.create([{
-        restaurantId: restaurant.restaurantId,
-        userId: orderData.userId,
-        items: orderData.items,
-        deliveryAddress: orderData.deliveryAddress,
-        status: 'placed',
-        totalAmount: orderData.totalAmount,
-        paymentId: payment.paymentId
-      }], { session });
+ // Create order
+ const order = await Order.create([{
+ restaurantId: restaurant.restaurantId,
+ userId: orderData.userId,
+ items: orderData.items,
+ deliveryAddress: orderData.deliveryAddress,
+ status: 'placed',
+ totalAmount: orderData.totalAmount,
+ paymentId: payment.paymentId
+ }], { session });
 
-      // Assign delivery partner
-      const deliveryPartner = await this.assignDeliveryPartner(
-        restaurant.restaurantId,
-        orderData.deliveryAddress
-      );
+ // Assign delivery partner
+ const deliveryPartner = await this.assignDeliveryPartner(
+ restaurant.restaurantId,
+ orderData.deliveryAddress
+ );
 
-      order[0].deliveryPartnerId = deliveryPartner.partnerId;
-      await order[0].save({ session });
+ order[0].deliveryPartnerId = deliveryPartner.partnerId;
+ await order[0].save({ session });
 
-      await session.commitTransaction();
+ await session.commitTransaction();
 
-      // Emit order created event
-      io.emit('order:created', order[0]);
+ // Emit order created event
+ io.emit('order:created', order[0]);
 
-      return order[0];
-    } catch (error) {
-      await session.abortTransaction();
-      throw error;
-    } finally {
-      session.endSession();
-    }
-  }
+ return order[0];
+ } catch (error) {
+ await session.abortTransaction();
+ throw error;
+ } finally {
+ session.endSession();
+ }
+ }
 }
 
 ```
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // React component for order placement
 import { useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-const OrderPlacement: React.FC = () => {
-  const [cart, setCart] = useState<CartItem[]>([]);
-  const [deliveryAddress, setDeliveryAddress] = useState<Address | null>(null);
+const OrderPlacement= () => {
+ const [cart, setCart] = useState([]);
+ const [deliveryAddress, setDeliveryAddress] = useState(null);
 
-  // Get nearby restaurants
-  const { data: restaurants } = useQuery({
-    queryKey: ['restaurants', deliveryAddress],
-    queryFn: () => axios.get('/api/v1/restaurants', {
-      params: {
-        latitude: deliveryAddress?.latitude,
-        longitude: deliveryAddress?.longitude
-      }
-    }).then(res => res.data.data.restaurants),
-    enabled: !!deliveryAddress
-  });
+ // Get nearby restaurants
+ const { data: restaurants } = useQuery({
+ queryKey: ['restaurants', deliveryAddress],
+ queryFn: () => axios.get('/api/v1/restaurants', {
+ params: {
+ latitude: deliveryAddress?.latitude,
+ longitude: deliveryAddress?.longitude
+ }
+ }).then(res => res.data.data.restaurants),
+ enabled: !!deliveryAddress
+ });
 
-  const { mutate: createOrder, isLoading } = useMutation({
-    mutationFn: (orderData: any) =>
-      axios.post('/api/v1/orders', orderData),
-    onSuccess: () => {
-      // Show success, navigate to tracking
-    }
-  });
+ const { mutate: createOrder, isLoading } = useMutation({
+ mutationFn: (orderData: any) =>
+ axios.post('/api/v1/orders', orderData),
+ onSuccess: () => {
+ // Show success, navigate to tracking
+ }
+ });
 
-  const handlePlaceOrder = () => {
-    createOrder({
-      restaurantId: selectedRestaurant,
-      items: cart,
-      deliveryAddress,
-      paymentMethod: 'card'
-    });
-  };
+ const handlePlaceOrder = () => {
+ createOrder({
+ restaurantId: selectedRestaurant,
+ items: cart,
+ deliveryAddress,
+ paymentMethod: 'card'
+ });
+ };
 
-  return (
-    <div>
-      {/* Restaurant selection */}
-      {/* Cart */}
-      {/* Delivery address */}
-      <button onClick={handlePlaceOrder} disabled={isLoading}>
-        {isLoading ? 'Placing Order...' : 'Place Order'}
-      </button>
-    </div>
-  );
+ return (
+ <div>
+ {/* Restaurant selection */}
+ {/* Cart */}
+ {/* Delivery address */}
+ <button onClick={handlePlaceOrder} disabled={isLoading}>
+ {isLoading ? 'Placing Order...' : 'Place Order'}
+ </button>
+ </div>
+ );
 };
 
 ```
@@ -921,36 +1062,36 @@ const OrderPlacement: React.FC = () => {
 
 **Backend (Express.js):**
 
-```typescript
+```javascript
 // Backend: socket/orderSocket.ts
 export const setupOrderSocket = (io: Server) => {
-  io.on('connection', (socket) => {
-    socket.on('order:join', (orderId: string) => {
-      socket.join(`order:${orderId}`);
-    });
+ io.on('connection', (socket) => {
+ socket.on('order:join', (orderId) => {
+ socket.join(`order:${orderId}`);
+ });
 
-    // Broadcast order status updates
-    socket.on('order:status:update', async (data: { orderId: string; status: string }) => {
-      const order = await Order.findById(data.orderId);
-      if (order) {
-        order.status = data.status;
-        await order.save();
+ // Broadcast order status updates
+ socket.on('order:status:update', async (data: { orderId; status}) => {
+ const order = await Order.findById(data.orderId);
+ if (order) {
+ order.status = data.status;
+ await order.save();
 
-        io.to(`order:${data.orderId}`).emit('order:status:changed', {
-          orderId: data.orderId,
-          status: data.status
-        });
-      }
-    });
+ io.to(`order:${data.orderId}`).emit('order:status:changed', {
+ orderId: data.orderId,
+ status: data.status
+ });
+ }
+ });
 
-    // Broadcast delivery partner location
-    socket.on('delivery:location:update', (data: { orderId: string; location: any }) => {
-      io.to(`order:${data.orderId}`).emit('delivery:location:changed', {
-        orderId: data.orderId,
-        location: data.location
-      });
-    });
-  });
+ // Broadcast delivery partner location
+ socket.on('delivery:location:update', (data: { orderId; location: any }) => {
+ io.to(`order:${data.orderId}`).emit('delivery:location:changed', {
+ orderId: data.orderId,
+ location: data.location
+ });
+ });
+ });
 };
 
 ```
@@ -962,24 +1103,24 @@ export const setupOrderSocket = (io: Server) => {
 
 **Backend (Express.js):**
 
-```typescript
+```javascript
 // Backend: middleware/errorHandler.ts
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error('Order Error:', err);
+ console.error('Order Error:', err);
 
-  if (err.message === 'No restaurants available') {
-    return res.status(404).json({ error: 'No restaurants available in your area. Please try a different location.' });
-  }
+ if (err.message === 'No restaurants available') {
+ return res.status(404).json({ error: 'No restaurants available in your area. Please try a different location.' });
+ }
 
-  if (err.message === 'Payment failed') {
-    return res.status(402).json({ error: 'Payment failed. Please try again.' });
-  }
+ if (err.message === 'Payment failed') {
+ return res.status(402).json({ error: 'Payment failed. Please try again.' });
+ }
 
-  if (err.name === 'ValidationError') {
-    return res.status(400).json({ error: 'Invalid order data', details: err.message });
-  }
+ if (err.name === 'ValidationError') {
+ return res.status(400).json({ error: 'Invalid order data', details: err.message });
+ }
 
-  res.status(500).json({ error: 'Internal server error' });
+ res.status(500).json({ error: 'Internal server error' });
 };
 
 ```
@@ -1226,19 +1367,19 @@ SOCKET_IO_REDIS_URL=redis://...
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await Order.create([orderData], { session });
-  await Restaurant.updateOne({ restaurantId }, { $inc: { orderCount: 1 } }, { session });
-  await DeliveryPartner.updateOne({ partnerId }, { $set: { status: 'busy' } }, { session });
-  await session.commitTransaction();
+ await Order.create([orderData], { session });
+ await Restaurant.updateOne({ restaurantId }, { $inc: { orderCount: 1 } }, { session });
+ await DeliveryPartner.updateOne({ partnerId }, { $set: { status: 'busy' } }, { session });
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -1307,36 +1448,36 @@ try {
 
 **Implementation:**
 
-```typescript
+```javascript
 class DeliveryMatchingService {
-  async findNearestPartner(
-    restaurantLat: number,
-    restaurantLon: number,
-    radius: number = 5
-  ): Promise<string | null> {
-    // Search using Redis GeoHash
-    const partners = await redis.georadius(
-      'partners:available',
-      restaurantLon,
-      restaurantLat,
-      radius,
-      'km',
-      'WITHCOORD',
-      'WITHDIST',
-      'ASC',
-      'COUNT',
-      10
-    );
+ async findNearestPartner(
+ restaurantLat,
+ restaurantLon,
+ radius= 5
+ ){
+ // Search using Redis GeoHash
+ const partners = await redis.georadius(
+ 'partners:available',
+ restaurantLon,
+ restaurantLat,
+ radius,
+ 'km',
+ 'WITHCOORD',
+ 'WITHDIST',
+ 'ASC',
+ 'COUNT',
+ 10
+ );
 
-    if (partners.length === 0 && radius < 10) {
-      return this.findNearestPartner(restaurantLat, restaurantLon, 10);
-    }
+ if (partners.length === 0 && radius < 10) {
+ return this.findNearestPartner(restaurantLat, restaurantLon, 10);
+ }
 
-    // Filter available and rank by distance and rating
-    const rankedPartners = await this.rankPartners(partners);
+ // Filter available and rank by distance and rating
+ const rankedPartners = await this.rankPartners(partners);
 
-    return rankedPartners.length > 0 ? rankedPartners[0].partnerId : null;
-  }
+ return rankedPartners.length > 0 ? rankedPartners[0].partnerId : null;
+ }
 }
 
 ```
@@ -1364,21 +1505,21 @@ class DeliveryMatchingService {
 
 **Implementation:**
 
-```typescript
+```javascript
 function calculateETA(
-  restaurantLocation: Location,
-  customerLocation: Location,
-  preparationTime: number = 20
-): number {
-  const distance = calculateDistance(restaurantLocation, customerLocation);
-  const baseTime = distance / 30; // 30 km/h average speed
-  const trafficMultiplier = getTrafficMultiplier(restaurantLocation, customerLocation);
-  const historicalTime = getHistoricalETA(restaurantLocation, customerLocation);
+ restaurantLocation: Location,
+ customerLocation: Location,
+ preparationTime= 20
+){
+ const distance = calculateDistance(restaurantLocation, customerLocation);
+ const baseTime = distance / 30; // 30 km/h average speed
+ const trafficMultiplier = getTrafficMultiplier(restaurantLocation, customerLocation);
+ const historicalTime = getHistoricalETA(restaurantLocation, customerLocation);
 
-  const travelTime = (baseTime * trafficMultiplier + historicalTime) / 2;
-  const totalETA = preparationTime + travelTime;
+ const travelTime = (baseTime * trafficMultiplier + historicalTime) / 2;
+ const totalETA = preparationTime + travelTime;
 
-  return Math.ceil(totalETA); // Round up to nearest minute
+ return Math.ceil(totalETA); // Round up to nearest minute
 }
 
 ```
@@ -1397,23 +1538,22 @@ function calculateETA(
 
 ```javascript
 {
-  _id: ObjectId,
-  orderId: String,           // Unique order ID, indexed
-  userId: ObjectId,          // Customer reference, indexed
-  restaurantId: ObjectId,    // Restaurant reference, indexed
-  deliveryPartnerId: ObjectId, // Delivery partner reference, indexed
-  items: [Object],           // Array of order items
-  totalAmount: Number,       // Total order amount
-  deliveryFee: Number,       // Delivery fee
-  status: String,           // placed, accepted, preparing, ready, picked_up, in_transit, delivered, cancelled
-  deliveryAddress: Object,   // { address, latitude, longitude }
-  estimatedDeliveryTime: Number, // ETA in minutes
-  actualDeliveryTime: Date,  // Actual delivery timestamp
-  paymentId: ObjectId,       // Payment reference
-  placedAt: Date,           // Order placed timestamp, indexed
-  createdAt: Date,
-  updatedAt: Date
-}
+ _id: ObjectId,
+ orderId: String, // Unique order ID, indexed
+ userId: ObjectId, // Customer reference, indexed
+ restaurantId: ObjectId, // Restaurant reference, indexed
+ deliveryPartnerId: ObjectId, // Delivery partner reference, indexed
+ items: [Object], // Array of order items
+ totalAmount: Number, // Total order amount
+ deliveryFee: Number, // Delivery fee
+ status: String, // placed, accepted, preparing, ready, picked_up, in_transit, delivered, cancelled
+ deliveryAddress: Object, // { address, latitude, longitude }
+ estimatedDeliveryTime: Number, // ETA in minutes
+ actualDeliveryTime, // Actual delivery timestamp
+ paymentId: ObjectId, // Payment reference
+ placedAt, // Order placed timestamp, indexed
+ createdAt,
+ updatedAt}
 
 // Indexes:
 // - { orderId: 1 } (unique)
@@ -1428,17 +1568,16 @@ function calculateETA(
 
 ```javascript
 {
-  _id: ObjectId,
-  partnerId: String,         // Unique partner ID, indexed
-  userId: ObjectId,          // User reference, indexed
-  location: Object,          // { latitude, longitude } (geospatial index)
-  status: String,           // available, busy, offline
-  rating: Number,           // Average rating
-  totalDeliveries: Number,  // Total deliveries completed
-  currentOrderId: ObjectId, // Current active order
-  createdAt: Date,
-  updatedAt: Date
-}
+ _id: ObjectId,
+ partnerId: String, // Unique partner ID, indexed
+ userId: ObjectId, // User reference, indexed
+ location: Object, // { latitude, longitude } (geospatial index)
+ status: String, // available, busy, offline
+ rating: Number, // Average rating
+ totalDeliveries: Number, // Total deliveries completed
+ currentOrderId: ObjectId, // Current active order
+ createdAt,
+ updatedAt}
 
 // Indexes:
 // - { partnerId: 1 } (unique)
@@ -1461,19 +1600,19 @@ function calculateETA(
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await Order.create([orderData], { session });
-  await Restaurant.updateOne({ restaurantId }, { $inc: { orderCount: 1 } }, { session });
-  await DeliveryPartner.updateOne({ partnerId }, { $set: { status: 'busy' } }, { session });
-  await session.commitTransaction();
+ await Order.create([orderData], { session });
+ await Restaurant.updateOne({ restaurantId }, { $inc: { orderCount: 1 } }, { session });
+ await DeliveryPartner.updateOne({ partnerId }, { $set: { status: 'busy' } }, { session });
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -1517,35 +1656,35 @@ try {
 - **Description:** Create a new order
 - **Request Body:**
 
-  ```json
-  {
-    "restaurantId": "rest_abc123",
-    "items": [
-      { "itemId": "item_1", "quantity": 2, "price": 15.99 }
-    ],
-    "deliveryAddress": {
-      "address": "123 Main St",
-      "latitude": 40.7128,
-      "longitude": -74.0060
-    }
-  }
+ ```json
+ {
+ "restaurantId": "rest_abc123",
+ "items": [
+ { "itemId": "item_1", "quantity": 2, "price": 15.99 }
+ ],
+ "deliveryAddress": {
+ "address": "123 Main St",
+ "latitude": 40.7128,
+ "longitude": -74.0060
+ }
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "orderId": "order_abc123",
-      "status": "placed",
-      "estimatedDeliveryTime": 30,
-      "totalAmount": 31.98
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "orderId": "order_abc123",
+ "status": "placed",
+ "estimatedDeliveryTime": 30,
+ "totalAmount": 31.98
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error)
 
@@ -1556,19 +1695,19 @@ try {
 - **Description:** Get order details with real-time status
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "orderId": "order_abc123",
-      "status": "in_transit",
-      "deliveryPartner": {...},
-      "currentLocation": {...},
-      "eta": 5
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "orderId": "order_abc123",
+ "status": "in_transit",
+ "deliveryPartner": {...},
+ "currentLocation": {...},
+ "eta": 5
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 404 (Order Not Found)
 
@@ -1583,9 +1722,9 @@ try {
 - **Key Format:** `order:{orderId}`, `partner:location:{partnerId}`, `restaurants:nearby:{lat}:{lon}`
 - **Value:** Serialized JSON (order data, partner location, nearby restaurants)
 - **TTL:**
-  - Order data: 300 seconds (5 minutes)
-  - Partner locations: 60 seconds (frequently updated)
-  - Nearby restaurants: 600 seconds (10 minutes)
+ - Order data: 300 seconds (5 minutes)
+ - Partner locations: 60 seconds (frequently updated)
+ - Nearby restaurants: 600 seconds (10 minutes)
 - **Eviction Policy:** TTL-based eviction
 
 **Cache Patterns:**
@@ -1612,12 +1751,12 @@ try {
 
 ```json
 {
-  "error": {
-    "code": "NO_PARTNER_AVAILABLE",
-    "message": "No delivery partner available",
-    "details": "We're experiencing high demand. Your order will be assigned shortly.",
-    "retryAfter": 60
-  }
+ "error": {
+ "code": "NO_PARTNER_AVAILABLE",
+ "message": "No delivery partner available",
+ "details": "We're experiencing high demand. Your order will be assigned shortly.",
+ "retryAfter": 60
+ }
 }
 
 ```

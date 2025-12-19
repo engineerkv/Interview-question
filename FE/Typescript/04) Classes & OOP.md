@@ -35,7 +35,7 @@ class BankAccount {
     this.balance = initialBalance; // Can access private property (within class)
     this.bankName = "MyBank"; // Can access protected property (within class)
   }
-  
+
   // Public method can access private property
   getBalance(): number {
     return this.balance; // Accessing private property is allowed within class
@@ -95,7 +95,7 @@ class Vehicle {
 
 // Child class: inherits from Vehicle, overrides start method
 class Car extends Vehicle {
-  start(): string { 
+  start(): string {
     return `Car ${super.start()}`; // super.start() calls parent's start method
   }
 }

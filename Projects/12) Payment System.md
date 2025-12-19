@@ -101,73 +101,6 @@ Design and implement a secure payment processing system that addresses the follo
 
 ---
 
-## d) Capacity Estimation
-
-### Throughput Requirements
-
-- **Total Users**: 500 million users
-- **Daily Active Users (DAU)**: 100 million users per day
-- **Peak Traffic**: 3x average during peak hours (300 million users per day)
-- **Transactions per Day**: 1 billion transactions
-- **Transaction Requests per Day**: 1.2 billion transaction requests (some failed)
-- **Read:Write Ratio**: 10:1 (viewing payment history vs processing payments)
-
-**Calculations:**
-
-- **Average Writes Per Second (WPS)**: 1.2B transaction requests / 86,400 seconds ≈ 13,889 WPS
-- **Peak WPS**: 13,889 × 3 = 41,667 WPS
-- **Average Reads Per Second (RPS)**: 13,889 × 10 = 138,890 RPS
-- **Peak RPS**: 138,890 × 3 = 416,670 RPS
-- **Concurrent Active Transactions**: 10 million concurrent active transactions
-
-### Storage Estimation
-
-**Storage per Transaction:**
-
-- Transaction metadata: 1 KB (id, userId, amount, status, payment method, timestamps)
-- Payment gateway response: 500 bytes (gateway transaction ID, response code, message)
-- Fraud detection data: 500 bytes (risk score, flags, analysis)
-- Audit log: 1 KB (request/response logs, IP address, user agent)
-- **Total per Transaction**: ~3 KB
-
-**Storage Requirements:**
-
-- **Transactions per Year**: 1B transactions/day × 365 = 365 billion transactions
-- **Transaction Storage**: 365B × 3 KB ≈ 1.095 PB per year
-- **User Data**: 500M users × 5 KB ≈ 2.5 TB
-- **Payment Methods**: 500M users × 2 payment methods × 1 KB ≈ 1 TB
-- **Total Storage**: ~1.095 PB (transactions) + 2.5 TB (users) + 1 TB (payment methods) ≈ 1.098 PB/year
-
-### Bandwidth Estimation
-
-- **Average Transaction Request Size**: 2 KB per request
-- **Daily Bandwidth**: 1.2B requests × 2 KB = 2.4 TB/day
-- **Peak Bandwidth**: 2.4 TB × 3 = 7.2 TB/day during peak hours
-- **Average Bandwidth**: 2.4 TB / 86,400 seconds ≈ 27.8 MB/s
-- **Peak Bandwidth**: 27.8 MB/s × 3 ≈ 83.4 MB/s
-
-### Caching Estimation
-
-Following the **80-20 rule** where 20% of users generate 80% of traffic:
-
-- **Cache 20% of active users' payment methods**: 100M × 0.2 = 20M users
-- **Cache memory required**: 20M × 2 KB = 40 GB (distributed across Redis cluster)
-- **Cache hit ratio**: 95% (only 5% of payment method requests hit database)
-- **Requests hitting Database**: 138,890 × 0.05 ≈ 6,945 RPS (manageable with sharding)
-
-### Infrastructure Sizing
-
-- **API Servers**: 2,000-5,000 instances behind load balancer, each handling 20-50 RPS
-- **Payment Processing Workers**: 500-1,000 instances for async payment processing
-- **Webhook Handlers**: 200-500 instances for processing payment gateway webhooks
-- **Fraud Detection Service**: 100-200 instances for fraud analysis
-- **Message Queue**: RabbitMQ/Kafka cluster with 50-100 nodes for payment processing and webhooks
-- **Database**: PostgreSQL cluster with 100-200 nodes for ACID compliance and high read/write throughput
-- **Cache Layer**: Redis cluster with 50-100 nodes for high availability and performance
-- **Payment Gateways**: Multiple payment gateway providers with appropriate rate limits and failover
-
----
-
 ## e) Architecture Overview
 
 The system follows a secure payment processing architecture with idempotency, fraud detection, and distributed transaction management. Here's how the complete system works:
@@ -177,35 +110,35 @@ The system follows a secure payment processing architecture with idempotency, fr
 **Frontend Layers:**
 
 1. **Presentation Layer (React Components)**
-   - **UI Components**: Reusable components (PaymentForm, PaymentMethodCard, TransactionCard, ReceiptView)
-   - **Feature Components**: PaymentProcessor, PaymentHistory, RefundRequest, PaymentMethodManager
-   - **Layout Components**: Header, Sidebar, Navigation, MainLayout
-   - **Page Components**: PaymentPage, HistoryPage, SettingsPage
+ - **UI Components**: Reusable components (PaymentForm, PaymentMethodCard, TransactionCard, ReceiptView)
+ - **Feature Components**: PaymentProcessor, PaymentHistory, RefundRequest, PaymentMethodManager
+ - **Layout Components**: Header, Sidebar, Navigation, MainLayout
+ - **Page Components**: PaymentPage, HistoryPage, SettingsPage
 
 2. **State Management Layer**
-   - **Local State (useState)**: Component-specific UI state (form inputs, loading, errors, payment status)
-   - **Server State (Redux Toolkit)**: Global state for transactions, payment methods, user
-   - **API State (React Query)**: Transaction data caching, refetching, optimistic updates
+ - **Local State (useState)**: Component-specific UI state (form inputs, loading, errors, payment status)
+ - **Server State (Redux Toolkit)**: Global state for transactions, payment methods, user
+ - **API State (React Query)**: Transaction data caching, refetching, optimistic updates
 
 3. **Payment Integration Layer**
-   - **Payment Gateway SDK**: Payment gateway SDK integration for secure payment processing
-   - **Tokenization**: Tokenize payment methods for secure storage
-   - **Payment Flow**: Handle payment initiation, confirmation, and status updates
+ - **Payment Gateway SDK**: Payment gateway SDK integration for secure payment processing
+ - **Tokenization**: Tokenize payment methods for secure storage
+ - **Payment Flow**: Handle payment initiation, confirmation, and status updates
 
 4. **API Integration Layer**
-   - **API Client**: Axios instance with interceptors for auth, error handling
-   - **Redux Thunks**: Async actions for API operations (processPayment, getPaymentHistory, processRefund)
-   - **Request/Response Transformation**: Data normalization and error handling
+ - **API Client**: Axios instance with interceptors for auth, error handling
+ - **Redux Thunks**: Async actions for API operations (processPayment, getPaymentHistory, processRefund)
+ - **Request/Response Transformation**: Data normalization and error handling
 
 5. **Routing Layer (React Router)**
-   - **Route Configuration**: Define routes and protected routes
-   - **Navigation**: Programmatic and declarative navigation
-   - **Route Guards**: Authentication and authorization checks
+ - **Route Configuration**: Define routes and protected routes
+ - **Navigation**: Programmatic and declarative navigation
+ - **Route Guards**: Authentication and authorization checks
 
 6. **Build & Deployment Layer**
-   - **Build Process**: Webpack/Vite bundling with code splitting
-   - **Static Assets**: Served from CDN (CloudFront/Cloudflare)
-   - **Environment Configuration**: Environment-specific API endpoints and payment gateway keys
+ - **Build Process**: Webpack/Vite bundling with code splitting
+ - **Static Assets**: Served from CDN (CloudFront/Cloudflare)
+ - **Environment Configuration**: Environment-specific API endpoints and payment gateway keys
 
 **Frontend Request Flow:**
 
@@ -287,24 +220,24 @@ The system follows a secure payment processing architecture with idempotency, fr
 
 ### Payment Service
 
-```typescript
+```javascript
 class PaymentService {
-  async processPayment(paymentData: PaymentRequest): Promise<Payment> {
-    // Validate payment data
-    // Check idempotency
-    // Create payment record
-    // Call payment gateway
-    // Update payment status
-    // Return payment result
-  }
+ async processPayment(paymentData: PaymentRequest){
+ // Validate payment data
+ // Check idempotency
+ // Create payment record
+ // Call payment gateway
+ // Update payment status
+ // Return payment result
+ }
 
-  async refundPayment(paymentId: string, amount: number): Promise<Refund> {
-    // Validate refund request
-    // Create refund record
-    // Call payment gateway refund API
-    // Update refund status
-    // Return refund result
-  }
+ async refundPayment(paymentId, amount){
+ // Validate refund request
+ // Create refund record
+ // Call payment gateway refund API
+ // Update refund status
+ // Return refund result
+ }
 }
 
 ```
@@ -322,53 +255,53 @@ Think of the frontend as a tree of React components - each component handles a s
 ```
 App
 ├── Header
-│   ├── Logo
-│   ├── Navigation
-│   └── UserMenu (Profile, Settings, Sign out)
+│ ├── Logo
+│ ├── Navigation
+│ └── UserMenu (Profile, Settings, Sign out)
 ├── MainContent
-│   ├── PaymentFormPage
-│   │   ├── PaymentAmount
-│   │   ├── PaymentMethodSelector
-│   │   │   ├── SavedCards
-│   │   │   ├── CardInput
-│   │   │   ├── WalletOptions
-│   │   │   └── UPIInput
-│   │   ├── PaymentForm
-│   │   │   ├── CardNumberInput
-│   │   │   ├── ExpiryDateInput
-│   │   │   ├── CVVInput
-│   │   │   ├── CardholderNameInput
-│   │   │   └── SaveCardCheckbox
-│   │   ├── BillingAddressForm
-│   │   └── PayButton
-│   ├── PaymentStatusPage
-│   │   ├── PaymentStatusIndicator
-│   │   ├── TransactionDetails
-│   │   │   ├── TransactionId
-│   │   │   ├── Amount
-│   │   │   ├── PaymentMethod
-│   │   │   └── Timestamp
-│   │   └── ActionButtons
-│   │       ├── DownloadReceipt
-│   │       └── RetryPayment (if failed)
-│   ├── PaymentHistoryPage
-│   │   ├── FilterBar
-│   │   │   ├── DateRangeFilter
-│   │   │   ├── StatusFilter
-│   │   │   └── PaymentMethodFilter
-│   │   ├── TransactionList
-│   │   │   └── TransactionCard
-│   │   │       ├── TransactionInfo
-│   │   │       ├── Amount
-│   │   │       ├── Status
-│   │   │       └── ViewDetailsButton
-│   │   └── Pagination
-│   └── PaymentMethodsPage
-│       ├── SavedCardsList
-│       │   └── SavedCardItem
-│       │       ├── CardInfo
-│       │       └── DeleteButton
-│       └── AddPaymentMethodButton
+│ ├── PaymentFormPage
+│ │ ├── PaymentAmount
+│ │ ├── PaymentMethodSelector
+│ │ │ ├── SavedCards
+│ │ │ ├── CardInput
+│ │ │ ├── WalletOptions
+│ │ │ └── UPIInput
+│ │ ├── PaymentForm
+│ │ │ ├── CardNumberInput
+│ │ │ ├── ExpiryDateInput
+│ │ │ ├── CVVInput
+│ │ │ ├── CardholderNameInput
+│ │ │ └── SaveCardCheckbox
+│ │ ├── BillingAddressForm
+│ │ └── PayButton
+│ ├── PaymentStatusPage
+│ │ ├── PaymentStatusIndicator
+│ │ ├── TransactionDetails
+│ │ │ ├── TransactionId
+│ │ │ ├── Amount
+│ │ │ ├── PaymentMethod
+│ │ │ └── Timestamp
+│ │ └── ActionButtons
+│ │ ├── DownloadReceipt
+│ │ └── RetryPayment (if failed)
+│ ├── PaymentHistoryPage
+│ │ ├── FilterBar
+│ │ │ ├── DateRangeFilter
+│ │ │ ├── StatusFilter
+│ │ │ └── PaymentMethodFilter
+│ │ ├── TransactionList
+│ │ │ └── TransactionCard
+│ │ │ ├── TransactionInfo
+│ │ │ ├── Amount
+│ │ │ ├── Status
+│ │ │ └── ViewDetailsButton
+│ │ └── Pagination
+│ └── PaymentMethodsPage
+│ ├── SavedCardsList
+│ │ └── SavedCardItem
+│ │ ├── CardInfo
+│ │ └── DeleteButton
+│ └── AddPaymentMethodButton
 └── PaymentGatewayProvider (Payment SDK integration)
 
 ```
@@ -377,145 +310,329 @@ App
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Payment Form Component
-const PaymentForm: React.FC<{ amount: number; onSuccess: (transactionId: string) => void }> = ({
-  amount,
-  onSuccess
+const PaymentForm<{ amount; onSuccess: (transactionId) => void }> = ({
+ amount,
+ onSuccess
 }) => {
-  const [paymentMethod, setPaymentMethod] = useState<'card' | 'wallet' | 'upi'>('card');
-  const [cardData, setCardData] = useState({ number: '', expiry: '', cvv: '', name: '' });
-  const processPaymentMutation = useProcessPayment();
+ const [paymentMethod, setPaymentMethod] = useState('card');
+ const [cardData, setCardData] = useState({ number: '', expiry: '', cvv: '', name: '' });
+ const processPaymentMutation = useProcessPayment();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+ e.preventDefault();
 
-    processPaymentMutation.mutate({
-      amount,
-      paymentMethod,
-      cardData: paymentMethod === 'card' ? cardData : undefined
-    }, {
-      onSuccess: (data) => {
-        onSuccess(data.transactionId);
-      }
-    });
-  };
+ processPaymentMutation.mutate({
+ amount,
+ paymentMethod,
+ cardData: paymentMethod === 'card' ? cardData : undefined
+ }, {
+ onSuccess: (data) => {
+ onSuccess(data.transactionId);
+ }
+ });
+ };
 
-  return (
-    <form onSubmit={handleSubmit} className="payment-form">
-      <PaymentMethodSelector
-        selected={paymentMethod}
-        onSelect={setPaymentMethod}
-      />
-      {paymentMethod === 'card' && (
-        <CardInput
-          value={cardData}
-          onChange={setCardData}
-        />
-      )}
-      <BillingAddressForm />
-      <button
-        type="submit"
-        disabled={processPaymentMutation.isLoading}
-      >
-        {processPaymentMutation.isLoading ? 'Processing...' : `Pay $${amount}`}
-      </button>
-    </form>
-  );
+ return (
+ <form onSubmit={handleSubmit} className="payment-form">
+ <PaymentMethodSelector
+ selected={paymentMethod}
+ onSelect={setPaymentMethod}
+ />
+ {paymentMethod === 'card' && (
+ <CardInput
+ value={cardData}
+ onChange={setCardData}
+ />
+ )}
+ <BillingAddressForm />
+ <button
+ type="submit"
+ disabled={processPaymentMutation.isLoading}
+ >
+ {processPaymentMutation.isLoading ? 'Processing...' : `Pay $${amount}`}
+ </button>
+ </form>
+ );
 };
 
 // Transaction Card Component
-const TransactionCard: React.FC<{ transaction: Transaction }> = ({ transaction }) => {
-  return (
-    <div className="transaction-card">
-      <div className="transaction-info">
-        <div className="transaction-id">#{transaction.id}</div>
-        <div className="transaction-date">{formatDate(transaction.createdAt)}</div>
-      </div>
-      <div className="transaction-amount">${transaction.amount}</div>
-      <div className={`transaction-status ${transaction.status}`}>
-        {transaction.status}
-      </div>
-      <button onClick={() => navigate(`/transactions/${transaction.id}`)}>
-        View Details
-      </button>
-    </div>
-  );
+const TransactionCard<{ transaction: Transaction }> = ({ transaction }) => {
+ return (
+ <div className="transaction-card">
+ <div className="transaction-info">
+ <div className="transaction-id">#{transaction.id}</div>
+ <div className="transaction-date">{formatDate(transaction.createdAt)}</div>
+ </div>
+ <div className="transaction-amount">${transaction.amount}</div>
+ <div className={`transaction-status ${transaction.status}`}>
+ {transaction.status}
+ </div>
+ <button onClick={() => navigate(`/transactions/${transaction.id}`)}>
+ View Details
+ </button>
+ </div>
+ );
 };
 
 ```
 
-### State Management
+### ii) State Management
 
-**State Management Strategy:**
+**State Management Strategy (React 19):**
 
 - **Local State (useState)**: Form inputs, UI state (loading, errors, selected payment method)
-- **Component State**: Each component manages its own UI state
-- **API State**: React Query or SWR for server state (transactions, payment methods) - caching, refetching
+- **Optimistic Updates (useOptimistic)**: React 19 hook for optimistic payment processing
+- **Form Actions (useActionState)**: React 19 hook for payment forms with server actions
+- **Transitions (useTransition)**: React 19 hook for non-urgent payment status updates
+- **API State**: React Query for server state (transactions, payment methods) - caching, refetching
 - **Global State (Redux Toolkit)**: User authentication, saved payment methods, active payment session
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Using React Query for API state management
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 const useProcessPayment = () => {
-  const queryClient = useQueryClient();
+ const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: async (paymentData: PaymentRequest) => {
-      const response = await axios.post('/api/v1/payments', paymentData);
-      return response.data;
-    },
-    onSuccess: (data) => {
-      // Invalidate transactions list
-      queryClient.invalidateQueries({ queryKey: ['transactions'] });
-      // Navigate to payment status page
-      navigate(`/payments/${data.transactionId}/status`);
-    }
-  });
+ return useMutation({
+ mutationFn: async (paymentData: PaymentRequest) => {
+ const response = await axios.post('/api/v1/payments', paymentData);
+ return response.data;
+ },
+ onSuccess: (data) => {
+ // Invalidate transactions list
+ queryClient.invalidateQueries({ queryKey: ['transactions'] });
+ // Navigate to payment status page
+ navigate(`/payments/${data.transactionId}/status`);
+ }
+ });
 };
 
 const useTransactions = (filters?: TransactionFilters) => {
-  return useQuery({
-    queryKey: ['transactions', filters],
-    queryFn: async () => {
-      const response = await axios.get('/api/v1/transactions', { params: filters });
-      return response.data;
-    },
-    staleTime: 30 * 1000 // Cache for 30 seconds
-  });
+ return useQuery({
+ queryKey: ['transactions', filters],
+ queryFn: async () => {
+ const response = await axios.get('/api/v1/transactions', { params: filters });
+ return response.data;
+ },
+ staleTime: 30 * 1000 // Cache for 30 seconds
+ });
 };
 
 ```
 
-### Component Interactions
+### iii) Advanced Payment Patterns with React 19
+
+**Payment Processing with React 19:**
+
+```javascript
+import { useActionState, useFormStatus, useOptimistic, useTransition } from 'react';
+
+// React 19: Server Action for payment processing
+async function processPaymentAction(
+ prevState: { error?; transactionId?},
+ formData: FormData
+) {
+ const paymentData = {
+ amount: parseFloat(formData.get('amount') as string),
+ paymentMethod: formData.get('paymentMethod') as string,
+ cardData: formData.get('cardData') ? JSON.parse(formData.get('cardData') as string) : undefined,
+ idempotencyKey: crypto.randomUUID()
+ };
+
+ try {
+ const payment = await processPaymentAPI(paymentData);
+ return { success: true, transactionId: payment.paymentId };
+ } catch (error: any) {
+ return { error: error.message || 'Payment failed. Please try again.' };
+ }
+}
+
+const PayButton= () => {
+ const { pending } = useFormStatus(); // React 19 hook
+
+ return (
+ <button type="submit" disabled={pending}>
+ {pending ? 'Processing...' : 'Pay'}
+ </button>
+ );
+};
+
+const PaymentForm<{ amount; onSuccess: (transactionId) => void }> = ({
+ amount,
+ onSuccess
+}) => {
+ const [paymentMethod, setPaymentMethod] = useState('card');
+ const [cardData, setCardData] = useState({ number: '', expiry: '', cvv: '', name: '' });
+ const [isPending, startTransition] = useTransition();
+
+ // React 19: useActionState for payment form
+ const [state, formAction] = useActionState(processPaymentAction, {});
+
+ // React 19: useOptimistic for payment status
+ const [optimisticStatus, setOptimisticStatus] = useOptimistic(
+ 'pending',
+ (state, newStatus) => newStatus
+ );
+
+ const handleSubmit = (formData: FormData) => {
+ formData.append('amount', amount.toString());
+ formData.append('paymentMethod', paymentMethod);
+ if (paymentMethod === 'card') {
+ formData.append('cardData', JSON.stringify(cardData));
+ }
+
+ // Optimistically set status
+ startTransition(() => {
+ setOptimisticStatus('processing');
+ });
+
+ formAction(formData);
+ };
+
+ useEffect(() => {
+ if (state.success && state.transactionId) {
+ setOptimisticStatus('succeeded');
+ onSuccess(state.transactionId);
+ } else if (state.error) {
+ setOptimisticStatus('failed');
+ }
+ }, [state, onSuccess]);
+
+ return (
+ <form action={handleSubmit} className="payment-form">
+ <PaymentMethodSelector
+ selected={paymentMethod}
+ onSelect={setPaymentMethod}
+ />
+ {paymentMethod === 'card' && (
+ <CardInput
+ value={cardData}
+ onChange={setCardData}
+ />
+ )}
+ <BillingAddressForm />
+ <div className={`payment-status ${optimisticStatus}`}>
+ Status: {optimisticStatus}
+ </div>
+ {state.error && <span className="error">{state.error}</span>}
+ <PayButton />
+ </form>
+ );
+};
+```
+
+**Transaction History with React 19:**
+
+```javascript
+import { useDeferredValue, useTransition } from 'react';
+
+const TransactionHistoryPage= () => {
+ const [filters, setFilters] = useState({});
+ const [isPending, startTransition] = useTransition();
+
+ // React 19: useDeferredValue for filter debouncing
+ const deferredFilters = useDeferredValue(filters);
+
+ const { data: transactions } = useQuery({
+ queryKey: ['transactions', deferredFilters],
+ queryFn: () => fetchTransactions(deferredFilters),
+ staleTime: 30 * 1000
+ });
+
+ const handleFilterChange = (newFilters: TransactionFilters) => {
+ setFilters(newFilters);
+ startTransition(() => {
+ // Filter updates are lower priority
+ });
+ };
+
+ return (
+ <div className="transaction-history">
+ <FilterBar
+ filters={filters}
+ onChange={handleFilterChange}
+ />
+ {isPending && <span>Loading...</span>}
+ <TransactionList transactions={transactions || []} />
+ </div>
+ );
+};
+```
+
+**Saved Payment Methods with React 19:**
+
+```javascript
+import { useOptimistic, useTransition } from 'react';
+
+const SavedPaymentMethods= () => {
+ const [methods, setMethods] = useState([]);
+ const [isPending, startTransition] = useTransition();
+
+ // React 19: useOptimistic for payment method deletion
+ const [optimisticMethods, removeOptimisticMethod] = useOptimistic(
+ methods,
+ (state, methodId) => state.filter(m => m.id !== methodId)
+ );
+
+ const handleDelete = async (methodId) => {
+ // Optimistically remove
+ startTransition(() => {
+ removeOptimisticMethod(methodId);
+ });
+
+ try {
+ await deletePaymentMethodAPI(methodId);
+ } catch (error) {
+ // Rollback on error
+ setMethods(methods);
+ }
+ };
+
+ return (
+ <div className="saved-methods">
+ {optimisticMethods.map(method => (
+ <SavedCardItem
+ key={method.id}
+ method={method}
+ onDelete={() => handleDelete(method.id)}
+ />
+ ))}
+ </div>
+ );
+};
+```
+
+### iv) Implementation Details
 
 **Data Flow:**
 
-1. **Payment Initiation** → User fills payment form, submits payment request
-2. **Payment Processing** → Backend processes payment via payment gateway
-3. **Payment Status** → Payment status updates via webhook or polling
-4. **Transaction History** → User views past transactions with filters
-5. **Payment Methods** → User manages saved payment methods
+1. **Payment Initiation** → User fills payment form with React 19 useActionState, submits payment request optimistically
+2. **Payment Processing** → Backend processes payment via payment gateway, status updates optimistically with useOptimistic
+3. **Payment Status** → Payment status updates via webhook or polling with React 19 transitions
+4. **Transaction History** → User views past transactions with filters using useDeferredValue for debouncing
+5. **Payment Methods** → User manages saved payment methods with optimistic updates
 
 **Event Handling:**
 
-- Payment form submission triggers payment processing
-- Payment gateway callbacks update payment status
-- Webhook events update transaction status in real-time
-- Saved payment methods load from user profile
-- Transaction filters update transaction list
+- Payment form submission triggers payment processing with React 19 form actions
+- Payment gateway callbacks update payment status optimistically
+- Webhook events update transaction status in real-time with transitions
+- Saved payment methods load from user profile with React Query
+- Transaction filters update transaction list with useDeferredValue
 
-### UI/UX Considerations
+**UI/UX Considerations:**
 
-- **Loading States**: Show spinner during payment processing, skeleton loaders for transaction list
-- **Error Handling**: Display user-friendly error messages, handle payment failures gracefully
-- **Validation**: Client-side validation for card details, expiry dates, CVV
-- **Responsive Design**: Mobile-first layout, optimized for touch interactions
-- **Accessibility**: ARIA labels, keyboard navigation, screen reader support
-- **Security**: PCI-DSS compliance, secure card input handling, tokenization
+- **Loading States**: Spinner during payment processing, skeleton loaders for transaction list, loading indicators
+- **Error Handling**: User-friendly error messages, handle payment failures gracefully, retry options
+- **Validation**: Client-side validation for card details, expiry dates, CVV with React 19 form validation
+- **Responsive Design**: Mobile-first layout, optimized for touch interactions, adaptive forms
+- **Accessibility**: ARIA labels, keyboard navigation, screen reader support, focus management
+- **Security**: PCI-DSS compliance, secure card input handling, tokenization, no sensitive data in state
 
 ---
 
@@ -523,30 +640,30 @@ const useTransactions = (filters?: TransactionFilters) => {
 
 ### Payment Model
 
-```typescript
-interface Payment {
-  paymentId: string;
-  orderId: string;
-  amount: number;
-  currency: string;
-  status: 'pending' | 'processing' | 'succeeded' | 'failed' | 'refunded';
-  paymentMethod: PaymentMethod;
-  gatewayTransactionId?: string;
-  idempotencyKey: string;
-  metadata?: Record<string, any>;
-  createdAt: Date;
-  updatedAt: Date;
-  completedAt?: Date;
-}
+```javascript
+// Payment structure:
+//
+ paymentId;
+ orderId;
+ amount;
+ currency;
+ status: 'pending' | 'processing' | 'succeeded' | 'failed' | 'refunded';
+ paymentMethod: PaymentMethod;
+ gatewayTransactionId?;
+ idempotencyKey;
+ metadata?: Record<string, any>;
+ createdAt;
+ updatedAt;
+ completedAt?;
 
-interface PaymentMethod {
-  type: 'card' | 'upi' | 'netbanking' | 'wallet';
-  cardNumber?: string;
-  expiryMonth?: number;
-  expiryYear?: number;
-  cvv?: string;
-  cardholderName?: string;
-}
+// PaymentMethod structure:
+//
+ type: 'card' | 'upi' | 'netbanking' | 'wallet';
+ cardNumber?;
+ expiryMonth?;
+ expiryYear?;
+ cvv?;
+ cardholderName?;
 
 ```
 
@@ -562,40 +679,40 @@ interface PaymentMethod {
 
 - **Request Body:**
 
-  ```json
-  {
-    "amount": 100.50,
-    "currency": "USD",
-    "orderId": "order_abc123",
-    "paymentMethod": {
-      "type": "card",
-      "cardNumber": "4111111111111111",
-      "expiryMonth": 12,
-      "expiryYear": 2025,
-      "cvv": "123",
-      "cardholderName": "John Doe"
-    },
-    "idempotencyKey": "unique_key_123"
-  }
+ ```json
+ {
+ "amount": 100.50,
+ "currency": "USD",
+ "orderId": "order_abc123",
+ "paymentMethod": {
+ "type": "card",
+ "cardNumber": "4111111111111111",
+ "expiryMonth": 12,
+ "expiryYear": 2025,
+ "cvv": "123",
+ "cardholderName": "John Doe"
+ },
+ "idempotencyKey": "unique_key_123"
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "paymentId": "pay_abc123",
-      "status": "processing",
-      "amount": 100.50,
-      "currency": "USD",
-      "orderId": "order_abc123",
-      "createdAt": "2024-01-15T10:30:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "paymentId": "pay_abc123",
+ "status": "processing",
+ "amount": 100.50,
+ "currency": "USD",
+ "orderId": "order_abc123",
+ "createdAt": "2024-01-15T10:30:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error), 409 (Duplicate - Idempotency Key)
 
@@ -607,22 +724,22 @@ interface PaymentMethod {
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "paymentId": "pay_abc123",
-      "status": "succeeded",
-      "amount": 100.50,
-      "currency": "USD",
-      "orderId": "order_abc123",
-      "gatewayTransactionId": "txn_xyz789",
-      "createdAt": "2024-01-15T10:30:00Z",
-      "completedAt": "2024-01-15T10:30:05Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "paymentId": "pay_abc123",
+ "status": "succeeded",
+ "amount": 100.50,
+ "currency": "USD",
+ "orderId": "order_abc123",
+ "gatewayTransactionId": "txn_xyz789",
+ "createdAt": "2024-01-15T10:30:00Z",
+ "completedAt": "2024-01-15T10:30:05Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 404 (Not Found)
 
@@ -634,29 +751,29 @@ interface PaymentMethod {
 
 - **Request Body:**
 
-  ```json
-  {
-    "amount": 50.25,
-    "reason": "Customer request"
-  }
+ ```json
+ {
+ "amount": 50.25,
+ "reason": "Customer request"
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "refundId": "refund_abc123",
-      "paymentId": "pay_abc123",
-      "amount": 50.25,
-      "status": "processing",
-      "createdAt": "2024-01-15T11:00:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "refundId": "refund_abc123",
+ "paymentId": "pay_abc123",
+ "amount": 50.25,
+ "status": "processing",
+ "createdAt": "2024-01-15T11:00:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error), 404 (Not Found)
 
@@ -670,34 +787,55 @@ interface PaymentMethod {
 
 - **Request Body:**
 
-  ```json
-  {
-    "event": "payment.succeeded",
-    "data": {
-      "paymentId": "pay_abc123",
-      "status": "succeeded",
-      "gatewayTransactionId": "txn_xyz789"
-    },
-    "signature": "webhook_signature"
-  }
+ ```json
+ {
+ "event": "payment.succeeded",
+ "data": {
+ "paymentId": "pay_abc123",
+ "status": "succeeded",
+ "gatewayTransactionId": "txn_xyz789"
+ },
+ "signature": "webhook_signature"
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "message": "Webhook processed"
-  }
+ ```json
+ {
+ "success": true,
+ "message": "Webhook processed"
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 400 (Invalid Signature), 401 (Unauthorized)
 
 ---
 
-## Backend Implementation Details
+## b) Backend
+
+*Note: Backend implementation details are kept minimal. Focus is on frontend integration.*
+
+**API Endpoints Reference:**
+
+- `POST /api/v1/payments` - Process payment (requires idempotency key header)
+- `GET /api/v1/payments/:paymentId` - Get payment details
+- `GET /api/v1/transactions` - Get transaction history
+- `POST /api/v1/payments/verify` - Verify payment
+- `POST /api/v1/payments/:paymentId/refund` - Process refund
+- `GET /api/v1/payment-methods` - Get saved payment methods
+- `POST /api/v1/payment-methods` - Save payment method
+- `DELETE /api/v1/payment-methods/:id` - Delete payment method
+
+**Webhook Events:**
+
+- `payment.captured` - Payment successfully captured
+- `payment.failed` - Payment failed
+- `payment.refunded` - Payment refunded
+
+---
 
 ### Express.js Server Structure
 
@@ -713,11 +851,11 @@ server/
 
 ### Service Implementation
 
-```typescript
+```javascript
 class Service {
-  async processRequest(data: any) {
-    // Implementation details
-  }
+ async processRequest(data: any) {
+ // Implementation details
+ }
 }
 
 ```
@@ -777,181 +915,181 @@ class Service {
 
 **Backend (Express.js):**
 
-```typescript
+```javascript
 // Backend: services/PaymentService.ts
 import PaymentGateway from 'payment-gateway-sdk';
 import crypto from 'crypto';
 
 class PaymentService {
-  private paymentGateway: PaymentGateway;
+ private paymentGateway: PaymentGateway;
 
-  constructor() {
-    this.paymentGateway = new PaymentGateway({
-      key_id: process.env.PAYMENT_GATEWAY_KEY_ID!,
-      key_secret: process.env.PAYMENT_GATEWAY_KEY_SECRET!
-    });
-  }
+ constructor() {
+ this.paymentGateway = new PaymentGateway({
+ key_id: process.env.PAYMENT_GATEWAY_KEY_ID!,
+ key_secret: process.env.PAYMENT_GATEWAY_KEY_SECRET!
+ });
+ }
 
-  async processPayment(paymentData: PaymentRequest): Promise<Payment> {
-    // Check idempotency - prevent duplicate payments
-    const existingPayment = await Payment.findOne({
-      idempotencyKey: paymentData.idempotencyKey
-    });
+ async processPayment(paymentData: PaymentRequest){
+ // Check idempotency - prevent duplicate payments
+ const existingPayment = await Payment.findOne({
+ idempotencyKey: paymentData.idempotencyKey
+ });
 
-    if (existingPayment) {
-      return existingPayment; // Return existing payment
-    }
+ if (existingPayment) {
+ return existingPayment; // Return existing payment
+ }
 
-    // Create payment record with pending status
-    const payment = await Payment.create({
-      orderId: paymentData.orderId,
-      amount: paymentData.amount,
-      currency: paymentData.currency,
-      status: 'pending',
-      idempotencyKey: paymentData.idempotencyKey,
-      paymentMethod: paymentData.paymentMethod
-    });
+ // Create payment record with pending status
+ const payment = await Payment.create({
+ orderId: paymentData.orderId,
+ amount: paymentData.amount,
+ currency: paymentData.currency,
+ status: 'pending',
+ idempotencyKey: paymentData.idempotencyKey,
+ paymentMethod: paymentData.paymentMethod
+ });
 
-    try {
-      // Call payment gateway
-      const gatewayOrder = await this.paymentGateway.orders.create({
-        amount: paymentData.amount * 100, // Convert to smallest currency unit
-        currency: paymentData.currency,
-        receipt: payment.paymentId
-      });
+ try {
+ // Call payment gateway
+ const gatewayOrder = await this.paymentGateway.orders.create({
+ amount: paymentData.amount * 100, // Convert to smallest currency unit
+ currency: paymentData.currency,
+ receipt: payment.paymentId
+ });
 
-      // Update payment with gateway order ID
-      payment.gatewayOrderId = gatewayOrder.id;
-      payment.status = 'processing';
-      await payment.save();
+ // Update payment with gateway order ID
+ payment.gatewayOrderId = gatewayOrder.id;
+ payment.status = 'processing';
+ await payment.save();
 
-      return payment;
-    } catch (error) {
-      // Update payment status to failed
-      payment.status = 'failed';
-      payment.errorMessage = error.message;
-      await payment.save();
-      throw error;
-    }
-  }
+ return payment;
+ } catch (error) {
+ // Update payment status to failed
+ payment.status = 'failed';
+ payment.errorMessage = error.message;
+ await payment.save();
+ throw error;
+ }
+ }
 
-  async handleWebhook(webhookData: any, signature: string): Promise<void> {
-    // Verify webhook signature
-    const expectedSignature = crypto
-      .createHmac('sha256', process.env.PAYMENT_GATEWAY_WEBHOOK_SECRET!)
-      .update(JSON.stringify(webhookData))
-      .digest('hex');
+ async handleWebhook(webhookData: any, signature){
+ // Verify webhook signature
+ const expectedSignature = crypto
+ .createHmac('sha256', process.env.PAYMENT_GATEWAY_WEBHOOK_SECRET!)
+ .update(JSON.stringify(webhookData))
+ .digest('hex');
 
-    if (signature !== expectedSignature) {
-      throw new Error('Invalid webhook signature');
-    }
+ if (signature !== expectedSignature) {
+ throw new Error('Invalid webhook signature');
+ }
 
-    // Process webhook event
-    if (webhookData.event === 'payment.captured') {
-      const payment = await Payment.findOne({
-        gatewayTransactionId: webhookData.payload.payment.entity.id
-      });
+ // Process webhook event
+ if (webhookData.event === 'payment.captured') {
+ const payment = await Payment.findOne({
+ gatewayTransactionId: webhookData.payload.payment.entity.id
+ });
 
-      if (payment) {
-        payment.status = 'succeeded';
-        payment.gatewayTransactionId = webhookData.payload.payment.entity.id;
-        payment.completedAt = new Date();
-        await payment.save();
+ if (payment) {
+ payment.status = 'succeeded';
+ payment.gatewayTransactionId = webhookData.payload.payment.entity.id;
+ payment.completedAt = new Date();
+ await payment.save();
 
-        // Update order status
-        await Order.updateOne(
-          { orderId: payment.orderId },
-          { $set: { status: 'paid' } }
-        );
-      }
-    }
-  }
+ // Update order status
+ await Order.updateOne(
+ { orderId: payment.orderId },
+ { $set: { status: 'paid' } }
+ );
+ }
+ }
+ }
 }
 
 ```
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // React component for payment form
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { loadPaymentGateway } from '../utils/paymentGateway';
 
-const PaymentForm: React.FC<{ orderId: string; amount: number }> = ({ orderId, amount }) => {
-  const [cardData, setCardData] = useState({
-    cardNumber: '',
-    expiryMonth: '',
-    expiryYear: '',
-    cvv: '',
-    cardholderName: ''
-  });
+const PaymentForm<{ orderId; amount}> = ({ orderId, amount }) => {
+ const [cardData, setCardData] = useState({
+ cardNumber: '',
+ expiryMonth: '',
+ expiryYear: '',
+ cvv: '',
+ cardholderName: ''
+ });
 
-  const { mutate: processPayment, isLoading } = useMutation({
-    mutationFn: async (paymentData: any) => {
-      // Generate idempotency key
-      const idempotencyKey = `${orderId}-${Date.now()}`;
+ const { mutate: processPayment, isLoading } = useMutation({
+ mutationFn: async (paymentData: any) => {
+ // Generate idempotency key
+ const idempotencyKey = `${orderId}-${Date.now()}`;
 
-      // Create payment
-      const response = await axios.post('/api/v1/payments', {
-        ...paymentData,
-        idempotencyKey
-      });
+ // Create payment
+ const response = await axios.post('/api/v1/payments', {
+ ...paymentData,
+ idempotencyKey
+ });
 
-      // Initialize payment gateway checkout
-      const paymentGateway = await loadPaymentGateway();
-      const options = {
-        key: process.env.REACT_APP_PAYMENT_GATEWAY_KEY_ID,
-        amount: amount * 100,
-        currency: 'INR',
-        name: 'My Company',
-        description: `Payment for Order ${orderId}`,
-        order_id: response.data.data.gatewayOrderId,
-        handler: async (response: any) => {
-          // Payment successful
-          await axios.post('/api/v1/payments/verify', {
-            paymentId: response.data.paymentId,
-            gatewayPaymentId: response.gateway_payment_id,
-            gatewayOrderId: response.gateway_order_id,
-            gatewaySignature: response.gateway_signature
-          });
-        },
-        prefill: {
-          name: cardData.cardholderName
-        }
-      };
+ // Initialize payment gateway checkout
+ const paymentGateway = await loadPaymentGateway();
+ const options = {
+ key: process.env.REACT_APP_PAYMENT_GATEWAY_KEY_ID,
+ amount: amount * 100,
+ currency: 'INR',
+ name: 'My Company',
+ description: `Payment for Order ${orderId}`,
+ order_id: response.data.data.gatewayOrderId,
+ handler: async (response: any) => {
+ // Payment successful
+ await axios.post('/api/v1/payments/verify', {
+ paymentId: response.data.paymentId,
+ gatewayPaymentId: response.gateway_payment_id,
+ gatewayOrderId: response.gateway_order_id,
+ gatewaySignature: response.gateway_signature
+ });
+ },
+ prefill: {
+ name: cardData.cardholderName
+ }
+ };
 
-      const gatewayInstance = new paymentGateway(options);
-      gatewayInstance.open();
+ const gatewayInstance = new paymentGateway(options);
+ gatewayInstance.open();
 
-      return response.data;
-    },
-    onError: (error) => {
-      console.error('Payment failed:', error);
-    }
-  });
+ return response.data;
+ },
+ onError: (error) => {
+ console.error('Payment failed:', error);
+ }
+ });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    processPayment({
-      orderId,
-      amount,
-      paymentMethod: {
-        type: 'card',
-        ...cardData
-      }
-    });
-  };
+ const handleSubmit = (e) => {
+ e.preventDefault();
+ processPayment({
+ orderId,
+ amount,
+ paymentMethod: {
+ type: 'card',
+ ...cardData
+ }
+ });
+ };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      {/* Payment form fields */}
-      <button type="submit" disabled={isLoading}>
-        {isLoading ? 'Processing...' : 'Pay Now'}
-      </button>
-    </form>
-  );
+ return (
+ <form onSubmit={handleSubmit}>
+ {/* Payment form fields */}
+ <button type="submit" disabled={isLoading}>
+ {isLoading ? 'Processing...' : 'Pay Now'}
+ </button>
+ </form>
+ );
 };
 
 ```
@@ -967,38 +1105,38 @@ const PaymentForm: React.FC<{ orderId: string; amount: number }> = ({ orderId, a
 
 **Backend (Express.js):**
 
-```typescript
+```javascript
 // Backend: middleware/idempotency.ts
 export const idempotencyMiddleware = async (req: Request, res: Response, next: NextFunction) => {
-  const idempotencyKey = req.headers['idempotency-key'] as string;
+ const idempotencyKey = req.headers['idempotency-key'] as string;
 
-  if (!idempotencyKey) {
-    return res.status(400).json({ error: 'Idempotency key required' });
-  }
+ if (!idempotencyKey) {
+ return res.status(400).json({ error: 'Idempotency key required' });
+ }
 
-  // Check if request was already processed
-  const existingResult = await IdempotencyKey.findOne({ key: idempotencyKey });
+ // Check if request was already processed
+ const existingResult = await IdempotencyKey.findOne({ key: idempotencyKey });
 
-  if (existingResult) {
-    // Return cached response
-    return res.status(existingResult.statusCode).json(existingResult.response);
-  }
+ if (existingResult) {
+ // Return cached response
+ return res.status(existingResult.statusCode).json(existingResult.response);
+ }
 
-  // Store original res.json
-  const originalJson = res.json.bind(res);
+ // Store original res.json
+ const originalJson = res.json.bind(res);
 
-  // Override res.json to cache response
-  res.json = function(body: any) {
-    IdempotencyKey.create({
-      key: idempotencyKey,
-      statusCode: res.statusCode,
-      response: body
-    });
+ // Override res.json to cache response
+ res.json = function(body: any) {
+ IdempotencyKey.create({
+ key: idempotencyKey,
+ statusCode: res.statusCode,
+ response: body
+ });
 
-    return originalJson(body);
-  };
+ return originalJson(body);
+ };
 
-  next();
+ next();
 };
 
 ```
@@ -1244,19 +1382,19 @@ PAYMENT_GATEWAY_WEBHOOK_SECRET=whsec_xxx
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await Payment.create([paymentData], { session });
-  await Wallet.updateOne({ userId }, { $inc: { balance: -amount } }, { session });
-  await TransactionLog.create([logData], { session });
-  await session.commitTransaction();
+ await Payment.create([paymentData], { session });
+ await Wallet.updateOne({ userId }, { $inc: { balance: -amount } }, { session });
+ await TransactionLog.create([logData], { session });
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -1315,30 +1453,29 @@ try {
 
 **Implementation:**
 
-```typescript
+```javascript
 class PaymentService {
-  async processPaymentWithIdempotency(
-    paymentData: PaymentRequest,
-    idempotencyKey: string
-  ): Promise<PaymentResult> {
-    // Check if idempotency key exists
-    const cached = await redis.get(`idempotency:${idempotencyKey}`);
-    if (cached) {
-      return JSON.parse(cached);
-    }
+ async processPaymentWithIdempotency(
+ paymentData: PaymentRequest,
+ idempotencyKey){
+ // Check if idempotency key exists
+ const cached = await redis.get(`idempotency:${idempotencyKey}`);
+ if (cached) {
+ return JSON.parse(cached);
+ }
 
-    // Process payment
-    const result = await this.processPayment(paymentData);
+ // Process payment
+ const result = await this.processPayment(paymentData);
 
-    // Store result in Redis with 24-hour TTL
-    await redis.setex(
-      `idempotency:${idempotencyKey}`,
-      86400,
-      JSON.stringify(result)
-    );
+ // Store result in Redis with 24-hour TTL
+ await redis.setex(
+ `idempotency:${idempotencyKey}`,
+ 86400,
+ JSON.stringify(result)
+ );
 
-    return result;
-  }
+ return result;
+ }
 }
 
 ```
@@ -1364,33 +1501,33 @@ class PaymentService {
 
 **Implementation:**
 
-```typescript
+```javascript
 async function retryPayment(
-  paymentData: PaymentRequest,
-  maxRetries: number = 3
-): Promise<PaymentResult> {
-  let lastError: Error;
+ paymentData: PaymentRequest,
+ maxRetries= 3
+){
+ let lastError: Error;
 
-  for (let attempt = 0; attempt < maxRetries; attempt++) {
-    try {
-      return await processPayment(paymentData);
-    } catch (error) {
-      lastError = error;
+ for (let attempt = 0; attempt < maxRetries; attempt++) {
+ try {
+ return await processPayment(paymentData);
+ } catch (error) {
+ lastError = error;
 
-      // Don't retry on certain errors (e.g., invalid card)
-      if (error.code === 'INVALID_CARD' || error.code === 'INSUFFICIENT_FUNDS') {
-        throw error;
-      }
+ // Don't retry on certain errors (e.g., invalid card)
+ if (error.code === 'INVALID_CARD' || error.code === 'INSUFFICIENT_FUNDS') {
+ throw error;
+ }
 
-      // Exponential backoff
-      if (attempt < maxRetries - 1) {
-        const delay = Math.pow(2, attempt) * 1000; // 1s, 2s, 4s
-        await sleep(delay);
-      }
-    }
-  }
+ // Exponential backoff
+ if (attempt < maxRetries - 1) {
+ const delay = Math.pow(2, attempt) * 1000; // 1s, 2s, 4s
+ await sleep(delay);
+ }
+ }
+ }
 
-  throw lastError!;
+ throw lastError!;
 }
 
 ```
@@ -1409,22 +1546,22 @@ async function retryPayment(
 
 ```javascript
 {
-  _id: ObjectId,
-  paymentId: String,        // Unique payment ID, indexed
-  orderId: String,          // Order reference, indexed
-  userId: ObjectId,         // User reference, indexed
-  amount: Number,           // Payment amount
-  currency: String,          // Currency code (USD, INR)
-  status: String,           // pending, processing, succeeded, failed, refunded
-  paymentMethod: String,    // card, upi, wallet, netbanking
-  paymentGateway: String,   // payment gateway provider identifier
-  gatewayTransactionId: String, // Payment gateway transaction ID
-  idempotencyKey: String,   // Idempotency key, indexed
-  failureReason: String,    // Failure reason if failed
-  metadata: Object,         // Additional metadata
-  processedAt: Date,         // When payment was processed
-  createdAt: Date,          // Created timestamp, indexed
-  updatedAt: Date          // Updated timestamp
+ _id: ObjectId,
+ paymentId: String, // Unique payment ID, indexed
+ orderId: String, // Order reference, indexed
+ userId: ObjectId, // User reference, indexed
+ amount: Number, // Payment amount
+ currency: String, // Currency code (USD, INR)
+ status: String, // pending, processing, succeeded, failed, refunded
+ paymentMethod: String, // card, upi, wallet, netbanking
+ paymentGateway: String, // payment gateway provider identifier
+ gatewayTransactionId: String, // Payment gateway transaction ID
+ idempotencyKey: String, // Idempotency key, indexed
+ failureReason: String, // Failure reason if failed
+ metadata: Object, // Additional metadata
+ processedAt, // When payment was processed
+ createdAt, // Created timestamp, indexed
+ updatedAt// Updated timestamp
 }
 
 // Indexes:
@@ -1441,16 +1578,16 @@ async function retryPayment(
 
 ```javascript
 {
-  _id: ObjectId,
-  refundId: String,         // Unique refund ID, indexed
-  paymentId: ObjectId,      // Payment reference, indexed
-  amount: Number,           // Refund amount
-  reason: String,           // Refund reason
-  status: String,           // pending, processing, succeeded, failed
-  gatewayRefundId: String,  // Payment gateway refund ID
-  processedAt: Date,         // When refund was processed
-  createdAt: Date,          // Created timestamp, indexed
-  updatedAt: Date          // Updated timestamp
+ _id: ObjectId,
+ refundId: String, // Unique refund ID, indexed
+ paymentId: ObjectId, // Payment reference, indexed
+ amount: Number, // Refund amount
+ reason: String, // Refund reason
+ status: String, // pending, processing, succeeded, failed
+ gatewayRefundId: String, // Payment gateway refund ID
+ processedAt, // When refund was processed
+ createdAt, // Created timestamp, indexed
+ updatedAt// Updated timestamp
 }
 
 // Indexes:
@@ -1474,19 +1611,19 @@ async function retryPayment(
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await Payment.create([paymentData], { session });
-  await Wallet.updateOne({ userId }, { $inc: { balance: -amount } }, { session });
-  await TransactionLog.create([logData], { session });
-  await session.commitTransaction();
+ await Payment.create([paymentData], { session });
+ await Wallet.updateOne({ userId }, { $inc: { balance: -amount } }, { session });
+ await TransactionLog.create([logData], { session });
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -1530,38 +1667,38 @@ try {
 - **Method:** POST
 - **Description:** Process a payment
 - **Headers:**
-  - `Idempotency-Key`: string (optional) - Unique key to prevent duplicate charges
+ - `Idempotency-Key`(optional) - Unique key to prevent duplicate charges
 - **Request Body:**
 
-  ```json
-  {
-    "orderId": "order_abc123",
-    "amount": 100.00,
-    "currency": "USD",
-    "paymentMethod": "card",
-    "paymentDetails": {
-      "cardToken": "tok_visa_1234"
-    }
-  }
+ ```json
+ {
+ "orderId": "order_abc123",
+ "amount": 100.00,
+ "currency": "USD",
+ "paymentMethod": "card",
+ "paymentDetails": {
+ "cardToken": "tok_visa_1234"
+ }
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "paymentId": "payment_abc123",
-      "orderId": "order_abc123",
-      "amount": 100.00,
-      "status": "succeeded",
-      "gatewayTransactionId": "txn_xyz789",
-      "processedAt": "2024-01-15T10:30:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "paymentId": "payment_abc123",
+ "orderId": "order_abc123",
+ "amount": 100.00,
+ "status": "succeeded",
+ "gatewayTransactionId": "txn_xyz789",
+ "processedAt": "2024-01-15T10:30:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error), 402 (Payment Failed), 409 (Duplicate Payment)
 
@@ -1572,29 +1709,29 @@ try {
 - **Description:** Process a refund
 - **Request Body:**
 
-  ```json
-  {
-    "amount": 100.00,
-    "reason": "Customer request"
-  }
+ ```json
+ {
+ "amount": 100.00,
+ "reason": "Customer request"
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "refundId": "refund_abc123",
-      "paymentId": "payment_abc123",
-      "amount": 100.00,
-      "status": "processing",
-      "createdAt": "2024-01-15T10:30:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "refundId": "refund_abc123",
+ "paymentId": "payment_abc123",
+ "amount": 100.00,
+ "status": "processing",
+ "createdAt": "2024-01-15T10:30:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error), 404 (Payment Not Found)
 
@@ -1604,30 +1741,30 @@ try {
 - **Method:** POST
 - **Description:** Payment gateway webhook endpoint
 - **Headers:**
-  - `X-Signature`: string (required) - HMAC-SHA256 signature
+ - `X-Signature`(required) - HMAC-SHA256 signature
 - **Request Body:**
 
-  ```json
-  {
-    "event": "payment.succeeded",
-    "data": {
-      "paymentId": "payment_abc123",
-      "status": "succeeded",
-      "gatewayTransactionId": "txn_xyz789"
-    }
-  }
+ ```json
+ {
+ "event": "payment.succeeded",
+ "data": {
+ "paymentId": "payment_abc123",
+ "status": "succeeded",
+ "gatewayTransactionId": "txn_xyz789"
+ }
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "message": "Webhook processed"
-  }
+ ```json
+ {
+ "success": true,
+ "message": "Webhook processed"
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 401 (Invalid Signature), 400 (Invalid Payload)
 
@@ -1642,9 +1779,9 @@ try {
 - **Key Format:** `idempotency:{key}`, `payment:{paymentId}`, `payment:status:{paymentId}`
 - **Value:** Serialized JSON (payment result, payment status)
 - **TTL:**
-  - Idempotency keys: 86400 seconds (24 hours)
-  - Payment status: 3600 seconds (1 hour)
-  - Payment result: 86400 seconds (24 hours)
+ - Idempotency keys: 86400 seconds (24 hours)
+ - Payment status: 3600 seconds (1 hour)
+ - Payment result: 86400 seconds (24 hours)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
@@ -1672,13 +1809,13 @@ try {
 
 ```json
 {
-  "error": {
-    "code": "PAYMENT_FAILED",
-    "message": "Payment processing failed",
-    "details": "Card declined by bank",
-    "paymentId": "payment_abc123",
-    "retryable": true
-  }
+ "error": {
+ "code": "PAYMENT_FAILED",
+ "message": "Payment processing failed",
+ "details": "Card declined by bank",
+ "paymentId": "payment_abc123",
+ "retryable": true
+ }
 }
 
 ```

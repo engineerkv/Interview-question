@@ -36,7 +36,7 @@ console.log(person.greet()); // "Hi, I'm John"
 
 ---
 
-## Q25. 🔗 Prototype in JavaScript
+## Q26. 🔗 Prototype in JavaScript
 
 A prototype is an object that provides fallback properties and methods when these are not found on the current object - property lookup follows the prototype chain. Every object has a `[Prototype]` internal slot, and `Object.prototype` is the root of all chains.
 

@@ -194,7 +194,6 @@
 
 87. Open Graph tags and their usage
 
-
 ## 📖 Complete Answer Guide
 
 - [1) HTML Fundamentals](01%29%20Fundamentals%20&%20Basics.md) - Q1-15

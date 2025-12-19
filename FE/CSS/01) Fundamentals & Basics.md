@@ -1,4 +1,4 @@
-# 🧒 1. Fundamentals & Basics (Q1–12)
+# 🧒 1. Fundamentals & Basics (Q1–13)
 
 ---
 
@@ -92,29 +92,20 @@ p { color: black; }
 
 ## Q5. 🧩 CSS Box Model and its components
 
-The CSS Box Model describes how elements are sized and spaced - it consists of content, padding, border, and margin, layers from inside to outside, understanding the box model is essential for layout. Content → Padding → Border → Margin (from inside to outside). `box-sizing: content-box` (default) calculates width/height as content only, while `box-sizing: border-box` includes padding and border in the width/height calculation.
+The CSS Box Model defines how every HTML element is structured with four layers: content (inside), padding (space inside), border (line), and margin (space outside). Understanding the box model is crucial for creating precise layouts and avoiding unexpected sizing issues.
 
-- **Trade-offs**: The catch is not understanding that padding and border add to total element size by default with `content-box` - use `box-sizing: border-box` for predictable layouts. Box model understanding is essential for precise layouts, but watch out - `content-box` makes total size = width + padding + border, while `border-box` makes total size = width (includes padding and border).
+- **Trade-offs**: The catch is `content-box` (default) adds padding and border to width/height, causing overflow issues - use `border-box` globally for predictable sizing. `content-box` adds padding/border to total size, `border-box` includes them in width/height, but watch out - margin collapses vertically between adjacent elements, padding shows background color, margin is transparent.
 
 Example:
 
 ```css
-.content-box {
-  box-sizing: content-box;  /* default */
+.box {
   width: 200px;
   padding: 20px;
   border: 2px solid black;
-  /* Total width = 200 + 40 + 4 = 244px */
-}
-
-.border-box {
+  margin: 10px;
   box-sizing: border-box;
-  width: 200px;
-  padding: 20px;
-  border: 2px solid black;
-  /* Total width = 200px (includes padding and border) */
 }
-
 ```
 
 ---
@@ -218,18 +209,16 @@ p::first-line { font-weight: bold; }
 
 ## Q10. 🎨 CSS specificity and how it's calculated
 
-CSS specificity determines which styles apply when multiple rules target the same element - higher specificity wins, specificity is calculated based on selectors. Specificity: inline styles (1,0,0,0) > IDs (0,1,0,0) > classes (0,0,1,0) > elements (0,0,0,1).
+CSS specificity determines which CSS rule wins when multiple rules target the same element - calculated as (inline styles, IDs, classes, elements) with higher specificity winning. When specificity is equal, source order matters.
 
-- **Trade-offs**: The catch is not understanding specificity order, causing unexpected style overrides - use `!important` sparingly, prefer increasing specificity naturally. Specificity determines which styles win when rules conflict, but watch out - more specific selectors override less specific ones.
+- **Trade-offs**: The catch is overusing IDs makes styles hard to override, escalating specificity creates maintenance issues - use classes over IDs, keep specificity low. Inline styles (1,0,0,0) have highest specificity, IDs (0,1,0,0) beat classes (0,0,1,0), but watch out - `!important` overrides all specificity, combinators don't add specificity, use classes for maintainability.
 
 Example:
 
 ```css
-p { color: black; }                    /* 0,0,0,1 */
-.highlight { color: yellow; }          /* 0,0,1,0 */
-#header { color: blue; }               /* 0,1,0,0 */
-#header.highlight { color: red; }      /* 0,1,1,0 */
-
+p { color: black; }              /* 0,0,0,1 */
+.highlight { color: yellow; }    /* 0,0,1,0 - wins */
+#header { color: blue; }         /* 0,1,0,0 - wins over class */
 ```
 
 ---
@@ -283,6 +272,43 @@ Example:
   top: 0;
 }
 
+```
+
+---
+
+## Q13. 🛠️ What is a CSS preprocessor?
+
+CSS preprocessors are tools that extend CSS with programming features like variables, nesting, mixins, and functions, then compile back to standard CSS that browsers can understand - preprocessors enhance CSS with powerful features while maintaining browser compatibility. Preprocessors add variables, nesting, mixins, functions, and imports to CSS before compilation.
+
+- **Trade-offs**: The catch is requiring a build step to compile preprocessor code to CSS, learning new syntax - preprocessors improve maintainability and reduce code duplication. Preprocessors enhance CSS with powerful features while maintaining browser compatibility, but watch out - popular preprocessors include Sass/SCSS, Less, and Stylus, each with unique syntax and features.
+
+Example:
+
+```scss
+// Variables
+$primary-color: #007bff;
+$spacing: 20px;
+
+// Nesting
+.button {
+  padding: $spacing;
+  background-color: $primary-color;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  @include flex-center;
+}
 ```
 
 ---

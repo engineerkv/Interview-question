@@ -95,71 +95,6 @@ Design and implement a full-text search system that addresses the following chal
 
 ---
 
-## d) Capacity Estimation
-
-### Throughput Requirements
-
-- **Total Documents**: 1 billion documents
-- **Daily Active Users (DAU)**: 100 million users per day
-- **Peak Traffic**: 3x average during peak hours (300 million users per day)
-- **Search Queries per Day**: 10 million queries
-- **Document Updates per Day**: 100 million document updates (new, modified, deleted)
-- **Read:Write Ratio**: 100:1 (search queries vs document indexing)
-
-**Calculations:**
-
-- **Average Writes Per Second (WPS)**: 100M document updates / 86,400 seconds ≈ 1,157 WPS
-- **Peak WPS**: 1,157 × 3 = 3,471 WPS
-- **Average Reads Per Second (RPS)**: 10M queries / 86,400 seconds ≈ 116 RPS
-- **Peak RPS**: 116 × 3 = 348 RPS
-- **Concurrent Search Queries**: 1 million concurrent search queries
-
-### Storage Estimation
-
-**Storage per Document:**
-
-- Document content: 10 KB average (text content)
-- Indexed fields: 5 KB (title, description, tags, metadata)
-- **Total per Document**: ~15 KB
-
-**Storage Requirements:**
-
-- **Documents**: 1B documents × 15 KB ≈ 15 TB
-- **Elasticsearch Index**: 1B documents × 20 KB (with inverted index) ≈ 20 TB
-- **User Data**: 100M users × 5 KB ≈ 500 GB
-- **Search Analytics**: 10M queries/day × 1 KB ≈ 10 GB/day ≈ 3.65 TB/year
-- **Total Storage**: ~20 TB (Elasticsearch) + 500 GB (users) + 3.65 TB (analytics) ≈ 24.15 TB
-
-### Bandwidth Estimation
-
-- **Average Query Size**: 500 bytes per query
-- **Average Response Size**: 50 KB per search result (10 results × 5 KB)
-- **Daily Bandwidth**: 10M queries × (500 bytes + 50 KB) = 505 GB/day
-- **Peak Bandwidth**: 505 GB × 3 = 1.515 TB/day during peak hours
-- **Average Bandwidth**: 505 GB / 86,400 seconds ≈ 5.85 MB/s
-- **Peak Bandwidth**: 5.85 MB/s × 3 ≈ 17.55 MB/s
-
-### Caching Estimation
-
-Following the **80-20 rule** where 20% of queries generate 80% of traffic:
-
-- **Cache 20% of popular queries**: 10M × 0.2 = 2M queries
-- **Cache memory required**: 2M queries × 50 KB = 100 GB (distributed across Redis cluster)
-- **Cache hit ratio**: 80% (only 20% of search queries hit Elasticsearch)
-- **Requests hitting Elasticsearch**: 116 × 0.20 ≈ 23 RPS (manageable with Elasticsearch cluster)
-
-### Infrastructure Sizing
-
-- **API Servers**: 500-1,000 instances behind load balancer, each handling 1-2 RPS
-- **Elasticsearch Cluster**: 50-100 nodes for indexing and search, with proper sharding
-- **Indexing Workers**: 100-200 instances for document indexing
-- **Message Queue**: RabbitMQ/Kafka cluster with 20-50 nodes for indexing tasks
-- **Database**: MongoDB cluster with 20-50 nodes for document metadata storage
-- **Cache Layer**: Redis cluster with 20-50 nodes for high availability and performance
-- **Autocomplete Service**: 10-20 instances for search suggestions
-
----
-
 ## e) Architecture Overview
 
 The system follows a full-text search architecture with Elasticsearch, inverted indexing, caching, and distributed search processing. Here's how the complete system works:
@@ -169,35 +104,35 @@ The system follows a full-text search architecture with Elasticsearch, inverted 
 **Frontend Layers:**
 
 1. **Presentation Layer (React Components)**
-   - **UI Components**: Reusable components (SearchBar, SearchResult, FilterPanel, AutocompleteDropdown)
-   - **Feature Components**: SearchPage, SearchResults, FacetedSearch, SearchAnalytics
-   - **Layout Components**: Header, Sidebar, Navigation, MainLayout
-   - **Page Components**: SearchPage, ResultsPage, AnalyticsPage
+ - **UI Components**: Reusable components (SearchBar, SearchResult, FilterPanel, AutocompleteDropdown)
+ - **Feature Components**: SearchPage, SearchResults, FacetedSearch, SearchAnalytics
+ - **Layout Components**: Header, Sidebar, Navigation, MainLayout
+ - **Page Components**: SearchPage, ResultsPage, AnalyticsPage
 
 2. **State Management Layer**
-   - **Local State (useState)**: Component-specific UI state (search query, selected filters, loading, errors)
-   - **Server State (Redux Toolkit)**: Global state for search results, filters, user preferences
-   - **API State (React Query)**: Search results caching, refetching, optimistic updates
+ - **Local State (useState)**: Component-specific UI state (search query, selected filters, loading, errors)
+ - **Server State (Redux Toolkit)**: Global state for search results, filters, user preferences
+ - **API State (React Query)**: Search results caching, refetching, optimistic updates
 
 3. **Search Integration Layer**
-   - **Search Bar**: Real-time search input with autocomplete
-   - **Query Builder**: Build complex search queries with filters
-   - **Result Display**: Display search results with highlighting and pagination
+ - **Search Bar**: Real-time search input with autocomplete
+ - **Query Builder**: Build complex search queries with filters
+ - **Result Display**: Display search results with highlighting and pagination
 
 4. **API Integration Layer**
-   - **API Client**: Axios instance with interceptors for auth, error handling
-   - **Redux Thunks**: Async actions for API operations (search, autocomplete, getSuggestions)
-   - **Request/Response Transformation**: Data normalization and error handling
+ - **API Client**: Axios instance with interceptors for auth, error handling
+ - **Redux Thunks**: Async actions for API operations (search, autocomplete, getSuggestions)
+ - **Request/Response Transformation**: Data normalization and error handling
 
 5. **Routing Layer (React Router)**
-   - **Route Configuration**: Define routes and protected routes
-   - **Navigation**: Programmatic and declarative navigation
-   - **Route Guards**: Authentication and authorization checks
+ - **Route Configuration**: Define routes and protected routes
+ - **Navigation**: Programmatic and declarative navigation
+ - **Route Guards**: Authentication and authorization checks
 
 6. **Build & Deployment Layer**
-   - **Build Process**: Webpack/Vite bundling with code splitting
-   - **Static Assets**: Served from CDN (CloudFront/Cloudflare)
-   - **Environment Configuration**: Environment-specific API endpoints and configs
+ - **Build Process**: Webpack/Vite bundling with code splitting
+ - **Static Assets**: Served from CDN (CloudFront/Cloudflare)
+ - **Environment Configuration**: Environment-specific API endpoints and configs
 
 **Frontend Request Flow:**
 
@@ -275,11 +210,11 @@ The system follows a full-text search architecture with Elasticsearch, inverted 
 
 ### Service Components
 
-```typescript
+```javascript
 class Service {
-  async processRequest(data: any) {
-    // Implementation details
-  }
+ async processRequest(data: any) {
+ // Implementation details
+ }
 }
 
 ```
@@ -297,35 +232,35 @@ Think of the frontend as a tree of React components - each component handles a s
 ```
 App
 ├── Header
-│   ├── Logo
-│   ├── SearchBar
-│   │   ├── SearchInput
-│   │   ├── AutocompleteDropdown
-│   │   │   └── SuggestionItem
-│   │   └── SearchButton
-│   └── Navigation
+│ ├── Logo
+│ ├── SearchBar
+│ │ ├── SearchInput
+│ │ ├── AutocompleteDropdown
+│ │ │ └── SuggestionItem
+│ │ └── SearchButton
+│ └── Navigation
 ├── MainContent
-│   ├── SearchResultsPage
-│   │   ├── FilterSidebar
-│   │   │   ├── CategoryFilter
-│   │   │   ├── DateRangeFilter
-│   │   │   ├── TypeFilter
-│   │   │   └── ClearFiltersButton
-│   │   ├── ResultsHeader
-│   │   │   ├── ResultsCount
-│   │   │   ├── SortOptions
-│   │   │   └── ViewToggle (List/Grid)
-│   │   ├── SearchResultsList
-│   │   │   └── SearchResultItem
-│   │   │       ├── Title (with highlights)
-│   │   │       ├── Snippet (with highlights)
-│   │   │       ├── Metadata (date, author, category)
-│   │   │       └── RelevanceScore
-│   │   ├── Pagination
-│   │   └── NoResultsState
-│   └── SearchHistoryPage
-│       ├── RecentSearches
-│       └── PopularSearches
+│ ├── SearchResultsPage
+│ │ ├── FilterSidebar
+│ │ │ ├── CategoryFilter
+│ │ │ ├── DateRangeFilter
+│ │ │ ├── TypeFilter
+│ │ │ └── ClearFiltersButton
+│ │ ├── ResultsHeader
+│ │ │ ├── ResultsCount
+│ │ │ ├── SortOptions
+│ │ │ └── ViewToggle (List/Grid)
+│ │ ├── SearchResultsList
+│ │ │ └── SearchResultItem
+│ │ │ ├── Title (with highlights)
+│ │ │ ├── Snippet (with highlights)
+│ │ │ ├── Metadata (date, author, category)
+│ │ │ └── RelevanceScore
+│ │ ├── Pagination
+│ │ └── NoResultsState
+│ └── SearchHistoryPage
+│ ├── RecentSearches
+│ └── PopularSearches
 └── Footer
 
 ```
@@ -334,166 +269,258 @@ App
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Search Bar with Autocomplete Component
-const SearchBar: React.FC = () => {
-  const [query, setQuery] = useState('');
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const { data: suggestions } = useAutocomplete(query);
+const SearchBar= () => {
+ const [query, setQuery] = useState('');
+ const [showSuggestions, setShowSuggestions] = useState(false);
+ const { data: suggestions } = useAutocomplete(query);
 
-  const handleSearch = (searchQuery: string) => {
-    navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
-    setShowSuggestions(false);
-  };
+ const handleSearch = (searchQuery) => {
+ navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+ setShowSuggestions(false);
+ };
 
-  const handleInputChange = (value: string) => {
-    setQuery(value);
-    setShowSuggestions(value.length > 0);
-  };
+ const handleInputChange = (value) => {
+ setQuery(value);
+ setShowSuggestions(value.length > 0);
+ };
 
-  return (
-    <div className="search-bar">
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => handleInputChange(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            handleSearch(query);
-          }
-        }}
-        placeholder="Search..."
-      />
-      {showSuggestions && suggestions && (
-        <AutocompleteDropdown
-          suggestions={suggestions}
-          onSelect={handleSearch}
-        />
-      )}
-      <button onClick={() => handleSearch(query)}>Search</button>
-    </div>
-  );
+ return (
+ <div className="search-bar">
+ <input
+ type="text"
+ value={query}
+ onChange={(e) => handleInputChange(e.target.value)}
+ onKeyDown={(e) => {
+ if (e.key === 'Enter') {
+ handleSearch(query);
+ }
+ }}
+ placeholder="Search..."
+ />
+ {showSuggestions && suggestions && (
+ <AutocompleteDropdown
+ suggestions={suggestions}
+ onSelect={handleSearch}
+ />
+ )}
+ <button onClick={() => handleSearch(query)}>Search</button>
+ </div>
+ );
 };
 
 // Search Result Item Component
-const SearchResultItem: React.FC<{ result: SearchResult }> = ({ result }) => {
-  return (
-    <div className="search-result-item" onClick={() => navigate(result.url)}>
-      <h3 dangerouslySetInnerHTML={{ __html: result.highlightedTitle }} />
-      <p dangerouslySetInnerHTML={{ __html: result.highlightedSnippet }} />
-      <div className="result-meta">
-        <span>{result.url}</span>
-        <span>{formatDate(result.date)}</span>
-        {result.category && <span>{result.category}</span>}
-      </div>
-    </div>
-  );
+const SearchResultItem<{ result: SearchResult }> = ({ result }) => {
+ return (
+ <div className="search-result-item" onClick={() => navigate(result.url)}>
+ <h3 dangerouslySetInnerHTML={{ __html: result.highlightedTitle }} />
+ <p dangerouslySetInnerHTML={{ __html: result.highlightedSnippet }} />
+ <div className="result-meta">
+ <span>{result.url}</span>
+ <span>{formatDate(result.date)}</span>
+ {result.category && <span>{result.category}</span>}
+ </div>
+ </div>
+ );
 };
 
 // Filter Sidebar Component
-const FilterSidebar: React.FC<{ filters: SearchFilters; onFilterChange: (filters: SearchFilters) => void }> = ({
-  filters,
-  onFilterChange
+const FilterSidebar<{ filters: SearchFilters; onFilterChange: (filters: SearchFilters) => void }> = ({
+ filters,
+ onFilterChange
 }) => {
-  const handleCategoryChange = (category: string) => {
-    onFilterChange({
-      ...filters,
-      category: filters.category === category ? undefined : category
-    });
-  };
+ const handleCategoryChange = (category) => {
+ onFilterChange({
+ ...filters,
+ category: filters.category === category ? undefined : category
+ });
+ };
 
-  return (
-    <div className="filter-sidebar">
-      <h3>Filters</h3>
-      <CategoryFilter
-        selected={filters.category}
-        onChange={handleCategoryChange}
-      />
-      <DateRangeFilter
-        value={filters.dateRange}
-        onChange={(dateRange) => onFilterChange({ ...filters, dateRange })}
-      />
-      <TypeFilter
-        selected={filters.type}
-        onChange={(type) => onFilterChange({ ...filters, type })}
-      />
-    </div>
-  );
+ return (
+ <div className="filter-sidebar">
+ <h3>Filters</h3>
+ <CategoryFilter
+ selected={filters.category}
+ onChange={handleCategoryChange}
+ />
+ <DateRangeFilter
+ value={filters.dateRange}
+ onChange={(dateRange) => onFilterChange({ ...filters, dateRange })}
+ />
+ <TypeFilter
+ selected={filters.type}
+ onChange={(type) => onFilterChange({ ...filters, type })}
+ />
+ </div>
+ );
 };
 
 ```
 
-### State Management
+### ii) State Management
 
-**State Management Strategy:**
+**State Management Strategy (React 19):**
 
 - **Local State (useState)**: Search query, UI state (loading, errors, selected filters, show/hide suggestions)
-- **Component State**: Each component manages its own UI state
-- **API State**: React Query or SWR for server state (search results, autocomplete suggestions) - caching, refetching
+- **Deferred Values (useDeferredValue)**: React 19 hook for search query debouncing
+- **Transitions (useTransition)**: React 19 hook for non-urgent filter updates
+- **use() Hook**: React 19 hook for reading search results promises
+- **API State**: React Query for server state (search results, autocomplete suggestions) - caching, refetching
 - **Global State (Redux Toolkit)**: Search history, recent searches, user preferences
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Using React Query for API state management
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-const useSearch = (query: string, filters?: SearchFilters) => {
-  return useQuery({
-    queryKey: ['search', query, filters],
-    queryFn: async () => {
-      const response = await axios.get('/api/v1/search', {
-        params: { q: query, ...filters }
-      });
-      return response.data;
-    },
-    enabled: query.length > 0,
-    staleTime: 5 * 60 * 1000 // Cache for 5 minutes
-  });
+const useSearch = (query, filters?: SearchFilters) => {
+ return useQuery({
+ queryKey: ['search', query, filters],
+ queryFn: async () => {
+ const response = await axios.get('/api/v1/search', {
+ params: { q: query, ...filters }
+ });
+ return response.data;
+ },
+ enabled: query.length > 0,
+ staleTime: 5 * 60 * 1000 // Cache for 5 minutes
+ });
 };
 
-const useAutocomplete = (query: string) => {
-  return useQuery({
-    queryKey: ['autocomplete', query],
-    queryFn: async () => {
-      const response = await axios.get('/api/v1/search/autocomplete', {
-        params: { q: query }
-      });
-      return response.data;
-    },
-    enabled: query.length > 2,
-    staleTime: 1 * 60 * 1000 // Cache for 1 minute
-  });
+const useAutocomplete = (query) => {
+ return useQuery({
+ queryKey: ['autocomplete', query],
+ queryFn: async () => {
+ const response = await axios.get('/api/v1/search/autocomplete', {
+ params: { q: query }
+ });
+ return response.data;
+ },
+ enabled: query.length > 2,
+ staleTime: 1 * 60 * 1000 // Cache for 1 minute
+ });
 };
 
 ```
 
-### Component Interactions
+### iii) Advanced Search Patterns with React 19
+
+**Search with React 19:**
+
+```javascript
+import { useDeferredValue, useTransition, use } from 'react';
+
+const SearchBar= () => {
+ const [query, setQuery] = useState('');
+ const [isPending, startTransition] = useTransition();
+
+ // React 19: useDeferredValue for debouncing
+ const deferredQuery = useDeferredValue(query);
+
+ // React 19: use() hook for search results promise
+ const searchPromise = useMemo(() => {
+ if (!deferredQuery || deferredQuery.length < 2) {
+ return Promise.resolve({ suggestions: [] });
+ }
+ return fetchAutocomplete(deferredQuery);
+ }, [deferredQuery]);
+
+ const autocompleteData = use(searchPromise);
+
+ const handleInputChange = (value) => {
+ setQuery(value);
+ startTransition(() => {
+ // Input updates are lower priority
+ });
+ };
+
+ return (
+ <div className="search-bar">
+ <input
+ type="text"
+ value={query}
+ onChange={(e) => handleInputChange(e.target.value)}
+ placeholder="Search..."
+ />
+ {isPending && <span>Searching...</span>}
+ {autocompleteData.suggestions.length > 0 && (
+ <AutocompleteDropdown suggestions={autocompleteData.suggestions} />
+ )}
+ </div>
+ );
+};
+```
+
+**Search Results with React 19:**
+
+```javascript
+import { useDeferredValue, useTransition, use } from 'react';
+
+const SearchResultsPage<{ query; filters: SearchFilters }> = ({
+ query,
+ filters
+}) => {
+ const [isPending, startTransition] = useTransition();
+
+ // React 19: useDeferredValue for filter debouncing
+ const deferredFilters = useDeferredValue(filters);
+
+ // React 19: use() hook for search results promise
+ const searchPromise = useMemo(() => {
+ if (!query) return Promise.resolve({ results: [], total: 0 });
+ return searchAPI(query, deferredFilters);
+ }, [query, deferredFilters]);
+
+ const searchData = use(searchPromise);
+
+ const handleFilterChange = (newFilters: SearchFilters) => {
+ startTransition(() => {
+ // Filter updates are lower priority
+ });
+ };
+
+ return (
+ <div className="search-results">
+ <FilterSidebar
+ filters={filters}
+ onChange={handleFilterChange}
+ />
+ {isPending && <LoadingSpinner />}
+ <SearchResultsList results={searchData.results} />
+ <Pagination total={searchData.total} />
+ </div>
+ );
+};
+```
+
+### iv) Implementation Details
 
 **Data Flow:**
 
-1. **Search Input** → User types query, triggers autocomplete suggestions
-2. **Search Execution** → User submits search, fetches results via API
-3. **Filter Application** → User applies filters, refetches results with filters
+1. **Search Input** → User types query, triggers autocomplete with useDeferredValue debouncing
+2. **Search Execution** → User submits search, fetches results via React 19 use() hook
+3. **Filter Application** → User applies filters with useDeferredValue, refetches results with transitions
 4. **Result Selection** → User clicks result, navigates to content
-5. **Search History** → Search queries saved for recent searches
+5. **Search History** → Search queries saved optimistically
 
 **Event Handling:**
 
-- Search input triggers debounced autocomplete API call
-- Search submission fetches full search results
-- Filter changes refetch results with new filters
-- Pagination loads next page of results
+- Search input triggers debounced autocomplete API call using useDeferredValue
+- Search submission fetches full search results with React 19 use() hook
+- Filter changes refetch results with new filters using transitions
+- Pagination loads next page of results with transitions
 - Keyboard navigation for autocomplete suggestions
 
-### UI/UX Considerations
+**UI/UX Considerations:**
 
-- **Loading States**: Show skeleton loaders for search results, spinners for autocomplete
-- **Error Handling**: Display user-friendly error messages with retry options
-- **Validation**: Client-side validation for search query length
-- **Responsive Design**: Mobile-first layout, collapsible filters on mobile
+- **Loading States**: Skeleton loaders for search results, spinners for autocomplete, loading indicators
+- **Error Handling**: User-friendly error messages with retry options, error boundaries
+- **Validation**: Client-side validation for search query length with React 19 form validation
+- **Responsive Design**: Mobile-first layout, collapsible filters on mobile, adaptive UI
 - **Accessibility**: ARIA labels, keyboard navigation, screen reader support, focus management
-- **Performance**: Debounced autocomplete, virtual scrolling for long result lists, result caching
+- **Performance**: Debounced autocomplete with useDeferredValue, virtual scrolling for long result lists, result caching, React 19 transitions for smooth updates
 
 ---
 
@@ -501,13 +528,13 @@ const useAutocomplete = (query: string) => {
 
 ### Model Interface
 
-```typescript
-interface Model {
-  id: string;
-  // Model fields
-  createdAt: Date;
-  updatedAt: Date;
-}
+```javascript
+// Model structure:
+//
+ id;
+ // Model fields
+ createdAt;
+ updatedAt;
 
 ```
 
@@ -522,36 +549,36 @@ interface Model {
 - **Method:** GET
 
 - **Query Parameters:**
-  - `q`: string (required) - Search query
-  - `page`: number (default: 1)
-  - `limit`: number (default: 20, max: 100)
-  - `filters`: string (optional) - Filter criteria (e.g., "category:electronics,price:0-100")
-  - `sort`: string (optional) - Sort order (e.g., "price:asc", "relevance:desc")
+ - `q`(required) - Search query
+ - `page`(default: 1)
+ - `limit`(default: 20, max: 100)
+ - `filters`(optional) - Filter criteria (e.g., "category:electronics,price:0-100")
+ - `sort`(optional) - Sort order (e.g., "price:asc", "relevance:desc")
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "results": [
-        {
-          "id": "product_abc123",
-          "title": "Product Name",
-          "description": "Product description...",
-          "category": "electronics",
-          "price": 99.99,
-          "score": 0.95
-        }
-      ],
-      "total": 1250,
-      "page": 1,
-      "limit": 20,
-      "totalPages": 63
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "results": [
+ {
+ "id": "product_abc123",
+ "title": "Product Name",
+ "description": "Product description...",
+ "category": "electronics",
+ "price": 99.99,
+ "score": 0.95
+ }
+ ],
+ "total": 1250,
+ "page": 1,
+ "limit": 20,
+ "totalPages": 63
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 400 (Invalid Query)
 
@@ -562,23 +589,23 @@ interface Model {
 - **Method:** GET
 
 - **Query Parameters:**
-  - `q`: string (required) - Partial search query
-  - `limit`: number (default: 10, max: 20)
+ - `q`(required) - Partial search query
+ - `limit`(default: 10, max: 20)
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "suggestions": [
-        { "text": "query suggestion 1", "count": 150 },
-        { "text": "query suggestion 2", "count": 120 }
-      ]
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "suggestions": [
+ { "text": "query suggestion 1", "count": 150 },
+ { "text": "query suggestion 2", "count": 120 }
+ ]
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 400 (Invalid Query)
 
@@ -592,37 +619,47 @@ interface Model {
 
 - **Request Body:**
 
-  ```json
-  {
-    "id": "product_abc123",
-    "title": "Product Name",
-    "description": "Product description...",
-    "category": "electronics",
-    "price": 99.99,
-    "tags": ["tag1", "tag2"]
-  }
+ ```json
+ {
+ "id": "product_abc123",
+ "title": "Product Name",
+ "description": "Product description...",
+ "category": "electronics",
+ "price": 99.99,
+ "tags": ["tag1", "tag2"]
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "id": "product_abc123",
-      "indexed": true,
-      "indexedAt": "2024-01-15T10:30:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "id": "product_abc123",
+ "indexed": true,
+ "indexedAt": "2024-01-15T10:30:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error)
 
 ---
 
-## Backend Implementation Details
+## b) Backend
+
+*Note: Backend implementation details are kept minimal. Focus is on frontend integration.*
+
+**API Endpoints Reference:**
+
+- `GET /api/v1/search` - Search with query and filters
+- `GET /api/v1/search/autocomplete` - Get autocomplete suggestions
+- `GET /api/v1/search/history` - Get search history
+
+---
 
 ### Express.js Server Structure
 
@@ -638,24 +675,24 @@ server/
 
 ### Search Service
 
-```typescript
+```javascript
 class SearchService {
-  async search(query: string, filters: any, page: number, limit: number): Promise<SearchResults> {
-    // Build Elasticsearch query
-    // Apply filters
-    // Execute search
-    // Return results
-  }
+ async search(query, filters: any, page, limit){
+ // Build Elasticsearch query
+ // Apply filters
+ // Execute search
+ // Return results
+ }
 
-  async autocomplete(partialQuery: string): Promise<string[]> {
-    // Get suggestions from Elasticsearch
-    // Return autocomplete suggestions
-  }
+ async autocomplete(partialQuery){
+ // Get suggestions from Elasticsearch
+ // Return autocomplete suggestions
+ }
 
-  async indexDocument(document: any): Promise<void> {
-    // Index document in Elasticsearch
-    // Update index
-  }
+ async indexDocument(document: any){
+ // Index document in Elasticsearch
+ // Update index
+ }
 }
 
 ```
@@ -707,179 +744,179 @@ class SearchService {
 
 **Backend (Express.js):**
 
-```typescript
+```javascript
 // Backend: services/SearchService.ts
 import { Client } from '@elastic/elasticsearch';
 
 const esClient = new Client({ node: process.env.ELASTICSEARCH_URL });
 
 class SearchService {
-  async search(query: string, filters: any, page: number = 1, limit: number = 20) {
-    const from = (page - 1) * limit;
+ async search(query, filters: any, page= 1, limit= 20) {
+ const from = (page - 1) * limit;
 
-    // Build Elasticsearch query
-    const esQuery = {
-      index: 'products',
-      body: {
-        query: {
-          bool: {
-            must: [
-              {
-                multi_match: {
-                  query: query,
-                  fields: ['title^3', 'description', 'tags'],
-                  fuzziness: 'AUTO'
-                }
-              }
-            ],
-            filter: this.buildFilters(filters)
-          }
-        },
-        sort: this.buildSort(filters.sort),
-        from,
-        size: limit
-      }
-    };
+ // Build Elasticsearch query
+ const esQuery = {
+ index: 'products',
+ body: {
+ query: {
+ bool: {
+ must: [
+ {
+ multi_match: {
+ query: query,
+ fields: ['title^3', 'description', 'tags'],
+ fuzziness: 'AUTO'
+ }
+ }
+ ],
+ filter: this.buildFilters(filters)
+ }
+ },
+ sort: this.buildSort(filters.sort),
+ from,
+ size: limit
+ }
+ };
 
-    try {
-      const response = await esClient.search(esQuery);
+ try {
+ const response = await esClient.search(esQuery);
 
-      return {
-        results: response.body.hits.hits.map((hit: any) => ({
-          id: hit._id,
-          ...hit._source,
-          score: hit._score
-        })),
-        total: response.body.hits.total.value,
-        page,
-        limit,
-        totalPages: Math.ceil(response.body.hits.total.value / limit)
-      };
-    } catch (error) {
-      console.error('Elasticsearch error:', error);
-      throw new Error('Search failed');
-    }
-  }
+ return {
+ results: response.body.hits.hits.map((hit: any) => ({
+ id: hit._id,
+ ...hit._source,
+ score: hit._score
+ })),
+ total: response.body.hits.total.value,
+ page,
+ limit,
+ totalPages: Math.ceil(response.body.hits.total.value / limit)
+ };
+ } catch (error) {
+ console.error('Elasticsearch error:', error);
+ throw new Error('Search failed');
+ }
+ }
 
-  async autocomplete(partialQuery: string, limit: number = 10) {
-    const response = await esClient.search({
-      index: 'products',
-      body: {
-        suggest: {
-          autocomplete: {
-            prefix: partialQuery,
-            completion: {
-              field: 'suggest',
-              size: limit
-            }
-          }
-        }
-      }
-    });
+ async autocomplete(partialQuery, limit= 10) {
+ const response = await esClient.search({
+ index: 'products',
+ body: {
+ suggest: {
+ autocomplete: {
+ prefix: partialQuery,
+ completion: {
+ field: 'suggest',
+ size: limit
+ }
+ }
+ }
+ }
+ });
 
-    return response.body.suggest.autocomplete[0].options.map((option: any) => ({
-      text: option.text,
-      count: option._source.count
-    }));
-  }
+ return response.body.suggest.autocomplete[0].options.map((option: any) => ({
+ text: option.text,
+ count: option._source.count
+ }));
+ }
 
-  private buildFilters(filters: any) {
-    const filterClauses = [];
+ private buildFilters(filters: any) {
+ const filterClauses = [];
 
-    if (filters.category) {
-      filterClauses.push({ term: { category: filters.category } });
-    }
+ if (filters.category) {
+ filterClauses.push({ term: { category: filters.category } });
+ }
 
-    if (filters.priceRange) {
-      filterClauses.push({
-        range: {
-          price: {
-            gte: filters.priceRange.min,
-            lte: filters.priceRange.max
-          }
-        }
-      });
-    }
+ if (filters.priceRange) {
+ filterClauses.push({
+ range: {
+ price: {
+ gte: filters.priceRange.min,
+ lte: filters.priceRange.max
+ }
+ }
+ });
+ }
 
-    return filterClauses;
-  }
+ return filterClauses;
+ }
 
-  private buildSort(sortParam?: string) {
-    if (!sortParam) {
-      return [{ _score: 'desc' }]; // Default: relevance
-    }
+ private buildSort(sortParam?) {
+ if (!sortParam) {
+ return [{ _score: 'desc' }]; // Default: relevance
+ }
 
-    const [field, order] = sortParam.split(':');
-    return [{ [field]: order || 'asc' }];
-  }
+ const [field, order] = sortParam.split(':');
+ return [{ [field]: order || 'asc' }];
+ }
 }
 
 ```
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // React component for search with autocomplete
 import { useState, useEffect, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { debounce } from 'lodash';
 import axios from 'axios';
 
-const SearchComponent: React.FC = () => {
-  const [query, setQuery] = useState('');
-  const [debouncedQuery, setDebouncedQuery] = useState('');
+const SearchComponent= () => {
+ const [query, setQuery] = useState('');
+ const [debouncedQuery, setDebouncedQuery] = useState('');
 
-  // Debounce search query
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedQuery(query);
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [query]);
+ // Debounce search query
+ useEffect(() => {
+ const timer = setTimeout(() => {
+ setDebouncedQuery(query);
+ }, 300);
+ return () => clearTimeout(timer);
+ }, [query]);
 
-  // Search query
-  const { data: searchResults, isLoading } = useQuery({
-    queryKey: ['search', debouncedQuery],
-    queryFn: () => axios.get('/api/v1/search', { params: { q: debouncedQuery } })
-      .then(res => res.data.data),
-    enabled: debouncedQuery.length > 0
-  });
+ // Search query
+ const { data: searchResults, isLoading } = useQuery({
+ queryKey: ['search', debouncedQuery],
+ queryFn: () => axios.get('/api/v1/search', { params: { q: debouncedQuery } })
+ .then(res => res.data.data),
+ enabled: debouncedQuery.length > 0
+ });
 
-  // Autocomplete query
-  const { data: suggestions } = useQuery({
-    queryKey: ['autocomplete', query],
-    queryFn: () => axios.get('/api/v1/search/autocomplete', { params: { q: query } })
-      .then(res => res.data.data.suggestions),
-    enabled: query.length > 2
-  });
+ // Autocomplete query
+ const { data: suggestions } = useQuery({
+ queryKey: ['autocomplete', query],
+ queryFn: () => axios.get('/api/v1/search/autocomplete', { params: { q: query } })
+ .then(res => res.data.data.suggestions),
+ enabled: query.length > 2
+ });
 
-  return (
-    <div className="search-container">
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search..."
-      />
-      {suggestions && suggestions.length > 0 && (
-        <div className="autocomplete-dropdown">
-          {suggestions.map((suggestion: any) => (
-            <div key={suggestion.text} onClick={() => setQuery(suggestion.text)}>
-              {suggestion.text}
-            </div>
-          ))}
-        </div>
-      )}
-      {isLoading && <div>Searching...</div>}
-      {searchResults && (
-        <div className="search-results">
-          {searchResults.results.map((result: any) => (
-            <div key={result.id}>{result.title}</div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+ return (
+ <div className="search-container">
+ <input
+ type="text"
+ value={query}
+ onChange={(e) => setQuery(e.target.value)}
+ placeholder="Search..."
+ />
+ {suggestions && suggestions.length > 0 && (
+ <div className="autocomplete-dropdown">
+ {suggestions.map((suggestion: any) => (
+ <div key={suggestion.text} onClick={() => setQuery(suggestion.text)}>
+ {suggestion.text}
+ </div>
+ ))}
+ </div>
+ )}
+ {isLoading && <div>Searching...</div>}
+ {searchResults && (
+ <div className="search-results">
+ {searchResults.results.map((result: any) => (
+ <div key={result.id}>{result.title}</div>
+ ))}
+ </div>
+ )}
+ </div>
+ );
 };
 
 ```
@@ -895,46 +932,46 @@ const SearchComponent: React.FC = () => {
 
 **Backend (Express.js):**
 
-```typescript
+```javascript
 // Backend: services/IndexingService.ts
 import { Client } from '@elastic/elasticsearch';
 import rabbitmq from '../config/rabbitmq';
 
 class IndexingService {
-  async indexDocument(document: any) {
-    try {
-      await esClient.index({
-        index: 'products',
-        id: document.id,
-        body: {
-          ...document,
-          indexedAt: new Date()
-        }
-      });
+ async indexDocument(document: any) {
+ try {
+ await esClient.index({
+ index: 'products',
+ id: document.id,
+ body: {
+ ...document,
+ indexedAt: new Date()
+ }
+ });
 
-      // Refresh index for immediate searchability
-      await esClient.indices.refresh({ index: 'products' });
-    } catch (error) {
-      console.error('Indexing error:', error);
-      throw error;
-    }
-  }
+ // Refresh index for immediate searchability
+ await esClient.indices.refresh({ index: 'products' });
+ } catch (error) {
+ console.error('Indexing error:', error);
+ throw error;
+ }
+ }
 
-  async bulkIndex(documents: any[]) {
-    const body = documents.flatMap((doc) => [
-      { index: { _index: 'products', _id: doc.id } },
-      doc
-    ]);
+ async bulkIndex(documents: any[]) {
+ const body = documents.flatMap((doc) => [
+ { index: { _index: 'products', _id: doc.id } },
+ doc
+ ]);
 
-    await esClient.bulk({ body });
-    await esClient.indices.refresh({ index: 'products' });
-  }
+ await esClient.bulk({ body });
+ await esClient.indices.refresh({ index: 'products' });
+ }
 }
 
 // Message queue consumer for async indexing
 rabbitmq.consume('index-document', async (message) => {
-  const document = JSON.parse(message.content.toString());
-  await indexingService.indexDocument(document);
+ const document = JSON.parse(message.content.toString());
+ await indexingService.indexDocument(document);
 });
 
 ```
@@ -946,44 +983,44 @@ rabbitmq.consume('index-document', async (message) => {
 
 **Backend (Express.js):**
 
-```typescript
+```javascript
 // Backend: middleware/errorHandler.ts
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error('Search Error:', err);
+ console.error('Search Error:', err);
 
-  if (err.message === 'Invalid query') {
-    return res.status(400).json({ error: 'Invalid search query' });
-  }
+ if (err.message === 'Invalid query') {
+ return res.status(400).json({ error: 'Invalid search query' });
+ }
 
-  if (err.message === 'Elasticsearch unavailable') {
-    return res.status(503).json({ error: 'Search service temporarily unavailable' });
-  }
+ if (err.message === 'Elasticsearch unavailable') {
+ return res.status(503).json({ error: 'Search service temporarily unavailable' });
+ }
 
-  if (err.name === 'TimeoutError') {
-    return res.status(504).json({ error: 'Search timeout. Please try again.' });
-  }
+ if (err.name === 'TimeoutError') {
+ return res.status(504).json({ error: 'Search timeout. Please try again.' });
+ }
 
-  res.status(500).json({ error: 'Internal server error' });
+ res.status(500).json({ error: 'Internal server error' });
 };
 
 ```
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // React error handling
 axios.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 503) {
-      toast.error('Search service unavailable. Please try again later.');
-    } else if (error.response?.status === 400) {
-      toast.error('Invalid search query. Please check your input.');
-    } else {
-      toast.error('Search failed. Please try again.');
-    }
-    return Promise.reject(error);
-  }
+ (response) => response,
+ (error) => {
+ if (error.response?.status === 503) {
+ toast.error('Search service unavailable. Please try again later.');
+ } else if (error.response?.status === 400) {
+ toast.error('Invalid search query. Please check your input.');
+ } else {
+ toast.error('Search failed. Please try again.');
+ }
+ return Promise.reject(error);
+ }
 );
 
 ```
@@ -1228,18 +1265,18 @@ ELASTICSEARCH_INDEX=search_index
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await Document.create([documentData], { session });
-  await ElasticsearchService.indexDocument(documentData);
-  await session.commitTransaction();
+ await Document.create([documentData], { session });
+ await ElasticsearchService.indexDocument(documentData);
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -1298,51 +1335,51 @@ try {
 
 **Implementation:**
 
-```typescript
+```javascript
 class InvertedIndex {
-  private index: Map<string, Set<string>> = new Map();
+ private index: Map<string, Set<string>> = new Map();
 
-  indexDocument(docId: string, text: string): void {
-    const words = this.tokenize(text);
+ indexDocument(docId, text){
+ const words = this.tokenize(text);
 
-    for (const word of words) {
-      if (!this.index.has(word)) {
-        this.index.set(word, new Set());
-      }
-      this.index.get(word)!.add(docId);
-    }
-  }
+ for (const word of words) {
+ if (!this.index.has(word)) {
+ this.index.set(word, new Set());
+ }
+ this.index.get(word)!.add(docId);
+ }
+ }
 
-  search(query: string): string[] {
-    const queryWords = this.tokenize(query);
-    let result: Set<string> | null = null;
+ search(query)[] {
+ const queryWords = this.tokenize(query);
+ let result: Set<string> | null = null;
 
-    for (const word of queryWords) {
-      const docIds = this.index.get(word) || new Set();
+ for (const word of queryWords) {
+ const docIds = this.index.get(word) || new Set();
 
-      if (result === null) {
-        result = new Set(docIds);
-      } else {
-        // Intersection: documents containing all query terms
-        result = new Set([...result].filter(id => docIds.has(id)));
-      }
-    }
+ if (result === null) {
+ result = new Set(docIds);
+ } else {
+ // Intersection: documents containing all query terms
+ result = new Set([...result].filter(id => docIds.has(id)));
+ }
+ }
 
-    return result ? Array.from(result) : [];
-  }
+ return result ? Array.from(result) : [];
+ }
 
-  private tokenize(text: string): string[] {
-    return text
-      .toLowerCase()
-      .replace(/[^\w\s]/g, '')
-      .split(/\s+/)
-      .filter(word => word.length > 0 && !this.isStopWord(word));
-  }
+ private tokenize(text)[] {
+ return text
+ .toLowerCase()
+ .replace(/[^\w\s]/g, '')
+ .split(/\s+/)
+ .filter(word => word.length > 0 && !this.isStopWord(word));
+ }
 
-  private isStopWord(word: string): boolean {
-    const stopWords = ['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at'];
-    return stopWords.includes(word);
-  }
+ private isStopWord(word){
+ const stopWords = ['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at'];
+ return stopWords.includes(word);
+ }
 }
 
 ```
@@ -1369,48 +1406,48 @@ class InvertedIndex {
 
 **Implementation:**
 
-```typescript
+```javascript
 class TrieNode {
-  children: Map<string, TrieNode> = new Map();
-  suggestions: string[] = [];
-  isEndOfWord: boolean = false;
+ children: Map<string, TrieNode> = new Map();
+ suggestions[] = [];
+ isEndOfWord= false;
 }
 
 class AutocompleteTrie {
-  private root: TrieNode = new TrieNode();
+ private root: TrieNode = new TrieNode();
 
-  insert(query: string, popularity: number = 1): void {
-    let node = this.root;
+ insert(query, popularity= 1){
+ let node = this.root;
 
-    for (const char of query.toLowerCase()) {
-      if (!node.children.has(char)) {
-        node.children.set(char, new TrieNode());
-      }
-      node = node.children.get(char)!;
+ for (const char of query.toLowerCase()) {
+ if (!node.children.has(char)) {
+ node.children.set(char, new TrieNode());
+ }
+ node = node.children.get(char)!;
 
-      // Add to suggestions, keep top 10
-      if (!node.suggestions.includes(query)) {
-        node.suggestions.push(query);
-        node.suggestions.sort((a, b) => b.popularity - a.popularity);
-        node.suggestions = node.suggestions.slice(0, 10);
-      }
-    }
+ // Add to suggestions, keep top 10
+ if (!node.suggestions.includes(query)) {
+ node.suggestions.push(query);
+ node.suggestions.sort((a, b) => b.popularity - a.popularity);
+ node.suggestions = node.suggestions.slice(0, 10);
+ }
+ }
 
-    node.isEndOfWord = true;
-  }
+ node.isEndOfWord = true;
+ }
 
-  search(prefix: string): string[] {
-    let node = this.root;
+ search(prefix)[] {
+ let node = this.root;
 
-    for (const char of prefix.toLowerCase()) {
-      if (!node.children.has(char)) {
-        return [];
-      }
-      node = node.children.get(char)!;
-    }
+ for (const char of prefix.toLowerCase()) {
+ if (!node.children.has(char)) {
+ return [];
+ }
+ node = node.children.get(char)!;
+ }
 
-    return node.suggestions;
-  }
+ return node.suggestions;
+ }
 }
 
 ```
@@ -1436,42 +1473,42 @@ class AutocompleteTrie {
 
 **Implementation:**
 
-```typescript
+```javascript
 class BM25Ranker {
-  private k1: number = 1.5;  // Term frequency saturation parameter
-  private b: number = 0.75;  // Length normalization parameter
-  private documents: Map<string, string[]> = new Map();
-  private avgDocLength: number = 0;
+ private k1= 1.5; // Term frequency saturation parameter
+ private b= 0.75; // Length normalization parameter
+ private documents: Map<string, string[]> = new Map();
+ private avgDocLength= 0;
 
-  calculateScore(docId: string, queryTerms: string[]): number {
-    const doc = this.documents.get(docId)!;
-    const docLength = doc.length;
-    let score = 0;
+ calculateScore(docId, queryTerms[]){
+ const doc = this.documents.get(docId)!;
+ const docLength = doc.length;
+ let score = 0;
 
-    for (const term of queryTerms) {
-      const tf = this.termFrequency(doc, term);
-      const idf = this.inverseDocumentFrequency(term);
+ for (const term of queryTerms) {
+ const tf = this.termFrequency(doc, term);
+ const idf = this.inverseDocumentFrequency(term);
 
-      const numerator = idf * tf * (this.k1 + 1);
-      const denominator = tf + this.k1 * (1 - this.b + this.b * (docLength / this.avgDocLength));
+ const numerator = idf * tf * (this.k1 + 1);
+ const denominator = tf + this.k1 * (1 - this.b + this.b * (docLength / this.avgDocLength));
 
-      score += numerator / denominator;
-    }
+ score += numerator / denominator;
+ }
 
-    return score;
-  }
+ return score;
+ }
 
-  private termFrequency(doc: string[], term: string): number {
-    return doc.filter(word => word === term).length;
-  }
+ private termFrequency(doc[], term){
+ return doc.filter(word => word === term).length;
+ }
 
-  private inverseDocumentFrequency(term: string): number {
-    const docCount = this.documents.size;
-    const docsWithTerm = Array.from(this.documents.values())
-      .filter(doc => doc.includes(term)).length;
+ private inverseDocumentFrequency(term){
+ const docCount = this.documents.size;
+ const docsWithTerm = Array.from(this.documents.values())
+ .filter(doc => doc.includes(term)).length;
 
-    return Math.log((docCount - docsWithTerm + 0.5) / (docsWithTerm + 0.5) + 1);
-  }
+ return Math.log((docCount - docsWithTerm + 0.5) / (docsWithTerm + 0.5) + 1);
+ }
 }
 
 ```
@@ -1490,16 +1527,16 @@ class BM25Ranker {
 
 ```javascript
 {
-  _id: ObjectId,
-  documentId: String,       // Unique document ID, indexed
-  title: String,            // Document title
-  content: String,          // Document content (full text)
-  category: String,         // Document category, indexed
-  tags: [String],          // Document tags
-  metadata: Object,         // Additional metadata (author, date, etc.)
-  indexedAt: Date,         // When document was indexed, indexed
-  createdAt: Date,         // Created timestamp
-  updatedAt: Date          // Updated timestamp
+ _id: ObjectId,
+ documentId: String, // Unique document ID, indexed
+ title: String, // Document title
+ content: String, // Document content (full text)
+ category: String, // Document category, indexed
+ tags: [String], // Document tags
+ metadata: Object, // Additional metadata (author, date, etc.)
+ indexedAt, // When document was indexed, indexed
+ createdAt, // Created timestamp
+ updatedAt// Updated timestamp
 }
 
 // Indexes:
@@ -1513,14 +1550,14 @@ class BM25Ranker {
 
 ```javascript
 {
-  _id: ObjectId,
-  queryId: String,          // Unique query ID
-  query: String,            // Search query text, indexed
-  userId: ObjectId,         // User reference (optional)
-  resultsCount: Number,     // Number of results returned
-  clickedResults: [String], // Document IDs that were clicked
-  timestamp: Date,          // Query timestamp, indexed
-  createdAt: Date          // Created timestamp
+ _id: ObjectId,
+ queryId: String, // Unique query ID
+ query: String, // Search query text, indexed
+ userId: ObjectId, // User reference (optional)
+ resultsCount: Number, // Number of results returned
+ clickedResults: [String], // Document IDs that were clicked
+ timestamp, // Query timestamp, indexed
+ createdAt// Created timestamp
 }
 
 // Indexes:
@@ -1543,18 +1580,18 @@ class BM25Ranker {
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await Document.create([documentData], { session });
-  await ElasticsearchService.indexDocument(documentData);
-  await session.commitTransaction();
+ await Document.create([documentData], { session });
+ await ElasticsearchService.indexDocument(documentData);
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -1595,34 +1632,34 @@ try {
 - **Method:** GET
 - **Description:** Search documents
 - **Query Parameters:**
-  - `q`: string (required) - Search query
-  - `page`: number (default: 1)
-  - `limit`: number (default: 20, max: 100)
-  - `category`: string (optional) - Filter by category
-  - `sort`: string (optional) - Sort by relevance, date, popularity
+ - `q`(required) - Search query
+ - `page`(default: 1)
+ - `limit`(default: 20, max: 100)
+ - `category`(optional) - Filter by category
+ - `sort`(optional) - Sort by relevance, date, popularity
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "results": [
-        {
-          "documentId": "doc_abc123",
-          "title": "Document Title",
-          "snippet": "Relevant text snippet...",
-          "score": 0.95,
-          "category": "tech"
-        }
-      ],
-      "total": 1250,
-      "page": 1,
-      "limit": 20,
-      "took": 45
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "results": [
+ {
+ "documentId": "doc_abc123",
+ "title": "Document Title",
+ "snippet": "Relevant text snippet...",
+ "score": 0.95,
+ "category": "tech"
+ }
+ ],
+ "total": 1250,
+ "page": 1,
+ "limit": 20,
+ "took": 45
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 400 (Invalid Query)
 
@@ -1632,23 +1669,23 @@ try {
 - **Method:** GET
 - **Description:** Get autocomplete suggestions
 - **Query Parameters:**
-  - `q`: string (required) - Query prefix
-  - `limit`: number (default: 10, max: 20)
+ - `q`(required) - Query prefix
+ - `limit`(default: 10, max: 20)
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "suggestions": [
-        "query example",
-        "query optimization",
-        "query performance"
-      ]
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "suggestions": [
+ "query example",
+ "query optimization",
+ "query performance"
+ ]
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 400 (Invalid Query)
 
@@ -1663,8 +1700,8 @@ try {
 - **Key Format:** `search:query:{hash}`, `autocomplete:{prefix}`
 - **Value:** Serialized JSON (search results, autocomplete suggestions)
 - **TTL:**
-  - Search results: 300 seconds (5 minutes)
-  - Autocomplete: 3600 seconds (1 hour)
+ - Search results: 300 seconds (5 minutes)
+ - Autocomplete: 3600 seconds (1 hour)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
@@ -1691,11 +1728,11 @@ try {
 
 ```json
 {
-  "error": {
-    "code": "INVALID_QUERY",
-    "message": "Invalid search query",
-    "details": "Query must be at least 2 characters long"
-  }
+ "error": {
+ "code": "INVALID_QUERY",
+ "message": "Invalid search query",
+ "details": "Query must be at least 2 characters long"
+ }
 }
 
 ```

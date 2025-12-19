@@ -52,91 +52,91 @@
 
 ## 🧭 Recommended Preparation Path
 
-### 0. Introduction (Q0–4)
+### 0. Introduction
 
 - **Focus**: Framework comparisons (React vs Vue/Angular/Svelte), bundling tools (Webpack vs Vite/Rollup), backend comparisons (Node.js vs Python/Go/Java), database choices (SQL vs NoSQL), and mobile frameworks (React Native vs Flutter vs Cordova).
 
-### 1. Foundation (Q1–20)
+### 1. Foundation
 
 - **Focus**: How the web works, networking, rendering path, communication patterns, HTML/CSS/JavaScript/TypeScript internals, and how React, Next.js, Node.js, and React Native work internally.
 
-### 2. APIs & Design (Q21–54)
+### 2. APIs & Design
 
 - **Focus**: Browser APIs, high-level design (requirements, architecture, infrastructure), and low-level design (implementation details).
 
-### 3. Security & Quality (Q55–74)
+### 3. Security & Quality
 
 - **Focus**: Security best practices (XSS, CSRF, CORS, etc.) and testing strategies (unit, integration, E2E, A/B, performance, security).
 
-### 4. Performance & Data (Q75–91)
+### 4. Performance & Data
 
 - **Focus**: Performance optimization, monitoring, database & caching strategies, and logging & monitoring.
 
-### 5. UX & Reliability (Q92–99)
+### 5. UX & Reliability
 
 - **Focus**: Accessibility (keyboard nav, screen readers, contrast, focus, tools) and offline UX (Service Workers, PWAs).
 
-### 6. Patterns & Best Practices (Q100–103)
+### 6. Patterns & Best Practices
 
 - **Focus**: Rendering patterns, React anti-patterns, JavaScript anti-patterns, and Node.js anti-patterns.
 
-### 7. Advanced Architecture (Q104)
+### 7. Advanced Architecture
 
 - **Focus**: Microfrontend architecture, patterns, implementation approaches, communication strategies, and deployment.
 
 ---
 
-## 📋 Question Coverage
+## 📋 Topic Coverage
 
-- **Q0-Q4**: Introduction (React vs Vue/Angular, Webpack vs Parcel/Vite/Rollup, Node.js vs Python/Java, SQL vs NoSQL, React Native vs Flutter/Cordova)
+- **Introduction**: Framework & Tool Comparisons (React vs Vue/Angular, Webpack vs Parcel/Vite/Rollup, Node.js vs Python/Java, SQL vs NoSQL, React Native vs Flutter/Cordova)
 
-- **Q1**: Web Works
+- **Web Works**: How the Web Works (DNS, TCP, HTTP, Rendering)
 
-- **Q2-Q7, Q9-Q10**: Networking (TCP/UDP, HTTP/HTTPS, REST, GraphQL, gRPC, SMTP/FTP, Payment Gateway)
+- **Networking**: Protocols, APIs, Payment Gateway (TCP/UDP, HTTP/HTTPS, REST, GraphQL, gRPC, SMTP/FTP)
 
-- **Q8**: Rendering Path
+- **Rendering Path**: Critical Rendering Path (Browser rendering process)
 
-- **Q11-Q16**: Communication (Short/Long Polling, WebSockets, SSE, Webhooks, Socket.io)
+- **Communication**: Real-time Communication (Short/Long Polling, WebSockets, SSE, Webhooks, Socket.io)
 
-- **Q8.5**: HTML Internals (Parsing, DOM, Tokenization, HTML5 Features)
+- **HTML Internals**: HTML Parsing, DOM Construction, Tokenization, HTML5 Features
 
-- **Q8.6**: CSS Internals (Parsing, CSSOM, Cascade, Specificity, Layout Systems)
+- **CSS Internals**: CSS Parsing, CSSOM, Cascade, Specificity, Layout Systems
 
-- **Q17**: JavaScript Internals (Engine, Execution Context, Event Loop, Memory)
+- **JavaScript Internals**: Engine, Execution Context, Event Loop, Memory Management, Hoisting, Scope, Closures
 
-- **Q17.5**: TypeScript Internals (Compiler, Type System, Generics, Module System)
+- **TypeScript Internals**: Compiler, Type System, Type Inference, Generics, Module System
 
-- **Q18**: React Internals (Virtual DOM, Fiber, State, Events, Rendering)
+- **React Internals**: Virtual DOM, Fiber, Reconciliation, Hooks, State Management, Event System
 
-- **Q18.5**: Next.js Internals (App Router, Server Components, Build System, Routing)
+- **Next.js Internals**: App Router, Server Components, Build System, Routing, Rendering Strategies
 
-- **Q19**: Node.js Internals (Event Loop, V8, libuv, Modules, Streams)
+- **Node.js Internals**: Event Loop, V8, libuv, Modules, Streams, Buffer, Cluster
 
-- **Q20**: React Native Internals (Bridge, Native Modules, Threading)
+- **React Native Internals**: Bridge, JSI, Fabric, Native Modules, Threading, Performance
 
-- **Q21-Q32**: Browser APIs (DOM, Fetch, Storage, Geolocation, Canvas, Workers, Intersection Observer, Notifications, Media, File, History, WebSocket)
+- **Browser APIs**: DOM, Fetch, Storage, Geolocation, Canvas, Workers, Intersection Observer, Notifications, Media, File, History, WebSocket
 
-- **Q33-Q44**: High Level Design (HLD)
+- **High Level Design**: Requirements, Scope/MVP, Architecture, Database, Load Balancer, CDN, Middleware, Caching, Queue, Cron, CI/CD
 
-- **Q45-Q54**: Low Level Design (LLD)
+- **Low Level Design**: View Layer, Service Layer, Controller, Data Model, API, State Management, Error Handling, Performance, Security, Testing
 
-- **Q55-Q69**: Security (includes Access Token and Refresh Token Management)
+- **Security**: XSS, CSRF, CORS, Security Headers, HTTPS, Dependency Security, Compliance, Input Validation, SSRF, SSJI, Permissions Policy, SRI, Access/Refresh Tokens
 
-- **Q70-Q74**: Testing
+- **Testing**: Unit Testing, Integration Testing, E2E Testing, A/B Testing, Performance Testing, Security Testing
 
-- **Q75-Q79**: Performance
+- **Performance**: Performance Monitoring, Core Web Vitals, Performance Tools, Network Optimization, Rendering Patterns, Build Optimization
 
-- **Q80-Q88**: Database & Caching
+- **Database & Caching**: Local Storage, Session Storage, Cookies, IndexedDB, Normalization, HTTP Caching, Service Worker Caching, API Caching, State Management
 
-- **Q89-Q91**: Logging & Monitoring
+- **Logging & Monitoring**: Telemetry, Alerting, Fixing Performance and Error Issues
 
-- **Q92-Q97**: Accessibility
+- **Accessibility**: Keyboard Accessibility, Screen Reader Support, Focus Management, Color Contrast, Accessibility Tools, Fixing Issues
 
-- **Q98-Q99**: Offline Support
+- **Offline Support**: Service Workers, Progressive Web Applications (PWAs)
 
-- **Q100-Q103**: Patterns & Anti-Patterns
+- **Patterns**: Rendering Patterns (CSR, SSR, SSG, ISR, Streaming, Partial Hydration), Anti-React Patterns, Anti-JavaScript Patterns, Anti-Node.js Patterns
 
-- **Q104**: Microfrontend Architecture
+- **Microfrontend**: Microfrontend Architecture, Patterns, Implementation Approaches, Communication, Routing, Styling, Testing, Deployment
 
 ---
 

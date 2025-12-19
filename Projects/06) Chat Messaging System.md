@@ -100,71 +100,6 @@ Design and implement a real-time chat messaging system that addresses the follow
 
 ---
 
-## d) Capacity Estimation
-
-### Throughput Requirements
-
-- **Total Users**: 2 billion users
-- **Daily Active Users (DAU)**: 1 billion users per day
-- **Peak Traffic**: 3x average during peak hours (3 billion users per day)
-- **Messages per Day**: 100 billion messages
-- **Average Message Size**: 100 bytes (text messages), 1 MB (media messages)
-- **Read:Write Ratio**: 10:1 (reading messages vs sending messages)
-
-**Calculations:**
-
-- **Average Writes Per Second (WPS)**: 100B messages / 86,400 seconds ≈ 1.16M WPS
-- **Peak WPS**: 1.16M × 3 = 3.48M WPS
-- **Average Reads Per Second (RPS)**: 1.16M × 10 = 11.6M RPS
-- **Peak RPS**: 11.6M × 3 = 34.8M RPS
-- **Concurrent Connections**: 500 million concurrent WebSocket connections
-
-### Storage Estimation
-
-**Storage per Message:**
-
-- Text message: 100 bytes (message content) + 200 bytes (metadata) = 300 bytes
-- Media message: 1 MB (media file) + 200 bytes (metadata) = 1.0002 MB
-- **Average per Message**: 80% text (300 bytes) + 20% media (1.0002 MB) ≈ 200 KB
-
-**Storage Requirements:**
-
-- **Messages per Year**: 100B messages/day × 365 = 36.5 trillion messages
-- **Message Storage**: 36.5T × 200 KB ≈ 7.3 PB per year
-- **User Data**: 2B users × 5 KB ≈ 10 TB
-- **Chat Metadata**: 500M chats × 1 KB ≈ 500 TB/year
-- **Total Storage**: ~7.3 PB (messages) + 10 TB (users) + 500 TB (chats) ≈ 7.81 PB/year
-
-### Bandwidth Estimation
-
-- **Average Message Bandwidth**: 200 KB per message
-- **Daily Bandwidth**: 100B messages × 200 KB = 20,000 TB/day
-- **Peak Bandwidth**: 20,000 TB × 3 = 60,000 TB/day during peak hours
-- **Average Bandwidth**: 20,000 TB / 86,400 seconds ≈ 231 TB/s
-- **Peak Bandwidth**: 231 TB/s × 3 ≈ 693 TB/s
-
-### Caching Estimation
-
-Following the **80-20 rule** where 20% of chats generate 80% of traffic:
-
-- **Cache 20% of active chats**: 500M × 0.2 = 100M chats
-- **Cache memory required**: 100M chats × 1 MB (recent messages) = 100 TB (distributed across Redis cluster)
-- **Cache hit ratio**: 90% (only 10% of message requests hit database)
-- **Requests hitting Database**: 11.6M × 0.10 ≈ 1.16M RPS (manageable with sharding)
-
-### Infrastructure Sizing
-
-- **WebSocket Servers**: 10,000-20,000 instances behind load balancer, each handling 25,000-50,000 concurrent connections
-- **API Servers**: 5,000-10,000 instances for REST API, each handling 1,000-2,000 RPS
-- **Message Queue**: RabbitMQ/Kafka cluster with 50-100 nodes for message distribution
-- **Database**: MongoDB cluster with 200-300 nodes for storage and high read/write throughput
-- **Cache Layer**: Redis cluster with 100-200 nodes for high availability and performance
-- **Search**: Elasticsearch cluster with 50-100 nodes for message search
-- **Media Storage**: AWS S3 or similar object storage for media files
-- **CDN**: CloudFront/Cloudflare for media delivery
-
----
-
 ## e) Architecture Overview
 
 ### Messages Table
@@ -208,35 +143,36 @@ The system follows a real-time messaging architecture with WebSocket connections
 **Frontend Layers:**
 
 1. **Presentation Layer (React Components)**
-   - **UI Components**: Reusable components (MessageBubble, ChatList, UserAvatar, TypingIndicator)
-   - **Feature Components**: ChatWindow, MessageInput, MediaUploader, SearchBar
-   - **Layout Components**: Sidebar, ChatHeader, MessageList, InputArea
-   - **Page Components**: ChatPage, ContactsPage, SettingsPage
+ - **UI Components**: Reusable components (MessageBubble, ChatList, UserAvatar, TypingIndicator)
+ - **Feature Components**: ChatWindow, MessageInput, MediaUploader, SearchBar
+ - **Layout Components**: Sidebar, ChatHeader, MessageList, InputArea
+ - **Page Components**: ChatPage, ContactsPage, SettingsPage
 
 2. **State Management Layer**
-   - **Local State (useState)**: Component-specific UI state (input text, loading, errors, typing state)
-   - **Server State (Redux Toolkit)**: Global state for chats, messages, users, online status
-   - **WebSocket State**: Real-time message updates, typing indicators, online/offline status
+ - **Local State (useState)**: Component-specific UI state (input text, loading, errors, typing state)
+ - **Server State (Redux Toolkit)**: Global state for chats, messages, users, online status
+ - **WebSocket State**: Real-time message updates, typing indicators, online/offline status
 
 3. **WebSocket Layer**
-   - **Socket.io Client**: WebSocket connection for real-time messaging
-   - **Event Handlers**: Message received, typing started/stopped, user online/offline
-   - **Connection Management**: Auto-reconnect, heartbeat, connection state
+ - **Socket.io Client**: WebSocket connection for real-time messaging
+ - **Event Handlers**: Message received, typing started/stopped, user online/offline
+ - **Connection Management**: Auto-reconnect, heartbeat, connection state
 
 4. **API Integration Layer**
-   - **API Client**: Axios instance with interceptors for auth, error handling
-   - **Redux Thunks**: Async actions for API operations (fetchChats, sendMessage, searchMessages)
-   - **Request/Response Transformation**: Data normalization and error handling
+ - **WebSocket Client**: Primary communication channel for all real-time operations (sendMessage, receiveMessage, typing indicators)
+ - **REST API Client**: Axios instance with interceptors for auth, error handling (only for initial data loading, non-real-time operations)
+ - **Redux Thunks**: Async actions for WebSocket operations and REST API fallbacks
+ - **Request/Response Transformation**: Data normalization and error handling
 
 5. **Routing Layer (React Router)**
-   - **Route Configuration**: Define routes and protected routes
-   - **Navigation**: Programmatic and declarative navigation
-   - **Route Guards**: Authentication and authorization checks
+ - **Route Configuration**: Define routes and protected routes
+ - **Navigation**: Programmatic and declarative navigation
+ - **Route Guards**: Authentication and authorization checks
 
 6. **Build & Deployment Layer**
-   - **Build Process**: Webpack/Vite bundling with code splitting
-   - **Static Assets**: Served from CDN (CloudFront/Cloudflare)
-   - **Environment Configuration**: Environment-specific API endpoints and WebSocket URLs
+ - **Build Process**: Webpack/Vite bundling with code splitting
+ - **Static Assets**: Served from CDN (CloudFront/Cloudflare)
+ - **Environment Configuration**: Environment-specific API endpoints and WebSocket URLs
 
 **Frontend Request Flow:**
 
@@ -279,11 +215,11 @@ The system follows a real-time messaging architecture with WebSocket connections
 **Message Retrieval Flow:**
 
 1. **Frontend**: User opens chat or scrolls up for history
-2. **API Call**: GET request to messages API with chatId and pagination
+2. **WebSocket**: Emit 'fetch-messages' event with chatId and pagination parameters
 3. **Backend**: Check Redis cache for recent messages
 4. **Database**: Query database for older messages if not in cache
-5. **Response**: Return messages with pagination
-6. **Frontend**: Display messages in chat window
+5. **WebSocket Response**: Emit 'messages-history' event with messages and pagination info
+6. **Frontend**: Display messages in chat window (real-time updates via WebSocket)
 
 **Typing Indicator Flow:**
 
@@ -316,35 +252,35 @@ The system follows a real-time messaging architecture with WebSocket connections
 
 ### Message Service
 
-```typescript
+```javascript
 class MessageService {
-  async sendMessage(chatId: string, senderId: string, content: string): Promise<Message> {
-    // Validate message
-    // Store in message queue
-    // Return message ID
-  }
+ async sendMessage(chatId, senderId, content){
+ // Validate message
+ // Store in message queue
+ // Return message ID
+ }
 
-  async getMessages(chatId: string, limit: number, before?: string): Promise<Message[]> {
-    // Query database
-    // Return messages
-  }
+ async getMessages(chatId, limit, before?){
+ // Query database
+ // Return messages
+ }
 }
 
 ```
 
 ### Chat Service
 
-```typescript
+```javascript
 class ChatService {
-  async createChat(participants: string[], type: 'one-on-one' | 'group'): Promise<Chat> {
-    // Create chat
-    // Return chat ID
-  }
+ async createChat(participants[], type: 'one-on-one' | 'group'){
+ // Create chat
+ // Return chat ID
+ }
 
-  async getChat(chatId: string): Promise<Chat> {
-    // Query database
-    // Return chat
-  }
+ async getChat(chatId){
+ // Query database
+ // Return chat
+ }
 }
 
 ```
@@ -362,157 +298,199 @@ Think of the frontend as a tree of React components - each component handles a s
 ```
 App
 ├── Header
-│   ├── Logo
-│   └── UserMenu (Profile, Settings, Sign out)
+│ ├── Logo
+│ └── UserMenu (Profile, Settings, Sign out)
 ├── MainContent
-│   ├── ChatListSidebar
-│   │   ├── SearchBar
-│   │   ├── ChatList
-│   │   │   └── ChatListItem
-│   │   │       ├── Avatar
-│   │   │       ├── ChatName
-│   │   │       ├── LastMessage
-│   │   │       ├── Timestamp
-│   │   │       └── UnreadCount
-│   │   └── NewChatButton
-│   └── ChatWindow
-│       ├── ChatHeader
-│       │   ├── ChatName
-│       │   ├── OnlineStatus
-│       │   └── ChatActions (Info, More)
-│       ├── MessageList
-│       │   └── MessageItem
-│       │       ├── Avatar
-│       │       ├── MessageBubble
-│       │       │   ├── MessageText
-│       │       │   ├── MessageMedia (image, video, file)
-│       │       │   ├── Timestamp
-│       │       │   └── StatusIndicator (sent, delivered, read)
-│       │       └── MessageActions (Reply, Forward, Delete)
-│       ├── TypingIndicator
-│       └── MessageInput
-│           ├── TextInput
-│           ├── AttachmentButton
-│           ├── EmojiButton
-│           └── SendButton
+│ ├── ChatListSidebar
+│ │ ├── SearchBar
+│ │ ├── ChatList
+│ │ │ └── ChatListItem
+│ │ │ ├── Avatar
+│ │ │ ├── ChatName
+│ │ │ ├── LastMessage
+│ │ │ ├── Timestamp
+│ │ │ └── UnreadCount
+│ │ └── NewChatButton
+│ └── ChatWindow
+│ ├── ChatHeader
+│ │ ├── ChatName
+│ │ ├── OnlineStatus
+│ │ └── ChatActions (Info, More)
+│ ├── MessageList
+│ │ └── MessageItem
+│ │ ├── Avatar
+│ │ ├── MessageBubble
+│ │ │ ├── MessageText
+│ │ │ ├── MessageMedia (image, video, file)
+│ │ │ ├── Timestamp
+│ │ │ └── StatusIndicator (sent, delivered, read)
+│ │ └── MessageActions (Reply, Forward, Delete)
+│ ├── TypingIndicator
+│ └── MessageInput
+│ ├── TextInput
+│ ├── AttachmentButton
+│ ├── EmojiButton
+│ └── SendButton
 └── SocketProvider (WebSocket connection)
 
 ```
 
 **Key React Components:**
 
-```typescript
+```javascript
 // Chat Window Component
-const ChatWindow: React.FC<{ chatId: string }> = ({ chatId }) => {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [inputText, setInputText] = useState('');
-  const { socket } = useSocket();
-  const { data: chat } = useChat(chatId);
+const ChatWindow<{ chatId}> = ({ chatId }) => {
+ const [messages, setMessages] = useState([]);
+ const [inputText, setInputText] = useState('');
+ const { socket } = useSocket();
+ const { data: chat } = useChat(chatId);
 
-  useEffect(() => {
-    // Join chat room
-    socket.emit('join-chat', chatId);
+ useEffect(() => {
+ // Join chat room
+ socket.emit('join-chat', chatId);
 
-    // Listen for new messages
-    socket.on('new-message', (message: Message) => {
-      setMessages(prev => [...prev, message]);
-    });
+ // Listen for new messages
+ socket.on('new-message', (message: Message) => {
+ setMessages(prev => [...prev, message]);
+ });
 
-    return () => {
-      socket.emit('leave-chat', chatId);
-      socket.off('new-message');
-    };
-  }, [chatId, socket]);
+ return () => {
+ socket.emit('leave-chat', chatId);
+ socket.off('new-message');
+ };
+ }, [chatId, socket]);
 
-  const handleSendMessage = () => {
-    if (!inputText.trim()) return;
+ const handleSendMessage = () => {
+ if (!inputText.trim()) return;
 
-    const message: Message = {
-      chatId,
-      content: inputText,
-      type: 'text',
-      senderId: currentUserId,
-      createdAt: new Date()
+ const message: Message = {
+ chatId,
+ content: inputText,
+ type: 'text',
+ senderId: currentUserId,
+ createdAt: new Date()
 };
 
-    // Optimistic update
-    setMessages(prev => [...prev, message]);
-    setInputText('');
+ // Optimistic update
+ setMessages(prev => [...prev, message]);
+ setInputText('');
 
-    // Send via Socket.io
-    socket.emit('send-message', message);
-  };
+ // Send via Socket.io
+ socket.emit('send-message', message);
+ };
 
-  return (
-    <div className="chat-window">
-      <ChatHeader chat={chat} />
-      <MessageList messages={messages} />
-      <MessageInput
-        value={inputText}
-        onChange={setInputText}
-        onSend={handleSendMessage}
-      />
-    </div>
-  );
+ return (
+ <div className="chat-window">
+ <ChatHeader chat={chat} />
+ <MessageList messages={messages} />
+ <MessageInput
+ value={inputText}
+ onChange={setInputText}
+ onSend={handleSendMessage}
+ />
+ </div>
+ );
 };
 
 // Message Item Component
-const MessageItem: React.FC<{ message: Message }> = ({ message }) => {
-  const isOwn = message.senderId === currentUserId;
+const MessageItem<{ message: Message }> = ({ message }) => {
+ const isOwn = message.senderId === currentUserId;
 
-  return (
-    <div className={`message-item ${isOwn ? 'own' : 'other'}`}>
-      {!isOwn && <Avatar userId={message.senderId} />}
-      <div className="message-bubble">
-        <div className="message-text">{message.content}</div>
-        <div className="message-meta">
-          <span className="timestamp">{formatTime(message.createdAt)}</span>
-          {isOwn && <StatusIndicator status={message.status} />}
-        </div>
-      </div>
-    </div>
-  );
+ return (
+ <div className={`message-item ${isOwn ? 'own' : 'other'}`}>
+ {!isOwn && <Avatar userId={message.senderId} />}
+ <div className="message-bubble">
+ <div className="message-text">{message.content}</div>
+ <div className="message-meta">
+ <span className="timestamp">{formatTime(message.createdAt)}</span>
+ {isOwn && <StatusIndicator status={message.status} />}
+ </div>
+ </div>
+ </div>
+ );
 };
 
 ```
 
 ### ii) State Management
 
-**State Management Strategy:**
+**State Management Strategy (React 19):**
 
 - **Local State (useState)**: Message input, UI state (loading, errors, selected chat)
-- **Component State**: Each component manages its own UI state
-- **API State**: React Query or SWR for server state (chat list, message history) - caching, refetching
+- **Optimistic Updates (useOptimistic)**: React 19 hook for optimistic message sending
+- **Form Actions (useActionState)**: React 19 hook for message input forms with server actions
+- **use() Hook**: React 19 hook for reading WebSocket promises and async context
+- **Transitions (useTransition)**: React 19 hook for non-urgent message updates
+- **API State**: React Query for server state (chat list, message history) - caching, refetching
 - **Global State (Redux Toolkit)**: User authentication, active chats, unread counts, socket connection
 
 **Frontend Implementation:**
 
-```typescript
-// Using React Query for API state management
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+```javascript
+// Using WebSocket for real-time chat list updates
+import { useState, useEffect } from 'react';
+import { useSocket } from './hooks/useSocket';
 
 const useChats = () => {
-  return useQuery({
-    queryKey: ['chats'],
-    queryFn: async () => {
-      const response = await axios.get('/api/v1/chats');
-      return response.data;
-    },
-    staleTime: 30 * 1000 // Cache for 30 seconds
-  });
+ const { socket } = useSocket();
+ const [chats, setChats] = useState([]);
+
+ useEffect(() => {
+ // Fetch initial chat list via WebSocket
+ socket.emit('chats:fetch');
+
+ socket.on('chats:list', (data: { chats: Chat[] }) => {
+ setChats(data.chats);
+ });
+
+ // Listen for real-time chat updates (new messages, unread counts)
+ socket.on('chat:updated', (chat: Chat) => {
+ setChats(prev => prev.map(c => c.chatId === chat.chatId ? chat : c));
+ });
+
+ return () => {
+ socket.off('chats:list');
+ socket.off('chat:updated');
+ };
+ }, [socket]);
+
+ return { chats };
 };
 
-const useMessages = (chatId: string) => {
-  return useInfiniteQuery({
-    queryKey: ['messages', chatId],
-    queryFn: async ({ pageParam = null }) => {
-      const response = await axios.get(`/api/v1/chats/${chatId}/messages`, {
-        params: { before: pageParam, limit: 50 }
-      });
-      return response.data;
-    },
-    getNextPageParam: (lastPage) => lastPage.nextCursor
-  });
+const useMessages = (chatId) => {
+ const { socket } = useSocket();
+ const [messages, setMessages] = useState([]);
+ const [hasMore, setHasMore] = useState(true);
+ const [nextCursor, setNextCursor] = useState(null);
+
+ useEffect(() => {
+ // Fetch initial messages via WebSocket
+ socket.emit('messages:fetch', { chatId, limit: 50 });
+
+ socket.on('messages:history', (data: { messages: Message[], hasMore, nextCursor| null }) => {
+ setMessages(data.messages);
+ setHasMore(data.hasMore);
+ setNextCursor(data.nextCursor);
+ });
+
+ // Listen for new messages in real-time
+ socket.on('message:new', (message: Message) => {
+ setMessages(prev => [...prev, message]);
+ });
+
+ return () => {
+ socket.off('messages:history');
+ socket.off('message:new');
+ };
+ }, [chatId, socket]);
+
+ const fetchMore = () => {
+ if (hasMore && nextCursor) {
+ socket.emit('messages:fetch', { chatId, limit: 50, before: nextCursor });
+ }
+ };
+
+ return { messages, fetchMore, hasMore };
 };
 
 ```
@@ -535,14 +513,658 @@ const useMessages = (chatId: string) => {
 - Read receipts update message status
 - File attachments trigger upload before sending
 
-### UI/UX Considerations
+### iii) Advanced Message Rendering Patterns
 
-- **Loading States**: Show skeleton loaders for chat list, spinners for message sending
-- **Error Handling**: Display user-friendly error messages, retry failed messages
-- **Validation**: Client-side validation for message content
-- **Responsive Design**: Mobile-first layout, optimized for touch interactions
-- **Accessibility**: ARIA labels, keyboard navigation, screen reader support
-- **Performance**: Virtual scrolling for long message lists, lazy loading for media, message pagination
+**Message List with Auto-Scroll:**
+
+```javascript
+const MessageList<{ chatId}> = ({ chatId }) => {
+ const { messages, fetchMore, hasMore } = useMessages(chatId);
+ const messagesEndRef = useRef(null);
+ const [autoScroll, setAutoScroll] = useState(true);
+ const [isAtBottom, setIsAtBottom] = useState(true);
+
+ // Auto-scroll to bottom on new messages
+ useEffect(() => {
+ if (autoScroll && isAtBottom) {
+ messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+ }
+ }, [messages, autoScroll, isAtBottom]);
+
+ // Detect scroll position
+ const handleScroll = (e: React.UIEvent) => {
+ const element = e.currentTarget;
+ const atBottom = element.scrollHeight - element.scrollTop <= element.clientHeight + 100;
+ setIsAtBottom(atBottom);
+ setAutoScroll(atBottom);
+ };
+
+ // Load more messages when scrolling to top
+ const handleScrollToTop = () => {
+ if (hasMore) {
+ fetchMore();
+ }
+ };
+
+ return (
+ <div className="message-list" onScroll={handleScroll}>
+ {hasMore && (
+ <button onClick={handleScrollToTop} className="load-more">
+ Load older messages
+ </button>
+ )}
+
+ {messages.map((message, index) => {
+ const showAvatar = index === 0 || messages[index - 1].senderId !== message.senderId;
+ const showTimestamp = index === 0 ||
+ new Date(message.createdAt).getTime() -
+ new Date(messages[index - 1].createdAt).getTime() > 5 * 60 * 1000; // 5 minutes
+
+ return (
+ <MessageBubble
+ key={message.messageId}
+ message={message}
+ showAvatar={showAvatar}
+ showTimestamp={showTimestamp}
+ />
+ );
+ })}
+
+ <div ref={messagesEndRef} />
+ </div>
+ );
+};
+```
+
+**Message Bubble Component:**
+
+```javascript
+const MessageBubble<{
+ message: Message;
+ showAvatar;
+ showTimestamp;
+}> = ({ message, showAvatar, showTimestamp }) => {
+ const currentUserId = useAppSelector(state => state.auth.userId);
+ const isOwn = message.senderId === currentUserId;
+
+ return (
+ <div className={`message-bubble ${isOwn ? 'own' : 'other'}`}>
+ {!isOwn && showAvatar && (
+ <img
+ src={message.senderAvatar}
+ alt={message.senderName}
+ className="message-avatar"
+ />
+ )}
+
+ <div className="message-content">
+ {!isOwn && showAvatar && (
+ <div className="message-sender">{message.senderName}</div>
+ )}
+
+ {message.type === 'text' ? (
+ <div className="message-text">{message.content}</div>
+ ) : message.type === 'image' ? (
+ <MessageImage src={message.content} />
+ ) : message.type === 'video' ? (
+ <MessageVideo src={message.content} />
+ ) : (
+ <MessageFile file={message.content} />
+ )}
+
+ <div className="message-meta">
+ {showTimestamp && (
+ <span className="message-time">
+ {formatTime(message.createdAt)}
+ </span>
+ )}
+ {isOwn && (
+ <span className="message-status">
+ {message.readAt ? '✓✓' : message.deliveredAt ? '✓✓' : '✓'}
+ </span>
+ )}
+ </div>
+ </div>
+ </div>
+ );
+};
+```
+
+**Optimistic Message Sending:**
+
+```javascript
+const useSendMessage = (chatId) => {
+ const { socket } = useSocket();
+ const queryClient = useQueryClient();
+
+ return useMutation({
+ mutationFn: async (content) => {
+ const tempId = `temp_${Date.now()}`;
+ const tempMessage: Message = {
+ messageId: tempId,
+ chatId,
+ senderId: currentUserId,
+ content,
+ type: 'text',
+ createdAt: new Date(),
+ status: 'sending'
+ };
+
+ // Optimistically add to UI
+ queryClient.setQueryData(['messages', chatId], (old: Message[] = []) => [
+ ...old,
+ tempMessage
+ ]);
+
+ // Send via WebSocket
+ return new Promise((resolve, reject) => {
+ socket.emit('message:send', { chatId, content, type: 'text' });
+
+ socket.once('message:sent', (message: Message) => {
+ // Replace temp message with real one
+ queryClient.setQueryData(['messages', chatId], (old: Message[] = []) =>
+ old.map(m => m.messageId === tempId ? message : m)
+ );
+ resolve(message);
+ });
+
+ socket.once('message:error', (error: Error) => {
+ // Remove temp message on error
+ queryClient.setQueryData(['messages', chatId], (old: Message[] = []) =>
+ old.filter(m => m.messageId !== tempId)
+ );
+ reject(error);
+ });
+
+ // Timeout after 10 seconds
+ setTimeout(() => {
+ reject(new Error('Message send timeout'));
+ }, 10000);
+ });
+ }
+ });
+};
+```
+
+**Message Input with React 19:**
+
+```javascript
+import { useActionState, useFormStatus, useTransition } from 'react';
+
+// React 19: Server Action for sending message
+async function sendMessageAction(
+ prevState: { error?},
+ formData: FormData
+) {
+ const content = formData.get('content') as string;
+ const chatId = formData.get('chatId') as string;
+
+ if (!content.trim()) {
+ return { error: 'Message cannot be empty' };
+ }
+
+ try {
+ await sendMessageAPI(chatId, content);
+ return { success: true };
+ } catch (error) {
+ return { error: 'Failed to send message' };
+ }
+}
+
+// React 19: Submit Button with useFormStatus
+const SendButton= () => {
+ const { pending } = useFormStatus(); // React 19 hook
+
+ return (
+ <button type="submit" disabled={pending}>
+ {pending ? 'Sending...' : 'Send'}
+ </button>
+ );
+};
+
+const MessageInput<{ chatId}> = ({ chatId }) => {
+ const [message, setMessage] = useState('');
+ const [isTyping, setIsTyping] = useState(false);
+ const typingTimeoutRef = useRef<NodeJS.Timeout>();
+ const [isPending, startTransition] = useTransition();
+ const { socket } = useSocket();
+
+ // React 19: useActionState for form actions
+ const [state, formAction] = useActionState(
+ sendMessageAction,
+ { success: false }
+ );
+
+ const handleTyping = () => {
+ if (!isTyping) {
+ setIsTyping(true);
+ socket.emit('typing:start', { chatId });
+ }
+
+ clearTimeout(typingTimeoutRef.current);
+ typingTimeoutRef.current = setTimeout(() => {
+ setIsTyping(false);
+ socket.emit('typing:stop', { chatId });
+ }, 3000);
+ };
+
+ const handleSubmit = (formData: FormData) => {
+ formData.append('chatId', chatId);
+
+ if (isTyping) {
+ setIsTyping(false);
+ socket.emit('typing:stop', { chatId });
+ }
+
+ startTransition(() => {
+ formAction(formData);
+ setMessage(''); // Clear input
+ });
+ };
+
+ return (
+ <form action={handleSubmit}>
+ <textarea
+ name="content"
+ value={message}
+ onChange={(e) => {
+ setMessage(e.target.value);
+ handleTyping();
+ }}
+ placeholder="Type a message..."
+ rows={1}
+ style={{ resize: 'none' }}
+ />
+ <SendButton />
+ {state.error && <span className="error">{state.error}</span>}
+ </form>
+ );
+};
+```
+
+**Typing Indicator Component:**
+
+```javascript
+const TypingIndicator<{ chatId}> = ({ chatId }) => {
+ const [typingUsers, setTypingUsers] = useState([]);
+ const { socket } = useSocket();
+
+ useEffect(() => {
+ socket.on(`chat:${chatId}:typing`, (data: { userId; userName}) => {
+ setTypingUsers(prev => {
+ if (!prev.includes(data.userName)) {
+ return [...prev, data.userName];
+ }
+ return prev;
+ });
+
+ // Remove after 5 seconds
+ setTimeout(() => {
+ setTypingUsers(prev => prev.filter(u => u !== data.userName));
+ }, 5000);
+ });
+
+ return () => {
+ socket.off(`chat:${chatId}:typing`);
+ };
+ }, [chatId, socket]);
+
+ if (typingUsers.length === 0) return null;
+
+ return (
+ <div className="typing-indicator">
+ <div className="typing-dots">
+ <span></span>
+ <span></span>
+ <span></span>
+ </div>
+ <span className="typing-text">
+ {typingUsers.length === 1
+ ? `${typingUsers[0]} is typing...`
+ : `${typingUsers.length} people are typing...`}
+ </span>
+ </div>
+ );
+};
+```
+
+### iv) Media Sharing
+
+**Image Upload & Preview:**
+
+```javascript
+const MediaUpload<{ chatId}> = ({ chatId }) => {
+ const [selectedFiles, setSelectedFiles] = useState([]);
+ const [previews, setPreviews] = useState([]);
+ const [uploadProgress, setUploadProgress] = useState>({});
+
+ const handleFileSelect = (e: React.ChangeEvent) => {
+ const files = Array.from(e.target.files || []);
+ const images = files.filter(f => f.type.startsWith('image/'));
+
+ setSelectedFiles(images);
+
+ // Generate previews
+ images.forEach(file => {
+ const reader = new FileReader();
+ reader.onloadend = () => {
+ setPreviews(prev => [...prev, reader.result as string]);
+ };
+ reader.readAsDataURL(file);
+ });
+ };
+
+ const handleUpload = async () => {
+ for (const file of selectedFiles) {
+ const formData = new FormData();
+ formData.append('file', file);
+ formData.append('chatId', chatId);
+
+ try {
+ const response = await uploadMedia(formData, {
+ onUploadProgress: (progressEvent) => {
+ const percentCompleted = Math.round(
+ (progressEvent.loaded * 100) / progressEvent.total
+ );
+ setUploadProgress(prev => ({
+ ...prev,
+ [file.name]: percentCompleted
+ }));
+ }
+ });
+
+ // Send message with image URL
+ await sendMessageMutation.mutateAsync({
+ content: response.url,
+ type: 'image'
+ });
+ } catch (error) {
+ toast.error(`Failed to upload ${file.name}`);
+ }
+ }
+
+ // Reset
+ setSelectedFiles([]);
+ setPreviews([]);
+ setUploadProgress({});
+ };
+
+ return (
+ <div className="media-upload">
+ <input
+ type="file"
+ accept="image/*"
+ multiple
+ onChange={handleFileSelect}
+ style={{ display: 'none' }}
+ id="media-input"
+ />
+ <label htmlFor="media-input" className="upload-button">
+ 📷
+ </label>
+
+ {previews.length > 0 && (
+ <div className="media-preview">
+ {previews.map((preview, index) => (
+ <div key={index} className="preview-item">
+ <img src={preview} alt={`Preview ${index + 1}`} />
+ {uploadProgress[selectedFiles[index]?.name] && (
+ <div className="upload-progress">
+ {uploadProgress[selectedFiles[index]?.name]}%
+ </div>
+ )}
+ </div>
+ ))}
+ <button onClick={handleUpload}>Send</button>
+ </div>
+ )}
+ </div>
+ );
+};
+```
+
+**Message Image Component:**
+
+```javascript
+const MessageImage<{ src}> = ({ src }) => {
+ const [loading, setLoading] = useState(true);
+ const [error, setError] = useState(false);
+ const [showLightbox, setShowLightbox] = useState(false);
+
+ return (
+ <>
+ <div className="message-image-wrapper">
+ {loading && <div className="image-skeleton" />}
+ <img
+ src={src}
+ alt="Message image"
+ onLoad={() => setLoading(false)}
+ onError={() => {
+ setError(true);
+ setLoading(false);
+ }}
+ onClick={() => setShowLightbox(true)}
+ className={loading ? 'loading' : 'loaded'}
+ loading="lazy"
+ />
+ {error && <div className="image-error">Failed to load image</div>}
+ </div>
+
+ {showLightbox && (
+ <Lightbox
+ src={src}
+ onClose={() => setShowLightbox(false)}
+ />
+ )}
+ </>
+ );
+};
+```
+
+**File Download Component:**
+
+```javascript
+const MessageFile<{ file: { url; name; size} }> = ({
+ file
+}) => {
+ const [downloading, setDownloading] = useState(false);
+
+ const handleDownload = async () => {
+ setDownloading(true);
+ try {
+ const response = await fetch(file.url);
+ const blob = await response.blob();
+ const url = window.URL.createObjectURL(blob);
+ const a = document.createElement('a');
+ a.href = url;
+ a.download = file.name;
+ document.body.appendChild(a);
+ a.click();
+ document.body.removeChild(a);
+ window.URL.revokeObjectURL(url);
+ } catch (error) {
+ toast.error('Failed to download file');
+ } finally {
+ setDownloading(false);
+ }
+ };
+
+ const formatSize = (bytes) => {
+ if (bytes < 1024) return bytes + ' B';
+ if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+ return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+ };
+
+ return (
+ <div className="message-file" onClick={handleDownload}>
+ <div className="file-icon">📎</div>
+ <div className="file-info">
+ <div className="file-name">{file.name}</div>
+ <div className="file-size">{formatSize(file.size)}</div>
+ </div>
+ {downloading && <div className="download-spinner" />}
+ </div>
+ );
+};
+```
+
+### v) Read Receipts & Delivery Status
+
+**Read Receipt Tracking:**
+
+```javascript
+const useReadReceipts = (chatId) => {
+ const { socket } = useSocket();
+ const messagesEndRef = useRef(null);
+
+ useEffect(() => {
+ // Mark messages as read when they come into view
+ const observer = new IntersectionObserver(
+ (entries) => {
+ entries.forEach(entry => {
+ if (entry.isIntersecting) {
+ const messageId = entry.target.getAttribute('data-message-id');
+ if (messageId) {
+ socket.emit('message:read', { messageId, chatId });
+ }
+ }
+ });
+ },
+ { threshold: 0.5 }
+ );
+
+ const messageElements = document.querySelectorAll('[data-message-id]');
+ messageElements.forEach(el => observer.observe(el));
+
+ return () => observer.disconnect();
+ }, [chatId, socket]);
+
+ // Also mark as read when scrolling to bottom
+ useEffect(() => {
+ const handleScroll = () => {
+ const element = messagesEndRef.current?.parentElement;
+ if (!element) return;
+
+ const atBottom = element.scrollHeight - element.scrollTop <= element.clientHeight + 100;
+ if (atBottom) {
+ // Mark all unread messages as read
+ socket.emit('chat:mark-read', { chatId });
+ }
+ };
+
+ const element = messagesEndRef.current?.parentElement;
+ element?.addEventListener('scroll', handleScroll);
+
+ return () => {
+ element?.removeEventListener('scroll', handleScroll);
+ };
+ }, [chatId, socket]);
+
+ return { messagesEndRef };
+};
+```
+
+### vi) Performance Optimizations
+
+**Virtual Scrolling for Messages:**
+
+```javascript
+const VirtualizedMessageList<{ messages: Message[] }> = ({ messages }) => {
+ const parentRef = useRef(null);
+
+ const virtualizer = useVirtualizer({
+ count: messages.length,
+ getScrollElement: () => parentRef.current,
+ estimateSize: () => 80, // Estimated message height
+ overscan: 10,
+ reverse: true // New messages at bottom
+ });
+
+ return (
+ <div ref={parentRef} style={{ height: '100%', overflow: 'auto' }}>
+ <div
+ style={{
+ height: `${virtualizer.getTotalSize()}px`,
+ width: '100%',
+ position: 'relative'
+ }}
+ >
+ {virtualizer.getVirtualItems().map(virtualItem => (
+ <div
+ key={virtualItem.key}
+ style={{
+ position: 'absolute',
+ top: 0,
+ left: 0,
+ width: '100%',
+ height: `${virtualItem.size}px`,
+ transform: `translateY(${virtualItem.start}px)`
+ }}
+ >
+ <MessageBubble message={messages[virtualItem.index]} />
+ </div>
+ ))}
+ </div>
+ </div>
+ );
+};
+```
+
+**Message Caching Strategy:**
+
+```javascript
+const useMessages = (chatId) => {
+ const { socket } = useSocket();
+
+ return useQuery({
+ queryKey: ['messages', chatId],
+ queryFn: async () => {
+ // Fetch from cache first
+ const cached = queryClient.getQueryData(['messages', chatId]);
+ if (cached) return cached;
+
+ // Fetch from server
+ return new Promise<Message[]>((resolve) => {
+ socket.emit('messages:fetch', { chatId, limit: 50 });
+ socket.once('messages:history', (data: { messages: Message[] }) => {
+ resolve(data.messages);
+ });
+ });
+ },
+ staleTime: 5 * 60 * 1000, // 5 minutes
+ cacheTime: 30 * 60 * 1000 // 30 minutes
+ });
+};
+```
+
+### vii) Implementation Details
+
+**Data Flow:**
+
+1. **Chat Loading** → ChatListSidebar fetches chats via WebSocket, displays ChatListItem components with unread counts
+2. **Chat Selection** → User clicks chat, ChatWindow loads messages and joins Socket.io room for real-time updates
+3. **Message Sending** → MessageInput sends message via WebSocket with optimistic update, shows sending status
+4. **Real-time Updates** → Socket.io receives new messages, typing indicators, read receipts, updates UI instantly
+5. **Message History** → Infinite scroll loads older messages when scrolling to top, virtual scrolling for performance
+
+**Event Handling:**
+
+- Message input triggers send on Enter key, Shift+Enter for new line
+- Socket.io events update message list in real-time with optimistic updates
+- Typing indicators show when users are typing with debouncing
+- Read receipts update message status automatically when messages come into view
+- File attachments trigger upload with progress before sending message
+- Auto-scroll to bottom on new messages, manual scroll disables auto-scroll
+
+**UI/UX Considerations:**
+
+- **Loading States**: Skeleton loaders for chat list, spinners for message sending, progress bars for file uploads
+- **Error Handling**: User-friendly error messages, retry failed messages, offline message queue
+- **Validation**: Client-side validation for message content (character limits, file size)
+- **Responsive Design**: Mobile-first layout, optimized for touch interactions, swipe gestures for navigation
+- **Accessibility**: ARIA labels, keyboard navigation, screen reader support, focus management, semantic HTML
+- **Performance**: Virtual scrolling for long message lists, lazy loading for media, message pagination, efficient WebSocket reconnection
+- **Real-time Experience**: Instant message delivery, typing indicators, read receipts, online/offline status, push notifications for offline users
 
 ---
 
@@ -550,184 +1172,227 @@ const useMessages = (chatId: string) => {
 
 ### Message Model
 
-```typescript
-interface Message {
-  messageId: string;
-  chatId: string;
-  senderId: string;
-  content: string;
-  type: 'text' | 'image' | 'video' | 'file';
-  createdAt: Date;
-  deliveredAt?: Date;
-  readAt?: Date;
-}
+```javascript
+// Message structure:
+//
+ messageId;
+ chatId;
+ senderId;
+ content;
+ type: 'text' | 'image' | 'video' | 'file';
+ createdAt;
+ deliveredAt?;
+ readAt?;
 
 ```
 
 ### Chat Model
 
-```typescript
-interface Chat {
-  chatId: string;
-  type: 'one-on-one' | 'group';
-  participants: string[];
-  lastMessageId?: string;
-  updatedAt: Date;
-}
+```javascript
+// Chat structure:
+//
+ chatId;
+ type: 'one-on-one' | 'group';
+ participants[];
+ lastMessageId?;
+ updatedAt;
 
 ```
 
 ---
 
-## Data APIs
+## WebSocket Events (Primary Protocol)
 
-### POST /api/v1/messages
+### Client → Server Events
 
-- **URL:** `/api/v1/messages`
+#### `message:send`
 
-- **Method:** POST
+- **Event:** `message:send`
+- **Description:** Send a message to a chat
+- **Payload:**
 
-- **Request Body:**
+ ```json
+ {
+ "chatId": "chat123",
+ "content": "Hello, how are you?",
+ "type": "text"
+ }
+ ```
 
-  ```json
-  {
-    "chatId": "chat123",
-    "content": "Hello, how are you?",
-    "type": "text"
-  }
+- **Response Event:** `message:sent` (acknowledgment)
 
-  ```
+#### `messages:fetch`
 
-- **Response:**
+- **Event:** `messages:fetch`
+- **Description:** Request message history for a chat
+- **Payload:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "messageId": "msg_abc123",
-      "chatId": "chat123",
-      "senderId": "user123",
-      "content": "Hello, how are you?",
-      "type": "text",
-      "timestamp": "2024-01-15T10:30:00Z",
-      "status": "sent"
-    }
-  }
+ ```json
+ {
+ "chatId": "chat123",
+ "limit": 50,
+ "before": "msg_xyz789" // optional, for pagination
+ }
+ ```
 
-  ```
+- **Response Event:** `messages:history`
 
-- **Status Codes:** 201 (Created), 400 (Validation Error), 401 (Unauthorized)
+#### `chat:join`
 
-### GET /api/v1/messages/:chatId
+- **Event:** `chat:join`
+- **Description:** Join a chat room to receive real-time updates
+- **Payload:**
 
-- **URL:** `/api/v1/messages/:chatId?limit=50&before=messageId`
+ ```json
+ {
+ "chatId": "chat123"
+ }
+ ```
 
-- **Method:** GET
+#### `typing:start`
 
-- **Query Parameters:**
-  - `limit`: number (default: 50, max: 100)
-  - `before`: messageId (for pagination)
+- **Event:** `typing:start`
+- **Description:** Indicate user started typing
+- **Payload:**
 
-- **Response:**
+ ```json
+ {
+ "chatId": "chat123"
+ }
+ ```
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "messages": [
-        {
-          "messageId": "msg_abc123",
-          "senderId": "user123",
-          "content": "Hello",
-          "type": "text",
-          "timestamp": "2024-01-15T10:30:00Z",
-          "status": "delivered"
-        }
-      ],
-      "hasMore": true,
-      "nextCursor": "msg_xyz789"
-    }
-  }
+#### `typing:stop`
 
-  ```
+- **Event:** `typing:stop`
+- **Description:** Indicate user stopped typing
+- **Payload:**
 
-- **Status Codes:** 200 (Success), 404 (Chat Not Found)
+ ```json
+ {
+ "chatId": "chat123"
+ }
+ ```
 
-### GET /api/v1/chats
+#### `message:read`
 
-- **URL:** `/api/v1/chats`
+- **Event:** `message:read`
+- **Description:** Mark message as read
+- **Payload:**
 
-- **Method:** GET
+ ```json
+ {
+ "messageId": "msg_abc123",
+ "chatId": "chat123"
+ }
+ ```
 
-- **Response:**
+### Server → Client Events
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "chats": [
-        {
-          "chatId": "chat123",
-          "type": "one-on-one",
-          "participants": ["user123", "user456"],
-          "lastMessage": {
-            "content": "Hello",
-            "timestamp": "2024-01-15T10:30:00Z"
-          },
-          "unreadCount": 2
-        }
-      ]
-    }
-  }
+#### `message:sent`
 
-  ```
+- **Event:** `message:sent`
+- **Description:** Acknowledgment that message was sent
+- **Payload:**
 
-- **Status Codes:** 200 (Success)
+ ```json
+ {
+ "messageId": "msg_abc123",
+ "chatId": "chat123",
+ "senderId": "user123",
+ "content": "Hello, how are you?",
+ "type": "text",
+ "timestamp": "2024-01-15T10:30:00Z",
+ "status": "sent"
+ }
+ ```
 
-### POST /api/v1/chats
+#### `message:new`
 
-- **URL:** `/api/v1/chats`
+- **Event:** `message:new`
+- **Description:** New message received in real-time
+- **Payload:**
 
-- **Method:** POST
+ ```json
+ {
+ "messageId": "msg_abc123",
+ "chatId": "chat123",
+ "senderId": "user123",
+ "content": "Hello, how are you?",
+ "type": "text",
+ "timestamp": "2024-01-15T10:30:00Z",
+ "status": "sent"
+ }
+ ```
 
-- **Request Body:**
+#### `messages:history`
 
-  ```json
-  {
-    "participants": ["user123", "user456"],
-    "type": "one-on-one"
-  }
+- **Event:** `messages:history`
+- **Description:** Message history response
+- **Payload:**
 
-  ```
+ ```json
+ {
+ "chatId": "chat123",
+ "messages": [
+ {
+ "messageId": "msg_abc123",
+ "senderId": "user123",
+ "content": "Hello",
+ "type": "text",
+ "timestamp": "2024-01-15T10:30:00Z",
+ "status": "delivered"
+ }
+ ],
+ "hasMore": true,
+ "nextCursor": "msg_xyz789"
+ }
+ ```
 
-- **Response:**
+#### `message:delivered`
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "chatId": "chat123",
-      "participants": ["user123", "user456"],
-      "type": "one-on-one",
-      "createdAt": "2024-01-15T10:30:00Z"
-    }
-  }
+- **Event:** `message:delivered`
+- **Description:** Message delivery confirmation
+- **Payload:**
 
-  ```
+ ```json
+ {
+ "messageId": "msg_abc123",
+ "deliveredAt": "2024-01-15T10:30:01Z"
+ }
+ ```
 
-- **Status Codes:** 201 (Created), 400 (Validation Error)
+#### `message:read`
 
-### WebSocket Events
+- **Event:** `message:read`
+- **Description:** Message read receipt
+- **Payload:**
 
-- **Connection:** `socket.on('connect')` - Client connects
+ ```json
+ {
+ "messageId": "msg_abc123",
+ "readAt": "2024-01-15T10:30:05Z"
+ }
+ ```
 
-- **Message Sent:** `socket.emit('message:sent', { messageId, chatId, content })`
+#### `typing:indicator`
 
-- **Message Delivered:** `socket.on('message:delivered', { messageId })`
+- **Event:** `typing:indicator`
+- **Description:** Typing indicator from other users
+- **Payload:**
 
-- **Message Read:** `socket.on('message:read', { messageId, readAt })`
+ ```json
+ {
+ "chatId": "chat123",
+ "userId": "user456",
+ "isTyping": true
+ }
+ ```
 
-- **Typing Indicator:** `socket.emit('typing', { chatId, userId })`
+### Connection Events
+
+- **Connection:** `socket.on('connect')` - Client connects to WebSocket server
+- **Disconnection:** `socket.on('disconnect')` - Client disconnects
+- **Error:** `socket.on('error')` - Connection error occurred
 
 ### iii) Implementation Details
 
@@ -756,86 +1421,116 @@ interface Chat {
 
 ## b) Backend
 
-### i) Services
+*Note: Backend implementation details are kept minimal. Focus is on frontend integration.*
+
+**API Endpoints Reference:**
+
+- `GET /api/chats` - Get user's chats
+- `GET /api/chats/:chatId/messages` - Get message history
+- `POST /api/chats` - Create new chat
+- `POST /api/messages/upload` - Upload media file
+
+**WebSocket Events:**
+
+**Client → Server:**
+
+- `chat:join` - Join chat room
+- `message:send` - Send message
+- `typing:start` - Start typing indicator
+- `typing:stop` - Stop typing indicator
+- `message:read` - Mark message as read
+
+**Server → Client:**
+
+- `message:new` - New message received
+- `message:sent` - Message sent acknowledgment
+- `messages:history` - Message history response
+- `chat:typing` - User typing indicator
+- `message:delivered` - Message delivered status
+- `message:read` - Message read status
+
+---
+
+*Note: Detailed backend service implementations, server structures, and database schemas have been removed to focus on frontend patterns.*
 
 **Message Service:**
 
-```typescript
+```javascript
 export class MessageService {
-  async sendMessage(chatId: string, senderId: string, content: string): Promise<Message> {
-    // Validate message
-    const message = {
-      chatId,
-      senderId,
-      content,
-      createdAt: new Date(),
-      status: 'sent'
-    };
+ async sendMessage(chatId, senderId, content){
+ // Validate message
+ const message = {
+ chatId,
+ senderId,
+ content,
+ createdAt: new Date(),
+ status: 'sent'
+ };
 
-    // Store in message queue (Kafka/RabbitMQ)
-    await this.messageQueue.publish('messages', message);
+ // Store in message queue (Kafka/RabbitMQ)
+ await this.messageQueue.publish('messages', message);
 
-    // Send acknowledgment to sender via WebSocket
-    this.webSocketService.sendToUser(senderId, 'message-sent', message);
+ // Send acknowledgment to sender via WebSocket
+ this.webSocketService.sendToUser(senderId, 'message-sent', message);
 
-    return message;
-  }
+ return message;
+ }
 
-  async getMessages(chatId: string, limit: number, before?: string): Promise<Message[]> {
-    // Check cache first
-    const cached = await this.redis.get(`messages:${chatId}:${before || 'latest'}`);
-    if (cached) return JSON.parse(cached);
+ async getMessages(chatId, limit, before?){
+ // Check cache first
+ const cached = await this.redis.get(`messages:${chatId}:${before || 'latest'}`);
+ if (cached) return JSON.parse(cached);
 
-    // Query database
-    const messages = await Message.find({ chatId })
-      .sort({ createdAt: -1 })
-      .limit(limit);
+ // Query database
+ const messages = await Message.find({ chatId })
+ .sort({ createdAt: -1 })
+ .limit(limit);
 
-    // Cache results
-    await this.redis.setex(`messages:${chatId}:${before || 'latest'}`, 300, JSON.stringify(messages));
+ // Cache results
+ await this.redis.setex(`messages:${chatId}:${before || 'latest'}`, 300, JSON.stringify(messages));
 
-    return messages;
-  }
+ return messages;
+ }
 }
 
 ```
 
 **WebSocket Service:**
 
-```typescript
+```javascript
 export class WebSocketService {
-  private activeConnections: Map<string, Socket> = new Map(); // userId -> WebSocket
+ private activeConnections: Map<string, Socket> = new Map(); // userId -> WebSocket
 
-  async handleConnection(socket: Socket, userId: string): Promise<void> {
-    this.activeConnections.set(userId, socket);
+ async handleConnection(socket: Socket, userId){
+ this.activeConnections.set(userId, socket);
 
-    // Join user's chat rooms
-    const chats = await this.chatService.getUserChats(userId);
-    chats.forEach(chat => socket.join(`chat:${chat.id}`));
+ // Join user's chat rooms
+ const chats = await this.chatService.getUserChats(userId);
+ chats.forEach(chat => socket.join(`chat:${chat.id}`));
 
-    socket.on('disconnect', () => {
-      this.activeConnections.delete(userId);
-    });
-  }
+ socket.on('disconnect', () => {
+ this.activeConnections.delete(userId);
+ });
+ }
 
-  async sendMessage(userId: string, message: Message): Promise<void> {
-    const socket = this.activeConnections.get(userId);
-    if (socket) {
-      socket.emit('new-message', message);
-    } else {
-      // User offline, store for later delivery
-      await this.notificationService.sendPushNotification(userId, message);
-    }
-  }
+ async sendMessage(userId, message: Message){
+ const socket = this.activeConnections.get(userId);
+ if (socket) {
+ socket.emit('new-message', message);
+ } else {
+ // User offline, store for later delivery
+ await this.notificationService.sendPushNotification(userId, message);
+ }
+ }
 
-  async broadcastToChat(chatId: string, message: Message, excludeUserId?: string): Promise<void> {
-    const chat = await this.chatService.getChat(chatId);
-    chat.participants.forEach(userId => {
-      if (userId !== excludeUserId) {
-        this.sendMessage(userId, message);
-      }
-    });
-  }
+ async broadcastToChat(chatId, message: Message, excludeUserId?){
+ const chat = await this.chatService.getChat(chatId);
+ chat.participants.forEach(userId => {
+ if (userId !== excludeUserId) {
+ this.sendMessage(userId, message);
+ }
+ });
+ }
 }
 
 ```
@@ -848,33 +1543,33 @@ export class WebSocketService {
 
 server/
 ├── routes/
-│   ├── messages.js
-│   └── chats.js
+│ ├── messages.js
+│ └── chats.js
 ├── controllers/
-│   ├── MessageController.js
-│   └── ChatController.js
+│ ├── MessageController.js
+│ └── ChatController.js
 ├── services/
-│   ├── MessageService.js
-│   └── ChatService.js
+│ ├── MessageService.js
+│ └── ChatService.js
 ├── socket/
-│   └── chatSocket.js
+│ └── chatSocket.js
 └── models/
-    ├── Message.js
-    └── Chat.js
+ ├── Message.js
+ └── Chat.js
 
 ```
 
 ### Message Service Implementation
 
-```typescript
+```javascript
 class MessageService {
-  async sendMessage(chatId: string, senderId: string, content: string) {
-    // Validate message
-    // Store in message queue (Kafka/RabbitMQ)
-    // Send acknowledgment to sender via WebSocket
-    // Consumer processes and stores in database
-    // If recipient online, push via WebSocket
-  }
+ async sendMessage(chatId, senderId, content) {
+ // Validate message
+ // Store in message queue (Kafka/RabbitMQ)
+ // Send acknowledgment to sender via WebSocket
+ // Consumer processes and stores in database
+ // If recipient online, push via WebSocket
+ }
 }
 
 ```
@@ -913,27 +1608,27 @@ class MessageService {
 
 ## WebSocket Connection Management
 
-```typescript
+```javascript
 class ChatServer {
-  private activeConnections: Map<string, Socket> = new Map(); // userId -> WebSocket
+ private activeConnections: Map<string, Socket> = new Map(); // userId -> WebSocket
 
-  async handleConnection(socket: Socket, userId: string): Promise<void> {
-    this.activeConnections.set(userId, socket);
+ async handleConnection(socket: Socket, userId){
+ this.activeConnections.set(userId, socket);
 
-    socket.on('disconnect', () => {
-      this.activeConnections.delete(userId);
-    });
-  }
+ socket.on('disconnect', () => {
+ this.activeConnections.delete(userId);
+ });
+ }
 
-  async sendMessage(userId: string, message: any): Promise<void> {
-    const socket = this.activeConnections.get(userId);
-    if (socket) {
-      socket.emit('message', message);
-    } else {
-      // User offline, store for later
-      await this.storePendingMessage(userId, message);
-    }
-  }
+ async sendMessage(userId, message: any){
+ const socket = this.activeConnections.get(userId);
+ if (socket) {
+ socket.emit('message', message);
+ } else {
+ // User offline, store for later
+ await this.storePendingMessage(userId, message);
+ }
+ }
 }
 
 ```
@@ -946,32 +1641,39 @@ class ChatServer {
 
 ```cql
 CREATE TABLE messages (
-    chat_id TEXT,
-    message_id BIGINT,
-    sender_id BIGINT,
-    content TEXT,
-    type TEXT,
-    created_at TIMESTAMP,
-    PRIMARY KEY (chat_id, created_at, message_id)
+ chat_id TEXT,
+ message_id BIGINT,
+ sender_id BIGINT,
+ content TEXT,
+ type TEXT,
+ created_at TIMESTAMP,
+ PRIMARY KEY (chat_id, created_at, message_id)
 ) WITH CLUSTERING ORDER BY (created_at DESC);
 
 ```
 
 ## Protocols
 
-### REST API Protocol
+### WebSocket Protocol (Primary)
+
+- **Protocol:** WebSocket (Socket.io over WebSocket)
+- **Data Format:** JSON
+- **Authentication:** JWT token in handshake
+- **Use Case:** All real-time messaging operations (send message, receive message, typing indicators, read receipts, online status)
+- **Connection:** Persistent bidirectional connection
+- **Events:** Custom event-based messaging (see WebSocket Events section)
+
+### REST API Protocol (Secondary)
 
 - **Protocol:** REST (Representational State Transfer)
-
 - **Data Format:** JSON
-
+- **HTTP Methods:** GET, POST, PUT, DELETE
 - **Authentication:** JWT Bearer token
+- **Use Case:** Initial data loading, non-real-time operations (search, user profile, settings), fallback for WebSocket failures
 
 ### Additional Protocols
 
-- **WebSocket** - For real-time features (if applicable)
-
-- **Message Queue** - For async processing (if applicable)
+- **Message Queue** - For async processing and message distribution (Kafka/RabbitMQ)
 
 ---
 
@@ -994,118 +1696,118 @@ CREATE TABLE messages (
 
 **Backend (Express.js):**
 
-```typescript
+```javascript
 // Backend: socket/chatSocket.ts
 import { Server } from 'socket.io';
 import redis from '../config/redis';
 
 export const setupChatSocket = (io: Server) => {
-  // Use Redis adapter for horizontal scaling
-  io.adapter(createAdapter(redis));
+ // Use Redis adapter for horizontal scaling
+ io.adapter(createAdapter(redis));
 
-  io.on('connection', (socket) => {
-    // Join chat room
-    socket.on('chat:join', async (chatId: string) => {
-      socket.join(`chat:${chatId}`);
+ io.on('connection', (socket) => {
+ // Join chat room
+ socket.on('chat:join', async (chatId) => {
+ socket.join(`chat:${chatId}`);
 
-      // Send recent messages
-      const messages = await Message.find({ chatId })
-        .sort({ createdAt: -1 })
-        .limit(50);
-      socket.emit('messages:history', messages.reverse());
-    });
+ // Send recent messages
+ const messages = await Message.find({ chatId })
+ .sort({ createdAt: -1 })
+ .limit(50);
+ socket.emit('messages:history', messages.reverse());
+ });
 
-    // Handle new message
-    socket.on('message:send', async (data: { chatId: string; content: string; type: string }) => {
-      // Store message in database
-      const message = await Message.create({
-        chatId: data.chatId,
-        senderId: socket.data.userId,
-        content: data.content,
-        type: data.type,
-        status: 'sent'
-      });
+ // Handle new message
+ socket.on('message:send', async (data: { chatId; content; type}) => {
+ // Store message in database
+ const message = await Message.create({
+ chatId: data.chatId,
+ senderId: socket.data.userId,
+ content: data.content,
+ type: data.type,
+ status: 'sent'
+ });
 
-      // Broadcast to all users in chat room
-      io.to(`chat:${data.chatId}`).emit('message:new', message);
+ // Broadcast to all users in chat room
+ io.to(`chat:${data.chatId}`).emit('message:new', message);
 
-      // Send to message queue for offline users
-      await messageQueue.publish('message:new', message);
-    });
+ // Send to message queue for offline users
+ await messageQueue.publish('message:new', message);
+ });
 
-    // Handle message delivery confirmation
-    socket.on('message:delivered', async (messageId: string) => {
-      await Message.updateOne(
-        { _id: messageId },
-        { $set: { status: 'delivered', deliveredAt: new Date() } }
-      );
+ // Handle message delivery confirmation
+ socket.on('message:delivered', async (messageId) => {
+ await Message.updateOne(
+ { _id: messageId },
+ { $set: { status: 'delivered', deliveredAt: new Date() } }
+ );
 
-      // Notify sender
-      io.emit('message:delivered', { messageId });
-    });
+ // Notify sender
+ io.emit('message:delivered', { messageId });
+ });
 
-    socket.on('disconnect', () => {
-      // Clean up on disconnect
-    });
-  });
+ socket.on('disconnect', () => {
+ // Clean up on disconnect
+ });
+ });
 };
 
 ```
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // React hook for real-time messaging
 import { useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 
-const useChatSocket = (chatId: string) => {
-  const [socket, setSocket] = useState<Socket | null>(null);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [isConnected, setIsConnected] = useState(false);
+const useChatSocket = (chatId) => {
+ const [socket, setSocket] = useState(null);
+ const [messages, setMessages] = useState([]);
+ const [isConnected, setIsConnected] = useState(false);
 
-  useEffect(() => {
-    const newSocket = io(process.env.REACT_APP_SOCKET_URL || '', {
-      auth: { token: localStorage.getItem('token') }
-    });
+ useEffect(() => {
+ const newSocket = io(process.env.REACT_APP_SOCKET_URL || '', {
+ auth: { token: localStorage.getItem('token') }
+ });
 
-    newSocket.on('connect', () => {
-      setIsConnected(true);
-      newSocket.emit('chat:join', chatId);
-    });
+ newSocket.on('connect', () => {
+ setIsConnected(true);
+ newSocket.emit('chat:join', chatId);
+ });
 
-    newSocket.on('disconnect', () => {
-      setIsConnected(false);
-    });
+ newSocket.on('disconnect', () => {
+ setIsConnected(false);
+ });
 
-    newSocket.on('messages:history', (history: Message[]) => {
-      setMessages(history);
-    });
+ newSocket.on('messages:history', (history: Message[]) => {
+ setMessages(history);
+ });
 
-    newSocket.on('message:new', (message: Message) => {
-      setMessages(prev => [...prev, message]);
-    });
+ newSocket.on('message:new', (message: Message) => {
+ setMessages(prev => [...prev, message]);
+ });
 
-    newSocket.on('message:delivered', ({ messageId }: { messageId: string }) => {
-      setMessages(prev => prev.map(msg =>
-        msg.id === messageId ? { ...msg, status: 'delivered' } : msg
-      ));
-    });
+ newSocket.on('message:delivered', ({ messageId }: { messageId}) => {
+ setMessages(prev => prev.map(msg =>
+ msg.id === messageId ? { ...msg, status: 'delivered' } : msg
+ ));
+ });
 
-    setSocket(newSocket);
+ setSocket(newSocket);
 
-    return () => {
-      newSocket.disconnect();
-    };
-  }, [chatId]);
+ return () => {
+ newSocket.disconnect();
+ };
+ }, [chatId]);
 
-  const sendMessage = (content: string, type: string = 'text') => {
-    if (socket && isConnected) {
-      socket.emit('message:send', { chatId, content, type });
-    }
-  };
+ const sendMessage = (content, type= 'text') => {
+ if (socket && isConnected) {
+ socket.emit('message:send', { chatId, content, type });
+ }
+ };
 
-  return { messages, sendMessage, isConnected };
+ return { messages, sendMessage, isConnected };
 };
 
 ```
@@ -1119,92 +1821,129 @@ const useChatSocket = (chatId: string) => {
 
 - **Page Size:** 50 messages per page - good balance between load time and user experience
 
-**Backend (Express.js):**
+**Backend (Express.js + Socket.io):**
 
-```typescript
-// Backend: routes/messages.ts
+```javascript
+// Backend: socket/chatSocket.ts
+io.on('connection', (socket) => {
+ // Handle message history fetch via WebSocket
+ socket.on('messages:fetch', async (data: { chatId, limit?, before?}) => {
+ const { chatId, limit = 50, before } = data;
+
+ let query: any = { chatId };
+
+ // Cursor-based pagination
+ if (before) {
+ query.createdAt = { $lt: new Date(before) };
+ }
+
+ // Check cache first
+ const cacheKey = `messages:${chatId}:${before || 'latest'}`;
+ const cached = await redis.get(cacheKey);
+ if (cached) {
+ socket.emit('messages:history', JSON.parse(cached));
+ return;
+ }
+
+ const messages = await Message.find(query)
+ .sort({ createdAt: -1 })
+ .limit(limit)
+ .lean();
+
+ const hasMore = messages.length === limit;
+ const nextCursor = messages.length > 0 ? messages[messages.length - 1].createdAt : null;
+
+ const response = {
+ chatId,
+ messages: messages.reverse(),
+ hasMore,
+ nextCursor
+ };
+
+ // Cache results
+ await redis.setex(cacheKey, 300, JSON.stringify(response));
+
+ socket.emit('messages:history', response);
+ });
+});
+
+// Fallback REST endpoint (only for WebSocket failures)
 router.get('/messages/:chatId', async (req, res) => {
-  const { chatId } = req.params;
-  const { before, limit = 50 } = req.query;
-
-  let query: any = { chatId };
-
-  // Cursor-based pagination
-  if (before) {
-    query.createdAt = { $lt: new Date(before) };
-  }
-
-  const messages = await Message.find(query)
-    .sort({ createdAt: -1 })
-    .limit(parseInt(limit as string))
-    .lean();
-
-  const hasMore = messages.length === parseInt(limit as string);
-  const nextCursor = messages.length > 0 ? messages[messages.length - 1].createdAt : null;
-
-  res.json({
-    success: true,
-    data: {
-      messages: messages.reverse(),
-      hasMore,
-      nextCursor
-    }
-  });
+ // Same logic handler above
+ // ... (implementation same handler)
 });
 
 ```
 
 **Frontend Implementation:**
 
-```typescript
-// React component with infinite scroll
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { useRef, useCallback } from 'react';
+```javascript
+// React component with infinite scroll using WebSocket
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { useSocket } from './hooks/useSocket';
 
-const MessageList: React.FC<{ chatId: string }> = ({ chatId }) => {
-  const observerRef = useRef<IntersectionObserver | null>(null);
+const MessageList<{ chatId}> = ({ chatId }) => {
+ const { socket } = useSocket();
+ const [messages, setMessages] = useState([]);
+ const [hasMore, setHasMore] = useState(true);
+ const [nextCursor, setNextCursor] = useState(null);
+ const [isLoading, setIsLoading] = useState(false);
+ const observerRef = useRef<IntersectionObserver | null>(null);
 
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useInfiniteQuery({
-    queryKey: ['messages', chatId],
-    queryFn: ({ pageParam }) =>
-      axios.get(`/api/v1/messages/${chatId}`, {
-        params: { before: pageParam, limit: 50 }
-      }).then(res => res.data),
-    getNextPageParam: (lastPage) =>
-      lastPage.data.hasMore ? lastPage.data.nextCursor : undefined,
-  });
+ useEffect(() => {
+ // Fetch initial messages via WebSocket
+ setIsLoading(true);
+ socket.emit('messages:fetch', { chatId, limit: 50 });
 
-  const lastMessageRef = useCallback((node: HTMLDivElement | null) => {
-    if (isFetchingNextPage) return;
-    if (observerRef.current) observerRef.current.disconnect();
-    observerRef.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && hasNextPage) {
-        fetchNextPage();
-      }
-    });
-    if (node) observerRef.current.observe(node);
-  }, [isFetchingNextPage, hasNextPage, fetchNextPage]);
+ socket.on('messages:history', (data: { messages: Message[], hasMore, nextCursor| null }) => {
+ setMessages(data.messages);
+ setHasMore(data.hasMore);
+ setNextCursor(data.nextCursor);
+ setIsLoading(false);
+ });
 
-  return (
-    <div className="message-list">
-      {data?.pages.map((page) =>
-        page.data.messages.map((message: Message, index: number) => (
-          <div
-            key={message.id}
-            ref={index === 0 ? lastMessageRef : null}
-          >
-            <MessageBubble message={message} />
-          </div>
-        ))
-      )}
-      {isFetchingNextPage && <LoadingSpinner />}
-    </div>
-  );
+ // Listen for new messages in real-time
+ socket.on('message:new', (message: Message) => {
+ setMessages(prev => [...prev, message]);
+ });
+
+ return () => {
+ socket.off('messages:history');
+ socket.off('message:new');
+ };
+ }, [chatId, socket]);
+
+ const fetchMore = useCallback(() => {
+ if (hasMore && nextCursor && !isLoading) {
+ setIsLoading(true);
+ socket.emit('messages:fetch', { chatId, limit: 50, before: nextCursor });
+ }
+ }, [hasMore, nextCursor, isLoading, chatId, socket]);
+
+ const lastMessageRef = useCallback((node: HTMLDivElement | null) => {
+ if (isLoading) return;
+ if (observerRef.current) observerRef.current.disconnect();
+ observerRef.current = new IntersectionObserver(entries => {
+ if (entries[0].isIntersecting && hasMore) {
+ fetchMore();
+ }
+ });
+ if (node) observerRef.current.observe(node);
+ }, [isLoading, hasMore, fetchMore]);
+
+ return (
+ <div className="message-list">
+ {messages.map((message, index) => (
+ <div
+ key={message.id}
+ ref={index === 0 ? lastMessageRef : null}
+ >
+ <MessageBubble message={message} />
+ </div>
+ ))}
+ {isLoading && <LoadingSpinner />}
+ </div>
+ );
 };
 
 ```
@@ -1216,91 +1955,91 @@ const MessageList: React.FC<{ chatId: string }> = ({ chatId }) => {
 
 **Backend (Express.js):**
 
-```typescript
+```javascript
 // Backend: middleware/errorHandler.ts
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error('Error:', err);
+ console.error('Error:', err);
 
-  if (err.name === 'ValidationError') {
-    return res.status(400).json({ error: 'Invalid message data', details: err.message });
-  }
+ if (err.name === 'ValidationError') {
+ return res.status(400).json({ error: 'Invalid message data', details: err.message });
+ }
 
-  if (err.message === 'Chat not found') {
-    return res.status(404).json({ error: 'Chat not found' });
-  }
+ if (err.message === 'Chat not found') {
+ return res.status(404).json({ error: 'Chat not found' });
+ }
 
-  if (err.name === 'RateLimitError') {
-    return res.status(429).json({
-      error: 'Too many messages. Please wait before sending another message.',
-      retryAfter: err.retryAfter
-    });
-  }
+ if (err.name === 'RateLimitError') {
+ return res.status(429).json({
+ error: 'Too many messages. Please wait before sending another message.',
+ retryAfter: err.retryAfter
+ });
+ }
 
-  res.status(500).json({ error: 'Internal server error' });
+ res.status(500).json({ error: 'Internal server error' });
 };
 
 ```
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // React error handling with toast notifications
 import { toast } from 'react-toastify';
 import { ErrorBoundary } from 'react-error-boundary';
 
 // Axios interceptor for API errors
 axios.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 429) {
-      toast.error('Too many messages. Please wait a moment.');
-    } else if (error.response?.status === 404) {
-      toast.error('Chat not found.');
-    } else {
-      toast.error('Failed to send message. Please try again.');
-    }
-    return Promise.reject(error);
-  }
+ (response) => response,
+ (error) => {
+ if (error.response?.status === 429) {
+ toast.error('Too many messages. Please wait a moment.');
+ } else if (error.response?.status === 404) {
+ toast.error('Chat not found.');
+ } else {
+ toast.error('Failed to send message. Please try again.');
+ }
+ return Promise.reject(error);
+ }
 );
 
 // WebSocket reconnection logic
-const useReconnectingSocket = (url: string) => {
-  const [socket, setSocket] = useState<Socket | null>(null);
-  const [reconnectAttempts, setReconnectAttempts] = useState(0);
+const useReconnectingSocket = (url) => {
+ const [socket, setSocket] = useState(null);
+ const [reconnectAttempts, setReconnectAttempts] = useState(0);
 
-  useEffect(() => {
-    const connect = () => {
-      const newSocket = io(url, {
-        reconnection: true,
-        reconnectionDelay: 1000 * Math.min(reconnectAttempts, 5), // Exponential backoff
-        reconnectionAttempts: 10
-      });
+ useEffect(() => {
+ const connect = () => {
+ const newSocket = io(url, {
+ reconnection: true,
+ reconnectionDelay: 1000 * Math.min(reconnectAttempts, 5), // Exponential backoff
+ reconnectionAttempts: 10
+ });
 
-      newSocket.on('connect', () => {
-        setReconnectAttempts(0);
-        toast.success('Connected');
-      });
+ newSocket.on('connect', () => {
+ setReconnectAttempts(0);
+ toast.success('Connected');
+ });
 
-      newSocket.on('disconnect', () => {
-        toast.warning('Disconnected. Reconnecting...');
-        setReconnectAttempts(prev => prev + 1);
-      });
+ newSocket.on('disconnect', () => {
+ toast.warning('Disconnected. Reconnecting...');
+ setReconnectAttempts(prev => prev + 1);
+ });
 
-      newSocket.on('connect_error', () => {
-        toast.error('Connection failed. Retrying...');
-      });
+ newSocket.on('connect_error', () => {
+ toast.error('Connection failed. Retrying...');
+ });
 
-      setSocket(newSocket);
-    };
+ setSocket(newSocket);
+ };
 
-    connect();
+ connect();
 
-    return () => {
-      socket?.disconnect();
-    };
-  }, [url, reconnectAttempts]);
+ return () => {
+ socket?.disconnect();
+ };
+ }, [url, reconnectAttempts]);
 
-  return socket;
+ return socket;
 };
 
 ```
@@ -1472,11 +2211,11 @@ SOCKET_IO_REDIS_URL=redis://...
 
 **API Documentation:**
 
-- **Swagger UI:** Document REST APIs
+- **WebSocket Documentation:** Document Socket.io events (primary protocol) - all real-time messaging operations
 
-- **Message API:** Document message endpoints
+- **REST API Documentation:** Document REST APIs (fallback only) - Swagger UI for initial data loading endpoints
 
-- **WebSocket Documentation:** Document Socket.io events
+- **Message Events:** Document all WebSocket events for sending/receiving messages, typing indicators, read receipts
 
 ---
 
@@ -1484,13 +2223,13 @@ SOCKET_IO_REDIS_URL=redis://...
 
 **Versioning Strategy:**
 
-- **URL Versioning:** `/api/v1/messages`, `/api/v2/messages`
+- **WebSocket Versioning:** Version Socket.io events (primary protocol) - use namespaced events like `v1:message:send`, `v2:message:send`
 
-- **Header Versioning:** `Accept: application/vnd.api+json;version=1`
+- **REST API Versioning:** URL versioning for fallback endpoints - `/api/v1/messages`, `/api/v2/messages`
 
-- **Backward Compatibility:** Maintain old API versions for existing clients
+- **Backward Compatibility:** Maintain old WebSocket event versions for existing clients
 
-- **WebSocket Versioning:** Version Socket.io events
+- **Header Versioning:** `Accept: application/vnd.api+json;version=1` (for REST fallback only)
 
 ---
 
@@ -1540,19 +2279,19 @@ SOCKET_IO_REDIS_URL=redis://...
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await Message.create([messageData], { session });
-  await Chat.updateOne({ chatId }, { $set: { lastMessageId: messageId } }, { session });
-  await Notification.create([notificationData], { session });
-  await session.commitTransaction();
+ await Message.create([messageData], { session });
+ await Chat.updateOne({ chatId }, { $set: { lastMessageId: messageId } }, { session });
+ await Notification.create([notificationData], { session });
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -1608,34 +2347,34 @@ try {
 
 **Implementation:**
 
-```typescript
+```javascript
 class MessageOrdering {
-  async sendMessage(chatId: string, message: Message): Promise<void> {
-    // Get next sequence number for chat
-    const sequence = await this.getNextSequence(chatId);
+ async sendMessage(chatId, message: Message){
+ // Get next sequence number for chat
+ const sequence = await this.getNextSequence(chatId);
 
-    // Store message with sequence
-    await Message.create({
-      ...message,
-      chatId,
-      sequence,
-      timestamp: Date.now()
-    });
+ // Store message with sequence
+ await Message.create({
+ ...message,
+ chatId,
+ sequence,
+ timestamp.now()
+ });
 
-    // Broadcast to chat room
-    io.to(`chat:${chatId}`).emit('message', {
-      ...message,
-      sequence,
-      timestamp: Date.now()
-    });
-  }
+ // Broadcast to chat room
+ io.to(`chat:${chatId}`).emit('message', {
+ ...message,
+ sequence,
+ timestamp.now()
+ });
+ }
 
-  async getMessages(chatId: string, limit: number = 50): Promise<Message[]> {
-    return await Message.find({ chatId })
-      .sort({ sequence: -1 })
-      .limit(limit)
-      .sort({ sequence: 1 }); // Return in ascending order
-  }
+ async getMessages(chatId, limit= 50){
+ return await Message.find({ chatId })
+ .sort({ sequence: -1 })
+ .limit(limit)
+ .sort({ sequence: 1 }); // Return in ascending order
+ }
 }
 
 ```
@@ -1662,39 +2401,39 @@ class MessageOrdering {
 
 **Implementation:**
 
-```typescript
+```javascript
 class OfflineMessageDelivery {
-  async sendMessage(message: Message): Promise<void> {
-    const recipient = await this.getUserStatus(message.recipientId);
+ async sendMessage(message: Message){
+ const recipient = await this.getUserStatus(message.recipientId);
 
-    if (recipient.isOnline) {
-      // Deliver immediately via WebSocket
-      await this.deliverMessage(message);
-    } else {
-      // Store in offline queue
-      await OfflineQueue.create({
-        messageId: message.id,
-        recipientId: message.recipientId,
-        message: message,
-        createdAt: Date.now()
-      });
+ if (recipient.isOnline) {
+ // Deliver immediately via WebSocket
+ await this.deliverMessage(message);
+ } else {
+ // Store in offline queue
+ await OfflineQueue.create({
+ messageId: message.id,
+ recipientId: message.recipientId,
+ message: message,
+ createdAt.now()
+ });
 
-      // Send push notification
-      await this.sendPushNotification(message.recipientId, message);
-    }
-  }
+ // Send push notification
+ await this.sendPushNotification(message.recipientId, message);
+ }
+ }
 
-  async onUserOnline(userId: string): Promise<void> {
-    // Get all pending messages
-    const pendingMessages = await OfflineQueue.find({ recipientId: userId })
-      .sort({ createdAt: 1 });
+ async onUserOnline(userId){
+ // Get all pending messages
+ const pendingMessages = await OfflineQueue.find({ recipientId: userId })
+ .sort({ createdAt: 1 });
 
-    // Deliver all messages
-    for (const queueItem of pendingMessages) {
-      await this.deliverMessage(queueItem.message);
-      await OfflineQueue.deleteOne({ _id: queueItem._id });
-    }
-  }
+ // Deliver all messages
+ for (const queueItem of pendingMessages) {
+ await this.deliverMessage(queueItem.message);
+ await OfflineQueue.deleteOne({ _id: queueItem._id });
+ }
+ }
 }
 
 ```
@@ -1713,19 +2452,19 @@ class OfflineMessageDelivery {
 
 ```javascript
 {
-  _id: ObjectId,
-  messageId: String,        // Unique message ID, indexed
-  chatId: ObjectId,         // Chat reference, indexed
-  senderId: ObjectId,       // Sender reference, indexed
-  recipientId: ObjectId,    // Recipient reference (for 1-on-1), indexed
-  content: String,          // Message content
-  type: String,            // text, image, video, file
-  mediaUrl: String,        // Media URL (if applicable)
-  sequence: Number,        // Sequence number for ordering, indexed
-  status: String,          // sent, delivered, read
-  readAt: Date,           // Read timestamp
-  createdAt: Date,         // Created timestamp, indexed
-  updatedAt: Date          // Updated timestamp
+ _id: ObjectId,
+ messageId: String, // Unique message ID, indexed
+ chatId: ObjectId, // Chat reference, indexed
+ senderId: ObjectId, // Sender reference, indexed
+ recipientId: ObjectId, // Recipient reference (for 1-on-1), indexed
+ content: String, // Message content
+ type: String, // text, image, video, file
+ mediaUrl: String, // Media URL (if applicable)
+ sequence: Number, // Sequence number for ordering, indexed
+ status: String, // sent, delivered, read
+ readAt, // Read timestamp
+ createdAt, // Created timestamp, indexed
+ updatedAt// Updated timestamp
 }
 
 // Indexes:
@@ -1740,14 +2479,14 @@ class OfflineMessageDelivery {
 
 ```javascript
 {
-  _id: ObjectId,
-  chatId: String,          // Unique chat ID, indexed
-  type: String,           // one-on-one, group
-  participants: [ObjectId], // Array of user IDs, indexed
-  lastMessageId: ObjectId, // Last message reference
-  lastMessageAt: Date,    // Last message timestamp, indexed
-  createdAt: Date,        // Created timestamp
-  updatedAt: Date         // Updated timestamp
+ _id: ObjectId,
+ chatId: String, // Unique chat ID, indexed
+ type: String, // one-on-one, group
+ participants: [ObjectId], // Array of user IDs, indexed
+ lastMessageId: ObjectId, // Last message reference
+ lastMessageAt, // Last message timestamp, indexed
+ createdAt, // Created timestamp
+ updatedAt// Updated timestamp
 }
 
 // Indexes:
@@ -1771,19 +2510,19 @@ class OfflineMessageDelivery {
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await Message.create([messageData], { session });
-  await Chat.updateOne({ chatId }, { $set: { lastMessageId: messageId } }, { session });
-  await Notification.create([notificationData], { session });
-  await session.commitTransaction();
+ await Message.create([messageData], { session });
+ await Chat.updateOne({ chatId }, { $set: { lastMessageId: messageId } }, { session });
+ await Notification.create([notificationData], { session });
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -1801,81 +2540,116 @@ try {
 
 # 7) Protocols
 
-### REST API Protocol
+### WebSocket Protocol (Primary)
+
+- **Protocol:** WebSocket (Socket.io over WebSocket)
+- **Data Format:** JSON
+- **Authentication:** JWT token in handshake
+- **Use Case:** All real-time messaging operations (send message, receive message, typing indicators, read receipts, online status)
+- **Connection:** Persistent bidirectional connection
+- **Events:** `message:send`, `message:new`, `messages:fetch`, `messages:history`, `typing:start`, `typing:stop`, `message:read`, `message:delivered`, `chat:join`, `chat:updated`
+
+### REST API Protocol (Secondary)
 
 - **Protocol:** REST (Representational State Transfer)
 - **Data Format:** JSON
 - **HTTP Methods:** GET, POST, PUT, DELETE
 - **Status Codes:** 200 (Success), 201 (Created), 400 (Bad Request), 401 (Unauthorized), 404 (Not Found), 429 (Rate Limited), 500 (Server Error)
 - **Authentication:** JWT Bearer token in Authorization header
-
-### WebSocket Protocol
-
-- **Protocol:** Socket.io over WebSocket
-- **Events:** `message`, `typing`, `read`, `online`, `offline`
-- **Authentication:** JWT token in handshake
-- **Use Case:** Real-time message delivery
+- **Use Case:** Initial data loading, non-real-time operations (search, user profile, settings), fallback for WebSocket failures
 
 ---
 
 # 8) API Design
 
-### POST /api/v1/messages
+## WebSocket API (Primary Protocol)
+
+### Sending Messages
+
+**Event:** `message:send`
+
+**Client emits:**
+
+```json
+{
+ "chatId": "chat_abc123",
+ "content": "Hello!",
+ "type": "text"
+}
+```
+
+**Server responds with:** `message:sent` event
+
+```json
+{
+ "messageId": "msg_abc123",
+ "chatId": "chat_abc123",
+ "content": "Hello!",
+ "status": "sent",
+ "createdAt": "2024-01-15T10:30:00Z"
+}
+```
+
+**Recipients receive:** `message:new` event (real-time)
+
+```json
+{
+ "messageId": "msg_abc123",
+ "chatId": "chat_abc123",
+ "senderId": "user123",
+ "content": "Hello!",
+ "type": "text",
+ "createdAt": "2024-01-15T10:30:00Z"
+}
+```
+
+### Fetching Message History
+
+**Event:** `messages:fetch`
+
+**Client emits:**
+
+```json
+{
+ "chatId": "chat_abc123",
+ "limit": 50,
+ "before": "msg_xyz789" // optional, for pagination
+}
+```
+
+**Server responds with:** `messages:history` event
+
+```json
+{
+ "chatId": "chat_abc123",
+ "messages": [...],
+ "hasMore": true,
+ "nextCursor": "msg_abc123"
+}
+```
+
+## REST API (Secondary - Fallback Only)
+
+### POST /api/v1/messages (Fallback)
 
 - **URL:** `/api/v1/messages`
 - **Method:** POST
-- **Description:** Send a message
-- **Request Body:**
-
-  ```json
-  {
-    "chatId": "chat_abc123",
-    "content": "Hello!",
-    "type": "text"
-  }
-
-  ```
-
-- **Response:**
-
-  ```json
-  {
-    "success": true,
-    "data": {
-      "messageId": "msg_abc123",
-      "chatId": "chat_abc123",
-      "content": "Hello!",
-      "status": "sent",
-      "createdAt": "2024-01-15T10:30:00Z"
-    }
-  }
-
-  ```
-
+- **Description:** Send a message (fallback when WebSocket unavailable)
+- **Use Case:** Only used when WebSocket connection fails or for initial connection setup
+- **Request Body:** Same `message:send` event
+- **Response:** Same `message:sent` event
 - **Status Codes:** 201 (Created), 400 (Validation Error), 429 (Rate Limited)
 
-### GET /api/v1/chats/:chatId/messages
+### GET /api/v1/chats/:chatId/messages (Fallback)
 
 - **URL:** `/api/v1/chats/:chatId/messages?limit=50&cursor=msg_xyz789`
 - **Method:** GET
-- **Description:** Get messages for a chat
+- **Description:** Get messages for a chat (fallback when WebSocket unavailable)
+- **Use Case:** Only used when WebSocket connection fails or for initial data loading
 - **Query Parameters:**
-  - `limit`: number (default: 50, max: 100)
-  - `cursor`: string (optional) - Cursor for pagination
-- **Response:**
-
-  ```json
-  {
-    "success": true,
-    "data": {
-      "messages": [...],
-      "hasMore": true,
-      "nextCursor": "msg_abc123"
-    }
-  }
-
-  ```
-
+ - `limit`(default: 50, max: 100)
+ - `cursor`(optional) - Cursor for pagination
+- **Response:** Same `messages:history` event
 - **Status Codes:** 200 (Success), 404 (Chat Not Found)
 
 ---
@@ -1889,9 +2663,9 @@ try {
 - **Key Format:** `chat:{chatId}:messages`, `user:{userId}:online`, `chat:{chatId}:typing`
 - **Value:** Serialized JSON (recent messages, online status, typing indicators)
 - **TTL:**
-  - Recent messages: 3600 seconds (1 hour)
-  - Online status: 60 seconds (frequently updated)
-  - Typing indicators: 10 seconds (short-lived)
+ - Recent messages: 3600 seconds (1 hour)
+ - Online status: 60 seconds (frequently updated)
+ - Typing indicators: 10 seconds (short-lived)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
@@ -1918,12 +2692,12 @@ try {
 
 ```json
 {
-  "error": {
-    "code": "RATE_LIMIT_EXCEEDED",
-    "message": "Too many messages",
-    "details": "Please wait before sending another message",
-    "retryAfter": 60
-  }
+ "error": {
+ "code": "RATE_LIMIT_EXCEEDED",
+ "message": "Too many messages",
+ "details": "Please wait before sending another message",
+ "retryAfter": 60
+ }
 }
 
 ```
@@ -1934,17 +2708,20 @@ try {
 
 ### Scalability
 
-**API Layer:**
+**WebSocket Layer (Primary):**
 
-- Deploy API layer across multiple instances behind load balancer
-- Use auto-scaling based on CPU/memory metrics
-- Stateless design allows horizontal scaling
+- Deploy WebSocket servers across multiple instances behind load balancer
+- Use auto-scaling based on concurrent connection metrics
+- Stateless design with Redis adapter allows horizontal scaling
+- Sticky sessions required for WebSocket connections
 
-**WebSocket Scaling:**
+**WebSocket Scaling (Primary Protocol):**
 
-- **Socket.io Redis Adapter:** Enable horizontal scaling of WebSocket connections
+- **Socket.io Redis Adapter:** Enable horizontal scaling of WebSocket connections across multiple servers
 - **Sticky Sessions:** Required for Socket.io (use session affinity in load balancer)
-- **Connection Management:** Monitor and manage WebSocket connections
+- **Connection Management:** Monitor and manage WebSocket connections, track connection health
+- **Load Balancing:** Distribute WebSocket connections evenly across servers
+- **Auto-scaling:** Scale WebSocket servers based on concurrent connection count
 
 **Database Scaling:**
 
@@ -2027,19 +2804,22 @@ try {
 
 ### Rate Limiting
 
-- Implement rate limiting at API layer to prevent abuse
-- Limit number of messages per user per minute/hour
-- Use Redis for distributed rate limiting across multiple servers
+- Implement rate limiting at WebSocket layer to prevent abuse (primary protocol)
+- Limit number of messages per user per minute/hour via WebSocket event throttling
+- Use Redis for distributed rate limiting across multiple WebSocket servers
+- Implement rate limiting for REST API fallback endpoints as well
 
 ### Input Validation
 
-- Validate all API inputs (message content, chat IDs)
+- Validate all WebSocket event payloads (message content, chat IDs) - primary validation point
+- Validate REST API inputs (fallback endpoints)
 - Sanitize user input to prevent XSS attacks
 - Validate file uploads (images, videos) for type and size
 
 ### HTTPS/TLS
 
-- All communication between clients and API encrypted using HTTPS
+- All WebSocket connections use WSS (WebSocket Secure) over TLS
+- All REST API communication encrypted using HTTPS (fallback)
 - Prevents eavesdropping and man-in-the-middle attacks
 - SSL/TLS certificates for secure connections
 
@@ -2051,10 +2831,11 @@ try {
 
 ### Authentication and Authorization
 
-- **JWT Tokens:** Use JWT for stateless authentication
+- **JWT Tokens:** Use JWT for stateless authentication in WebSocket handshake
+- **WebSocket Authentication:** Validate JWT token during WebSocket connection handshake
 - **Token Expiration:** Set appropriate token expiration times
-- **Role-Based Access Control:** Implement RBAC for chat operations
-- **Chat Access Control:** Verify user is participant before allowing message access
+- **Role-Based Access Control:** Implement RBAC for chat operations via WebSocket events
+- **Chat Access Control:** Verify user is participant before allowing message access via WebSocket
 
 ### Monitoring and Alerts
 
@@ -2073,11 +2854,11 @@ try {
 
 **Situation:** Need to design a messaging system for 2B+ users that delivers messages in real-time with < 100ms latency and 99.9% delivery guarantee.
 
-**Action:** **Backend (Node.js/Express.js):** I designed a real-time messaging system using Socket.io with Redis adapter for horizontal scaling. I implemented message queues (RabbitMQ) for reliable message delivery and decoupling. I used MongoDB for time-series message storage optimized for writes. I maintained active WebSocket connections in memory with connection management and automatic reconnection handling. I created an offline message queue that stores messages when recipients are offline and delivers them on reconnect. I integrated push notifications for offline users. I ensured message ordering using timestamps and sequence numbers. **Frontend (React.js):** I built a real-time chat interface with Socket.io client that automatically reconnects. I implemented message rendering with proper ordering, typing indicators, and read receipts. I created a chat list with unread counts and last message previews.
+**Action:** **Backend (Node.js/Express.js):** I designed a real-time messaging system using WebSocket (Socket.io) as the primary communication protocol with Redis adapter for horizontal scaling. All message operations (send, receive, typing indicators, read receipts) use WebSocket for real-time delivery. REST API is only used as a fallback for initial data loading or when WebSocket is unavailable. I implemented message queues (RabbitMQ) for reliable message delivery and decoupling. I used MongoDB for time-series message storage optimized for writes. I maintained active WebSocket connections in memory with connection management and automatic reconnection handling. I created an offline message queue that stores messages when recipients are offline and delivers them on reconnect. I integrated push notifications for offline users. I ensured message ordering using timestamps and sequence numbers. **Frontend (React.js):** I built a real-time chat interface with Socket.io client as the primary communication channel that automatically reconnects. All messaging operations use WebSocket events instead of REST API calls. I implemented message rendering with proper ordering, typing indicators, and read receipts. I created a chat list with unread counts and last message previews.
 
-**Result:** System handles 2B+ users with message delivery latency < 100ms. 99.9% message delivery rate. Handles 100B+ messages per day.
+**Result:** System handles 2B+ users with message delivery latency < 100ms. 99.9% message delivery rate. Handles 100B+ messages per day. WebSocket provides instant bidirectional communication without polling overhead.
 
-**Takeaway:** WebSocket is essential for real-time messaging. Message queues provide reliability and decoupling. Cassandra is ideal for time-series message data.
+**Takeaway:** WebSocket is the standard protocol for chat applications, providing real-time bidirectional communication. REST API should only be used as a fallback. Message queues provide reliability and decoupling. MongoDB is ideal for time-series message data.
 
 ---
 
@@ -2085,7 +2866,7 @@ try {
 
 **Situation:** Messages must be delivered even when recipient is not connected to the system.
 
-**Action:** **Backend (Node.js/Express.js):** I implemented offline message handling by storing messages in MongoDB when the recipient is offline. I tracked user online/offline status in Redis for fast lookups. When a user reconnects, I check for pending messages and deliver them immediately via WebSocket. I integrated push notifications to alert offline users about new messages. I tracked message delivery status (sent, delivered, read) in the database. I implemented retry logic with exponential backoff for failed deliveries. **Frontend (React.js):** I displayed offline/online status indicators for users. I showed pending message counts and delivered messages when the connection is restored. I implemented a notification system to alert users of new messages when the app is in the background.
+**Action:** **Backend (Node.js/Express.js):** I implemented offline message handling by storing messages in MongoDB when the recipient is offline. I tracked user online/offline status in Redis for fast lookups. When a user reconnects via WebSocket, I check for pending messages and deliver them immediately via WebSocket events. I integrated push notifications to alert offline users about new messages. I tracked message delivery status (sent, delivered, read) in the database and updated them via WebSocket events. I implemented retry logic with exponential backoff for failed deliveries. **Frontend (React.js):** I displayed offline/online status indicators for users received via WebSocket. I showed pending message counts and delivered messages when the WebSocket connection is restored. I implemented a notification system to alert users of new messages when the app is in the background.
 
 **Result:** 99.9% message delivery rate even for offline users. Users receive all messages when they reconnect.
 
@@ -2097,7 +2878,7 @@ try {
 
 **Situation:** Group messages need to be delivered to all members efficiently.
 
-**Action:** **Backend (Node.js/Express.js):** I implemented group messaging using a fan-out pattern. When a message is sent to a group, I fan-out to all members asynchronously using a message queue. I processed group messages in batches to avoid overwhelming the system. I maintained WebSocket connections for all online members in room-based groups. For large groups, I optimized using multicast or broadcast strategies. **Frontend (React.js):** I built a group chat interface showing all participants, message threads, and group settings. I implemented group message rendering with sender names and avatars. I added group management features like adding/removing members and group info display.
+**Action:** **Backend (Node.js/Express.js):** I implemented group messaging using WebSocket room-based broadcasting. When a message is sent to a group via WebSocket, I fan-out to all members asynchronously using a message queue. I processed group messages in batches to avoid overwhelming the system. I maintained WebSocket connections for all online members in room-based groups using Socket.io rooms. For large groups, I optimized using multicast or broadcast strategies via WebSocket. **Frontend (React.js):** I built a group chat interface showing all participants, message threads, and group settings. All group messages are sent and received via WebSocket events. I implemented group message rendering with sender names and avatars. I added group management features like adding/removing members and group info display.
 
 **Result:** Group messages delivered to all 256 members in < 500ms. System handles thousands of concurrent group chats.
 
@@ -2121,7 +2902,7 @@ try {
 
 **Situation:** Messages need to be stored permanently and retrieved efficiently, even for chats with thousands of messages.
 
-**Action:** **Backend (Node.js/Express.js):** I used MongoDB for message storage with proper indexing on chatId and timestamp. I implemented pagination using cursor-based approach for efficient retrieval. I stored messages in time-series format optimized for chronological queries. I implemented message archiving for old messages to keep database size manageable. **Frontend (React.js):** I implemented infinite scroll to load messages progressively. I cached recent messages in Redux state for fast access. I used React Query for automatic message fetching and caching.
+**Action:** **Backend (Node.js/Express.js):** I used MongoDB for message storage with proper indexing on chatId and timestamp. I implemented pagination using cursor-based approach for efficient retrieval via WebSocket events. I stored messages in time-series format optimized for chronological queries. I implemented message archiving for old messages to keep database size manageable. Message history is fetched via WebSocket `messages:fetch` event instead of REST API. **Frontend (React.js):** I implemented infinite scroll to load messages progressively via WebSocket. I cached recent messages in Redux state for fast access. I used WebSocket events for real-time message fetching and updates instead of REST API polling.
 
 **Result:** Message retrieval takes < 200ms even for chats with 10,000+ messages. Database queries optimized with proper indexing. User experience smooth with infinite scroll.
 

@@ -46,11 +46,11 @@ const styles = StyleSheet.create({
 
 ---
 
-## Q2. 📱 How React Native renders UI on mobile devices and the bridge concept
+## Q2. 📱 How React Native renders UI on mobile devices and JSI
 
-React Native uses a bridge to communicate between JavaScript and native code, translating JavaScript calls into native platform APIs - JSI replaces bridge for better performance (new architecture). Asynchronous communication between JS and native threads (bridge communication).
+React Native uses JSI (New Architecture) to communicate between JavaScript and native code, translating JavaScript calls into native platform APIs - New Architecture uses JSI and Fabric for better performance (stable in 0.73+). Direct calls between JS and native threads (JSI).
 
-- **Trade-offs**: The catch is JavaScript runs on separate thread from native UI (thread separation) - bridge communication can cause performance bottlenecks. JSI replaces bridge for better performance (new architecture), but watch out - data is serialized when crossing the bridge.
+- **Trade-offs**: The catch is JavaScript runs on separate thread from native UI (thread separation) - JSI enables direct communication without serialization. New Architecture uses JSI and Fabric for better performance (stable in 0.73+), but watch out - JSI enables direct calls without serialization overhead (no serialization).
 
 Example:
 
@@ -75,71 +75,65 @@ function MyComponent() {
 
 ## Q3. 📋 JavaScript Interface (JSI) and how it works
 
-JSI is a new architecture that allows direct communication between JavaScript and native code, eliminating the need for the bridge and improving performance - foundation for new React Native architecture (future-proof). JavaScript can directly call native functions (direct communication).
+JSI is the New Architecture that allows direct communication between JavaScript and native code, eliminating the need for the bridge and improving performance - part of React Native's New Architecture (stable in 0.73+). JavaScript can directly call native functions (direct communication).
 
-- **Trade-offs**: The catch is eliminates serialization overhead (better performance) - better type checking and error handling (type safety). Foundation for new React Native architecture (future-proof), but watch out - enables synchronous communication when needed (synchronous calls).
+- **Trade-offs**: The catch is eliminates serialization overhead (better performance, 20-500x faster) - better type checking and error handling through codegen (type safety). Part of React Native's New Architecture (stable in 0.73+), but watch out - enables synchronous communication when needed (synchronous calls).
 
 Example:
 
 ```jsx
-// Old Bridge approach (serialized)
-const result = await NativeModules.MyModule.doSomething(data);
-
-// JSI approach (direct function call)
-const result = MyModule.doSomething(data);
-
+// JSI approach (New Architecture, direct function call, ~0.01-0.1ms)
+import { TurboModuleRegistry } from 'react-native';
+const MyModule = TurboModuleRegistry.get('MyModule');
+const result = await MyModule.doSomething(data); // Can be synchronous
 ```
 
 ---
 
 ## Q4. 📱 Fabric and TurboModules in React Native
 
-Fabric is the new rendering system, while TurboModules are the new native module system, both designed to improve performance and enable synchronous communication - new architecture significantly improves performance. Fabric (new rendering system with better performance and debugging), TurboModules (new native module system using JSI).
+Fabric is the new rendering system, while TurboModules are the new native module system, both part of React Native's New Architecture (stable in 0.73+) - designed to improve performance and enable synchronous communication. Fabric (new rendering system with better performance, priority-based updates, concurrent rendering), TurboModules (new native module system using JSI with lazy loading and codegen).
 
-- **Trade-offs**: The catch is improved debugging capabilities (better debugging) - works with existing code while providing new features (backward compatibility). New architecture significantly improves performance, but watch out - enables synchronous UI updates (synchronous rendering).
+- **Trade-offs**: The catch is improved debugging capabilities and performance (20-500x faster) - works with existing code while providing new features (backward compatibility). New Architecture is stable in 0.73+, but watch out - enables synchronous UI updates and direct native calls (synchronous rendering and communication).
 
 Example:
 
 ```jsx
-// Fabric - New rendering system
+// Fabric - New rendering system (automatic in New Architecture)
 import { View, Text } from 'react-native';
 
 function MyComponent() {
   return (
     <View>
-      <Text>Fabric renders this efficiently</Text>
+      <Text>Fabric renders this efficiently with priority-based updates</Text>
     </View>
   );
 }
 
 // TurboModules - New native module system
 import { TurboModuleRegistry } from 'react-native';
-const MyTurboModule = TurboModuleRegistry.get('MyTurboModule');
 
+// Lazy loaded - module loads on first use
+const MyTurboModule = TurboModuleRegistry.get('MyTurboModule');
+const result = await MyTurboModule.doSomething(); // Direct JSI call
 ```
 
 ---
 
 ## Q5. 📱 How JavaScript communicates with native code
 
-React Native uses the bridge (or JSI in new architecture) to serialize data and pass it between JavaScript and native threads - bridge communication can be a bottleneck for high-frequency calls (performance). Bridge protocol defines how data is serialized and passed.
+React Native uses JSI (New Architecture) to communicate between JavaScript and native threads - uses direct calls without serialization (better performance). JSI enables direct function calls with lazy loading and type safety.
 
-- **Trade-offs**: The catch is supports specific data types (strings, numbers, objects, arrays) - handles errors and exceptions across the bridge. Bridge communication can be a bottleneck for high-frequency calls (performance), but watch out - uses message queue for asynchronous communication.
+- **Trade-offs**: The catch is JSI supports all data types (strings, numbers, objects, arrays) without serialization overhead - eliminates serialization (20-500x faster). Uses direct calls with lazy loading and type safety through codegen, but watch out - enables synchronous communication when needed (synchronous calls).
 
 Example:
 
 ```jsx
-import { NativeModules } from 'react-native';
-
-const { MyNativeModule } = NativeModules;
-
-MyNativeModule.doSomething('Hello from JS', (result) => {
-  console.log('Native response:', result);
-});
-
-const data = { name: 'John', age: 30 };
-MyNativeModule.processData(data);
-
+// New Architecture - JSI/TurboModules (direct calls, no serialization)
+import { TurboModuleRegistry } from 'react-native';
+const MyTurboModule = TurboModuleRegistry.get('MyTurboModule');
+const result = await MyTurboModule.doSomething('Hello from JS'); // Direct call
+const syncResult = MyTurboModule.processDataSync({ name: 'John', age: 30 }); // Synchronous
 ```
 
 ---

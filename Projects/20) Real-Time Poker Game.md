@@ -137,24 +137,24 @@ Design and implement a real-time multiplayer poker game that addresses the follo
 - **Responsive Design:** Mobile-first adaptive layouts for all screen sizes
 
 - **Fast Load Times:**
-  - First Contentful Paint (FCP) < 1.0s
-  - Largest Contentful Paint (LCP) < 2.0s
-  - Time to Interactive (TTI) < 2.5s
-  - Cumulative Layout Shift (CLS) < 0.1
+ - First Contentful Paint (FCP) < 1.0s
+ - Largest Contentful Paint (LCP) < 2.0s
+ - Time to Interactive (TTI) < 2.5s
+ - Cumulative Layout Shift (CLS) < 0.1
 
 - **Asset Optimization:**
-  - Code splitting with React.lazy() and dynamic imports
-  - Route-based code splitting
-  - Image lazy loading for cards and avatars (WebP format)
-  - CSS/JS minification and compression with Vite/Webpack
-  - Bundle size optimization with tree shaking
-  - Service Worker for asset caching
+ - Code splitting with React.lazy() and dynamic imports
+ - Route-based code splitting
+ - Image lazy loading for cards and avatars (WebP format)
+ - CSS/JS minification and compression with Vite/Webpack
+ - Bundle size optimization with tree shaking
+ - Service Worker for asset caching
 
 - **Animation Performance:**
-  - 60fps animations with Framer Motion
-  - GPU-accelerated CSS transforms
-  - Reduced re-renders with React.memo and useMemo
-  - Will-change CSS property for animation optimization
+ - 60fps animations with Framer Motion
+ - GPU-accelerated CSS transforms
+ - Reduced re-renders with React.memo and useMemo
+ - Will-change CSS property for animation optimization
 
 #### Real-time Communication
 
@@ -217,10 +217,10 @@ Design and implement a real-time multiplayer poker game that addresses the follo
 - **Push Notifications:** Browser push notifications for game invitations, turn reminders
 
 - **Accessibility:**
-  - Keyboard navigation (Tab, Enter, Arrow keys)
-  - Screen reader support (ARIA labels)
-  - WCAG 2.1 AA compliance
-  - Focus management for modals and dialogs
+ - Keyboard navigation (Tab, Enter, Arrow keys)
+ - Screen reader support (ARIA labels)
+ - WCAG 2.1 AA compliance
+ - Focus management for modals and dialogs
 
 #### Reliability
 
@@ -253,12 +253,12 @@ Design and implement a real-time multiplayer poker game that addresses the follo
 #### Functional
 
 - **Core Gameplay:**
-  - User registration and login
-  - Create/join game rooms (2-6 players)
-  - Texas Hold'em poker rules
-  - Basic betting actions (Fold, Check, Call, Raise)
-  - Hand ranking and winner determination
-  - Real-time game updates via Socket.io
+ - User registration and login
+ - Create/join game rooms (2-6 players)
+ - Texas Hold'em poker rules
+ - Basic betting actions (Fold, Check, Call, Raise)
+ - Hand ranking and winner determination
+ - Real-time game updates via Socket.io
 
 #### Non-Functional
 
@@ -267,46 +267,46 @@ Design and implement a real-time multiplayer poker game that addresses the follo
 - **Responsive:** Mobile-first responsive design
 
 - **Performance:**
-  - Core Web Vitals optimization
-  - Code splitting with React.lazy() and route-based splitting
-  - Advanced animations (card dealing, chip betting) with Framer Motion
-  - Virtual scrolling for long lists
-  - Memoization for expensive calculations
+ - Core Web Vitals optimization
+ - Code splitting with React.lazy() and route-based splitting
+ - Advanced animations (card dealing, chip betting) with Framer Motion
+ - Virtual scrolling for long lists
+ - Memoization for expensive calculations
 
 - **Rendering:** Client-side rendering (CSR) with React.js
 
 - **Caching:**
-  - Browser caching
-  - Service Worker for offline support
-  - React Query for API response caching
+ - Browser caching
+ - Service Worker for offline support
+ - React Query for API response caching
 
 - **Security:**
-  - Authentication with JWT tokens
-  - HTTPS/WSS for all communications
-  - Server-side validation of all game actions
-  - XSS protection
-  - CSRF protection
+ - Authentication with JWT tokens
+ - HTTPS/WSS for all communications
+ - Server-side validation of all game actions
+ - XSS protection
+ - CSRF protection
 
 ### Phase 2: Enhanced Features - Priority 2
 
 #### Functional
 
 - **Advanced Gameplay:**
-  - All-in functionality
-  - Side pot calculation
-  - Time limits for actions
-  - Hand history
-  - Spectator mode
+ - All-in functionality
+ - Side pot calculation
+ - Time limits for actions
+ - Hand history
+ - Spectator mode
 
 - **Social Features:**
-  - Chat functionality
-  - Friend system
-  - Private messaging
+ - Chat functionality
+ - Friend system
+ - Private messaging
 
 - **UI Enhancements:**
-  - Advanced animations
-  - Improved card animations
-  - Better visual feedback
+ - Advanced animations
+ - Improved card animations
+ - Better visual feedback
 
 #### Non-Functional
 
@@ -323,15 +323,15 @@ Design and implement a real-time multiplayer poker game that addresses the follo
 #### Functional
 
 - **Tournament Mode:**
-  - Multi-table tournaments
-  - Tournament brackets
-  - Prize distribution
+ - Multi-table tournaments
+ - Tournament brackets
+ - Prize distribution
 
 - **Advanced Features:**
-  - Multiple game variants
-  - Custom room settings
-  - Advanced statistics
-  - Replay system
+ - Multiple game variants
+ - Custom room settings
+ - Advanced statistics
+ - Replay system
 
 #### Non-Functional
 
@@ -350,33 +350,33 @@ Design and implement a real-time multiplayer poker game that addresses the follo
 ### Frontend Framework
 
 - **React.js:** Perfect for building interactive game interfaces
-  - **Component-based:** Like building with LEGO blocks - each piece (component) does one thing well
-  - **Virtual DOM:** React is smart - it only updates what actually changed, making animations smooth
-  - **Hooks:** Modern way to manage state - useState for simple stuff, useReducer for complex game state
-  - **Code splitting:** Load only what you need - game room code only loads when you join a game
-  - **TypeScript:** Catches bugs before they happen - especially important for game logic
+ - **Component-based:** Like building with LEGO blocks - each piece (component) does one thing well
+ - **Virtual DOM:** React is smart - it only updates what actually changed, making animations smooth
+ - **Hooks:** Modern way to manage state - useState for simple stuff, useReducer for complex game state
+ - **Code splitting:** Load only what you need - game room code only loads when you join a game
+ - **TypeScript:** Catches bugs before they happen - especially important for game logic
 
 ### TypeScript
 
 - **TypeScript:** JavaScript with types - like having labels on boxes so you know what's inside
-  - **Why use it?** Catches bugs before they happen - especially important for game logic
-  - **Better IDE:** Autocomplete knows what properties exist - like having a smart assistant
-  - **Self-documenting:** Types tell you what data looks like - easier to understand code
+ - **Why use it?** Catches bugs before they happen - especially important for game logic
+ - **Better IDE:** Autocomplete knows what properties exist - like having a smart assistant
+ - **Self-documenting:** Types tell you what data looks like - easier to understand code
 
 ### Real-time Communication
 
 - **Socket.io:** Like a walkie-talkie between browser and server - instant two-way communication
-  - **Why Socket.io?** WebSocket with fallbacks - works even if WebSocket is blocked
-  - **Room-based:** Players join a "room" - only people in that room get updates
-  - **Auto-reconnect:** If connection drops, automatically reconnects - like your phone reconnecting to WiFi
-  - **Event-based:** Server sends events like "card dealt" or "player folded" - app reacts instantly
+ - **Why Socket.io?** WebSocket with fallbacks - works even if WebSocket is blocked
+ - **Room-based:** Players join a "room" - only people in that room get updates
+ - **Auto-reconnect:** If connection drops, automatically reconnects - like your phone reconnecting to WiFi
+ - **Event-based:** Server sends events like "card dealt" or "player folded" - app reacts instantly
 
 ### State Management
 
 - **Context API + useReducer:** Built-in React solution - like a shared whiteboard for game state
-  - **Why Context?** No external library needed - keeps bundle size small
-  - **useReducer:** Perfect for game state - handles complex state updates (like betting rounds)
-  - **Real-time friendly:** When Socket.io updates come in, just update the context - all components see it
+ - **Why Context?** No external library needed - keeps bundle size small
+ - **useReducer:** Perfect for game state - handles complex state updates (like betting rounds)
+ - **Real-time friendly:** When Socket.io updates come in, just update the context - all components see it
 
 - **Local State (useState):** For component-specific stuff - like "is modal open?" or "selected card"
 
@@ -385,55 +385,55 @@ Design and implement a real-time multiplayer poker game that addresses the follo
 ### API Communication
 
 - **Axios:** HTTP client for REST APIs
-  - Interceptors for auth tokens
-  - Request/response transformation
-  - Error handling
-  - Request cancellation
+ - Interceptors for auth tokens
+ - Request/response transformation
+ - Error handling
+ - Request cancellation
 
 ### Animation Libraries
 
 - **Framer Motion:** Makes animations smooth and easy - like having a professional animator
-  - **Card dealing:** Cards flip and slide smoothly - feels like real cards
-  - **Chip animations:** Chips move to pot with physics - looks natural
-  - **Declarative:** Describe what you want ("card flips"), it handles the details
-  - **60fps:** Smooth animations that don't lag - important for game feel
+ - **Card dealing:** Cards flip and slide smoothly - feels like real cards
+ - **Chip animations:** Chips move to pot with physics - looks natural
+ - **Declarative:** Describe what you want ("card flips"), it handles the details
+ - **60fps:** Smooth animations that don't lag - important for game feel
 
 ### UI Components & Styling
 
 - **Material-UI (MUI) / Chakra UI:** Component library for React.js
-  - Pre-built accessible components
-  - Theming support with custom theme
-  - Responsive grid system
-  - Accessibility features (ARIA labels, keyboard navigation)
+ - Pre-built accessible components
+ - Theming support with custom theme
+ - Responsive grid system
+ - Accessibility features (ARIA labels, keyboard navigation)
 
 - **Styled Components / CSS Modules:** Component-scoped styling
-  - Dynamic styling with props
-  - Theme support
-  - Better component isolation
-  - CSS-in-JS for better component encapsulation
+ - Dynamic styling with props
+ - Theme support
+ - Better component isolation
+ - CSS-in-JS for better component encapsulation
 
 - **Tailwind CSS (Optional):** Utility-first CSS framework
 
 ### Build Tools
 
 - **Webpack / Vite:** Module bundler
-  - Code splitting
-  - Hot module replacement
-  - Asset optimization
-  - Tree shaking
+ - Code splitting
+ - Hot module replacement
+ - Asset optimization
+ - Tree shaking
 
 ### Code Splitting & Lazy Loading
 
 - **React.lazy():** Lazy load components
-  - Reduce initial bundle size
-  - Load components on demand
-  - Better performance
-  - Used with Suspense for loading states
+ - Reduce initial bundle size
+ - Load components on demand
+ - Better performance
+ - Used with Suspense for loading states
 
 - **Dynamic imports:** Code splitting at route level
-  - Split by routes (React Router)
-  - Split by features (game room, lobby, profile)
-  - Split heavy components (game table, animations)
+ - Split by routes (React Router)
+ - Split by features (game room, lobby, profile)
+ - Split heavy components (game table, animations)
 
 - **Route-based splitting:** Each route loaded on demand
 
@@ -458,14 +458,14 @@ Design and implement a real-time multiplayer poker game that addresses the follo
 ### Backend Integration
 
 - **REST APIs:** Backend communication
-  - Standard REST endpoints
-  - JSON data format
-  - Authentication via JWT tokens
+ - Standard REST endpoints
+ - JSON data format
+ - Authentication via JWT tokens
 
 - **Socket.io Client:** Real-time communication
-  - WebSocket connection
-  - Room-based events
-  - Automatic reconnection
+ - WebSocket connection
+ - Room-based events
+ - Automatic reconnection
 
 ---
 
@@ -478,45 +478,45 @@ The system follows a real-time multiplayer poker game architecture with WebSocke
 **Frontend Layers:**
 
 1. **Presentation Layer (React Components)**
-   - **UI Components**: Reusable components (Card, Chip, PlayerSeat, PotDisplay, ActionButtons)
-   - **Feature Components**: GameTable, Lobby, PlayerList, ChatPanel, HandHistory
-   - **Layout Components**: Header, Sidebar, Navigation, MainLayout
-   - **Page Components**: HomePage, LobbyPage, GamePage, ProfilePage
+ - **UI Components**: Reusable components (Card, Chip, PlayerSeat, PotDisplay, ActionButtons)
+ - **Feature Components**: GameTable, Lobby, PlayerList, ChatPanel, HandHistory
+ - **Layout Components**: Header, Sidebar, Navigation, MainLayout
+ - **Page Components**: HomePage, LobbyPage, GamePage, ProfilePage
 
 2. **State Management Layer**
-   - **Local State (useState)**: Component-specific UI state (selected action, bet amount, loading, errors)
-   - **Context API + useReducer**: Global state for game state, player state, room state
-   - **WebSocket State**: Real-time game updates, player actions, game state synchronization
+ - **Local State (useState)**: Component-specific UI state (selected action, bet amount, loading, errors)
+ - **Context API + useReducer**: Global state for game state, player state, room state
+ - **WebSocket State**: Real-time game updates, player actions, game state synchronization
 
 3. **Game Logic Layer**
-   - **Client-side Validation**: Validate player actions before sending to server
-   - **Optimistic Updates**: Update UI immediately, revert if server rejects
-   - **Animation Triggers**: Trigger animations based on game state changes
+ - **Client-side Validation**: Validate player actions before sending to server
+ - **Optimistic Updates**: Update UI immediately, revert if server rejects
+ - **Animation Triggers**: Trigger animations based on game state changes
 
 4. **WebSocket Layer**
-   - **Socket.io Client**: WebSocket connection for real-time game updates
-   - **Event Handlers**: Game state update, player action, card dealing, pot update
-   - **Connection Management**: Auto-reconnect, heartbeat, connection state
+ - **Socket.io Client**: WebSocket connection for real-time game updates
+ - **Event Handlers**: Game state update, player action, card dealing, pot update
+ - **Connection Management**: Auto-reconnect, heartbeat, connection state
 
 5. **Animation Layer**
-   - **Framer Motion**: Smooth card dealing, chip betting, card flip animations
-   - **Performance Optimization**: GPU-accelerated animations, 60fps target
-   - **Animation Sequencing**: Coordinate multiple animations (cards, chips, pot)
+ - **Framer Motion**: Smooth card dealing, chip betting, card flip animations
+ - **Performance Optimization**: GPU-accelerated animations, 60fps target
+ - **Animation Sequencing**: Coordinate multiple animations (cards, chips, pot)
 
 6. **API Integration Layer**
-   - **API Client**: Axios instance with interceptors for auth, error handling
-   - **Redux Thunks**: Async actions for API operations (joinRoom, leaveRoom, getHistory)
-   - **Request/Response Transformation**: Data normalization and error handling
+ - **API Client**: Axios instance with interceptors for auth, error handling
+ - **Redux Thunks**: Async actions for API operations (joinRoom, leaveRoom, getHistory)
+ - **Request/Response Transformation**: Data normalization and error handling
 
 7. **Routing Layer (React Router)**
-   - **Route Configuration**: Define routes and protected routes
-   - **Navigation**: Programmatic and declarative navigation
-   - **Route Guards**: Authentication and authorization checks
+ - **Route Configuration**: Define routes and protected routes
+ - **Navigation**: Programmatic and declarative navigation
+ - **Route Guards**: Authentication and authorization checks
 
 8. **Build & Deployment Layer**
-   - **Build Process**: Webpack/Vite bundling with code splitting
-   - **Static Assets**: Served from CDN (CloudFront/Cloudflare)
-   - **Environment Configuration**: Environment-specific API endpoints and WebSocket URLs
+ - **Build Process**: Webpack/Vite bundling with code splitting
+ - **Static Assets**: Served from CDN (CloudFront/Cloudflare)
+ - **Environment Configuration**: Environment-specific API endpoints and WebSocket URLs
 
 **Frontend Request Flow:**
 
@@ -585,96 +585,96 @@ The system follows a real-time multiplayer poker game architecture with WebSocke
 ```
 
 ┌─────────────────────────────────────────────────────────┐
-│              Frontend (React.js) - Client Side           │
-│  (This is what users see in their browser)              │
+│ Frontend (React.js) - Client Side │
+│ (This is what users see in their browser) │
 ├─────────────────────────────────────────────────────────┤
-│  ┌──────────────────────────────────────────────────┐   │
-│  │         Browser (Chrome, Firefox, Safari)        │   │
-│  │  ┌────────────────────────────────────────────┐  │   │
-│  │  │     React.js Application (SPA)             │  │   │
-│  │  │  ┌──────────────────────────────────────┐  │  │   │
-│  │  │  │  React Router (Client-side Routing)  │  │  │   │
-│  │  │  └──────────────────────────────────────┘  │  │   │
-│  │  │  ┌──────────────────────────────────────┐  │  │   │
-│  │  │  │  Context API + useReducer (State)    │  │  │   │
-│  │  │  │  - Game state, user state, UI state  │  │  │   │
-│  │  │  └──────────────────────────────────────┘  │  │   │
-│  │  │  ┌──────────────────────────────────────┐  │  │   │
-│  │  │  │  Socket.io Client (Real-time)        │  │  │   │
-│  │  │  │  - Receives game updates instantly   │  │  │   │
-│  │  │  └──────────────────────────────────────┘  │  │   │
-│  │  │  ┌──────────────────────────────────────┐  │  │   │
-│  │  │  │  Framer Motion (Animations)          │  │  │   │
-│  │  │  │  - Card animations, chip animations  │  │  │   │
-│  │  │  └──────────────────────────────────────┘  │  │   │
-│  │  │  ┌──────────────────────────────────────┐  │  │   │
-│  │  │  │  Material-UI Components              │  │  │   │
-│  │  │  └──────────────────────────────────────┘  │  │   │
-│  │  └────────────────────────────────────────────┘  │   │
-│  └──────────────────────────────────────────────────┘   │
+│ ┌──────────────────────────────────────────────────┐ │
+│ │ Browser (Chrome, Firefox, Safari) │ │
+│ │ ┌────────────────────────────────────────────┐ │ │
+│ │ │ React.js Application (SPA) │ │ │
+│ │ │ ┌──────────────────────────────────────┐ │ │ │
+│ │ │ │ React Router (Client-side Routing) │ │ │ │
+│ │ │ └──────────────────────────────────────┘ │ │ │
+│ │ │ ┌──────────────────────────────────────┐ │ │ │
+│ │ │ │ Context API + useReducer (State) │ │ │ │
+│ │ │ │ - Game state, user state, UI state │ │ │ │
+│ │ │ └──────────────────────────────────────┘ │ │ │
+│ │ │ ┌──────────────────────────────────────┐ │ │ │
+│ │ │ │ Socket.io Client (Real-time) │ │ │ │
+│ │ │ │ - Receives game updates instantly │ │ │ │
+│ │ │ └──────────────────────────────────────┘ │ │ │
+│ │ │ ┌──────────────────────────────────────┐ │ │ │
+│ │ │ │ Framer Motion (Animations) │ │ │ │
+│ │ │ │ - Card animations, chip animations │ │ │ │
+│ │ │ └──────────────────────────────────────┘ │ │ │
+│ │ │ ┌──────────────────────────────────────┐ │ │ │
+│ │ │ │ Material-UI Components │ │ │ │
+│ │ │ └──────────────────────────────────────┘ │ │ │
+│ │ └────────────────────────────────────────────┘ │ │
+│ └──────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────┘
-        │                                    │
-        │ HTTP/REST API                     │ WebSocket
-        │ (User data, room list)            │ (Game updates)
-        ▼                                    ▼
+ │ │
+ │ HTTP/REST API │ WebSocket
+ │ (User data, room list) │ (Game updates)
+ ▼ ▼
 ┌─────────────────────────────────────────────────────────┐
-│              Backend (Node.js + Express.js)              │
-│  (Server that handles game logic and real-time updates) │
+│ Backend (Node.js + Express.js) │
+│ (Server that handles game logic and real-time updates) │
 ├─────────────────────────────────────────────────────────┤
-│  ┌──────────────────────────────────────────────────┐   │
-│  │         Load Balancer                            │   │
-│  └──────────────────────────────────────────────────┘   │
-│                        │                                 │
-│        ┌───────────────┼───────────────┐                │
-│        ▼               ▼               ▼                │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐             │
-│  │ Express  │  │ Express  │  │ Express  │             │
-│  │ Server 1 │  │ Server 2 │  │ Server 3 │             │
-│  └──────────┘  └──────────┘  └──────────┘             │
-│        │               │               │                │
-│        └───────────────┼───────────────┘                │
-│                        ▼                                 │
-│  ┌──────────────────────────────────────────────────┐   │
-│  │         Socket.io Server (Real-time)             │   │
-│  │  - Handles WebSocket connections                 │   │
-│  │  - Manages game rooms                            │   │
-│  │  - Broadcasts game updates                       │   │
-│  └──────────────────────────────────────────────────┘   │
-│                        ▼                                 │
-│  ┌──────────────────────────────────────────────────┐   │
-│  │         Game Engine (Backend)                    │   │
-│  │  - Validates game actions                        │   │
-│  │  - Calculates game state                         │   │
-│  │  - Determines winners                            │   │
-│  │  - Prevents cheating                             │   │
-│  └──────────────────────────────────────────────────┘   │
-│                        ▼                                 │
-│  ┌──────────────────────────────────────────────────┐   │
-│  │         Business Logic Layer                     │   │
-│  │  - User Service (authentication, profiles)       │   │
-│  │  - Room Service (create, join, leave rooms)      │   │
-│  │  - Game Service (game state management)          │   │
-│  │  - Stats Service (user statistics)               │   │
-│  └──────────────────────────────────────────────────┘   │
-│                        ▼                                 │
-│  ┌──────────────────────────────────────────────────┐   │
-│  │         Data Access Layer                        │   │
-│  │  - MongoDB (User data, game history, stats)      │   │
-│  │  - Redis (Active game state, sessions)           │   │
-│  └──────────────────────────────────────────────────┘   │
+│ ┌──────────────────────────────────────────────────┐ │
+│ │ Load Balancer │ │
+│ └──────────────────────────────────────────────────┘ │
+│ │ │
+│ ┌───────────────┼───────────────┐ │
+│ ▼ ▼ ▼ │
+│ ┌──────────┐ ┌──────────┐ ┌──────────┐ │
+│ │ Express │ │ Express │ │ Express │ │
+│ │ Server 1 │ │ Server 2 │ │ Server 3 │ │
+│ └──────────┘ └──────────┘ └──────────┘ │
+│ │ │ │ │
+│ └───────────────┼───────────────┘ │
+│ ▼ │
+│ ┌──────────────────────────────────────────────────┐ │
+│ │ Socket.io Server (Real-time) │ │
+│ │ - Handles WebSocket connections │ │
+│ │ - Manages game rooms │ │
+│ │ - Broadcasts game updates │ │
+│ └──────────────────────────────────────────────────┘ │
+│ ▼ │
+│ ┌──────────────────────────────────────────────────┐ │
+│ │ Game Engine (Backend) │ │
+│ │ - Validates game actions │ │
+│ │ - Calculates game state │ │
+│ │ - Determines winners │ │
+│ │ - Prevents cheating │ │
+│ └──────────────────────────────────────────────────┘ │
+│ ▼ │
+│ ┌──────────────────────────────────────────────────┐ │
+│ │ Business Logic Layer │ │
+│ │ - User Service (authentication, profiles) │ │
+│ │ - Room Service (create, join, leave rooms) │ │
+│ │ - Game Service (game state management) │ │
+│ │ - Stats Service (user statistics) │ │
+│ └──────────────────────────────────────────────────┘ │
+│ ▼ │
+│ ┌──────────────────────────────────────────────────┐ │
+│ │ Data Access Layer │ │
+│ │ - MongoDB (User data, game history, stats) │ │
+│ │ - Redis (Active game state, sessions) │ │
+│ └──────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────┘
-        │                    │
-        ▼                    ▼
-┌──────────────┐  ┌──────────────┐
-│   MongoDB    │  │    Redis     │
-│  (Database)  │  │   (Cache)    │
-│              │  │              │
-│  - Users     │  │  - Game      │
-│  - Rooms     │  │    State     │
-│  - Game      │  │  - Sessions  │
-│    History   │  │              │
-│  - Stats     │  │              │
-└──────────────┘  └──────────────┘
+ │ │
+ ▼ ▼
+┌──────────────┐ ┌──────────────┐
+│ MongoDB │ │ Redis │
+│ (Database) │ │ (Cache) │
+│ │ │ │
+│ - Users │ │ - Game │
+│ - Rooms │ │ State │
+│ - Game │ │ - Sessions │
+│ History │ │ │
+│ - Stats │ │ │
+└──────────────┘ └──────────────┘
 
 ```
 
@@ -699,36 +699,36 @@ The system follows a real-time multiplayer poker game architecture with WebSocke
 ## Key Design Decisions
 
 1. **React.js for Web:** Perfect for interactive games - component-based, fast updates, great ecosystem
-   - **Virtual DOM:** Only updates what changed - keeps animations smooth
-   - **Hooks:** Clean way to manage game state and side effects
+ - **Virtual DOM:** Only updates what changed - keeps animations smooth
+ - **Hooks:** Clean way to manage game state and side effects
 
 2. **Socket.io for Real-time:** Like a walkie-talkie - instant two-way communication
-   - **Why not just WebSocket?** Socket.io has fallbacks and auto-reconnect - more reliable
-   - **Room-based:** Players join a "room" - only that room gets updates
+ - **Why not just WebSocket?** Socket.io has fallbacks and auto-reconnect - more reliable
+ - **Room-based:** Players join a "room" - only that room gets updates
 
 3. **Context API + useReducer for State:** Built-in React solution - no external library needed
-   - **useReducer:** Perfect for game state - handles complex updates (betting rounds, card dealing)
-   - **Real-time friendly:** Socket updates go to context, all components see changes instantly
+ - **useReducer:** Perfect for game state - handles complex updates (betting rounds, card dealing)
+ - **Real-time friendly:** Socket updates go to context, all components see changes instantly
 
 4. **Framer Motion for Animations:** Makes animations smooth and easy
-   - **Card dealing:** Cards flip and slide - feels like real cards
-   - **60fps:** Smooth animations that don't lag - important for game feel
+ - **Card dealing:** Cards flip and slide - feels like real cards
+ - **60fps:** Smooth animations that don't lag - important for game feel
 
 5. **Server-side Validation:** All game actions validated on server - prevents cheating
-   - Client can't fake a win - server is the authority
-   - Like a referee in a real game
+ - Client can't fake a win - server is the authority
+ - Like a referee in a real game
 
 6. **Room-based Architecture:** Each game is a "room" - scalable approach
-   - Can have thousands of games running simultaneously
-   - Like having multiple poker tables in a casino
+ - Can have thousands of games running simultaneously
+ - Like having multiple poker tables in a casino
 
 7. **Code Splitting:** Only loads code for the current page - faster initial load
-   - Game room code only loads when you join a game
-   - Like loading one chapter of a book instead of the whole library
+ - Game room code only loads when you join a game
+ - Like loading one chapter of a book instead of the whole library
 
 8. **Optimistic Updates:** Shows changes immediately, fixes if server says no
-   - When you fold, UI updates instantly - feels responsive
-   - If server says "invalid", it reverts - user sees error
+ - When you fold, UI updates instantly - feels responsive
+ - If server says "invalid", it reverts - user sees error
 
 ---
 
@@ -746,95 +746,95 @@ The system follows a real-time multiplayer poker game architecture with WebSocke
 
 App (Root Component - Entry Point)
 ├── Layout (Main Layout with Navigation)
-│   ├── Header
-│   │   ├── Logo
-│   │   ├── UserMenu
-│   │   └── CreateRoomButton
-│   └── Main Content Area
-│       ├── LandingPage
-│       ├── LoginPage
-│       │   └── LoginForm
-│       │       ├── EmailInput
-│       │       ├── PasswordInput
-│       │       └── SubmitButton
-│       ├── LobbyPage
-│       │   ├── SearchBar
-│       │   ├── FilterBar
-│       │   │   ├── StatusFilter
-│       │   │   └── TypeFilter
-│       │   ├── RoomList
-│       │   │   └── RoomCard
-│       │   │       ├── RoomInfo
-│       │   │       │   ├── RoomName
-│       │   │       │   ├── Blinds
-│       │   │       │   └── BuyIn
-│       │   │       ├── PlayerCount
-│       │   │       └── JoinButton
-│       │   └── CreateRoomModal
-│       │       ├── RoomSettingsForm
-│       │       └── CreateButton
-│       ├── GameRoomPage (Main Game Interface)
-│       │   ├── GameTable
-│       │   │   ├── TableCanvas (SVG/Canvas for table graphics)
-│       │   │   ├── PlayerSeats (6-9 seats around table)
-│       │   │   │   └── PlayerSeat
-│       │   │   │       ├── PlayerAvatar
-│       │   │   │       ├── PlayerCards (animated card flip)
-│       │   │   │       ├── PlayerChips
-│       │   │   │       ├── PlayerStatus
-│       │   │   │       │   ├── ActiveBadge
-│       │   │   │       │   ├── FoldedBadge
-│       │   │   │       │   └── AllInBadge
-│       │   │   │       └── PlayerAction
-│       │   │   ├── CommunityCards (Center of table)
-│       │   │   │   └── Card (animated)
-│       │   │   │       ├── CardFront
-│       │   │   │       └── CardBack
-│       │   │   ├── PotDisplay
-│       │   │   │   ├── MainPot
-│       │   │   │   └── SidePots
-│       │   │   └── DealerButton (animated, moves around table)
-│       │   ├── ActionPanel (Player's action buttons)
-│       │   │   ├── ActionButtons
-│       │   │   │   ├── FoldButton
-│       │   │   │   ├── CheckButton
-│       │   │   │   ├── CallButton
-│       │   │   │   ├── RaiseButton
-│       │   │   │   └── AllInButton
-│       │   │   ├── BetSlider (Adjust bet amount)
-│       │   │   │   ├── MinBet
-│       │   │   │   ├── MaxBet
-│       │   │   │   └── CurrentBet
-│       │   │   └── TimerDisplay (Time left to act)
-│       │   │       └── ProgressBar
-│       │   ├── ChatPanel (collapsible side panel)
-│       │   │   ├── ChatHeader
-│       │   │   ├── ChatMessages
-│       │   │   │   └── ChatMessage
-│       │   │   │       ├── UserAvatar
-│       │   │   │       ├── MessageText
-│       │   │   │       └── Timestamp
-│       │   │   └── ChatInput
-│       │   └── HandHistory (modal overlay)
-│       │       └── HandHistoryItem
-│       ├── ProfilePage
-│       │   ├── UserStats
-│       │   │   ├── WinRate
-│       │   │   ├── GamesPlayed
-│       │   │   └── TotalWinnings
-│       │   └── GameHistory
-│       │       └── GameHistoryItem
-│       ├── LeaderboardPage
-│       │   ├── GlobalLeaderboard
-│       │   └── TimePeriodFilter
-│       └── SpectateGamePage (Read-only game view)
-│           └── GameTable (Same as GameRoomPage but no actions)
+│ ├── Header
+│ │ ├── Logo
+│ │ ├── UserMenu
+│ │ └── CreateRoomButton
+│ └── Main Content Area
+│ ├── LandingPage
+│ ├── LoginPage
+│ │ └── LoginForm
+│ │ ├── EmailInput
+│ │ ├── PasswordInput
+│ │ └── SubmitButton
+│ ├── LobbyPage
+│ │ ├── SearchBar
+│ │ ├── FilterBar
+│ │ │ ├── StatusFilter
+│ │ │ └── TypeFilter
+│ │ ├── RoomList
+│ │ │ └── RoomCard
+│ │ │ ├── RoomInfo
+│ │ │ │ ├── RoomName
+│ │ │ │ ├── Blinds
+│ │ │ │ └── BuyIn
+│ │ │ ├── PlayerCount
+│ │ │ └── JoinButton
+│ │ └── CreateRoomModal
+│ │ ├── RoomSettingsForm
+│ │ └── CreateButton
+│ ├── GameRoomPage (Main Game Interface)
+│ │ ├── GameTable
+│ │ │ ├── TableCanvas (SVG/Canvas for table graphics)
+│ │ │ ├── PlayerSeats (6-9 seats around table)
+│ │ │ │ └── PlayerSeat
+│ │ │ │ ├── PlayerAvatar
+│ │ │ │ ├── PlayerCards (animated card flip)
+│ │ │ │ ├── PlayerChips
+│ │ │ │ ├── PlayerStatus
+│ │ │ │ │ ├── ActiveBadge
+│ │ │ │ │ ├── FoldedBadge
+│ │ │ │ │ └── AllInBadge
+│ │ │ │ └── PlayerAction
+│ │ │ ├── CommunityCards (Center of table)
+│ │ │ │ └── Card (animated)
+│ │ │ │ ├── CardFront
+│ │ │ │ └── CardBack
+│ │ │ ├── PotDisplay
+│ │ │ │ ├── MainPot
+│ │ │ │ └── SidePots
+│ │ │ └── DealerButton (animated, moves around table)
+│ │ ├── ActionPanel (Player's action buttons)
+│ │ │ ├── ActionButtons
+│ │ │ │ ├── FoldButton
+│ │ │ │ ├── CheckButton
+│ │ │ │ ├── CallButton
+│ │ │ │ ├── RaiseButton
+│ │ │ │ └── AllInButton
+│ │ │ ├── BetSlider (Adjust bet amount)
+│ │ │ │ ├── MinBet
+│ │ │ │ ├── MaxBet
+│ │ │ │ └── CurrentBet
+│ │ │ └── TimerDisplay (Time left to act)
+│ │ │ └── ProgressBar
+│ │ ├── ChatPanel (collapsible side panel)
+│ │ │ ├── ChatHeader
+│ │ │ ├── ChatMessages
+│ │ │ │ └── ChatMessage
+│ │ │ │ ├── UserAvatar
+│ │ │ │ ├── MessageText
+│ │ │ │ └── Timestamp
+│ │ │ └── ChatInput
+│ │ └── HandHistory (modal overlay)
+│ │ └── HandHistoryItem
+│ ├── ProfilePage
+│ │ ├── UserStats
+│ │ │ ├── WinRate
+│ │ │ ├── GamesPlayed
+│ │ │ └── TotalWinnings
+│ │ └── GameHistory
+│ │ └── GameHistoryItem
+│ ├── LeaderboardPage
+│ │ ├── GlobalLeaderboard
+│ │ └── TimePeriodFilter
+│ └── SpectateGamePage (Read-only game view)
+│ └── GameTable (Same but no actions)
 ├── GameProvider (Context API - Game State Management)
-│   ├── GameState (Current game state - cards, pot, players)
-│   ├── SocketConnection (WebSocket connection status)
-│   └── GameActions (Functions to perform game actions)
+│ ├── GameState (Current game state - cards, pot, players)
+│ ├── SocketConnection (WebSocket connection status)
+│ └── GameActions (Functions to perform game actions)
 └── ThemeProvider (Material-UI Theme)
-    └── CustomTheme (Light/Dark mode, colors, typography)
+ └── CustomTheme (Light/Dark mode, colors, typography)
 
 ```
 
@@ -907,53 +907,53 @@ Think of the frontend as a tree of React components - each component handles a s
 ```
 App
 ├── Header
-│   ├── Logo
-│   ├── Navigation
-│   └── UserMenu (Profile, Wallet, Settings, Sign out)
+│ ├── Logo
+│ ├── Navigation
+│ └── UserMenu (Profile, Wallet, Settings, Sign out)
 ├── MainContent
-│   ├── LobbyPage
-│   │   ├── TableList
-│   │   │   └── TableCard
-│   │   │       ├── TableName
-│   │   │       ├── Blinds
-│   │   │       ├── PlayersCount
-│   │   │       └── JoinButton
-│   │   └── CreateTableButton
-│   ├── GameTablePage
-│   │   ├── GameTable
-│   │   │   ├── PlayerSeats (6-9 seats)
-│   │   │   │   └── PlayerSeat
-│   │   │   │       ├── PlayerAvatar
-│   │   │   │       ├── PlayerName
-│   │   │   │       ├── PlayerChips
-│   │   │   │       ├── PlayerCards (face down/up)
-│   │   │   │       ├── PlayerBet
-│   │   │   │       └── PlayerStatus (active, folded, all-in)
-│   │   │   ├── CommunityCards
-│   │   │   │   └── Card (face down/up)
-│   │   │   ├── PotDisplay
-│   │   │   ├── DealerButton
-│   │   │   └── ActionTimer
-│   │   ├── PlayerControls
-│   │   │   ├── BettingControls
-│   │   │   │   ├── CheckButton
-│   │   │   │   ├── CallButton
-│   │   │   │   ├── RaiseButton
-│   │   │   │   ├── FoldButton
-│   │   │   │   └── AllInButton
-│   │   │   ├── BetAmountSlider
-│   │   │   └── BetAmountInput
-│   │   ├── GameInfo
-│   │   │   ├── CurrentBet
-│   │   │   ├── PotSize
-│   │   │   ├── Blinds
-│   │   │   └── HandHistory
-│   │   └── ChatPanel
-│   │       ├── ChatMessages
-│   │       └── ChatInput
-│   └── LeaderboardPage
-│       ├── LeaderboardList
-│       └── UserStats
+│ ├── LobbyPage
+│ │ ├── TableList
+│ │ │ └── TableCard
+│ │ │ ├── TableName
+│ │ │ ├── Blinds
+│ │ │ ├── PlayersCount
+│ │ │ └── JoinButton
+│ │ └── CreateTableButton
+│ ├── GameTablePage
+│ │ ├── GameTable
+│ │ │ ├── PlayerSeats (6-9 seats)
+│ │ │ │ └── PlayerSeat
+│ │ │ │ ├── PlayerAvatar
+│ │ │ │ ├── PlayerName
+│ │ │ │ ├── PlayerChips
+│ │ │ │ ├── PlayerCards (face down/up)
+│ │ │ │ ├── PlayerBet
+│ │ │ │ └── PlayerStatus (active, folded, all-in)
+│ │ │ ├── CommunityCards
+│ │ │ │ └── Card (face down/up)
+│ │ │ ├── PotDisplay
+│ │ │ ├── DealerButton
+│ │ │ └── ActionTimer
+│ │ ├── PlayerControls
+│ │ │ ├── BettingControls
+│ │ │ │ ├── CheckButton
+│ │ │ │ ├── CallButton
+│ │ │ │ ├── RaiseButton
+│ │ │ │ ├── FoldButton
+│ │ │ │ └── AllInButton
+│ │ │ ├── BetAmountSlider
+│ │ │ └── BetAmountInput
+│ │ ├── GameInfo
+│ │ │ ├── CurrentBet
+│ │ │ ├── PotSize
+│ │ │ ├── Blinds
+│ │ │ └── HandHistory
+│ │ └── ChatPanel
+│ │ ├── ChatMessages
+│ │ └── ChatInput
+│ └── LeaderboardPage
+│ ├── LeaderboardList
+│ └── UserStats
 └── SocketProvider (Real-time game updates)
 
 ```
@@ -962,147 +962,149 @@ App
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Game Table Component
-const GameTable: React.FC<{ tableId: string }> = ({ tableId }) => {
-  const { data: gameState } = useGameState(tableId);
-  const { socket } = useSocket();
+const GameTable<{ tableId}> = ({ tableId }) => {
+ const { data: gameState } = useGameState(tableId);
+ const { socket } = useSocket();
 
-  useEffect(() => {
-    socket.on('game-state-update', (update: GameStateUpdate) => {
-      // Update game state in real-time
-    });
+ useEffect(() => {
+ socket.on('game-state-update', (update: GameStateUpdate) => {
+ // Update game state in real-time
+ });
 
-    socket.on('player-action', (action: PlayerAction) => {
-      // Animate player action
-    });
+ socket.on('player-action', (action: PlayerAction) => {
+ // Animate player action
+ });
 
-    return () => {
-      socket.off('game-state-update');
-      socket.off('player-action');
-    };
-  }, [socket]);
+ return () => {
+ socket.off('game-state-update');
+ socket.off('player-action');
+ };
+ }, [socket]);
 
-  return (
-    <div className="game-table">
-      <div className="player-seats">
-        {gameState?.players.map((player, index) => (
-          <PlayerSeat
-            key={player.id}
-            player={player}
-            position={index}
-            isCurrentPlayer={player.id === currentUserId}
-            isActive={gameState.currentPlayerId === player.id}
-          />
-        ))}
-      </div>
-      <CommunityCards cards={gameState?.communityCards} />
-      <PotDisplay pot={gameState?.pot} />
-      <DealerButton position={gameState?.dealerPosition} />
-      {gameState?.currentPlayerId === currentUserId && (
-        <PlayerControls
-          gameState={gameState}
-          onAction={handlePlayerAction}
-        />
-      )}
-    </div>
-  );
+ return (
+ <div className="game-table">
+ <div className="player-seats">
+ {gameState?.players.map((player, index) => (
+ <PlayerSeat
+ key={player.id}
+ player={player}
+ position={index}
+ isCurrentPlayer={player.id === currentUserId}
+ isActive={gameState.currentPlayerId === player.id}
+ />
+ ))}
+ </div>
+ <CommunityCards cards={gameState?.communityCards} />
+ <PotDisplay pot={gameState?.pot} />
+ <DealerButton position={gameState?.dealerPosition} />
+ {gameState?.currentPlayerId === currentUserId && (
+ <PlayerControls
+ gameState={gameState}
+ onAction={handlePlayerAction}
+ />
+ )}
+ </div>
+ );
 };
 
 // Player Controls Component
-const PlayerControls: React.FC<{ gameState: GameState; onAction: (action: PlayerAction) => void }> = ({
-  gameState,
-  onAction
+const PlayerControls<{ gameState: GameState; onAction: (action: PlayerAction) => void }> = ({
+ gameState,
+ onAction
 }) => {
-  const [betAmount, setBetAmount] = useState(gameState.currentBet);
+ const [betAmount, setBetAmount] = useState(gameState.currentBet);
 
-  const handleCheck = () => {
-    onAction({ type: 'check' });
-  };
+ const handleCheck = () => {
+ onAction({ type: 'check' });
+ };
 
-  const handleCall = () => {
-    onAction({ type: 'call', amount: gameState.currentBet });
-  };
+ const handleCall = () => {
+ onAction({ type: 'call', amount: gameState.currentBet });
+ };
 
-  const handleRaise = () => {
-    onAction({ type: 'raise', amount: betAmount });
-  };
+ const handleRaise = () => {
+ onAction({ type: 'raise', amount: betAmount });
+ };
 
-  const handleFold = () => {
-    onAction({ type: 'fold' });
-  };
+ const handleFold = () => {
+ onAction({ type: 'fold' });
+ };
 
-  return (
-    <div className="player-controls">
-      <div className="betting-amount">
-        <BetAmountSlider
-          min={gameState.currentBet}
-          max={gameState.playerChips}
-          value={betAmount}
-          onChange={setBetAmount}
-        />
-        <input
-          type="number"
-          value={betAmount}
-          onChange={(e) => setBetAmount(Number(e.target.value))}
-        />
-      </div>
-      <div className="action-buttons">
-        {gameState.canCheck && (
-          <button onClick={handleCheck}>Check</button>
-        )}
-        {gameState.canCall && (
-          <button onClick={handleCall}>Call ${gameState.currentBet}</button>
-        )}
-        <button onClick={handleRaise}>Raise ${betAmount}</button>
-        <button onClick={handleFold}>Fold</button>
-        <button onClick={() => onAction({ type: 'all-in' })}>All In</button>
-      </div>
-    </div>
-  );
+ return (
+ <div className="player-controls">
+ <div className="betting-amount">
+ <BetAmountSlider
+ min={gameState.currentBet}
+ max={gameState.playerChips}
+ value={betAmount}
+ onChange={setBetAmount}
+ />
+ <input
+ type="number"
+ value={betAmount}
+ onChange={(e) => setBetAmount(Number(e.target.value))}
+ />
+ </div>
+ <div className="action-buttons">
+ {gameState.canCheck && (
+ <button onClick={handleCheck}>Check</button>
+ )}
+ {gameState.canCall && (
+ <button onClick={handleCall}>Call ${gameState.currentBet}</button>
+ )}
+ <button onClick={handleRaise}>Raise ${betAmount}</button>
+ <button onClick={handleFold}>Fold</button>
+ <button onClick={() => onAction({ type: 'all-in' })}>All In</button>
+ </div>
+ </div>
+ );
 };
 
 ```
 
 ### State Management
 
-**State Management Strategy:**
+**State Management Strategy (React 19):**
 
 - **Local State (useState)**: UI state (loading, errors, bet amount, selected action)
-- **Component State**: Each component manages its own UI state
-- **API State**: React Query or SWR for server state (game state, leaderboard) - caching, refetching
+- **Optimistic Updates (useOptimistic)**: React 19 hook for optimistic player actions and chip updates
+- **use() Hook**: React 19 hook for reading WebSocket game state promises
+- **Transitions (useTransition)**: React 19 hook for non-urgent game state updates and animations
+- **API State**: React Query for server state (game state, leaderboard) - caching, refetching
 - **Global State (Redux Toolkit)**: User authentication, wallet balance, active game, player statistics
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Using React Query for API state management
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-const useGameState = (tableId: string) => {
-  return useQuery({
-    queryKey: ['game-state', tableId],
-    queryFn: async () => {
-      const response = await axios.get(`/api/v1/tables/${tableId}/state`);
-      return response.data;
-    },
-    refetchInterval: 1000 // Refetch every second for real-time updates
-  });
+const useGameState = (tableId) => {
+ return useQuery({
+ queryKey: ['game-state', tableId],
+ queryFn: async () => {
+ const response = await axios.get(`/api/v1/tables/${tableId}/state`);
+ return response.data;
+ },
+ refetchInterval: 1000 // Refetch every second for real-time updates
+ });
 };
 
 const usePlayerAction = () => {
-  const queryClient = useQueryClient();
+ const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: async ({ tableId, action }: { tableId: string; action: PlayerAction }) => {
-      const response = await axios.post(`/api/v1/tables/${tableId}/action`, action);
-      return response.data;
-    },
-    onSuccess: (data, variables) => {
-      // Invalidate game state
-      queryClient.invalidateQueries({ queryKey: ['game-state', variables.tableId] });
-    }
-  });
+ return useMutation({
+ mutationFn: async ({ tableId, action }: { tableId; action: PlayerAction }) => {
+ const response = await axios.post(`/api/v1/tables/${tableId}/action`, action);
+ return response.data;
+ },
+ onSuccess: (data, variables) => {
+ // Invalidate game state
+ queryClient.invalidateQueries({ queryKey: ['game-state', variables.tableId] });
+ }
+ });
 };
 
 ```
@@ -1140,129 +1142,129 @@ const usePlayerAction = () => {
 
 ### User Model
 
-```typescript
-interface User {
-  id: string;
-  username: string;
-  email: string;
-  avatar?: string;
-  chips: number;
-  stats: UserStats;
-  createdAt: string;
-}
+```javascript
+// User structure:
+//
+ id;
+ username;
+ email;
+ avatar?;
+ chips;
+ stats: UserStats;
+ createdAt;
 
-interface UserStats {
-  gamesPlayed: number;
-  gamesWon: number;
-  gamesLost: number;
-  totalWinnings: number;
-  winRate: number;
-}
+// UserStats structure:
+//
+ gamesPlayed;
+ gamesWon;
+ gamesLost;
+ totalWinnings;
+ winRate;
 
 ```
 
 ### Game Room Model
 
-```typescript
-interface GameRoom {
-  id: string;
-  name: string;
-  type: 'public' | 'private';
-  maxPlayers: number;
-  currentPlayers: number;
-  smallBlind: number;
-  bigBlind: number;
-  buyIn: number;
-  status: 'waiting' | 'playing' | 'finished';
-  players: Player[];
-  createdAt: string;
-}
+```javascript
+// GameRoom structure:
+//
+ id;
+ name;
+ type: 'public' | 'private';
+ maxPlayers;
+ currentPlayers;
+ smallBlind;
+ bigBlind;
+ buyIn;
+ status: 'waiting' | 'playing' | 'finished';
+ players: Player[];
+ createdAt;
 
 ```
 
 ### Player Model
 
-```typescript
-interface Player {
-  id: string;
-  userId: string;
-  username: string;
-  avatar?: string;
-  seatNumber: number;
-  chips: number;
-  cards: Card[];
-  status: 'active' | 'folded' | 'all-in' | 'sitting-out';
-  currentBet: number;
-  isDealer: boolean;
-  isSmallBlind: boolean;
-  isBigBlind: boolean;
-  isTurn: boolean;
-  lastAction?: PlayerAction;
-}
+```javascript
+// Player structure:
+//
+ id;
+ userId;
+ username;
+ avatar?;
+ seatNumber;
+ chips;
+ cards: Card[];
+ status: 'active' | 'folded' | 'all-in' | 'sitting-out';
+ currentBet;
+ isDealer;
+ isSmallBlind;
+ isBigBlind;
+ isTurn;
+ lastAction?: PlayerAction;
 
 ```
 
 ### Card Model
 
-```typescript
-interface Card {
-  suit: 'hearts' | 'diamonds' | 'clubs' | 'spades';
-  rank: '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | 'J' | 'Q' | 'K' | 'A';
-  value: number; // For comparison
-  isVisible: boolean; // For hole cards
-}
+```javascript
+// Card structure:
+//
+ suit: 'hearts' | 'diamonds' | 'clubs' | 'spades';
+ rank: '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | 'J' | 'Q' | 'K' | 'A';
+ value; // For comparison
+ isVisible; // For hole cards
 
-interface Hand {
-  cards: Card[];
-  rank: HandRank;
-  description: string;
-}
+// Hand structure:
+//
+ cards: Card[];
+ rank: HandRank;
+ description;
 
 ```
 
 ### Game State Model
 
-```typescript
-interface GameState {
-  roomId: string;
-  phase: 'pre-flop' | 'flop' | 'turn' | 'river' | 'showdown' | 'finished';
-  communityCards: Card[];
-  pot: number;
-  sidePots: SidePot[];
-  currentBet: number;
-  minimumRaise: number;
-  activePlayers: Player[];
-  currentPlayerIndex: number;
-  dealerIndex: number;
-  winners: Winner[];
-  handHistory: HandHistoryItem[];
-}
+```javascript
+// GameState structure:
+//
+ roomId;
+ phase: 'pre-flop' | 'flop' | 'turn' | 'river' | 'showdown' | 'finished';
+ communityCards: Card[];
+ pot;
+ sidePots: SidePot[];
+ currentBet;
+ minimumRaise;
+ activePlayers: Player[];
+ currentPlayerIndex;
+ dealerIndex;
+ winners: Winner[];
+ handHistory: HandHistoryItem[];
 
 ```
 
 ### Player Action Model
 
-```typescript
-interface PlayerAction {
-  playerId: string;
-  action: 'fold' | 'check' | 'call' | 'raise' | 'all-in';
-  amount?: number;
-  timestamp: string;
-}
+```javascript
+// PlayerAction structure:
+//
+ playerId;
+ action: 'fold' | 'check' | 'call' | 'raise' | 'all-in';
+ amount?;
+ timestamp;
 
 ```
 
 ### Message Model
 
-```typescript
-interface ChatMessage {
-  id: string;
-  userId: string;
-  username: string;
-  message: string;
-  timestamp: string;
-  type: 'text' | 'emoji' | 'system';
-}
+```javascript
+// ChatMessage structure:
+//
+ id;
+ userId;
+ username;
+ message;
+ timestamp;
+ type: 'text' | 'emoji' | 'system';
 
 ```
 
@@ -1285,27 +1287,27 @@ interface ChatMessage {
 
 - **Request Body:**
 
-  ```json
-  {
-    "username": "player123",
-    "email": "player@example.com",
-    "password": "securePassword123"
-  }
+ ```json
+ {
+ "username": "player123",
+ "email": "player@example.com",
+ "password": "securePassword123"
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "user": { /* User object */ },
-      "token": "jwt_token_here"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "user": { /* User object */ },
+ "token": "jwt_token_here"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 400 (Validation Error), 409 (User Exists)
 
@@ -1317,26 +1319,26 @@ interface ChatMessage {
 
 - **Request Body:**
 
-  ```json
-  {
-    "email": "player@example.com",
-    "password": "securePassword123"
-  }
+ ```json
+ {
+ "email": "player@example.com",
+ "password": "securePassword123"
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "user": { /* User object */ },
-      "token": "jwt_token_here"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "user": { /* User object */ },
+ "token": "jwt_token_here"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 401 (Invalid Credentials)
 
@@ -1349,28 +1351,25 @@ interface ChatMessage {
 - **Method:** GET
 
 - **Query Parameters:**
-  - `status`: waiting | playing | finished
-  - `type`: public | private
-  - `page`: number
-  - `limit`: number
+ - `status`: waiting | playing | finished
+ - `type`: public | private
+ - `page`- `limit`- **Response:**
 
-- **Response:**
+ ```json
+ {
+ "success": true,
+ "data": {
+ "rooms": [ /* Array of GameRoom objects */ ],
+ "pagination": {
+ "page": 1,
+ "limit": 20,
+ "total": 100,
+ "totalPages": 5
+ }
+ }
+ }
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "rooms": [ /* Array of GameRoom objects */ ],
-      "pagination": {
-        "page": 1,
-        "limit": 20,
-        "total": 100,
-        "totalPages": 5
-      }
-    }
-  }
-
-  ```
+ ```
 
 - **Status Codes:** 200 (Success)
 
@@ -1382,29 +1381,29 @@ interface ChatMessage {
 
 - **Request Body:**
 
-  ```json
-  {
-    "name": "High Stakes Room",
-    "type": "private",
-    "maxPlayers": 6,
-    "smallBlind": 10,
-    "bigBlind": 20,
-    "buyIn": 1000
-  }
+ ```json
+ {
+ "name": "High Stakes Room",
+ "type": "private",
+ "maxPlayers": 6,
+ "smallBlind": 10,
+ "bigBlind": 20,
+ "buyIn": 1000
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "room": { /* GameRoom object */ }
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "room": { /* GameRoom object */ }
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 400 (Validation Error)
 
@@ -1416,15 +1415,15 @@ interface ChatMessage {
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "room": { /* GameRoom object with full details */ }
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "room": { /* GameRoom object with full details */ }
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 404 (Room Not Found)
 
@@ -1436,25 +1435,25 @@ interface ChatMessage {
 
 - **Request Body:**
 
-  ```json
-  {
-    "seatNumber": 1
-  }
+ ```json
+ {
+ "seatNumber": 1
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "room": { /* Updated GameRoom object */ },
-      "player": { /* Player object */ }
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "room": { /* Updated GameRoom object */ },
+ "player": { /* Player object */ }
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 400 (Room Full), 403 (Invalid Seat)
 
@@ -1468,15 +1467,15 @@ interface ChatMessage {
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "gameState": { /* GameState object */ }
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "gameState": { /* GameState object */ }
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 404 (Game Not Found)
 
@@ -1488,16 +1487,16 @@ interface ChatMessage {
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "history": [ /* Array of HandHistoryItem objects */ ],
-      "pagination": { /* Pagination object */ }
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "history": [ /* Array of HandHistoryItem objects */ ],
+ "pagination": { /* Pagination object */ }
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success)
 
@@ -1511,15 +1510,15 @@ interface ChatMessage {
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "stats": { /* UserStats object */ }
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "stats": { /* UserStats object */ }
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success)
 
@@ -1531,16 +1530,16 @@ interface ChatMessage {
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "history": [ /* Array of game history items */ ],
-      "pagination": { /* Pagination object */ }
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "history": [ /* Array of game history items */ ],
+ "pagination": { /* Pagination object */ }
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success)
 
@@ -1554,40 +1553,40 @@ interface ChatMessage {
 
 server/
 ├── routes/
-│   ├── auth.js
-│   ├── games.js
-│   └── rooms.js
+│ ├── auth.js
+│ ├── games.js
+│ └── rooms.js
 ├── controllers/
-│   ├── GameController.js
-│   └── RoomController.js
+│ ├── GameController.js
+│ └── RoomController.js
 ├── services/
-│   ├── GameEngine.js
-│   └── CardService.js
+│ ├── GameEngine.js
+│ └── CardService.js
 ├── socket/
-│   └── gameSocket.js
+│ └── gameSocket.js
 └── models/
-    ├── Game.js
-    ├── Room.js
-    └── User.js
+ ├── Game.js
+ ├── Room.js
+ └── User.js
 
 ```
 
 ### Game Engine Implementation
 
-```typescript
+```javascript
 class GameEngine {
-  async processPlayerAction(roomId: string, action: PlayerAction) {
-    // Validate action
-    // Update game state
-    // Broadcast to all players
-    // Persist to database
-  }
+ async processPlayerAction(roomId, action: PlayerAction) {
+ // Validate action
+ // Update game state
+ // Broadcast to all players
+ // Persist to database
+ }
 
-  async dealCards(roomId: string) {
-    // Generate random cards
-    // Distribute to players
-    // Update game state
-  }
+ async dealCards(roomId) {
+ // Generate random cards
+ // Distribute to players
+ // Update game state
+ }
 }
 
 ```
@@ -1603,19 +1602,19 @@ class GameEngine {
 - **Data Format:** JSON (JavaScript Object Notation)
 
 - **HTTP Methods:**
-  - GET: Retrieve data
-  - POST: Create new resources
-  - PUT: Update existing resources
-  - DELETE: Delete resources
+ - GET: Retrieve data
+ - POST: Create new resources
+ - PUT: Update existing resources
+ - DELETE: Delete resources
 
 - **Status Codes:**
-  - 200: Success
-  - 201: Created
-  - 400: Bad Request
-  - 401: Unauthorized
-  - 403: Forbidden
-  - 404: Not Found
-  - 500: Internal Server Error
+ - 200: Success
+ - 201: Created
+ - 400: Bad Request
+ - 401: Unauthorized
+ - 403: Forbidden
+ - 404: Not Found
+ - 500: Internal Server Error
 
 ### WebSocket Protocol (Socket.io)
 
@@ -1624,22 +1623,22 @@ class GameEngine {
 - **Connection:** WSS (WebSocket Secure)
 
 - **Events:**
-  - **Client to Server:**
-    - `join-room`: Join a game room
-    - `leave-room`: Leave a game room
-    - `player-action`: Player game action (fold, call, raise, etc.)
-    - `send-message`: Send chat message
-    - `request-game-state`: Request current game state
-  - **Server to Client:**
-    - `room-updated`: Room state updated
-    - `game-state-updated`: Game state changed
-    - `player-joined`: New player joined
-    - `player-left`: Player left room
-    - `cards-dealt`: Cards dealt to players
-    - `action-required`: Player's turn to act
-    - `hand-completed`: Hand finished
-    - `new-message`: New chat message
-    - `error`: Error occurred
+ - **Client to Server:**
+ - `join-room`: Join a game room
+ - `leave-room`: Leave a game room
+ - `player-action`: Player game action (fold, call, raise, etc.)
+ - `send-message`: Send chat message
+ - `request-game-state`: Request current game state
+ - **Server to Client:**
+ - `room-updated`: Room state updated
+ - `game-state-updated`: Game state changed
+ - `player-joined`: New player joined
+ - `player-left`: Player left room
+ - `cards-dealt`: Cards dealt to players
+ - `action-required`: Player's turn to act
+ - `hand-completed`: Hand finished
+ - `new-message`: New chat message
+ - `error`: Error occurred
 
 ### Authentication Protocol
 
@@ -1675,7 +1674,7 @@ class GameEngine {
 
 **Frontend Implementation:** React.js code splitting for faster initial load
 
-```typescript
+```javascript
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { CircularProgress, Box } from '@mui/material';
@@ -1688,19 +1687,19 @@ const LeaderboardPage = lazy(() => import('./pages/LeaderboardPage'));
 
 // Loading fallback component
 const LoadingFallback = () => (
-  <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
-    <CircularProgress />
-  </Box>
+ <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+ <CircularProgress />
+ </Box>
 );
 
 // Route with Suspense
 <Suspense fallback={<LoadingFallback />}>
-  <Routes>
-    <Route path="/game/:roomId" element={<GameRoomPage />} />
-    <Route path="/lobby" element={<LobbyPage />} />
-    <Route path="/profile" element={<ProfilePage />} />
-    <Route path="/leaderboard" element={<LeaderboardPage />} />
-  </Routes>
+
+ <Route path="/game/:roomId" element={<GameRoomPage />} />
+ <Route path="/lobby" element={<LobbyPage />} />
+ <Route path="/profile" element={<ProfilePage />} />
+ <Route path="/leaderboard" element={<LeaderboardPage />} />
+ </Routes>
 </Suspense>
 
 ```
@@ -1712,138 +1711,138 @@ const LoadingFallback = () => (
 
 **Backend (Socket.io Server):**
 
-```typescript
+```javascript
 // Backend: Socket.io server - handles all WebSocket connections
 
 ```
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Frontend: Socket connection setup - like a walkie-talkie connection, automatically reconnects if it drops
 import { io, Socket } from 'socket.io-client';
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 
-interface SocketContextType {
-  socket: Socket | null;
-  isConnected: boolean;
-  joinRoom: (roomId: string) => void;
-  leaveRoom: (roomId: string) => void;
-}
+// SocketContextType structure:
+//
+ socket: Socket | null;
+ isConnected;
+ joinRoom: (roomId) => void;
+ leaveRoom: (roomId) => void;
 
-const SocketContext = createContext<SocketContextType | null>(null);
+const SocketContext = createContext(null);
 
-export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [socket, setSocket] = useState<Socket | null>(null);
-  const [isConnected, setIsConnected] = useState(false);
+export const SocketProvider<{ children}> = ({ children }) => {
+ const [socket, setSocket] = useState(null);
+ const [isConnected, setIsConnected] = useState(false);
 
-  useEffect(() => {
-    const token = localStorage.getItem('auth_token');
-    const newSocket = io(process.env.REACT_APP_SOCKET_URL!, {
-      auth: {
-        token
-      },
-      transports: ['websocket'],
-      reconnection: true,
-      reconnectionDelay: 1000,
-      reconnectionAttempts: 5,
-      timeout: 20000,
-    });
+ useEffect(() => {
+ const token = localStorage.getItem('auth_token');
+ const newSocket = io(process.env.REACT_APP_SOCKET_URL!, {
+ auth: {
+ token
+ },
+ transports: ['websocket'],
+ reconnection: true,
+ reconnectionDelay: 1000,
+ reconnectionAttempts: 5,
+ timeout: 20000,
+ });
 
-    newSocket.on('connect', () => {
-      console.log('Connected to server');
-      setIsConnected(true);
-    });
+ newSocket.on('connect', () => {
+ console.log('Connected to server');
+ setIsConnected(true);
+ });
 
-    newSocket.on('disconnect', (reason) => {
-      console.log('Disconnected from server:', reason);
-      setIsConnected(false);
-    });
+ newSocket.on('disconnect', (reason) => {
+ console.log('Disconnected from server:', reason);
+ setIsConnected(false);
+ });
 
-    newSocket.on('connect_error', (error) => {
-      console.error('Connection error:', error);
-      setIsConnected(false);
-    });
+ newSocket.on('connect_error', (error) => {
+ console.error('Connection error:', error);
+ setIsConnected(false);
+ });
 
-    setSocket(newSocket);
+ setSocket(newSocket);
 
-    return () => {
-      newSocket.close();
-    };
-  }, []);
+ return () => {
+ newSocket.close();
+ };
+ }, []);
 
-  const joinRoom = useCallback((roomId: string) => {
-    if (socket && isConnected) {
-      socket.emit('join-room', roomId);
-    }
-  }, [socket, isConnected]);
+ const joinRoom = useCallback((roomId) => {
+ if (socket && isConnected) {
+ socket.emit('join-room', roomId);
+ }
+ }, [socket, isConnected]);
 
-  const leaveRoom = useCallback((roomId: string) => {
-    if (socket && isConnected) {
-      socket.emit('leave-room', roomId);
-    }
-  }, [socket, isConnected]);
+ const leaveRoom = useCallback((roomId) => {
+ if (socket && isConnected) {
+ socket.emit('leave-room', roomId);
+ }
+ }, [socket, isConnected]);
 
-  return (
-    <SocketContext.Provider value={{ socket, isConnected, joinRoom, leaveRoom }}>
-      {children}
-    </SocketContext.Provider>
-  );
+ return (
+ <SocketContext.Provider value={{ socket, isConnected, joinRoom, leaveRoom }}>
+ {children}
+ </SocketContext.Provider>
+ );
 };
 
 export const useSocket = () => {
-  const context = useContext(SocketContext);
-  if (!context) {
-    throw new Error('useSocket must be used within SocketProvider');
-  }
-  return context;
+ const context = useContext(SocketContext);
+ if (!context) {
+ throw new Error('useSocket must be used within SocketProvider');
+ }
+ return context;
 };
 
 ```
 
 ### Game State Management with Context API
 
-```typescript
+```javascript
 // Game Context
-interface GameContextType {
-  gameState: GameState | null;
-  socket: Socket | null;
-  joinRoom: (roomId: string) => void;
-  leaveRoom: () => void;
-  performAction: (action: PlayerAction) => void;
-}
+// GameContextType structure:
+//
+ gameState: GameState | null;
+ socket: Socket | null;
+ joinRoom: (roomId) => void;
+ leaveRoom;
+ performAction: (action: PlayerAction) => void;
 
-const GameContext = createContext<GameContextType | null>(null);
+const GameContext = createContext(null);
 
 // Game Provider
-const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [gameState, dispatch] = useReducer(gameReducer, null);
-  const [socket, setSocket] = useState<Socket | null>(null);
+const GameProvider<{ children}> = ({ children }) => {
+ const [gameState, dispatch] = useReducer(gameReducer, null);
+ const [socket, setSocket] = useState(null);
 
-  useEffect(() => {
-    const newSocket = io(process.env.REACT_APP_SOCKET_URL, {
-      auth: { token: getAuthToken() }
-    });
-    setSocket(newSocket);
+ useEffect(() => {
+ const newSocket = io(process.env.REACT_APP_SOCKET_URL, {
+ auth: { token: getAuthToken() }
+ });
+ setSocket(newSocket);
 
-    newSocket.on('game-state-updated', (state: GameState) => {
-      dispatch({ type: 'UPDATE_GAME_STATE', payload: state });
-    });
+ newSocket.on('game-state-updated', (state: GameState) => {
+ dispatch({ type: 'UPDATE_GAME_STATE', payload: state });
+ });
 
-    return () => {
-      newSocket.close();
-    };
-  }, []);
+ return () => {
+ newSocket.close();
+ };
+ }, []);
 
-  const performAction = (action: PlayerAction) => {
-    socket?.emit('player-action', action);
-  };
+ const performAction = (action: PlayerAction) => {
+ socket?.emit('player-action', action);
+ };
 
-  return (
-    <GameContext.Provider value={{ gameState, socket, performAction }}>
-      {children}
-    </GameContext.Provider>
-  );
+ return (
+ <GameContext.Provider value={{ gameState, socket, performAction }}>
+ {children}
+ </GameContext.Provider>
+ );
 };
 
 ```
@@ -1852,231 +1851,231 @@ const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
 **Frontend Implementation:** React.js components use Framer Motion for animations
 
-```typescript
+```javascript
 import { motion, AnimatePresence } from 'framer-motion';
 import { Box } from '@mui/material';
 
 // Card component with flip animation - cards flip and slide smoothly, feels like real cards
-const Card: React.FC<{ card: Card; delay?: number; isFlipping?: boolean }> = ({
-  card,
-  delay = 0,
-  isFlipping = false
+const Card<{ card: Card; delay?; isFlipping?}> = ({
+ card,
+ delay = 0,
+ isFlipping = false
 }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0, rotateY: 180 }}
-      animate={{
-        opacity: 1,
-        scale: 1,
-        rotateY: isFlipping ? 0 : 180
-      }}
-      transition={{
-        duration: 0.5,
-        delay,
-        ease: "easeInOut"
-      }}
-      style={{
-        perspective: '1000px',
-        transformStyle: 'preserve-3d',
-      }}
-      className="card"
-    >
-      <AnimatePresence mode="wait">
-        {card.isVisible ? (
-          <motion.img
-            key="front"
-            initial={{ rotateY: 180 }}
-            animate={{ rotateY: 0 }}
-            exit={{ rotateY: 180 }}
-            src={`/cards/${card.suit}-${card.rank}.png`}
-            alt={`${card.rank} of ${card.suit}`}
-            style={{ width: '100%', height: '100%' }}
-          />
-        ) : (
-          <motion.img
-            key="back"
-            initial={{ rotateY: 0 }}
-            animate={{ rotateY: 180 }}
-            exit={{ rotateY: 0 }}
-            src="/cards/back.png"
-            alt="Card back"
-            style={{ width: '100%', height: '100%' }}
-          />
-        )}
-      </AnimatePresence>
-    </motion.div>
-  );
+ return (
+ <motion.div
+ initial={{ opacity: 0, scale: 0, rotateY: 180 }}
+ animate={{
+ opacity: 1,
+ scale: 1,
+ rotateY: isFlipping ? 0 : 180
+ }}
+ transition={{
+ duration: 0.5,
+ delay,
+ ease: "easeInOut"
+ }}
+ style={{
+ perspective: '1000px',
+ transformStyle: 'preserve-3d',
+ }}
+ className="card"
+ >
+ <AnimatePresence mode="wait">
+ {card.isVisible ? (
+ <motion.img
+ key="front"
+ initial={{ rotateY: 180 }}
+ animate={{ rotateY: 0 }}
+ exit={{ rotateY: 180 }}
+ src={`/cards/${card.suit}-${card.rank}.png`}
+ alt={`${card.rank} of ${card.suit}`}
+ style={{ width: '100%', height: '100%' }}
+ />
+ ) : (
+ <motion.img
+ key="back"
+ initial={{ rotateY: 0 }}
+ animate={{ rotateY: 180 }}
+ exit={{ rotateY: 0 }}
+ src="/cards/back.png"
+ alt="Card back"
+ style={{ width: '100%', height: '100%' }}
+ />
+ )}
+ </AnimatePresence>
+ </motion.div>
+ );
 };
 
 // Chip animation with physics
-const Chip: React.FC<{
-  amount: number;
-  from: { x: number; y: number };
-  to: { x: number; y: number };
-  onComplete?: () => void;
+const Chip<{
+ amount;
+ from: { x; y};
+ to: { x; y};
+ onComplete?;
 }> = ({ amount, from, to, onComplete }) => {
-  return (
-    <motion.div
-      initial={{
-        x: from.x,
-        y: from.y,
-        scale: 0,
-        opacity: 0
-      }}
-      animate={{
-        x: to.x,
-        y: to.y,
-        scale: 1,
-        opacity: 1
-      }}
-      exit={{
-        scale: 0,
-        opacity: 0
-      }}
-      transition={{
-        duration: 0.6,
-        ease: "easeOut",
-        type: "spring",
-        stiffness: 200,
-        damping: 20
-      }}
-      onAnimationComplete={onComplete}
-      style={{
-        position: 'absolute',
-        zIndex: 1000,
-      }}
-      className="chip"
-    >
-      <Box
-        sx={{
-          width: 60,
-          height: 60,
-          borderRadius: '50%',
-          backgroundColor: 'gold',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontWeight: 'bold',
-          boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
-        }}
-      >
-        {amount}
-      </Box>
-    </motion.div>
-  );
+ return (
+ <motion.div
+ initial={{
+ x: from.x,
+ y: from.y,
+ scale: 0,
+ opacity: 0
+ }}
+ animate={{
+ x: to.x,
+ y: to.y,
+ scale: 1,
+ opacity: 1
+ }}
+ exit={{
+ scale: 0,
+ opacity: 0
+ }}
+ transition={{
+ duration: 0.6,
+ ease: "easeOut",
+ type: "spring",
+ stiffness: 200,
+ damping: 20
+ }}
+ onAnimationComplete={onComplete}
+ style={{
+ position: 'absolute',
+ zIndex: 1000,
+ }}
+ className="chip"
+ >
+ <Box
+ sx={{
+ width: 60,
+ height: 60,
+ borderRadius: '50%',
+ backgroundColor: 'gold',
+ display: 'flex',
+ alignItems: 'center',
+ justifyContent: 'center',
+ fontWeight: 'bold',
+ boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
+ }}
+ >
+ {amount}
+ </Box>
+ </motion.div>
+ );
 };
 
 ```
 
 ### Reduced Re-renders with useMemo and useCallback
 
-```typescript
+```javascript
 // Memoize expensive calculations
 const handRank = useMemo(() => {
-  return calculateHandRank(player.cards, communityCards);
+ return calculateHandRank(player.cards, communityCards);
 }, [player.cards, communityCards]);
 
 // Memoize callbacks
 const handleFold = useCallback(() => {
-  performAction({ action: 'fold', playerId: currentPlayer.id });
+ performAction({ action: 'fold', playerId: currentPlayer.id });
 }, [currentPlayer.id, performAction]);
 
 // Memoize components
 const PlayerSeat = React.memo(({ player }: { player: Player }) => {
-  return (
-    <div className="player-seat">
-      <PlayerAvatar player={player} />
-      <PlayerCards cards={player.cards} />
-      <PlayerChips chips={player.chips} />
-    </div>
-  );
+ return (
+ <div className="player-seat">
+ <PlayerAvatar player={player} />
+ <PlayerCards cards={player.cards} />
+ <PlayerChips chips={player.chips} />
+ </div>
+ );
 });
 
 ```
 
 ### Pagination for Room List
 
-```typescript
+```javascript
 // Infinite scroll for room list
 const useInfiniteRooms = () => {
-  const [rooms, setRooms] = useState<GameRoom[]>([]);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(false);
+ const [rooms, setRooms] = useState([]);
+ const [page, setPage] = useState(1);
+ const [hasMore, setHasMore] = useState(true);
+ const [loading, setLoading] = useState(false);
 
-  const loadMore = useCallback(async () => {
-    if (loading || !hasMore) return;
+ const loadMore = useCallback(async () => {
+ if (loading || !hasMore) return;
 
-    setLoading(true);
-    const response = await axios.get('/api/rooms', {
-      params: { page, limit: 20 }
-    });
+ setLoading(true);
+ const response = await axios.get('/api/rooms', {
+ params: { page, limit: 20 }
+ });
 
-    setRooms(prev => [...prev, ...response.data.rooms]);
-    setHasMore(response.data.pagination.hasMore);
-    setPage(prev => prev + 1);
-    setLoading(false);
-  }, [page, hasMore, loading]);
+ setRooms(prev => [...prev, ...response.data.rooms]);
+ setHasMore(response.data.pagination.hasMore);
+ setPage(prev => prev + 1);
+ setLoading(false);
+ }, [page, hasMore, loading]);
 
-  return { rooms, loadMore, hasMore, loading };
+ return { rooms, loadMore, hasMore, loading };
 };
 
 ```
 
 ### Debouncing for Search
 
-```typescript
+```javascript
 // Debounced search for rooms
-const useDebouncedSearch = (delay: number = 300) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [debouncedTerm, setDebouncedTerm] = useState('');
+const useDebouncedSearch = (delay= 300) => {
+ const [searchTerm, setSearchTerm] = useState('');
+ const [debouncedTerm, setDebouncedTerm] = useState('');
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedTerm(searchTerm);
-    }, delay);
+ useEffect(() => {
+ const timer = setTimeout(() => {
+ setDebouncedTerm(searchTerm);
+ }, delay);
 
-    return () => clearTimeout(timer);
-  }, [searchTerm, delay]);
+ return () => clearTimeout(timer);
+ }, [searchTerm, delay]);
 
-  return { searchTerm, debouncedTerm, setSearchTerm };
+ return { searchTerm, debouncedTerm, setSearchTerm };
 };
 
 ```
 
 ### Error Handling
 
-```typescript
+```javascript
 // Error boundary for game components
 class GameErrorBoundary extends React.Component {
-  state = { hasError: false, error: null };
+ state = { hasError: false, error: null };
 
-  static getDerivedStateFromError(error: Error) {
-    return { hasError: true, error };
-  }
+ static getDerivedStateFromError(error: Error) {
+ return { hasError: true, error };
+ }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('Game error:', error, errorInfo);
-    // Log to error tracking service
-  }
+ componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+ console.error('Game error:', error, errorInfo);
+ // Log to error tracking service
+ }
 
-  render() {
-    if (this.state.hasError) {
-      return <ErrorFallback error={this.state.error} />;
-    }
-    return this.props.children;
-  }
+ render() {
+ if (this.state.hasError) {
+ return <ErrorFallback error={this.state.error} />;
+ }
+ return this.props.children;
+ }
 }
 
 // Socket error handling
-socket.on('error', (error: { message: string; code: string }) => {
-  if (error.code === 'AUTH_ERROR') {
-    // Redirect to login
-    logout();
-  } else {
-    // Show error message
-    showNotification(error.message, 'error');
-  }
+socket.on('error', (error: { message; code}) => {
+ if (error.code === 'AUTH_ERROR') {
+ // Redirect to login
+ logout();
+ } else {
+ // Show error message
+ showNotification(error.message, 'error');
+ }
 });
 
 ```
@@ -2086,124 +2085,124 @@ socket.on('error', (error: { message: string; code: string }) => {
 **Frontend Optimizations:** React.js code splitting, lazy loading, memoization
 **Backend Optimizations:** Redis caching for game state, efficient database queries
 
-```typescript
+```javascript
 // Virtual scrolling - only renders what's visible, like a window showing part of a long list
 import { FixedSizeList } from 'react-window';
 import { memo } from 'react';
 
-const RoomList: React.FC<{ rooms: GameRoom[] }> = ({ rooms }) => {
-  const Row = memo(({ index, style }: { index: number; style: React.CSSProperties }) => (
-    <div style={style}>
-      <RoomCard room={rooms[index]} />
-    </div>
-  ));
+const RoomList<{ rooms: GameRoom[] }> = ({ rooms }) => {
+ const Row = memo(({ index, style }: { index; style: React.CSSProperties }) => (
+ <div style={style}>
+ <RoomCard room={rooms[index]} />
+ </div>
+ ));
 
-  return (
-    <FixedSizeList
-      height={600}
-      itemCount={rooms.length}
-      itemSize={100}
-      width="100%"
-      overscanCount={5}
-    >
-      {Row}
-    </FixedSizeList>
-  );
+ return (
+ <FixedSizeList
+ height={600}
+ itemCount={rooms.length}
+ itemSize={100}
+ width="100%"
+ overscanCount={5}
+ >
+ {Row}
+ </FixedSizeList>
+ );
 };
 
 // Image lazy loading - loads images as you scroll, like Instagram with Intersection Observer
-const LazyCardImage: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [isInView, setIsInView] = useState(false);
-  const imgRef = useRef<HTMLImageElement>(null);
+const LazyCardImage<{ src; alt}> = ({ src, alt }) => {
+ const [isLoaded, setIsLoaded] = useState(false);
+ const [isInView, setIsInView] = useState(false);
+ const imgRef = useRef(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '50px' }
-    );
+ useEffect(() => {
+ const observer = new IntersectionObserver(
+ ([entry]) => {
+ if (entry.isIntersecting) {
+ setIsInView(true);
+ observer.disconnect();
+ }
+ },
+ { rootMargin: '50px' }
+ );
 
-    if (imgRef.current) {
-      observer.observe(imgRef.current);
-    }
+ if (imgRef.current) {
+ observer.observe(imgRef.current);
+ }
 
-    return () => observer.disconnect();
-  }, []);
+ return () => observer.disconnect();
+ }, []);
 
-  return (
-    <img
-      ref={imgRef}
-      src={isInView ? src : '/placeholder.png'}
-      alt={alt}
-      loading="lazy"
-      onLoad={() => setIsLoaded(true)}
-      style={{
-        opacity: isLoaded ? 1 : 0,
-        transition: 'opacity 0.3s',
-      }}
-    />
-  );
+ return (
+ <img
+ ref={imgRef}
+ src={isInView ? src : '/placeholder.png'}
+ alt={alt}
+ loading="lazy"
+ onLoad={() => setIsLoaded(true)}
+ style={{
+ opacity: isLoaded ? 1 : 0,
+ transition: 'opacity 0.3s',
+ }}
+ />
+ );
 };
 
 // Memoized expensive calculations - remembers result, recalculates only when inputs change
-const HandRankDisplay: React.FC<{ cards: Card[] }> = ({ cards }) => {
-  const handRank = useMemo(() => {
-    return calculateHandRank(cards);
-  }, [cards]);
+const HandRankDisplay<{ cards: Card[] }> = ({ cards }) => {
+ const handRank = useMemo(() => {
+ return calculateHandRank(cards);
+ }, [cards]);
 
-  return <div>{handRank.description}</div>;
+ return <div>{handRank.description}</div>;
 };
 
 // Memoized components - remembers component output, skips re-render if props didn't change
 const PlayerSeat = memo(({ player }: { player: Player }) => {
-  return (
-    <div className="player-seat">
-      <PlayerAvatar player={player} />
-      <PlayerCards cards={player.cards} />
-      <PlayerChips chips={player.chips} />
-    </div>
-  );
+ return (
+ <div className="player-seat">
+ <PlayerAvatar player={player} />
+ <PlayerCards cards={player.cards} />
+ <PlayerChips chips={player.chips} />
+ </div>
+ );
 }, (prevProps, nextProps) => {
-  // Custom comparison function
-  return prevProps.player.id === nextProps.player.id &&
-         prevProps.player.chips === nextProps.player.chips &&
-         prevProps.player.status === nextProps.player.status;
+ // Custom comparison function
+ return prevProps.player.id === nextProps.player.id &&
+ prevProps.player.chips === nextProps.player.chips &&
+ prevProps.player.status === nextProps.player.status;
 });
 
 ```
 
 ### Security Implementation
 
-```typescript
+```javascript
 // Validate actions on client (server validates too)
-const validateAction = (action: PlayerAction, gameState: GameState): boolean => {
-  const player = gameState.activePlayers.find(p => p.id === action.playerId);
-  if (!player || !player.isTurn) return false;
+const validateAction = (action: PlayerAction, gameState: GameState)=> {
+ const player = gameState.activePlayers.find(p => p.id === action.playerId);
+ if (!player || !player.isTurn) return false;
 
-  switch (action.action) {
-    case 'raise':
-      if (!action.amount || action.amount < gameState.minimumRaise) return false;
-      if (action.amount > player.chips) return false;
-      break;
-    case 'call':
-      if (player.chips < gameState.currentBet) return false;
-      break;
-    // ... other validations
-  }
+ switch (action.action) {
+ case 'raise':
+ if (!action.amount || action.amount < gameState.minimumRaise) return false;
+ if (action.amount > player.chips) return false;
+ break;
+ case 'call':
+ if (player.chips < gameState.currentBet) return false;
+ break;
+ // ... other validations
+ }
 
-  return true;
+ return true;
 };
 
 // Secure token storage
-const setAuthToken = (token: string) => {
-  localStorage.setItem('auth_token', token);
-  // Set token in axios default headers
-  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+const setAuthToken = (token) => {
+ localStorage.setItem('auth_token', token);
+ // Set token in axios default headers
+ axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 };
 
 ```
@@ -2433,19 +2432,19 @@ SOCKET_IO_REDIS_URL=redis://...
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await Player.updateOne({ userId }, { $inc: { chips: -betAmount } }, { session });
-  await Game.updateOne({ roomId }, { $inc: { pot: betAmount } }, { session });
-  await Action.create([{ roomId, userId, action: 'bet', amount: betAmount }], { session });
-  await session.commitTransaction();
+ await Player.updateOne({ userId }, { $inc: { chips: -betAmount } }, { session });
+ await Game.updateOne({ roomId }, { $inc: { pot: betAmount } }, { session });
+ await Action.create([{ roomId, userId, action: 'bet', amount: betAmount }], { session });
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -2544,55 +2543,55 @@ try {
 
 **Implementation:**
 
-```typescript
+```javascript
 enum HandRank {
-  HIGH_CARD = 1,
-  PAIR = 2,
-  TWO_PAIR = 3,
-  THREE_OF_A_KIND = 4,
-  STRAIGHT = 5,
-  FLUSH = 6,
-  FULL_HOUSE = 7,
-  FOUR_OF_A_KIND = 8,
-  STRAIGHT_FLUSH = 9,
-  ROYAL_FLUSH = 10
+ HIGH_CARD = 1,
+ PAIR = 2,
+ TWO_PAIR = 3,
+ THREE_OF_A_KIND = 4,
+ STRAIGHT = 5,
+ FLUSH = 6,
+ FULL_HOUSE = 7,
+ FOUR_OF_A_KIND = 8,
+ STRAIGHT_FLUSH = 9,
+ ROYAL_FLUSH = 10
 }
 
 function evaluateHand(holeCards: Card[], communityCards: Card[]): Hand {
-  const allCards = [...holeCards, ...communityCards];
-  const combinations = generateCombinations(allCards, 5);
+ const allCards = [...holeCards, ...communityCards];
+ const combinations = generateCombinations(allCards, 5);
 
-  let bestHand: Hand | null = null;
+ let bestHand: Hand | null = null;
 
-  for (const combo of combinations) {
-    const hand = evaluateFiveCards(combo);
-    if (!bestHand || compareHands(hand, bestHand) > 0) {
-      bestHand = hand;
-    }
-  }
+ for (const combo of combinations) {
+ const hand = evaluateFiveCards(combo);
+ if (!bestHand || compareHands(hand, bestHand) > 0) {
+ bestHand = hand;
+ }
+ }
 
-  return bestHand!;
+ return bestHand!;
 }
 
 function evaluateFiveCards(cards: Card[]): Hand {
-  const sorted = sortCards(cards);
-  const ranks = getRanks(sorted);
-  const suits = getSuits(sorted);
+ const sorted = sortCards(cards);
+ const ranks = getRanks(sorted);
+ const suits = getSuits(sorted);
 
-  const isFlush = suits.every(s => s === suits[0]);
-  const isStraight = isConsecutive(ranks);
+ const isFlush = suits.every(s => s === suits[0]);
+ const isStraight = isConsecutive(ranks);
 
-  if (isFlush && isStraight && ranks[0] === 14) {
-    return { rank: HandRank.ROYAL_FLUSH, cards: sorted };
-  }
-  if (isFlush && isStraight) {
-    return { rank: HandRank.STRAIGHT_FLUSH, cards: sorted };
-  }
+ if (isFlush && isStraight && ranks[0] === 14) {
+ return { rank: HandRank.ROYAL_FLUSH, cards: sorted };
+ }
+ if (isFlush && isStraight) {
+ return { rank: HandRank.STRAIGHT_FLUSH, cards: sorted };
+ }
 
-  const rankCounts = countRanks(ranks);
-  // ... more hand evaluation logic
+ const rankCounts = countRanks(ranks);
+ // ... more hand evaluation logic
 
-  return { rank: HandRank.HIGH_CARD, cards: sorted };
+ return { rank: HandRank.HIGH_CARD, cards: sorted };
 }
 
 ```
@@ -2620,55 +2619,55 @@ function evaluateFiveCards(cards: Card[]): Hand {
 
 **Implementation:**
 
-```typescript
+```javascript
 class BettingRound {
-  private players: Player[];
-  private currentPlayerIndex: number;
-  private currentBet: number;
-  private pot: number;
+ private players: Player[];
+ private currentPlayerIndex;
+ private currentBet;
+ private pot;
 
-  async processAction(playerId: string, action: PlayerAction): Promise<void> {
-    const player = this.players.find(p => p.id === playerId);
-    if (!player || !player.isTurn) {
-      throw new Error('Not player\'s turn');
-    }
+ async processAction(playerId, action: PlayerAction){
+ const player = this.players.find(p => p.id === playerId);
+ if (!player || !player.isTurn) {
+ throw new Error('Not player\'s turn');
+ }
 
-    // Validate and process action
-    switch (action.action) {
-      case 'fold':
-        player.status = 'folded';
-        break;
-      case 'check':
-        if (this.currentBet > 0) {
-          throw new Error('Cannot check when bet is active');
-        }
-        break;
-      case 'call':
-        const callAmount = Math.min(this.currentBet - player.currentBet, player.chips);
-        player.chips -= callAmount;
-        player.currentBet += callAmount;
-        this.pot += callAmount;
-        break;
-      case 'raise':
-        if (action.amount! < this.currentBet * 2) {
-          throw new Error('Raise must be at least double current bet');
-        }
-        const raiseAmount = action.amount! - player.currentBet;
-        player.chips -= raiseAmount;
-        player.currentBet = action.amount!;
-        this.currentBet = action.amount!;
-        this.pot += raiseAmount;
-        break;
-    }
+ // Validate and process action
+ switch (action.action) {
+ case 'fold':
+ player.status = 'folded';
+ break;
+ case 'check':
+ if (this.currentBet > 0) {
+ throw new Error('Cannot check when bet is active');
+ }
+ break;
+ case 'call':
+ const callAmount = Math.min(this.currentBet - player.currentBet, player.chips);
+ player.chips -= callAmount;
+ player.currentBet += callAmount;
+ this.pot += callAmount;
+ break;
+ case 'raise':
+ if (action.amount! < this.currentBet * 2) {
+ throw new Error('Raise must be at least double current bet');
+ }
+ const raiseAmount = action.amount! - player.currentBet;
+ player.chips -= raiseAmount;
+ player.currentBet = action.amount!;
+ this.currentBet = action.amount!;
+ this.pot += raiseAmount;
+ break;
+ }
 
-    // Move to next player
-    this.moveToNextPlayer();
+ // Move to next player
+ this.moveToNextPlayer();
 
-    // Check if round is complete
-    if (this.isRoundComplete()) {
-      this.proceedToNextPhase();
-    }
-  }
+ // Check if round is complete
+ if (this.isRoundComplete()) {
+ this.proceedToNextPhase();
+ }
+ }
 }
 
 ```
@@ -2687,21 +2686,20 @@ class BettingRound {
 
 ```javascript
 {
-  _id: ObjectId,
-  roomId: String,          // Unique room ID, indexed
-  name: String,           // Room name
-  type: String,           // public, private
-  maxPlayers: Number,     // Maximum players (2-9)
-  currentPlayers: Number, // Current number of players
-  smallBlind: Number,     // Small blind amount
-  bigBlind: Number,       // Big blind amount
-  buyIn: Number,          // Buy-in amount
-  status: String,         // waiting, playing, finished, indexed
-  players: [ObjectId],    // Array of player IDs
-  currentHand: ObjectId,  // Current hand reference
-  createdAt: Date,
-  updatedAt: Date
-}
+ _id: ObjectId,
+ roomId: String, // Unique room ID, indexed
+ name: String, // Room name
+ type: String, // public, private
+ maxPlayers: Number, // Maximum players (2-9)
+ currentPlayers: Number, // Current number of players
+ smallBlind: Number, // Small blind amount
+ bigBlind: Number, // Big blind amount
+ buyIn: Number, // Buy-in amount
+ status: String, // waiting, playing, finished, indexed
+ players: [ObjectId], // Array of player IDs
+ currentHand: ObjectId, // Current hand reference
+ createdAt,
+ updatedAt}
 
 // Indexes:
 // - { roomId: 1 } (unique)
@@ -2714,22 +2712,21 @@ class BettingRound {
 
 ```javascript
 {
-  _id: ObjectId,
-  handId: String,         // Unique hand ID, indexed
-  roomId: ObjectId,       // Room reference, indexed
-  phase: String,          // pre-flop, flop, turn, river, showdown, finished
-  communityCards: [Object], // Array of community cards
-  pot: Number,            // Current pot size
-  currentBet: Number,     // Current bet amount
-  dealerIndex: Number,    // Dealer position
-  activePlayers: [ObjectId], // Array of active player IDs
-  currentPlayerIndex: Number, // Current player to act
-  winners: [Object],      // Array of winners
-  startedAt: Date,        // Hand start time
-  completedAt: Date,      // Hand completion time
-  createdAt: Date,
-  updatedAt: Date
-}
+ _id: ObjectId,
+ handId: String, // Unique hand ID, indexed
+ roomId: ObjectId, // Room reference, indexed
+ phase: String, // pre-flop, flop, turn, river, showdown, finished
+ communityCards: [Object], // Array of community cards
+ pot: Number, // Current pot size
+ currentBet: Number, // Current bet amount
+ dealerIndex: Number, // Dealer position
+ activePlayers: [ObjectId], // Array of active player IDs
+ currentPlayerIndex: Number, // Current player to act
+ winners: [Object], // Array of winners
+ startedAt, // Hand start time
+ completedAt, // Hand completion time
+ createdAt,
+ updatedAt}
 
 // Indexes:
 // - { handId: 1 } (unique)
@@ -2751,19 +2748,19 @@ class BettingRound {
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await Player.updateOne({ userId }, { $inc: { chips: -betAmount } }, { session });
-  await Game.updateOne({ roomId }, { $inc: { pot: betAmount } }, { session });
-  await Action.create([{ roomId, userId, action: 'bet', amount: betAmount }], { session });
-  await session.commitTransaction();
+ await Player.updateOne({ userId }, { $inc: { chips: -betAmount } }, { session });
+ await Game.updateOne({ roomId }, { $inc: { pot: betAmount } }, { session });
+ await Action.create([{ roomId, userId, action: 'bet', amount: betAmount }], { session });
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -2807,26 +2804,26 @@ try {
 - **Description:** Perform a game action (fold, call, raise, etc.)
 - **Request Body:**
 
-  ```json
-  {
-    "action": "raise",
-    "amount": 100
-  }
+ ```json
+ {
+ "action": "raise",
+ "amount": 100
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "actionId": "action_abc123",
-      "gameState": {...}
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "actionId": "action_abc123",
+ "gameState": {...}
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 400 (Invalid Action), 403 (Not Your Turn)
 
@@ -2837,17 +2834,17 @@ try {
 - **Description:** Get current game state
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "gameState": {...},
-      "players": [...],
-      "communityCards": [...]
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "gameState": {...},
+ "players": [...],
+ "communityCards": [...]
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 404 (Room Not Found)
 
@@ -2862,9 +2859,9 @@ try {
 - **Key Format:** `game:{roomId}:state`, `room:{roomId}:players`, `hand:{handId}`
 - **Value:** Serialized JSON (game state, player data, hand data)
 - **TTL:**
-  - Game state: 60 seconds (frequently updated)
-  - Player data: 300 seconds (5 minutes)
-  - Hand data: 3600 seconds (1 hour) for completed hands
+ - Game state: 60 seconds (frequently updated)
+ - Player data: 300 seconds (5 minutes)
+ - Hand data: 3600 seconds (1 hour) for completed hands
 - **Eviction Policy:** TTL-based eviction
 
 **Cache Patterns:**
@@ -2891,11 +2888,11 @@ try {
 
 ```json
 {
-  "error": {
-    "code": "NOT_YOUR_TURN",
-    "message": "Not your turn",
-    "details": "Please wait for your turn to act"
-  }
+ "error": {
+ "code": "NOT_YOUR_TURN",
+ "message": "Not your turn",
+ "details": "Please wait for your turn to act"
+ }
 }
 
 ```

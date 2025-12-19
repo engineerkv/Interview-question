@@ -16,13 +16,11 @@
 
 ---
 
-## Q98. 💡 Service Workers
+## 1. 💡 Service Workers
 
 Service workers are background scripts that run separately from your web page and can intercept network requests, cache resources, and handle push notifications. Service workers are the core building block for offline-first web apps. Understanding service workers is essential for building Progressive Web Apps (PWAs) and providing reliable experiences even when network connectivity is poor.
 
----
-
-## 1. 💡 How service workers work
+### 🔹 How Service Workers Work
 
 ### 🔹 Lifecycle
 
@@ -41,9 +39,7 @@ Service workers are background scripts that run separately from your web page an
 
 📌 **In simple terms**: A service worker is a programmable proxy between your app and the network for your origin.
 
----
-
-## 2. 💡 Common strategies
+### 🔹 Common Strategies
 
 * **Cache-first** – for static assets (icons, JS, CSS)
 
@@ -67,13 +63,13 @@ Use a versioned cache, delete old caches in `activate`, and show a “New versio
 
 ---
 
-## Q99. 💡 Progressive Web Applications (PWAs)
+### 🔹 💡 Progressive Web Applications (PWAs)
 
 Progressive Web Apps are web apps that use modern capabilities like service workers and manifests to deliver an app-like experience: installable, offline-capable, and fast.
 
 ---
 
-## 1. 💡 Core requirements
+### 🔹 💡 Core requirements
 
 * **HTTPS** – secure origin
 
@@ -85,9 +81,7 @@ Progressive Web Apps are web apps that use modern capabilities like service work
 
 📌 **In simple terms**: A PWA is a website that behaves like a native app—installable, offline-aware, and fast.
 
----
-
-## 2. 💡 UX characteristics
+### 🔹 UX Characteristics
 
 * Installable icon on home screen / app launcher
 
@@ -101,15 +95,7 @@ Progressive Web Apps are web apps that use modern capabilities like service work
 
 ## ⭐ Summary — 10-second Interview Version
 
-> "A PWA is a web app that uses HTTPS, a service worker, and a manifest to become installable and offline-capable. It gives users an app-like experience without going through app stores."
-
----
-
-## ⭐ Extra Points (If Interviewer Asks More)
-
-### How do you decide what to make available offline?
-
-Identify critical user journeys (read last data, create drafts, view cached content) and ensure required assets and API responses are cached and synchronized when back online.
+> "Offline support includes service workers (background scripts that intercept network requests and cache resources) and PWAs (installable web apps with offline capabilities). Service workers enable caching strategies (cache-first, network-first, stale-while-revalidate) and offline functionality. PWAs require HTTPS, service worker, web app manifest, and responsive design to deliver app-like experiences."
 
 ---
 

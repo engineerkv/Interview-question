@@ -2,7 +2,7 @@
 
 > **⏱️ Review Time: 20-25 minutes** | **Priority: ⭐⭐⭐ Critical** | Essential JavaScript concepts for interviews
 >
-> **Coverage: Q1-Q248** (248 questions across 8 topics)
+> **Coverage: Q1-Q207** (207 questions across 8 topics)
 
 **Quick Review Checklist:**
 
@@ -26,21 +26,21 @@
 
 ## 📋 **Question Coverage**
 
-- **Q1-Q15**: Core JavaScript Fundamentals
+- **Q1-Q8**: Core JavaScript Fundamentals
 
 - **Q16-Q24**: Functions, Closures & Execution Context
 
-- **Q26-Q44**: Objects, Prototypes & Inheritance
+- **Q25-Q43**: Objects, Prototypes & Inheritance
 
-- **Q45-Q54**: ES6+ Features
+- **Q44-Q53**: ES6+ Features
 
-- **Q55-Q80**: Promises, Async/Await & Event Loop
+- **Q54-Q79**: Promises, Async/Await & Event Loop
 
-- **Q170-Q189**: Web Workers, Service Workers & Real-World Topics
+- **Q80-Q126**: Practical JavaScript Questions
 
-- **Q81-Q126**: Practical JavaScript Questions
+- **Q128-Q147**: Web Workers, Service Workers & Real-World Topics
 
-- **Q190-Q248**: JavaScript Output Questions (tricky output-based questions)
+- **Q148-Q207**: JavaScript Output Questions (tricky output-based questions)
 
 ---
 

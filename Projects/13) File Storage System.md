@@ -97,73 +97,6 @@ Design and implement a cloud file storage system that addresses the following ch
 
 ---
 
-## d) Capacity Estimation
-
-### Throughput Requirements
-
-- **Total Users**: 1 billion users
-- **Daily Active Users (DAU)**: 500 million users per day
-- **Peak Traffic**: 3x average during peak hours (1.5 billion users per day)
-- **Files Uploaded per Day**: 1 billion files
-- **File Operations per Day**: 10 billion operations (upload, download, sync, share)
-- **Read:Write Ratio**: 5:1 (downloading/viewing files vs uploading files)
-
-**Calculations:**
-
-- **Average Writes Per Second (WPS)**: 1B file uploads / 86,400 seconds ≈ 11,574 WPS
-- **Peak WPS**: 11,574 × 3 = 34,722 WPS
-- **Average Reads Per Second (RPS)**: 11,574 × 5 = 57,870 RPS
-- **Peak RPS**: 57,870 × 3 = 173,610 RPS
-- **Concurrent Active Uploads**: 10 million concurrent file uploads
-
-### Storage Estimation
-
-**Storage per File:**
-
-- File chunks: Variable (average 10 MB per file)
-- File metadata: 1 KB (id, userId, name, size, type, timestamps, version)
-- Chunk references: 500 bytes (chunk IDs, order)
-- **Total per File**: ~10.0015 MB average
-
-**Storage Requirements:**
-
-- **Files per Year**: 1B files/day × 365 = 365 billion files
-- **File Storage**: 365B × 10 MB ≈ 3.65 EB per year (before deduplication)
-- **With Deduplication (30% savings)**: 3.65 EB × 0.7 ≈ 2.555 EB per year
-- **User Data**: 1B users × 5 KB ≈ 5 TB
-- **Metadata Storage**: 365B files × 1.5 KB ≈ 547.5 TB/year
-- **Total Storage**: ~2.555 EB (files) + 5 TB (users) + 547.5 TB (metadata) ≈ 2.555 EB/year
-
-### Bandwidth Estimation
-
-- **Average File Size**: 10 MB per file
-- **Daily Bandwidth**: 1B uploads × 10 MB + 5B downloads × 10 MB = 60 PB/day
-- **Peak Bandwidth**: 60 PB × 3 = 180 PB/day during peak hours
-- **Average Bandwidth**: 60 PB / 86,400 seconds ≈ 694 TB/s
-- **Peak Bandwidth**: 694 TB/s × 3 ≈ 2.08 PB/s
-
-### Caching Estimation
-
-Following the **80-20 rule** where 20% of files generate 80% of traffic:
-
-- **Cache 20% of popular files**: 1B × 0.2 = 200M files
-- **Cache memory required**: 200M × 10 MB = 2 PB (CDN edge cache)
-- **Cache hit ratio**: 90% (only 10% of file requests hit origin)
-- **Requests hitting Origin**: 57,870 × 0.10 ≈ 5,787 RPS (manageable with CDN)
-
-### Infrastructure Sizing
-
-- **API Servers**: 1,000-2,000 instances behind load balancer, each handling 50-100 RPS
-- **File Upload Workers**: 500-1,000 instances for processing file uploads
-- **Deduplication Service**: 100-200 instances for chunk deduplication
-- **Message Queue**: RabbitMQ/Kafka cluster with 50-100 nodes for file processing
-- **Database**: MongoDB cluster with 100-200 nodes for metadata storage and high read/write throughput
-- **Cache Layer**: Redis cluster with 50-100 nodes for high availability and performance
-- **Object Storage**: AWS S3 or similar with multiple regions for file chunks
-- **CDN**: CloudFront/Cloudflare with edge locations globally for file delivery
-
----
-
 ## e) Architecture Overview
 
 The system follows a cloud file storage architecture with chunking, deduplication, versioning, and distributed storage. Here's how the complete system works:
@@ -173,35 +106,35 @@ The system follows a cloud file storage architecture with chunking, deduplicatio
 **Frontend Layers:**
 
 1. **Presentation Layer (React Components)**
-   - **UI Components**: Reusable components (FileCard, FolderCard, UploadProgress, ShareDialog)
-   - **Feature Components**: FileBrowser, FileUploader, FileViewer, ShareManager, SearchBar
-   - **Layout Components**: Header, Sidebar, Navigation, MainLayout
-   - **Page Components**: HomePage, FilePage, SharePage, SettingsPage
+ - **UI Components**: Reusable components (FileCard, FolderCard, UploadProgress, ShareDialog)
+ - **Feature Components**: FileBrowser, FileUploader, FileViewer, ShareManager, SearchBar
+ - **Layout Components**: Header, Sidebar, Navigation, MainLayout
+ - **Page Components**: HomePage, FilePage, SharePage, SettingsPage
 
 2. **State Management Layer**
-   - **Local State (useState)**: Component-specific UI state (selected files, upload progress, loading, errors)
-   - **Server State (Redux Toolkit)**: Global state for files, folders, user, sharing
-   - **API State (React Query)**: File data caching, refetching, optimistic updates
+ - **Local State (useState)**: Component-specific UI state (selected files, upload progress, loading, errors)
+ - **Server State (Redux Toolkit)**: Global state for files, folders, user, sharing
+ - **API State (React Query)**: File data caching, refetching, optimistic updates
 
 3. **File Upload Layer**
-   - **Chunking**: Split large files into chunks for efficient upload
-   - **Upload Progress**: Track upload progress per chunk
-   - **Resume Upload**: Resume failed uploads from last successful chunk
+ - **Chunking**: Split large files into chunks for efficient upload
+ - **Upload Progress**: Track upload progress per chunk
+ - **Resume Upload**: Resume failed uploads from last successful chunk
 
 4. **API Integration Layer**
-   - **API Client**: Axios instance with interceptors for auth, error handling
-   - **Redux Thunks**: Async actions for API operations (uploadFile, downloadFile, shareFile)
-   - **Request/Response Transformation**: Data normalization and error handling
+ - **API Client**: Axios instance with interceptors for auth, error handling
+ - **Redux Thunks**: Async actions for API operations (uploadFile, downloadFile, shareFile)
+ - **Request/Response Transformation**: Data normalization and error handling
 
 5. **Routing Layer (React Router)**
-   - **Route Configuration**: Define routes and protected routes
-   - **Navigation**: Programmatic and declarative navigation
-   - **Route Guards**: Authentication and authorization checks
+ - **Route Configuration**: Define routes and protected routes
+ - **Navigation**: Programmatic and declarative navigation
+ - **Route Guards**: Authentication and authorization checks
 
 6. **Build & Deployment Layer**
-   - **Build Process**: Webpack/Vite bundling with code splitting
-   - **Static Assets**: Served from CDN (CloudFront/Cloudflare)
-   - **Environment Configuration**: Environment-specific API endpoints and configs
+ - **Build Process**: Webpack/Vite bundling with code splitting
+ - **Static Assets**: Served from CDN (CloudFront/Cloudflare)
+ - **Environment Configuration**: Environment-specific API endpoints and configs
 
 **Frontend Request Flow:**
 
@@ -293,11 +226,11 @@ The system follows a cloud file storage architecture with chunking, deduplicatio
 
 ### Service Components
 
-```typescript
+```javascript
 class Service {
-  async processRequest(data: any) {
-    // Implementation details
-  }
+ async processRequest(data: any) {
+ // Implementation details
+ }
 }
 
 ```
@@ -315,46 +248,46 @@ Think of the frontend as a tree of React components - each component handles a s
 ```
 App
 ├── Header
-│   ├── Logo
-│   ├── SearchBar (file search)
-│   └── UserMenu (Profile, Settings, Sign out)
+│ ├── Logo
+│ ├── SearchBar (file search)
+│ └── UserMenu (Profile, Settings, Sign out)
 ├── MainContent
-│   ├── Sidebar
-│   │   ├── FolderTree
-│   │   │   └── FolderNode
-│   │   ├── QuickAccess
-│   │   └── StorageInfo
-│   ├── FileBrowser
-│   │   ├── BreadcrumbNavigation
-│   │   ├── Toolbar
-│   │   │   ├── UploadButton
-│   │   │   ├── NewFolderButton
-│   │   │   ├── ViewToggle (Grid/List)
-│   │   │   └── SortOptions
-│   │   ├── FileGrid/FileList
-│   │   │   └── FileItem
-│   │   │       ├── FileIcon
-│   │   │       ├── FileName
-│   │   │       ├── FileSize
-│   │   │       ├── ModifiedDate
-│   │   │       └── ContextMenu
-│   │   │           ├── Download
-│   │   │           ├── Share
-│   │   │           ├── Rename
-│   │   │           ├── Move
-│   │   │           └── Delete
-│   │   └── EmptyState
-│   ├── UploadDialog
-│   │   ├── FileDropzone
-│   │   ├── UploadProgressList
-│   │   │   └── UploadProgressItem
-│   │   └── CloseButton
-│   └── ShareDialog
-│       ├── ShareLinkInput
-│       ├── PermissionSelector
-│       └── ShareButton
+│ ├── Sidebar
+│ │ ├── FolderTree
+│ │ │ └── FolderNode
+│ │ ├── QuickAccess
+│ │ └── StorageInfo
+│ ├── FileBrowser
+│ │ ├── BreadcrumbNavigation
+│ │ ├── Toolbar
+│ │ │ ├── UploadButton
+│ │ │ ├── NewFolderButton
+│ │ │ ├── ViewToggle (Grid/List)
+│ │ │ └── SortOptions
+│ │ ├── FileGrid/FileList
+│ │ │ └── FileItem
+│ │ │ ├── FileIcon
+│ │ │ ├── FileName
+│ │ │ ├── FileSize
+│ │ │ ├── ModifiedDate
+│ │ │ └── ContextMenu
+│ │ │ ├── Download
+│ │ │ ├── Share
+│ │ │ ├── Rename
+│ │ │ ├── Move
+│ │ │ └── Delete
+│ │ └── EmptyState
+│ ├── UploadDialog
+│ │ ├── FileDropzone
+│ │ ├── UploadProgressList
+│ │ │ └── UploadProgressItem
+│ │ └── CloseButton
+│ └── ShareDialog
+│ ├── ShareLinkInput
+│ ├── PermissionSelector
+│ └── ShareButton
 └── Footer
-    └── StorageUsage
+ └── StorageUsage
 
 ```
 
@@ -362,170 +295,305 @@ App
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // File Browser Component
-const FileBrowser: React.FC<{ folderId?: string }> = ({ folderId }) => {
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [sortBy, setSortBy] = useState<'name' | 'date' | 'size'>('name');
-  const { data: files, isLoading } = useFiles(folderId, sortBy);
+const FileBrowser<{ folderId?}> = ({ folderId }) => {
+ const [viewMode, setViewMode] = useState('grid');
+ const [sortBy, setSortBy] = useState('name');
+ const { data: files, isLoading } = useFiles(folderId, sortBy);
 
-  const handleFileClick = (file: File) => {
-    if (file.type === 'folder') {
-      navigate(`/files/${file.id}`);
-    } else {
-      handleFileDownload(file);
-    }
-  };
+ const handleFileClick = (file: File) => {
+ if (file.type === 'folder') {
+ navigate(`/files/${file.id}`);
+ } else {
+ handleFileDownload(file);
+ }
+ };
 
-  return (
-    <div className="file-browser">
-      <Toolbar
-        viewMode={viewMode}
-        onViewModeChange={setViewMode}
-        sortBy={sortBy}
-        onSortChange={setSortBy}
-      />
-      {isLoading ? (
-        <LoadingSpinner />
-      ) : (
-        <FileGrid
-          files={files}
-          viewMode={viewMode}
-          onFileClick={handleFileClick}
-        />
-      )}
-    </div>
-  );
+ return (
+ <div className="file-browser">
+ <Toolbar
+ viewMode={viewMode}
+ onViewModeChange={setViewMode}
+ sortBy={sortBy}
+ onSortChange={setSortBy}
+ />
+ {isLoading ? (
+ <LoadingSpinner />
+ ) : (
+ <FileGrid
+ files={files}
+ viewMode={viewMode}
+ onFileClick={handleFileClick}
+ />
+ )}
+ </div>
+ );
 };
 
 // File Upload Component
-const FileUploadDialog: React.FC = () => {
-  const [files, setFiles] = useState<File[]>([]);
-  const [uploadProgress, setUploadProgress] = useState<Record<string, number>>({});
-  const uploadMutation = useUploadFiles();
+const FileUploadDialog= () => {
+ const [files, setFiles] = useState([]);
+ const [uploadProgress, setUploadProgress] = useState>({});
+ const uploadMutation = useUploadFiles();
 
-  const handleDrop = (droppedFiles: File[]) => {
-    setFiles(prev => [...prev, ...droppedFiles]);
+ const handleDrop = (droppedFiles: File[]) => {
+ setFiles(prev => [...prev, ...droppedFiles]);
 };
 
-  const handleUpload = async () => {
-    files.forEach(file => {
-      uploadMutation.mutate(
-        { file, folderId: currentFolderId },
-        {
-          onUploadProgress: (progressEvent) => {
-            const progress = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
-            );
-            setUploadProgress(prev => ({
-              ...prev,
-              [file.name]: progress
-            }));
-      }
-        }
-      );
-    });
-  };
+ const handleUpload = async () => {
+ files.forEach(file => {
+ uploadMutation.mutate(
+ { file, folderId: currentFolderId },
+ {
+ onUploadProgress: (progressEvent) => {
+ const progress = Math.round(
+ (progressEvent.loaded * 100) / progressEvent.total
+ );
+ setUploadProgress(prev => ({
+ ...prev,
+ [file.name]: progress
+ }));
+ }
+ }
+ );
+ });
+ };
 
-  return (
-    <div className="upload-dialog">
-      <FileDropzone onDrop={handleDrop} />
-      <div className="upload-list">
-        {files.map(file => (
-          <UploadProgressItem
-            key={file.name}
-            fileName={file.name}
-            progress={uploadProgress[file.name] || 0}
-          />
-        ))}
-      </div>
-      <button onClick={handleUpload}>Upload Files</button>
-    </div>
-  );
+ return (
+ <div className="upload-dialog">
+ <FileDropzone onDrop={handleDrop} />
+ <div className="upload-list">
+ {files.map(file => (
+ <UploadProgressItem
+ key={file.name}
+ fileName={file.name}
+ progress={uploadProgress[file.name] || 0}
+ />
+ ))}
+ </div>
+ <button onClick={handleUpload}>Upload Files</button>
+ </div>
+ );
 };
 
 ```
 
-### State Management
+### ii) State Management
 
-**State Management Strategy:**
+**State Management Strategy (React 19):**
 
 - **Local State (useState)**: UI state (view mode, sort options, selected files, modals)
-- **Component State**: Each component manages its own UI state
-- **API State**: React Query or SWR for server state (file list, folder structure, file metadata) - caching, refetching, optimistic updates
+- **Optimistic Updates (useOptimistic)**: React 19 hook for optimistic file operations (upload, delete, rename)
+- **Form Actions (useActionState)**: React 19 hook for file upload forms with server actions
+- **Transitions (useTransition)**: React 19 hook for non-urgent file list updates
+- **API State**: React Query for server state (file list, folder structure, file metadata) - caching, refetching
 - **Global State (Redux Toolkit)**: Current folder path, selected files, upload queue, user preferences
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Using React Query for API state management
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-const useFiles = (folderId?: string, sortBy?: string) => {
-  return useQuery({
-    queryKey: ['files', folderId, sortBy],
-    queryFn: async () => {
-      const response = await axios.get('/api/v1/files', {
-        params: { folderId, sortBy }
-      });
-      return response.data;
-    },
-    staleTime: 30 * 1000 // Cache for 30 seconds
-  });
+const useFiles = (folderId?, sortBy?) => {
+ return useQuery({
+ queryKey: ['files', folderId, sortBy],
+ queryFn: async () => {
+ const response = await axios.get('/api/v1/files', {
+ params: { folderId, sortBy }
+ });
+ return response.data;
+ },
+ staleTime: 30 * 1000 // Cache for 30 seconds
+ });
 };
 
 const useUploadFiles = () => {
-  const queryClient = useQueryClient();
+ const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: async ({ file, folderId }: { file: File; folderId?: string }) => {
-      const formData = new FormData();
-      formData.append('file', file);
-      if (folderId) formData.append('folderId', folderId);
+ return useMutation({
+ mutationFn: async ({ file, folderId }: { file: File; folderId?}) => {
+ const formData = new FormData();
+ formData.append('file', file);
+ if (folderId) formData.append('folderId', folderId);
 
-      const response = await axios.post('/api/v1/files/upload', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        onUploadProgress: (progressEvent) => {
-          // Handle upload progress
-        }
-      });
-      return response.data;
-    },
-    onSuccess: () => {
-      // Invalidate files list
-      queryClient.invalidateQueries({ queryKey: ['files'] });
-    }
-  });
+ const response = await axios.post('/api/v1/files/upload', formData, {
+ headers: { 'Content-Type': 'multipart/form-data' },
+ onUploadProgress: (progressEvent) => {
+ // Handle upload progress
+ }
+ });
+ return response.data;
+ },
+ onSuccess: () => {
+ // Invalidate files list
+ queryClient.invalidateQueries({ queryKey: ['files'] });
+ }
+ });
 };
 
 ```
 
-### Component Interactions
+### iii) Advanced Patterns with React 19
+
+**File Upload with React 19:**
+
+```javascript
+import { useActionState, useFormStatus, useOptimistic, useTransition } from 'react';
+
+// React 19: Server Action for file upload
+async function uploadFileAction(
+ prevState: { progress?; error?},
+ formData: FormData
+) {
+ const file = formData.get('file');
+ const folderId = formData.get('folderId') as string;
+
+ if (!file) {
+ return { error: 'Please select a file' };
+ }
+
+ try {
+ const uploadPromise = uploadFileWithProgress(formData, (progress) => {
+ return { progress };
+ });
+
+ const result = await uploadPromise;
+ return { success: true, fileId: result.fileId };
+ } catch (error) {
+ return { error: 'Upload failed' };
+ }
+}
+
+const UploadButton= () => {
+ const { pending } = useFormStatus(); // React 19 hook
+
+ return (
+ <button type="submit" disabled={pending}>
+ {pending ? 'Uploading...' : 'Upload Files'}
+ </button>
+ );
+};
+
+const FileUploadDialog= () => {
+ const [files, setFiles] = useState([]);
+ const [isPending, startTransition] = useTransition();
+
+ // React 19: useOptimistic for file list updates
+ const [optimisticFiles, addOptimisticFile] = useOptimistic(
+ [],
+ (state, newFile: File) => [...state, { ...newFile, id: 'temp', uploading: true }]
+ );
+
+ // React 19: useActionState for upload form
+ const [state, formAction] = useActionState(uploadFileAction, {});
+
+ const handleDrop = (droppedFiles: File[]) => {
+ setFiles(prev => [...prev, ...droppedFiles]);
+ };
+
+ const handleUpload = (formData: FormData) => {
+ files.forEach(file => {
+ formData.append('file', file);
+ startTransition(() => {
+ addOptimisticFile(file);
+ });
+ });
+ formAction(formData);
+ };
+
+ return (
+ <div className="upload-dialog">
+ <FileDropzone onDrop={handleDrop} />
+ <div className="upload-list">
+ {optimisticFiles.map(file => (
+ <UploadProgressItem
+ key={file.id}
+ fileName={file.name}
+ progress={state.progress || 0}
+ uploading={file.uploading}
+ />
+ ))}
+ </div>
+ {state.error && <span className="error">{state.error}</span>}
+ <form action={handleUpload}>
+ <UploadButton />
+ </form>
+ </div>
+ );
+};
+```
+
+**Optimistic File Operations:**
+
+```javascript
+import { useOptimistic, useTransition } from 'react';
+
+const FileItem<{ file: File }> = ({ file }) => {
+ const [files, setFiles] = useState([]);
+ const [isPending, startTransition] = useTransition();
+
+ // React 19: useOptimistic for file deletion
+ const [optimisticFiles, removeOptimisticFile] = useOptimistic(
+ files,
+ (state, fileId) => state.filter(f => f.id !== fileId)
+ );
+
+ const handleDelete = async (fileId) => {
+ // Optimistically remove
+ startTransition(() => {
+ removeOptimisticFile(fileId);
+ });
+
+ try {
+ await deleteFileAPI(fileId);
+ } catch (error) {
+ // Rollback on error
+ setFiles(files);
+ }
+ };
+
+ return (
+ <div className="file-item">
+ <FileIcon type={file.type} />
+ <FileName name={file.name} />
+ <ContextMenu
+ onDelete={() => handleDelete(file.id)}
+ onRename={() => handleRename(file.id)}
+ onShare={() => handleShare(file.id)}
+ />
+ </div>
+ );
+};
+```
+
+### iv) Implementation Details
 
 **Data Flow:**
 
-1. **File Browsing** → FileBrowser fetches files via React Query, displays FileItem components
-2. **Folder Navigation** → User clicks folder, navigates to folder contents
-3. **File Upload** → UploadDialog handles file selection and upload with progress tracking
-4. **File Operations** → Context menu actions (download, share, delete) trigger API calls
-5. **File Sync** → Changes sync across devices via WebSocket or polling
+1. **File Browsing** → FileBrowser fetches files via React Query with React 19 use() hook, displays FileItem components
+2. **Folder Navigation** → User clicks folder, navigates to folder contents with transitions
+3. **File Upload** → UploadDialog handles file selection with React 19 useActionState, tracks progress optimistically
+4. **File Operations** → Context menu actions use optimistic updates with useOptimistic
+5. **File Sync** → Changes sync across devices via WebSocket with React 19 transitions
 
 **Event Handling:**
 
-- File drag-and-drop triggers upload dialog
-- Folder clicks navigate to folder contents
-- File clicks trigger download or preview
-- Context menu actions update file state
-- Real-time sync updates file list when changes occur
+- File drag-and-drop triggers upload dialog with React 19 form actions
+- Folder clicks navigate to folder contents with transitions
+- File clicks trigger download or preview optimistically
+- Context menu actions update file state with useOptimistic
+- Real-time sync updates file list when changes occur with transitions
 
-### UI/UX Considerations
+**UI/UX Considerations:**
 
-- **Loading States**: Show skeleton loaders for file lists, progress bars for uploads
-- **Error Handling**: Display user-friendly error messages with retry options
-- **Validation**: Client-side validation for uploads (file size, type, name)
-- **Responsive Design**: Mobile-friendly layout, touch-friendly file operations
-- **Accessibility**: ARIA labels, keyboard navigation, screen reader support, keyboard shortcuts
-- **Performance**: Virtual scrolling for large file lists, lazy loading for thumbnails, chunked uploads for large files
+- **Loading States**: Skeleton loaders for file lists, progress bars for uploads, loading indicators
+- **Error Handling**: User-friendly error messages with retry options, error boundaries
+- **Validation**: Client-side validation for uploads (file size, type, name) with React 19 form validation
+- **Responsive Design**: Mobile-friendly layout, touch-friendly file operations, adaptive UI
+- **Accessibility**: ARIA labels, keyboard navigation, screen reader support, keyboard shortcuts (Ctrl+N for new folder)
+- **Performance**: Virtual scrolling for large file lists, lazy loading for thumbnails, chunked uploads for large files, React 19 transitions for smooth updates
 
 ---
 
@@ -533,13 +601,13 @@ const useUploadFiles = () => {
 
 ### Model Interface
 
-```typescript
-interface Model {
-  id: string;
-  // Model fields
-  createdAt: Date;
-  updatedAt: Date;
-}
+```javascript
+// Model structure:
+//
+ id;
+ // Model fields
+ createdAt;
+ updatedAt;
 
 ```
 
@@ -557,30 +625,30 @@ interface Model {
 
 - **Request Body:**
 
-  ```
+ ```
 
-  file: File
-  folderId: string (optional)
+ file: File
+ folderId(optional)
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "fileId": "file_abc123",
-      "fileName": "document.pdf",
-      "fileSize": 1024000,
-      "fileType": "application/pdf",
-      "uploadUrl": "https://s3.amazonaws.com/bucket/file_abc123",
-      "folderId": "folder_xyz789",
-      "createdAt": "2024-01-15T10:30:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "fileId": "file_abc123",
+ "fileName": "document.pdf",
+ "fileSize": 1024000,
+ "fileType": "application/pdf",
+ "uploadUrl": "https://s3.amazonaws.com/bucket/file_abc123",
+ "folderId": "folder_xyz789",
+ "createdAt": "2024-01-15T10:30:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error), 413 (File Too Large)
 
@@ -592,23 +660,23 @@ interface Model {
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "fileId": "file_abc123",
-      "fileName": "document.pdf",
-      "fileSize": 1024000,
-      "fileType": "application/pdf",
-      "downloadUrl": "https://s3.amazonaws.com/bucket/file_abc123?signature=...",
-      "previewUrl": "https://cdn.example.com/preview/file_abc123",
-      "folderId": "folder_xyz789",
-      "createdAt": "2024-01-15T10:30:00Z",
-      "updatedAt": "2024-01-15T10:30:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "fileId": "file_abc123",
+ "fileName": "document.pdf",
+ "fileSize": 1024000,
+ "fileType": "application/pdf",
+ "downloadUrl": "https://s3.amazonaws.com/bucket/file_abc123?signature=...",
+ "previewUrl": "https://cdn.example.com/preview/file_abc123",
+ "folderId": "folder_xyz789",
+ "createdAt": "2024-01-15T10:30:00Z",
+ "updatedAt": "2024-01-15T10:30:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 404 (Not Found)
 
@@ -630,13 +698,13 @@ interface Model {
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "message": "File deleted successfully"
-  }
+ ```json
+ {
+ "success": true,
+ "message": "File deleted successfully"
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 404 (Not Found)
 
@@ -648,32 +716,46 @@ interface Model {
 
 - **Request Body:**
 
-  ```json
-  {
-    "targetFolderId": "folder_new123"
-  }
+ ```json
+ {
+ "targetFolderId": "folder_new123"
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "fileId": "file_abc123",
-      "folderId": "folder_new123",
-      "updatedAt": "2024-01-15T11:00:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "fileId": "file_abc123",
+ "folderId": "folder_new123",
+ "updatedAt": "2024-01-15T11:00:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 404 (Not Found)
 
 ---
 
-## Backend Implementation Details
+## b) Backend
+
+*Note: Backend implementation details are kept minimal. Focus is on frontend integration.*
+
+**API Endpoints Reference:**
+
+- `GET /api/v1/files` - Get files in folder
+- `POST /api/v1/files/upload` - Upload file
+- `GET /api/v1/files/:fileId` - Get file details
+- `DELETE /api/v1/files/:fileId` - Delete file
+- `PUT /api/v1/files/:fileId` - Update file metadata
+- `POST /api/v1/files/:fileId/share` - Share file
+- `GET /api/v1/files/:fileId/download` - Download file
+
+---
 
 ### Express.js Server Structure
 
@@ -689,25 +771,25 @@ server/
 
 ### File Storage Service
 
-```typescript
+```javascript
 class FileStorageService {
-  async uploadFile(file: Express.Multer.File, folderId?: string): Promise<File> {
-    // Validate file
-    // Upload to S3
-    // Create file metadata
-    // Return file record
-  }
+ async uploadFile(file: Express.Multer.File, folderId?){
+ // Validate file
+ // Upload to S3
+ // Create file metadata
+ // Return file record
+ }
 
-  async getFile(fileId: string): Promise<File> {
-    // Get file metadata
-    // Generate signed URL
-    // Return file info
-  }
+ async getFile(fileId){
+ // Get file metadata
+ // Generate signed URL
+ // Return file info
+ }
 
-  async deleteFile(fileId: string): Promise<void> {
-    // Delete from S3
-    // Delete metadata
-  }
+ async deleteFile(fileId){
+ // Delete from S3
+ // Delete metadata
+ }
 }
 
 ```
@@ -763,169 +845,169 @@ class FileStorageService {
 
 **Backend (Express.js):**
 
-```typescript
+```javascript
 // Backend: services/FileStorageService.ts
 import AWS from 'aws-sdk';
 import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 
 const s3 = new AWS.S3({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION
+ accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+ secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+ region: process.env.AWS_REGION
 });
 
 class FileStorageService {
-  async uploadChunk(fileId: string, chunkNumber: number, chunk: Buffer): Promise<void> {
-    const key = `chunks/${fileId}/${chunkNumber}`;
+ async uploadChunk(fileId, chunkNumber, chunk: Buffer){
+ const key = `chunks/${fileId}/${chunkNumber}`;
 
-    await s3.putObject({
-      Bucket: process.env.S3_BUCKET_NAME!,
-      Key: key,
-      Body: chunk,
-      ContentType: 'application/octet-stream'
-    }).promise();
-  }
+ await s3.putObject({
+ Bucket: process.env.S3_BUCKET_NAME!,
+ Key: key,
+ Body: chunk,
+ ContentType: 'application/octet-stream'
+ }).promise();
+ }
 
-  async assembleFile(fileId: string, totalChunks: number, fileName: string): Promise<string> {
-    const chunks: Buffer[] = [];
+ async assembleFile(fileId, totalChunks, fileName){
+ const chunks: Buffer[] = [];
 
-    // Download all chunks
-    for (let i = 0; i < totalChunks; i++) {
-      const key = `chunks/${fileId}/${i}`;
-      const chunk = await s3.getObject({
-        Bucket: process.env.S3_BUCKET_NAME!,
-        Key: key
-      }).promise();
+ // Download all chunks
+ for (let i = 0; i < totalChunks; i++) {
+ const key = `chunks/${fileId}/${i}`;
+ const chunk = await s3.getObject({
+ Bucket: process.env.S3_BUCKET_NAME!,
+ Key: key
+ }).promise();
 
-      chunks.push(chunk.Body as Buffer);
-    }
+ chunks.push(chunk.Body);
+ }
 
-    // Assemble file
-    const fileBuffer = Buffer.concat(chunks);
+ // Assemble file
+ const fileBuffer = Buffer.concat(chunks);
 
-    // Upload complete file
-    const fileKey = `files/${fileId}/${fileName}`;
-    await s3.putObject({
-      Bucket: process.env.S3_BUCKET_NAME!,
-      Key: fileKey,
-      Body: fileBuffer,
-      ContentType: this.getContentType(fileName)
-    }).promise();
+ // Upload complete file
+ const fileKey = `files/${fileId}/${fileName}`;
+ await s3.putObject({
+ Bucket: process.env.S3_BUCKET_NAME!,
+ Key: fileKey,
+ Body: fileBuffer,
+ ContentType: this.getContentType(fileName)
+ }).promise();
 
-    // Delete chunks
-    for (let i = 0; i < totalChunks; i++) {
-      await s3.deleteObject({
-        Bucket: process.env.S3_BUCKET_NAME!,
-        Key: `chunks/${fileId}/${i}`
-      }).promise();
-    }
+ // Delete chunks
+ for (let i = 0; i < totalChunks; i++) {
+ await s3.deleteObject({
+ Bucket: process.env.S3_BUCKET_NAME!,
+ Key: `chunks/${fileId}/${i}`
+ }).promise();
+ }
 
-    return fileKey;
-  }
+ return fileKey;
+ }
 
-  async generateSignedUrl(fileKey: string, expiresIn: number = 3600): Promise<string> {
-    return s3.getSignedUrl('getObject', {
-      Bucket: process.env.S3_BUCKET_NAME!,
-      Key: fileKey,
-      Expires: expiresIn
-    });
-  }
+ async generateSignedUrl(fileKey, expiresIn= 3600){
+ return s3.getSignedUrl('getObject', {
+ Bucket: process.env.S3_BUCKET_NAME!,
+ Key: fileKey,
+ Expires: expiresIn
+ });
+ }
 
-  private getContentType(fileName: string): string {
-    const ext = fileName.split('.').pop()?.toLowerCase();
-    const contentTypes: Record<string, string> = {
-      'pdf': 'application/pdf',
-      'jpg': 'image/jpeg',
-      'png': 'image/png',
-      'mp4': 'video/mp4'
-    };
-    return contentTypes[ext || ''] || 'application/octet-stream';
-  }
+ private getContentType(fileName){
+ const ext = fileName.split('.').pop()?.toLowerCase();
+ const contentTypes: Record<string, string> = {
+ 'pdf': 'application/pdf',
+ 'jpg': 'image/jpeg',
+ 'png': 'image/png',
+ 'mp4': 'video/mp4'
+ };
+ return contentTypes[ext || ''] || 'application/octet-stream';
+ }
 }
 
 ```
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // React component for chunked file upload
 import { useState } from 'react';
 import axios from 'axios';
 
 const CHUNK_SIZE = 5 * 1024 * 1024; // 5MB
 
-const FileUpload: React.FC = () => {
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [isUploading, setIsUploading] = useState(false);
+const FileUpload= () => {
+ const [uploadProgress, setUploadProgress] = useState(0);
+ const [isUploading, setIsUploading] = useState(false);
 
-  const uploadFile = async (file: File) => {
-    setIsUploading(true);
-    const fileId = uuidv4();
-    const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
+ const uploadFile = async (file: File) => {
+ setIsUploading(true);
+ const fileId = uuidv4();
+ const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
 
-    try {
-      // Upload chunks in parallel
-      const uploadPromises = [];
+ try {
+ // Upload chunks in parallel
+ const uploadPromises = [];
 
-      for (let i = 0; i < totalChunks; i++) {
-        const start = i * CHUNK_SIZE;
-        const end = Math.min(start + CHUNK_SIZE, file.size);
-        const chunk = file.slice(start, end);
+ for (let i = 0; i < totalChunks; i++) {
+ const start = i * CHUNK_SIZE;
+ const end = Math.min(start + CHUNK_SIZE, file.size);
+ const chunk = file.slice(start, end);
 
-        const formData = new FormData();
-        formData.append('chunk', chunk);
-        formData.append('fileId', fileId);
-        formData.append('chunkNumber', i.toString());
-        formData.append('totalChunks', totalChunks.toString());
-        formData.append('fileName', file.name);
+ const formData = new FormData();
+ formData.append('chunk', chunk);
+ formData.append('fileId', fileId);
+ formData.append('chunkNumber', i.toString());
+ formData.append('totalChunks', totalChunks.toString());
+ formData.append('fileName', file.name);
 
-        uploadPromises.push(
-          axios.post('/api/v1/files/upload-chunk', formData, {
-            onUploadProgress: (progressEvent) => {
-              const chunkProgress = (progressEvent.loaded / progressEvent.total) * 100;
-              const overallProgress = ((i + chunkProgress / 100) / totalChunks) * 100;
-              setUploadProgress(overallProgress);
-            }
-          })
-        );
-      }
+ uploadPromises.push(
+ axios.post('/api/v1/files/upload-chunk', formData, {
+ onUploadProgress: (progressEvent) => {
+ const chunkProgress = (progressEvent.loaded / progressEvent.total) * 100;
+ const overallProgress = ((i + chunkProgress / 100) / totalChunks) * 100;
+ setUploadProgress(overallProgress);
+ }
+ })
+ );
+ }
 
-      await Promise.all(uploadPromises);
+ await Promise.all(uploadPromises);
 
-      // Assemble file
-      await axios.post('/api/v1/files/assemble', {
-        fileId,
-        fileName: file.name,
-        totalChunks
-      });
+ // Assemble file
+ await axios.post('/api/v1/files/assemble', {
+ fileId,
+ fileName: file.name,
+ totalChunks
+ });
 
-      setUploadProgress(100);
-    } catch (error) {
-      console.error('Upload failed:', error);
-    } finally {
-      setIsUploading(false);
-    }
-  };
+ setUploadProgress(100);
+ } catch (error) {
+ console.error('Upload failed:', error);
+ } finally {
+ setIsUploading(false);
+ }
+ };
 
-  return (
-    <div>
-      <input
-        type="file"
-        onChange={(e) => {
-          const file = e.target.files?.[0];
-          if (file) uploadFile(file);
-        }}
-        disabled={isUploading}
-      />
-      {isUploading && (
-        <div>
-          <progress value={uploadProgress} max={100} />
-          <span>{uploadProgress.toFixed(0)}%</span>
-        </div>
-      )}
-    </div>
-  );
+ return (
+ <div>
+ <input
+ type="file"
+ onChange={(e) => {
+ const file = e.target.files?.[0];
+ if (file) uploadFile(file);
+ }}
+ disabled={isUploading}
+ />
+ {isUploading && (
+ <div>
+ <progress value={uploadProgress} max={100} />
+ <span>{uploadProgress.toFixed(0)}%</span>
+ </div>
+ )}
+ </div>
+ );
 };
 
 ```
@@ -941,104 +1023,104 @@ const FileUpload: React.FC = () => {
 
 **Backend (Express.js):**
 
-```typescript
+```javascript
 // Backend: controllers/FileController.ts
 class FileController {
-  async getFiles(req: Request, res: Response) {
-    const { folderId, page = 1, limit = 50 } = req.query;
+ async getFiles(req: Request, res: Response) {
+ const { folderId, page = 1, limit = 50 } = req.query;
 
-    const files = await File.find({ folderId: folderId || null })
-      .skip((page - 1) * limit)
-      .limit(parseInt(limit as string))
-      .sort({ createdAt: -1 });
+ const files = await File.find({ folderId: folderId || null })
+ .skip((page - 1) * limit)
+ .limit(parseInt(limit as string))
+ .sort({ createdAt: -1 });
 
-    res.json({
-      success: true,
-      data: { files }
-    });
-  }
+ res.json({
+ success: true,
+ data: { files }
+ });
+ }
 
-  async moveFile(req: Request, res: Response) {
-    const { fileId } = req.params;
-    const { targetFolderId } = req.body;
+ async moveFile(req: Request, res: Response) {
+ const { fileId } = req.params;
+ const { targetFolderId } = req.body;
 
-    const file = await File.findByIdAndUpdate(
-      fileId,
-      { $set: { folderId: targetFolderId } },
-      { new: true }
-    );
+ const file = await File.findByIdAndUpdate(
+ fileId,
+ { $set: { folderId: targetFolderId } },
+ { new: true }
+ );
 
-    if (!file) {
-      return res.status(404).json({ error: 'File not found' });
-    }
+ if (!file) {
+ return res.status(404).json({ error: 'File not found' });
+ }
 
-    res.json({
-      success: true,
-      data: { file }
-    });
-  }
+ res.json({
+ success: true,
+ data: { file }
+ });
+ }
 
-  async deleteFile(req: Request, res: Response) {
-    const { fileId } = req.params;
+ async deleteFile(req: Request, res: Response) {
+ const { fileId } = req.params;
 
-    const file = await File.findById(fileId);
-    if (!file) {
-      return res.status(404).json({ error: 'File not found' });
-    }
+ const file = await File.findById(fileId);
+ if (!file) {
+ return res.status(404).json({ error: 'File not found' });
+ }
 
-    // Delete from S3
-    await s3.deleteObject({
-      Bucket: process.env.S3_BUCKET_NAME!,
-      Key: file.s3Key
-    }).promise();
+ // Delete from S3
+ await s3.deleteObject({
+ Bucket: process.env.S3_BUCKET_NAME!,
+ Key: file.s3Key
+ }).promise();
 
-    // Delete metadata
-    await File.findByIdAndDelete(fileId);
+ // Delete metadata
+ await File.findByIdAndDelete(fileId);
 
-    res.json({
-      success: true,
-      message: 'File deleted successfully'
-    });
-  }
+ res.json({
+ success: true,
+ message: 'File deleted successfully'
+ });
+ }
 }
 
 ```
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // React component for file browser
 import { useQuery, useMutation } from '@tanstack/react-query';
 
-const FileBrowser: React.FC<{ folderId?: string }> = ({ folderId }) => {
-  const { data: files, refetch } = useQuery({
-    queryKey: ['files', folderId],
-    queryFn: () => axios.get('/api/v1/files', { params: { folderId } })
-      .then(res => res.data.data.files)
-  });
+const FileBrowser<{ folderId?}> = ({ folderId }) => {
+ const { data: files, refetch } = useQuery({
+ queryKey: ['files', folderId],
+ queryFn: () => axios.get('/api/v1/files', { params: { folderId } })
+ .then(res => res.data.data.files)
+ });
 
-  const moveFileMutation = useMutation({
-    mutationFn: ({ fileId, targetFolderId }: { fileId: string; targetFolderId: string }) =>
-      axios.post(`/api/v1/files/${fileId}/move`, { targetFolderId }),
-    onSuccess: () => refetch()
-  });
+ const moveFileMutation = useMutation({
+ mutationFn: ({ fileId, targetFolderId }: { fileId; targetFolderId}) =>
+ axios.post(`/api/v1/files/${fileId}/move`, { targetFolderId }),
+ onSuccess: () => refetch()
+ });
 
-  const deleteFileMutation = useMutation({
-    mutationFn: (fileId: string) =>
-      axios.delete(`/api/v1/files/${fileId}`),
-    onSuccess: () => refetch()
-  });
+ const deleteFileMutation = useMutation({
+ mutationFn: (fileId) =>
+ axios.delete(`/api/v1/files/${fileId}`),
+ onSuccess: () => refetch()
+ });
 
-  return (
-    <div className="file-browser">
-      {files?.map((file: File) => (
-        <div key={file.fileId} className="file-item">
-          <span>{file.fileName}</span>
-          <button onClick={() => deleteFileMutation.mutate(file.fileId)}>Delete</button>
-        </div>
-      ))}
-    </div>
-  );
+ return (
+ <div className="file-browser">
+ {files?.map((file: File) => (
+ <div key={file.fileId} className="file-item">
+ <span>{file.fileName}</span>
+ <button onClick={() => deleteFileMutation.mutate(file.fileId)}>Delete</button>
+ </div>
+ ))}
+ </div>
+ );
 };
 
 ```
@@ -1050,50 +1132,50 @@ const FileBrowser: React.FC<{ folderId?: string }> = ({ folderId }) => {
 
 **Backend (Express.js):**
 
-```typescript
+```javascript
 // Backend: middleware/errorHandler.ts
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error('Error:', err);
+ console.error('Error:', err);
 
-  if (err.name === 'ValidationError') {
-    return res.status(400).json({ error: 'Invalid file data', details: err.message });
-  }
+ if (err.name === 'ValidationError') {
+ return res.status(400).json({ error: 'Invalid file data', details: err.message });
+ }
 
-  if (err.message === 'File too large') {
-    return res.status(413).json({ error: 'File size exceeds maximum limit' });
-  }
+ if (err.message === 'File too large') {
+ return res.status(413).json({ error: 'File size exceeds maximum limit' });
+ }
 
-  if (err.message === 'File not found') {
-    return res.status(404).json({ error: 'File not found' });
-  }
+ if (err.message === 'File not found') {
+ return res.status(404).json({ error: 'File not found' });
+ }
 
-  if (err.name === 'S3Error') {
-    return res.status(503).json({ error: 'Storage service unavailable. Please try again later.' });
-  }
+ if (err.name === 'S3Error') {
+ return res.status(503).json({ error: 'Storage service unavailable. Please try again later.' });
+ }
 
-  res.status(500).json({ error: 'Internal server error' });
+ res.status(500).json({ error: 'Internal server error' });
 };
 
 ```
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // React error handling
 axios.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 413) {
-      toast.error('File is too large. Maximum size is 100MB.');
-    } else if (error.response?.status === 404) {
-      toast.error('File not found.');
-    } else if (error.response?.status === 503) {
-      toast.error('Storage service unavailable. Please try again later.');
-    } else {
-      toast.error('Upload failed. Please try again.');
-    }
-    return Promise.reject(error);
-  }
+ (response) => response,
+ (error) => {
+ if (error.response?.status === 413) {
+ toast.error('File is too large. Maximum size is 100MB.');
+ } else if (error.response?.status === 404) {
+ toast.error('File not found.');
+ } else if (error.response?.status === 503) {
+ toast.error('Storage service unavailable. Please try again later.');
+ } else {
+ toast.error('Upload failed. Please try again.');
+ }
+ return Promise.reject(error);
+ }
 );
 
 ```
@@ -1341,19 +1423,19 @@ AWS_REGION=us-east-1
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await File.create([fileData], { session });
-  await Folder.updateOne({ folderId }, { $inc: { fileCount: 1 } }, { session });
-  await User.updateOne({ userId }, { $inc: { storageUsed: fileSize } }, { session });
-  await session.commitTransaction();
+ await File.create([fileData], { session });
+ await Folder.updateOne({ folderId }, { $inc: { fileCount: 1 } }, { session });
+ await User.updateOne({ userId }, { $inc: { storageUsed: fileSize } }, { session });
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -1422,47 +1504,47 @@ try {
 
 **Implementation:**
 
-```typescript
+```javascript
 import crypto from 'crypto';
 import fs from 'fs';
 
-async function chunkFile(filePath: string, chunkSize: number = 5 * 1024 * 1024): Promise<Chunk[]> {
-  const chunks: Chunk[] = [];
-  const fileStream = fs.createReadStream(filePath, { highWaterMark: chunkSize });
-  let chunkIndex = 0;
+async function chunkFile(filePath, chunkSize= 5 * 1024 * 1024){
+ const chunks: Chunk[] = [];
+ const fileStream = fs.createReadStream(filePath, { highWaterMark: chunkSize });
+ let chunkIndex = 0;
 
-  for await (const chunk of fileStream) {
-    const hash = crypto.createHash('sha256').update(chunk).digest('hex');
+ for await (const chunk of fileStream) {
+ const hash = crypto.createHash('sha256').update(chunk).digest('hex');
 
-    chunks.push({
-      index: chunkIndex++,
-      hash,
-      size: chunk.length,
-      data: chunk
-    });
-  }
+ chunks.push({
+ index: chunkIndex++,
+ hash,
+ size: chunk.length,
+ data: chunk
+ });
+ }
 
-  return chunks;
+ return chunks;
 }
 
-async function uploadChunks(chunks: Chunk[]): Promise<string[]> {
-  const chunkIds: string[] = [];
+async function uploadChunks(chunks: Chunk[]){
+ const chunkIds[] = [];
 
-  for (const chunk of chunks) {
-    // Check if chunk already exists (deduplication)
-    const existing = await checkChunkExists(chunk.hash);
+ for (const chunk of chunks) {
+ // Check if chunk already exists (deduplication)
+ const existing = await checkChunkExists(chunk.hash);
 
-    if (existing) {
-      chunkIds.push(existing.chunkId);
-    } else {
-      // Upload to S3
-      const chunkId = await uploadToS3(chunk);
-      await storeChunkMetadata(chunk.hash, chunkId);
-      chunkIds.push(chunkId);
-    }
-  }
+ if (existing) {
+ chunkIds.push(existing.chunkId);
+ } else {
+ // Upload to S3
+ const chunkId = await uploadToS3(chunk);
+ await storeChunkMetadata(chunk.hash, chunkId);
+ chunkIds.push(chunkId);
+ }
+ }
 
-  return chunkIds;
+ return chunkIds;
 }
 
 ```
@@ -1490,62 +1572,62 @@ async function uploadChunks(chunks: Chunk[]): Promise<string[]> {
 
 **Implementation:**
 
-```typescript
+```javascript
 class DeduplicationService {
-  async processFile(file: File): Promise<string[]> {
-    const chunks = await chunkFile(file.path);
-    const chunkIds: string[] = [];
+ async processFile(file: File){
+ const chunks = await chunkFile(file.path);
+ const chunkIds[] = [];
 
-    for (const chunk of chunks) {
-      // Check if chunk exists
-      const existing = await ChunkMetadata.findOne({ hash: chunk.hash });
+ for (const chunk of chunks) {
+ // Check if chunk exists
+ const existing = await ChunkMetadata.findOne({ hash: chunk.hash });
 
-      if (existing) {
-        // Increment reference count
-        await ChunkMetadata.updateOne(
-          { hash: chunk.hash },
-          { $inc: { referenceCount: 1 } }
-        );
-        chunkIds.push(existing.chunkId);
-      } else {
-        // Upload new chunk
-        const chunkId = await this.uploadChunk(chunk);
+ if (existing) {
+ // Increment reference count
+ await ChunkMetadata.updateOne(
+ { hash: chunk.hash },
+ { $inc: { referenceCount: 1 } }
+ );
+ chunkIds.push(existing.chunkId);
+ } else {
+ // Upload new chunk
+ const chunkId = await this.uploadChunk(chunk);
 
-        // Store metadata
-        await ChunkMetadata.create({
-          chunkId,
-          hash: chunk.hash,
-          size: chunk.size,
-          referenceCount: 1
-        });
+ // Store metadata
+ await ChunkMetadata.create({
+ chunkId,
+ hash: chunk.hash,
+ size: chunk.size,
+ referenceCount: 1
+ });
 
-        chunkIds.push(chunkId);
-      }
-    }
+ chunkIds.push(chunkId);
+ }
+ }
 
-    return chunkIds;
-  }
+ return chunkIds;
+ }
 
-  async deleteFile(fileId: string): Promise<void> {
-    const file = await File.findById(fileId);
+ async deleteFile(fileId){
+ const file = await File.findById(fileId);
 
-    // Decrement reference count for each chunk
-    for (const chunkId of file.chunkIds) {
-      const result = await ChunkMetadata.updateOne(
-        { chunkId },
-        { $inc: { referenceCount: -1 } }
-      );
+ // Decrement reference count for each chunk
+ for (const chunkId of file.chunkIds) {
+ const result = await ChunkMetadata.updateOne(
+ { chunkId },
+ { $inc: { referenceCount: -1 } }
+ );
 
-      // Delete chunk if no references
-      if (result.modifiedCount > 0) {
-        const chunk = await ChunkMetadata.findOne({ chunkId });
-        if (chunk.referenceCount === 0) {
-          await this.deleteChunk(chunkId);
-          await ChunkMetadata.deleteOne({ chunkId });
-        }
-      }
-    }
-  }
+ // Delete chunk if no references
+ if (result.modifiedCount > 0) {
+ const chunk = await ChunkMetadata.findOne({ chunkId });
+ if (chunk.referenceCount === 0) {
+ await this.deleteChunk(chunkId);
+ await ChunkMetadata.deleteOne({ chunkId });
+ }
+ }
+ }
+ }
 }
 
 ```
@@ -1572,24 +1654,24 @@ class DeduplicationService {
 
 **Implementation:**
 
-```typescript
-async function syncFile(localFile: File, serverFile: File): Promise<void> {
-  const localChunks = await getChunkHashes(localFile);
-  const serverChunks = await getChunkHashes(serverFile);
+```javascript
+async function syncFile(localFile: File, serverFile: File){
+ const localChunks = await getChunkHashes(localFile);
+ const serverChunks = await getChunkHashes(serverFile);
 
-  // Find changed chunks
-  const changedChunks: number[] = [];
-  for (let i = 0; i < Math.max(localChunks.length, serverChunks.length); i++) {
-    if (localChunks[i] !== serverChunks[i]) {
-      changedChunks.push(i);
-    }
-  }
+ // Find changed chunks
+ const changedChunks[] = [];
+ for (let i = 0; i < Math.max(localChunks.length, serverChunks.length); i++) {
+ if (localChunks[i] !== serverChunks[i]) {
+ changedChunks.push(i);
+ }
+ }
 
-  // Download only changed chunks
-  for (const index of changedChunks) {
-    const chunk = await downloadChunk(serverFile.fileId, index);
-    await updateLocalChunk(localFile, index, chunk);
-  }
+ // Download only changed chunks
+ for (const index of changedChunks) {
+ const chunk = await downloadChunk(serverFile.fileId, index);
+ await updateLocalChunk(localFile, index, chunk);
+ }
 }
 
 ```
@@ -1608,22 +1690,22 @@ async function syncFile(localFile: File, serverFile: File): Promise<void> {
 
 ```javascript
 {
-  _id: ObjectId,
-  fileId: String,           // Unique file ID, indexed
-  userId: ObjectId,         // User reference, indexed
-  folderId: ObjectId,       // Folder reference, indexed
-  fileName: String,         // File name
-  fileSize: Number,        // File size in bytes
-  mimeType: String,         // MIME type
-  chunkIds: [String],       // Array of chunk IDs
-  version: Number,          // File version number
-  parentVersion: ObjectId,  // Parent version reference (for versioning)
-  hash: String,            // File hash (SHA-256), indexed
-  isShared: Boolean,       // Whether file is shared
-  shareSettings: Object,    // Share permissions and settings
-  createdAt: Date,         // Created timestamp, indexed
-  updatedAt: Date,         // Updated timestamp, indexed
-  deletedAt: Date          // Soft delete timestamp
+ _id: ObjectId,
+ fileId: String, // Unique file ID, indexed
+ userId: ObjectId, // User reference, indexed
+ folderId: ObjectId, // Folder reference, indexed
+ fileName: String, // File name
+ fileSize: Number, // File size in bytes
+ mimeType: String, // MIME type
+ chunkIds: [String], // Array of chunk IDs
+ version: Number, // File version number
+ parentVersion: ObjectId, // Parent version reference (for versioning)
+ hash: String, // File hash (SHA-256), indexed
+ isShared: Boolean, // Whether file is shared
+ shareSettings: Object, // Share permissions and settings
+ createdAt, // Created timestamp, indexed
+ updatedAt, // Updated timestamp, indexed
+ deletedAt// Soft delete timestamp
 }
 
 // Indexes:
@@ -1639,14 +1721,14 @@ async function syncFile(localFile: File, serverFile: File): Promise<void> {
 
 ```javascript
 {
-  _id: ObjectId,
-  chunkId: String,          // Unique chunk ID, indexed
-  hash: String,            // Chunk hash (SHA-256), indexed (unique)
-  size: Number,            // Chunk size in bytes
-  s3Key: String,           // S3 object key
-  referenceCount: Number,   // Number of files referencing this chunk
-  createdAt: Date,         // Created timestamp
-  lastAccessedAt: Date     // Last access timestamp
+ _id: ObjectId,
+ chunkId: String, // Unique chunk ID, indexed
+ hash: String, // Chunk hash (SHA-256), indexed (unique)
+ size: Number, // Chunk size in bytes
+ s3Key: String, // S3 object key
+ referenceCount: Number, // Number of files referencing this chunk
+ createdAt, // Created timestamp
+ lastAccessedAt// Last access timestamp
 }
 
 // Indexes:
@@ -1660,16 +1742,16 @@ async function syncFile(localFile: File, serverFile: File): Promise<void> {
 
 ```javascript
 {
-  _id: ObjectId,
-  folderId: String,         // Unique folder ID, indexed
-  userId: ObjectId,         // User reference, indexed
-  parentFolderId: ObjectId, // Parent folder reference
-  folderName: String,       // Folder name
-  path: String,            // Full folder path, indexed
-  fileCount: Number,        // Number of files in folder
-  totalSize: Number,       // Total size of files in folder
-  createdAt: Date,         // Created timestamp, indexed
-  updatedAt: Date          // Updated timestamp
+ _id: ObjectId,
+ folderId: String, // Unique folder ID, indexed
+ userId: ObjectId, // User reference, indexed
+ parentFolderId: ObjectId, // Parent folder reference
+ folderName: String, // Folder name
+ path: String, // Full folder path, indexed
+ fileCount: Number, // Number of files in folder
+ totalSize: Number, // Total size of files in folder
+ createdAt, // Created timestamp, indexed
+ updatedAt// Updated timestamp
 }
 
 // Indexes:
@@ -1693,19 +1775,19 @@ async function syncFile(localFile: File, serverFile: File): Promise<void> {
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await File.create([fileData], { session });
-  await Folder.updateOne({ folderId }, { $inc: { fileCount: 1 } }, { session });
-  await User.updateOne({ userId }, { $inc: { storageUsed: fileSize } }, { session });
-  await session.commitTransaction();
+ await File.create([fileData], { session });
+ await Folder.updateOne({ folderId }, { $inc: { fileCount: 1 } }, { session });
+ await User.updateOne({ userId }, { $inc: { storageUsed: fileSize } }, { session });
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -1750,32 +1832,32 @@ try {
 - **Content-Type:** `multipart/form-data`
 - **Request Body:**
 
-  ```
-  file: [File]
-  folderId: string (optional)
-  fileName: string (optional, defaults to original filename)
+ ```
+ file: [File]
+ folderId(optional)
+ fileName(optional, defaults to original filename)
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "fileId": "file_abc123",
-      "fileName": "document.pdf",
-      "fileSize": 5242880,
-      "uploadId": "upload_xyz789",
-      "chunks": [
-        { "index": 0, "chunkId": "chunk_1" },
-        { "index": 1, "chunkId": "chunk_2" }
-      ],
-      "createdAt": "2024-01-15T10:30:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "fileId": "file_abc123",
+ "fileName": "document.pdf",
+ "fileSize": 5242880,
+ "uploadId": "upload_xyz789",
+ "chunks": [
+ { "index": 0, "chunkId": "chunk_1" },
+ { "index": 1, "chunkId": "chunk_2" }
+ ],
+ "createdAt": "2024-01-15T10:30:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error), 413 (File Too Large), 507 (Storage Quota Exceeded)
 
@@ -1786,16 +1868,16 @@ try {
 - **Description:** Get download URL for file
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "downloadUrl": "https://s3.amazonaws.com/bucket/file_abc123?signature=...",
-      "expiresAt": "2024-01-15T11:30:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "downloadUrl": "https://s3.amazonaws.com/bucket/file_abc123?signature=...",
+ "expiresAt": "2024-01-15T11:30:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 404 (File Not Found), 403 (Access Denied)
 
@@ -1806,29 +1888,29 @@ try {
 - **Description:** Share file with other users
 - **Request Body:**
 
-  ```json
-  {
-    "userId": "user_xyz789",
-    "permission": "read" // read, write, admin
-  }
+ ```json
+ {
+ "userId": "user_xyz789",
+ "permission": "read" // read, write, admin
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "shareId": "share_abc123",
-      "fileId": "file_abc123",
-      "userId": "user_xyz789",
-      "permission": "read",
-      "createdAt": "2024-01-15T10:30:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "shareId": "share_abc123",
+ "fileId": "file_abc123",
+ "userId": "user_xyz789",
+ "permission": "read",
+ "createdAt": "2024-01-15T10:30:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error), 404 (File Not Found)
 
@@ -1843,9 +1925,9 @@ try {
 - **Key Format:** `file:metadata:{fileId}`, `file:chunks:{fileId}`, `signed-url:{fileId}`
 - **Value:** Serialized JSON (file metadata, chunk list, signed URLs)
 - **TTL:**
-  - File metadata: 3600 seconds (1 hour)
-  - Signed URLs: 3600 seconds (1 hour)
-  - Chunk list: 1800 seconds (30 minutes)
+ - File metadata: 3600 seconds (1 hour)
+ - Signed URLs: 3600 seconds (1 hour)
+ - Chunk list: 1800 seconds (30 minutes)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
@@ -1882,14 +1964,14 @@ try {
 
 ```json
 {
-  "error": {
-    "code": "STORAGE_QUOTA_EXCEEDED",
-    "message": "Storage quota exceeded",
-    "details": "You have used 99.5GB of 100GB storage quota",
-    "quota": 100000000000,
-    "used": 99500000000,
-    "available": 500000000
-  }
+ "error": {
+ "code": "STORAGE_QUOTA_EXCEEDED",
+ "message": "Storage quota exceeded",
+ "details": "You have used 99.5GB of 100GB storage quota",
+ "quota": 100000000000,
+ "used": 99500000000,
+ "available": 500000000
+ }
 }
 
 ```

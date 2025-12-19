@@ -56,7 +56,7 @@ function AnimatedComponent() {
 
 ## Q68. ⚡ Worklets and UI thread animations in Reanimated
 
-Worklets are JavaScript functions that run on the UI thread, enabling synchronous animations - critical for smooth animations. UI thread execution (performance), Synchronous animations (smoothness), No bridge communication (efficiency).
+Worklets are JavaScript functions that run on the UI thread, enabling synchronous animations - critical for smooth animations. UI thread execution (performance), Synchronous animations (smoothness), Uses JSI for direct communication (no bridge serialization).
 
 - **Trade-offs**: The catch is worklets have limitations (worklet limitations) - cannot use all JavaScript features (feature restrictions). Critical for smooth animations, but watch out - worklets run on UI thread, not JS thread (execution context).
 

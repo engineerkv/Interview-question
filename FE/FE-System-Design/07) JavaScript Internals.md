@@ -16,13 +16,13 @@
 
 ---
 
-## Q17. 💡 How JavaScript Works Internally
+## 1. 💡 How JavaScript Works Internally
 
 Understanding how JavaScript works under the hood helps you write better code, debug tricky issues, and optimize performance. When you run JavaScript, the engine handles parsing, execution, memory management, and async operations through the event loop. This knowledge is crucial for senior developers - it helps you understand why certain code patterns are faster, why some bugs occur, and how to write code that works well with the engine's optimizations.
 
 ---
 
-## 1. 💡 JavaScript Engine
+### 🔹 💡 JavaScript Engine
 
 ### 🔹 Major Engines
 
@@ -744,7 +744,7 @@ Modern engines use JIT (Just-In-Time) compilation, which combines the best of bo
 
 ---
 
-## 2. 💡 Execution Context & Call Stack
+### 🔹 💡 Execution Context & Call Stack
 
 ### 🔹 What is Execution Context?
 
@@ -970,7 +970,7 @@ function sayHello() {  // Function declaration (hoisted fully)
 
 ---
 
-## 3. 💡 Memory Management & Garbage Collection
+### 🔹 💡 Memory Management & Garbage Collection
 
 ### 🔹 How Memory Works
 
@@ -1153,7 +1153,7 @@ Even though JavaScript manages memory automatically, you can still cause memory 
 
 ---
 
-## 4. 🎯 Event Loop & Concurrency Model
+### 🔹 🎯 Event Loop & Concurrency Model
 
 ### 🔹 How JavaScript Handles Async
 
@@ -1381,7 +1381,7 @@ console.log('6');
 
 ---
 
-## 5. ⬆️ ⬆️ Hoisting
+### 🔹 ⬆️ ⬆️ Hoisting
 
 ### 🔹 Variable Hoisting
 
@@ -1580,7 +1580,7 @@ console.log(typeof myFunc); // "string" (variable assignment overwrites)
 
 ---
 
-## 6. 🔒 Scope & Closures
+### 🔹 🔒 Scope & Closures
 
 ### 🔹 Scope Types
 
@@ -1833,8 +1833,8 @@ console.log(myModule.getPrivate()); // "private"
 * **Loop variable closure**: Variables in loops can cause issues
 
   ```javascript
-  for (var i = 0; i < 3; i++) {
-    setTimeout(() => console.log(i), 100); // Logs 3, 3, 3 (not 0, 1, 2)
+  for (var i = 0; i <= 3; i++) {
+    setTimeout(() => console.log(i), 100); // Logs 4, 4, 4 (not 0, 1, 2)
   }
   // Solution: Use let instead of var, or IIFE
 
@@ -1868,7 +1868,7 @@ console.log(myModule.getPrivate()); // "private"
 
 ---
 
-## 7. 🔗 Prototypes & Inheritance
+### 🔹 🔗 Prototypes & Inheritance
 
 ### 🔹 Prototype Chain
 
@@ -2050,7 +2050,7 @@ dog.speak(); // "Buddy barks"
 
 ---
 
-## 8. 💡 This Binding
+### 🔹 💡 This Binding
 
 ### 🔹 How `this` Works
 
@@ -2321,7 +2321,7 @@ const obj = {
 
 ---
 
-## 9. ⏳ ⏳ Promises & Async/Await
+### 🔹 ⏳ ⏳ Promises & Async/Await
 
 ### 🔹 Promises
 

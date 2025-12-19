@@ -63,10 +63,6 @@ Design and implement a scalable URL shortening service that addresses the follow
 
 ## c) Technology Choices
 
-### Backend Framework
-
-- **Node.js with Express.js** - Fast, scalable runtime with excellent ecosystem for URL processing and async operations
-
 ### Database
 
 - **MongoDB (NoSQL)** - Better choice for this use case due to:
@@ -86,60 +82,6 @@ Design and implement a scalable URL shortening service that addresses the follow
 ### Message Queue
 
 - **RabbitMQ/Kafka** - For async analytics processing to decouple analytics from core redirection service
-
----
-
-## d) Capacity Estimation
-
-### Throughput Requirements
-
-- **Daily URL Shortening Requests**: 100M requests per day
-- **Read:Write Ratio**: 10:1 (for every URL creation, we expect 10 redirects)
-- **Peak Traffic**: 10x the average load
-
-**Calculations:**
-
-- **Average Writes Per Second (WPS)**: (100,000,000 requests / 86,400 seconds) ≈ 1,160 WPS
-- **Peak WPS**: 1,160 × 10 = 11,600 WPS
-- **Average Redirects Per Second (RPS)**: 1,160 × 10 = 11,600 RPS
-- **Peak RPS**: 11,600 × 10 = 116,000 RPS
-
-### Storage Estimation
-
-**Storage per URL:**
-
-- Short URL: 7 characters (Base62 encoded)
-- Original URL: 100 characters (average)
-- Creation Date: 8 bytes (timestamp)
-- Expiration Date: 8 bytes (timestamp)
-- Click Count: 4 bytes (integer)
-- **Total per URL**: 7 + 100 + 8 + 8 + 4 = 127 bytes
-
-**Storage requirements:**
-
-- **Total URLs per Year**: 100,000,000 × 365 = 36.5 billion
-- **Total Storage per Year**: 36.5 billion × 127 bytes ≈ 4.6 TB
-
-### Bandwidth Estimation
-
-- **HTTP 301 redirect response size**: ~500 bytes (includes headers)
-- **Total Read Bandwidth per Day**: 1,000,000,000 redirects × 500 bytes = 500 GB/day
-- **Peak Bandwidth**: 500 bytes × 116,000 RPS = 58 MB/s
-
-### Caching Estimation
-
-Following the **80-20 rule** where 20% of URLs generate 80% of traffic:
-
-- **Cache 20% of hot URLs**: 100M × 0.2 = 20M URLs
-- **Cache memory required**: 20M × 127 bytes = 2.54 GB
-- **Cache hit ratio**: 90% (only 10% of redirects hit the database)
-- **Requests hitting DB**: 11,600 × 0.10 ≈ 1,160 RPS (manageable with sharding)
-
-### Infrastructure Sizing
-
-- **API Servers**: 10-15 instances behind load balancer, each handling 200-300 RPS
-- **Database**: Distributed MongoDB with 20-30 nodes for storage and high read/write throughput
-- **Cache Layer**: Redis cluster with 5-8 nodes for high availability and performance
 
 ---
 
@@ -186,17 +128,6 @@ The system follows a layered architecture with clear separation of concerns acro
 5. **Response Handling** → Success/error state updates UI
 6. **State Update** → React Query caches response, components re-render
 7. **User Feedback** → Display short URL or error message
-
-### Backend Architecture
-
-**Backend Layers:**
-
-1. **API Gateway/Load Balancer** - Entry point for all requests
-2. **API Server Layer** - Stateless servers handling HTTP requests
-3. **Application Service Layer** - Business logic and orchestration
-4. **Cache Layer** - In-memory caching for performance
-5. **Database Layer** - Persistent data storage with sharding
-6. **Message Queue** - Async processing for non-critical operations
 
 ### Complete Request Flow
 
@@ -367,15 +298,6 @@ Frontend Application
 - **CDN**: Static assets served from CloudFront/Cloudflare edge locations
 - **Caching**: Aggressive caching for static assets, cache-busting for updates
 - **Environment**: Environment variables for API endpoints and feature flags
-
-### Backend Architecture Details
-
-**Service Architecture:**
-
-- **Stateless API Servers**: Can scale horizontally without session affinity
-- **Service Layer**: Business logic separated from HTTP handling
-- **Cache-First Strategy**: Check Redis before database for hot URLs
-- **Async Processing**: Non-critical operations (analytics) via message queues
 
 **Key Components:**
 
@@ -559,11 +481,14 @@ const AnalyticsDashboard: React.FC<{ shortCode: string }> = ({ shortCode }) => {
 
 ### ii) State Management
 
-**State Management Strategy:**
+**State Management Strategy (React 19):**
 
 - **Local State (useState)**: Form inputs, UI state (loading, errors, copied status)
-- **Component State**: Each component manages its own UI state
-- **API State**: React Query or SWR for server state (caching, refetching, optimistic updates)
+- **Optimistic Updates (useOptimistic)**: React 19 hook for optimistic UI updates
+- **Form Actions (useActionState)**: React 19 hook for form state management with server actions
+- **Deferred Values (useDeferredValue)**: React 19 hook for debouncing and deferred updates
+- **Transitions (useTransition)**: React 19 hook for non-urgent updates
+- **API State**: React Query for server state (caching, refetching) - works with React 19
 - **Global State (Context/Redux)**: User authentication, theme preferences (if needed)
 
 **Frontend Implementation:**
@@ -600,203 +525,869 @@ const useAnalytics = (shortCode: string) => {
 
 ```
 
-### iii) Implementation Details
+### iii) Advanced Component Patterns
+
+**Form Handling with React 19 Actions:**
+
+```typescript
+import { useActionState, useFormStatus } from 'react';
+
+// Simple validation function
+function validateUrl(url: string): string | null {
+  try {
+    new URL(url);
+    return null; // Valid
+  } catch {
+    return 'Please enter a valid URL';
+  }
+}
+
+function validateAlias(alias: string | null): string | null {
+  if (!alias) return null; // Optional
+  if (alias.length < 3) return 'Alias must be at least 3 characters';
+  if (alias.length > 20) return 'Alias must be less than 20 characters';
+  if (!/^[a-zA-Z0-9-_]+$/.test(alias)) {
+    return 'Alias can only contain letters, numbers, hyphens, and underscores';
+  }
+  return null; // Valid
+}
+
+// React 19: Server Action
+async function shortenUrlAction(
+  prevState: { error?: string; success?: boolean },
+  formData: FormData
+) {
+  const url = formData.get('url') as string;
+  const customAlias = formData.get('customAlias') as string | null;
+
+  // Validate
+  const urlError = validateUrl(url);
+  if (urlError) return { error: urlError };
+
+  const aliasError = validateAlias(customAlias);
+  if (aliasError) return { error: aliasError };
+
+  try {
+    const response = await shortenUrlAPI({ url, customAlias });
+    return { success: true, shortUrl: response.shortUrl };
+  } catch (error) {
+    return { error: 'Failed to shorten URL' };
+  }
+}
+
+// React 19: Submit Button Component with useFormStatus
+const SubmitButton: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { pending } = useFormStatus(); // React 19 hook
+
+  return (
+    <button type="submit" disabled={pending}>
+      {pending ? 'Shortening...' : children}
+    </button>
+  );
+};
+
+const URLShortenerForm: React.FC = () => {
+  // React 19: useActionState for form actions
+  const [state, formAction, isPending] = useActionState(shortenUrlAction, {});
+
+  const [customAlias, setCustomAlias] = useState('');
+
+  // Debounced alias availability check
+  const { data: aliasAvailable } = useQuery({
+    queryKey: ['alias-check', customAlias],
+    queryFn: () => checkAliasAvailability(customAlias),
+    enabled: !!customAlias && customAlias.length >= 3,
+    staleTime: 5000
+  });
+
+  return (
+    <form action={formAction}>
+      <div className="form-group">
+        <input
+          name="url"
+          type="url"
+          placeholder="Enter long URL"
+          required
+          className={state.error ? 'error' : ''}
+        />
+        {state.error && <span className="error-message">{state.error}</span>}
+      </div>
+
+      <div className="form-group">
+        <input
+          name="customAlias"
+          value={customAlias}
+          onChange={(e) => setCustomAlias(e.target.value)}
+          placeholder="Custom alias (optional)"
+        />
+        {aliasAvailable !== undefined && (
+          <span className={aliasAvailable ? 'success' : 'error'}>
+            {aliasAvailable ? '✓ Available' : '✗ Taken'}
+          </span>
+        )}
+      </div>
+
+      <SubmitButton>Shorten URL</SubmitButton>
+
+      {state.success && (
+        <div className="success-message">
+          Short URL: {state.shortUrl}
+        </div>
+      )}
+    </form>
+  );
+};
+```
+
+**Optimistic Updates with React 19:**
+
+```typescript
+import { useOptimistic, useTransition } from 'react';
+
+const URLShortenerForm: React.FC = () => {
+  const [isPending, startTransition] = useTransition();
+  const [urls, setUrls] = useState<URL[]>([]);
+
+  // React 19: useOptimistic for optimistic updates
+  const [optimisticUrls, addOptimisticUrl] = useOptimistic(
+    urls,
+    (state, newUrl: URL) => [
+      { ...newUrl, id: 'temp', syncing: true },
+      ...state
+    ]
+  );
+
+  const handleSubmit = async (data: FormData) => {
+    const newUrl = {
+      id: 'temp',
+      url: data.get('url') as string,
+      shortCode: 'generating...',
+      syncing: true
+    };
+
+    // Optimistically add to UI
+    startTransition(() => {
+      addOptimisticUrl(newUrl);
+    });
+
+    try {
+      const result = await shortenUrlAPI(data);
+      setUrls(prev => [result, ...prev.filter(u => u.id !== 'temp')]);
+    } catch (error) {
+      // Rollback on error
+      setUrls(prev => prev.filter(u => u.id !== 'temp'));
+      toast.error('Failed to shorten URL');
+    }
+  };
+
+  return (
+    <form action={handleSubmit}>
+      {/* Form fields */}
+    </form>
+  );
+};
+```
+
+**Error Boundaries with React 19:**
+
+```typescript
+import { Component, ErrorInfo, ReactNode } from 'react';
+
+// React 19: Improved error boundaries with better TypeScript support
+class ErrorBoundary extends Component<
+  { children: ReactNode; fallback?: (error: Error, reset: () => void) => ReactNode },
+  { hasError: boolean; error: Error | null }
+> {
+  constructor(props: { children: ReactNode; fallback?: (error: Error, reset: () => void) => ReactNode }) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error('Error caught:', error, errorInfo);
+    // Log to error tracking service (Sentry, etc.)
+  }
+
+  reset = () => {
+    this.setState({ hasError: false, error: null });
+  };
+
+  render() {
+    if (this.state.hasError && this.state.error) {
+      if (this.props.fallback) {
+        return this.props.fallback(this.state.error, this.reset);
+      }
+
+      return (
+        <div className="error-boundary">
+          <h2>Something went wrong</h2>
+          <p>{this.state.error.message}</p>
+          <button onClick={this.reset}>Try again</button>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+// React 19: Using error boundaries with fallback prop
+<ErrorBoundary
+  fallback={(error, reset) => (
+    <div>
+      <h2>Error: {error.message}</h2>
+      <button onClick={reset}>Retry</button>
+    </div>
+  )}
+>
+  <App />
+</ErrorBoundary>
+```
+
+**Loading States & Skeletons:**
+
+```typescript
+const AnalyticsSkeleton: React.FC = () => (
+  <div className="analytics-skeleton">
+    <div className="skeleton-header" />
+    <div className="skeleton-chart" />
+    <div className="skeleton-stats">
+      {[1, 2, 3].map(i => <div key={i} className="skeleton-stat" />)}
+    </div>
+  </div>
+);
+
+const AnalyticsDashboard: React.FC<{ shortCode: string }> = ({ shortCode }) => {
+  const { data, isLoading, error } = useAnalytics(shortCode);
+
+  if (isLoading) return <AnalyticsSkeleton />;
+  if (error) return <ErrorMessage error={error} />;
+
+  return (
+    <div className="analytics-dashboard">
+      {/* Analytics content */}
+    </div>
+  );
+};
+```
+
+### iv) Performance Optimizations
+
+**Code Splitting & Lazy Loading:**
+
+```typescript
+import { lazy, Suspense } from 'react';
+
+const AnalyticsDashboard = lazy(() => import('./AnalyticsDashboard'));
+const URLHistory = lazy(() => import('./URLHistory'));
+
+const App: React.FC = () => {
+  return (
+    <Router>
+      <Suspense fallback={<LoadingSpinner />}>
+        <Routes>
+          <Route path="/analytics/:code" element={<AnalyticsDashboard />} />
+          <Route path="/history" element={<URLHistory />} />
+        </Routes>
+      </Suspense>
+    </Router>
+  );
+};
+```
+
+**Memoization for Expensive Components:**
+
+```typescript
+const ReferrerChart = React.memo<{ data: ReferrerData[] }>(({ data }) => {
+  const chartData = useMemo(() => {
+    return data.map(item => ({
+      name: item.referrer || 'Direct',
+      value: item.clicks
+    }));
+  }, [data]);
+
+  return <Chart data={chartData} />;
+}, (prevProps, nextProps) => {
+  return prevProps.data.length === nextProps.data.length;
+});
+```
+
+**Virtual Scrolling for Long Lists:**
+
+```typescript
+import { useVirtualizer } from '@tanstack/react-virtual';
+
+const URLList: React.FC<{ urls: URL[] }> = ({ urls }) => {
+  const parentRef = useRef<HTMLDivElement>(null);
+
+  const virtualizer = useVirtualizer({
+    count: urls.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 80,
+    overscan: 5
+  });
+
+  return (
+    <div ref={parentRef} style={{ height: '600px', overflow: 'auto' }}>
+      <div style={{ height: `${virtualizer.getTotalSize()}px`, position: 'relative' }}>
+        {virtualizer.getVirtualItems().map(virtualItem => (
+          <div
+            key={virtualItem.key}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: `${virtualItem.size}px`,
+              transform: `translateY(${virtualItem.start}px)`
+            }}
+          >
+            <URLItem url={urls[virtualItem.index]} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+```
+
+**Image Optimization:**
+
+```typescript
+const OptimizedImage: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
+  return (
+    <picture>
+      <source srcSet={`${src}.webp`} type="image/webp" />
+      <source srcSet={`${src}.avif`} type="image/avif" />
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+        onError={(e) => {
+          e.currentTarget.src = '/placeholder.png';
+        }}
+      />
+    </picture>
+  );
+};
+```
+
+**Debouncing with React 19:**
+
+```typescript
+import { useDeferredValue, useTransition } from 'react';
+
+const SearchInput: React.FC = () => {
+  const [query, setQuery] = useState('');
+  const [isPending, startTransition] = useTransition();
+
+  // React 19: useDeferredValue for debouncing
+  const deferredQuery = useDeferredValue(query);
+
+  // React 19: use() hook for async search results
+  const searchPromise = useMemo(() => {
+    if (!deferredQuery) return Promise.resolve([]);
+    return searchAPI(deferredQuery);
+  }, [deferredQuery]);
+
+  const searchResults = use(searchPromise);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setQuery(value);
+    startTransition(() => {
+      // Transition updates are lower priority
+    });
+  };
+
+  return (
+    <div>
+      <input
+        value={query}
+        onChange={handleChange}
+        placeholder="Search..."
+      />
+      {isPending && <span>Searching...</span>}
+      <SearchResults results={searchResults} />
+    </div>
+  );
+};
+```
+
+### v) State Management Architecture
+
+**Context API for Global State:**
+
+```typescript
+interface AppState {
+  user: User | null;
+  theme: 'light' | 'dark';
+  notifications: Notification[];
+}
+
+const AppContext = createContext<{
+  state: AppState;
+  dispatch: React.Dispatch<AppAction>;
+} | null>(null);
+
+const appReducer = (state: AppState, action: AppAction): AppState => {
+  switch (action.type) {
+    case 'SET_USER':
+      return { ...state, user: action.payload };
+    case 'TOGGLE_THEME':
+      return { ...state, theme: state.theme === 'light' ? 'dark' : 'light' };
+    case 'ADD_NOTIFICATION':
+      return { ...state, notifications: [...state.notifications, action.payload] };
+    default:
+      return state;
+  }
+};
+
+export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [state, dispatch] = useReducer(appReducer, initialState);
+
+  return (
+    <AppContext.Provider value={{ state, dispatch }}>
+      {children}
+    </AppContext.Provider>
+  );
+};
+```
+
+**React Query Configuration:**
+
+```typescript
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      cacheTime: 10 * 60 * 1000, // 10 minutes
+      retry: 3,
+      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: true
+    },
+    mutations: {
+      retry: 1,
+      onError: (error) => {
+        // Global error handling
+        toast.error('An error occurred');
+      }
+    }
+  }
+});
+```
+
+### vi) UI/UX Enhancements
+
+**Toast Notifications:**
+
+```typescript
+import { toast } from 'react-hot-toast';
+
+const useShortenURL = () => {
+  return useMutation({
+    mutationFn: shortenUrlAPI,
+    onSuccess: (data) => {
+      toast.success('URL shortened successfully!');
+      navigator.clipboard.writeText(data.shortUrl);
+      toast.success('Copied to clipboard');
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Failed to shorten URL');
+    }
+  });
+};
+```
+
+**Copy to Clipboard with React 19:**
+
+```typescript
+import { use, useTransition } from 'react';
+
+const CopyButton: React.FC<{ text: string }> = ({ text }) => {
+  const [copied, setCopied] = useState(false);
+  const [isPending, startTransition] = useTransition();
+
+  const handleCopy = async () => {
+    startTransition(async () => {
+      try {
+        await navigator.clipboard.writeText(text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch (err) {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        setCopied(true);
+      }
+    });
+  };
+
+  return (
+    <button onClick={handleCopy} disabled={isPending} className={copied ? 'copied' : ''}>
+      {copied ? '✓ Copied!' : 'Copy'}
+    </button>
+  );
+};
+
+// React 19: Using use() hook for promises
+const AsyncCopyButton: React.FC<{ textPromise: Promise<string> }> = ({ textPromise }) => {
+  const text = use(textPromise); // React 19: use() hook reads promises
+  return <CopyButton text={text} />;
+};
+```
+
+**QR Code Generation:**
+
+```typescript
+import QRCode from 'qrcode.react';
+
+const QRCodeDisplay: React.FC<{ url: string }> = ({ url }) => {
+  const [downloadUrl, setDownloadUrl] = useState('');
+
+  const handleDownload = async () => {
+    const canvas = document.getElementById('qrcode') as HTMLCanvasElement;
+    const url = await canvas.toDataURL('image/png');
+    setDownloadUrl(url);
+
+    const link = document.createElement('a');
+    link.download = 'qrcode.png';
+    link.href = url;
+    link.click();
+  };
+
+  return (
+    <div className="qrcode-container">
+      <QRCode id="qrcode" value={url} size={200} />
+      <button onClick={handleDownload}>Download QR Code</button>
+    </div>
+  );
+};
+```
+
+**Responsive Design Patterns:**
+
+```typescript
+// Custom hook for responsive breakpoints
+const useBreakpoint = () => {
+  const [breakpoint, setBreakpoint] = useState<'mobile' | 'tablet' | 'desktop'>('desktop');
+
+  useEffect(() => {
+    const checkBreakpoint = () => {
+      const width = window.innerWidth;
+      if (width < 768) setBreakpoint('mobile');
+      else if (width < 1024) setBreakpoint('tablet');
+      else setBreakpoint('desktop');
+    };
+
+    checkBreakpoint();
+    window.addEventListener('resize', checkBreakpoint);
+    return () => window.removeEventListener('resize', checkBreakpoint);
+  }, []);
+
+  return breakpoint;
+};
+
+// Usage
+const Dashboard: React.FC = () => {
+  const breakpoint = useBreakpoint();
+
+  return (
+    <div className={`dashboard ${breakpoint}`}>
+      {breakpoint === 'mobile' ? <MobileLayout /> : <DesktopLayout />}
+    </div>
+  );
+};
+```
+
+### vii) Accessibility Features
+
+**ARIA Labels & Roles:**
+
+```typescript
+const URLInput: React.FC<Props> = ({ value, onChange }) => {
+  return (
+    <div className="input-group">
+      <label htmlFor="url-input" className="sr-only">
+        Enter URL to shorten
+      </label>
+      <input
+        id="url-input"
+        type="url"
+        value={value}
+        onChange={onChange}
+        aria-label="URL input"
+        aria-describedby="url-help"
+        aria-invalid={errors.url ? 'true' : 'false'}
+        aria-required="true"
+      />
+      <span id="url-help" className="help-text">
+        Enter a valid URL starting with http:// or https://
+      </span>
+    </div>
+  );
+};
+```
+
+**Keyboard Navigation:**
+
+```typescript
+const ShortURLDisplay: React.FC<{ shortUrl: string }> = ({ shortUrl }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || (e.key === 'c' && e.ctrlKey)) {
+      handleCopy();
+    }
+  };
+
+  return (
+    <div className="short-url-display" role="region" aria-label="Short URL">
+      <input
+        ref={inputRef}
+        type="text"
+        value={shortUrl}
+        readOnly
+        aria-label="Shortened URL"
+        onKeyDown={handleKeyDown}
+      />
+      <button
+        onClick={handleCopy}
+        aria-label="Copy short URL to clipboard"
+      >
+        Copy
+      </button>
+    </div>
+  );
+};
+```
+
+**Focus Management:**
+
+```typescript
+const Modal: React.FC<{ isOpen: boolean; onClose: () => void; children: React.ReactNode }> = ({
+  isOpen,
+  onClose,
+  children
+}) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      previousFocusRef.current = document.activeElement as HTMLElement;
+      modalRef.current?.focus();
+    } else {
+      previousFocusRef.current?.focus();
+    }
+  }, [isOpen]);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') onClose();
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div
+      className="modal-overlay"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <div
+        ref={modalRef}
+        className="modal-content"
+        onClick={(e) => e.stopPropagation()}
+        onKeyDown={handleKeyDown}
+        tabIndex={-1}
+      >
+        {children}
+      </div>
+    </div>
+  );
+};
+```
+
+### viii) Frontend Testing
+
+**Component Testing:**
+
+```typescript
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import URLShortenerForm from './URLShortenerForm';
+
+const createTestQueryClient = () => new QueryClient({
+  defaultOptions: { queries: { retry: false } }
+});
+
+test('shortens URL successfully', async () => {
+  const queryClient = createTestQueryClient();
+
+  render(
+    <QueryClientProvider client={queryClient}>
+      <URLShortenerForm />
+    </QueryClientProvider>
+  );
+
+  const input = screen.getByPlaceholderText('Enter long URL');
+  fireEvent.change(input, { target: { value: 'https://example.com' } });
+
+  const button = screen.getByText('Shorten URL');
+  fireEvent.click(button);
+
+  await waitFor(() => {
+    expect(screen.getByText(/shortened/i)).toBeInTheDocument();
+  });
+});
+```
+
+**Integration Testing:**
+
+```typescript
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import App from './App';
+
+test('complete URL shortening flow', async () => {
+  const user = userEvent.setup();
+
+  render(<App />);
+
+  // Enter URL
+  const urlInput = screen.getByLabelText('URL input');
+  await user.type(urlInput, 'https://example.com');
+
+  // Submit form
+  const submitButton = screen.getByRole('button', { name: /shorten/i });
+  await user.click(submitButton);
+
+  // Verify short URL displayed
+  await waitFor(() => {
+    expect(screen.getByText(/short\.ly/)).toBeInTheDocument();
+  });
+
+  // Copy to clipboard
+  const copyButton = screen.getByRole('button', { name: /copy/i });
+  await user.click(copyButton);
+
+  expect(screen.getByText(/copied/i)).toBeInTheDocument();
+});
+```
+
+### ix) Frontend Deployment
+
+**Build Optimization:**
+
+```typescript
+// vite.config.ts
+export default defineConfig({
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'query-vendor': ['@tanstack/react-query'],
+          'ui-vendor': ['react-hot-toast', 'react-hook-form']
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000,
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    }
+  }
+});
+```
+
+**Environment Configuration:**
+
+```typescript
+// config.ts
+export const config = {
+  apiUrl: import.meta.env.VITE_API_URL || 'https://api.short.ly',
+  environment: import.meta.env.MODE,
+  enableAnalytics: import.meta.env.VITE_ENABLE_ANALYTICS === 'true',
+  sentryDsn: import.meta.env.VITE_SENTRY_DSN
+};
+```
+
+**Service Worker for Offline Support:**
+
+```typescript
+// service-worker.ts
+self.addEventListener('fetch', (event: FetchEvent) => {
+  if (event.request.url.includes('/api/')) {
+    // Cache API responses
+    event.respondWith(
+      caches.open('api-cache').then(cache => {
+        return fetch(event.request)
+          .then(response => {
+            cache.put(event.request, response.clone());
+            return response;
+          })
+          .catch(() => cache.match(event.request))
+      })
+    );
+  }
+});
+```
+
+### x) Implementation Details
 
 **Data Flow:**
 
-1. **User Input** → URLShortenerForm component captures URL input
-2. **Form Submission** → Triggers API call via React Query mutation
-3. **API Response** → Updates local state with short URL
-4. **Display** → ShortURLDisplay component shows the result
-5. **Analytics** → AnalyticsDashboard fetches and displays analytics data
+1. **User Input** → URLShortenerForm component captures URL input with real-time validation
+2. **Form Submission** → Triggers API call via React Query mutation with optimistic updates
+3. **API Response** → Updates local state and cache with short URL
+4. **Display** → ShortURLDisplay component shows the result with copy functionality
+5. **Analytics** → AnalyticsDashboard fetches and displays analytics data with polling
 
 **Event Handling:**
 
-- Form submission triggers API call
-- Copy button uses Clipboard API
-- Real-time analytics updates via polling or WebSocket (if implemented)
+- Form submission triggers API call with debounced validation
+- Copy button uses Clipboard API with fallback for older browsers
+- Real-time analytics updates via polling every 30 seconds
+- Keyboard shortcuts for common actions (Ctrl+C to copy)
 
 **UI/UX Considerations:**
 
-- **Loading States**: Show spinner during API calls
-- **Error Handling**: Display user-friendly error messages
-- **Validation**: Client-side URL validation before submission
-- **Responsive Design**: Mobile-friendly layout using CSS Grid/Flexbox
-- **Accessibility**: ARIA labels, keyboard navigation, screen reader support
+- **Loading States**: Skeleton screens during API calls for better perceived performance
+- **Error Handling**: User-friendly error messages with retry options
+- **Validation**: Real-time client-side URL validation with helpful error messages
+- **Responsive Design**: Mobile-first layout using CSS Grid/Flexbox with breakpoints
+- **Accessibility**: ARIA labels, keyboard navigation, screen reader support, focus management
+- **Progressive Enhancement**: Works without JavaScript for basic functionality
+- **Offline Support**: Service worker caches API responses for offline access
 
 ---
 
 ## b) Backend
 
-### i) Services
+*Note: Backend implementation details are kept minimal. Focus is on frontend integration.*
 
-**URL Service:**
+**API Endpoints Reference:**
 
-```typescript
-class URLService {
-  async shortenUrl(originalUrl: string, customAlias?: string, expiresAt?: Date): Promise<string> {
-    // Validate URL format
-    // Check if custom alias exists (if provided)
-    // Generate short code (base62 encoding or custom alias)
-    // Store in database with expiration date
-    // Return short URL
-  }
-
-  async getOriginalUrl(shortCode: string): Promise<string | null> {
-    // Check Redis cache first
-    // If not in cache, query database
-    // Check if URL has expired
-    // Return original URL or null if not found/expired
-  }
-
-  async aliasExists(alias: string): Promise<boolean> {
-    // Check database for existing alias
-  }
-}
-
-```
-
-**Encoding Service:**
-
-```typescript
-class EncodingService {
-  private readonly BASE62_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-  encode(id: number): string {
-    // Convert auto-increment ID to base62
-    // A 7-character Base62 string can represent ~3.5 billion unique URLs (62^7)
-    if (id === 0) return this.BASE62_CHARS[0];
-    let result = '';
-    let num = id;
-    while (num > 0) {
-      result = this.BASE62_CHARS[num % 62] + result;
-      num = Math.floor(num / 62);
-    }
-    return result.padStart(7, '0'); // Ensure 7 characters
-  }
-
-  decode(shortCode: string): number {
-    // Convert base62 back to ID
-    let id = 0;
-    for (let i = 0; i < shortCode.length; i++) {
-      id = id * 62 + this.BASE62_CHARS.indexOf(shortCode[i]);
-    }
-    return id;
-  }
-}
-
-```
-
-**Analytics Service:**
-
-```typescript
-class AnalyticsService {
-  async trackClick(shortCode: string, request: Request): Promise<void> {
-    // Extract analytics data (IP, user agent, referrer, timestamp)
-    // Send to message queue (RabbitMQ/Kafka) for async processing
-    // This decouples analytics from core redirection service
-  }
-
-  async getAnalytics(shortCode: string): Promise<AnalyticsData> {
-    // Query aggregated analytics data from database
-    // Return click counts, geographic distribution, time-series data
-  }
-}
-
-```
-
-### ii) Server Structure
-
-**Express.js Server Structure:**
-
-```
-server/
-├── routes/
-│   ├── url.js          # URL shortening and redirection routes
-│   └── analytics.js    # Analytics endpoints
-├── controllers/
-│   ├── URLController.js        # Handle URL shortening/redirection logic
-│   └── AnalyticsController.js  # Handle analytics requests
-├── services/
-│   ├── URLService.js           # Core URL business logic
-│   ├── EncodingService.js      # Base62 encoding/decoding
-│   └── AnalyticsService.js     # Analytics tracking and retrieval
-├── models/
-│   ├── URL.js          # URL data model
-│   └── Analytics.js    # Analytics data model
-├── middleware/
-│   ├── auth.js         # Authentication middleware
-│   ├── rateLimiter.js  # Rate limiting middleware
-│   └── validator.js    # Input validation middleware
-└── utils/
-    ├── cache.js        # Redis cache utilities
-    └── queue.js        # Message queue utilities
-
-```
-
-### iii) Implementation Details
-
-**URL Generator Service:**
-
-The URL Generator Service is responsible for creating unique short URLs. Here are the key approaches:
-
-**Approach 1: Base62 Encoding (Recommended)**
-
-- Use auto-increment database ID as the base
-- Convert ID to Base62 string using characters (a-z, A-Z, 0-9)
-- A 7-character Base62 string can represent ~3.5 billion unique URLs (62^7)
-- **Workflow:**
-  1. Get next auto-increment ID from database
-  2. Convert ID to Base62 (e.g., ID 123456789 → "8m0Kx")
-  3. Store mapping in database
-- **Pros:** Predictable, sequential, guaranteed uniqueness, no collisions
-- **Cons:** Reveals total number of URLs created, requires database coordination
-
-**Approach 2: Hash-based Encoding**
-
-- Hash original URL using MD5 or SHA256
-- Take first 6-8 characters of the hash
-- **Workflow:**
-  1. Generate MD5 hash of original URL (32-character hex string)
-  2. Take first 6 bytes: `1b3aabf5266b`
-  3. Convert to decimal: `47770830013755`
-  4. Encode to Base62: `DZFbb43`
-- **Pros:** Same long URL always gets same short URL (idempotent)
-- **Cons:** Potential collisions, requires collision detection and retry logic
-
-**Custom Alias Handling:**
-
-- **Uniqueness Check:** Verify alias doesn't exist in database before allowing creation
-- **Character Validation:** Ensure alias contains only allowed characters (alphanumeric, hyphens)
-- **Reserved Words:** Check against list of reserved aliases (e.g., "help", "admin", "about")
-- **Conflict Resolution:** Return 409 Conflict if alias already exists, suggest alternatives
-
-**Link Expiration:**
-
-- **User-Specified Expiration:** Users can set expiration date when creating URL
-- **Default Expiration:** Assign default expiration (e.g., 1 year) if not specified
-- **Real-Time Check:** Verify expiration during redirection, return 410 Gone if expired
-- **Background Cleanup:** Cron job runs daily to delete expired URLs older than retention period
-
-**Redirection Service:**
-
-The Redirection Service handles redirecting users from short URLs to original URLs:
-
-- **Database Lookup:** Query database to retrieve original URL associated with short code
-- **Caching Optimization:** Check Redis cache first before database query for faster response
-- **Expiration Check:** Verify URL hasn't expired before redirecting
-- **HTTP Redirect:** Issue 301 (permanent) or 302 (temporary) redirect response
-- **Analytics Tracking:** Asynchronously log click events to message queue without blocking redirect
-
-**Analytics Service:**
-
-The Analytics Service tracks usage statistics without impacting core functionality:
-
-- **Event Logging:** Extract analytics data (IP, user agent, referrer, timestamp) and send to message queue
-- **Async Processing:** Use RabbitMQ/Kafka to decouple analytics from redirection service
-- **Batch Processing:** Process analytics events in batches for aggregation
-- **Data Storage:** Store aggregated analytics in data warehouse for fast retrieval
-- **Dashboard Queries:** Pre-aggregate data for fast dashboard loading
+- `POST /api/v1/shorten` - Create short URL
+- `GET /api/v1/:shortCode` - Redirect to original URL
+- `GET /api/v1/urls/:shortCode/analytics` - Get analytics data
+- `GET /api/v1/alias/:alias/check` - Check alias availability
 
 ---
 
@@ -1391,82 +1982,12 @@ try {
 
 - **Status Codes:** 201 (Created), 400 (Invalid URL), 409 (Alias Exists)
 
-**Backend Implementation:**
-
-```typescript
-app.post('/api/v1/shorten', async (req, res) => {
-  const { url: originalUrl, customAlias, expiresAt } = req.body;
-
-  // Validate URL
-  if (!isValidUrl(originalUrl)) {
-    return res.status(400).json({ error: 'Invalid URL' });
-  }
-
-  // Generate or use custom alias
-  let shortCode: string;
-  if (customAlias) {
-    if (await urlService.aliasExists(customAlias)) {
-      return res.status(409).json({ error: 'Alias already exists' });
-    }
-    shortCode = customAlias;
-  } else {
-    shortCode = await urlService.generateShortCode();
-  }
-
-  // Store in database
-  await urlService.createUrl(originalUrl, shortCode, expiresAt);
-
-  return res.status(201).json({
-    shortUrl: `https://short.ly/${shortCode}`,
-    shortCode,
-    originalUrl,
-    expiresAt
-  });
-});
-
-```
-
 ### GET /api/v1/:shortCode
 
 - **URL:** `/api/v1/:shortCode`
 - **Method:** GET
 - **Response:** 301 Redirect to original URL
 - **Status Codes:** 301 (Redirect), 404 (Not Found), 410 (Gone - Expired)
-
-**Backend Implementation:**
-
-```typescript
-app.get('/api/v1/:shortCode', async (req, res) => {
-  const { shortCode } = req.params;
-
-  // Check cache
-  let originalUrl = await cache.get(`url:${shortCode}`);
-  if (originalUrl) {
-    await analyticsService.trackClick(shortCode, req);
-    return res.redirect(301, originalUrl);
-  }
-
-  // Query database
-  originalUrl = await urlService.getOriginalUrl(shortCode);
-  if (!originalUrl) {
-    return res.status(404).json({ error: 'URL not found' });
-  }
-
-  // Check expiration
-  if (originalUrl.expiresAt && new Date(originalUrl.expiresAt) < new Date()) {
-    return res.status(410).json({ error: 'URL has expired' });
-  }
-
-  // Cache for future requests
-  await cache.setex(`url:${shortCode}`, 3600, originalUrl.url);
-
-  // Track analytics
-  await analyticsService.trackClick(shortCode, req);
-
-  return res.redirect(301, originalUrl.url);
-});
-
-```
 
 ### GET /api/v1/urls/:shortCode/analytics
 
@@ -1619,22 +2140,6 @@ app.get('/api/v1/:shortCode', async (req, res) => {
 
 - **Vercel / Netlify** - Automatic deployments from Git
 - **AWS S3 + CloudFront** - Static site hosting with CDN
-
-### Backend Deployment
-
-**Server Setup:**
-
-- **PM2:** Process manager with clustering for Node.js apps
-- **Nginx:** Load balancer and reverse proxy with SSL termination
-- **Docker:** Containerized deployment for consistency across environments
-- **Kubernetes:** Container orchestration for auto-scaling and management
-
-**CI/CD Pipeline:**
-
-- **Automated Testing:** Run tests before deployment
-- **Zero-Downtime:** Rolling deployment strategy
-- **Health Checks:** Verify URL shortening endpoints are healthy
-- **Blue-Green Deployment:** Maintain two identical production environments for seamless updates
 
 ### Database Deployment
 

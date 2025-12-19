@@ -16,13 +16,13 @@
 
 ---
 
-## Q45. 💡 View Layer Implementation
+## 1. 💡 View Layer Implementation
 
 The view layer is everything the user sees and interacts with - buttons, forms, pages, animations. It's your UI code, and how you structure it makes a huge difference in how easy it is to build, maintain, and update. Understanding view layer patterns and best practices is crucial for building scalable, maintainable frontend applications.
 
 ---
 
-## 1. 🧩 Component Architecture
+### 🔹 🧩 Component Architecture
 
 Think of components like LEGO blocks - small, reusable pieces that you combine to build bigger things. Good component architecture makes your code easier to understand, test, and reuse.
 
@@ -145,7 +145,7 @@ The idea is: separate what things look like (presentational) from how these comp
 
 ---
 
-## 2. 🎨 Rendering Patterns
+### 🔹 🎨 Rendering Patterns
 
 Where and when you render your HTML matters a lot for performance and SEO. Different patterns work better for different use cases.
 
@@ -201,7 +201,7 @@ Where and when you render your HTML matters a lot for performance and SEO. Diffe
 
 ---
 
-## 3. 🔍 Styling Approaches
+### 🔹 🔍 Styling Approaches
 
 How you write CSS affects how easy it is to maintain, how fast you can build, and how big your bundle is. Different approaches work better for different teams and projects.
 
@@ -273,13 +273,13 @@ Building complex components by combining simpler ones, like building a Form from
 
 ---
 
-## Q46. 💡 Service Layer Implementation
+### 🔹 💡 Service Layer Implementation
 
 The service layer is your app's way of talking to the outside world - APIs, backends, third-party services. It's like having a dedicated phone operator who knows how to call everyone and translate what those services say into something your app understands.
 
 ---
 
-## 1. 💡 Service Layer Responsibilities
+### 🔹 💡 Service Layer Responsibilities
 
 The service layer has a few key jobs - think of it as your app's communication department.
 
@@ -327,7 +327,7 @@ The service layer has a few key jobs - think of it as your app's communication d
 
 ---
 
-## 2. 💡 Service Implementation Patterns
+### 🔹 💡 Service Implementation Patterns
 
 There are different ways to structure your services - pick what works for your team and project.
 
@@ -434,7 +434,7 @@ export default apiClient;
 
 ---
 
-## 3. 💡 Service Layer Best Practices
+### 🔹 💡 Service Layer Best Practices
 
 ### 🔹 Separation of Concerns
 
@@ -480,13 +480,13 @@ API client is the low-level HTTP library (axios, fetch wrapper). Service layer u
 
 ---
 
-## Q47. 💡 Controller/Business Logic Implementation
+### 🔹 💡 Controller/Business Logic Implementation
 
 The controller layer is like the conductor of an orchestra - it coordinates everything. It manages state, handles user actions, and makes sure data flows correctly between your UI and your services.
 
 ---
 
-## 1. 💡 Controller Responsibilities
+### 🔹 💡 Controller Responsibilities
 
 The controller is the brain of your app - it makes decisions and coordinates everything.
 
@@ -534,7 +534,7 @@ The controller is the brain of your app - it makes decisions and coordinates eve
 
 ---
 
-## 2. 📦 State Management Patterns
+### 🔹 📦 State Management Patterns
 
 ### 🔹 Local State (React)
 
@@ -596,7 +596,7 @@ const UserProvider = ({ children }) => {
 
 ---
 
-## 3. 💡 Controller Patterns
+### 🔹 💡 Controller Patterns
 
 ### 🔹 Custom Hooks (React)
 
@@ -655,13 +655,13 @@ Controller manages application flow and state. Service handles external communic
 
 ---
 
-## Q48. 💡 Data Model Implementation
+### 🔹 💡 Data Model Implementation
 
 Data models are like blueprints for your data - these define what shape your data should be, what fields it has, what types those fields are, and what rules those fields need to follow. Good data models make your code more predictable and catch errors early.
 
 ---
 
-## 1. 🏷️ Data Model Types
+### 🔹 🏷️ Data Model Types
 
 There are different ways to define your data models - pick what works for your project.
 
@@ -753,7 +753,7 @@ JSON Schema is a standard way to describe and validate data:
 
 ---
 
-## 2. 💡 Data Normalization
+### 🔹 💡 Data Normalization
 
 Normalization means organizing your data so you don't store the same thing in multiple places. It's like having one master list instead of copies everywhere.
 
@@ -817,7 +817,7 @@ Store each type of data separately and reference them:
 
 ---
 
-## 3. ✅ Data Validation
+### 🔹 ✅ Data Validation
 
 You can't trust data from APIs or users - always validate it. Validation checks if data matches what you expect.
 
@@ -902,13 +902,13 @@ Create mapper functions that transform API responses to your app's data models, 
 
 ---
 
-## Q49. 🕸️ API/GraphQL Implementation
+### 🔹 🕸️ API/GraphQL Implementation
 
 API implementation is how your frontend talks to your backend. You need to set up clients, handle requests/responses, manage errors, and structure your API calls. Whether you use REST or GraphQL, good API implementation makes your code cleaner and more maintainable.
 
 ---
 
-## 1. 🔀 REST API Implementation
+### 🔹 🔀 REST API Implementation
 
 REST APIs use standard HTTP methods (GET, POST, PUT, DELETE) to interact with resources. Setting up a good API client makes all your API calls consistent and easy.
 
@@ -978,7 +978,7 @@ const user = await usersApi.getById('123');
 
 ---
 
-## 2. 🕸️ GraphQL Implementation
+### 🔹 🕸️ GraphQL Implementation
 
 GraphQL allows you to request exactly the data you need in a single query. Instead of multiple REST endpoints, you have one endpoint and specify what fields you want.
 
@@ -1091,7 +1091,7 @@ function CreateUserForm() {
 
 ---
 
-## 3. 🔌 API Best Practices
+### 🔹 🔌 API Best Practices
 
 ### 🔹 Error Handling
 
@@ -1149,13 +1149,13 @@ REST is simpler, cacheable, and works well with HTTP. GraphQL reduces over-fetch
 
 ---
 
-## Q50. 📦 State Management Implementation
+### 🔹 📦 State Management Implementation
 
 State management is how you store and share data across your app. When multiple components need the same data (like user info, theme, shopping cart), you need a way to manage it centrally so everything stays in sync.
 
 ---
 
-## 1. ✅ State Management Solutions
+### 🔹 ✅ State Management Solutions
 
 Different tools work better for different situations. Here are the most common options:
 
@@ -1270,7 +1270,7 @@ const { user, fetchUser, loading } = useUserStore();
 
 ---
 
-## 2. 📦 Server State Management
+### 🔹 📦 Server State Management
 
 Server state (data from APIs) is different from client state - it needs caching, refetching, and synchronization. Special tools handle this better than regular state management.
 
@@ -1330,7 +1330,7 @@ const { data, error, isLoading } = useSWR(
 
 ---
 
-## 3. 📦 State Management Best Practices
+### 🔹 📦 State Management Best Practices
 
 ### 🔹 Choose the Right Tool for the Job
 
@@ -1404,13 +1404,13 @@ Client state is UI state and app state managed in memory. Server state is data f
 
 ---
 
-## Q51. ✅ Error Handling & Validation
+### 🔹 ✅ Error Handling & Validation
 
 Error handling is about gracefully dealing with things that go wrong - network failures, invalid data, bugs. Validation is about checking data before you use it - making sure user input is correct and API responses are what you expect. Both are essential for building robust apps.
 
 ---
 
-## 1. 💡 Error Handling Patterns
+### 🔹 💡 Error Handling Patterns
 
 Errors happen - network failures, bugs, invalid data. Good error handling means your app doesn't crash and users get helpful messages.
 
@@ -1513,7 +1513,7 @@ window.addEventListener('unhandledrejection', (event) => {
 
 ---
 
-## 2. ✅ Validation
+### 🔹 ✅ Validation
 
 Never trust user input or API responses - always validate. Validation catches problems early and gives users helpful feedback.
 
@@ -1610,7 +1610,7 @@ const handleEmailChange = (value) => {
 
 ---
 
-## 3. 💡 Error Handling Best Practices
+### 🔹 💡 Error Handling Best Practices
 
 ### 🔹 User-Friendly Messages
 
@@ -1656,13 +1656,13 @@ Validation checks if data is correct (format, type, constraints). Sanitization c
 
 ---
 
-## Q52. ⚡ Performance Optimization Implementation
+### 🔹 ⚡ Performance Optimization Implementation
 
 Performance optimization is about making your app faster - faster to load, faster to interact with, smoother animations. Users expect apps to be fast, and slow apps lose users. There are many techniques to improve performance, from code splitting to memoization to image optimization.
 
 ---
 
-## 1. 💡 Code Splitting
+### 🔹 💡 Code Splitting
 
 Code splitting means only loading the code you need, when you need it. Instead of loading your entire app upfront (slow initial load), split it into chunks and load them on demand.
 
@@ -1725,7 +1725,7 @@ function Dashboard() {
 
 ---
 
-## 2. 💡 Memoization
+### 🔹 💡 Memoization
 
 Memoization means remembering computed values so you don't have to recompute them. React has several memoization tools to prevent unnecessary work.
 
@@ -1812,7 +1812,7 @@ function Parent() {
 
 ---
 
-## 3. 💡 Virtualization
+### 🔹 💡 Virtualization
 
 ### 🔹 React Window
 
@@ -1840,7 +1840,7 @@ function VirtualizedList({ items }) {
 
 ---
 
-## 4. 💡 Image Optimization
+### 🔹 💡 Image Optimization
 
 ### 🔹 Lazy Loading
 
@@ -1889,13 +1889,13 @@ useMemo memoizes computed values. useCallback memoizes functions. Both prevent u
 
 ---
 
-## Q53. 🛡️ Security Implementation
+### 🔹 🛡️ Security Implementation
 
 Security is about protecting your app and users from attacks. Frontend security focuses on preventing common vulnerabilities like XSS, CSRF, and ensuring sensitive data is handled safely. Security isn't optional - it's essential.
 
 ---
 
-## 1. 🎯 XSS Prevention
+### 🔹 🎯 XSS Prevention
 
 ### 🔹 Sanitize User Input
 
@@ -1921,7 +1921,7 @@ element.textContent = userInput;
 
 ---
 
-## 2. 💡 CSRF Protection
+### 🔹 💡 CSRF Protection
 
 ### 🔹 CSRF Tokens
 
@@ -1942,7 +1942,7 @@ fetch('/api/users', {
 
 ---
 
-## 3. 💡 Secure Storage
+### 🔹 💡 Secure Storage
 
 ### 🔹 Don't Store Sensitive Data
 
@@ -1958,7 +1958,7 @@ sessionStorage.setItem('tempToken', token);
 
 ---
 
-## 4. 🛡️ Content Security Policy
+### 🔹 🛡️ Content Security Policy
 
 ```javascript
 // meta tag or HTTP header
@@ -1989,13 +1989,13 @@ XSS injects malicious scripts into your page. CSRF tricks users into making unwa
 
 ---
 
-## Q54. 🧪 Testing Implementation
+### 🔹 🧪 Testing Implementation
 
 Testing is about making sure your code works correctly and doesn't break when you make changes. Good tests catch bugs early, give you confidence to refactor, and serve as documentation. There are different types of tests for different purposes - unit tests, integration tests, and end-to-end tests.
 
 ---
 
-## 1. 🧪 Unit Testing
+### 🔹 🧪 Unit Testing
 
 Unit tests test individual pieces of code in isolation - one component, one function, one module. These tests are fast, easy to write, and catch bugs early.
 
@@ -2049,7 +2049,7 @@ test('formats currency correctly', () => {
 
 ---
 
-## 2. 🧪 Integration Testing
+### 🔹 🧪 Integration Testing
 
 Integration tests test how multiple pieces work together - components talking to each other, components using services, API calls.
 
@@ -2081,7 +2081,7 @@ test('loads and displays user data', async () => {
 
 ---
 
-## 3. 🧪 E2E Testing
+### 🔹 🧪 E2E Testing
 
 End-to-end tests test the entire user flow - like a real user using your app. These tests verify the whole stack (frontend + backend).
 
@@ -2114,7 +2114,7 @@ describe('User Login Flow', () => {
 
 ---
 
-## 4. 🧪 Testing Best Practices
+### 🔹 🧪 Testing Best Practices
 
 ### 🔹 Test Structure (AAA Pattern)
 

@@ -64,7 +64,7 @@
 
 ---
 
-## 🚦 Rate Limiter
+## 🏏 iGamio Fantasy Sports Platform
 
 ### Project Overview
 
@@ -141,8 +141,6 @@
 - Auto-scaling based on load
 
 ---
-
-## 🚦 Rate Limiter
 
 ### Project Overview
 
@@ -472,28 +470,6 @@
 
 ---
 
-## 🚪 API Gateway
-
-### Project Overview
-
-- **Type:** System Design
-
-- **Stack:** Node.js, Load Balancer, Service Discovery, Redis
-
-- **Key Features:** Request routing, authentication, rate limiting, circuit breaker
-
-### Key Technical Challenges
-
-1. **Service discovery** - Dynamic routing to microservices
-
-2. **Circuit breaker** - Prevent cascading failures
-
-3. **Request transformation** - Transform requests/responses
-
-4. **Monitoring** - Track latency, error rates
-
----
-
 ## 🔍 Search System
 
 ### Project Overview
@@ -513,28 +489,6 @@
 3. **Ranking** - BM25/TF-IDF for relevance
 
 4. **Scalability** - Handle billions of documents
-
----
-
-## ⚡ Scaling REST API
-
-### Project Overview
-
-- **Type:** System Design
-
-- **Stack:** Load Balancer, Caching, Database Scaling, CDN
-
-- **Key Features:** Horizontal scaling, caching, database optimization, load balancing
-
-### Key Technical Challenges
-
-1. **Horizontal scaling** - Multiple servers behind load balancer
-
-2. **Database scaling** - Read replicas, sharding
-
-3. **Caching** - Multi-layer caching strategy
-
-4. **Traffic spikes** - Handle 10x normal traffic
 
 ---
 
@@ -579,28 +533,6 @@
 3. **Order state machine** - Track order through lifecycle
 
 4. **Peak hour handling** - Manage lunch/dinner rushes
-
----
-
-## 📊 Monitoring Logging System
-
-### Project Overview
-
-- **Type:** System Design
-
-- **Stack:** Log Aggregation, Time-Series Database, Message Queue, Alerting
-
-- **Key Features:** Log collection, metrics collection, dashboards, alerting
-
-### Key Technical Challenges
-
-1. **High-volume ingestion** - Handle billions of log entries
-
-2. **Real-time alerting** - Alert within 30 seconds
-
-3. **Log search** - Fast search across logs
-
-4. **Metrics storage** - Time-series database for metrics
 
 ---
 
@@ -793,46 +725,6 @@
 - "How did you handle side pots in all-in scenarios?"
 
 - "How did you validate betting actions (call, raise, fold) on the server?"
-
----
-
-### 🚦 Rate Limiter
-
-**Architecture & Design:**
-
-- "Walk me through how your rate limiter works. Why did you choose Redis?"
-
-- "Explain the difference between fixed window, sliding window, and token bucket algorithms. When would you use each?"
-
-- "How did you design the system to work across multiple servers (distributed rate limiting)?"
-
-- "How did you handle rate limiter failures? Why did you choose fail-open over fail-closed?"
-
-**Technical Challenges:**
-
-- "What was the most challenging part of implementing the rate limiter?"
-
-- "How did you ensure accurate rate limiting when requests come from multiple servers?"
-
-- "How did you handle rate limit violations? What information do you return to clients?"
-
-- "How did you implement per-endpoint and per-user rate limiting?"
-
-**Performance:**
-
-- "How did you ensure the rate limiter doesn't slow down API requests significantly?"
-
-- "What's the overhead of your rate limiting check? How did you measure it?"
-
-- "How did you optimize Redis operations for rate limiting?"
-
-**Advanced Features:**
-
-- "How did you implement whitelist and blacklist functionality?"
-
-- "How did you handle dynamic rate limiting based on system load?"
-
-- "How did you monitor and alert on rate limit hits?"
 
 ---
 
@@ -1087,16 +979,6 @@
 - **Load Time Improvement:** 70% (5-6s → 1.5-2s)
 
 - **Connection Success Rate:** 99% reconnection
-
-### Rate Limiter
-
-- **Overhead:** < 10ms per request
-
-- **Throughput:** Thousands of requests per second
-
-- **Accuracy:** 99.9% accurate rate limiting
-
-- **Fail-open:** 100% uptime (allows requests if limiter fails)
 
 ### Notification System
 
@@ -1395,20 +1277,6 @@ Impact: [User/business impact]
 
 - Code splitting (68% bundle reduction)
 
-### Rate Limiter - Key Points
-
-- Multiple algorithms (fixed window, sliding window, token bucket)
-
-- Distributed rate limiting with Redis
-
-- Per-endpoint and per-user limits
-
-- Fail-open strategy
-
-- Whitelist/Blacklist support
-
-- Low overhead (< 10ms)
-
 ### Notification System - Key Points
 
 - Multi-channel delivery (in-app, email, push, SMS)
@@ -1471,7 +1339,7 @@ Impact: [User/business impact]
 
 ## 🔍 Quick Lookup: Technologies
 
-| Technology | iGamio | Poker Game | Rate Limiter | Notification | E-commerce | Video Streaming | Social Media Feed |
+| Technology | iGamio | Poker Game | Notification | E-commerce | Video Streaming | Social Media Feed |
 |------------|--------|------------|--------------|--------------|------------|-----------------|------------------|
 | **Frontend** | React.js | React.js + TS | N/A | React.js | React.js | N/A | N/A |
 | **State Mgmt** | Redux Toolkit | Context API | N/A | Redux Toolkit | Redux Toolkit | N/A | N/A |
@@ -1511,16 +1379,6 @@ Impact: [User/business impact]
 - Concurrent games: 1,000+ rooms
 
 - Performance score: 65 → 92 (Lighthouse)
-
-### Rate Limiter
-
-- API protection: 99.9% accurate rate limiting
-
-- System stability: Prevents API abuse
-
-- Fair resource usage: Ensures equal access
-
-- Zero downtime: Fail-open strategy
 
 ### Notification System
 
@@ -1623,7 +1481,6 @@ Impact: [User/business impact]
 |---------|------|----------|----------------|
 | **iGamio** | Full-Stack MERN | React.js, Node.js, MongoDB, Redis, Cashfree | Real-time updates, payment integration |
 | **Poker Game** | Full-Stack MERN | React.js, Socket.io, MongoDB, Redis | Real-time multiplayer, anti-cheating |
-| **Rate Limiter** | Backend Component | Node.js, Express.js, Redis | Distributed rate limiting, multiple algorithms |
 | **Notification** | Full-Stack MERN | React.js, Socket.io, RabbitMQ, MongoDB | Multi-channel delivery, real-time |
 | **E-commerce** | Full-Stack MERN | React.js, Elasticsearch, Payment Gateway, AWS S3 | Product search, payment, cart management |
 | **Video Streaming** | System Design | Node.js, FFmpeg, AWS S3, CDN | Video processing, streaming, recommendations |
@@ -1635,9 +1492,6 @@ Impact: [User/business impact]
 | **Ride-Sharing** | System Design | Node.js, Geospatial DB, WebSocket | Ride matching, location tracking |
 | **Payment System** | System Design | Node.js, Payment Gateway, Database | Payment processing, idempotency |
 | **File Storage** | System Design | Node.js, Object Storage, Database | File upload, deduplication, sync |
-| **API Gateway** | System Design | Node.js, Load Balancer, Redis | Request routing, rate limiting |
 | **Search System** | System Design | Elasticsearch, Inverted Index | Full-text search, ranking |
-| **Scaling REST API** | System Design | Load Balancer, Caching, Database | Horizontal scaling, optimization |
 | **Ticket Booking** | System Design | Node.js, Database, Redis | Seat locking, double booking prevention |
 | **Food Delivery** | System Design | Node.js, Geospatial DB, WebSocket | Order management, delivery tracking |
-| **Monitoring Logging** | System Design | Log Aggregation, Time-Series DB | Log collection, metrics, alerting |

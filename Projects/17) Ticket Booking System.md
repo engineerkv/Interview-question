@@ -104,24 +104,24 @@ Design and implement a ticket booking system that addresses the following challe
 ```
 
 ┌─────────────┐
-│   Client    │
+│ Client │
 └──────┬──────┘
-       │
-       ▼
+ │
+ ▼
 ┌─────────────────┐
-│  Load Balancer  │
+│ Load Balancer │
 └──────┬──────────┘
-       │
-   ┌───┴───┐
-   ▼       ▼
+ │
+ ┌───┴───┐
+ ▼ ▼
 ┌──────┐ ┌──────┐
 │Server│ │Server│
 └──┬───┘ └──┬───┘
-   │        │
-   └───┬────┘
-       ▼
+ │ │
+ └───┬────┘
+ ▼
 ┌─────────────────┐
-│  Database       │
+│ Database │
 └─────────────────┘
 
 ```
@@ -148,11 +148,11 @@ Design and implement a ticket booking system that addresses the following challe
 
 ### Service Components
 
-```typescript
+```javascript
 class Service {
-  async processRequest(data: any) {
-    // Implementation details
-  }
+ async processRequest(data: any) {
+ // Implementation details
+ }
 }
 
 ```
@@ -170,63 +170,63 @@ Think of the frontend as a tree of React components - each component handles a s
 ```
 App
 ├── Header
-│   ├── Logo
-│   ├── Navigation
-│   └── UserMenu (Profile, Bookings, Sign out)
+│ ├── Logo
+│ ├── Navigation
+│ └── UserMenu (Profile, Bookings, Sign out)
 ├── MainContent
-│   ├── EventsListPage
-│   │   ├── FilterBar
-│   │   │   ├── CategoryFilter
-│   │   │   ├── DateFilter
-│   │   │   └── LocationFilter
-│   │   ├── EventGrid
-│   │   │   └── EventCard
-│   │   │       ├── EventImage
-│   │   │       ├── EventTitle
-│   │   │       ├── EventDate
-│   │   │       ├── EventLocation
-│   │   │       ├── TicketPrice
-│   │   │       └── BookButton
-│   │   └── Pagination
-│   ├── EventDetailPage
-│   │   ├── EventHeader
-│   │   │   ├── EventImage
-│   │   │   ├── EventInfo
-│   │   │   └── TicketPriceRange
-│   │   ├── ShowtimeSelector
-│   │   │   └── ShowtimeButton
-│   │   └── BookButton
-│   ├── SeatSelectionPage
-│   │   ├── SeatMap
-│   │   │   ├── ScreenIndicator
-│   │   │   ├── SeatGrid
-│   │   │   │   └── Seat
-│   │   │   │       ├── SeatNumber
-│   │   │   │       └── SeatStatus (available, selected, booked)
-│   │   │   └── Legend
-│   │   ├── SelectedSeatsSummary
-│   │   │   ├── SelectedSeatsList
-│   │   │   ├── TotalPrice
-│   │   │   └── ContinueButton
-│   │   └── Timer (Booking expiry)
-│   ├── BookingPage
-│   │   ├── BookingSummary
-│   │   │   ├── EventInfo
-│   │   │   ├── SelectedSeats
-│   │   │   ├── Showtime
-│   │   │   └── TotalPrice
-│   │   ├── CustomerInfoForm
-│   │   │   ├── NameInput
-│   │   │   ├── EmailInput
-│   │   │   └── PhoneInput
-│   │   └── PaymentSection
-│   └── BookingHistoryPage
-│       ├── BookingList
-│       │   └── BookingCard
-│       │       ├── EventInfo
-│       │       ├── BookingDetails
-│       │       ├── BookingStatus
-│       │       └── DownloadTicketButton
+│ ├── EventsListPage
+│ │ ├── FilterBar
+│ │ │ ├── CategoryFilter
+│ │ │ ├── DateFilter
+│ │ │ └── LocationFilter
+│ │ ├── EventGrid
+│ │ │ └── EventCard
+│ │ │ ├── EventImage
+│ │ │ ├── EventTitle
+│ │ │ ├── EventDate
+│ │ │ ├── EventLocation
+│ │ │ ├── TicketPrice
+│ │ │ └── BookButton
+│ │ └── Pagination
+│ ├── EventDetailPage
+│ │ ├── EventHeader
+│ │ │ ├── EventImage
+│ │ │ ├── EventInfo
+│ │ │ └── TicketPriceRange
+│ │ ├── ShowtimeSelector
+│ │ │ └── ShowtimeButton
+│ │ └── BookButton
+│ ├── SeatSelectionPage
+│ │ ├── SeatMap
+│ │ │ ├── ScreenIndicator
+│ │ │ ├── SeatGrid
+│ │ │ │ └── Seat
+│ │ │ │ ├── SeatNumber
+│ │ │ │ └── SeatStatus (available, selected, booked)
+│ │ │ └── Legend
+│ │ ├── SelectedSeatsSummary
+│ │ │ ├── SelectedSeatsList
+│ │ │ ├── TotalPrice
+│ │ │ └── ContinueButton
+│ │ └── Timer (Booking expiry)
+│ ├── BookingPage
+│ │ ├── BookingSummary
+│ │ │ ├── EventInfo
+│ │ │ ├── SelectedSeats
+│ │ │ ├── Showtime
+│ │ │ └── TotalPrice
+│ │ ├── CustomerInfoForm
+│ │ │ ├── NameInput
+│ │ │ ├── EmailInput
+│ │ │ └── PhoneInput
+│ │ └── PaymentSection
+│ └── BookingHistoryPage
+│ ├── BookingList
+│ │ └── BookingCard
+│ │ ├── EventInfo
+│ │ ├── BookingDetails
+│ │ ├── BookingStatus
+│ │ └── DownloadTicketButton
 └── SocketProvider (Real-time seat availability)
 
 ```
@@ -235,125 +235,128 @@ App
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Seat Map Component
-const SeatMap: React.FC<{ showtimeId: string }> = ({ showtimeId }) => {
-  const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
-  const { data: seatMap } = useSeatMap(showtimeId);
-  const { socket } = useSocket();
+const SeatMap<{ showtimeId}> = ({ showtimeId }) => {
+ const [selectedSeats, setSelectedSeats] = useState([]);
+ const { data: seatMap } = useSeatMap(showtimeId);
+ const { socket } = useSocket();
 
-  useEffect(() => {
-    socket.on('seat-status-update', (update: SeatStatusUpdate) => {
-      // Update seat availability in real-time
-    });
+ useEffect(() => {
+ socket.on('seat-status-update', (update: SeatStatusUpdate) => {
+ // Update seat availability in real-time
+ });
 
-    return () => {
-      socket.off('seat-status-update');
-    };
-  }, [socket]);
+ return () => {
+ socket.off('seat-status-update');
+ };
+ }, [socket]);
 
-  const handleSeatClick = (seatId: string, status: SeatStatus) => {
-    if (status === 'booked') return;
+ const handleSeatClick = (seatId, status: SeatStatus) => {
+ if (status === 'booked') return;
 
-    if (status === 'selected') {
-      setSelectedSeats(prev => prev.filter(id => id !== seatId));
-      // Release seat lock
-      socket.emit('release-seat', { showtimeId, seatId });
-    } else {
-      setSelectedSeats(prev => [...prev, seatId]);
-      // Lock seat
-      socket.emit('lock-seat', { showtimeId, seatId });
-    }
-  };
+ if (status === 'selected') {
+ setSelectedSeats(prev => prev.filter(id => id !== seatId));
+ // Release seat lock
+ socket.emit('release-seat', { showtimeId, seatId });
+ } else {
+ setSelectedSeats(prev => [...prev, seatId]);
+ // Lock seat
+ socket.emit('lock-seat', { showtimeId, seatId });
+ }
+ };
 
-  return (
-    <div className="seat-map">
-      <div className="screen">Screen</div>
-      <div className="seat-grid">
-        {seatMap?.seats.map(seat => (
-          <Seat
-            key={seat.id}
-            seat={seat}
-            isSelected={selectedSeats.includes(seat.id)}
-            onClick={() => handleSeatClick(seat.id, seat.status)}
-          />
-        ))}
-      </div>
-      <Legend />
-    </div>
-  );
+ return (
+ <div className="seat-map">
+ <div className="screen">Screen</div>
+ <div className="seat-grid">
+ {seatMap?.seats.map(seat => (
+ <Seat
+ key={seat.id}
+ seat={seat}
+ isSelected={selectedSeats.includes(seat.id)}
+ onClick={() => handleSeatClick(seat.id, seat.status)}
+ />
+ ))}
+ </div>
+ <Legend />
+ </div>
+ );
 };
 
 // Booking Summary Component
-const BookingSummary: React.FC<{ booking: Booking }> = ({ booking }) => {
-  return (
-    <div className="booking-summary">
-      <h3>Booking Summary</h3>
-      <div className="event-info">
-        <h4>{booking.event.title}</h4>
-        <p>{formatDate(booking.showtime.date)}</p>
-        <p>{booking.showtime.time}</p>
-      </div>
-      <div className="seats-info">
-        <h4>Selected Seats</h4>
-        <ul>
-          {booking.seats.map(seat => (
-            <li key={seat.id}>
-              {seat.row}{seat.number} - ${seat.price}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="total-price">
-        Total: ${booking.totalPrice}
-      </div>
-    </div>
-  );
+const BookingSummary<{ booking: Booking }> = ({ booking }) => {
+ return (
+ <div className="booking-summary">
+ <h3>Booking Summary</h3>
+ <div className="event-info">
+ <h4>{booking.event.title}</h4>
+ <p>{formatDate(booking.showtime.date)}</p>
+ <p>{booking.showtime.time}</p>
+ </div>
+ <div className="seats-info">
+ <h4>Selected Seats</h4>
+ <ul>
+ {booking.seats.map(seat => (
+ <li key={seat.id}>
+ {seat.row}{seat.number} - ${seat.price}
+ </li>
+ ))}
+ </ul>
+ </div>
+ <div className="total-price">
+ Total: ${booking.totalPrice}
+ </div>
+ </div>
+ );
 };
 
 ```
 
 ### State Management
 
-**State Management Strategy:**
+**State Management Strategy (React 19):**
 
 - **Local State (useState)**: Selected seats, form inputs, UI state (loading, errors, timer)
-- **Component State**: Each component manages its own UI state
-- **API State**: React Query or SWR for server state (events, seat maps, bookings) - caching, refetching
+- **Optimistic Updates (useOptimistic)**: React 19 hook for optimistic seat selection and booking
+- **Form Actions (useActionState)**: React 19 hook for booking forms with server actions
+- **use() Hook**: React 19 hook for reading WebSocket seat status promises
+- **Transitions (useTransition)**: React 19 hook for non-urgent seat map updates
+- **API State**: React Query for server state (events, seat maps, bookings) - caching, refetching
 - **Global State (Redux Toolkit)**: User authentication, active booking session, selected seats
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Using React Query for API state management
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-const useSeatMap = (showtimeId: string) => {
-  return useQuery({
-    queryKey: ['seat-map', showtimeId],
-    queryFn: async () => {
-      const response = await axios.get(`/api/v1/showtimes/${showtimeId}/seats`);
-      return response.data;
-    },
-    refetchInterval: 5000 // Refetch every 5 seconds for real-time updates
-  });
+const useSeatMap = (showtimeId) => {
+ return useQuery({
+ queryKey: ['seat-map', showtimeId],
+ queryFn: async () => {
+ const response = await axios.get(`/api/v1/showtimes/${showtimeId}/seats`);
+ return response.data;
+ },
+ refetchInterval: 5000 // Refetch every 5 seconds for real-time updates
+ });
 };
 
 const useBookTickets = () => {
-  const queryClient = useQueryClient();
+ const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: async (bookingData: BookingRequest) => {
-      const response = await axios.post('/api/v1/bookings', bookingData);
-      return response.data;
-    },
-    onSuccess: (data) => {
-      // Navigate to booking confirmation
-      navigate(`/bookings/${data.bookingId}/confirmation`);
-      // Invalidate bookings list
-      queryClient.invalidateQueries({ queryKey: ['bookings'] });
-    }
-  });
+ return useMutation({
+ mutationFn: async (bookingData: BookingRequest) => {
+ const response = await axios.post('/api/v1/bookings', bookingData);
+ return response.data;
+ },
+ onSuccess: (data) => {
+ // Navigate to booking confirmation
+ navigate(`/bookings/${data.bookingId}/confirmation`);
+ // Invalidate bookings list
+ queryClient.invalidateQueries({ queryKey: ['bookings'] });
+ }
+ });
 };
 
 ```
@@ -391,13 +394,13 @@ const useBookTickets = () => {
 
 ### Model Interface
 
-```typescript
-interface Model {
-  id: string;
-  // Model fields
-  createdAt: Date;
-  updatedAt: Date;
-}
+```javascript
+// Model structure:
+//
+ id;
+ // Model fields
+ createdAt;
+ updatedAt;
 
 ```
 
@@ -413,32 +416,32 @@ interface Model {
 
 - **Request Body:**
 
-  ```json
-  {
-    "eventId": "event_abc123",
-    "seatIds": ["seat_1", "seat_2", "seat_3"],
-    "userId": "user123",
-    "paymentMethod": "card"
-  }
+ ```json
+ {
+ "eventId": "event_abc123",
+ "seatIds": ["seat_1", "seat_2", "seat_3"],
+ "userId": "user123",
+ "paymentMethod": "card"
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "bookingId": "booking_abc123",
-      "eventId": "event_abc123",
-      "seatIds": ["seat_1", "seat_2", "seat_3"],
-      "status": "confirmed",
-      "totalAmount": 150.00,
-      "createdAt": "2024-01-15T10:30:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "bookingId": "booking_abc123",
+ "eventId": "event_abc123",
+ "seatIds": ["seat_1", "seat_2", "seat_3"],
+ "status": "confirmed",
+ "totalAmount": 150.00,
+ "createdAt": "2024-01-15T10:30:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error), 409 (Seats Already Booked)
 
@@ -450,21 +453,21 @@ interface Model {
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "bookingId": "booking_abc123",
-      "eventId": "event_abc123",
-      "seatIds": ["seat_1", "seat_2", "seat_3"],
-      "status": "confirmed",
-      "totalAmount": 150.00,
-      "qrCode": "https://example.com/qr/booking_abc123",
-      "createdAt": "2024-01-15T10:30:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "bookingId": "booking_abc123",
+ "eventId": "event_abc123",
+ "seatIds": ["seat_1", "seat_2", "seat_3"],
+ "status": "confirmed",
+ "totalAmount": 150.00,
+ "qrCode": "https://example.com/qr/booking_abc123",
+ "createdAt": "2024-01-15T10:30:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 404 (Not Found)
 
@@ -476,26 +479,26 @@ interface Model {
 
 - **Request Body:**
 
-  ```json
-  {
-    "eventId": "event_abc123",
-    "seatIds": ["seat_1", "seat_2"]
-  }
+ ```json
+ {
+ "eventId": "event_abc123",
+ "seatIds": ["seat_1", "seat_2"]
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "lockedSeats": ["seat_1", "seat_2"],
-      "lockExpiresAt": "2024-01-15T10:35:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "lockedSeats": ["seat_1", "seat_2"],
+ "lockExpiresAt": "2024-01-15T10:35:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 409 (Seats Already Locked/Booked)
 
@@ -517,22 +520,22 @@ server/
 
 ### Booking Service
 
-```typescript
+```javascript
 class BookingService {
-  async createBooking(bookingData: BookingRequest): Promise<Booking> {
-    // Lock seats
-    // Process payment
-    // Create booking
-    // Release lock
-    // Return booking
-  }
+ async createBooking(bookingData: BookingRequest){
+ // Lock seats
+ // Process payment
+ // Create booking
+ // Release lock
+ // Return booking
+ }
 
-  async lockSeats(eventId: string, seatIds: string[]): Promise<void> {
-    // Acquire distributed lock
-    // Check seat availability
-    // Lock seats in Redis
-    // Set TTL
-  }
+ async lockSeats(eventId, seatIds[]){
+ // Acquire distributed lock
+ // Check seat availability
+ // Lock seats in Redis
+ // Set TTL
+ }
 }
 
 ```
@@ -592,148 +595,148 @@ class BookingService {
 
 **Backend (Express.js):**
 
-```typescript
+```javascript
 // Backend: services/BookingService.ts
 import redis from '../config/redis';
 import { v4 as uuidv4 } from 'uuid';
 
 class BookingService {
-  async lockSeats(eventId: string, seatIds: string[], userId: string): Promise<boolean> {
-    const lockKey = `lock:${eventId}:${seatIds.join(',')}`;
-    const lockValue = uuidv4();
-    const lockTTL = 300; // 5 minutes
+ async lockSeats(eventId, seatIds[], userId){
+ const lockKey = `lock:${eventId}:${seatIds.join(',')}`;
+ const lockValue = uuidv4();
+ const lockTTL = 300; // 5 minutes
 
-    // Try to acquire lock
-    const acquired = await redis.set(lockKey, lockValue, 'EX', lockTTL, 'NX');
+ // Try to acquire lock
+ const acquired = await redis.set(lockKey, lockValue, 'EX', lockTTL, 'NX');
 
-    if (!acquired) {
-      throw new Error('Seats already locked');
-    }
+ if (!acquired) {
+ throw new Error('Seats already locked');
+ }
 
-    // Check if seats are available
-    for (const seatId of seatIds) {
-      const seatKey = `seat:${eventId}:${seatId}`;
-      const isBooked = await redis.get(seatKey);
+ // Check if seats are available
+ for (const seatId of seatIds) {
+ const seatKey = `seat:${eventId}:${seatId}`;
+ const isBooked = await redis.get(seatKey);
 
-      if (isBooked) {
-        // Release lock
-        await redis.del(lockKey);
-        throw new Error(`Seat ${seatId} is already booked`);
-      }
-    }
+ if (isBooked) {
+ // Release lock
+ await redis.del(lockKey);
+ throw new Error(`Seat ${seatId} is already booked`);
+ }
+ }
 
-    // Lock seats
-    for (const seatId of seatIds) {
-      const seatKey = `seat:${eventId}:${seatId}`;
-      await redis.setex(seatKey, lockTTL, userId);
-    }
+ // Lock seats
+ for (const seatId of seatIds) {
+ const seatKey = `seat:${eventId}:${seatId}`;
+ await redis.setex(seatKey, lockTTL, userId);
+ }
 
-    return true;
-  }
+ return true;
+ }
 
-  async createBooking(bookingData: BookingRequest): Promise<Booking> {
-    const session = await mongoose.startSession();
-    session.startTransaction();
+ async createBooking(bookingData: BookingRequest){
+ const session = await mongoose.startSession();
+ session.startTransaction();
 
-    try {
-      // Lock seats
-      await this.lockSeats(bookingData.eventId, bookingData.seatIds, bookingData.userId);
+ try {
+ // Lock seats
+ await this.lockSeats(bookingData.eventId, bookingData.seatIds, bookingData.userId);
 
-      // Process payment
-      const payment = await paymentService.processPayment({
-        amount: bookingData.totalAmount,
-        paymentMethod: bookingData.paymentMethod
-      });
+ // Process payment
+ const payment = await paymentService.processPayment({
+ amount: bookingData.totalAmount,
+ paymentMethod: bookingData.paymentMethod
+ });
 
-      // Create booking
-      const booking = await Booking.create([{
-        eventId: bookingData.eventId,
-        seatIds: bookingData.seatIds,
-        userId: bookingData.userId,
-        status: 'confirmed',
-        totalAmount: bookingData.totalAmount,
-        paymentId: payment.paymentId
-      }], { session });
+ // Create booking
+ const booking = await Booking.create([{
+ eventId: bookingData.eventId,
+ seatIds: bookingData.seatIds,
+ userId: bookingData.userId,
+ status: 'confirmed',
+ totalAmount: bookingData.totalAmount,
+ paymentId: payment.paymentId
+ }], { session });
 
-      // Mark seats as booked
-      for (const seatId of bookingData.seatIds) {
-        await Seat.updateOne(
-          { eventId: bookingData.eventId, seatId },
-          { $set: { status: 'booked', bookingId: booking[0].bookingId } },
-          { session }
-        );
-      }
+ // Mark seats as booked
+ for (const seatId of bookingData.seatIds) {
+ await Seat.updateOne(
+ { eventId: bookingData.eventId, seatId },
+ { $set: { status: 'booked', bookingId: booking[0].bookingId } },
+ { session }
+ );
+ }
 
-      // Release lock
-      const lockKey = `lock:${bookingData.eventId}:${bookingData.seatIds.join(',')}`;
-      await redis.del(lockKey);
+ // Release lock
+ const lockKey = `lock:${bookingData.eventId}:${bookingData.seatIds.join(',')}`;
+ await redis.del(lockKey);
 
-      await session.commitTransaction();
-      return booking[0];
-    } catch (error) {
-      await session.abortTransaction();
-      throw error;
-    } finally {
-      session.endSession();
-    }
-  }
+ await session.commitTransaction();
+ return booking[0];
+ } catch (error) {
+ await session.abortTransaction();
+ throw error;
+ } finally {
+ session.endSession();
+ }
+ }
 }
 
 ```
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // React component for seat selection and booking
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 
-const SeatBooking: React.FC<{ eventId: string }> = ({ eventId }) => {
-  const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
+const SeatBooking<{ eventId}> = ({ eventId }) => {
+ const [selectedSeats, setSelectedSeats] = useState([]);
 
-  const { mutate: lockSeats, isLoading: isLocking } = useMutation({
-    mutationFn: (seatIds: string[]) =>
-      axios.post('/api/v1/seats/lock', { eventId, seatIds }),
-    onSuccess: () => {
-      // Proceed to payment
-    }
-  });
+ const { mutate: lockSeats, isLoading: isLocking } = useMutation({
+ mutationFn: (seatIds[]) =>
+ axios.post('/api/v1/seats/lock', { eventId, seatIds }),
+ onSuccess: () => {
+ // Proceed to payment
+ }
+ });
 
-  const { mutate: createBooking, isLoading: isBooking } = useMutation({
-    mutationFn: (bookingData: any) =>
-      axios.post('/api/v1/bookings', bookingData),
-    onSuccess: () => {
-      // Show success message
-    }
-  });
+ const { mutate: createBooking, isLoading: isBooking } = useMutation({
+ mutationFn: (bookingData: any) =>
+ axios.post('/api/v1/bookings', bookingData),
+ onSuccess: () => {
+ // Show success message
+ }
+ });
 
-  const handleSeatSelect = (seatId: string) => {
-    setSelectedSeats(prev => [...prev, seatId]);
-  };
+ const handleSeatSelect = (seatId) => {
+ setSelectedSeats(prev => [...prev, seatId]);
+ };
 
-  const handleBook = () => {
-    // Lock seats first
-    lockSeats(selectedSeats, {
-      onSuccess: () => {
-        // Then create booking
-        createBooking({
-          eventId,
-          seatIds: selectedSeats,
-          paymentMethod: 'card'
-        });
-      }
-    });
-  };
+ const handleBook = () => {
+ // Lock seats first
+ lockSeats(selectedSeats, {
+ onSuccess: () => {
+ // Then create booking
+ createBooking({
+ eventId,
+ seatIds: selectedSeats,
+ paymentMethod: 'card'
+ });
+ }
+ });
+ };
 
-  return (
-    <div>
-      {/* Seat map */}
-      <button onClick={handleBook} disabled={isLocking || isBooking}>
-        {isBooking ? 'Booking...' : 'Book Seats'}
-      </button>
-    </div>
-  );
+ return (
+ <div>
+ {/* Seat map */}
+ <button onClick={handleBook} disabled={isLocking || isBooking}>
+ {isBooking ? 'Booking...' : 'Book Seats'}
+ </button>
+ </div>
+ );
 };
 
 ```
@@ -745,44 +748,44 @@ const SeatBooking: React.FC<{ eventId: string }> = ({ eventId }) => {
 
 **Backend (Express.js):**
 
-```typescript
+```javascript
 // Backend: middleware/errorHandler.ts
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error('Booking Error:', err);
+ console.error('Booking Error:', err);
 
-  if (err.message === 'Seats already locked' || err.message.includes('already booked')) {
-    return res.status(409).json({ error: 'Seats are no longer available. Please select different seats.' });
-  }
+ if (err.message === 'Seats already locked' || err.message.includes('already booked')) {
+ return res.status(409).json({ error: 'Seats are no longer available. Please select different seats.' });
+ }
 
-  if (err.message === 'Payment failed') {
-    return res.status(402).json({ error: 'Payment failed. Please try again.' });
-  }
+ if (err.message === 'Payment failed') {
+ return res.status(402).json({ error: 'Payment failed. Please try again.' });
+ }
 
-  if (err.name === 'ValidationError') {
-    return res.status(400).json({ error: 'Invalid booking data', details: err.message });
-  }
+ if (err.name === 'ValidationError') {
+ return res.status(400).json({ error: 'Invalid booking data', details: err.message });
+ }
 
-  res.status(500).json({ error: 'Internal server error' });
+ res.status(500).json({ error: 'Internal server error' });
 };
 
 ```
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // React error handling
 axios.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 409) {
-      toast.error('Seats are no longer available. Please select different seats.');
-    } else if (error.response?.status === 402) {
-      toast.error('Payment failed. Please try again.');
-    } else {
-      toast.error('Booking failed. Please try again.');
-    }
-    return Promise.reject(error);
-  }
+ (response) => response,
+ (error) => {
+ if (error.response?.status === 409) {
+ toast.error('Seats are no longer available. Please select different seats.');
+ } else if (error.response?.status === 402) {
+ toast.error('Payment failed. Please try again.');
+ } else {
+ toast.error('Booking failed. Please try again.');
+ }
+ return Promise.reject(error);
+ }
 );
 
 ```
@@ -1028,19 +1031,19 @@ SEAT_LOCK_TTL=300
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await Booking.create([bookingData], { session });
-  await Seat.updateOne({ seatId }, { $set: { status: 'booked' } }, { session });
-  await Payment.create([paymentData], { session });
-  await session.commitTransaction();
+ await Booking.create([bookingData], { session });
+ await Seat.updateOne({ seatId }, { $set: { status: 'booked' } }, { session });
+ await Payment.create([paymentData], { session });
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -1218,49 +1221,49 @@ try {
 
 **Implementation:**
 
-```typescript
+```javascript
 import redis from 'redis';
 import { v4 as uuidv4 } from 'uuid';
 
 class DistributedLock {
-  private client: redis.RedisClient;
-  private lockValue: string;
+ private client: redis.RedisClient;
+ private lockValue;
 
-  constructor(client: redis.RedisClient) {
-    this.client = client;
-    this.lockValue = uuidv4();
-  }
+ constructor(client: redis.RedisClient) {
+ this.client = client;
+ this.lockValue = uuidv4();
+ }
 
-  async acquireLock(key: string, ttl: number = 300): Promise<boolean> {
-    const result = await this.client.set(key, this.lockValue, 'EX', ttl, 'NX');
-    return result === 'OK';
-  }
+ async acquireLock(key, ttl= 300){
+ const result = await this.client.set(key, this.lockValue, 'EX', ttl, 'NX');
+ return result === 'OK';
+ }
 
-  async releaseLock(key: string): Promise<boolean> {
-    const script = `
-      if redis.call("get", KEYS[1]) == ARGV[1] then
-        return redis.call("del", KEYS[1])
-      else
-        return 0
-      end
-    `;
+ async releaseLock(key){
+ const script = `
+ if redis.call("get", KEYS[1]) == ARGV[1] then
+ return redis.call("del", KEYS[1])
+ else
+ return 0
+ end
+ `;
 
-    const result = await this.client.eval(script, 1, key, this.lockValue);
-    return result === 1;
-  }
+ const result = await this.client.eval(script, 1, key, this.lockValue);
+ return result === 1;
+ }
 
-  async extendLock(key: string, ttl: number): Promise<boolean> {
-    const script = `
-      if redis.call("get", KEYS[1]) == ARGV[1] then
-        return redis.call("expire", KEYS[1], ARGV[2])
-      else
-        return 0
-      end
-    `;
+ async extendLock(key, ttl){
+ const script = `
+ if redis.call("get", KEYS[1]) == ARGV[1] then
+ return redis.call("expire", KEYS[1], ARGV[2])
+ else
+ return 0
+ end
+ `;
 
-    const result = await this.client.eval(script, 1, key, this.lockValue, ttl);
-    return result === 1;
-  }
+ const result = await this.client.eval(script, 1, key, this.lockValue, ttl);
+ return result === 1;
+ }
 }
 
 ```
@@ -1286,39 +1289,39 @@ class DistributedLock {
 
 **Implementation:**
 
-```typescript
-async function bookSeatOptimistic(seatId: string, userId: string): Promise<boolean> {
-  const maxRetries = 3;
-  let retries = 0;
+```javascript
+async function bookSeatOptimistic(seatId, userId){
+ const maxRetries = 3;
+ let retries = 0;
 
-  while (retries < maxRetries) {
-    const seat = await Seat.findById(seatId);
+ while (retries < maxRetries) {
+ const seat = await Seat.findById(seatId);
 
-    if (seat.status !== 'available') {
-      return false;
-    }
+ if (seat.status !== 'available') {
+ return false;
+ }
 
-    const result = await Seat.updateOne(
-      {
-        _id: seatId,
-        version: seat.version,  // Only update if version matches
-        status: 'available'
-      },
-      {
-        $set: { status: 'booked', userId },
-        $inc: { version: 1 }  // Increment version
-      }
-    );
+ const result = await Seat.updateOne(
+ {
+ _id: seatId,
+ version: seat.version, // Only update if version matches
+ status: 'available'
+ },
+ {
+ $set: { status: 'booked', userId },
+ $inc: { version: 1 } // Increment version
+ }
+ );
 
-    if (result.modifiedCount === 1) {
-      return true;  // Success
-    }
+ if (result.modifiedCount === 1) {
+ return true; // Success
+ }
 
-    retries++;
-    await sleep(100 * retries);  // Exponential backoff
-  }
+ retries++;
+ await sleep(100 * retries); // Exponential backoff
+ }
 
-  return false;  // Failed after retries
+ return false; // Failed after retries
 }
 
 ```
@@ -1337,22 +1340,22 @@ async function bookSeatOptimistic(seatId: string, userId: string): Promise<boole
 
 ```javascript
 {
-  _id: ObjectId,
-  bookingId: String,        // Unique booking ID, indexed
-  eventId: ObjectId,        // Event reference, indexed
-  showtimeId: ObjectId,     // Showtime reference, indexed
-  userId: ObjectId,         // User reference, indexed
-  seatIds: [String],       // Array of seat IDs
-  status: String,           // pending, confirmed, cancelled, refunded
-  totalAmount: Number,      // Total booking amount
-  paymentId: String,         // Payment gateway transaction ID
-  paymentMethod: String,    // card, upi, wallet
-  bookingDate: Date,        // Booking creation date, indexed
-  showDate: Date,           // Show date
-  showTime: String,         // Show time
-  qrCode: String,           // QR code URL for ticket
-  createdAt: Date,         // Created timestamp, indexed
-  updatedAt: Date          // Updated timestamp
+ _id: ObjectId,
+ bookingId: String, // Unique booking ID, indexed
+ eventId: ObjectId, // Event reference, indexed
+ showtimeId: ObjectId, // Showtime reference, indexed
+ userId: ObjectId, // User reference, indexed
+ seatIds: [String], // Array of seat IDs
+ status: String, // pending, confirmed, cancelled, refunded
+ totalAmount: Number, // Total booking amount
+ paymentId: String, // Payment gateway transaction ID
+ paymentMethod: String, // card, upi, wallet
+ bookingDate, // Booking creation date, indexed
+ showDate, // Show date
+ showTime: String, // Show time
+ qrCode: String, // QR code URL for ticket
+ createdAt, // Created timestamp, indexed
+ updatedAt// Updated timestamp
 }
 
 // Indexes:
@@ -1367,22 +1370,21 @@ async function bookSeatOptimistic(seatId: string, userId: string): Promise<boole
 
 ```javascript
 {
-  _id: ObjectId,
-  seatId: String,          // Unique seat ID, indexed
-  eventId: ObjectId,        // Event reference, indexed
-  showtimeId: ObjectId,     // Showtime reference, indexed
-  row: String,             // Seat row (A, B, C, etc.)
-  number: String,          // Seat number (1, 2, 3, etc.)
-  status: String,          // available, locked, booked, unavailable
-  price: Number,           // Seat price
-  category: String,        // premium, standard, economy
-  lockedBy: ObjectId,      // User ID who locked seat (if locked)
-  lockedUntil: Date,       // Lock expiration time
-  bookingId: ObjectId,     // Booking reference (if booked)
-  version: Number,         // Version number for optimistic locking
-  createdAt: Date,
-  updatedAt: Date
-}
+ _id: ObjectId,
+ seatId: String, // Unique seat ID, indexed
+ eventId: ObjectId, // Event reference, indexed
+ showtimeId: ObjectId, // Showtime reference, indexed
+ row: String, // Seat row (A, B, C, etc.)
+ number: String, // Seat number (1, 2, 3, etc.)
+ status: String, // available, locked, booked, unavailable
+ price: Number, // Seat price
+ category: String, // premium, standard, economy
+ lockedBy: ObjectId, // User ID who locked seat (if locked)
+ lockedUntil, // Lock expiration time
+ bookingId: ObjectId, // Booking reference (if booked)
+ version: Number, // Version number for optimistic locking
+ createdAt,
+ updatedAt}
 
 // Indexes:
 // - { seatId: 1, showtimeId: 1 } (compound, unique)
@@ -1396,20 +1398,19 @@ async function bookSeatOptimistic(seatId: string, userId: string): Promise<boole
 
 ```javascript
 {
-  _id: ObjectId,
-  eventId: String,         // Unique event ID, indexed
-  title: String,           // Event title
-  description: String,      // Event description
-  category: String,        // movie, concert, sports, theater
-  venue: String,           // Venue name
-  venueAddress: String,    // Venue address
-  imageUrl: String,        // Event image URL
-  startDate: Date,         // Event start date, indexed
-  endDate: Date,           // Event end date
-  status: String,          // upcoming, live, completed
-  createdAt: Date,
-  updatedAt: Date
-}
+ _id: ObjectId,
+ eventId: String, // Unique event ID, indexed
+ title: String, // Event title
+ description: String, // Event description
+ category: String, // movie, concert, sports, theater
+ venue: String, // Venue name
+ venueAddress: String, // Venue address
+ imageUrl: String, // Event image URL
+ startDate, // Event start date, indexed
+ endDate, // Event end date
+ status: String, // upcoming, live, completed
+ createdAt,
+ updatedAt}
 
 // Indexes:
 // - { eventId: 1 } (unique)
@@ -1432,32 +1433,32 @@ async function bookSeatOptimistic(seatId: string, userId: string): Promise<boole
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  // Create booking
-  const booking = await Booking.create([bookingData], { session });
+ // Create booking
+ const booking = await Booking.create([bookingData], { session });
 
-  // Update seats
-  for (const seatId of bookingData.seatIds) {
-    await Seat.updateOne(
-      { seatId, showtimeId: bookingData.showtimeId },
-      { $set: { status: 'booked', bookingId: booking[0]._id } },
-      { session }
-    );
-  }
+ // Update seats
+ for (const seatId of bookingData.seatIds) {
+ await Seat.updateOne(
+ { seatId, showtimeId: bookingData.showtimeId },
+ { $set: { status: 'booked', bookingId: booking[0]._id } },
+ { session }
+ );
+ }
 
-  // Create payment record
-  await Payment.create([paymentData], { session });
+ // Create payment record
+ await Payment.create([paymentData], { session });
 
-  await session.commitTransaction();
-  return booking[0];
+ await session.commitTransaction();
+ return booking[0];
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -1487,10 +1488,10 @@ try {
 
 - **Protocol:** WebSocket (via Socket.io)
 - **Events:**
-  - `lock-seat` - Lock seat for user
-  - `release-seat` - Release seat lock
-  - `seat-status-update` - Broadcast seat status changes
-  - `booking-update` - Broadcast booking status updates
+ - `lock-seat` - Lock seat for user
+ - `release-seat` - Release seat lock
+ - `seat-status-update` - Broadcast seat status changes
+ - `booking-update` - Broadcast booking status updates
 - **Use Case:** Real-time seat availability updates
 
 ---
@@ -1504,38 +1505,38 @@ try {
 - **Description:** Create a new booking
 - **Request Body:**
 
-  ```json
-  {
-    "eventId": "event_abc123",
-    "showtimeId": "showtime_xyz789",
-    "seatIds": ["seat_1", "seat_2", "seat_3"],
-    "paymentMethod": "card",
-    "customerInfo": {
-      "name": "John Doe",
-      "email": "john@example.com",
-      "phone": "+1234567890"
-    }
-  }
+ ```json
+ {
+ "eventId": "event_abc123",
+ "showtimeId": "showtime_xyz789",
+ "seatIds": ["seat_1", "seat_2", "seat_3"],
+ "paymentMethod": "card",
+ "customerInfo": {
+ "name": "John Doe",
+ "email": "john@example.com",
+ "phone": "+1234567890"
+ }
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "bookingId": "booking_abc123",
-      "eventId": "event_abc123",
-      "seatIds": ["seat_1", "seat_2", "seat_3"],
-      "status": "confirmed",
-      "totalAmount": 150.00,
-      "qrCode": "https://example.com/qr/booking_abc123",
-      "createdAt": "2024-01-15T10:30:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "bookingId": "booking_abc123",
+ "eventId": "event_abc123",
+ "seatIds": ["seat_1", "seat_2", "seat_3"],
+ "status": "confirmed",
+ "totalAmount": 150.00,
+ "qrCode": "https://example.com/qr/booking_abc123",
+ "createdAt": "2024-01-15T10:30:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error), 409 (Seats Already Booked), 402 (Payment Failed)
 
@@ -1546,33 +1547,33 @@ try {
 - **Description:** Get seat map with availability for a showtime
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "showtimeId": "showtime_xyz789",
-      "seats": [
-        {
-          "seatId": "seat_1",
-          "row": "A",
-          "number": "1",
-          "status": "available",
-          "price": 50.00,
-          "category": "premium"
-        },
-        {
-          "seatId": "seat_2",
-          "row": "A",
-          "number": "2",
-          "status": "booked",
-          "price": 50.00,
-          "category": "premium"
-        }
-      ]
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "showtimeId": "showtime_xyz789",
+ "seats": [
+ {
+ "seatId": "seat_1",
+ "row": "A",
+ "number": "1",
+ "status": "available",
+ "price": 50.00,
+ "category": "premium"
+ },
+ {
+ "seatId": "seat_2",
+ "row": "A",
+ "number": "2",
+ "status": "booked",
+ "price": 50.00,
+ "category": "premium"
+ }
+ ]
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 404 (Showtime Not Found)
 
@@ -1583,26 +1584,26 @@ try {
 - **Description:** Lock seats temporarily during booking process
 - **Request Body:**
 
-  ```json
-  {
-    "showtimeId": "showtime_xyz789",
-    "seatIds": ["seat_1", "seat_2"]
-  }
+ ```json
+ {
+ "showtimeId": "showtime_xyz789",
+ "seatIds": ["seat_1", "seat_2"]
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "lockedSeats": ["seat_1", "seat_2"],
-      "lockExpiresAt": "2024-01-15T10:35:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "lockedSeats": ["seat_1", "seat_2"],
+ "lockExpiresAt": "2024-01-15T10:35:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 409 (Seats Already Locked/Booked)
 
@@ -1617,9 +1618,9 @@ try {
 - **Key Format:** `seat:availability:{showtimeId}`, `lock:seat:{seatId}`, `booking:{bookingId}`
 - **Value:** Serialized JSON (seat map, booking data)
 - **TTL:**
-  - Seat availability: 30 seconds (frequently updated)
-  - Seat locks: 300 seconds (5 minutes)
-  - Booking data: 3600 seconds (1 hour)
+ - Seat availability: 30 seconds (frequently updated)
+ - Seat locks: 300 seconds (5 minutes)
+ - Booking data: 3600 seconds (1 hour)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
@@ -1654,12 +1655,12 @@ try {
 
 ```json
 {
-  "error": {
-    "code": "SEAT_ALREADY_BOOKED",
-    "message": "Seat is already booked",
-    "details": "Seat seat_1 is no longer available. Please select different seats.",
-    "availableSeats": ["seat_3", "seat_4"]
-  }
+ "error": {
+ "code": "SEAT_ALREADY_BOOKED",
+ "message": "Seat is already booked",
+ "details": "Seat seat_1 is no longer available. Please select different seats.",
+ "availableSeats": ["seat_3", "seat_4"]
+ }
 }
 
 ```

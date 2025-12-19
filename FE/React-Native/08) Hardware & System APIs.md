@@ -369,22 +369,34 @@ Integrate platform-specific APIs like Camera, Location, Contacts using native mo
 Example:
 
 ```jsx
-// Camera integration
-import { RNCamera } from 'react-native-camera';
+// Camera integration - react-native-vision-camera (recommended)
+import { Camera, useCameraDevice } from 'react-native-vision-camera';
+import { useRef } from 'react';
 
 function CameraComponent() {
-  const takePicture = async (camera) => {
-    const options = { quality: 0.5, base64: true };
-    const data = await camera.takePictureAsync(options);
-    return data.uri;
+  const device = useCameraDevice('back');
+  const camera = useRef<Camera>(null);
+
+  const takePicture = async () => {
+    if (camera.current) {
+      const photo = await camera.current.takePhoto({
+        qualityPrioritization: 'speed',
+        flash: 'off'
+      });
+      return photo.path;
+    }
   };
 
+  if (!device) return null;
+
   return (
-    <RNCamera style={{ flex: 1 }} type={RNCamera.Constants.Type.back}>
-      {({ camera }) => (
-        <Button title="Take Picture" onPress={() => takePicture(camera)} />
-      )}
-    </RNCamera>
+    <Camera
+      ref={camera}
+      device={device}
+      isActive={true}
+      photo={true}
+      style={{ flex: 1 }}
+    />
   );
 }
 

@@ -16,13 +16,13 @@
 
 ---
 
-## Q1. 💡 How the Web Works
+## 1. 💡 How the Web Works
 
 When a user types a URL into a browser and presses Enter, a series of steps happen behind the scenes. The entire process can be broken down into **6 major stages**:
 
 ---
 
-## 1. 💡 Entering the URL (Understanding URLs)
+### 🔹 💡 Entering the URL (Understanding URLs)
 
 When you type a URL into your browser, you're giving it instructions on where to go and what to ask for. A URL (Uniform Resource Locator) is like a complete address that tells the browser everything it needs to know.
 
@@ -86,7 +86,7 @@ https://www.example.com/products?id=10
 
 ---
 
-## 2. 🌍 DNS Lookup (Finding the Server's IP Address)
+### 🔹 🌍 DNS Lookup (Finding the Server's IP Address)
 
 Computers don't understand domain names; you need **IP addresses** to connect to servers. DNS (Domain Name System) is like a phone book that translates human-readable domain names into IP addresses that computers can use.
 
@@ -119,7 +119,7 @@ When you type a domain name, your browser goes through these steps to find the I
 
 ---
 
-## 3. 📡 Establishing a Connection (TCP Handshake + TLS Handshake)
+### 🔹 📡 Establishing a Connection (TCP Handshake + TLS Handshake)
 
 Once the IP address is known, the browser needs to establish a connection with the server. This happens in two stages: first TCP (for a reliable connection), then TLS (for encryption if you're using HTTPS).
 
@@ -149,7 +149,7 @@ If you're using HTTPS (secure HTTP), after the TCP connection is established, yo
 
 ---
 
-## 4. 🌐 Browser Sends HTTP Request
+### 🔹 🌐 Browser Sends HTTP Request
 
 After the connection is ready (TCP and TLS handshakes complete), the browser sends an **HTTP request** to the server. This request tells the server exactly what you want.
 
@@ -201,7 +201,7 @@ Accept: text/html
 
 ---
 
-## 5. 🖥️ Server Processes the Request
+### 🔹 🖥️ Server Processes the Request
 
 Once the server receives your HTTP request, it needs to process it and generate a response. Here's what happens on the server side:
 
@@ -265,7 +265,7 @@ Set-Cookie: session=abc123
 
 ---
 
-## 6. 💡 Browser Receives the Response and Renders the Page
+### 🔹 💡 Browser Receives the Response and Renders the Page
 
 Once the browser receives the HTTP response, it needs to turn that HTML, CSS, and JavaScript into a visual webpage you can see and interact with. This rendering process happens in several stages:
 

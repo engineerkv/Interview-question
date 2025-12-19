@@ -97,93 +97,29 @@ Design and implement a time-limited content system that addresses the following 
 
 ---
 
-## d) Capacity Estimation
-
-### Throughput Requirements
-
-- **Total Users**: 1 billion users
-- **Daily Active Users (DAU)**: 500 million users per day
-- **Peak Traffic**: 3x average during peak hours (1.5 billion users per day)
-- **Content Items per Day**: 500 million content items
-- **Average Content Size**: 5 MB (images/videos)
-- **Read:Write Ratio**: 20:1 (viewing content vs creating content)
-
-**Calculations:**
-
-- **Average Writes Per Second (WPS)**: 500M content items / 86,400 seconds ≈ 5,787 WPS
-- **Peak WPS**: 5,787 × 3 = 17,361 WPS
-- **Average Reads Per Second (RPS)**: 5,787 × 20 = 115,740 RPS
-- **Peak RPS**: 115,740 × 3 = 347,220 RPS
-- **Concurrent Viewers**: 50 million concurrent content viewers
-
-### Storage Estimation
-
-**Storage per Content Item:**
-
-- Media file: 5 MB average (image/video)
-- Metadata: 1 KB (id, userId, expiration, timestamps)
-- **Total per Content Item**: 5.001 MB
-
-**Storage Requirements:**
-
-- **Content Items per Year**: 500M content items/day × 365 = 182.5 billion content items
-- **Active Content Storage**: 500M active items × 5.001 MB ≈ 2.5 PB (at any given time, assuming 24-hour expiration)
-- **User Data**: 1B users × 5 KB ≈ 5 TB
-- **View Tracking**: 500M items/day × 100 views/item × 100 bytes ≈ 5 TB/day
-- **Total Storage**: ~2.5 PB (active content) + 5 TB (users) + 5 TB/day (view tracking) ≈ 2.5 PB + 1.8 TB/year
-
-### Bandwidth Estimation
-
-- **Average Content Bandwidth**: 5 MB per content view
-- **Daily Bandwidth**: 500M items × 100 views/item × 5 MB = 250,000 TB/day
-- **Peak Bandwidth**: 250,000 TB × 3 = 750,000 TB/day during peak hours
-- **Average Bandwidth**: 250,000 TB / 86,400 seconds ≈ 2.9 PB/s
-- **Peak Bandwidth**: 2.9 PB/s × 3 ≈ 8.7 PB/s
-
-### Caching Estimation
-
-Following the **80-20 rule** where 20% of content generates 80% of traffic:
-
-- **Cache 20% of active content**: 500M × 0.2 = 100M content items
-- **Cache memory required**: 100M × 5 MB = 500 TB (CDN edge cache)
-- **Cache hit ratio**: 90% (only 10% of content requests hit origin)
-- **Requests hitting Origin**: 115,740 × 0.10 ≈ 11,574 RPS (manageable with CDN)
-
-### Infrastructure Sizing
-
-- **API Servers**: 500-1,000 instances behind load balancer, each handling 200-500 RPS
-- **Content Processing Workers**: 50-100 instances for media processing, each handling 2-5 items concurrently
-- **Expiration Workers**: 20-50 instances for content expiration and cleanup
-- **Database**: MongoDB cluster with 100-200 nodes for storage and high read/write throughput
-- **Cache Layer**: Redis cluster with 50-100 nodes for high availability and performance
-- **Storage**: AWS S3 or similar object storage for media files with lifecycle policies
-- **CDN**: CloudFront/Cloudflare with edge locations globally for content delivery
-
----
-
 ## e) Architecture Overview
 
 ```
 
 ┌─────────────┐
-│   Client    │
+│ Client │
 └──────┬──────┘
-       │
-       ▼
+ │
+ ▼
 ┌─────────────────┐
-│  Load Balancer  │
+│ Load Balancer │
 └──────┬──────────┘
-       │
-   ┌───┴───┐
-   ▼       ▼
+ │
+ ┌───┴───┐
+ ▼ ▼
 ┌──────┐ ┌──────┐
 │Server│ │Server│
 └──┬───┘ └──┬───┘
-   │        │
-   └───┬────┘
-       ▼
+ │ │
+ └───┬────┘
+ ▼
 ┌─────────────────┐
-│  Database       │
+│ Database │
 └─────────────────┘
 
 ```
@@ -210,35 +146,35 @@ Following the **80-20 rule** where 20% of content generates 80% of traffic:
 
 ### Content Service
 
-```typescript
+```javascript
 class ContentService {
-  async createContent(userId: string, mediaUrl: string, duration: number): Promise<Content> {
-    // Create content with expiration time
-    // Store in database with TTL
-    // Return content ID
-  }
+ async createContent(userId, mediaUrl, duration){
+ // Create content with expiration time
+ // Store in database with TTL
+ // Return content ID
+ }
 
-  async getContent(contentId: string): Promise<Content | null> {
-    // Check if content exists and not expired
-    // Track view
-    // Return content
-  }
+ async getContent(contentId){
+ // Check if content exists and not expired
+ // Track view
+ // Return content
+ }
 
-  async deleteExpiredContent(): Promise<void> {
-    // Background job to cleanup expired content
-  }
+ async deleteExpiredContent(){
+ // Background job to cleanup expired content
+ }
 }
 
 ```
 
 ### View Tracking Service
 
-```typescript
+```javascript
 class ViewTrackingService {
-  async trackView(contentId: string, userId: string): Promise<void> {
-    // Track who viewed the content
-    // Store in Redis for fast access
-  }
+ async trackView(contentId, userId){
+ // Track who viewed the content
+ // Store in Redis for fast access
+ }
 }
 
 ```
@@ -256,38 +192,38 @@ Think of the frontend as a tree of React components - each component handles a s
 ```
 App
 ├── Header
-│   ├── Logo
-│   ├── Navigation
-│   └── UserMenu (Profile, Settings, Sign out)
+│ ├── Logo
+│ ├── Navigation
+│ └── UserMenu (Profile, Settings, Sign out)
 ├── MainContent
-│   ├── ContentFeedPage
-│   │   ├── ContentFeed
-│   │   │   └── ContentCard
-│   │   │       ├── UserInfo
-│   │   │       ├── MediaDisplay
-│   │   │       │   ├── Image/Video
-│   │   │       │   └── ExpirationCountdown
-│   │   │       ├── ViewCount
-│   │   │       ├── ReactionButtons
-│   │   │       │   ├── LikeButton
-│   │   │       │   └── ReplyButton
-│   │   │       └── ReactionCount
-│   │   └── InfiniteScrollTrigger
-│   ├── ContentCreationPage
-│   │   ├── MediaUpload
-│   │   │   ├── FileDropzone
-│   │   │   ├── MediaPreview
-│   │   │   └── UploadProgress
-│   │   ├── DurationSelector
-│   │   │   ├── DurationOptions (1h, 6h, 12h, 24h)
-│   │   │   └── CustomDuration
-│   │   └── PublishButton
-│   └── ContentDetailPage
-│       ├── MediaDisplay
-│       ├── ExpirationCountdown
-│       ├── ViewCount
-│       ├── ReactionsList
-│       └── ReplySection
+│ ├── ContentFeedPage
+│ │ ├── ContentFeed
+│ │ │ └── ContentCard
+│ │ │ ├── UserInfo
+│ │ │ ├── MediaDisplay
+│ │ │ │ ├── Image/Video
+│ │ │ │ └── ExpirationCountdown
+│ │ │ ├── ViewCount
+│ │ │ ├── ReactionButtons
+│ │ │ │ ├── LikeButton
+│ │ │ │ └── ReplyButton
+│ │ │ └── ReactionCount
+│ │ └── InfiniteScrollTrigger
+│ ├── ContentCreationPage
+│ │ ├── MediaUpload
+│ │ │ ├── FileDropzone
+│ │ │ ├── MediaPreview
+│ │ │ └── UploadProgress
+│ │ ├── DurationSelector
+│ │ │ ├── DurationOptions (1h, 6h, 12h, 24h)
+│ │ │ └── CustomDuration
+│ │ └── PublishButton
+│ └── ContentDetailPage
+│ ├── MediaDisplay
+│ ├── ExpirationCountdown
+│ ├── ViewCount
+│ ├── ReactionsList
+│ └── ReplySection
 └── Footer
 
 ```
@@ -296,172 +232,373 @@ App
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Content Card Component
-const ContentCard: React.FC<{ content: Content }> = ({ content }) => {
-  const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining(content.expiresAt));
-  const { mutate: likeContent } = useLikeContent();
+const ContentCard<{ content: Content }> = ({ content }) => {
+ const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining(content.expiresAt));
+ const { mutate: likeContent } = useLikeContent();
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeRemaining(calculateTimeRemaining(content.expiresAt));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [content.expiresAt]);
+ useEffect(() => {
+ const interval = setInterval(() => {
+ setTimeRemaining(calculateTimeRemaining(content.expiresAt));
+ }, 1000);
+ return () => clearInterval(interval);
+ }, [content.expiresAt]);
 
-  const handleLike = () => {
-    likeContent(content.contentId);
-  };
+ const handleLike = () => {
+ likeContent(content.contentId);
+ };
 
-  return (
-    <div className="content-card">
-      <UserInfo user={content.user} />
-      <MediaDisplay
-        mediaUrl={content.mediaUrl}
-        mediaType={content.mediaType}
-      />
-      <ExpirationCountdown timeRemaining={timeRemaining} />
-      <div className="content-stats">
-        <ViewCount count={content.viewCount} />
-        <ReactionCount count={content.reactions.length} />
-      </div>
-      <ReactionButtons
-        onLike={handleLike}
-        onReply={() => navigate(`/content/${content.contentId}`)}
-      />
-    </div>
-  );
+ return (
+ <div className="content-card">
+ <UserInfo user={content.user} />
+ <MediaDisplay
+ mediaUrl={content.mediaUrl}
+ mediaType={content.mediaType}
+ />
+ <ExpirationCountdown timeRemaining={timeRemaining} />
+ <div className="content-stats">
+ <ViewCount count={content.viewCount} />
+ <ReactionCount count={content.reactions.length} />
+ </div>
+ <ReactionButtons
+ onLike={handleLike}
+ onReply={() => navigate(`/content/${content.contentId}`)}
+ />
+ </div>
+ );
 };
 
 // Content Creation Component
-const ContentCreationPage: React.FC = () => {
-  const [file, setFile] = useState<File | null>(null);
-  const [duration, setDuration] = useState(24); // hours
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const createContentMutation = useCreateContent();
+const ContentCreationPage= () => {
+ const [file, setFile] = useState(null);
+ const [duration, setDuration] = useState(24); // hours
+ const [uploadProgress, setUploadProgress] = useState(0);
+ const createContentMutation = useCreateContent();
 
-  const handleFileSelect = (selectedFile: File) => {
-    setFile(selectedFile);
-  };
+ const handleFileSelect = (selectedFile: File) => {
+ setFile(selectedFile);
+ };
 
-  const handlePublish = async () => {
-    if (!file) return;
+ const handlePublish = async () => {
+ if (!file) return;
 
-    const formData = new FormData();
-    formData.append('media', file);
-    formData.append('duration', duration.toString());
+ const formData = new FormData();
+ formData.append('media', file);
+ formData.append('duration', duration.toString());
 
-    createContentMutation.mutate(formData, {
-      onUploadProgress: (progressEvent) => {
-        const progress = Math.round(
-          (progressEvent.loaded * 100) / progressEvent.total
-        );
-        setUploadProgress(progress);
-      }
-    });
-  };
+ createContentMutation.mutate(formData, {
+ onUploadProgress: (progressEvent) => {
+ const progress = Math.round(
+ (progressEvent.loaded * 100) / progressEvent.total
+ );
+ setUploadProgress(progress);
+ }
+ });
+ };
 
-  return (
-    <div className="content-creation">
-      <MediaUpload
-        file={file}
-        onFileSelect={handleFileSelect}
-        progress={uploadProgress}
-      />
-      <DurationSelector
-        duration={duration}
-        onDurationChange={setDuration}
-      />
-      <button
-        onClick={handlePublish}
-        disabled={!file || createContentMutation.isLoading}
-      >
-        {createContentMutation.isLoading ? 'Publishing...' : 'Publish'}
-      </button>
-    </div>
-  );
+ return (
+ <div className="content-creation">
+ <MediaUpload
+ file={file}
+ onFileSelect={handleFileSelect}
+ progress={uploadProgress}
+ />
+ <DurationSelector
+ duration={duration}
+ onDurationChange={setDuration}
+ />
+ <button
+ onClick={handlePublish}
+ disabled={!file || createContentMutation.isLoading}
+ >
+ {createContentMutation.isLoading ? 'Publishing...' : 'Publish'}
+ </button>
+ </div>
+ );
 };
 
 ```
 
 ### ii) State Management
 
-**State Management Strategy:**
+**State Management Strategy (React 19):**
 
 - **Local State (useState)**: File selection, duration, UI state (loading, errors, modals)
-- **Component State**: Each component manages its own UI state
-- **API State**: React Query or SWR for server state (content feed, content details) - caching, refetching, optimistic updates
+- **Optimistic Updates (useOptimistic)**: React 19 hook for optimistic content creation and reactions
+- **Form Actions (useActionState)**: React 19 hook for content upload forms with server actions
+- **Transitions (useTransition)**: React 19 hook for expiration timer updates and non-urgent UI updates
+- **API State**: React Query for server state (content feed, content details) - caching, refetching
 - **Global State (Redux Toolkit)**: User authentication, followed users, content feed
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Using React Query for API state management
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 const useContentFeed = () => {
-  return useInfiniteQuery({
-    queryKey: ['content-feed'],
-    queryFn: async ({ pageParam = 0 }) => {
-      const response = await axios.get('/api/v1/content/feed', {
-        params: { offset: pageParam, limit: 20 }
-      });
-      return response.data;
-    },
-    getNextPageParam: (lastPage, pages) => {
-      return lastPage.hasMore ? pages.length * 20 : undefined;
-    }
-  });
+ return useInfiniteQuery({
+ queryKey: ['content-feed'],
+ queryFn: async ({ pageParam = 0 }) => {
+ const response = await axios.get('/api/v1/content/feed', {
+ params: { offset: pageParam, limit: 20 }
+ });
+ return response.data;
+ },
+ getNextPageParam: (lastPage, pages) => {
+ return lastPage.hasMore ? pages.length * 20 : undefined;
+ }
+ });
 };
 
 const useCreateContent = () => {
-  const queryClient = useQueryClient();
+ const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: async (formData: FormData) => {
-      const response = await axios.post('/api/v1/content', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        onUploadProgress: (progressEvent) => {
-          // Handle upload progress
-        }
-      });
-      return response.data;
-    },
-    onSuccess: () => {
-      // Invalidate feed to show new content
-      queryClient.invalidateQueries({ queryKey: ['content-feed'] });
-    }
-  });
+ return useMutation({
+ mutationFn: async (formData: FormData) => {
+ const response = await axios.post('/api/v1/content', formData, {
+ headers: { 'Content-Type': 'multipart/form-data' },
+ onUploadProgress: (progressEvent) => {
+ // Handle upload progress
+ }
+ });
+ return response.data;
+ },
+ onSuccess: () => {
+ // Invalidate feed to show new content
+ queryClient.invalidateQueries({ queryKey: ['content-feed'] });
+ }
+ });
 };
 
 ```
 
-### Component Interactions
+### iii) Advanced Patterns with React 19
+
+**Expiration Countdown Timer:**
+
+```javascript
+import { useState, useEffect, useTransition } from 'react';
+
+const ExpirationTimer<{ expiresAt}> = ({ expiresAt }) => {
+ const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining(expiresAt));
+ const [isPending, startTransition] = useTransition();
+
+ useEffect(() => {
+ const interval = setInterval(() => {
+ const remaining = calculateTimeRemaining(expiresAt);
+
+ startTransition(() => {
+ setTimeRemaining(remaining);
+ });
+
+ if (remaining.total <= 0) {
+ clearInterval(interval);
+ }
+ }, 1000);
+
+ return () => clearInterval(interval);
+ }, [expiresAt]);
+
+ const formatTime = (seconds) => {
+ const hours = Math.floor(seconds / 3600);
+ const minutes = Math.floor((seconds % 3600) / 60);
+ const secs = seconds % 60;
+ return `${hours}h ${minutes}m ${secs}s`;
+ };
+
+ if (timeRemaining.total <= 0) {
+ return <div className="expired">Content has expired</div>;
+ }
+
+ return (
+ <div className="expiration-timer">
+ <span className="time-remaining">
+ {formatTime(timeRemaining.total)}
+ </span>
+ <span className="label">remaining</span>
+ </div>
+ );
+};
+
+function calculateTimeRemaining(expiresAt) {
+ const now = Date.now();
+ const expires = expiresAt.getTime();
+ const total = Math.max(0, Math.floor((expires - now) / 1000));
+
+ return {
+ total,
+ hours: Math.floor(total / 3600),
+ minutes: Math.floor((total % 3600) / 60),
+ seconds: total % 60
+ };
+}
+```
+
+**Content Upload with React 19:**
+
+```javascript
+import { useActionState, useFormStatus, useTransition } from 'react';
+
+// React 19: Server Action for content upload
+async function uploadContentAction(
+ prevState: { progress?; error?},
+ formData: FormData
+) {
+ const file = formData.get('media');
+ const durationHours = parseInt(formData.get('durationHours') as string);
+
+ if (!file) {
+ return { error: 'Please select a file' };
+ }
+
+ if (durationHours < 1 || durationHours > 168) {
+ return { error: 'Duration must be between 1 and 168 hours' };
+ }
+
+ try {
+ const uploadPromise = uploadContentWithProgress(formData, (progress) => {
+ return { progress };
+ });
+
+ const result = await uploadPromise;
+ return { success: true, contentId: result.contentId };
+ } catch (error) {
+ return { error: 'Upload failed' };
+ }
+}
+
+const UploadButton= () => {
+ const { pending } = useFormStatus(); // React 19 hook
+
+ return (
+ <button type="submit" disabled={pending}>
+ {pending ? 'Uploading...' : 'Publish Content'}
+ </button>
+ );
+};
+
+const ContentUploadForm= () => {
+ const [file, setFile] = useState(null);
+ const [preview, setPreview] = useState(null);
+
+ // React 19: useActionState for upload form
+ const [state, formAction, isPending] = useActionState(uploadContentAction, {});
+
+ const handleFileSelect = (selectedFile: File) => {
+ setFile(selectedFile);
+
+ // Generate preview
+ if (selectedFile.type.startsWith('image/')) {
+ const reader = new FileReader();
+ reader.onloadend = () => setPreview(reader.result as string);
+ reader.readAsDataURL(selectedFile);
+ }
+ };
+
+ const handleSubmit = (formData: FormData) => {
+ if (file) {
+ formData.append('media', file);
+ formAction(formData);
+ }
+ };
+
+ return (
+ <form action={handleSubmit}>
+ <FileDropzone onFileSelect={handleFileSelect} />
+ {preview && <img src={preview} alt="Preview" />}
+
+ <select name="durationHours" required>
+ <option value="24">24 hours</option>
+ <option value="48">48 hours</option>
+ <option value="72">72 hours</option>
+ <option value="168">7 days</option>
+ </select>
+
+ {state.progress !== undefined && (
+ <ProgressBar progress={state.progress} />
+ )}
+ {state.error && <span className="error">{state.error}</span>}
+ {state.success && <span className="success">Content published!</span>}
+ <UploadButton />
+ </form>
+ );
+};
+```
+
+**Optimistic Reactions with React 19:**
+
+```javascript
+import { useOptimistic, useTransition } from 'react';
+
+const ReactionButton<{ contentId; initialReactions: Reaction[] }> = ({
+ contentId,
+ initialReactions
+}) => {
+ const [reactions, setReactions] = useState(initialReactions);
+ const [isPending, startTransition] = useTransition();
+
+ // React 19: useOptimistic for reactions
+ const [optimisticReactions, addOptimisticReaction] = useOptimistic(
+ reactions,
+ (state, newReaction: Reaction) => [...state, newReaction]
+ );
+
+ const handleLike = async () => {
+ const newReaction: Reaction = {
+ userId: currentUserId,
+ type: 'like',
+ createdAt: new Date()
+ };
+
+ // Optimistically add reaction
+ startTransition(() => {
+ addOptimisticReaction(newReaction);
+ });
+
+ try {
+ await addReactionAPI(contentId, 'like');
+ } catch (error) {
+ // Rollback on error
+ setReactions(reactions);
+ }
+ };
+
+ return (
+ <button onClick={handleLike} disabled={isPending}>
+ ❤️ {optimisticReactions.filter(r => r.type === 'like').length}
+ </button>
+ );
+};
+```
+
+### iv) Implementation Details
 
 **Data Flow:**
 
-1. **Content Feed** → ContentFeedPage fetches content via React Query infinite query, displays ContentCard components
-2. **Content Creation** → User uploads media, selects duration, publishes content
-3. **Expiration Countdown** → Timer updates every second, shows time remaining
-4. **Reactions** → User likes/replies, optimistically updates UI
-5. **View Tracking** → Content views tracked when content is displayed
+1. **Content Feed** → ContentFeedPage fetches content via React Query infinite query, displays ContentCard components with expiration timers
+2. **Content Creation** → User uploads media with React 19 useActionState, selects duration, publishes content
+3. **Expiration Countdown** → Timer updates every second using React 19 transitions, shows time remaining
+4. **Reactions** → User likes/replies with optimistic updates using useOptimistic
+5. **View Tracking** → Content views tracked automatically when content is displayed
 
 **Event Handling:**
 
-- Media upload tracks progress and updates UI
-- Expiration countdown updates every second
-- Like/reply actions update optimistically
-- Infinite scroll loads more content automatically
-- Real-time updates via WebSocket for new content from followed users
+- Media upload tracks progress with React 19 form actions
+- Expiration countdown updates every second with useTransition for smooth updates
+- Like/reply actions update optimistically with useOptimistic hook
+- Infinite scroll loads more content automatically with Intersection Observer
+- Real-time updates via WebSocket for new content with use() hook for promises
 
-### UI/UX Considerations
+**UI/UX Considerations:**
 
-- **Loading States**: Show skeleton loaders for content feed, progress bars for uploads
-- **Error Handling**: Display user-friendly error messages with retry options
-- **Validation**: Client-side validation for file size, type, duration
-- **Responsive Design**: Mobile-first layout, optimized for vertical scrolling
-- **Accessibility**: ARIA labels, keyboard navigation, screen reader support
-- **Performance**: Virtual scrolling for long feeds, lazy loading for media, image compression before upload
+- **Loading States**: Skeleton loaders for content feed, progress bars for uploads, loading indicators
+- **Error Handling**: User-friendly error messages with retry options, error boundaries
+- **Validation**: Client-side validation for file size, type, duration with React 19 form validation
+- **Responsive Design**: Mobile-first layout, optimized for vertical scrolling, touch-friendly interactions
+- **Accessibility**: ARIA labels, keyboard navigation, screen reader support, focus management
+- **Performance**: Virtual scrolling for long feeds, lazy loading for media, image compression before upload, React 19 transitions for smooth animations
 
 ---
 
@@ -469,28 +606,28 @@ const useCreateContent = () => {
 
 ### Content Model
 
-```typescript
-interface Content {
-  contentId: string;
-  userId: string;
-  mediaUrl: string;
-  mediaType: 'image' | 'video';
-  createdAt: Date;
-  expiresAt: Date;  // TTL index for automatic deletion
-  viewCount: number;
-  reactions: Reaction[];
-}
+```javascript
+// Content structure:
+//
+ contentId;
+ userId;
+ mediaUrl;
+ mediaType: 'image' | 'video';
+ createdAt;
+ expiresAt; // TTL index for automatic deletion
+ viewCount;
+ reactions: Reaction[];
 
 ```
 
 ### Reaction Model
 
-```typescript
-interface Reaction {
-  userId: string;
-  type: 'like' | 'reply';
-  createdAt: Date;
-}
+```javascript
+// Reaction structure:
+//
+ userId;
+ type: 'like' | 'reply';
+ createdAt;
 
 ```
 
@@ -504,29 +641,29 @@ interface Reaction {
 
 - **Request Body (multipart/form-data):**
 
-  ```json
-  {
-    "media": "file",
-    "durationHours": 24,
-    "caption": "Optional caption"
-  }
+ ```json
+ {
+ "media": "file",
+ "durationHours": 24,
+ "caption": "Optional caption"
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "contentId": "content_abc123",
-      "mediaUrl": "https://cdn.example.com/content_abc123.jpg",
-      "expiresAt": "2024-01-16T10:30:00Z",
-      "durationHours": 24
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "contentId": "content_abc123",
+ "mediaUrl": "https://cdn.example.com/content_abc123.jpg",
+ "expiresAt": "2024-01-16T10:30:00Z",
+ "durationHours": 24
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error), 401 (Unauthorized)
 
@@ -538,24 +675,24 @@ interface Reaction {
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "contentId": "content_abc123",
-      "userId": "user123",
-      "mediaUrl": "https://cdn.example.com/content_abc123.jpg",
-      "mediaType": "image",
-      "createdAt": "2024-01-15T10:30:00Z",
-      "expiresAt": "2024-01-16T10:30:00Z",
-      "viewCount": 150,
-      "reactions": [
-        { "userId": "user456", "type": "like", "createdAt": "2024-01-15T11:00:00Z" }
-      ]
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "contentId": "content_abc123",
+ "userId": "user123",
+ "mediaUrl": "https://cdn.example.com/content_abc123.jpg",
+ "mediaType": "image",
+ "createdAt": "2024-01-15T10:30:00Z",
+ "expiresAt": "2024-01-16T10:30:00Z",
+ "viewCount": 150,
+ "reactions": [
+ { "userId": "user456", "type": "like", "createdAt": "2024-01-15T11:00:00Z" }
+ ]
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 404 (Not Found), 410 (Gone - Expired)
 
@@ -566,29 +703,29 @@ interface Reaction {
 - **Method:** GET
 
 - **Query Parameters:**
-  - `limit`: number (default: 20, max: 50)
-  - `before`: contentId (for pagination)
+ - `limit`(default: 20, max: 50)
+ - `before`: contentId (for pagination)
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "content": [
-        {
-          "contentId": "content_abc123",
-          "mediaUrl": "https://cdn.example.com/content_abc123.jpg",
-          "expiresAt": "2024-01-16T10:30:00Z",
-          "viewCount": 150
-        }
-      ],
-      "hasMore": true,
-      "nextCursor": "content_xyz789"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "content": [
+ {
+ "contentId": "content_abc123",
+ "mediaUrl": "https://cdn.example.com/content_abc123.jpg",
+ "expiresAt": "2024-01-16T10:30:00Z",
+ "viewCount": 150
+ }
+ ],
+ "hasMore": true,
+ "nextCursor": "content_xyz789"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success)
 
@@ -600,102 +737,47 @@ interface Reaction {
 
 - **Request Body:**
 
-  ```json
-  {
-    "type": "like"
-  }
+ ```json
+ {
+ "type": "like"
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "reactionId": "reaction_abc123",
-      "contentId": "content_abc123",
-      "userId": "user123",
-      "type": "like",
-      "createdAt": "2024-01-15T11:00:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "reactionId": "reaction_abc123",
+ "contentId": "content_abc123",
+ "userId": "user123",
+ "type": "like",
+ "createdAt": "2024-01-15T11:00:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 201 (Created), 404 (Not Found), 410 (Gone - Expired)
 
-### iii) Implementation Details
-
-**Content Upload Implementation:**
-
-- Multipart upload to S3 with progress tracking
-- Set expiration duration and calculate expiration timestamp
-- Create content record in MongoDB with TTL index
-- Process media (resize, optimize) if needed
-- Return content ID and CDN URL
-
-**Content Viewing Implementation:**
-
-- Check if content exists and not expired (TTL check)
-- Track view in Redis and database
-- Serve content from CDN with expiration countdown
-- Handle expired content gracefully
-
-**Expiration Timer Implementation:**
-
-- Real-time countdown timer showing time remaining
-- Update timer every second
-- Hide/disable content when expired
-- Show expiration message
-
----
-
 ## b) Backend
 
-### i) Services
+*Note: Backend implementation details are kept minimal. Focus is on frontend integration.*
 
-**Content Service:**
+**API Endpoints Reference:**
 
-```typescript
-export class ContentService {
-  async createContent(userId: string, mediaFile: File, durationHours: number): Promise<Content> {
-    // Upload media to S3
-    const mediaKey = `content/${userId}/${Date.now()}-${mediaFile.name}`;
-    await this.s3Client.upload(mediaFile, mediaKey);
+- `POST /api/v1/content` - Create time-limited content
+- `GET /api/v1/content/:contentId` - Get content details
+- `GET /api/v1/content/user/:userId` - Get user's content
+- `GET /api/v1/content/feed` - Get content feed
+- `POST /api/v1/content/:contentId/reactions` - Add reaction
 
-    // Calculate expiration time
-    const expiresAt = new Date(Date.now() + durationHours * 60 * 60 * 1000);
+**WebSocket Events:**
 
-    // Create content record with TTL
-    const content = await Content.create({
-      userId,
-      mediaUrl: this.getCDNUrl(mediaKey),
-      expiresAt,
-      viewCount: 0,
-      reactions: []
-    });
-
-    // Set TTL in Redis for fast expiration check
-    await redis.setex(`content:${content.contentId}`, durationHours * 3600, 'active');
-
-    return content;
-  }
-
-  async getContent(contentId: string) {
-    // Check Redis first
-    const exists = await redis.exists(`content:${contentId}`);
-    if (!exists) {
-      throw new Error('Content expired or not found');
-    }
-
-    // Query database
-    const content = await ContentModel.findOne({ contentId, expiresAt: { $gt: new Date() } });
-    return content;
-  }
-}
-
-```
+- `content:new` - New content from followed users
+- `content:expired` - Content expiration notification
 
 ---
 
@@ -985,18 +1067,18 @@ CDN_URL=https://cdn.example.com
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await Content.create([contentData], { session });
-  await User.updateOne({ userId }, { $inc: { contentCount: 1 } }, { session });
-  await session.commitTransaction();
+ await Content.create([contentData], { session });
+ await User.updateOne({ userId }, { $inc: { contentCount: 1 } }, { session });
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -1053,27 +1135,27 @@ try {
 
 **Implementation:**
 
-```typescript
-async function isContentExpired(contentId: string): Promise<boolean> {
-  // Check Redis cache first
-  const cached = await redis.get(`content:expired:${contentId}`);
-  if (cached !== null) {
-    return cached === 'true';
-  }
+```javascript
+async function isContentExpired(contentId){
+ // Check Redis cache first
+ const cached = await redis.get(`content:expired:${contentId}`);
+ if (cached !== null) {
+ return cached === 'true';
+ }
 
-  // Check database
-  const content = await Content.findById(contentId);
-  if (!content) {
-    return true; // Content doesn't exist
-  }
+ // Check database
+ const content = await Content.findById(contentId);
+ if (!content) {
+ return true; // Content doesn't exist
+ }
 
-  const isExpired = content.expiresAt < new Date();
+ const isExpired = content.expiresAt < new Date();
 
-  // Cache result
-  const ttl = Math.max(0, Math.floor((content.expiresAt.getTime() - Date.now()) / 1000));
-  await redis.setex(`content:expired:${contentId}`, ttl, isExpired ? 'true' : 'false');
+ // Cache result
+ const ttl = Math.max(0, Math.floor((content.expiresAt.getTime() - Date.now()) / 1000));
+ await redis.setex(`content:expired:${contentId}`, ttl, isExpired ? 'true' : 'false');
 
-  return isExpired;
+ return isExpired;
 }
 
 ```
@@ -1099,29 +1181,29 @@ async function isContentExpired(contentId: string): Promise<boolean> {
 
 **Implementation:**
 
-```typescript
-async function trackView(contentId: string, userId: string): Promise<void> {
-  const viewKey = `content:views:${contentId}`;
+```javascript
+async function trackView(contentId, userId){
+ const viewKey = `content:views:${contentId}`;
 
-  // Check if user already viewed
-  const hasViewed = await redis.sismember(viewKey, userId);
-  if (hasViewed) {
-    return; // Already viewed
-  }
+ // Check if user already viewed
+ const hasViewed = await redis.sismember(viewKey, userId);
+ if (hasViewed) {
+ return; // Already viewed
+ }
 
-  // Add user to viewed set
-  await redis.sadd(viewKey, userId);
+ // Add user to viewed set
+ await redis.sadd(viewKey, userId);
 
-  // Get expiration TTL
-  const content = await Content.findById(contentId);
-  const ttl = Math.max(0, Math.floor((content.expiresAt.getTime() - Date.now()) / 1000));
-  await redis.expire(viewKey, ttl);
+ // Get expiration TTL
+ const content = await Content.findById(contentId);
+ const ttl = Math.max(0, Math.floor((content.expiresAt.getTime() - Date.now()) / 1000));
+ await redis.expire(viewKey, ttl);
 
-  // Increment view count
-  await redis.incr(`content:viewcount:${contentId}`);
+ // Increment view count
+ await redis.incr(`content:viewcount:${contentId}`);
 
-  // Store view record asynchronously
-  await View.create({ contentId, userId, viewedAt: new Date() });
+ // Store view record asynchronously
+ await View.create({ contentId, userId, viewedAt: new Date() });
 }
 
 ```
@@ -1140,20 +1222,20 @@ async function trackView(contentId: string, userId: string): Promise<void> {
 
 ```javascript
 {
-  _id: ObjectId,
-  contentId: String,        // Unique content ID, indexed
-  userId: ObjectId,         // Creator reference, indexed
-  type: String,            // image, video, story
-  mediaUrl: String,        // CDN URL for media
-  thumbnailUrl: String,    // Thumbnail URL
-  caption: String,         // Content caption
-  duration: Number,        // Expiration duration in hours
-  expiresAt: Date,         // Expiration timestamp, indexed (TTL)
-  views: Number,           // View count
-  likes: Number,           // Like count
-  replies: Number,         // Reply count
-  createdAt: Date,         // Created timestamp, indexed
-  updatedAt: Date          // Updated timestamp
+ _id: ObjectId,
+ contentId: String, // Unique content ID, indexed
+ userId: ObjectId, // Creator reference, indexed
+ type: String, // image, video, story
+ mediaUrl: String, // CDN URL for media
+ thumbnailUrl: String, // Thumbnail URL
+ caption: String, // Content caption
+ duration: Number, // Expiration duration in hours
+ expiresAt, // Expiration timestamp, indexed (TTL)
+ views: Number, // View count
+ likes: Number, // Like count
+ replies: Number, // Reply count
+ createdAt, // Created timestamp, indexed
+ updatedAt// Updated timestamp
 }
 
 // Indexes:
@@ -1168,11 +1250,11 @@ async function trackView(contentId: string, userId: string): Promise<void> {
 
 ```javascript
 {
-  _id: ObjectId,
-  contentId: ObjectId,      // Content reference, indexed
-  userId: ObjectId,         // Viewer reference, indexed
-  viewedAt: Date,          // View timestamp, indexed
-  createdAt: Date          // Created timestamp
+ _id: ObjectId,
+ contentId: ObjectId, // Content reference, indexed
+ userId: ObjectId, // Viewer reference, indexed
+ viewedAt, // View timestamp, indexed
+ createdAt// Created timestamp
 }
 
 // Indexes:
@@ -1195,18 +1277,18 @@ async function trackView(contentId: string, userId: string): Promise<void> {
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await Content.create([contentData], { session });
-  await User.updateOne({ userId }, { $inc: { contentCount: 1 } }, { session });
-  await session.commitTransaction();
+ await Content.create([contentData], { session });
+ await User.updateOne({ userId }, { $inc: { contentCount: 1 } }, { session });
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -1243,29 +1325,29 @@ try {
 - **Description:** Create time-limited content
 - **Request Body:**
 
-  ```json
-  {
-    "type": "image",
-    "mediaUrl": "https://cdn.example.com/media/...",
-    "caption": "My story",
-    "duration": 24
-  }
+ ```json
+ {
+ "type": "image",
+ "mediaUrl": "https://cdn.example.com/media/...",
+ "caption": "My story",
+ "duration": 24
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "contentId": "content_abc123",
-      "expiresAt": "2024-01-16T10:30:00Z",
-      "createdAt": "2024-01-15T10:30:00Z"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "contentId": "content_abc123",
+ "expiresAt": "2024-01-16T10:30:00Z",
+ "createdAt": "2024-01-15T10:30:00Z"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error)
 
@@ -1276,20 +1358,20 @@ try {
 - **Description:** Get content (if not expired)
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "contentId": "content_abc123",
-      "type": "image",
-      "mediaUrl": "https://cdn.example.com/media/...",
-      "expiresAt": "2024-01-16T10:30:00Z",
-      "views": 1250,
-      "likes": 45
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "contentId": "content_abc123",
+ "type": "image",
+ "mediaUrl": "https://cdn.example.com/media/...",
+ "expiresAt": "2024-01-16T10:30:00Z",
+ "views": 1250,
+ "likes": 45
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 404 (Content Expired or Not Found)
 
@@ -1304,9 +1386,9 @@ try {
 - **Key Format:** `content:{contentId}`, `content:expired:{contentId}`, `content:views:{contentId}`
 - **Value:** Serialized JSON (content metadata, expiration status, view set)
 - **TTL:**
-  - Content metadata: Until expiration
-  - Expiration status: Until expiration
-  - View set: Until expiration
+ - Content metadata: Until expiration
+ - Expiration status: Until expiration
+ - View set: Until expiration
 - **Eviction Policy:** TTL-based eviction
 
 **Cache Patterns:**
@@ -1333,11 +1415,11 @@ try {
 
 ```json
 {
-  "error": {
-    "code": "CONTENT_EXPIRED",
-    "message": "Content has expired",
-    "details": "This content expired on 2024-01-16T10:30:00Z"
-  }
+ "error": {
+ "code": "CONTENT_EXPIRED",
+ "message": "Content has expired",
+ "details": "This content expired on 2024-01-16T10:30:00Z"
+ }
 }
 
 ```

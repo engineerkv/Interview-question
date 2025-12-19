@@ -16,13 +16,13 @@
 
 ---
 
-## Q18. ⚛️ How React.js Works Internally
+## 1. ⚛️ How React.js Works Internally
 
 React is a library for building user interfaces. Understanding how React works under the hood helps you write better code, debug tricky issues, and optimize performance. When you use React, it handles Virtual DOM, reconciliation, Fiber architecture, hooks, state management, event system, and performance optimizations behind the scenes. This knowledge is crucial for senior developers - it helps you understand why certain patterns work better, how to optimize React applications, and how to debug complex issues.
 
 ---
 
-## 1. ⚛️ React Architecture
+### 🔹 ⚛️ React Architecture
 
 ### 🔹 Core Concepts
 
@@ -187,7 +187,7 @@ function Greeting({ name }) {
 
 ---
 
-## 2. 👻 Virtual DOM & Reconciliation
+### 🔹 👻 Virtual DOM & Reconciliation
 
 ### 🔹 Virtual DOM
 
@@ -401,7 +401,7 @@ React's diffing algorithm is how React determines what changed between renders. 
 
 ---
 
-## 3. 🧩 Component Lifecycle & Hooks
+### 🔹 🧩 Component Lifecycle & Hooks
 
 ### 🔹 Class Component Lifecycle
 
@@ -778,11 +778,14 @@ function Component({ condition }) {
 
 ---
 
-## 4. 💡 Fiber Architecture
+### 🔹 💡 Fiber Architecture
+
+Fiber Architecture is React’s new reconciliation engine introduced in React 16 that allows React to break rendering work into small units, pause, resume, and prioritize updates, and keep the UI smooth and responsive.
 
 ### 🔹 Fiber Node
 
-Fiber is React's reconciliation engine introduced in React 16. It's a complete rewrite of React's core algorithm that enables concurrent features and better performance.
+A Fiber Node is the basic unit of work in React Fiber architecture.
+It represents one React component (or element) and stores everything React needs to manage rendering, updates, and scheduling for that component.
 
 **What is a Fiber Node:**
 
@@ -828,6 +831,8 @@ Fiber is React's reconciliation engine introduced in React 16. It's a complete r
 * Foundation for concurrent features (React 18+)
 
 ### 🔹 Fiber Tree
+
+The Fiber Tree is a tree of Fiber Nodes that represents the entire React component hierarchy, including each component’s state, props, effects, and priority.
 
 React maintains two fiber trees simultaneously. This is a double buffering technique that enables concurrent rendering.
 
@@ -1011,7 +1016,7 @@ Fiber work happens in two distinct phases. Understanding these phases helps you 
 
 ---
 
-## 5. 📦 State Management & Updates
+### 🔹 📦 State Management & Updates
 
 ### 🔹 State Updates
 
@@ -1113,7 +1118,7 @@ function handleClick() {
 
 ---
 
-## 6. 🎯 Event System
+### 🔹 🎯 Event System
 
 ### 🔹 SyntheticEvent
 
@@ -1264,7 +1269,7 @@ You can write event handlers in different ways:
 
 ---
 
-## 7. 🎨 Rendering & Batching
+### 🔹 🎨 Rendering & Batching
 
 ### 🔹 Rendering Process
 
@@ -1429,7 +1434,7 @@ const handleClick = useCallback(() => {
 
 ---
 
-## 8. ⚡ Performance Optimizations
+### 🔹 ⚡ Performance Optimizations
 
 ### 🔹 Code Splitting
 

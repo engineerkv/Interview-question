@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[Native Modules & Platform APIs](04%29%20Native Modules%20%26%20Platform APIs.md) • [Home: README](../README.md) • [Performance & Profiling →](06%29%20Performance%20%26%20Profiling.md)
+[Native Modules & Platform APIs](04%29%20Native%20Modules%20%26%20Platform%20APIs.md) • [Home: README](../README.md) • [Performance & Profiling →](06%29%20Performance%20%26%20Profiling.md)
 
 [📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md)
 
@@ -251,7 +251,7 @@ keytool -genkey -v -keystore my-release-key.keystore -alias my-key-alias -keyalg
 
 <div align="center">
 
-[Native Modules & Platform APIs](04%29%20Native Modules%20%26%20Platform APIs.md) • [Home: README](../README.md) • [Performance & Profiling →](06%29%20Performance%20%26%20Profiling.md)
+[Native Modules & Platform APIs](04%29%20Native%20Modules%20%26%20Platform%20APIs.md) • [Home: README](../README.md) • [Performance & Profiling →](06%29%20Performance%20%26%20Profiling.md)
 
 [📋 Cheatsheet](React%20Native%20Interview%20Cheatsheet.md)
 

@@ -1,51 +1,37 @@
 # ⚡️ JavaScript Interview Questions
 
-225 carefully curated questions covering JavaScript fundamentals to advanced topics, including 78 output-based questions.
+207 carefully curated questions covering JavaScript fundamentals to advanced topics, including 60 output-based questions.
 
 ## 📋 Quick Navigation
 
 | Section | Topic | Questions | Difficulty |
 |---------|-------|-----------|------------|
-| [1️⃣](#1-core-javascript-fundamentals) | Fundamentals & Core Concepts | Q1–15 | ⭐⭐ |
+| [1️⃣](#1-core-javascript-fundamentals) | Fundamentals & Core Concepts | Q1–8 | ⭐⭐ |
 | [2️⃣](#2-functions-closures--execution-context) | Functions & Execution Context | Q16–24 | ⭐⭐⭐ |
 | [3️⃣](#3-objects-prototypes--inheritance) | Objects & Prototypes | Q25–43 | ⭐⭐⭐ |
-| [4️⃣](#4-es6-features) | Modern JavaScript (ES6+) | Q45–54 | ⭐⭐ |
-| [5️⃣](#5-promises-asyncawait-and-event-loop) | Asynchronous Programming | Q55–80 | ⭐⭐⭐⭐ |
-| [6️⃣](#6-practical-javascript-questions) | Practical Coding Challenges | Q81–126 | ⭐⭐⭐⭐ |
+| [4️⃣](#4-es6-features) | Modern JavaScript (ES6+) | Q44–53 | ⭐⭐ |
+| [5️⃣](#5-promises-asyncawait-and-event-loop) | Asynchronous Programming | Q54–79 | ⭐⭐⭐⭐ |
+| [6️⃣](#6-practical-javascript-questions) | Practical Coding Challenges | Q80–126 | ⭐⭐⭐⭐ |
 | [7️⃣](#7-web-workers-service-workers--real-world-topics) | Web APIs & Real-World Topics | Q128–147 | ⭐⭐⭐⭐ |
-| [8️⃣](#8-javascript-output-questions) | Output-Based Questions | Q148–225 | ⭐⭐⭐⭐ |
+| [8️⃣](#8-javascript-output-questions) | Output-Based Questions | Q148–207 | ⭐⭐⭐⭐ |
 
 ## 🧠 1. Fundamentals & Core Concepts
 
 1. Data types in JavaScript
 
-2. `var`, `let`, and `const`: differences
+2. `==` vs `===` in JavaScript
 
-3. `==` vs `===` in JavaScript
+3. `null` vs `undefined`
 
-4. Hoisting in JavaScript
+4. First-class functions in JavaScript
 
-5. Scope: global, local, and block
+5. `typeof NaN` return value and why
 
-6. `null` vs `undefined`
+6. `[2] == [2]` return value and why
 
-7. Function declarations vs function expressions
+7. `0.1 + 0.2 === 0.3` evaluation and why
 
-8. Arrow functions vs regular functions
-
-9. First-class functions in JavaScript
-
-10. Lexical scope in JavaScript
-
-11. `typeof NaN` return value and why
-
-12. `[2] == [2]` return value and why
-
-13. `0.1 + 0.2 === 0.3` evaluation and why
-
-14. `'5' + 3` and `'5' - 3` return values
-
-15. Different ways to create objects in JavaScript
+8. `'5' + 3` and `'5' - 3` return values
 
 ## 🧩 2. Functions & Execution Context
 
@@ -69,175 +55,175 @@
 
 ## 🏗️ 3. Objects & Prototypes
 
-26. Objects in JavaScript
+25. Objects in JavaScript
 
-27. Prototype in JavaScript
+26. Prototype in JavaScript
 
-28. `__proto__` in JavaScript
+27. `__proto__` in JavaScript
 
-29. Prototype chain
+28. Prototype chain
 
-30. `__proto__` vs `prototype`
+29. `__proto__` vs `prototype`
 
-31. `hasOwn` vs `in` operator
+30. `hasOwn` vs `in` operator
 
-32. `Object.create()` vs `new` operator
+31. `Object.create()` vs `new` operator
 
-33. `Object.assign()` vs spread operator
+32. `Object.assign()` vs spread operator
 
-34. `Object.freeze()` vs `Object.seal()`
+33. `Object.freeze()` vs `Object.seal()`
 
-35. `Object.keys()` vs `Object.getOwnPropertyNames()`
+34. `Object.keys()` vs `Object.getOwnPropertyNames()`
 
-36. `Object.entries()` vs `Object.values()` vs `Object.keys()`
+35. `Object.entries()` vs `Object.values()` vs `Object.keys()`
 
-37. Getters and setters in JavaScript
+36. Getters and setters in JavaScript
 
-38. Classes in JavaScript
+37. Classes in JavaScript
 
-39. Class declaration vs class expression
+38. Class declaration vs class expression
 
-40. `extends` keyword: what it is and how it works
+39. `extends` keyword: what it is and how it works
 
-41. `super()`: what it is and when to use it
+40. `super()`: what it is and when to use it
 
-42. Static members in classes
+41. Static members in classes
 
-43. Private class fields
+42. Private class fields
 
-44. ES6 classes vs prototype-based inheritance
+43. ES6 classes vs prototype-based inheritance
 
 ## 🎯 4. Modern JavaScript (ES6+)
 
-45. Destructuring assignment
+44. Destructuring assignment
 
-46. Spread operator: what it is and how to use it
+45. Spread operator: what it is and how to use it
 
-47. Rest parameter: what it is and how to use it
+46. Rest parameter: what it is and how to use it
 
-48. Template literals: what they are and how to use them
+47. Template literals: what they are and how to use them
 
-49. `let` vs `const`
+48. `let` vs `const`
 
-50. ES modules: what they are and how to use them
+49. ES modules: what they are and how to use them
 
-51. Generators: what they are and how to use them
+50. Generators: what they are and how to use them
 
-52. Async generators
+51. Async generators
 
-53. Symbols: what they are and how to use them
+52. Symbols: what they are and how to use them
 
-54. Maps, Sets, WeakMaps, and WeakSets
+53. Maps, Sets, WeakMaps, and WeakSets
 
 ## ⚡ 5. Asynchronous Programming
 
-55. Promises in JavaScript
+54. Promises in JavaScript
 
-56. Callbacks vs Promises
+55. Callbacks vs Promises
 
-57. Chaining Promises
+56. Chaining Promises
 
-58. Async/await: what it is and how it works
+57. Async/await: what it is and how it works
 
-59. `Promise.resolve()` vs `new Promise()`
+58. `Promise.resolve()` vs `new Promise()`
 
-60. Handling errors in Promises
+59. Handling errors in Promises
 
-61. Callback hell: what it is and how to avoid it
+60. Callback hell: what it is and how to avoid it
 
-62. Event Loop in JavaScript
+61. Event Loop in JavaScript
 
-63. Microtasks vs macrotasks
+62. Microtasks vs macrotasks
 
-64. Running Promises concurrently
+63. Running Promises concurrently
 
-65. `Promise.all()`: what it is and when to use it
+64. `Promise.all()`: what it is and when to use it
 
-66. `Promise.race()`: what it is and when to use it
+65. `Promise.race()`: what it is and when to use it
 
-67. `Promise.allSettled()`: what it is and when to use it
+66. `Promise.allSettled()`: what it is and when to use it
 
-68. `Promise.any()`: what it is and when to use it
+67. `Promise.any()`: what it is and when to use it
 
-69. Implementing retry logic with Promises
+68. Implementing retry logic with Promises
 
-70. Promise cancellation: what it is and how to implement it
+69. Promise cancellation: what it is and how to implement it
 
-71. Running Promises sequentially
+70. Running Promises sequentially
 
-72. Implementing progress updates with Promises
+71. Implementing progress updates with Promises
 
-73. `Promise.finally()`: what it is and when to use it
+72. `Promise.finally()`: what it is and when to use it
 
-74. Promise vs async/await: differences and mixing them
+73. Promise vs async/await: differences and mixing them
 
-75. Handling multiple async operations
+74. Handling multiple async operations
 
-76. Promise vs Observable
+75. Promise vs Observable
 
-77. Implementing timeout with Promises
+76. Implementing timeout with Promises
 
-78. Promise vs Generator
+77. Promise vs Generator
 
-79. How fetch Promise works internally in V8
+78. How fetch Promise works internally in V8
 
-80. Promise chaining and error propagation
+79. Promise chaining and error propagation
 
 ## 🛠️ 6. Practical Coding Challenges
 
-81-126. Practical coding challenges covering debounce, throttle, promises (all, race, any, allSettled), closures, event loop, prototypes, array chunking, worker pools, and advanced language features.
+80-126. Practical coding challenges covering debounce, throttle, promises (all, race, any, allSettled), closures, event loop, prototypes, array chunking, worker pools, and advanced language features.
 
 ## 🔧 7. Web APIs & Real-World Topics
 
-170. Web Workers and how they work
+128. Web Workers and how they work
 
-171. What can't be accessed inside a Web Worker
+129. What can't be accessed inside a Web Worker
 
-172. Communicating between the main thread and a Web Worker
+130. Communicating between the main thread and a Web Worker
 
-173. Shared Workers
+131. Shared Workers
 
-174. Service Workers
+132. Service Workers
 
-175. Lifecycle events of a Service Worker (install, activate, fetch)
+133. Lifecycle events of a Service Worker (install, activate, fetch)
 
-176. How Service Workers enable offline caching
+134. How Service Workers enable offline caching
 
-177. Difference between Web Workers and Service Workers
+135. Difference between Web Workers and Service Workers
 
-178. Handling background sync or push notifications
+136. Handling background sync or push notifications
 
-179. Unregistering a Service Worker
+137. Unregistering a Service Worker
 
-180. Event delegation
+138. Event delegation
 
-181. Event bubbling and capturing
+139. Event bubbling and capturing
 
-182. Shadow DOM
+140. Shadow DOM
 
-183. Difference between `innerHTML`, `textContent`, and `innerText`
+141. Difference between `innerHTML`, `textContent`, and `innerText`
 
-184. Difference between `for...in` and `for...of`
+142. Difference between `for...in` and `for...of`
 
-185. Polyfill and when to use one
+143. Polyfill and when to use one
 
-186. Data attributes and how to access them in JavaScript
+144. Data attributes and how to access them in JavaScript
 
-187. Pure functions and side effects
+145. Pure functions and side effects
 
-188. Memory leak and how to detect it
+146. Memory leak and how to detect it
 
-189. How JavaScript handles tail call optimization (TCO)
+147. How JavaScript handles tail call optimization (TCO)
 
 ## 📝 8. Output-Based Questions
 
-190-248. Tricky JavaScript output-based questions covering event loop, async/await, closures, prototypes, `this` binding, and other JavaScript traps commonly asked in interviews.
+148-207. Tricky JavaScript output-based questions covering event loop, async/await, closures, prototypes, `this` binding, and other JavaScript traps commonly asked in interviews.
 
 ---
 
 ## 📖 Complete Answer Guide
 
-- [1) Fundamentals & Core Concepts](01%29%20Fundamentals%20%26%20Core%20Concepts.md) - Q1-15
+- [1) Fundamentals & Core Concepts](01%29%20Fundamentals%20%26%20Core%20Concepts.md) - Q1-8
 
 - [2) Functions & Execution Context](02%29%20Functions%20%26%20Execution%20Context.md) - Q16-24
 
@@ -247,11 +233,11 @@
 
 - [5) Asynchronous Programming](05%29%20Asynchronous%20Programming.md) - Q54-79
 
-- [6) Practical Coding Challenges](06%29%20Practical%20Coding%20Challenges.md) - Q80-127
+- [6) Practical Coding Challenges](06%29%20Practical%20Coding%20Challenges.md) - Q80-126
 
 - [7) Web APIs & Real-World Topics](07%29%20Web%20APIs%20%26%20Real-World%20Topics.md) - Q128-147
 
-- [8) Output-Based Questions](08%29%20Output-Based%20Questions.md) - Q148-225
+- [8) Output-Based Questions](08%29%20Output-Based%20Questions.md) - Q148-207
 
 ## 📝 Cheatsheet
 

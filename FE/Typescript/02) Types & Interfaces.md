@@ -365,141 +365,24 @@ function handleState(state: AppState) {
 
 ## Q24. 📝 Intersection and union types
 
-Union types represent values that can be one of several types (OR logic), while intersection types combine multiple types into one (AND logic) - union types allow alternatives, intersection types require all properties. Union types use `|` to create "either/or" types, intersection types use `&` to create "must have all" types.
-
-- **Trade-offs**: The catch is unions for alternatives where a value can be one type or another, intersections for combining interfaces where an object must satisfy all types - type narrowing works with union types using type guards. Union types require type guards to access type-specific properties, intersection types merge all properties from combined types, but watch out - union types are useful for function parameters that accept multiple types, intersection types are perfect for mixins and extending interfaces.
-
-### Union Types (OR Logic)
-
-Union types allow a value to be one of several types - use when you need flexibility or alternatives.
-
-Example:
+Union types (`|`) represent "either/or" - a value can be one of several types. Intersection types (`&`) represent "and" - combine multiple types requiring all properties.
 
 ```typescript
-// Union of primitive types
+// Union: value can be string OR number
 type StringOrNumber = string | number;
-let id: StringOrNumber = "abc123"; // Can be string
-id = 42; // Or number
+let id: StringOrNumber = "abc123";
 
-// Union of literal types
-type Status = "pending" | "approved" | "rejected";
-let currentStatus: Status = "pending";
-
-// Union of object types
-interface Dog {
-  type: "dog";
-  bark: () => void;
-}
-
-interface Cat {
-  type: "cat";
-  meow: () => void;
-}
-
-type Pet = Dog | Cat;
-
-// Type guards needed to access type-specific properties
-function handlePet(pet: Pet) {
-  if (pet.type === "dog") {
-    pet.bark(); // TypeScript knows this is Dog
-  } else {
-    pet.meow(); // TypeScript knows this is Cat
-  }
-}
-
-// Union in function parameters
-function formatValue(value: string | number): string {
-  if (typeof value === "string") {
-    return value.toUpperCase(); // Type narrowing
-  }
-  return value.toString(); // Type narrowing to number
-}
+// Intersection: must have ALL properties
+interface Person { name: string; age: number; }
+interface Employee { id: number; }
+type Worker = Person & Employee; // Must have name, age, AND id
 ```
 
-### Intersection Types (AND Logic)
-
-Intersection types combine multiple types into one - the resulting type must have all properties from all combined types.
-
-Example:
-
-```typescript
-interface Person {
-  name: string;
-  age: number;
-}
-
-interface Employee {
-  id: number;
-  department: string;
-}
-
-// Intersection: must have ALL properties from both types
-type PersonEmployee = Person & Employee;
-
-// Valid: has all properties from Person AND Employee
-const worker: PersonEmployee = {
-  name: "John",
-  age: 30,
-  id: 12345,
-  department: "Engineering"
-};
-
-// Error: missing properties
-// const invalid: PersonEmployee = {
-//   name: "John",
-//   age: 30
-//   // Missing id and department
-// };
-
-// Intersection with additional properties
-interface Timestamped {
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-type TimestampedPerson = Person & Timestamped;
-
-const person: TimestampedPerson = {
-  name: "Jane",
-  age: 25,
-  createdAt: new Date(),
-  updatedAt: new Date()
-};
-
-// Intersection for mixins pattern
-interface Flyable {
-  fly: () => void;
-}
-
-interface Swimmable {
-  swim: () => void;
-}
-
-type Duck = Person & Flyable & Swimmable;
-
-const duck: Duck = {
-  name: "Donald",
-  age: 5,
-  fly: () => console.log("Flying!"),
-  swim: () => console.log("Swimming!")
-};
-```
-
-### When to Use Each
-
-**Use Union Types when:**
-- A value can be one of several types
-- Function parameters accept multiple types
-- API responses can have different shapes
-- State can be in different states
-
-**Use Intersection Types when:**
-- Combining multiple interfaces
-- Creating mixins
-- Extending types with additional properties
-- Objects must satisfy multiple contracts
-
-```
+- **Union types require type guards** - TypeScript narrows types after runtime checks, but you must check before accessing type-specific properties
+- **Intersection types merge all properties** - Useful for mixins and extending interfaces, but watch for property conflicts between combined types
+- **Union types enable discriminated unions** - Add a common literal property (like `type: "dog"`) to enable exhaustive type checking in switch statements
+- **Intersection with primitives creates `never`** - `string & number` is impossible, resulting in `never` type, useful for type-level programming
+- **Use unions for flexibility, intersections for composition** - Unions handle alternatives (API responses, state machines), intersections combine capabilities (mixins, extending contracts)
 
 ---
 

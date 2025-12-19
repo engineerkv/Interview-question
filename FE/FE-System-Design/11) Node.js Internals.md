@@ -16,13 +16,13 @@
 
 ---
 
-## Q19. 🟢 How Node.js Works Internally
+## 1. 🟢 How Node.js Works Internally
 
 Node.js is a JavaScript runtime built on Chrome's V8 engine. Understanding how Node.js works under the hood helps you write efficient applications, debug performance issues, and make better architectural decisions. When you run Node.js, it uses V8 for JavaScript execution, libuv for async I/O, an event loop for coordination, and handles modules, streams, buffers, and clustering. This knowledge is crucial for senior developers - it helps you understand why certain patterns work better, how to optimize Node.js applications, and how to debug complex issues.
 
 ---
 
-## 1. 🟢 Node.js Architecture
+### 🔹 🟢 Node.js Architecture
 
 ### 🔹 Components
 
@@ -62,7 +62,7 @@ Node.js uses a single-threaded event loop model:
 
 ---
 
-## 2. 🎯 Event Loop in Node.js
+### 🔹 🎯 Event Loop in Node.js
 
 ### 🔹 Event Loop Phases
 
@@ -276,7 +276,7 @@ console.log('6'); // Synchronous - runs second
 
 ---
 
-## 3. 💡 V8 Engine
+### 🔹 💡 V8 Engine
 
 ### 🔹 V8 Components
 
@@ -319,7 +319,7 @@ obj.age = 30;       // Hidden class 2 (changed!)
 
 ---
 
-## 4. ⏳ ⏳ libuv & Asynchronous I/O
+### 🔹 ⏳ ⏳ libuv & Asynchronous I/O
 
 ### 🔹 What is libuv?
 
@@ -431,7 +431,7 @@ fs.readFile('file.txt', (err, data) => {
 
 ---
 
-## 5. 📦 Modules & require()
+### 🔹 📦 Modules & require()
 
 ### 🔹 CommonJS Modules
 
@@ -496,7 +496,7 @@ Node.js resolves modules in this order:
 
 ---
 
-## 6. 🌊 Streams
+### 🔹 🌊 Streams
 
 ### 🔹 Stream Types
 
@@ -567,7 +567,7 @@ fs.createReadStream('file.txt')
 
 ---
 
-## 7. 📦 Buffer & Binary Data
+### 🔹 📦 Buffer & Binary Data
 
 ### 🔹 What is a Buffer?
 
@@ -653,7 +653,7 @@ const str = buf.toString('utf8');
 
 ---
 
-## 8. 💡 Cluster & Child Processes
+### 🔹 💡 Cluster & Child Processes
 
 ### 🔹 Cluster Module
 

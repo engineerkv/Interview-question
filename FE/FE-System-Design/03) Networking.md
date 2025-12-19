@@ -16,13 +16,13 @@
 
 ---
 
-## Q2. 📡 TCP/UDP
+## 1. 📡 TCP/UDP
 
 TCP and UDP are transport layer protocols that handle how data gets from one computer to another over the internet. These protocols sit on top of IP (Internet Protocol) and provide different guarantees about how your data is delivered. Understanding the difference helps you choose the right protocol for different use cases.
 
 ---
 
-## 1. 📡 TCP (Transmission Control Protocol)
+### 🔹 📡 TCP (Transmission Control Protocol)
 
 TCP is like a reliable courier service - it guarantees your data arrives, arrives in order, and arrives intact. When you need to be absolutely sure your data gets there correctly, TCP is what you use.
 
@@ -110,7 +110,7 @@ TCP provides several mechanisms to ensure reliable delivery:
 
 ---
 
-## 2. 📡 UDP (User Datagram Protocol)
+### 🔹 📡 UDP (User Datagram Protocol)
 
 UDP is like a fast messenger who just throws your message and runs - it's super quick, but there's no guarantee it arrives. When speed matters more than perfect delivery, UDP is your choice.
 
@@ -252,13 +252,13 @@ When a packet is lost in TCP, the receiver must wait for that packet to be retra
 
 ---
 
-## Q3. 📡 TCP Handshake + TLS Handshake
+### 🔹 📡 TCP Handshake + TLS Handshake
 
 When your browser needs to communicate with a server, it can't just start sending data immediately. First, it needs to establish a reliable connection (TCP), and if you're using HTTPS, it also needs to set up encryption (TLS). These handshakes happen before any actual data transfer, and understanding them helps you debug connection issues and optimize performance.
 
 ---
 
-## 1. 📡 TCP Handshake (3-Way Handshake)
+### 🔹 📡 TCP Handshake (3-Way Handshake)
 
 TCP (Transmission Control Protocol) ensures reliable, ordered delivery of data packets. Before any data can be sent, the browser and server must agree to establish a connection. This agreement happens through a three-way handshake that establishes trust and synchronization between both sides.
 
@@ -352,7 +352,7 @@ Once the handshake completes:
 
 ---
 
-## 2. 🌐 TLS Handshake (For HTTPS)
+### 🔹 🌐 TLS Handshake (For HTTPS)
 
 TLS (Transport Layer Security) adds encryption on top of TCP. The TLS handshake happens after the TCP connection is established and before any HTTP data is sent. This handshake sets up encryption so all your data is protected from eavesdroppers.
 
@@ -497,13 +497,13 @@ TLS 1.3 reduces handshake to 1 round trip (vs 2 in TLS 1.2), removes insecure ci
 
 ---
 
-## Q4. 🌐 HTTP vs HTTPS
+### 🔹 🌐 HTTP vs HTTPS
 
 HTTP (Hypertext Transfer Protocol) is the foundation of web communication - it's the language browsers and servers use to talk to each other. HTTPS is HTTP with a security layer (TLS encryption) added on top. Understanding the difference and when to use each is crucial for building secure web applications.
 
 ---
 
-## 1. 🌐 HTTP (Hypertext Transfer Protocol)
+### 🔹 🌐 HTTP (Hypertext Transfer Protocol)
 
 HTTP is the protocol that powers the web. It defines how browsers request resources and how servers respond. Every time you visit a website, you're using HTTP (or HTTPS).
 
@@ -644,7 +644,7 @@ HTTP has evolved through multiple versions, each improving performance and capab
 
 ---
 
-## 2. 🌐 HTTPS (HTTP Secure)
+### 🔹 🌐 HTTPS (HTTP Secure)
 
 HTTPS is HTTP with encryption added via TLS (Transport Layer Security). It's the same HTTP protocol you know, but all the data is encrypted so no one can read or modify it while it's traveling over the network.
 
@@ -744,7 +744,7 @@ HTTPS is HTTP with encryption added via TLS (Transport Layer Security). It's the
 
 ---
 
-## 3. 🌐 HTTP vs HTTPS Comparison
+### 🔹 🌐 HTTP vs HTTPS Comparison
 
 ### 🔹 Key Differences
 
@@ -835,13 +835,13 @@ Browser shows security warning, and users might not be able to access the site. 
 
 ---
 
-## Q5. 🔀 REST APIs
+### 🔹 🔀 REST APIs
 
 REST (Representational State Transfer) is an architectural style for designing web services. It's not a protocol or standard - it's a set of principles and constraints that, when followed, make APIs simple, scalable, and maintainable. RESTful APIs use standard HTTP methods and follow these principles to create predictable, easy-to-use interfaces.
 
 ---
 
-## 1. 🔀 REST Principles
+### 🔹 🔀 REST Principles
 
 REST has several core principles that guide how you design your API. Understanding these principles helps you build better APIs and recognize when an API is truly RESTful.
 
@@ -1001,7 +1001,7 @@ REST uses standard HTTP methods to perform actions on resources:
 
 ---
 
-## 2. 🔀 REST API Design
+### 🔹 🔀 REST API Design
 
 Designing a good REST API means following conventions that make it intuitive and easy to use. Here's how to structure your API properly.
 
@@ -1149,7 +1149,7 @@ HTTP status codes tell the client what happened. Using the right status codes ma
 
 ---
 
-## 3. 🔍 REST vs Other Approaches
+### 🔹 🔍 REST vs Other Approaches
 
 Understanding when to use REST versus other API styles helps you choose the right approach for your use case.
 
@@ -1219,7 +1219,7 @@ Understanding when to use REST versus other API styles helps you choose the righ
 
 ---
 
-## 4. 🔀 REST Best Practices
+### 🔹 🔀 REST Best Practices
 
 Following REST best practices makes your API easier to use, maintain, and scale. Here are the key practices that separate good REST APIs from great ones.
 
@@ -1406,13 +1406,13 @@ Use tokens (JWT) in Authorization header, or session cookies. REST itself doesn'
 
 ---
 
-## Q6. 🕸️ GraphQL
+### 🔹 🕸️ GraphQL
 
 GraphQL is a query language and runtime for APIs that allows you to request exactly the data you need. Unlike REST which returns fixed data structures, GraphQL allows you to specify which fields to retrieve, solving the over-fetching and under-fetching problems that plague REST APIs. It was developed by Facebook (now Meta) to solve real problems the company faced with mobile apps.
 
 ---
 
-## 1. 🕸️ GraphQL Basics
+### 🔹 🕸️ GraphQL Basics
 
 GraphQL is fundamentally different from REST. Instead of having multiple endpoints that return fixed data structures, GraphQL has a single endpoint where you send queries that describe exactly what data you want.
 
@@ -1492,7 +1492,7 @@ GraphQL is fundamentally different from REST. Instead of having multiple endpoin
 
 ---
 
-## 2. 🕸️ GraphQL vs REST
+### 🔹 🕸️ GraphQL vs REST
 
 ### 🔹 Over-fetching Problem (Getting Too Much Data)
 
@@ -1646,7 +1646,7 @@ Response (everything in one request):
 
 ---
 
-## 3. 🕸️ GraphQL Schema
+### 🔹 🕸️ GraphQL Schema
 
 The schema defines what data is available and how to query it.
 
@@ -1693,7 +1693,7 @@ type Mutation {
 
 ---
 
-## 4. 🕸️ GraphQL Queries
+### 🔹 🕸️ GraphQL Queries
 
 ### 🔹 Basic Query
 
@@ -1747,7 +1747,7 @@ Variables:
 
 ---
 
-## 5. 🕸️ GraphQL Mutations
+### 🔹 🕸️ GraphQL Mutations
 
 Mutations modify data (create, update, delete).
 
@@ -1778,7 +1778,7 @@ mutation {
 
 ---
 
-## 6. 🕸️ GraphQL Advantages
+### 🔹 🕸️ GraphQL Advantages
 
 ### 🔹 Client Benefits
 
@@ -1804,7 +1804,7 @@ mutation {
 
 ---
 
-## 7. 🕸️ GraphQL Challenges
+### 🔹 🕸️ GraphQL Challenges
 
 ### 🔹 N+1 Query Problem
 
@@ -1852,13 +1852,13 @@ When a query requests related data, each resolver might trigger a separate datab
 
 ---
 
-## Q7. 🔌 gRPC
+### 🔹 🔌 gRPC
 
 gRPC (gRPC Remote Procedure Calls) is a high-performance RPC framework developed by Google that uses Protocol Buffers for serialization and HTTP/2 for transport. It's designed for microservices communication and high-performance APIs where speed, efficiency, and type safety matter. Think of it as a way to call functions on remote servers as if they were local functions, but with the performance benefits of binary serialization and HTTP/2.
 
 ---
 
-## 1. 🔌 gRPC Basics
+### 🔹 🔌 gRPC Basics
 
 gRPC is fundamentally different from REST. Instead of sending JSON over HTTP/1.1, gRPC uses binary Protocol Buffers over HTTP/2, which makes it much faster and more efficient for service-to-service communication.
 
@@ -1952,7 +1952,7 @@ gRPC is fundamentally different from REST. Instead of sending JSON over HTTP/1.1
 
 ---
 
-## 2. 📡 Protocol Buffers
+### 🔹 📡 Protocol Buffers
 
 Protocol Buffers (protobuf) is a binary serialization format developed by Google. It's like JSON, but binary instead of text, which makes it much smaller and faster. You define your data structures in `.proto` files, and then generate code for any language.
 
@@ -2073,7 +2073,7 @@ message GetUserRequest {
 
 ---
 
-## 3. 🔌 gRPC Service Types
+### 🔹 🔌 gRPC Service Types
 
 gRPC supports four different communication patterns. Each pattern is optimized for different use cases, giving you flexibility in how services communicate.
 
@@ -2255,7 +2255,7 @@ rpc Chat(stream ChatMessage) returns (stream ChatMessage);
 
 ---
 
-## 4. 🔌 gRPC Advantages
+### 🔹 🔌 gRPC Advantages
 
 gRPC provides several advantages over REST, especially for internal service-to-service communication. Understanding these helps you decide when gRPC is the right choice.
 
@@ -2399,7 +2399,7 @@ gRPC provides several advantages over REST, especially for internal service-to-s
 
 ---
 
-## 5. 🔌 gRPC Use Cases
+### 🔹 🔌 gRPC Use Cases
 
 ### 🔹 Microservices
 
@@ -2427,7 +2427,7 @@ gRPC provides several advantages over REST, especially for internal service-to-s
 
 ---
 
-## 6. 🔌 gRPC Challenges and Considerations
+### 🔹 🔌 gRPC Challenges and Considerations
 
 ### 🔹 Browser Support
 
@@ -2477,13 +2477,13 @@ gRPC is RPC-based (remote procedure calls), uses binary format, and is best for 
 
 ---
 
-## Q9. 💡 SMTP/FTP
+### 🔹 💡 SMTP/FTP
 
 SMTP and FTP are application layer protocols that have been around for decades. SMTP handles email delivery, while FTP handles file transfers. While both are older protocols, understanding them helps you appreciate modern alternatives and when these older protocols might still be used.
 
 ---
 
-## 1. 📡 SMTP (Simple Mail Transfer Protocol)
+### 🔹 📡 SMTP (Simple Mail Transfer Protocol)
 
 SMTP is the protocol used for sending email messages. When you send an email from your email client (like Gmail, Outlook), SMTP is what actually delivers it to the recipient's mail server. It's been around since 1982 and is still the standard for email delivery today.
 
@@ -2597,7 +2597,7 @@ SMTP is the protocol used for sending email messages. When you send an email fro
 
 ---
 
-## 2. 📡 FTP (File Transfer Protocol)
+### 🔹 📡 FTP (File Transfer Protocol)
 
 FTP is a protocol for transferring files between computers over a network. It was one of the first protocols developed for the internet (1971) and is still used today, though modern alternatives are generally preferred for security reasons.
 
@@ -2823,13 +2823,13 @@ FTP is a protocol for transferring files between computers over a network. It wa
 
 ---
 
-## Q10. 💡 Payment Gateway Internal Working
+### 🔹 💡 Payment Gateway Internal Working
 
 A payment gateway is like a digital cashier that processes payments between customers and merchants. When you make a payment online, the payment gateway securely handles the transaction, verifies the payment method, and transfers money from the customer's account to the merchant's account. Understanding how payment gateways work internally helps you integrate them properly and handle payment flows correctly.
 
 ---
 
-## 1. 💡 What is a Payment Gateway
+### 🔹 💡 What is a Payment Gateway
 
 ### 🔹 Core Concept
 
@@ -2853,7 +2853,7 @@ A payment gateway is a service that processes credit card, debit card, and other
 
 ---
 
-## 2. 💡 Payment Flow (Step by Step)
+### 🔹 💡 Payment Flow (Step by Step)
 
 ### 🔹 Step 1: Customer Initiates Payment
 
@@ -2993,7 +2993,7 @@ After successful payment:
 
 ---
 
-## 3. 💡 Payment Gateway Integration Methods
+### 🔹 💡 Payment Gateway Integration Methods
 
 ### 🔹 Redirect Method
 
@@ -3085,7 +3085,7 @@ Your Site (collects payment) → Gateway API → Your Site (shows result)
 
 ---
 
-## 4. 🛡️ Security Features
+### 🔹 🛡️ Security Features
 
 ### 🔹 Encryption
 
@@ -3115,7 +3115,7 @@ Your Site (collects payment) → Gateway API → Your Site (shows result)
 
 ---
 
-## 5. 💡 Common Payment Gateway Features
+### 🔹 💡 Common Payment Gateway Features
 
 ### 🔹 Multiple Payment Methods
 
@@ -3157,7 +3157,7 @@ Your Site (collects payment) → Gateway API → Your Site (shows result)
 
 ---
 
-## 6. ⚛️ Frontend Implementation (React.js)
+### 🔹 ⚛️ Frontend Implementation (React.js)
 
 ### 🔹 Payment Gateway Integration in React.js
 
@@ -3262,7 +3262,7 @@ const usePaymentStatus = (orderId: string) => {
 
 ---
 
-## 7. 🟢 Backend Implementation (Node.js/Express.js)
+### 🔹 🟢 Backend Implementation (Node.js/Express.js)
 
 ### 🔹 Payment Gateway Integration
 

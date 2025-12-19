@@ -14,13 +14,13 @@
 
 ---
 
-## Q17.5. How TypeScript Works Internally
+## 1.5. How TypeScript Works Internally
 
 TypeScript is a statically typed superset of JavaScript that adds type checking and compilation. Understanding how TypeScript works under the hood helps you write better code, debug type errors, and optimize compilation performance. When you use TypeScript, it handles parsing, type checking, type inference, compilation to JavaScript, and provides rich tooling support. This knowledge is crucial for senior developers - it helps you understand why certain type patterns work better, how to optimize TypeScript compilation, and how to debug complex type issues.
 
 ---
 
-## 1. 📘 TypeScript Compiler Architecture
+### 🔹 📘 TypeScript Compiler Architecture
 
 ### 🔹 Compiler Pipeline
 
@@ -29,48 +29,71 @@ The TypeScript compiler (tsc) transforms TypeScript source code into JavaScript 
 **1. Scanner (Lexical Analysis)**
 
 * Reads source code character by character
+
 * Breaks code into tokens (keywords, identifiers, operators, literals)
+
 * Handles whitespace, comments, and string escaping
+
 * Produces token stream for parser
 
 **2. Parser (Syntax Analysis)**
 
 * Takes token stream from scanner
+
 * Builds Abstract Syntax Tree (AST) according to TypeScript grammar
+
 * Validates syntax and structure
+
 * Creates nodes for declarations, expressions, statements
+
 * Handles TypeScript-specific syntax (type annotations, interfaces, generics)
 
 **3. Binder (Symbol Resolution)**
 
 * Creates symbol table linking identifiers to their declarations
+
 * Resolves scopes (global, module, function, block)
+
 * Links references to their definitions
+
 * Handles hoisting and scope chains
+
 * Creates type symbols for type checking
 
 **4. Type Checker (Semantic Analysis)**
 
 * Analyzes types and relationships
+
 * Performs type inference (deduces types from usage)
+
 * Validates type compatibility
+
 * Checks for type errors
+
 * Resolves generic types
+
 * Handles type narrowing and widening
 
 **5. Emitter (Code Generation)**
 
 * Transforms TypeScript AST to JavaScript
+
 * Removes type annotations (type erasure)
+
 * Transpiles modern JavaScript to target version
+
 * Generates source maps for debugging
+
 * Outputs JavaScript code
 
 **Why This Architecture Matters:**
 
 * Separation of concerns - each stage has specific responsibility
+
 * Type checking happens before code generation (catches errors early)
+
 * AST enables powerful transformations and analysis
+
 * Symbol table enables accurate type checking and refactoring
 
 ### 🔹 TypeScript Compiler (tsc)
@@ -80,23 +103,33 @@ The TypeScript compiler is written in TypeScript itself:
 **Compiler Structure:**
 
 * `tsc.ts` - Main entry point
+
 * `compiler/` - Core compiler logic
+
 * `checker.ts` - Type checking implementation
+
 * `emitter.ts` - JavaScript code generation
+
 * `parser.ts` - Parsing and AST creation
 
 **Compiler Modes:**
 
 * **Compile mode**: Full compilation with type checking
+
 * **Watch mode**: Watches files and recompiles on changes
+
 * **Incremental mode**: Only recompiles changed files (faster)
+
 * **Project references**: Compiles multiple projects together
 
 **Performance Optimizations:**
 
 * Incremental compilation (only recompiles changed files)
+
 * Project references (isolates compilation units)
+
 * Skip lib check (skips type checking of declaration files)
+
 * Isolated modules (enables parallel compilation)
 
 ### 🔹 Language Service
@@ -106,25 +139,34 @@ The TypeScript Language Service provides editor features:
 **Features:**
 
 * **Autocomplete**: Suggests completions based on types
+
 * **Go to Definition**: Jumps to type/declaration
+
 * **Find References**: Finds all usages of symbol
+
 * **Rename**: Safely renames symbols across files
+
 * **Quick Fix**: Suggests fixes for errors
+
 * **Formatting**: Formats code according to rules
 
 **How It Works:**
 
 * Uses same compiler pipeline (parser, binder, checker)
+
 * Maintains program representation in memory
+
 * Updates incrementally on file changes
+
 * Provides API for editor integration
+
 * Powers VS Code, WebStorm, and other editors
 
 📌 **In simple terms**: TypeScript compiler reads your code, breaks it into tokens, builds an AST, creates a symbol table, checks types, and generates JavaScript. The Language Service uses the same pipeline to provide editor features like autocomplete and go-to-definition.
 
 ---
 
-## 2. 🏷️ Type System
+### 🔹 🏷️ Type System
 
 ### 🔹 Type Categories
 
@@ -133,43 +175,57 @@ TypeScript has several categories of types:
 **Primitive Types:**
 
 * `string`, `number`, `boolean`, `null`, `undefined`, `symbol`, `bigint`
+
 * Basic building blocks
+
 * Cannot be broken down further
 
 **Object Types:**
 
 * Interfaces, classes, object literals
+
 * Have properties and methods
+
 * Can be extended and composed
 
 **Union Types:**
 
 * `string | number` - Value can be one of several types
+
 * Creates new type from existing types
+
 * Used for values that can be multiple types
 
 **Intersection Types:**
 
 * `Person & Employee` - Value must satisfy all types
+
 * Combines multiple types
+
 * Used for mixins and composition
 
 **Generic Types:**
 
 * `Array<T>`, `Promise<T>` - Types parameterized by other types
+
 * Reusable type definitions
+
 * Enables type-safe abstractions
 
 **Literal Types:**
 
 * `"hello"`, `42`, `true` - Specific values as types
+
 * Narrow types representing exact values
+
 * Used for const assertions and discriminated unions
 
 **Function Types:**
 
 * `(x: number) => string` - Types for functions
+
 * Describe function signatures
+
 * Support overloads and generics
 
 ### 🔹 Type Inference
@@ -179,15 +235,21 @@ TypeScript infers types automatically when not explicitly provided:
 **How Type Inference Works:**
 
 * Analyzes expressions and assignments
+
 * Uses context to determine most specific type
+
 * Flows through code (type narrowing)
+
 * Can infer from usage patterns
 
 **Inference Strategies:**
 
 * **Best common type**: Infers union for array literals
+
 * **Contextual typing**: Infers from context (function parameters)
+
 * **Type narrowing**: Narrows types based on control flow
+
 * **Type widening**: Widens literal types when needed
 
 **Example:**
@@ -219,7 +281,9 @@ function process(value: string | number) {
 **When Inference Fails:**
 
 * Ambiguous expressions (use explicit types)
+
 * Complex generic inference (provide type parameters)
+
 * Circular references (break with explicit types)
 
 ### 🔹 Type Checking
@@ -229,21 +293,29 @@ Type checking validates that values match their types:
 **Structural Typing (Duck Typing):**
 
 * Types are compatible if they have compatible structure
+
 * `{ name: string }` is compatible with `{ name: string; age?: number }`
+
 * More flexible than nominal typing (Java, C#)
 
 **Type Compatibility Rules:**
 
 * **Assignment compatibility**: Can assign if types are compatible
+
 * **Function compatibility**: Parameters are contravariant, return types are covariant
+
 * **Property compatibility**: Properties must be compatible
+
 * **Index signatures**: Allow additional properties
 
 **Type Errors:**
 
 * Type mismatch (assigning incompatible types)
+
 * Missing properties (object doesn't have required property)
+
 * Extra properties (object has properties not in type)
+
 * Type narrowing failures (can't narrow to expected type)
 
 **Example:**
@@ -276,8 +348,11 @@ Type narrowing reduces union types to specific types:
 **Narrowing Techniques:**
 
 * **Type guards**: `typeof`, `instanceof`, `in` operator
+
 * **Discriminated unions**: Switch on discriminant property
+
 * **Control flow**: If/else, switch, loops
+
 * **Assertion functions**: Custom type guards
 
 **Example:**
@@ -316,7 +391,7 @@ function area(shape: Shape): number {
 
 ---
 
-## 3. 🏷️ Advanced Type Features
+### 🔹 🏷️ Advanced Type Features
 
 ### 🔹 Generics
 
@@ -325,15 +400,21 @@ Generics enable reusable type-safe code:
 **How Generics Work:**
 
 * Type parameters: `function identity<T>(arg: T): T`
+
 * Type arguments: `identity<string>("hello")`
+
 * Type inference: `identity("hello")` infers `T` as `string`
+
 * Constraints: `function process<T extends string>(arg: T)`
 
 **Generic Constraints:**
 
 * `extends` keyword limits type parameters
+
 * `keyof` operator gets keys of type
+
 * `in` operator iterates over union types
+
 * Enables type-safe operations
 
 **Example:**
@@ -369,7 +450,9 @@ Conditional types select types based on conditions:
 **Syntax:**
 
 * `T extends U ? X : Y` - If T extends U, then X, else Y
+
 * Can be nested for complex conditions
+
 * Used in utility types and type transformations
 
 **Example:**
@@ -393,7 +476,9 @@ Mapped types transform object types:
 **Syntax:**
 
 * `{ [K in keyof T]: T[K] }` - Iterates over keys
+
 * Can add/remove/modify properties
+
 * Used in utility types
 
 **Example:**
@@ -423,7 +508,9 @@ Template literal types manipulate string types:
 **Syntax:**
 
 * Uses template literal syntax with types
+
 * Can concatenate, extract, and transform strings
+
 * Used for type-safe string manipulation
 
 **Example:**
@@ -445,7 +532,7 @@ type Lowercase<S extends string> = intrinsic;
 
 ---
 
-## 4. 📦 Module System
+### 🔹 📦 Module System
 
 ### 🔹 Module Resolution
 
@@ -454,20 +541,27 @@ TypeScript resolves module imports using strategies:
 **Resolution Strategies:**
 
 * **Classic**: Legacy strategy, looks for `.ts` files
+
 * **Node**: Follows Node.js resolution algorithm
+
 * **Bundler**: For bundlers like Webpack, Vite
 
 **Node Resolution Algorithm:**
 
 1. Check `package.json` for `main` or `exports`
+
 2. Look for `index.js` or `index.ts`
+
 3. Check `@types` packages for type definitions
+
 4. Follow `node_modules` resolution
 
 **Path Mapping:**
 
 * `baseUrl`: Base directory for module resolution
+
 * `paths`: Map module names to paths
+
 * Enables aliases like `@/components`
 
 **Example:**
@@ -540,7 +634,7 @@ Type-only imports improve performance:
 
 ---
 
-## 5. 💡 Compilation Process
+### 🔹 💡 Compilation Process
 
 ### 🔹 Type Erasure
 
@@ -623,7 +717,7 @@ Source maps map compiled JavaScript to TypeScript:
 
 ---
 
-## 6. ⚡ Performance Optimizations
+### 🔹 ⚡ Performance Optimizations
 
 ### 🔹 Incremental Compilation
 

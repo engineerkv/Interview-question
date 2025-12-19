@@ -160,43 +160,44 @@ Example:
 
 ## Q20. 🎨 CSS Flexbox and how it works
 
-Flexbox helps you lay out items in one direction (row or column) with flexible sizing and easy alignment - use it when you need to distribute space or center content. Flexbox works on two axes—main (flex-direction) and cross (perpendicular).
+Flexbox is a one-dimensional layout system for arranging items in rows or columns - use `justify-content` for main axis alignment, `align-items` for cross axis alignment. Perfect for component layouts, navigation bars, and centering content.
 
-- **Trade-offs**: The catch is `justify-content` controls main axis, `align-items` controls cross axis - `order` property allows visual reordering without changing HTML structure. Flexbox simplifies one-dimensional layouts and alignment, but watch out - `flex` is shorthand for `flex-grow`, `flex-shrink`, and `flex-basis`.
+- **Trade-offs**: The catch is confusing `justify-content` (main axis) with `align-items` (cross axis), forgetting `flex-wrap` causes overflow - use `flex: 1` shorthand for equal distribution. Flexbox is one-dimensional (row OR column), Grid is two-dimensional, but watch out - `flex-grow` controls growth, `flex-shrink` controls shrinking, `flex-basis` sets initial size before growing/shrinking.
 
 Example:
 
 ```css
 .container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  gap: 1rem;
 }
-
+.item {
+  flex: 1;
+}
 ```
 
 ---
 
 ## Q21. 🎨 CSS Grid and its key features
 
-Grid allows you to create layouts with both rows and columns at once, giving you precise control over where items go - perfect for complex page layouts. Unlike Flexbox, Grid handles both rows and columns simultaneously.
+CSS Grid is a two-dimensional layout system for creating complex layouts with rows and columns simultaneously - use `grid-template-columns` and `grid-template-rows` to define tracks, `gap` for spacing. Perfect for page-level layouts, dashboards, and complex two-dimensional arrangements.
 
-- **Trade-offs**: The catch is `fr` units distribute available space proportionally - Grid can create implicit rows/columns when content exceeds defined tracks. Grid is perfect for complex two-dimensional layouts, but watch out - named grid areas make complex layouts more readable and maintainable.
+- **Trade-offs**: The catch is forgetting to define tracks causes items to stack in single column, confusing `fr` (fraction) with `%` units - use `fr` units for flexible sizing, `minmax()` for responsive grids. Grid is two-dimensional (rows AND columns), Flexbox is one-dimensional, but watch out - use `grid-area` or line numbers to place items, named areas are more readable than line numbers.
 
 Example:
 
 ```css
-.grid-container {
+.container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  grid-template-areas:
-    "header header header"
-    "sidebar content content"
-    "footer footer footer";
+  grid-template-rows: auto 1fr auto;
+  gap: 1rem;
 }
-
+.item {
+  grid-column: 1 / 3;
+}
 ```
 
 ---

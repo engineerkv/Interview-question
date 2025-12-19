@@ -45,22 +45,50 @@ const store = configureStore({
 
 ## Q12. 📱 Implementing Redux Toolkit in React Native
 
-Use Redux Toolkit for complex state logic and multiple components, Context API for simple state and fewer components - start with Context API, migrate to Redux if needed. Context API (good for simple state and fewer components), Redux Toolkit (better for complex state and many components).
+Use Redux Toolkit for complex state logic and multiple components - provides better debugging and performance for large apps. Redux Toolkit (simplified Redux with less boilerplate), Better debugging (developer experience), Better performance for large apps (performance).
 
-- **Trade-offs**: The catch is Redux Toolkit provides better debugging (developer experience) - Context API is easier to learn (learning curve). Start with Context API, migrate to Redux if needed, but watch out - Redux has better performance for large apps (performance).
+- **Trade-offs**: The catch is requires more setup than Context API (setup complexity) - provides better debugging tools (developer experience). Better performance for large apps (performance), but watch out - use for complex state management needs (use cases).
 
 Example:
 
 ```jsx
-// Context API - for simple state
-const ThemeContext = createContext();
+import { createSlice, configureStore } from '@reduxjs/toolkit';
+import { Provider, useSelector, useDispatch } from 'react-redux';
 
-function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState('light');
+// Create slice
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: { count: 0 },
+  reducers: {
+    increment: (state) => { state.count += 1; },
+    decrement: (state) => { state.count -= 1; }
+  }
+});
+
+// Configure store
+const store = configureStore({
+  reducer: { counter: counterSlice.reducer }
+});
+
+// Use in component
+function Counter() {
+  const count = useSelector(state => state.counter.count);
+  const dispatch = useDispatch();
+
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
-      {children}
-    </ThemeContext.Provider>
+    <View>
+      <Text>Count: {count}</Text>
+      <Button title="Increment" onPress={() => dispatch(counterSlice.actions.increment())} />
+    </View>
+  );
+}
+
+// Wrap app with Provider
+function App() {
+  return (
+    <Provider store={store}>
+      <Counter />
+    </Provider>
   );
 }
 

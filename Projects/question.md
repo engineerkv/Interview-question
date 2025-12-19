@@ -4,28 +4,24 @@ Interview questions about complex problems solved in real projects, following ST
 
 ## 📋 Projects
 
-| # | Project | Type | Questions | Files |
-|---|---------|------|-----------|-------|
-| 1 | [URL Shortener](#url-shortener) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
-| 2 | [Rate Limiter](#rate-limiter) | Full-Stack System Component | Q1-Q5 | HLD + LLD + Answers |
-| 3 | [E-commerce App](#e-commerce-app) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
-| 4 | [Social Media Feed](#social-media-feed) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
-| 5 | [Video Streaming Platform](#video-streaming-platform) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
-| 6 | [Chat Messaging System](#chat-messaging-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
-| 7 | [Notification System](#notification-system) | Full-Stack System Component | Q1-Q5 | HLD + LLD + Answers |
-| 8 | [Time-Limited Content System](#time-limited-content-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
-| 9 | [Real-Time Collaboration System](#real-time-collaboration-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
-| 10 | [Ride-Sharing System](#ride-sharing-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
-| 11 | [Food Delivery System](#food-delivery-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
-| 12 | [Payment System](#payment-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
-| 13 | [File Storage System](#file-storage-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
-| 14 | [Search System](#search-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
-| 15 | [API Gateway](#api-gateway) | System Design | Q1-Q5 | HLD + LLD + Answers |
-| 16 | [Scaling REST API](#scaling-rest-api) | System Design | Q1-Q5 | HLD + LLD + Answers |
-| 17 | [Ticket Booking System](#ticket-booking-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
-| 18 | [Monitoring Logging System](#monitoring-logging-system) | Full-Stack MERN | Q1-Q5 | HLD + LLD + Answers |
-| 19 | [iGamio Fantasy Sports Platform](#igamio-fantasy-sports-platform) | Full-Stack MERN | Q1-Q15 | HLD + LLD + Answers |
-| 20 | [Real-Time Poker Game](#real-time-poker-game) | Full-Stack MERN | Q1-Q10 | HLD + LLD + Answers |
+| # | Project | Type | Questions | Key Focus |
+|---|---------|------|-----------|-----------|
+| 1 | [URL Shortener](#url-shortener) | Full-Stack MERN | Q1-Q5 | URL encoding, redirect handling, analytics |
+| 2 | [E-commerce App](#e-commerce-app) | Full-Stack MERN | Q1-Q5 | Product search, shopping cart, payment processing |
+| 3 | [Social Media Feed](#social-media-feed) | Full-Stack MERN | Q1-Q5 | Feed generation, ranking algorithm, fan-out pattern |
+| 4 | [Video Streaming Platform](#video-streaming-platform) | Full-Stack MERN | Q1-Q5 | Video upload, transcoding, adaptive streaming |
+| 5 | [Chat Messaging System](#chat-messaging-system) | Full-Stack MERN | Q1-Q5 | Real-time messaging, offline handling, group messaging |
+| 6 | [Notification System](#notification-system) | Full-Stack System Component | Q1-Q5 | Multi-channel delivery, real-time notifications |
+| 7 | [Time-Limited Content System](#time-limited-content-system) | Full-Stack MERN | Q1-Q5 | Content expiration, TTL storage, automatic cleanup |
+| 8 | [Real-Time Collaboration System](#real-time-collaboration-system) | Full-Stack MERN | Q1-Q5 | Real-time editing, conflict resolution, OT/CRDT |
+| 9 | [Ride-Sharing System](#ride-sharing-system) | Full-Stack MERN | Q1-Q5 | Ride matching, location tracking, ETA calculation |
+| 10 | [Food Delivery System](#food-delivery-system) | Full-Stack MERN | Q1-Q5 | Order management, delivery assignment, real-time tracking |
+| 11 | [Payment System](#payment-system) | Full-Stack MERN | Q1-Q5 | Payment processing, idempotency, webhooks, fraud detection |
+| 12 | [File Storage System](#file-storage-system) | Full-Stack MERN | Q1-Q5 | File upload, chunking, deduplication, versioning |
+| 13 | [Search System](#search-system) | Full-Stack MERN | Q1-Q5 | Full-text search, autocomplete, ranking, indexing |
+| 14 | [Ticket Booking System](#ticket-booking-system) | Full-Stack MERN | Q1-Q5 | Seat locking, booking flow, double booking prevention |
+| 15 | [iGamio Fantasy Sports Platform](#igamio-fantasy-sports-platform) | Full-Stack MERN | Q1-Q15 | Real-time updates, payment integration, KYC, multi-sport |
+| 16 | [Real-Time Poker Game](#real-time-poker-game) | Full-Stack MERN | Q1-Q10 | Real-time multiplayer, server-authoritative, anti-cheating |
 
 ---
 
@@ -58,28 +54,6 @@ High-quality multiplayer poker card game built with React.js and TypeScript, fea
 9. **Strategy for handling concurrent game sessions and room management**
 
 10. **Biggest performance challenge solved with code-splitting and React.lazy**
-
----
-
-## 🚦 Rate Limiter
-
-**Project Overview:**
-Design and implement a rate limiting system to prevent API abuse and ensure fair resource usage. The system supports multiple rate limiting algorithms (fixed window, sliding window, token bucket), distributed rate limiting using Redis, and configurable limits per endpoint and user.
-
-**Tech Stack:** Node.js, Express.js, Redis, TypeScript
-**Key Features:** Multiple algorithms, distributed rate limiting, configurable limits, monitoring
-
-### Interview Questions
-
-1. **Most complex technical challenge in building the rate limiter**
-
-2. **Handling distributed rate limiting across multiple servers**
-
-3. **Different rate limiting algorithms and when to use each**
-
-4. **Ensuring the rate limiter doesn't slow down API requests significantly**
-
-5. **Approach to handling rate limiter failures (fail-open vs fail-closed)**
 
 ---
 
@@ -303,24 +277,6 @@ Design a file storage system with upload, download, synchronization, versioning,
 
 ---
 
-## 🚪 API Gateway
-
-**Project Overview:**
-Design an API Gateway that routes requests to microservices with authentication, rate limiting, and monitoring.
-
-**Tech Stack:** Node.js, Load Balancer, Service Discovery, Redis
-**Key Features:** Request routing, authentication, rate limiting, circuit breaker
-
-### Interview Questions
-
-1. 🏗️ **Designing an API Gateway**
-
-2. 🔍 **Implementing service discovery**
-
-3. 🔌 **Handling circuit breaker pattern**
-
----
-
 ## 🔍 Search System
 
 **Project Overview:**
@@ -340,28 +296,6 @@ Design a search system that handles billions of documents with fast search laten
 4. 📇 **Handling search indexing**
 
 5. 📈 **Scaling search for billions of documents**
-
----
-
-## ⚡ Scaling REST API
-
-**Project Overview:**
-Design strategies to scale a REST API to handle billions of requests per day while maintaining low latency.
-
-**Tech Stack:** Load Balancer, Caching, Database Scaling, CDN
-**Key Features:** Horizontal scaling, caching, database optimization, load balancing
-
-### Interview Questions
-
-1. 📈 **Scaling a REST API to handle 1B+ requests per day**
-
-2. 💾 **Handling database scaling**
-
-3. 📊 **Handling traffic spikes**
-
-4. 💾 **Implementing caching strategies**
-
-5. 📊 **Monitoring and optimizing API performance**
 
 ---
 
@@ -406,28 +340,6 @@ Design a food delivery system with order management, delivery partner assignment
 4. ❌ **Handling order cancellation and refunds**
 
 5. 🗺️ **Optimizing delivery routes**
-
----
-
-## 📊 Monitoring Logging System
-
-**Project Overview:**
-Design a monitoring and logging system that collects logs and metrics from multiple services with real-time alerting.
-
-**Tech Stack:** React.js, Node.js, Express.js, MongoDB, Prometheus, Grafana, ELK Stack
-**Key Features:** Log collection, metrics collection, dashboards, alerting
-
-### Interview Questions
-
-1. 🏗️ **Designing a monitoring and logging system**
-
-2. 📥 **Handling high-volume log ingestion**
-
-3. 🚨 **Implementing real-time alerting**
-
-4. 📊 **Building dashboards for metrics visualization**
-
-5. 📈 **Scaling the system for billions of log entries**
 
 ---
 
@@ -491,28 +403,6 @@ Design a URL shortener that can shorten billions of URLs, handle high traffic wi
 4. ⏰ **Handling expired URLs and cleanup**
 
 5. 📊 **Implementing URL analytics and tracking**
-
----
-
-## 🚦 Rate Limiter
-
-**Project Overview:**
-Design and implement a rate limiting system to prevent API abuse and ensure fair resource usage. The system supports multiple rate limiting algorithms (fixed window, sliding window, token bucket), distributed rate limiting using Redis, and configurable limits per endpoint and user.
-
-**Tech Stack:** Node.js, Express.js, Redis, TypeScript
-**Key Features:** Multiple algorithms, distributed rate limiting, configurable limits, monitoring
-
-### Interview Questions
-
-1. 🎯 **Most complex technical challenge in building the rate limiter**
-
-2. 🌐 **Handling distributed rate limiting across multiple servers**
-
-3. 📊 **Different rate limiting algorithms and when to use each**
-
-4. ⚡ **Ensuring the rate limiter doesn't slow down API requests significantly**
-
-5. ⚠️ **Approach to handling rate limiter failures (fail-open vs fail-closed)**
 
 ---
 

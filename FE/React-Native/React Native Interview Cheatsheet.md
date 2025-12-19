@@ -6,15 +6,15 @@
 
 **Quick Review Checklist:**
 
-- [ ] React Native Basics (Components, JSX, Bridge)
+- [ ] React Native Basics (Components, JSX, New Architecture)
 
-- [ ] Native Modules (Android, iOS, JSI)
+- [ ] Native Modules (TurboModules, JSI)
 
 - [ ] Platform Configuration (AndroidManifest, Info.plist)
 
-- [ ] Navigation (React Navigation, Deep Linking)
+- [ ] Navigation (React Native Navigation, Deep Linking)
 
-- [ ] Performance (FlatList Optimization, Memoization)
+- [ ] Performance (FlatList Optimization, Memoization, Fabric)
 
 - [ ] State Management (Redux, AsyncStorage)
 
@@ -30,9 +30,7 @@
 
 - **Q11-Q20**: Native Modules & Platform Integrations
 
-- **Q21-Q30**: Android & iOS Platform Internals
-
-- **Q31-Q40**: Navigation & Lifecycle
+- **Q22-Q31**: Navigation & App Lifecycle
 
 - **Q41-Q50**: Performance Optimization & Measurement
 
@@ -56,57 +54,61 @@
 | **JSX** | Mobile UI syntax | `<View><Text>Hello</Text></View>` |
 | **Props** | Data passed to components | `<Button title="Click me" onPress={handlePress} />` |
 | **State** | Component's internal data | `const [count, setCount] = useState(0)` |
-| **Bridge** | JS ↔ Native communication | `NativeModules.MyModule.doSomething()` |
+| **Bridge (Legacy)** | JS ↔ Native communication (old) | `NativeModules.MyModule.doSomething()` |
+| **JSI/TurboModules** | Direct JS ↔ Native calls (New Architecture) | `TurboModuleRegistry.get('MyModule').doSomething()` |
 
 ---
 
 ## 🔌 **Native Modules**
 
-### **Creating Native Modules**
+### **TurboModules (New Architecture - Recommended)**
 
-**Definition:** Native modules bridge JavaScript and native code (Java/Kotlin for Android, Objective-C/Swift for iOS) to access platform-specific APIs and features.
+**Definition:** TurboModules use JSI for direct communication between JavaScript and native code, providing better performance (20-500x faster), lazy loading, and type safety through codegen.
 
 ```jsx
-// JavaScript side
-import { NativeModules } from 'react-native';
-const { MyNativeModule } = NativeModules;
+// TurboModule with TypeScript spec (codegen)
+// NativeMyModule.ts
+import { TurboModule, TurboModuleRegistry } from 'react-native';
 
-MyNativeModule.doSomething('Hello')
-  .then(result => console.log(result))
-  .catch(error => console.error(error));
+export interface Spec extends TurboModule {
+  readonly doSomething: (input: string) => Promise<string>;
+  readonly getConstants: () => { readonly apiKey: string };
+}
 
+export default TurboModuleRegistry.get<Spec>('MyModule');
+
+// Usage - lazy loaded on first use
+import MyModule from './NativeMyModule';
+const result = await MyModule.doSomething('Hello');
 ```
 
-### **Android Native Module**
+### **Android Native Module (TurboModule)**
 
 ```java
-// MyNativeModule.java
-public class MyNativeModule extends ReactContextBaseJavaModule {
-    @ReactMethod
-    public void doSomething(String message, Promise promise) {
-        try {
-            String result = "Android: " + message;
-            promise.resolve(result);
-        } catch (Exception e) {
-            promise.reject("ERROR", e.getMessage());
-        }
-    }
-}
+// TurboModule approach (New Architecture)
+@ReactModule(name = MyModuleSpec.NAME)
+public class MyModule extends MyModuleSpec {
+  public MyModule(ReactApplicationContext reactContext) {
+    super(reactContext);
+  }
 
+  @Override
+  public String doSomething(String input) {
+    return "Android: " + input;
+  }
+}
 ```
 
-### **iOS Native Module**
+### **iOS Native Module (TurboModule)**
 
 ```objc
-// MyNativeModule.m
-RCT_EXPORT_METHOD(doSomething:(NSString *)message
+// TurboModule approach (New Architecture)
+// MyModule.mm
+@interface RCT_EXTERN_MODULE(MyModule, NSObject)
+RCT_EXTERN_METHOD(doSomething:(NSString *)input
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
-{
-    NSString *result = [NSString stringWithFormat:@"iOS: %@", message];
-    resolve(result);
-}
-
+@end
 ```
 
 ---
@@ -158,27 +160,36 @@ RCT_EXPORT_METHOD(doSomething:(NSString *)message
 
 ## ⚙️ **Navigation**
 
-### **React Navigation**
+### **React Native Navigation**
 
-**Definition:** React Navigation provides stack, tab, and drawer navigators for React Native apps, handling navigation state, deep linking, and screen transitions.
+**Definition:** React Native Navigation provides native navigation for React Native apps, handling navigation state, deep linking, and screen transitions with native performance.
 
 ```jsx
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { Navigation } from 'react-native-navigation';
 
-const Stack = createStackNavigator();
+// Set root navigation
+Navigation.setRoot({
+  root: {
+    stack: {
+      children: [{
+        component: {
+          name: 'HomeScreen'
+        }
+      }]
+    }
+  }
+});
 
-function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
+// Push to new screen
+Navigation.push(componentId, {
+  component: {
+    name: 'DetailsScreen',
+    passProps: { itemId: 123 }
+  }
+});
 
+// Pop current screen
+Navigation.pop(componentId);
 ```
 
 ### **Deep Linking**
@@ -190,7 +201,8 @@ useEffect(() => {
   const handleDeepLink = (url) => {
     if (url.includes('product/')) {
       const productId = url.split('product/')[1];
-      navigation.navigate('Product', { productId });
+      // Handle navigation based on deep link
+      console.log('Navigate to product:', productId);
     }
   };
 
@@ -515,15 +527,17 @@ function App() {
 
 4. **Platform Differences** - iOS vs Android specific implementations
 
-5. **Navigation** - How to handle navigation in mobile apps
+5. **Navigation** - How to handle navigation in mobile apps with React Native Navigation
 
 ### **Key Concepts**
 
-- **Bridge Communication**: How JS communicates with native code
+- **New Architecture**: JSI, Fabric, and TurboModules (stable in 0.73+)
 
-- **Platform APIs**: Accessing device features through native modules
+- **JSI/TurboModules**: Direct JSI calls (20-500x faster than legacy bridge)
 
-- **Performance**: Optimization techniques for mobile apps
+- **Platform APIs**: Accessing device features through TurboModules
+
+- **Performance**: Optimization techniques including Fabric rendering
 
 - **State Management**: Managing state in mobile applications
 
@@ -547,15 +561,17 @@ function App() {
 
 ### **Must-Know Concepts**
 
-- **Bridge**: JS ↔ Native communication layer
+- **New Architecture**: JSI, Fabric, TurboModules (stable in 0.73+)
 
-- **Native Modules**: Access platform APIs (camera, GPS, etc.)
+- **TurboModules**: Direct JS ↔ Native calls (20-500x faster than bridge)
+
+- **Native Modules**: Access platform APIs (camera, GPS, etc.) via TurboModules
 
 - **Platform Differences**: Use `Platform.OS` for iOS/Android specific code
 
 - **FlatList**: Use for large lists (not ScrollView)
 
-- **Navigation**: React Navigation for routing
+- **Navigation**: React Native Navigation for native navigation
 
 ### **Quick Code Snippets**
 
@@ -570,9 +586,10 @@ if (Platform.OS === 'ios') { /* iOS code */ }
   keyExtractor={item => item.id}
 />
 
-// Native Module
-import { NativeModules } from 'react-native';
-NativeModules.MyModule.doSomething();
+// TurboModule (New Architecture)
+import { TurboModuleRegistry } from 'react-native';
+const MyModule = TurboModuleRegistry.get('MyModule');
+MyModule.doSomething();
 
 ```
 

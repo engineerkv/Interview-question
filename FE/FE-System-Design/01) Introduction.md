@@ -16,13 +16,13 @@
 
 ---
 
-## Q0. ⚛️ React vs Other Frameworks (React vs Vue vs Angular)
+## 1. ⚛️ React vs Other Frameworks (React vs Vue vs Angular)
 
 When you're choosing a frontend framework for your project, you need to understand the differences between React, Vue, and Angular. Each framework has its own philosophy, strengths, and use cases. Understanding these differences helps you pick the right tool for your specific project needs and team expertise.
 
 ---
 
-## 1. 🔍 Philosophy and Approach
+### 🔹 🔍 Philosophy and Approach
 
 Each framework has a different philosophy that shapes how you build applications with it.
 
@@ -100,7 +100,7 @@ Each framework has a different philosophy that shapes how you build applications
 
 ---
 
-## 2. 💡 Syntax and Code Style
+### 🔹 💡 Syntax and Code Style
 
 The syntax you write differs significantly between these frameworks.
 
@@ -190,7 +190,7 @@ export class CounterComponent {
 
 ---
 
-## 3. 💡 Learning Curve and Developer Experience
+### 🔹 💡 Learning Curve and Developer Experience
 
 How easy is it to get started and become productive?
 
@@ -264,7 +264,7 @@ How easy is it to get started and become productive?
 
 ---
 
-## 4. ⚡ Bundle Size and Performance
+### 🔹 ⚡ Bundle Size and Performance
 
 The size of the framework affects initial load time and performance.
 
@@ -336,7 +336,7 @@ The size of the framework affects initial load time and performance.
 
 ---
 
-## 5. 💡 Ecosystem and Community
+### 🔹 💡 Ecosystem and Community
 
 The ecosystem around each framework affects what you can build and how easily.
 
@@ -410,7 +410,7 @@ The ecosystem around each framework affects what you can build and how easily.
 
 ---
 
-## 6. 🔍 State Management Approaches
+### 🔹 🔍 State Management Approaches
 
 How each framework handles application state differs significantly.
 
@@ -473,7 +473,7 @@ How each framework handles application state differs significantly.
 
 ---
 
-## 7. ✅ Routing Solutions
+### 🔹 ✅ Routing Solutions
 
 How navigation and routing work in each framework.
 
@@ -534,7 +534,7 @@ How navigation and routing work in each framework.
 
 ---
 
-## 8. 🎨 Server-Side Rendering (SSR) and Static Site Generation
+### 🔹 🎨 Server-Side Rendering (SSR) and Static Site Generation
 
 How each framework handles server-side rendering and static generation.
 
@@ -595,7 +595,7 @@ How each framework handles server-side rendering and static generation.
 
 ---
 
-## 9. 🔍 Testing Approaches
+### 🔹 🔍 Testing Approaches
 
 How testing works in each framework ecosystem.
 
@@ -656,7 +656,7 @@ How testing works in each framework ecosystem.
 
 ---
 
-## 10. 💡 When to Choose Each Framework
+### 🔹 💡 When to Choose Each Framework
 
 Understanding use cases helps you make the right choice.
 
@@ -742,7 +742,7 @@ Understanding use cases helps you make the right choice.
 
 ---
 
-## 11. 💡 Migration and Adoption Paths
+### 🔹 💡 Migration and Adoption Paths
 
 How easy it is to adopt or migrate between frameworks.
 
@@ -802,7 +802,7 @@ How easy it is to adopt or migrate between frameworks.
 
 ---
 
-## 12. ⚡ Real-World Performance Comparison
+### 🔹 ⚡ Real-World Performance Comparison
 
 Practical performance considerations for each framework.
 
@@ -925,13 +925,13 @@ React: Excellent TypeScript support, widely used, but optional. Vue: Good TypeSc
 
 ---
 
-## Q1. 💡 Webpack vs Other Bundling Tools
+### 🔹 💡 Webpack vs Other Bundling Tools
 
 When you're building a frontend application, you need a bundler to combine your JavaScript modules, CSS, and other assets into optimized files for the browser. Choosing the right bundler affects your development speed, build performance, and how much configuration you need to write. Understanding the differences between Webpack, Parcel, Vite, and Rollup helps you pick the right tool for your project.
 
 ---
 
-## 1. 💡 Configuration Complexity
+### 🔹 💡 Configuration Complexity
 
 The amount of configuration you need to write varies significantly between bundlers.
 
@@ -1035,7 +1035,7 @@ The amount of configuration you need to write varies significantly between bundl
 
 ---
 
-## 2. 💡 Development Speed
+### 🔹 💡 Development Speed
 
 How fast your development server starts and how quickly changes appear affects your productivity.
 
@@ -1133,7 +1133,7 @@ How fast your development server starts and how quickly changes appear affects y
 
 ---
 
-## 3. ⚡ Production Build Performance
+### 🔹 ⚡ Production Build Performance
 
 How well each bundler optimizes your code for production affects bundle size and load time.
 
@@ -1229,7 +1229,7 @@ How well each bundler optimizes your code for production affects bundle size and
 
 ---
 
-## 4. 💡 Use Cases and When to Choose
+### 🔹 💡 Use Cases and When to Choose
 
 Each bundler excels in different scenarios.
 
@@ -1343,13 +1343,13 @@ Yes, but it's usually not necessary. You might use Rollup for building a library
 
 ---
 
-## Q2. 🟢 Node.js vs Other Frameworks
+### 🔹 🟢 Node.js vs Other Frameworks
 
 When you're building a backend application, choosing the right technology affects performance, development speed, and what you can build. Node.js, Python, and Java each excel in different scenarios. Understanding their strengths and trade-offs helps you pick the right backend technology for your project requirements and team expertise.
 
 ---
 
-## 1. ⚡ Performance Characteristics
+### 🔹 ⚡ Performance Characteristics
 
 Each technology has different performance characteristics that make them suitable for different workloads.
 
@@ -1431,7 +1431,7 @@ Each technology has different performance characteristics that make them suitabl
 
 ---
 
-## 2. ✖️ Development Speed and Productivity
+### 🔹 ✖️ Development Speed and Productivity
 
 How quickly you can build and iterate affects project timelines and developer experience.
 
@@ -1515,7 +1515,7 @@ How quickly you can build and iterate affects project timelines and developer ex
 
 ---
 
-## 3. 🏷️ Use Cases and Application Types
+### 🔹 🏷️ Use Cases and Application Types
 
 Each technology excels in different types of applications.
 
@@ -1589,7 +1589,7 @@ Each technology excels in different types of applications.
 
 ---
 
-## 4. 💡 Ecosystem and Package Management
+### 🔹 💡 Ecosystem and Package Management
 
 The ecosystem around each technology affects what you can build and how easily.
 
@@ -1667,7 +1667,7 @@ The ecosystem around each technology affects what you can build and how easily.
 
 ---
 
-## 5. 💡 Learning Curve and Team Considerations
+### 🔹 💡 Learning Curve and Team Considerations
 
 How easy it is to learn and what your team already knows affects your choice.
 
@@ -1739,7 +1739,7 @@ How easy it is to learn and what your team already knows affects your choice.
 
 ---
 
-## 6. 💡 When to Choose Each Technology
+### 🔹 💡 When to Choose Each Technology
 
 Making the right choice depends on your specific needs and constraints.
 
@@ -1847,13 +1847,13 @@ Yes, you can use multiple technologies in a microservices architecture. For exam
 
 ---
 
-## Q3. 🗄️ SQL vs NoSQL
+### 🔹 🗄️ SQL vs NoSQL
 
 When you're choosing a database for your project, you need to decide between SQL (relational) and NoSQL (non-relational) databases. This decision affects how you structure your data, how you query it, and how you scale your application. Understanding the differences helps you pick the right database for your specific needs.
 
 ---
 
-## 1. 🗄️ Understanding SQL Databases
+### 🔹 🗄️ Understanding SQL Databases
 
 SQL databases store data in tables with rows and columns, like a spreadsheet. These databases enforce relationships between tables and use structured schemas that you define upfront.
 
@@ -1889,7 +1889,7 @@ SQL databases store data in tables with rows and columns, like a spreadsheet. Th
 
 ---
 
-## 2. 🗄️ Understanding NoSQL Databases
+### 🔹 🗄️ Understanding NoSQL Databases
 
 NoSQL databases are more flexible - these databases don't force you into tables. Different types are built for different needs, and you can change your data structure as your requirements evolve.
 
@@ -1927,7 +1927,7 @@ NoSQL databases are more flexible - these databases don't force you into tables.
 
 ---
 
-## 3. 🗄️ When to Choose SQL
+### 🔹 🗄️ When to Choose SQL
 
 Choose SQL when you need structured data with relationships, ACID transactions, and complex queries with joins.
 
@@ -1965,7 +1965,7 @@ Choose SQL when you need structured data with relationships, ACID transactions, 
 
 ---
 
-## 4. 🗄️ When to Choose NoSQL
+### 🔹 🗄️ When to Choose NoSQL
 
 Choose NoSQL when you need flexible schemas, horizontal scaling, and high write throughput.
 
@@ -2010,7 +2010,7 @@ Choose NoSQL when you need flexible schemas, horizontal scaling, and high write 
 
 ---
 
-## 5. 🗄️ SQL Trade-offs
+### 🔹 🗄️ SQL Trade-offs
 
 SQL gives you strong consistency and powerful querying but is harder to scale horizontally and requires schema migrations.
 
@@ -2034,7 +2034,7 @@ SQL gives you strong consistency and powerful querying but is harder to scale ho
 
 ---
 
-## 6. 🗄️ NoSQL Trade-offs
+### 🔹 🗄️ NoSQL Trade-offs
 
 NoSQL scales easily and handles unstructured data well, but you lose joins, complex transactions, and have to manage consistency yourself.
 
@@ -2058,7 +2058,7 @@ NoSQL scales easily and handles unstructured data well, but you lose joins, comp
 
 ---
 
-## 7. 🔍 Hybrid Approaches
+### 🔹 🔍 Hybrid Approaches
 
 Many modern applications use both SQL and NoSQL together - use each database for what it's best at.
 
@@ -2120,13 +2120,13 @@ Main types include document databases (MongoDB - flexible documents), key-value 
 
 ---
 
-## Q4. ⚛️ React Native vs Flutter vs Cordova
+### 🔹 ⚛️ React Native vs Flutter vs Cordova
 
 When you're building a mobile application, you need to choose between native development and cross-platform frameworks. React Native, Flutter, and Cordova each offer different approaches to building mobile apps. Understanding their performance, development experience, and use cases helps you pick the right framework for your mobile app project.
 
 ---
 
-## 1. ⚡ Performance Characteristics
+### 🔹 ⚡ Performance Characteristics
 
 Performance is crucial for mobile apps - users expect smooth, responsive experiences.
 
@@ -2210,7 +2210,7 @@ Performance is crucial for mobile apps - users expect smooth, responsive experie
 
 ---
 
-## 2. 💡 Development Experience
+### 🔹 💡 Development Experience
 
 How easy it is to develop and iterate affects your productivity and team velocity.
 
@@ -2294,7 +2294,7 @@ How easy it is to develop and iterate affects your productivity and team velocit
 
 ---
 
-## 3. 💡 Code Sharing and Reusability
+### 🔹 💡 Code Sharing and Reusability
 
 How much code you can share between platforms affects development efficiency.
 
@@ -2376,7 +2376,7 @@ How much code you can share between platforms affects development efficiency.
 
 ---
 
-## 4. ⚖️ UI Consistency and Native Feel
+### 🔹 ⚖️ UI Consistency and Native Feel
 
 How the app looks and feels affects user experience and platform integration.
 
@@ -2460,7 +2460,7 @@ How the app looks and feels affects user experience and platform integration.
 
 ---
 
-## 5. 💡 Bundle Size and App Size
+### 🔹 💡 Bundle Size and App Size
 
 The size of your app affects download time and storage requirements.
 
@@ -2538,7 +2538,7 @@ The size of your app affects download time and storage requirements.
 
 ---
 
-## 6. 💡 When to Choose Each Framework
+### 🔹 💡 When to Choose Each Framework
 
 Understanding use cases helps you make the right choice for your project.
 

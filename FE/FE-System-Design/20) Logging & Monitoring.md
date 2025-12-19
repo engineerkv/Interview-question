@@ -16,13 +16,11 @@
 
 ---
 
-## Q89. 💡 Telemetry
+## 1. 💡 Telemetry
 
 Telemetry is the automatic collection of metrics, logs, and traces from your application so you can understand how it behaves in real usage. For frontend systems, it's your eyes and ears in production. Proper telemetry implementation helps you understand user behavior, identify issues quickly, and make data-driven decisions about your application.
 
----
-
-## 1. 💡 What to collect
+### 🔹 What to Collect
 
 ### 🔹 Metrics
 
@@ -44,7 +42,7 @@ Telemetry is the automatic collection of metrics, logs, and traces from your app
 
 ---
 
-## 2. 💡 Frontend implementation
+### 🔹 💡 Frontend implementation
 
 * Use a telemetry SDK (Sentry, Datadog, OpenTelemetry, custom)
 
@@ -55,27 +53,11 @@ Telemetry is the automatic collection of metrics, logs, and traces from your app
 
 ---
 
-## ⭐ Summary — 10-second Interview Version
-
-> "Telemetry collects metrics and events from real users so we can see performance, errors, and feature usage. On the frontend I instrument key flows and send structured, privacy-aware events."
-
----
-
-## ⭐ Extra Points (If Interviewer Asks More)
-
-### How do you avoid noisy telemetry?
-
-Define a small set of important events and metrics, sample high-volume data, and regularly clean up unused events.
-
----
-
-## Q90. 💡 Alerting
+### 🔹 💡 Alerting
 
 Alerting turns telemetry signals into notifications for humans when something goes wrong or drifts from expected behavior. Good alerts are rare, actionable, and clearly owned.
 
----
-
-## 1. 💡 What to alert on
+### 🔹 What to Alert On
 
 * Error rate spikes (JS errors, failed API calls)
 
@@ -87,7 +69,7 @@ Alerting turns telemetry signals into notifications for humans when something go
 
 ---
 
-## 2. 💡 Designing good alerts
+### 🔹 💡 Designing good alerts
 
 * Tie each alert to:
   * **Owner** (team/on-call)
@@ -114,13 +96,13 @@ An alert when JS error rate or failed API calls exceed a threshold for more than
 
 ---
 
-## Q91. ⚡ Fixing Performance and Error Issues
+### 🔹 ⚡ Fixing Performance and Error Issues
 
 Fixing issues is about turning telemetry and alerts into concrete improvements. It requires a repeatable workflow from detection to verification.
 
 ---
 
-## 1. 🐛 Debugging workflow
+### 🔹 🐛 Debugging workflow
 
 ### 🔹 For errors
 
@@ -144,9 +126,7 @@ Fixing issues is about turning telemetry and alerts into concrete improvements. 
 
 📌 **In simple terms**: Use telemetry to find where users hurt the most, then reproduce, fix, and verify with new data.
 
----
-
-## 2. 💡 Closing the loop
+### 🔹 Closing the Loop
 
 * Link issues to alerts and dashboards
 
@@ -158,15 +138,7 @@ Fixing issues is about turning telemetry and alerts into concrete improvements. 
 
 ## ⭐ Summary — 10-second Interview Version
 
-> "To fix issues I use logs and metrics to find the biggest problems, reproduce them, apply targeted fixes, add tests, and then verify improvements in telemetry dashboards."
-
----
-
-## ⭐ Extra Points (If Interviewer Asks More)
-
-### How do you prioritize what to fix first?
-
-Look at impact: number of users affected, business-critical flows, and trend (getting worse or stable).
+> "Logging and monitoring includes telemetry (collecting metrics and events), alerting (notifications when thresholds are breached), and fixing issues (debugging workflow from detection to verification). Use structured events, avoid noisy telemetry, design actionable alerts, and close the loop by verifying fixes."
 
 ---
 

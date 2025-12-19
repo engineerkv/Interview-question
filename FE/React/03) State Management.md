@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[← Previous: Hooks & Lifecycle](02%29%20Hooks%20%26%20Lifecycle.md) • [Home: README](../README.md) • [Next: Data Fetching & Server State →](04%29%20Data Fetching%20%26%20Server State.md)
+[← Previous: Hooks & Lifecycle](02%29%20Hooks%20%26%20Lifecycle.md) • [Home: README](../README.md) • [Next: Data Fetching & Server State →](04%29%20Data%20Fetching%20%26%20Server%20State.md)
 
 [📋 Cheatsheet](React%20Interview%20Cheatsheet.md)
 
@@ -288,7 +288,7 @@ const count = useSelector(state => state.counter.count);
 
 <div align="center">
 
-[← Previous: Hooks & Lifecycle](02%29%20Hooks%20%26%20Lifecycle.md) • [Home: README](../README.md) • [Next: Data Fetching & Server State →](04%29%20Data Fetching%20%26%20Server State.md)
+[← Previous: Hooks & Lifecycle](02%29%20Hooks%20%26%20Lifecycle.md) • [Home: README](../README.md) • [Next: Data Fetching & Server State →](04%29%20Data%20Fetching%20%26%20Server%20State.md)
 
 [📋 Cheatsheet](React%20Interview%20Cheatsheet.md)
 

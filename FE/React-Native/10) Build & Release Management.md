@@ -16,7 +16,7 @@
 
 ---
 
-## Q125. 🏗️ Creating Android release builds
+## Q99. 🏗️ Creating Android release builds
 
 Configure signing in build.gradle, create a keystore, and build the release APK - use gradlew assembleRelease to build (build process). Use keytool to create release keystore (keystore creation).
 
@@ -50,7 +50,7 @@ android {
 
 ---
 
-## Q126. 🏗️ Creating iOS release builds
+## Q100. 🏗️ Creating iOS release builds
 
 Configure code signing in Xcode, create provisioning profiles, and archive the app - manage development and distribution certificates (certificates). Configure code signing in Xcode (code signing).
 
@@ -76,7 +76,7 @@ Example:
 
 ---
 
-## Q125. 🏗️ Handling build numbers and versioning
+## Q101. 🏗️ Handling build numbers and versioning
 
 Use consistent versioning strategies and automate version management across platforms - keep versions consistent across platforms (consistency). Use semantic versioning (major.minor.patch) (semantic versioning).
 
@@ -102,7 +102,7 @@ android {
 
 ---
 
-## Q126. 💡 Submitting apps to Google Play Store
+## Q102. 💡 Submitting apps to Google Play Store
 
 Follow Google Play Store guidelines for app quality, content, and technical requirements - target recent Android API levels (target API). Meet quality guidelines and standards (app quality).
 
@@ -125,7 +125,7 @@ Example:
 
 ---
 
-## Q117. 💡 Submitting apps to Apple App Store
+## Q103. 💡 Submitting apps to Apple App Store
 
 Follow Apple App Store guidelines for app quality, content, and technical requirements - use App Store Connect for submission (App Store Connect). Follow App Store review guidelines (app review).
 
@@ -148,7 +148,7 @@ Example:
 
 ---
 
-## Q118. 🔧 Implementing phased rollouts
+## Q104. 🔧 Implementing phased rollouts
 
 Use store-specific rollout features to gradually release updates to users - ability to pause or rollback if issues arise (rollback). Release updates to subset of users first (gradual release).
 
@@ -172,18 +172,38 @@ const rolloutConfig = {
 
 ---
 
-## Q113. 🏗️ Automating builds with Fastlane
+## Q105. 🏗️ Setting up Fastlane for iOS automation
 
-Use CI/CD tools to automate the build, test, and deployment process - automation improves development workflow. Fastlane (Ruby-based automation tool), EAS (Expo's build and deployment service), Bitrise (cloud-based CI/CD platform).
+Use Fastlane to automate iOS build, test, and deployment processes - automate repetitive iOS build tasks (iOS automation). Configure Fastlane for iOS builds (iOS configuration).
 
-- **Trade-offs**: The catch is integrate with CI/CD pipelines (CI/CD integration) - full automation of build and deployment. Automation improves development workflow, but watch out - automate repetitive build tasks (automation).
+- **Trade-offs**: The catch is automate iOS app signing and provisioning (signing automation) - automate App Store submission (App Store automation). Automate repetitive iOS build tasks (iOS automation), but watch out - integrate with CI/CD pipelines (CI/CD integration).
 
 Example:
 
 ```ruby
-
 # Fastfile
+platform :ios do
+  desc "Build and upload to App Store"
+  lane :deploy do
+    match(type: "appstore")
+    build_app(scheme: "MyApp")
+    upload_to_app_store
+  end
+end
+```
 
+---
+
+## Q106. 🏗️ Setting up Fastlane for Android automation
+
+Use Fastlane to automate Android build, test, and deployment processes - automate repetitive Android build tasks (Android automation). Configure Fastlane for Android builds (Android configuration).
+
+- **Trade-offs**: The catch is automate Android app signing (signing automation) - automate Play Store submission (Play Store automation). Automate repetitive Android build tasks (Android automation), but watch out - integrate with CI/CD pipelines (CI/CD integration).
+
+Example:
+
+```ruby
+# Fastfile
 platform :android do
   desc "Build and upload to Play Store"
   lane :deploy do
@@ -194,12 +214,37 @@ platform :android do
     upload_to_play_store
   end
 end
-
 ```
 
 ---
 
-## Q122. 💡 Handling store rejections and resubmissions
+## Q107. 🔧 Configuring Fastlane lanes and actions
+
+Configure Fastlane lanes to organize build and deployment workflows - use actions to perform specific tasks (actions). Create custom lanes for different workflows (custom lanes).
+
+- **Trade-offs**: The catch is organize lanes by platform and purpose (lane organization) - reuse actions across lanes (action reuse). Use actions to perform specific tasks (actions), but watch out - configure lanes for different environments (environment configuration).
+
+Example:
+
+```ruby
+# Fastfile
+platform :ios do
+  lane :beta do
+    build_app(scheme: "MyApp")
+    upload_to_testflight
+  end
+
+  lane :release do
+    match(type: "appstore")
+    build_app(scheme: "MyApp")
+    upload_to_app_store
+  end
+end
+```
+
+---
+
+## Q108. 💡 Handling store rejections and resubmissions
 
 Common causes include policy violations, technical issues, and quality problems that need to be addressed - prevention is better than fixing rejections. Follow store policies and guidelines (policy violations), Fix crashes and performance issues (technical issues).
 
@@ -223,7 +268,7 @@ Example:
 
 ---
 
-## Q123. 💡 Reducing app size for store submission
+## Q109. 💡 Reducing app size for store submission
 
 Use Hermes, code obfuscation, asset optimization, and other techniques to reduce app size - smaller apps improve download rates. Use Hermes JavaScript engine, Enable code obfuscation and shrinking (Proguard).
 
@@ -247,7 +292,7 @@ android {
 
 ---
 
-## Q124. 📱 Implementing analytics in React Native apps
+## Q110. 📱 Implementing analytics in React Native apps
 
 Integrate analytics tools to track user behavior and app performance - analytics help improve app experience. Firebase Analytics (Google's analytics platform), Segment (customer data platform).
 
@@ -272,7 +317,7 @@ function App() {
 
 ---
 
-## Q125. 💡 Handling app signing and certificates
+## Q111. 💡 Handling app signing and certificates
 
 Use proper certificate management, secure signing practices, and automated release processes - secure signing is critical for production. Keep Android keystore secure (keystore security), Manage iOS certificates properly (certificate management).
 
@@ -294,7 +339,7 @@ keytool -genkey -v -keystore my-release-key.keystore \
 
 ---
 
-## Q126. 📱 Setting up CI/CD pipelines for React Native
+## Q112. 📱 Setting up CI/CD pipelines for React Native
 
 Configure automated pipelines for building, testing, and deploying React Native apps - implement quality gates in pipeline (quality gates). Use GitHub Actions for CI/CD (GitHub Actions).
 

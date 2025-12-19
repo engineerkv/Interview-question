@@ -1,4 +1,4 @@
-# 🚀 1. Fundamentals & Core Concepts (Q1–15)
+# 🚀 1. Fundamentals & Core Concepts (Q1–Q8) + JavaScript Internals
 
 ---
 
@@ -34,24 +34,7 @@ const func = () => {};
 
 ---
 
-## Q2. 📝 `var`, `let`, and `const`: differences
-
-`var` is function-scoped and hoists as `undefined`, which can cause weird bugs. `let` and `const` are block-scoped and stay in a Temporal Dead Zone until declared - if you try to use them before the declaration, you get an error. `const` prevents reassignment but still allows you to mutate objects - so `const obj = { x: 1 }; obj.x = 2;` works, but `obj = {}` doesn't.
-
-- **Trade-offs**: The catch is `var` can leak outside blocks and hoists in confusing ways, which is why most linters warn you to avoid it. `let` and `const` are safer because they're block-scoped, but the TDZ can be tricky if you're not careful about declaration order.
-
-Example:
-
-```js
-var a = 1; if (true) var a = 2; // same binding
-let b = 1; if (true) { let b = 2; } // block scoped
-const obj = { x: 1 }; obj.x = 2; // ok; obj = {} is not
-
-```
-
----
-
-## Q3. 🔍 `==` vs `===` in JavaScript
+## Q2. 🔍 `==` vs `===` in JavaScript
 
 `===` compares without type coercion - both value and type must match exactly. `==` does type coercion first, which leads to weird results like `0 == false` being true or `'\t42' == 42` being true.
 
@@ -69,45 +52,7 @@ null == undefined // true
 
 ---
 
-## Q4. 💡 Hoisting in JavaScript
-
-Hoisting moves declarations to the top of their scope during compilation, but only the declaration hoists - initialization stays in place. `var` hoists as `undefined`, so you can access it before the line where it's declared, but it'll be undefined. `let` and `const` hoist too, but they stay in a Temporal Dead Zone until the declaration line - if you try to use them before that, you get a reference error.
-
-- **Trade-offs**: Function declarations hoist with their full definition, which is convenient but can make code harder to follow. The TDZ for `let`/`const` prevents accessing variables before declaration, which catches bugs early, but it can be confusing if you're not expecting it.
-
-Example:
-
-```js
-console.log(a); // undefined (var hoisted)
-var a = 1;
-// console.log(b); // TDZ error
-let b = 2;
-
-```
-
----
-
-## Q5. 🔍 Scope: global, local, and block
-
-Scope determines where variables are visible. Global scope spans the entire program, function scope is inside a function, and block scope is within curly braces. `let` and `const` are block-scoped, so these only exist inside the block where these are declared, while `var` is function-scoped and can leak outside blocks.
-
-- **Trade-offs**: Block scope with `let`/`const` prevents accidental variable leaks and makes code more predictable, but shadowing (using the same name in nested scopes) can be confusing. Modules have their own top-level scope, so variables don't leak to global unless you explicitly export them.
-
-Example:
-
-```js
-let x = 1; // global (module/global)
-function f() {
-  let y = 2;
-  if (true) { let z = 3; }
-}
-// x visible everywhere; y in f; z only inside block
-
-```
-
----
-
-## Q6. ❓ `null` vs `undefined`
+## Q3. ❓ `null` vs `undefined`
 
 `undefined` means "not assigned" - it's what you get from uninitialized variables, missing function parameters, or absent object keys. `null` is an explicit "empty" value that developers intentionally set to signal absence. Both represent "no value" but `null` is intentional, while `undefined` usually means something wasn't set.
 
@@ -125,44 +70,7 @@ typeof null; // 'object' (historical bug)
 
 ---
 
-## Q7. 🔧 Function declarations vs function expressions
-
-Function declarations are hoisted and can be called before they appear in code - the entire function definition moves to the top. Function expressions produce a function value at runtime and can be anonymous or named - arrow functions are always expressions. Only the variable binding hoists for expressions, not the function itself.
-
-- **Trade-offs**: Declarations offer hoisting convenience, which is nice for organizing code, but expressions give you more control over when functions are created. Named function expressions help with stack traces and recursion, even when assigned to variables.
-
-Example:
-
-```js
-function add(a, b) { return a + b; } // declaration
-const mul = function (a, b) { return a * b; }; // expression
-const sub = (a, b) => a - b; // arrow expression
-
-```
-
----
-
-## Q8. 🔧 Arrow functions vs regular functions
-
-Arrow functions are a shorter syntax for writing functions with lexical `this` binding - these inherit `this` from their enclosing scope instead of having their own. These don't have their own `this`, `arguments`, or `super`, and can't be used as constructors or with `new`.
-
-- **Trade-offs**: Arrow functions are perfect for callbacks and array methods like `map` and `filter`, but watch out - these can't be used when methods need their own `this` binding. These also can't be used with `new` and don't have a `prototype` property.
-
-Example:
-
-```js
-const obj = {
-  regular() { return this; }, // Regular function: 'this' refers to obj
-  arrow: () => this, // Arrow function: 'this' refers to enclosing scope (global/window)
-};
-obj.regular(); // Returns obj (method call)
-obj.arrow(); // Returns global/window (lexical this binding)
-
-```
-
----
-
-## Q9. 🔧 First-class functions in JavaScript
+## Q4. 🔧 First-class functions in JavaScript
 
 Functions are first-class citizens - you can assign these to variables, pass these as arguments, and return these from other functions just like any other value. This enables higher-order programming patterns like map, filter, and function composition, where you pass behavior as data.
 
@@ -181,27 +89,7 @@ const result = twice(inc)(3); // inc(inc(3)) = inc(4) = 5
 
 ---
 
-## Q10. 🔍 Lexical scope in JavaScript
-
-Lexical scope is determined by where code is written in the source file - inner functions can access variables from their outer scope, but not vice versa. This scope is fixed at parse time based on code structure, not where functions are called at runtime.
-
-- **Trade-offs**: Lexical scope makes variable visibility predictable and enables closures, but `with` and `eval` can disrupt it - avoid them in modern code. Modules and blocks create predictable lexical boundaries that make code easier to reason about.
-
-Example:
-
-```js
-function outer() {
-  const a = 1; // Variable in outer scope
-  function inner() { return a + 1; } // Inner function accesses outer variable (lexical scope)
-  return inner();
-}
-outer(); // Returns 2 (inner accesses 'a' from outer scope)
-
-```
-
----
-
-## Q11. 📝 `typeof NaN` return value and why
+## Q5. 📝 `typeof NaN` return value and why
 
 `typeof NaN` returns `"number"` because NaN is technically a numeric type representing invalid mathematical operations - it's a special value in the number type, not a separate data type. NaN is the only value that doesn't equal itself, so `NaN === NaN` is false.
 
@@ -219,7 +107,7 @@ console.log(isNaN("hello")); // true (coerces first)
 
 ---
 
-## Q12. 🔍 `[2] == [2]` return value and why
+## Q6. 🔍 `[2] == [2]` return value and why
 
 `[2] == [2]` returns `false` because arrays are objects, and objects are compared by reference, not by value. Even though both arrays contain the same value, these are two different objects in memory, so the references don't match.
 
@@ -239,7 +127,7 @@ console.log(arr1 == arr2); // true (same reference)
 
 ---
 
-## Q13. 🔍 `0.1 + 0.2 === 0.3` evaluation and why
+## Q7. 🔍 `0.1 + 0.2 === 0.3` evaluation and why
 
 `0.1 + 0.2 === 0.3` returns `false` because floating-point numbers use binary representation, and some decimals can't be exactly represented - this causes tiny precision errors. So `0.1 + 0.2` actually equals `0.30000000000000004`, not exactly `0.3`.
 
@@ -256,7 +144,7 @@ console.log(Math.abs(0.1 + 0.2 - 0.3) < Number.EPSILON); // true
 
 ---
 
-## Q14. 💡 `'5' + 3` and `'5' - 3` return values
+## Q8. 💡 `'5' + 3` and `'5' - 3` return values
 
 `'5' + 3` returns `"53"` because `+` performs string concatenation when one operand is a string. `'5' - 3` returns `2` because `-` forces numeric conversion on both operands - all other arithmetic operators convert to numbers too, only `+` works with strings.
 
@@ -268,27 +156,6 @@ Example:
 console.log('5' + 3); // "53" (string concatenation)
 console.log('5' - 3); // 2 (numeric subtraction)
 console.log('5' * 3); // 15 (numeric multiplication)
-
-```
-
----
-
-## Q15. 📦 Different ways to create objects in JavaScript
-
-You can create objects using object literals (most common), constructor functions, classes, `Object.create()`, or factory functions. Object literals are the simplest and inherit from `Object.prototype`, while `Object.create(null)` creates objects without prototype, useful for pure data structures.
-
-- **Trade-offs**: Each method has different prototype behavior - classes are syntactic sugar over constructors, and factory functions return new objects without `new`, offering a functional alternative. Choose based on your needs - literals for simple data, classes for OOP, factories for flexibility.
-
-Example:
-
-```js
-const obj1 = { name: 'John' }; // literal
-const obj2 = new Object(); // constructor
-const obj3 = Object.create(null); // no prototype
-function Person(name) { this.name = name; }
-const obj4 = new Person('John'); // constructor function
-class PersonClass { constructor(name) { this.name = name; } }
-const obj5 = new PersonClass('John'); // class
 
 ```
 

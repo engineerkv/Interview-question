@@ -65,7 +65,7 @@ export default codePush(codePushOptions)(App);
 
 ---
 
-## Q113. 📲 Limitations of CodePush
+## Q115. 📲 Limitations of CodePush
 
 CodePush cannot update native code, change app permissions, or modify core app functionality - limited to JavaScript and asset updates (JavaScript only). Cannot update native code or modules (native code).
 
@@ -85,7 +85,7 @@ Example:
 
 ---
 
-## Q114. 📲 Implementing rollbacks with CodePush
+## Q116. 📲 Implementing rollbacks with CodePush
 
 Use CodePush's rollback features and version checking to handle failed updates and version conflicts - monitor update success and failure rates (monitoring). CodePush automatically rolls back failed updates (automatic rollback).
 
@@ -115,7 +115,35 @@ function App() {
 
 ---
 
-## Q115. 📲 Handling version mismatches with CodePush
+---
+
+## Q117. 📲 Handling version mismatches with CodePush
+
+Use proper version checking and compatibility strategies to handle version mismatches between app versions and CodePush updates - ensure updates are compatible with app version (version compatibility). Check app version before applying updates (version checking).
+
+- **Trade-offs**: The catch is handle version conflicts gracefully (version conflicts) - prevent incompatible updates from being applied (compatibility). Ensure updates are compatible with app version (version compatibility), but watch out - implement version checking logic (version checking).
+
+Example:
+
+```jsx
+import codePush from 'react-native-code-push';
+
+function App() {
+  useEffect(() => {
+    codePush.sync({
+      updateDialog: {
+        title: 'Update available',
+        mandatoryUpdateMessage: 'Update is required for this version'
+      },
+      checkFrequency: codePush.CheckFrequency.ON_APP_START
+    });
+  }, []);
+}
+```
+
+---
+
+## Q118. 🚀 Securing CodePush deployments
 
 Use proper authentication, code signing, and testing strategies to ensure secure and stable updates - monitor update success and stability (monitoring). Use proper authentication for updates (authentication).
 
@@ -132,12 +160,11 @@ const secureCodePushOptions = {
     mandatoryUpdateMessage: 'Security update required'
   }
 };
-
 ```
 
 ---
 
-## Q116. 🚀 Securing CodePush deployments
+## Q119. 📲 Difference between CodePush and Expo EAS OTA
 
 CodePush is for bare React Native apps, while EAS OTA is for Expo-managed apps with different deployment strategies - choose based on your React Native setup. CodePush for bare React Native apps, EAS OTA for Expo-managed apps.
 
@@ -151,12 +178,11 @@ import codePush from 'react-native-code-push';
 
 // EAS OTA (Expo managed)
 import { Updates } from 'expo';
-
 ```
 
 ---
 
-## Q117. 📲 Difference between CodePush and Expo EAS OTA
+## Q120. 📲 Monitoring crashes and errors with CodePush
 
 Integrate crash reporting tools to monitor app stability and error rates after OTA updates - use crash rates to trigger rollbacks (rollback triggers). Use Sentry or Firebase for crash reporting (crash reporting).
 
@@ -184,28 +210,6 @@ codePush.sync({
 ```
 
 ---
-
-## Q118. 📲 Monitoring crashes and errors with CodePush
-
-Test thoroughly, use staged rollouts, monitor metrics, and have rollback strategies in place - communicate updates to users (user communication). Thoroughly test updates before deployment (testing).
-
-- **Trade-offs**: The catch is monitor update success and failure rates (monitoring) - have rollback strategies in place (rollback strategy). Communicate updates to users (user communication), but watch out - use staged rollouts for safer deployments (staged rollouts).
-
-Example:
-
-```jsx
-const codePushOptions = {
-  checkFrequency: codePush.CheckFrequency.ON_APP_START,
-  installMode: codePush.InstallMode.ON_NEXT_RESTART,
-  minimumBackgroundDuration: 60,
-  updateDialog: {
-    title: 'Update available',
-    optionalUpdateMessage: 'A new update is available',
-    mandatoryUpdateMessage: 'Update is required'
-  }
-};
-
-```
 
 ---
 

@@ -196,147 +196,83 @@ Design and implement a video streaming platform that addresses the following cha
 ### Frontend Framework
 
 - **React.js:** Perfect for building interactive video platform
-  - **Component-based** - Video player, comments, playlists are reusable components
-  - **Fast updates** - Virtual DOM makes UI updates smooth
-  - **Code splitting** - Load video pages only when needed
-  - **TypeScript** - Type safety for video data, user data
+ - **Component-based** - Video player, comments, playlists are reusable components
+ - **Fast updates** - Virtual DOM makes UI updates smooth
+ - **Code splitting** - Load video pages only when needed
+ - **TypeScript** - Type safety for video data, user data
 
 ### State Management
 
 - **Redux Toolkit:** Manages complex state (videos, user, playlists, watch history)
-  - **Video state** - Current video, video list, search results
-  - **User state** - Authentication, profile, subscriptions
-  - **Playlist state** - User playlists, current playlist
-  - **Watch history** - User's watch history
+ - **Video state** - Current video, video list, search results
+ - **User state** - Authentication, profile, subscriptions
+ - **Playlist state** - User playlists, current playlist
+ - **Watch history** - User's watch history
 
 ### Routing
 
 - **React Router v6:** Client-side routing for smooth navigation
-  - **Video pages** - `/watch/:videoId` for video playback
-  - **Channel pages** - `/channel/:channelId` for channel view
-  - **Search page** - `/search?q=query` for search results
-  - **Playlist page** - `/playlist/:playlistId` for playlists
+ - **Video pages** - `/watch/:videoId` for video playback
+ - **Channel pages** - `/channel/:channelId` for channel view
+ - **Search page** - `/search?q=query` for search results
+ - **Playlist page** - `/playlist/:playlistId` for playlists
 
 ### Video Player
 
 - **Video.js / React Player:** Video player library for playback
-  - **Multiple formats** - Supports different video formats
-  - **Quality selection** - Users can choose video quality
-  - **Controls** - Play, pause, volume, fullscreen controls
-  - **Adaptive streaming** - Adjusts quality based on network
+ - **Multiple formats** - Supports different video formats
+ - **Quality selection** - Users can choose video quality
+ - **Controls** - Play, pause, volume, fullscreen controls
+ - **Adaptive streaming** - Adjusts quality based on network
 
 ### UI Components
 
 - **Material-UI:** Pre-built components for faster development
-  - **Video cards** - Consistent video display
-  - **Forms** - Upload forms, comment forms
-  - **Modals** - Video player modal, playlist modal
-  - **Responsive grid** - Video grid that adapts to screen size
+ - **Video cards** - Consistent video display
+ - **Forms** - Upload forms, comment forms
+ - **Modals** - Video player modal, playlist modal
+ - **Responsive grid** - Video grid that adapts to screen size
 
 ### Backend Framework
 
 - **Node.js + Express.js:** Backend server that handles all business logic
-  - **Why Node.js?** JavaScript everywhere - same language for frontend and backend
-  - **Express.js** - Fast, minimal web framework
-  - **REST APIs** - Standard REST endpoints for frontend to call
+ - **Why Node.js?** JavaScript everywhere - same language for frontend and backend
+ - **Express.js** - Fast, minimal web framework
+ - **REST APIs** - Standard REST endpoints for frontend to call
 
 ### Database
 
 - **MongoDB:** NoSQL database for storing videos, users, comments, playlists
-  - **Why MongoDB?** Flexible schema - easy to change video metadata structure
-  - **Document-based** - Stores data as JSON-like documents
-  - **Scalable** - Handles large amounts of video metadata
+ - **Why MongoDB?** Flexible schema - easy to change video metadata structure
+ - **Document-based** - Stores data-like documents
+ - **Scalable** - Handles large amounts of video metadata
 
 ### Video Storage
 
 - **AWS S3:** Cloud storage for video files
-  - **Why S3?** Scalable, reliable file storage for large video files
-  - **Lifecycle policies** - Move old videos to cheaper storage
-  - **CDN integration** - Serve videos through CloudFront for faster access
+ - **Why S3?** Scalable, reliable file storage for large video files
+ - **Lifecycle policies** - Move old videos to cheaper storage
+ - **CDN integration** - Serve videos through CloudFront for faster access
 
 ### Video Processing
 
 - **FFmpeg:** Video processing library for transcoding
-  - **Transcoding** - Convert videos to different formats and qualities
-  - **Thumbnail generation** - Generate video thumbnails
-  - **Metadata extraction** - Extract video duration, resolution, etc.
+ - **Transcoding** - Convert videos to different formats and qualities
+ - **Thumbnail generation** - Generate video thumbnails
+ - **Metadata extraction** - Extract video duration, resolution, etc.
 
 ### Search
 
 - **MongoDB Text Search / Elasticsearch:** Full-text search for videos
-  - **MongoDB Text Search** - Good for basic search needs
-  - **Elasticsearch** - Better for advanced search with filters and ranking
+ - **MongoDB Text Search** - Good for basic search needs
+ - **Elasticsearch** - Better for advanced search with filters and ranking
 
 ### Caching
 
 - **Redis:** In-memory cache for frequently accessed data
-  - **Video metadata cache** - Cache popular video metadata
-  - **Search cache** - Cache search results
-  - **Session storage** - User sessions
-
----
-
-## d) Capacity Estimation
-
-### Throughput Requirements
-
-- **Daily Active Users**: 200 million users per day
-- **Peak Traffic**: 3x average during peak hours (600 million users per day)
-- **Read:Write Ratio**: 1000:1 (watching videos vs uploading videos)
-- **Average Videos Watched Per User**: 5 videos per day
-- **Average Video Duration**: 10 minutes
-
-**Calculations:**
-
-- **Average Writes Per Second (WPS)**: (200M users × 0.1 uploads/day) / 86,400 seconds ≈ 231 WPS
-- **Peak WPS**: 231 × 3 = 693 WPS
-- **Average Reads Per Second (RPS)**: 200M users × 5 videos/day / 86,400 seconds ≈ 11,574 RPS
-- **Peak RPS**: 11,574 × 3 = 34,722 RPS
-- **Concurrent Viewers**: 10 million concurrent video streams
-
-### Storage Estimation
-
-**Storage per Video:**
-
-- Original video: 500 MB average (10-minute video at 1080p)
-- Transcoded versions: 360p (50 MB), 720p (150 MB), 1080p (300 MB), 4K (1 GB)
-- Thumbnails: 5 MB (multiple thumbnails)
-- **Total per Video**: ~2 GB (including all quality versions)
-
-**Storage Requirements:**
-
-- **Total Videos per Year**: 200M users × 0.1 uploads/day × 365 = 7.3 billion videos
-- **Video Storage**: 7.3B × 2 GB ≈ 14.6 PB per year
-- **User Data**: 200M users × 10 KB ≈ 2 TB
-- **Metadata**: 7.3B videos × 5 KB ≈ 36.5 TB/year
-- **Total Storage**: ~14.6 PB (videos) + 2 TB (users) + 36.5 TB (metadata) ≈ 14.64 PB/year
-
-### Bandwidth Estimation
-
-- **Average Video Bitrate**: 5 Mbps (adaptive streaming average)
-- **Daily Bandwidth**: 200M users × 5 videos × 10 min × 5 Mbps = 500,000 TB/day
-- **Peak Bandwidth**: 500,000 TB × 3 = 1,500,000 TB/day during peak hours
-- **Average Bandwidth**: 500,000 TB / 86,400 seconds ≈ 5.8 PB/s
-- **Peak Bandwidth**: 5.8 PB/s × 3 ≈ 17.4 PB/s
-
-### Caching Estimation
-
-Following the **80-20 rule** where 20% of videos generate 80% of traffic:
-
-- **Cache 20% of hot videos**: 7.3B × 0.2 = 1.46B videos
-- **Cache memory required**: 1.46B × 2 GB = 2.92 PB (CDN edge cache)
-- **Cache hit ratio**: 90% (only 10% of video requests hit origin)
-- **Requests hitting Origin**: 34,722 × 0.10 ≈ 3,472 RPS (manageable with CDN)
-
-### Infrastructure Sizing
-
-- **API Servers**: 100-200 instances behind load balancer, each handling 200-500 RPS
-- **Video Processing Workers**: 50-100 instances for transcoding, each handling 2-5 videos concurrently
-- **Database**: MongoDB cluster with 30-50 nodes for storage and high read/write throughput
-- **Cache Layer**: Redis cluster with 15-20 nodes for high availability and performance
-- **Search**: Elasticsearch cluster with 15-20 nodes for video search
-- **CDN**: CloudFront/Cloudflare with edge locations globally for video delivery
-- **Storage**: AWS S3 or similar object storage for video files
+ - **Video metadata cache** - Cache popular video metadata
+ - **Search cache** - Cache search results
+ - **Session storage** - User sessions
 
 ---
 
@@ -347,90 +283,90 @@ The system follows a layered architecture with video processing pipeline and glo
 ```
 
 ┌─────────────────────────────────────────────────────────┐
-│              Frontend (React.js) - Client Side           │
-│  (This is what users see in their browser)              │
+│ Frontend (React.js) - Client Side │
+│ (This is what users see in their browser) │
 ├─────────────────────────────────────────────────────────┤
-│  ┌──────────────────────────────────────────────────┐   │
-│  │         Browser (Chrome, Firefox, Safari)        │   │
-│  │  ┌────────────────────────────────────────────┐  │   │
-│  │  │     React.js Application (SPA)             │  │   │
-│  │  │  ┌──────────────────────────────────────┐  │  │   │
-│  │  │  │  React Router (Client-side Routing)  │  │  │   │
-│  │  │  └──────────────────────────────────────┘  │  │   │
-│  │  │  ┌──────────────────────────────────────┐  │  │   │
-│  │  │  │  Redux Toolkit (State Management)    │  │  │   │
-│  │  │  │  - Videos, User, Playlists, History │  │  │   │
-│  │  │  └──────────────────────────────────────┘  │  │   │
-│  │  │  ┌──────────────────────────────────────┐  │  │   │
-│  │  │  │  Video.js Player (Video Playback)    │  │  │   │
-│  │  │  └──────────────────────────────────────┘  │  │   │
-│  │  │  ┌──────────────────────────────────────┐  │  │   │
-│  │  │  │  Material-UI Components              │  │  │   │
-│  │  │  └──────────────────────────────────────┘  │  │   │
-│  │  └────────────────────────────────────────────┘  │   │
-│  └──────────────────────────────────────────────────┘   │
+│ ┌──────────────────────────────────────────────────┐ │
+│ │ Browser (Chrome, Firefox, Safari) │ │
+│ │ ┌────────────────────────────────────────────┐ │ │
+│ │ │ React.js Application (SPA) │ │ │
+│ │ │ ┌──────────────────────────────────────┐ │ │ │
+│ │ │ │ React Router (Client-side Routing) │ │ │ │
+│ │ │ └──────────────────────────────────────┘ │ │ │
+│ │ │ ┌──────────────────────────────────────┐ │ │ │
+│ │ │ │ Redux Toolkit (State Management) │ │ │ │
+│ │ │ │ - Videos, User, Playlists, History │ │ │ │
+│ │ │ └──────────────────────────────────────┘ │ │ │
+│ │ │ ┌──────────────────────────────────────┐ │ │ │
+│ │ │ │ Video.js Player (Video Playback) │ │ │ │
+│ │ │ └──────────────────────────────────────┘ │ │ │
+│ │ │ ┌──────────────────────────────────────┐ │ │ │
+│ │ │ │ Material-UI Components │ │ │ │
+│ │ │ └──────────────────────────────────────┘ │ │ │
+│ │ └────────────────────────────────────────────┘ │ │
+│ └──────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────┘
-        │                                    │
-        │ HTTP/REST API                     │ Video Streaming
-        │ (Metadata, actions)               │ (CDN)
-        ▼                                    ▼
+ │ │
+ │ HTTP/REST API │ Video Streaming
+ │ (Metadata, actions) │ (CDN)
+ ▼ ▼
 ┌─────────────────────────────────────────────────────────┐
-│              Backend (Node.js + Express.js)              │
-│  (Server that handles business logic and data)          │
+│ Backend (Node.js + Express.js) │
+│ (Server that handles business logic and data) │
 ├─────────────────────────────────────────────────────────┤
-│  ┌──────────────────────────────────────────────────┐   │
-│  │         Load Balancer / API Gateway              │   │
-│  └──────────────────────────────────────────────────┘   │
-│                        │                                 │
-│        ┌───────────────┼───────────────┐                │
-│        ▼               ▼               ▼                │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐             │
-│  │ Express  │  │ Express  │  │ Express  │             │
-│  │ Server 1 │  │ Server 2 │  │ Server 3 │             │
-│  └──────────┘  └──────────┘  └──────────┘             │
-│        │               │               │                │
-│        └───────────────┼───────────────┘                │
-│                        ▼                                 │
-│  ┌──────────────────────────────────────────────────┐   │
-│  │         Business Logic Layer                     │   │
-│  │  - Video Service (upload, metadata)              │   │
-│  │  - User Service (authentication, profiles)       │   │
-│  │  - Comment Service (comments, replies)           │   │
-│  │  - Playlist Service (playlist management)        │   │
-│  │  - Recommendation Service (video recommendations)│   │
-│  └──────────────────────────────────────────────────┘   │
-│                        ▼                                 │
-│  ┌──────────────────────────────────────────────────┐   │
-│  │         Data Access Layer                        │   │
-│  │  - MongoDB (Videos, users, comments)             │   │
-│  │  - Redis (Caching, sessions)                     │   │
-│  │  - Elasticsearch (Video search)                  │   │
-│  └──────────────────────────────────────────────────┘   │
+│ ┌──────────────────────────────────────────────────┐ │
+│ │ Load Balancer / API Gateway │ │
+│ └──────────────────────────────────────────────────┘ │
+│ │ │
+│ ┌───────────────┼───────────────┐ │
+│ ▼ ▼ ▼ │
+│ ┌──────────┐ ┌──────────┐ ┌──────────┐ │
+│ │ Express │ │ Express │ │ Express │ │
+│ │ Server 1 │ │ Server 2 │ │ Server 3 │ │
+│ └──────────┘ └──────────┘ └──────────┘ │
+│ │ │ │ │
+│ └───────────────┼───────────────┘ │
+│ ▼ │
+│ ┌──────────────────────────────────────────────────┐ │
+│ │ Business Logic Layer │ │
+│ │ - Video Service (upload, metadata) │ │
+│ │ - User Service (authentication, profiles) │ │
+│ │ - Comment Service (comments, replies) │ │
+│ │ - Playlist Service (playlist management) │ │
+│ │ - Recommendation Service (video recommendations)│ │
+│ └──────────────────────────────────────────────────┘ │
+│ ▼ │
+│ ┌──────────────────────────────────────────────────┐ │
+│ │ Data Access Layer │ │
+│ │ - MongoDB (Videos, users, comments) │ │
+│ │ - Redis (Caching, sessions) │ │
+│ │ - Elasticsearch (Video search) │ │
+│ └──────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────┘
-        │                    │                    │
-        ▼                    ▼                    ▼
-┌──────────────┐  ┌──────────────┐  ┌──────────────┐
-│   MongoDB    │  │    Redis     │  │ Elasticsearch│
-│  (Database)  │  │   (Cache)    │  │   (Search)   │
-│              │  │              │  │              │
-│  - Videos    │  │  - Video     │  │  - Video     │
-│  - Users     │  │    Metadata  │  │    Index     │
-│  - Comments  │  │  - Search    │  │  - Search    │
-│  - Playlists │  │    Results   │  │    Results   │
-└──────────────┘  └──────────────┘  └──────────────┘
-        │                    │                    │
-        └────────────────────┼────────────────────┘
-                             │
-                             ▼
-                    ┌──────────────┐
-                    │   External   │
-                    │   Services   │
-                    │              │
-                    │  - AWS S3    │
-                    │  - CloudFront│
-                    │  - FFmpeg    │
-                    │    (Worker)  │
-                    └──────────────┘
+ │ │ │
+ ▼ ▼ ▼
+┌──────────────┐ ┌──────────────┐ ┌──────────────┐
+│ MongoDB │ │ Redis │ │ Elasticsearch│
+│ (Database) │ │ (Cache) │ │ (Search) │
+│ │ │ │ │ │
+│ - Videos │ │ - Video │ │ - Video │
+│ - Users │ │ Metadata │ │ Index │
+│ - Comments │ │ - Search │ │ - Search │
+│ - Playlists │ │ Results │ │ Results │
+└──────────────┘ └──────────────┘ └──────────────┘
+ │ │ │
+ └────────────────────┼────────────────────┘
+ │
+ ▼
+ ┌──────────────┐
+ │ External │
+ │ Services │
+ │ │
+ │ - AWS S3 │
+ │ - CloudFront│
+ │ - FFmpeg │
+ │ (Worker) │
+ └──────────────┘
 
 ```
 
@@ -439,35 +375,35 @@ The system follows a layered architecture with video processing pipeline and glo
 **Frontend Layers:**
 
 1. **Presentation Layer (React Components)**
-   - **UI Components**: Reusable components (VideoCard, CommentCard, PlaylistCard, LikeButton)
-   - **Feature Components**: VideoPlayer, VideoUploader, PlaylistManager, SearchBar
-   - **Layout Components**: Header, Sidebar, Navigation, MainLayout
-   - **Page Components**: HomePage, VideoPage, ChannelPage, SearchPage
+ - **UI Components**: Reusable components (VideoCard, CommentCard, PlaylistCard, LikeButton)
+ - **Feature Components**: VideoPlayer, VideoUploader, PlaylistManager, SearchBar
+ - **Layout Components**: Header, Sidebar, Navigation, MainLayout
+ - **Page Components**: HomePage, VideoPage, ChannelPage, SearchPage
 
 2. **State Management Layer**
-   - **Local State (useState)**: Component-specific UI state (form inputs, loading, errors, player state)
-   - **Server State (Redux Toolkit)**: Global state for videos, user, playlists, watch history
-   - **API State (React Query)**: Video data caching, refetching, optimistic updates
+ - **Local State (useState)**: Component-specific UI state (form inputs, loading, errors, player state)
+ - **Server State (Redux Toolkit)**: Global state for videos, user, playlists, watch history
+ - **API State (React Query)**: Video data caching, refetching, optimistic updates
 
 3. **Video Player Layer**
-   - **Video.js Player**: HTML5 video player with adaptive bitrate streaming (HLS/DASH)
-   - **Quality Selection**: Automatic quality adjustment based on network speed
-   - **Playback Controls**: Play, pause, seek, volume, fullscreen, playback speed
+ - **Video.js Player**: HTML5 video player with adaptive bitrate streaming (HLS/DASH)
+ - **Quality Selection**: Automatic quality adjustment based on network speed
+ - **Playback Controls**: Play, pause, seek, volume, fullscreen, playback speed
 
 4. **API Integration Layer**
-   - **API Client**: Axios instance with interceptors for auth, error handling
-   - **Redux Thunks**: Async actions for API operations (fetchVideos, uploadVideo, likeVideo)
-   - **Request/Response Transformation**: Data normalization and error handling
+ - **API Client**: Axios instance with interceptors for auth, error handling
+ - **Redux Thunks**: Async actions for API operations (fetchVideos, uploadVideo, likeVideo)
+ - **Request/Response Transformation**: Data normalization and error handling
 
 5. **Routing Layer (React Router)**
-   - **Route Configuration**: Define routes and protected routes
-   - **Navigation**: Programmatic and declarative navigation
-   - **Route Guards**: Authentication and authorization checks
+ - **Route Configuration**: Define routes and protected routes
+ - **Navigation**: Programmatic and declarative navigation
+ - **Route Guards**: Authentication and authorization checks
 
 6. **Build & Deployment Layer**
-   - **Build Process**: Webpack/Vite bundling with code splitting
-   - **Static Assets**: Served from CDN (CloudFront/Cloudflare)
-   - **Environment Configuration**: Environment-specific API endpoints and configs
+ - **Build Process**: Webpack/Vite bundling with code splitting
+ - **Static Assets**: Served from CDN (CloudFront/Cloudflare)
+ - **Environment Configuration**: Environment-specific API endpoints and configs
 
 **Frontend Request Flow:**
 
@@ -543,29 +479,29 @@ The system follows a layered architecture with video processing pipeline and glo
 - **CDN (CloudFront)**: Global CDN for video delivery, adaptive bitrate streaming support
 
 1. **React.js for Frontend:** Perfect for interactive video platform - video player, comments, playlists all need fast UI updates
-   - **Component-based** - Video cards, comment sections are reusable
-   - **Fast navigation** - No page reloads, smooth transitions
-   - **Code splitting** - Video pages load only when needed
+ - **Component-based** - Video cards, comment sections are reusable
+ - **Fast navigation** - No page reloads, smooth transitions
+ - **Code splitting** - Video pages load only when needed
 
 2. **CDN for Video Delivery:** Videos are large files - CDN makes them load faster globally
-   - **Why CDN?** Videos served from edge locations - closer to users
-   - **Faster playback** - Especially important for video streaming
-   - **Reduces server load** - Videos don't hit main server
+ - **Why CDN?** Videos served from edge locations - closer to users
+ - **Faster playback** - Especially important for video streaming
+ - **Reduces server load** - Videos don't hit main server
 
 3. **Adaptive Streaming:** Video quality adjusts based on network speed - better user experience
-   - **Why important?** Users have different internet speeds
-   - **Better UX** - No buffering, smooth playback
-   - **Saves bandwidth** - Lower quality for slower connections
+ - **Why important?** Users have different internet speeds
+ - **Better UX** - No buffering, smooth playback
+ - **Saves bandwidth** - Lower quality for slower connections
 
 4. **Video Processing Queue:** Videos need processing after upload - use queue for reliability
-   - **Why queue?** Processing takes time, can't block user
-   - **Reliability** - Retry if processing fails
-   - **Scalability** - Multiple workers can process videos
+ - **Why queue?** Processing takes time, can't block user
+ - **Reliability** - Retry if processing fails
+ - **Scalability** - Multiple workers can process videos
 
 5. **MongoDB for Metadata:** Video metadata is flexible - MongoDB handles schema changes easily
-   - **Why MongoDB?** Easy to add new fields (tags, categories, etc.)
-   - **Scalable** - Handles millions of videos
-   - **Fast queries** - Indexed fields for fast retrieval
+ - **Why MongoDB?** Easy to add new fields (tags, categories, etc.)
+ - **Scalable** - Handles millions of videos
+ - **Fast queries** - Indexed fields for fast retrieval
 
 ---
 
@@ -581,84 +517,84 @@ The system follows a layered architecture with video processing pipeline and glo
 
 App (Root Component - Entry Point)
 ├── Layout (Main Layout with Navigation)
-│   ├── Header
-│   │   ├── Logo
-│   │   ├── SearchBar (with autocomplete)
-│   │   ├── NavigationMenu
-│   │   └── UserMenu (Upload, Profile, Sign out)
-│   └── Main Content Area
-│       ├── HomePage
-│       │   ├── VideoGrid
-│       │   │   └── VideoCard
-│       │   │       ├── Thumbnail
-│       │   │       ├── VideoTitle
-│       │   │       ├── ChannelName
-│       │   │       ├── ViewCount
-│       │   │       └── UploadDate
-│       │   └── Sidebar (Trending, Subscriptions)
-│       ├── WatchPage
-│       │   ├── VideoPlayer
-│       │   │   ├── Video.js Player
-│       │   │   ├── QualitySelector
-│       │   │   ├── PlaybackControls
-│       │   │   └── FullscreenButton
-│       │   ├── VideoInfo
-│       │   │   ├── VideoTitle
-│       │   │   ├── ViewCount
-│       │   │   ├── LikeDislikeButtons
-│       │   │   ├── SubscribeButton
-│       │   │   └── ShareButton
-│       │   ├── VideoDescription
-│       │   ├── CommentsSection
-│       │   │   ├── CommentInput
-│       │   │   └── CommentList
-│       │   │       └── CommentItem
-│       │   │           ├── UserAvatar
-│       │   │           ├── CommentText
-│       │   │           ├── LikeButton
-│       │   │           └── ReplyButton
-│       │   └── RelatedVideos
-│       │       └── VideoCard
-│       ├── SearchPage
-│       │   ├── FilterBar (Upload date, Type, Duration, Features)
-│       │   ├── SearchResults
-│       │   │   └── VideoCard (with search highlights)
-│       │   └── Pagination
-│       ├── ChannelPage
-│       │   ├── ChannelHeader
-│       │   │   ├── ChannelBanner
-│       │   │   ├── ChannelAvatar
-│       │   │   ├── ChannelName
-│       │   │   ├── SubscriberCount
-│       │   │   └── SubscribeButton
-│       │   ├── ChannelTabs (Videos, Playlists, About)
-│       │   └── VideoGrid
-│       ├── UploadPage
-│       │   ├── UploadForm
-│       │   │   ├── VideoUpload (drag & drop)
-│       │   │   ├── TitleInput
-│       │   │   ├── DescriptionTextarea
-│       │   │   ├── TagsInput
-│       │   │   ├── ThumbnailUpload
-│       │   │   ├── PrivacySelector
-│       │   │   └── PublishButton
-│       │   └── UploadProgress
-│       ├── PlaylistPage
-│       │   ├── PlaylistHeader
-│       │   ├── PlaylistVideos
-│       │   │   └── PlaylistVideoItem
-│       │   └── PlaylistActions
-│       └── LibraryPage
-│           ├── WatchHistory
-│           ├── WatchLater
-│           └── Playlists
+│ ├── Header
+│ │ ├── Logo
+│ │ ├── SearchBar (with autocomplete)
+│ │ ├── NavigationMenu
+│ │ └── UserMenu (Upload, Profile, Sign out)
+│ └── Main Content Area
+│ ├── HomePage
+│ │ ├── VideoGrid
+│ │ │ └── VideoCard
+│ │ │ ├── Thumbnail
+│ │ │ ├── VideoTitle
+│ │ │ ├── ChannelName
+│ │ │ ├── ViewCount
+│ │ │ └── UploadDate
+│ │ └── Sidebar (Trending, Subscriptions)
+│ ├── WatchPage
+│ │ ├── VideoPlayer
+│ │ │ ├── Video.js Player
+│ │ │ ├── QualitySelector
+│ │ │ ├── PlaybackControls
+│ │ │ └── FullscreenButton
+│ │ ├── VideoInfo
+│ │ │ ├── VideoTitle
+│ │ │ ├── ViewCount
+│ │ │ ├── LikeDislikeButtons
+│ │ │ ├── SubscribeButton
+│ │ │ └── ShareButton
+│ │ ├── VideoDescription
+│ │ ├── CommentsSection
+│ │ │ ├── CommentInput
+│ │ │ └── CommentList
+│ │ │ └── CommentItem
+│ │ │ ├── UserAvatar
+│ │ │ ├── CommentText
+│ │ │ ├── LikeButton
+│ │ │ └── ReplyButton
+│ │ └── RelatedVideos
+│ │ └── VideoCard
+│ ├── SearchPage
+│ │ ├── FilterBar (Upload date, Type, Duration, Features)
+│ │ ├── SearchResults
+│ │ │ └── VideoCard (with search highlights)
+│ │ └── Pagination
+│ ├── ChannelPage
+│ │ ├── ChannelHeader
+│ │ │ ├── ChannelBanner
+│ │ │ ├── ChannelAvatar
+│ │ │ ├── ChannelName
+│ │ │ ├── SubscriberCount
+│ │ │ └── SubscribeButton
+│ │ ├── ChannelTabs (Videos, Playlists, About)
+│ │ └── VideoGrid
+│ ├── UploadPage
+│ │ ├── UploadForm
+│ │ │ ├── VideoUpload (drag & drop)
+│ │ │ ├── TitleInput
+│ │ │ ├── DescriptionTextarea
+│ │ │ ├── TagsInput
+│ │ │ ├── ThumbnailUpload
+│ │ │ ├── PrivacySelector
+│ │ │ └── PublishButton
+│ │ └── UploadProgress
+│ ├── PlaylistPage
+│ │ ├── PlaylistHeader
+│ │ ├── PlaylistVideos
+│ │ │ └── PlaylistVideoItem
+│ │ └── PlaylistActions
+│ └── LibraryPage
+│ ├── WatchHistory
+│ ├── WatchLater
+│ └── Playlists
 └── ReduxProvider (Global State Management)
-    └── Store
-        ├── authSlice (User authentication state)
-        ├── videoSlice (Videos data)
-        ├── playlistSlice (Playlists data)
-        ├── watchHistorySlice (Watch history)
-        └── userSlice (User profile data)
+ └── Store
+ ├── authSlice (User authentication state)
+ ├── videoSlice (Videos data)
+ ├── playlistSlice (Playlists data)
+ ├── watchHistorySlice (Watch history)
+ └── userSlice (User profile data)
 
 ```
 
@@ -671,64 +607,64 @@ Think of the frontend as a tree of React components - each component handles a s
 ```
 App (Root Component - Entry Point)
 ├── Layout (Main Layout with Navigation)
-│   ├── Header
-│   │   ├── Logo
-│   │   ├── SearchBar (with autocomplete)
-│   │   ├── NavigationMenu
-│   │   └── UserMenu (Upload, Profile, Sign out)
-│   └── Main Content Area
-│       ├── HomePage
-│       │   ├── VideoGrid
-│       │   │   └── VideoCard
-│       │   │       ├── Thumbnail
-│       │   │       ├── VideoTitle
-│       │   │       ├── ChannelName
-│       │   │       ├── ViewCount
-│       │   │       └── UploadDate
-│       │   └── Sidebar (Trending, Subscriptions)
-│       ├── WatchPage
-│       │   ├── VideoPlayer
-│       │   │   ├── Video.js Player
-│       │   │   ├── QualitySelector
-│       │   │   ├── PlaybackControls
-│       │   │   └── FullscreenButton
-│       │   ├── VideoInfo
-│       │   │   ├── VideoTitle
-│       │   │   ├── ViewCount
-│       │   │   ├── LikeDislikeButtons
-│       │   │   ├── SubscribeButton
-│       │   │   └── ShareButton
-│       │   ├── VideoDescription
-│       │   ├── CommentsSection
-│       │   │   ├── CommentInput
-│       │   │   └── CommentList
-│       │   │       └── CommentItem
-│       │   │           ├── UserAvatar
-│       │   │           ├── CommentText
-│       │   │           ├── LikeButton
-│       │   │           └── ReplyButton
-│       │   └── RelatedVideos
-│       │       └── VideoCard
-│       ├── UploadPage
-│       │   ├── UploadForm
-│       │   │   ├── VideoUpload (drag & drop)
-│       │   │   ├── TitleInput
-│       │   │   ├── DescriptionTextarea
-│       │   │   ├── TagsInput
-│       │   │   ├── ThumbnailUpload
-│       │   │   ├── PrivacySelector
-│       │   │   └── PublishButton
-│       │   └── UploadProgress
-│       └── ChannelPage
-│           ├── ChannelHeader
-│           ├── ChannelTabs (Videos, Playlists, About)
-│           └── VideoGrid
+│ ├── Header
+│ │ ├── Logo
+│ │ ├── SearchBar (with autocomplete)
+│ │ ├── NavigationMenu
+│ │ └── UserMenu (Upload, Profile, Sign out)
+│ └── Main Content Area
+│ ├── HomePage
+│ │ ├── VideoGrid
+│ │ │ └── VideoCard
+│ │ │ ├── Thumbnail
+│ │ │ ├── VideoTitle
+│ │ │ ├── ChannelName
+│ │ │ ├── ViewCount
+│ │ │ └── UploadDate
+│ │ └── Sidebar (Trending, Subscriptions)
+│ ├── WatchPage
+│ │ ├── VideoPlayer
+│ │ │ ├── Video.js Player
+│ │ │ ├── QualitySelector
+│ │ │ ├── PlaybackControls
+│ │ │ └── FullscreenButton
+│ │ ├── VideoInfo
+│ │ │ ├── VideoTitle
+│ │ │ ├── ViewCount
+│ │ │ ├── LikeDislikeButtons
+│ │ │ ├── SubscribeButton
+│ │ │ └── ShareButton
+│ │ ├── VideoDescription
+│ │ ├── CommentsSection
+│ │ │ ├── CommentInput
+│ │ │ └── CommentList
+│ │ │ └── CommentItem
+│ │ │ ├── UserAvatar
+│ │ │ ├── CommentText
+│ │ │ ├── LikeButton
+│ │ │ └── ReplyButton
+│ │ └── RelatedVideos
+│ │ └── VideoCard
+│ ├── UploadPage
+│ │ ├── UploadForm
+│ │ │ ├── VideoUpload (drag & drop)
+│ │ │ ├── TitleInput
+│ │ │ ├── DescriptionTextarea
+│ │ │ ├── TagsInput
+│ │ │ ├── ThumbnailUpload
+│ │ │ ├── PrivacySelector
+│ │ │ └── PublishButton
+│ │ └── UploadProgress
+│ └── ChannelPage
+│ ├── ChannelHeader
+│ ├── ChannelTabs (Videos, Playlists, About)
+│ └── VideoGrid
 └── ReduxProvider (Global State Management)
-    └── Store
-        ├── authSlice (User authentication state)
-        ├── videoSlice (Videos data)
-        ├── playlistSlice (Playlists data)
-        └── watchHistorySlice (Watch history)
+ └── Store
+ ├── authSlice (User authentication state)
+ ├── videoSlice (Videos data)
+ ├── playlistSlice (Playlists data)
+ └── watchHistorySlice (Watch history)
 
 ```
 
@@ -736,168 +672,441 @@ App (Root Component - Entry Point)
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Video Player Component
-const VideoPlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
-  const [player, setPlayer] = useState<any>(null);
-  const [quality, setQuality] = useState('auto');
-  const { data: video } = useVideo(videoId);
+const VideoPlayer<{ videoId}> = ({ videoId }) => {
+ const [player, setPlayer] = useState(null);
+ const [quality, setQuality] = useState('auto');
+ const { data: video } = useVideo(videoId);
 
-  useEffect(() => {
-    if (video) {
-      const videoJsPlayer = videojs('video-player', {
-        sources: video.sources,
-        controls: true,
-        responsive: true,
-        fluid: true
-      });
-      setPlayer(videoJsPlayer);
-      return () => videoJsPlayer.dispose();
-    }
-  }, [video]);
+ useEffect(() => {
+ if (video) {
+ const videoJsPlayer = videojs('video-player', {
+ sources: video.sources,
+ controls: true,
+ responsive: true,
+ fluid: true
+ });
+ setPlayer(videoJsPlayer);
+ return () => videoJsPlayer.dispose();
+ }
+ }, [video]);
 
-  return (
-    <div className="video-player-container">
-      <video id="video-player" className="video-js" />
-      <QualitySelector
-        qualities={video?.qualities || []}
-        current={quality}
-        onChange={setQuality}
-      />
-    </div>
-  );
+ return (
+ <div className="video-player-container">
+ <video id="video-player" className="video-js" />
+ <QualitySelector
+ qualities={video?.qualities || []}
+ current={quality}
+ onChange={setQuality}
+ />
+ </div>
+ );
 };
 
 // Video Upload Component
-const VideoUploadForm: React.FC = () => {
-  const [file, setFile] = useState<File | null>(null);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const uploadMutation = useUploadVideo();
+const VideoUploadForm= () => {
+ const [file, setFile] = useState(null);
+ const [title, setTitle] = useState('');
+ const [description, setDescription] = useState('');
+ const [uploadProgress, setUploadProgress] = useState(0);
+ const uploadMutation = useUploadVideo();
 
-  const handleFileSelect = (selectedFile: File) => {
-    setFile(selectedFile);
-  };
+ const handleFileSelect = (selectedFile: File) => {
+ setFile(selectedFile);
+ };
 
-  const handleUpload = async () => {
-    if (!file) return;
+ const handleUpload = async () => {
+ if (!file) return;
 
-    const formData = new FormData();
-    formData.append('video', file);
-    formData.append('title', title);
-    formData.append('description', description);
+ const formData = new FormData();
+ formData.append('video', file);
+ formData.append('title', title);
+ formData.append('description', description);
 
-    uploadMutation.mutate(formData, {
-      onUploadProgress: (progressEvent) => {
-        const progress = Math.round(
-          (progressEvent.loaded * 100) / progressEvent.total
-        );
-        setUploadProgress(progress);
-      }
-    });
-  };
+ uploadMutation.mutate(formData, {
+ onUploadProgress: (progressEvent) => {
+ const progress = Math.round(
+ (progressEvent.loaded * 100) / progressEvent.total
+ );
+ setUploadProgress(progress);
+ }
+ });
+ };
 
-  return (
-    <div className="upload-form">
-      <FileDropzone onFileSelect={handleFileSelect} />
-      <input
-        type="text"
-        placeholder="Video Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <textarea
-        placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      {uploadProgress > 0 && (
-        <ProgressBar progress={uploadProgress} />
-      )}
-      <button onClick={handleUpload} disabled={!file || uploadMutation.isLoading}>
-        {uploadMutation.isLoading ? 'Uploading...' : 'Upload Video'}
-      </button>
-    </div>
-  );
+ return (
+ <div className="upload-form">
+ <FileDropzone onFileSelect={handleFileSelect} />
+ <input
+ type="text"
+ placeholder="Video Title"
+ value={title}
+ onChange={(e) => setTitle(e.target.value)}
+ />
+ <textarea
+ placeholder="Description"
+ value={description}
+ onChange={(e) => setDescription(e.target.value)}
+ />
+ {uploadProgress > 0 && (
+ <ProgressBar progress={uploadProgress} />
+ )}
+ <button onClick={handleUpload} disabled={!file || uploadMutation.isLoading}>
+ {uploadMutation.isLoading ? 'Uploading...' : 'Upload Video'}
+ </button>
+ </div>
+ );
 };
 
 ```
 
 ### ii) State Management
 
-**State Management Strategy:**
+**State Management Strategy (React 19):**
 
 - **Local State (useState)**: Form inputs, UI state (loading, errors, modals, player state)
-- **Component State**: Each component manages its own UI state
-- **API State**: React Query or SWR for server state (video data, search results, comments) - caching, refetching, optimistic updates
+- **Optimistic Updates (useOptimistic)**: React 19 hook for optimistic likes, comments, subscriptions
+- **Form Actions (useActionState)**: React 19 hook for video upload forms with server actions
+- **Deferred Values (useDeferredValue)**: React 19 hook for video search debouncing
+- **Transitions (useTransition)**: React 19 hook for non-urgent video updates
+- **API State**: React Query for server state (video data, search results, comments) - caching, refetching
 - **Global State (Redux Toolkit)**: User authentication, watch history, playlists, subscriptions
 
 **Frontend Implementation:**
 
-```typescript
+```javascript
 // Using React Query for API state management
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-const useVideo = (videoId: string) => {
-  return useQuery({
-    queryKey: ['video', videoId],
-    queryFn: async () => {
-      const response = await axios.get(`/api/v1/videos/${videoId}`);
-      return response.data;
-    },
-    staleTime: 5 * 60 * 1000 // Cache for 5 minutes
-  });
+const useVideo = (videoId) => {
+ return useQuery({
+ queryKey: ['video', videoId],
+ queryFn: async () => {
+ const response = await axios.get(`/api/v1/videos/${videoId}`);
+ return response.data;
+ },
+ staleTime: 5 * 60 * 1000 // Cache for 5 minutes
+ });
 };
 
 const useUploadVideo = () => {
-  const queryClient = useQueryClient();
+ const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: async (formData: FormData) => {
-      const response = await axios.post('/api/v1/videos/upload', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        onUploadProgress: (progressEvent) => {
-          // Handle upload progress
-        }
-      });
-      return response.data;
-    },
-    onSuccess: () => {
-      // Invalidate videos list
-      queryClient.invalidateQueries({ queryKey: ['videos'] });
-    }
-  });
+ return useMutation({
+ mutationFn: async (formData: FormData) => {
+ const response = await axios.post('/api/v1/videos/upload', formData, {
+ headers: { 'Content-Type': 'multipart/form-data' },
+ onUploadProgress: (progressEvent) => {
+ // Handle upload progress
+ }
+ });
+ return response.data;
+ },
+ onSuccess: () => {
+ // Invalidate videos list
+ queryClient.invalidateQueries({ queryKey: ['videos'] });
+ }
+ });
 };
 
 ```
 
-### iii) Implementation Details
+### iii) Advanced Video Player Patterns
+
+**Video Player with React 19:**
+
+```javascript
+import { use, useTransition, useOptimistic } from 'react';
+import videojs from 'video.js';
+
+const VideoPlayer<{ videoId}> = ({ videoId }) => {
+ const [quality, setQuality] = useState('auto');
+ const [isPending, startTransition] = useTransition();
+ const playerRef = useRef(null);
+ const playerInstanceRef = useRef<any>(null);
+
+ // React 19: use() hook for video data promise
+ const videoPromise = useMemo(() => fetchVideo(videoId), [videoId]);
+ const video = use(videoPromise);
+
+ useEffect(() => {
+ if (playerRef.current && video) {
+ const player = videojs(playerRef.current, {
+ sources: video.sources,
+ controls: true,
+ responsive: true,
+ fluid: true,
+ playbackRates: [0.5, 1, 1.25, 1.5, 2]
+ });
+
+ playerInstanceRef.current = player;
+
+ // Track watch progress
+ player.on('timeupdate', () => {
+ const currentTime = player.currentTime();
+ const duration = player.duration();
+ if (currentTime / duration > 0.1) { // 10% watched
+ trackWatchProgress(videoId, currentTime);
+ }
+ });
+
+ return () => {
+ if (playerInstanceRef.current) {
+ playerInstanceRef.current.dispose();
+ }
+ };
+ }
+ }, [video, videoId]);
+
+ const handleQualityChange = (newQuality) => {
+ startTransition(() => {
+ setQuality(newQuality);
+ if (playerInstanceRef.current) {
+ const source = video.sources.find((s: any) => s.quality === newQuality);
+ playerInstanceRef.current.src(source);
+ }
+ });
+ };
+
+ return (
+ <div className="video-player-container">
+ <video ref={playerRef} className="video-js vjs-default-skin" />
+ <QualitySelector
+ qualities={video?.qualities || []}
+ current={quality}
+ onChange={handleQualityChange}
+ />
+ </div>
+ );
+};
+```
+
+**Video Upload with React 19:**
+
+```javascript
+import { useActionState, useFormStatus, useTransition } from 'react';
+
+// React 19: Server Action for video upload
+async function uploadVideoAction(
+ prevState: { progress?; error?},
+ formData: FormData
+) {
+ const file = formData.get('video');
+
+ if (!file) {
+ return { error: 'Please select a video file' };
+ }
+
+ if (file.size > 5 * 1024 * 1024 * 1024) { // 5GB limit
+ return { error: 'File size exceeds 5GB limit' };
+ }
+
+ try {
+ const uploadPromise = uploadVideoWithProgress(formData, (progress) => {
+ return { progress };
+ });
+
+ const result = await uploadPromise;
+ return { success: true, videoId: result.videoId };
+ } catch (error) {
+ return { error: 'Upload failed. Please try again.' };
+ }
+}
+
+const UploadButton= () => {
+ const { pending } = useFormStatus(); // React 19 hook
+
+ return (
+ <button type="submit" disabled={pending}>
+ {pending ? 'Uploading...' : 'Upload Video'}
+ </button>
+ );
+};
+
+const VideoUploadForm= () => {
+ const [file, setFile] = useState(null);
+ const [preview, setPreview] = useState(null);
+
+ // React 19: useActionState for upload form
+ const [state, formAction, isPending] = useActionState(uploadVideoAction, {});
+
+ const handleFileSelect = (selectedFile: File) => {
+ setFile(selectedFile);
+
+ // Generate preview
+ const video = document.createElement('video');
+ video.src = URL.createObjectURL(selectedFile);
+ video.onloadedmetadata = () => {
+ video.currentTime = 1; // Get frame at 1 second
+ const canvas = document.createElement('canvas');
+ canvas.width = video.videoWidth;
+ canvas.height = video.videoHeight;
+ const ctx = canvas.getContext('2d');
+ ctx?.drawImage(video, 0, 0);
+ setPreview(canvas.toDataURL());
+ };
+ };
+
+ const handleSubmit = (formData: FormData) => {
+ if (file) {
+ formData.append('video', file);
+ formAction(formData);
+ }
+ };
+
+ return (
+ <form action={handleSubmit}>
+ <FileDropzone onFileSelect={handleFileSelect} />
+ {preview && <img src={preview} alt="Video preview" />}
+ {state.progress !== undefined && (
+ <ProgressBar progress={state.progress} />
+ )}
+ {state.error && <span className="error">{state.error}</span>}
+ {state.success && <span className="success">Upload successful!</span>}
+ <UploadButton />
+ </form>
+ );
+};
+```
+
+**Optimistic Likes with React 19:**
+
+```javascript
+import { useOptimistic, useTransition } from 'react';
+
+const LikeDislikeButtons<{ videoId; initialLikes; initialDislikes}> = ({
+ videoId,
+ initialLikes,
+ initialDislikes
+}) => {
+ const [likes, setLikes] = useState(initialLikes);
+ const [dislikes, setDislikes] = useState(initialDislikes);
+ const [userReaction, setUserReaction] = useState(null);
+ const [isPending, startTransition] = useTransition();
+
+ // React 19: useOptimistic for like/dislike counts
+ const [optimisticLikes, updateLikes] = useOptimistic(
+ likes,
+ (state, delta) => state + delta
+ );
+
+ const [optimisticDislikes, updateDislikes] = useOptimistic(
+ dislikes,
+ (state, delta) => state + delta
+ );
+
+ const handleLike = async () => {
+ const newReaction = userReaction === 'like' ? null : 'like';
+ const likeDelta = newReaction === 'like' ? 1 : -1;
+ const dislikeDelta = userReaction === 'dislike' ? -1 : 0;
+
+ // Optimistically update UI
+ startTransition(() => {
+ setUserReaction(newReaction);
+ updateLikes(likeDelta);
+ if (dislikeDelta !== 0) updateDislikes(dislikeDelta);
+ });
+
+ try {
+ await toggleLikeAPI(videoId, newReaction);
+ } catch (error) {
+ // Rollback on error
+ setUserReaction(userReaction);
+ setLikes(likes);
+ setDislikes(dislikes);
+ }
+ };
+
+ return (
+ <div className="like-dislike-buttons">
+ <button
+ onClick={handleLike}
+ disabled={isPending}
+ className={userReaction === 'like' ? 'active' : ''}
+ >
+ 👍 {optimisticLikes}
+ </button>
+ <button
+ onClick={handleDislike}
+ disabled={isPending}
+ className={userReaction === 'dislike' ? 'active' : ''}
+ >
+ 👎 {optimisticDislikes}
+ </button>
+ </div>
+ );
+};
+```
+
+**Video Search with React 19:**
+
+```javascript
+import { useDeferredValue, useTransition, use } from 'react';
+
+const VideoSearch= () => {
+ const [query, setQuery] = useState('');
+ const [isPending, startTransition] = useTransition();
+
+ // React 19: useDeferredValue for debouncing
+ const deferredQuery = useDeferredValue(query);
+
+ // React 19: use() hook for search results promise
+ const searchPromise = useMemo(() => {
+ if (!deferredQuery) return Promise.resolve({ videos: [], suggestions: [] });
+ return searchVideosAPI(deferredQuery);
+ }, [deferredQuery]);
+
+ const searchResults = use(searchPromise);
+
+ const handleChange = (e: React.ChangeEvent) => {
+ const value = e.target.value;
+ setQuery(value);
+ startTransition(() => {
+ // Transition updates are lower priority
+ });
+ };
+
+ return (
+ <div className="video-search">
+ <input
+ value={query}
+ onChange={handleChange}
+ placeholder="Search videos..."
+ />
+ {isPending && <span>Searching...</span>}
+ <SearchResults results={searchResults.videos} />
+ <SearchSuggestions suggestions={searchResults.suggestions} />
+ </div>
+ );
+};
+```
+
+### iv) Implementation Details
 
 **Data Flow:**
 
-1. **Video Browsing** → HomePage fetches videos via React Query, displays VideoCard components
-2. **Video Selection** → User clicks VideoCard, navigates to WatchPage with VideoPlayer
-3. **Video Upload** → UploadPage handles file upload with progress tracking
-4. **Comments** → CommentsSection displays and allows adding comments
-5. **Watch History** → Video views tracked and stored in Redux/backend
+1. **Video Browsing** → HomePage fetches videos via React Query with infinite scroll, displays VideoCard components with lazy-loaded thumbnails
+2. **Video Selection** → User clicks VideoCard, navigates to WatchPage with VideoPlayer using React 19 use() hook for async data
+3. **Video Upload** → UploadPage handles file upload with React 19 useActionState, tracks progress, shows preview
+4. **Comments** → CommentsSection displays comments with optimistic updates using useOptimistic
+5. **Watch History** → Video views tracked automatically, stored optimistically
 
 **Event Handling:**
 
-- Video search triggers debounced API call with autocomplete
-- Video upload tracks progress and updates UI
-- Video player controls handle play/pause/seek
-- Comments update optimistically with server sync
-- Real-time view count updates via WebSocket or polling
+- Video search triggers debounced API call using useDeferredValue
+- Video upload tracks progress with React 19 form actions
+- Video player controls handle play/pause/seek with transitions
+- Comments update optimistically with useOptimistic hook
+- Real-time view count updates via WebSocket with use() hook for promises
 
-### UI/UX Considerations
+**UI/UX Considerations:**
 
-- **Loading States**: Show skeleton loaders for video grids, spinners for uploads
-- **Error Handling**: Display user-friendly error messages with retry options
-- **Validation**: Client-side validation for uploads (file size, format)
-- **Responsive Design**: Mobile-first layout, adaptive video player sizing
-- **Accessibility**: ARIA labels, keyboard shortcuts for player, screen reader support
-- **Performance**: Lazy loading for video thumbnails, code splitting per route, video preloading
+- **Loading States**: Skeleton loaders for video grids, progress bars for uploads, loading indicators for player
+- **Error Handling**: User-friendly error messages with retry options, error boundaries for video player failures
+- **Validation**: Client-side validation for uploads (file size, format, duration limits)
+- **Responsive Design**: Mobile-first layout, adaptive video player sizing, touch-friendly controls
+- **Accessibility**: ARIA labels, keyboard shortcuts for player (space for play/pause), screen reader support, captions support
+- **Performance**: Lazy loading for video thumbnails with Intersection Observer, code splitting per route, video preloading for next video, virtual scrolling for long video lists
 
 ---
 
@@ -905,59 +1114,59 @@ const useUploadVideo = () => {
 
 ### Video Model
 
-```typescript
-interface Video {
-  id: string;
-  title: string;
-  description: string;
-  channelId: string;
-  channelName: string;
-  thumbnailUrl: string;
-  videoUrl: string;        // CDN URL
-  duration: number;        // in seconds
-  views: number;
-  likes: number;
-  dislikes: number;
-  tags: string[];
-  category: string;
-  privacy: 'public' | 'private' | 'unlisted';
-  status: 'processing' | 'ready' | 'failed';
-  uploadedAt: Date;
-  publishedAt?: Date;
-}
+```javascript
+// Video structure:
+//
+ id;
+ title;
+ description;
+ channelId;
+ channelName;
+ thumbnailUrl;
+ videoUrl; // CDN URL
+ duration; // in seconds
+ views;
+ likes;
+ dislikes;
+ tags[];
+ category;
+ privacy: 'public' | 'private' | 'unlisted';
+ status: 'processing' | 'ready' | 'failed';
+ uploadedAt;
+ publishedAt?;
 
 ```
 
 ### Comment Model
 
-```typescript
-interface Comment {
-  id: string;
-  videoId: string;
-  userId: string;
-  userName: string;
-  userAvatar: string;
-  text: string;
-  likes: number;
-  replies: Comment[];      // Nested comments
-  createdAt: Date;
-}
+```javascript
+// Comment structure:
+//
+ id;
+ videoId;
+ userId;
+ userName;
+ userAvatar;
+ text;
+ likes;
+ replies: Comment[]; // Nested comments
+ createdAt;
 
 ```
 
 ### Playlist Model
 
-```typescript
-interface Playlist {
-  id: string;
-  userId: string;
-  title: string;
-  description: string;
-  videos: string[];        // Array of video IDs
-  privacy: 'public' | 'private';
-  thumbnailUrl?: string;
-  createdAt: Date;
-}
+```javascript
+// Playlist structure:
+//
+ id;
+ userId;
+ title;
+ description;
+ videos[]; // Array of video IDs
+ privacy: 'public' | 'private';
+ thumbnailUrl?;
+ createdAt;
 
 ```
 
@@ -980,16 +1189,16 @@ interface Playlist {
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "videos": [/* Video objects */],
-      "pagination": {/* pagination info */}
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "videos": [/* Video objects */],
+ "pagination": {/* pagination info */}
+ }
+ }
 
-  ```
+ ```
 
 #### GET /api/videos/:id
 
@@ -999,15 +1208,15 @@ interface Playlist {
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "video": {/* Video object with full details */}
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "video": {/* Video object with full details */}
+ }
+ }
 
-  ```
+ ```
 
 #### POST /api/videos/upload
 
@@ -1018,11 +1227,11 @@ interface Playlist {
 - **Content-Type:** multipart/form-data
 
 - **Request Body:**
-  - `video` - Video file
-  - `title` - Video title
-  - `description` - Video description
-  - `tags` - Comma-separated tags
-  - `thumbnail` - Thumbnail image (optional)
+ - `video` - Video file
+ - `title` - Video title
+ - `description` - Video description
+ - `tags` - Comma-separated tags
+ - `thumbnail` - Thumbnail image (optional)
 
 #### GET /api/videos/search
 
@@ -1036,204 +1245,64 @@ interface Playlist {
 
 ## b) Backend
 
-### i) Services
+*Note: Backend implementation details are kept minimal. Focus is on frontend integration.*
 
-**Video Service:**
+**API Endpoints Reference:**
 
-```typescript
-export class VideoService {
-  async uploadVideo(userId: string, file: File, metadata: VideoMetadata): Promise<Video> {
-    // Upload video to S3
-    const videoKey = `videos/${userId}/${Date.now()}-${file.name}`;
-    await this.s3Client.upload(file, videoKey);
+- `GET /api/videos` - Get videos with pagination and filters
+- `GET /api/videos/:id` - Get video details
+- `POST /api/videos/upload` - Upload video (multipart/form-data)
+- `GET /api/videos/search` - Search videos
+- `GET /api/videos/:id/comments` - Get video comments
+- `POST /api/videos/:id/comments` - Add comment
+- `POST /api/videos/:id/like` - Like/unlike video
+- `POST /api/videos/:id/subscribe` - Subscribe/unsubscribe to channel
+- `GET /api/playlists` - Get user playlists
+- `POST /api/playlists` - Create playlist
+- `PUT /api/playlists/:id` - Update playlist
 
-    // Create video record
-    const video = await Video.create({
-      ...metadata,
-      channelId: userId,
-      videoUrl: this.getCDNUrl(videoKey),
-      status: 'processing'
-    });
+**WebSocket Events:**
 
-    // Queue processing job
-    await this.processingQueue.add({ videoId: video.id, videoUrl: video.videoUrl });
-
-    return video;
-  }
-
-  async getVideo(videoId: string): Promise<Video> {
-    // Check cache first
-    const cached = await this.redis.get(`video:${videoId}`);
-    if (cached) return JSON.parse(cached);
-
-    // Query database
-    const video = await Video.findById(videoId);
-    await this.redis.setex(`video:${videoId}`, 300, JSON.stringify(video));
-
-    return video;
-  }
-
-  async getFeed(userId: string, offset: number, limit: number): Promise<Video[]> {
-    // Generate personalized feed based on user preferences
-    // Check cache, query database, return videos
-  }
-}
-
-```
-
-**Video Processing Service:**
-
-```typescript
-export class VideoProcessingService {
-  async processVideo(videoId: string, videoUrl: string): Promise<void> {
-    // Download video from S3
-    const videoBuffer = await this.downloadFromS3(videoUrl);
-
-    // Transcode into multiple qualities
-    const qualities = ['360p', '720p', '1080p', '4K'];
-    for (const quality of qualities) {
-      const transcoded = await this.transcode(videoBuffer, quality);
-      await this.uploadToS3(`videos/${videoId}/${quality}.mp4`, transcoded);
-    }
-
-    // Generate thumbnails
-    const thumbnails = await this.generateThumbnails(videoBuffer);
-    for (const thumbnail of thumbnails) {
-      await this.uploadToS3(`thumbnails/${videoId}/${thumbnail.timestamp}.jpg`, thumbnail.buffer);
-    }
-
-    // Update video status
-    await Video.updateOne({ id: videoId }, { status: 'ready' });
-
-    // Index in Elasticsearch
-    await this.searchService.indexVideo(videoId);
-  }
-}
-
-```
-
-**Comment Service:**
-
-```typescript
-export class CommentService {
-  async addComment(videoId: string, userId: string, text: string, parentId?: string): Promise<Comment> {
-    const comment = await Comment.create({
-      videoId,
-      userId,
-      text,
-      parentId,
-      createdAt: new Date()
-    });
-
-    // Update comment count
-    await Video.updateOne({ id: videoId }, { $inc: { commentCount: 1 } });
-
-    return comment;
-  }
-
-  async getComments(videoId: string, offset: number, limit: number): Promise<Comment[]> {
-    return await Comment.find({ videoId, parentId: null })
-      .sort({ createdAt: -1 })
-      .skip(offset)
-      .limit(limit)
-      .populate('userId', 'name avatar');
-  }
-}
-
-```
-
-### ii) Server Structure
-
-**Express.js Server Structure:**
-
-```
-server/
-├── routes/
-│   ├── videos.js          # Video routes
-│   ├── comments.js        # Comment routes
-│   ├── playlists.js       # Playlist routes
-│   └── users.js           # User routes
-├── controllers/
-│   ├── VideoController.js
-│   ├── CommentController.js
-│   └── PlaylistController.js
-├── services/
-│   ├── VideoService.js
-│   ├── VideoProcessingService.js
-│   ├── CommentService.js
-│   └── RecommendationService.js
-├── workers/
-│   └── videoProcessor.js  # FFmpeg video processing worker
-├── models/
-│   ├── Video.js
-│   ├── Comment.js
-│   └── Playlist.js
-├── middleware/
-│   ├── auth.js
-│   ├── upload.js
-│   └── validation.js
-└── utils/
-    ├── s3.js              # S3 client utilities
-    ├── ffmpeg.js          # FFmpeg utilities
-    └── cache.js           # Redis utilities
-
-```
-
-### iii) Implementation Details
-
-**Video Upload Implementation:**
-
-- Multipart upload to S3 with progress tracking
-- Queue video processing job after upload
-- Update video status throughout processing pipeline
-
-**Video Processing Implementation:**
-
-- FFmpeg transcoding into multiple quality formats
-- Thumbnail generation at key timestamps
-- HLS/DASH manifest generation for adaptive streaming
-- Error handling and retry logic for failed processing
-
-**Video Playback Implementation:**
-
-- Video.js player with HLS/DASH support
+- `video:processing` - Video processing status updates
+- `video:view` - Real-time view count updates
+- `comment:new` - New comment notification
 - Adaptive bitrate streaming based on network conditions
 - Quality selector for manual quality selection
 - Playback analytics tracking (watch time, completion rate)
 
 **Frontend (React.js):**
 
-```typescript
+```javascript
 // Frontend: components/VideoPlayer.tsx
 import VideoPlayer from 'video.js';
 
-const VideoPlayerComponent: React.FC<{ videoUrl: string }> = ({ videoUrl }) => {
-  const playerRef = useRef<HTMLVideoElement>(null);
+const VideoPlayerComponent<{ videoUrl}> = ({ videoUrl }) => {
+ const playerRef = useRef(null);
 
-  useEffect(() => {
-    if (playerRef.current) {
-      const player = VideoPlayer(playerRef.current, {
-        sources: [
-          { src: `${videoUrl}?quality=1080p`, type: 'video/mp4', label: '1080p' },
-          { src: `${videoUrl}?quality=720p`, type: 'video/mp4', label: '720p' },
-          { src: `${videoUrl}?quality=360p`, type: 'video/mp4', label: '360p' }
-        ],
-        controls: true,
-        responsive: true,
-        fluid: true
-      });
+ useEffect(() => {
+ if (playerRef.current) {
+ const player = VideoPlayer(playerRef.current, {
+ sources: [
+ { src: `${videoUrl}?quality=1080p`, type: 'video/mp4', label: '1080p' },
+ { src: `${videoUrl}?quality=720p`, type: 'video/mp4', label: '720p' },
+ { src: `${videoUrl}?quality=360p`, type: 'video/mp4', label: '360p' }
+ ],
+ controls: true,
+ responsive: true,
+ fluid: true
+ });
 
-      return () => {
-        player.dispose();
-      };
-    }
-  }, [videoUrl]);
+ return () => {
+ player.dispose();
+ };
+ }
+ }, [videoUrl]);
 
-  return (
-    <div data-vjs-player>
-      <video ref={playerRef} className="video-js" />
-    </div>
-  );
+ return (
+ <div data-vjs-player>
+ <video ref={playerRef} className="video-js" />
+ </div>
+ );
 };
 
 ```
@@ -1242,43 +1311,43 @@ const VideoPlayerComponent: React.FC<{ videoUrl: string }> = ({ videoUrl }) => {
 
 **Backend (Elasticsearch):**
 
-```typescript
+```javascript
 // Backend: services/searchService.ts
 export class SearchService {
-  async searchVideos(query: string, filters: SearchFilters) {
-    const result = await elasticsearchClient.search({
-      index: 'videos',
-      body: {
-        query: {
-          bool: {
-            must: [
-              {
-                multi_match: {
-                  query,
-                  fields: ['title^3', 'description^2', 'tags', 'channelName']
-                }
-              }
-            ],
-            filter: [
-              { term: { privacy: 'public' } },
-              { term: { status: 'ready' } }
-            ]
-          }
-        },
-        highlight: {
-          fields: {
-            title: {},
-            description: {}
-          }
-        }
-      }
-    });
+ async searchVideos(query, filters: SearchFilters) {
+ const result = await elasticsearchClient.search({
+ index: 'videos',
+ body: {
+ query: {
+ bool: {
+ must: [
+ {
+ multi_match: {
+ query,
+ fields: ['title^3', 'description^2', 'tags', 'channelName']
+ }
+ }
+ ],
+ filter: [
+ { term: { privacy: 'public' } },
+ { term: { status: 'ready' } }
+ ]
+ }
+ },
+ highlight: {
+ fields: {
+ title: {},
+ description: {}
+ }
+ }
+ }
+ });
 
-    return result.hits.hits.map(hit => ({
-      ...hit._source,
-      highlights: hit.highlight
-    }));
-  }
+ return result.hits.hits.map(hit => ({
+ ...hit._source,
+ highlights: hit.highlight
+ }));
+ }
 }
 
 ```
@@ -1554,19 +1623,19 @@ ELASTICSEARCH_URL=xxx
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await Video.create([videoData], { session });
-  await User.updateOne({ userId }, { $inc: { videoCount: 1 } }, { session });
-  await Category.updateOne({ categoryId }, { $inc: { videoCount: 1 } }, { session });
-  await session.commitTransaction();
+ await Video.create([videoData], { session });
+ await User.updateOne({ userId }, { $inc: { videoCount: 1 } }, { session });
+ await Category.updateOne({ categoryId }, { $inc: { videoCount: 1 } }, { session });
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -1655,30 +1724,30 @@ try {
 
 **Implementation:**
 
-```typescript
+```javascript
 class AdaptiveBitrateSelector {
-  private qualities = ['360p', '720p', '1080p', '4K'];
-  private currentQuality = 0;
-  private bufferThreshold = 10; // seconds
+ private qualities = ['360p', '720p', '1080p', '4K'];
+ private currentQuality = 0;
+ private bufferThreshold = 10; // seconds
 
-  selectQuality(networkSpeed: number, bufferLevel: number): string {
-    // Calculate target quality based on network speed
-    let targetQuality = 0;
-    if (networkSpeed > 10000000) targetQuality = 3; // 4K
-    else if (networkSpeed > 5000000) targetQuality = 2; // 1080p
-    else if (networkSpeed > 2000000) targetQuality = 1; // 720p
-    else targetQuality = 0; // 360p
+ selectQuality(networkSpeed, bufferLevel){
+ // Calculate target quality based on network speed
+ let targetQuality = 0;
+ if (networkSpeed > 10000000) targetQuality = 3; // 4K
+ else if (networkSpeed > 5000000) targetQuality = 2; // 1080p
+ else if (networkSpeed > 2000000) targetQuality = 1; // 720p
+ else targetQuality = 0; // 360p
 
-    // Adjust based on buffer level
-    if (bufferLevel < this.bufferThreshold && this.currentQuality > 0) {
-      targetQuality = Math.max(0, this.currentQuality - 1);
-    } else if (bufferLevel > this.bufferThreshold * 2 && targetQuality > this.currentQuality) {
-      targetQuality = Math.min(3, this.currentQuality + 1);
-    }
+ // Adjust based on buffer level
+ if (bufferLevel < this.bufferThreshold && this.currentQuality > 0) {
+ targetQuality = Math.max(0, this.currentQuality - 1);
+ } else if (bufferLevel > this.bufferThreshold * 2 && targetQuality > this.currentQuality) {
+ targetQuality = Math.min(3, this.currentQuality + 1);
+ }
 
-    this.currentQuality = targetQuality;
-    return this.qualities[targetQuality];
-  }
+ this.currentQuality = targetQuality;
+ return this.qualities[targetQuality];
+ }
 }
 
 ```
@@ -1705,23 +1774,23 @@ class AdaptiveBitrateSelector {
 
 **Implementation:**
 
-```typescript
-function recommendVideos(userId: string, watchHistory: Video[]): Video[] {
-  // Collaborative filtering
-  const similarUsers = findSimilarUsers(userId);
-  const collaborativeScore = calculateCollaborativeScore(similarUsers);
+```javascript
+function recommendVideos(userId, watchHistory: Video[]): Video[] {
+ // Collaborative filtering
+ const similarUsers = findSimilarUsers(userId);
+ const collaborativeScore = calculateCollaborativeScore(similarUsers);
 
-  // Content-based filtering
-  const userPreferences = extractPreferences(watchHistory);
-  const contentScore = calculateContentScore(userPreferences);
+ // Content-based filtering
+ const userPreferences = extractPreferences(watchHistory);
+ const contentScore = calculateContentScore(userPreferences);
 
-  // Trending boost
-  const trendingScore = calculateTrendingScore();
+ // Trending boost
+ const trendingScore = calculateTrendingScore();
 
-  // Combined score
-  const finalScore = collaborativeScore * 0.4 + contentScore * 0.4 + trendingScore * 0.2;
+ // Combined score
+ const finalScore = collaborativeScore * 0.4 + contentScore * 0.4 + trendingScore * 0.2;
 
-  return videos.sort((a, b) => b.finalScore - a.finalScore);
+ return videos.sort((a, b) => b.finalScore - a.finalScore);
 }
 
 ```
@@ -1740,24 +1809,24 @@ function recommendVideos(userId: string, watchHistory: Video[]): Video[] {
 
 ```javascript
 {
-  _id: ObjectId,
-  videoId: String,          // Unique video ID, indexed
-  userId: ObjectId,         // Channel owner, indexed
-  title: String,           // Video title, indexed
-  description: String,      // Video description
-  category: String,        // Video category, indexed
-  tags: [String],          // Array of tags, indexed
-  duration: Number,        // Video duration in seconds
-  views: Number,           // View count
-  likes: Number,           // Like count
-  dislikes: Number,        // Dislike count
-  comments: Number,        // Comment count
-  status: String,          // processing, ready, failed
-  privacy: String,         // public, unlisted, private
-  videoUrls: Object,       // { 360p: url, 720p: url, 1080p: url, 4K: url }
-  thumbnailUrl: String,    // Thumbnail URL
-  createdAt: Date,         // Created timestamp, indexed
-  updatedAt: Date          // Updated timestamp
+ _id: ObjectId,
+ videoId: String, // Unique video ID, indexed
+ userId: ObjectId, // Channel owner, indexed
+ title: String, // Video title, indexed
+ description: String, // Video description
+ category: String, // Video category, indexed
+ tags: [String], // Array of tags, indexed
+ duration: Number, // Video duration in seconds
+ views: Number, // View count
+ likes: Number, // Like count
+ dislikes: Number, // Dislike count
+ comments: Number, // Comment count
+ status: String, // processing, ready, failed
+ privacy: String, // public, unlisted, private
+ videoUrls: Object, // { 360p: url, 720p: url, 1080p: url, 4K: url }
+ thumbnailUrl: String, // Thumbnail URL
+ createdAt, // Created timestamp, indexed
+ updatedAt// Updated timestamp
 }
 
 // Indexes:
@@ -1773,13 +1842,13 @@ function recommendVideos(userId: string, watchHistory: Video[]): Video[] {
 
 ```javascript
 {
-  _id: ObjectId,
-  userId: ObjectId,         // User reference, indexed
-  videoId: ObjectId,        // Video reference, indexed
-  watchedDuration: Number,  // Seconds watched
-  completed: Boolean,       // Whether video was completed
-  watchedAt: Date,         // Watch timestamp, indexed
-  createdAt: Date          // Created timestamp
+ _id: ObjectId,
+ userId: ObjectId, // User reference, indexed
+ videoId: ObjectId, // Video reference, indexed
+ watchedDuration: Number, // Seconds watched
+ completed: Boolean, // Whether video was completed
+ watchedAt, // Watch timestamp, indexed
+ createdAt// Created timestamp
 }
 
 // Indexes:
@@ -1802,19 +1871,19 @@ function recommendVideos(userId: string, watchHistory: Video[]): Video[] {
 
 **Example:**
 
-```typescript
+```javascript
 const session = await mongoose.startSession();
 session.startTransaction();
 try {
-  await Video.create([videoData], { session });
-  await User.updateOne({ userId }, { $inc: { videoCount: 1 } }, { session });
-  await Category.updateOne({ categoryId }, { $inc: { videoCount: 1 } }, { session });
-  await session.commitTransaction();
+ await Video.create([videoData], { session });
+ await User.updateOne({ userId }, { $inc: { videoCount: 1 } }, { session });
+ await Category.updateOne({ categoryId }, { $inc: { videoCount: 1 } }, { session });
+ await session.commitTransaction();
 } catch (error) {
-  await session.abortTransaction();
-  throw error;
+ await session.abortTransaction();
+ throw error;
 } finally {
-  session.endSession();
+ session.endSession();
 }
 
 ```
@@ -1858,30 +1927,30 @@ try {
 - **Description:** Initiate video upload
 - **Request Body:**
 
-  ```json
-  {
-    "title": "My Video",
-    "description": "Video description",
-    "category": "Entertainment",
-    "tags": ["funny", "vlog"],
-    "privacy": "public"
-  }
+ ```json
+ {
+ "title": "My Video",
+ "description": "Video description",
+ "category": "Entertainment",
+ "tags": ["funny", "vlog"],
+ "privacy": "public"
+ }
 
-  ```
+ ```
 
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "videoId": "video_abc123",
-      "uploadUrl": "https://s3.amazonaws.com/bucket/upload/...",
-      "uploadId": "upload_xyz789"
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "videoId": "video_abc123",
+ "uploadUrl": "https://s3.amazonaws.com/bucket/upload/...",
+ "uploadId": "upload_xyz789"
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 201 (Created), 400 (Validation Error)
 
@@ -1892,16 +1961,16 @@ try {
 - **Description:** Get video streaming URL
 - **Response:**
 
-  ```json
-  {
-    "success": true,
-    "data": {
-      "streamUrl": "https://cdn.example.com/videos/video_abc123/720p.m3u8",
-      "qualities": ["360p", "720p", "1080p", "4K"]
-    }
-  }
+ ```json
+ {
+ "success": true,
+ "data": {
+ "streamUrl": "https://cdn.example.com/videos/video_abc123/720p.m3u8",
+ "qualities": ["360p", "720p", "1080p", "4K"]
+ }
+ }
 
-  ```
+ ```
 
 - **Status Codes:** 200 (Success), 404 (Video Not Found)
 
@@ -1916,9 +1985,9 @@ try {
 - **Key Format:** `video:{videoId}`, `video:trending`, `video:recommendations:{userId}`
 - **Value:** Serialized JSON (video metadata, trending videos, recommendations)
 - **TTL:**
-  - Video metadata: 3600 seconds (1 hour)
-  - Trending videos: 300 seconds (5 minutes)
-  - Recommendations: 1800 seconds (30 minutes)
+ - Video metadata: 3600 seconds (1 hour)
+ - Trending videos: 300 seconds (5 minutes)
+ - Recommendations: 1800 seconds (30 minutes)
 - **Eviction Policy:** LRU (Least Recently Used)
 
 **Cache Patterns:**
@@ -1945,11 +2014,11 @@ try {
 
 ```json
 {
-  "error": {
-    "code": "VIDEO_PROCESSING_FAILED",
-    "message": "Video processing failed",
-    "details": "FFmpeg transcoding error: codec not supported"
-  }
+ "error": {
+ "code": "VIDEO_PROCESSING_FAILED",
+ "message": "Video processing failed",
+ "details": "FFmpeg transcoding error: codec not supported"
+ }
 }
 
 ```

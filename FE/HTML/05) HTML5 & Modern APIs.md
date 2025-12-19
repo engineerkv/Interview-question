@@ -322,26 +322,26 @@ async function startCall() {
       video: true,
       audio: true
     });
-    
+
     // Display local video stream
     document.getElementById('localVideo').srcObject = localStream;
-    
+
     // Create RTCPeerConnection (simplified - real implementation needs signaling)
     const configuration = {
       iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] // STUN server for NAT traversal
     };
     peerConnection = new RTCPeerConnection(configuration);
-    
+
     // Add local stream tracks to peer connection
     localStream.getTracks().forEach(track => {
       peerConnection.addTrack(track, localStream); // Add each track (video/audio) to connection
     });
-    
+
     // Handle remote stream when received
     peerConnection.ontrack = (event) => {
       document.getElementById('remoteVideo').srcObject = event.streams[0]; // Display remote video
     };
-    
+
     // Handle ICE candidates (network information for connection)
     peerConnection.onicecandidate = (event) => {
       if (event.candidate) {
@@ -349,7 +349,7 @@ async function startCall() {
         console.log('ICE candidate:', event.candidate);
       }
     };
-    
+
   } catch (error) {
     console.error('Error accessing media devices:', error);
   }

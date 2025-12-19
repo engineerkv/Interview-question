@@ -1,6 +1,6 @@
 # ⚛️ React Native Interview Questions
 
-125 carefully curated questions covering React Native fundamentals to advanced platform internals.
+122 carefully curated questions covering React Native fundamentals to advanced platform internals.
 
 ## 📋 Quick Navigation
 
@@ -8,8 +8,8 @@
 |---------|-------|-----------|------------|
 | [1️⃣](#1-core-concepts--architecture) | Core Concepts & Architecture | Q1–10 | ⭐⭐ |
 | [2️⃣](#2-state-management--data-persistence) | State Management & Data Persistence | Q11–21 | ⭐⭐⭐ |
-| [3️⃣](#3-navigation--app-lifecycle) | Navigation & App Lifecycle | Q22–31 | ⭐⭐⭐ |
-| [4️⃣](#4-native-modules--platform-apis) | Native Modules & Platform APIs | Q32–41 | ⭐⭐⭐ |
+| [3️⃣](#3-navigation--app-lifecycle) | Navigation & App Lifecycle | Q22–30 | ⭐⭐⭐ |
+| [4️⃣](#4-native-modules--platform-apis) | Native Modules & Platform APIs | Q32–39 | ⭐⭐⭐ |
 | [5️⃣](#5-platform-specific-development) | Platform-Specific Development | Q42–51 | ⭐⭐⭐ |
 | [6️⃣](#6-performance--profiling) | Performance & Profiling | Q52–66 | ⭐⭐⭐⭐ |
 | [7️⃣](#7-animations--graphics) | Animations & Graphics | Q67–73 | ⭐⭐⭐⭐ |
@@ -67,25 +67,23 @@
 
 ## 🧭 3. Navigation & App Lifecycle
 
-22. Different navigation solutions available for React Native
+22. implement stack navigation
 
-23. implement stack navigation
+23. implement tab navigation
 
-24. implement tab navigation
+24. implement drawer navigation
 
-25. implement drawer navigation
+25. handle deep linking in React Native
 
-26. handle deep linking in React Native
+26. implement universal links for iOS
 
-27. implement universal links for iOS
+27. handle app lifecycle changes with AppState API
 
-28. handle app lifecycle changes with AppState API
+28. use screen lifecycle events for focus handling
 
-29. use `useFocusEffect` for screen focus handling
+29. handle the hardware back button on Android
 
-30. handle the hardware back button on Android
-
-31. persist navigation state
+30. persist navigation state
 
 ## 🔧 4. Native Modules & Platform APIs
 
@@ -95,19 +93,15 @@
 
 34. Creating custom native modules for iOS
 
-35. Difference between JSI and the old bridge
+35. TurboModules and how they work
 
-36. TurboModules and how they work
+36. Accessing native APIs like Camera, Location, and Sensors
 
-37. Accessing native APIs like Camera, Location, and Sensors
+37. Headless JS and when to use it
 
-38. Headless JS and when to use it
+38. How autolinking works in React Native
 
-39. How autolinking works in React Native
-
-40. Difference between bridged and JSI-based modules
-
-41. Handling permissions in React Native
+39. Handling permissions in React Native
 
 ## 📱 5. Platform-Specific Development
 
@@ -301,9 +295,9 @@
 
 - [2) State Management & Data Persistence](02%29%20State%20Management%20%26%20Data%20Persistence.md) - Q11-21
 
-- [3) Navigation & App Lifecycle](03%29%20Navigation%20%26%20App%20Lifecycle.md) - Q22-31
+- [3) Navigation & App Lifecycle](03%29%20Navigation%20%26%20App%20Lifecycle.md) - Q22-30
 
-- [4) Native Modules & Platform APIs](04%29%20Native%20Modules%20%26%20Platform%20APIs.md) - Q32-41
+- [4) Native Modules & Platform APIs](04%29%20Native%20Modules%20%26%20Platform%20APIs.md) - Q32-39
 
 - [5) Platform-Specific Development](05%29%20Platform-Specific%20Development.md) - Q42-51
 
