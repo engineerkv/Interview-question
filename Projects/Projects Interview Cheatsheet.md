@@ -479,6 +479,7 @@
 - **Stack:** Elasticsearch, Inverted Index, Caching
 
 - **Key Features:** Full-text search, autocomplete, ranking, faceted search
+ name
 
 ### Key Technical Challenges
 

@@ -18,9 +18,9 @@
 
 ## Q11. 📝 Type in TypeScript
 
-A type is a way to define the shape, structure, and behavior of data, providing compile-time type checking and better developer experience - types provide compile-time guarantees. Type safety prevents runtime errors by catching type mismatches at compile time.
+A type is a way to define the shape, structure, and behavior of data, providing compile-time type checking and better developer experience. When you use types, TypeScript catches type mismatches at compile time, which prevents runtime errors and gives you compile-time guarantees.
 
-- **Trade-offs**: The catch is can represent any data structure, function signature, or primitive - types can be combined, extended, and reused throughout the codebase. Types provide compile-time guarantees, but watch out - types serve as self-documenting code, provides better IDE support with autocomplete.
+- **Trade-offs**: The catch is you can use types to represent any data structure, function signature, or primitive - types can be combined, extended, and reused throughout the codebase. Types provide compile-time guarantees, but watch out - they also serve as self-documenting code and provide better IDE support with autocomplete.
 
 Example:
 
@@ -42,9 +42,9 @@ type ID = string | number;
 
 ## Q12. 📝 Interface in TypeScript
 
-An interface defines the contract or shape that an object must follow, specifying what properties and methods it should have - interfaces ensure objects conform to the expected structure. Specifies what an object should look like.
+An interface defines the contract or shape that an object must follow, specifying what properties and methods it should have. When you use interfaces, they ensure objects conform to the expected structure, which helps catch errors early.
 
-- **Trade-offs**: The catch is declaration merging allows multiple interface declarations with the same name to be merged - classes can implement interfaces to ensure they follow the contract. Interfaces ensure objects conform to the expected structure, but watch out - can be extended using inheritance or intersection.
+- **Trade-offs**: The catch is declaration merging allows multiple interface declarations with the same name to be merged - classes can implement interfaces to ensure they follow the contract. Interfaces ensure objects conform to the expected structure, but watch out - you can extend them using inheritance or intersection.
 
 Example:
 

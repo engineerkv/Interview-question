@@ -1,4 +1,4 @@
-# 🚀 1. Fundamentals & Core Concepts (Q1–Q8) + JavaScript Internals
+# 🚀 1. Fundamentals & Core Concepts (Q1–Q8)
 
 ---
 

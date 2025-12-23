@@ -718,9 +718,20 @@ Q#. [Question]
 
 ---
 
-## Section 5: Project System Design Documents (HLD/LLD)
+## Section 5: Project System Design Documents (Frontend-Focused)
 
-> **Applies to:** All project system design documents in `Projects/` directory (High Level Design and Low Level Design files)
+> **Applies to:** All project system design documents in `Projects/` directory - **Frontend System Design Interview Preparation**
+
+### ⚠️ CRITICAL: Frontend-Only Focus
+
+**All project documents must be frontend-focused for frontend system design interviews:**
+
+- ✅ **Frontend System Design** - Component architecture, state management, UI/UX, performance
+- ✅ **TypeScript Interfaces** - Data models as TypeScript interfaces (NO database schemas)
+- ✅ **Business/Controller Layer** - Required in architecture (custom hooks, validation, business logic)
+- ✅ **Native React Forms** - Use useState (NO third-party form libraries like React Hook Form, Formik)
+- ✅ **Frontend Algorithms Only** - URL validation, debouncing, clipboard operations (NO backend algorithms)
+- ❌ **NO Backend Content** - No database schemas, backend algorithms, backend deployment, backend interview questions
 
 ### Language Requirements (MANDATORY)
 
@@ -730,9 +741,9 @@ Q#. [Question]
 
 #### ✅ Tech Stack Explanations
 
-- **Explain why you chose it** - Not just what it is, but why it fits the project
-- **Use real-world comparisons** - "Like a cashier" for payment gateway, "Like building with LEGO blocks" for component-based architecture
-- **Focus on benefits** - What problem it solves, not just features
+- **Explain why you chose it** - Not just what it is, but why it fits the frontend project
+- **Use real-world comparisons** - "Like a global storage box" for Redux, "Like a walkie-talkie" for Socket.io
+- **Focus on frontend benefits** - What problem it solves in the frontend, not just features
 - **Keep it interview-friendly** - Easy to explain and remember
 
 **Examples:**
@@ -741,49 +752,23 @@ Q#. [Question]
 - ✅ "Redux Toolkit is like a global storage box that any component can access - when you have lots of data that many components need, Redux keeps it organized" (conversational)
 
 - ❌ "Socket.io enables real-time bidirectional communication" (technical)
-- ✅ "Socket.io is like a walkie-talkie between browser and server - instant two-way communication" (conversational)
+- ✅ "Socket.io client is like a walkie-talkie between browser and server - instant two-way communication for real-time updates" (conversational)
 
 - ❌ "Code splitting reduces initial bundle size" (dry)
 - ✅ "Code splitting means only loads the code for the page you're on - like opening one chapter of a book instead of the whole library" (memorable)
 
-**Goal:** All project system design explanations should sound like you're explaining your tech choices to a colleague in a hallway conversation, making it easy to explain in interviews and easy to remember.
-
-### Content Structure
-
-**High Level Design (HLD) Files:**
-
-- Project overview with conversational tech stack descriptions
-- Requirements explained in simple terms
-- Tech choices with "why" explanations using analogies
-- Architecture diagrams with clear explanations
-- Key design decisions with conversational reasoning
-
-**Low Level Design (LLD) Files:**
-
-- Component architecture with clear explanations
-- Data models with practical examples
-- API designs with simple descriptions
-- Implementation details with conversational code comments
-- Performance optimizations explained simply
-
-### Format Requirements
-
-- ✅ **Conversational language** - Use analogies, simple words, "think of it as" explanations
-- ✅ **Explain "why"** - Not just what you chose, but why it fits the project
-- ✅ **Interview-friendly** - Easy to explain and remember during interviews
-- ✅ **Natural flow** - Should sound like explaining to a colleague
-- ✅ **Code comments** - Use conversational comments in code examples
+**Goal:** All project system design explanations should sound like you're explaining your frontend tech choices to a colleague in a hallway conversation, making it easy to explain in interviews and easy to remember.
 
 ### Project Document Template Structure (MANDATORY)
 
-**All project system design documents must follow this exact structure:**
+**All project system design documents must follow this exact 10-section structure:**
 
 ```markdown
 # [Project Name]
 
-> **Project Type:** [Full-Stack Web Application / Mobile App / Backend Service / etc.]
-> **Scale:** [Scale requirements, e.g., Handle 100M+ requests per day, 10:1 read/write ratio]
-> **Tech Stack:** [Primary technologies, e.g., React.js, Node.js, Express.js, MongoDB, Redis, CDN]
+> **Project Type:** Frontend System Design
+> **Scale:** [Scale requirements, e.g., Handle 1B+ users, 500M+ content items per day]
+> **Tech Stack:** React.js, TypeScript, React Query, Redux Toolkit, React Router, Vite
 
 # 1) Problem Statement
 
@@ -791,325 +776,233 @@ Q#. [Question]
 - Core Functionality
 - Scale Requirements
 - Performance Requirements
-- Feature Requirements
-- Availability Requirements
-- Scalability Requirements
-- Data Persistence Requirements
+- Frontend-specific challenges
 
 ---
 
 # 2) High Level Design (HLD)
 
-## a) Requirements
+## a) Functional Requirements
+- [List of functional features]
+- [User-facing capabilities]
 
-### i) Functional Requirements
-- [List of functional requirements]
+## b) Non-Functional Requirements
+- [Performance requirements]
+- [Scalability needs]
+- [Security considerations]
+- [User experience goals]
 
-### ii) Non-Functional Requirements
-- [List of non-functional requirements]
-
----
-
-## b) Scope and Priority
-
-### Phase 1: MVP (Must Have) - Priority 1
+## c) MVP (Minimum Viable Product)
+### Phase 1: Core Features (Must Have)
 - [Core features for MVP]
 
-### Phase 2: Enhanced Features - Priority 2
+### Phase 2: Enhanced Features
 - [Additional features for future releases]
 
----
+### Phase 3: Advanced Features (if applicable)
+- [Advanced features]
 
-## c) Technology Choices
+## d) Technology Choices
+### Frontend Framework
+- React.js with TypeScript
 
-[Explain technology choices with "why" explanations using conversational language and analogies]
+### State Management
+- React Query (TanStack Query) - Server state
+- Redux Toolkit OR Zustand - Client state (can vary by project)
+- Context API - App configuration
 
-### Backend Framework
-- [Technology choice with reasoning]
+### UI/UX Libraries
+- [Chart libraries, toast notifications, etc.]
 
-### Database
-- [Database choice with reasoning]
+### Build Tools
+- Vite/Webpack
 
-### Caching
-- [Caching solution with reasoning]
+### Testing
+- React Testing Library
+- Vitest/Jest
+- Playwright/Cypress
 
-### [Other technology choices...]
-
----
-
-## d) Capacity Estimation
-
-### Throughput Requirements
-- [Calculations for requests per second, peak traffic, etc.]
-
-### Storage Estimation
-- [Storage calculations per record, total storage requirements]
-
-### Bandwidth Estimation
-- [Bandwidth calculations for data transfer]
-
-### Caching Estimation
-- [Cache sizing based on 80-20 rule or similar]
-
-### Infrastructure Sizing
-- [Server, database, cache node requirements]
-
----
+### Deployment
+- Vercel/Netlify
+- AWS S3 + CloudFront
 
 ## e) Architecture Overview
 
-[Comprehensive architecture explanation including:]
+Must include:
 
-### Frontend Architecture
-- Frontend Layers (Presentation, State Management, API Integration, Routing, Build & Deployment)
-- Frontend Request Flow
-- Component Structure
-- Frontend Deployment
+**Component Structure:**
+- Tree diagram showing frontend application layers
+- Presentation Layer (UI, Feature, Layout, Page Components)
+- Business/Controller Layer (Business Logic, Custom Hooks, Service Functions)
+- State Management (Client State, Server State)
+- API Integration (API Client, API Services, Request/Response Transformation)
+- Routing (Public Routes, Protected Routes, Route Guards)
+- Additional layers as needed (WebSocket, Map Integration, Video Player, etc.)
 
-### Backend Architecture
-- Backend Layers (API Gateway, API Server, Application Service, Cache, Database, Message Queue)
-- Complete Request Flow (for each major operation)
-- Architecture Diagram (ASCII or text-based)
+**Frontend Deployment:**
+- Build process (Webpack/Vite bundling with code splitting)
+- CDN (CloudFront/Cloudflare edge locations)
+- Caching strategy
+- Environment configuration
 
-### Key Components
-- [Detailed explanation of each major component]
+**Key Frontend Components:**
+- React.js Application features
+- CDN/Edge capabilities
+
+## f) App Flow
+- Frontend user journeys
+- Component interaction flows
+- State update flows
 
 ---
 
 # 3) Low Level Design (LLD)
 
-## a) Frontend
+## i) Component Architecture
+- Component hierarchy
+- Component structure
+- Key React components with code examples (max 6-8 lines)
 
-### i) Component Architecture
-- Component hierarchy and structure
-- Key React/UI components with code examples
-- Component relationships
+## ii) State Management
+### Client State
+- Local State (useState/useReducer)
+- Global State (Redux Toolkit OR Zustand - can vary by project)
+- Context API
 
-### ii) State Management
-- State management strategy
-- Local state, server state, global state
-- Implementation with code examples
+### Server State
+- React Query (useQuery/useMutation) - Primary
+- SWR (alternative)
+- Service Worker
 
-### iii) Implementation Details
-- Data flow
-- Event handling
-- UI/UX considerations
+## iii) Implementation Details
+- **Business/Controller Layer** implementation
+- Advanced component patterns
+- Performance optimizations
+- UI/UX enhancements
+- Accessibility features
 
----
-
-## b) Backend
-
-### i) Services
-- Core service classes with code examples
-- Service responsibilities
-- Service interactions
-
-### ii) Server Structure
-- Directory structure
-- File organization
-- Module organization
-
-### iii) Implementation Details
-- Key implementation approaches
-- Algorithm choices
-- Design patterns used
+## iv) Testing
+- Component Testing
+- Integration Testing
+- E2E Testing
 
 ---
 
-# 4) Algorithms
-
-[Each algorithm section must include:]
-
-## [Algorithm Name]
-
-**Purpose:** [What the algorithm does]
-
-**Algorithm:** [Step-by-step explanation]
-
-**Implementation:**
-```typescript
-
-// Complete code implementation
-
-```
-
-**Complexity:**
-
-- Time: [Big O notation with explanation]
-- Space: [Big O notation with explanation]
-- [Additional notes if needed]
+# 4) Algorithms (if needed)
+- Only frontend-relevant algorithms
+- URL validation
+- Debouncing
+- Clipboard operations
+- **NO backend algorithms** (database sharding, consistent hashing, etc.)
 
 ---
 
 # 5) Data Models
-
-## [Collection/Table Name] (MongoDB/SQL)
-
-[Schema definition with:]
-
-- Field names and types
-- Indexes
-- Relationships
-- Constraints
-
-[Include both MongoDB collections and SQL schema alternatives if applicable]
+- **TypeScript Interfaces ONLY** (NO database schemas)
+- URL data models
+- Analytics data models
+- User data models
+- API response models
+- Form state models
 
 ---
 
-# 6) Database Transactions and Consistency
-
-### [Database] Transactions
-
-- Transaction usage scenarios
-- Code examples with transaction handling
-
-### Consistency Strategies
-
-- Data consistency approaches
-- Cache consistency
-- Conflict resolution
+# 6) Protocols
+- REST API Protocol
+- WebSocket Protocol (if applicable)
+- Redirect Protocol (if applicable)
 
 ---
 
-# 7) Protocols
-
-### [Protocol Name]
-
-- Protocol description
-- Data format
-- HTTP methods (if applicable)
-- Status codes (if applicable)
+# 7) API Design
+- Request/Response formats
+- Status codes
+- Proper JSON examples
 
 ---
 
-# 8) API Design
-
-### [HTTP Method] [Endpoint Path]
-
-- **URL:** [Full endpoint path]
-- **Method:** [HTTP method]
-- **Request Body:** [Request structure with example]
-- **Response:** [Response structure with example]
-- **Status Codes:** [List of status codes]
-- **Backend Implementation:** [Code example]
-
-[Repeat for each API endpoint]
+# 8) Security
+- **Frontend Security ONLY**
+- Input validation
+- XSS prevention
+- CSRF protection
+- Secure storage
+- HTTPS
 
 ---
 
-# 9) Caching Strategy
-
-### [Cache Solution]
-
-- Cache strategy description
-- Key format
-- Value structure
-- TTL configuration
-- Eviction policy
-- Cache patterns (Cache-Aside, Write-Through, etc.)
-- Cache warming strategies
-
----
-
-# 10) Error Handling
-
-### Error Scenarios and Responses
-
-- [List of error scenarios with HTTP status codes]
-- Error response format
-- Edge cases handling
-- Conflict resolution strategies
-
----
-
-# 11) Deployment and DevOps
-
-### Scalability
-
-- API layer scaling
-- Database sharding strategy
-- Caching distribution
-- Read replicas
-
-### Availability
-
-- Replication strategy
-- Failover mechanisms
-- Geo-distributed deployment
-
-### Frontend Deployment
-
-- Build process
-- Deployment platforms
-- CDN configuration
-
-### Backend Deployment
-
-- Server setup
+# 9) Deployment and DevOps
+- **Frontend Deployment ONLY**
+- Build optimization
 - CI/CD pipeline
-- Container orchestration
-
-### Database Deployment
-
-- Database setup
-- Backup strategy
-- Indexing strategy
-- Sharding configuration
+- Environment configuration
+- Monitoring (error tracking, performance)
 
 ---
 
-# 12) Security Considerations
+# 10) Interview Answers (Frontend Focus)
+- **ONLY frontend-related questions**
+- Component architecture
+- State management
+- Performance optimization
+- User experience
+- Form handling
+- Real-time updates
+- **NO backend questions** (database scaling, caching strategies, etc.)
+- Use **STAR method** (Situation, Action, Result, Takeaway)
+```
 
-### Rate Limiting
+### Critical Rules
 
-- Rate limiting strategy
-- Implementation approach
+**✅ DO:**
 
-### Input Validation
+- Focus on **frontend system design**
+- Use **TypeScript interfaces** for data models
+- Include **Business/Controller layer** in architecture
+- Show **native React** form handling (useState, no third-party libraries)
+- Use **React Query** as primary server state management
+- Show **Redux Toolkit OR Zustand** for global state (can vary by project)
+- Keep content **interview-friendly** and concise
+- Include code examples (max 6-8 lines per example)
+- Use proper TypeScript types
+- Follow conversational language rules
 
-- Validation rules
-- Sanitization approach
+**❌ DON'T:**
 
-### HTTPS/TLS
+- Include database schemas (SQL/MongoDB)
+- Use third-party form libraries (React Hook Form, Formik)
+- Include backend algorithms (sharding, consistent hashing, etc.)
+- Include backend interview questions
+- Add redundant/duplicate content
+- Include unnecessary code
+- Use database table definitions
 
-- Security protocols
-- Certificate management
+### Section Numbering Rules
 
-### Monitoring and Alerts
+- Main sections use format: `# X) Section Name` (e.g., `# 1) Problem Statement`)
+- HLD subsections use format: `## a) Subsection Name` (e.g., `## a) Functional Requirements`)
+- LLD subsections use format: `## i) Subsection Name` (e.g., `## i) Component Architecture`)
+- Sub-subsections use format: `### Sub-subsection Name` (e.g., `### Frontend Framework`)
 
-- Security monitoring
-- Alert configuration
-- Audit logging
+**Important:** Section numbers must be sequential (1-10) and in the exact order specified.
 
----
+### Verification Checklist
 
-# 13) Interview Answers
+Before finalizing any project file, verify:
 
-[Exactly 5 interview questions with conversational, senior-level answers]
-
-## Q1. [Question Title]
-
-[Answer in conversational STAR format or detailed technical explanation with:]
-
-- The Challenge/Problem
-- My Approach/Solution
-- Implementation details
-- Results/Outcomes
-- Key Insights
-
-[Repeat for Q2-Q5]
-
----
-
-**Template Rules:**
-
-- ✅ **All sections must be present** - Follow the exact structure above
-- ✅ **Numbering consistency** - Use consistent numbering (1, 2, 3... and a, b, c... and i, ii, iii...)
-- ✅ **Conversational language** - All content must follow conversational language rules
-- ✅ **Code examples** - Include practical code examples in relevant sections
-- ✅ **Interview Answers** - Exactly 5 questions, each with comprehensive, senior-level answers
-- ✅ **No duplicates** - Ensure no duplicate content across sections
-- ✅ **Logical order** - Sections should flow logically from high-level to low-level details
+- [ ] All 10 main sections present in correct order
+- [ ] All HLD subsections (a-f) present
+- [ ] All LLD subsections (i-iv) present
+- [ ] Business/Controller layer included in architecture
+- [ ] State management properly separated (Client/Server)
+- [ ] TypeScript interfaces only (NO database schemas)
+- [ ] Frontend-only content (NO backend)
+- [ ] Interview answers use STAR method and are frontend-focused
+- [ ] Code examples are 6-8 lines max
+- [ ] No duplicate or redundant content
+- [ ] Section numbering is sequential (1-10)
+- [ ] Conversational language throughout
+- [ ] No third-party form libraries
 
 ---
 

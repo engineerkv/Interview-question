@@ -1,6 +1,6 @@
 # 📁 Projects Directory
 
-This directory contains detailed project documentation following High Level Design (HLD) and Low Level Design (LLD) approaches, along with interview questions about complex problems solved.
+This directory contains detailed **frontend system design** documentation following High Level Design (HLD) and Low Level Design (LLD) approaches, along with interview questions about complex frontend problems solved.
 
 ## 🎤 Interview Guide
 
@@ -74,8 +74,8 @@ These features can be added to projects where they make sense. Not all features 
 
 - **Image Optimization**: Lazy loading, WebP format, responsive images, compression
 - **Code Splitting**: Route-based (React.lazy), component-based, dynamic imports
-- **Debouncing/Throttling**: Search input, scroll events, resize handlers
-- **Virtual Scrolling**: Large lists (react-window, react-virtualized)
+- **Debouncing/Throttling**: Search input, scroll events, resize handlers (useDeferredValue, useTransition)
+- **Virtual Scrolling**: Large lists (@tanstack/react-virtual)
 - **Memoization**: React.memo, useMemo, useCallback for expensive operations
 - **Bundle Optimization**: Tree shaking, chunk splitting, bundle analysis
 
@@ -88,18 +88,10 @@ These features can be added to projects where they make sense. Not all features 
 - **Dark Mode**: Theme switching
 - **Accessibility**: ARIA labels, keyboard navigation, screen reader support
 
-### Backend Performance
-
-- **Request Batching**: Combine multiple requests
-- **Connection Pooling**: Database connection management
-- **Query Optimization**: Indexing, query analysis, N+1 prevention
-- **Background Jobs**: Async processing with queues
-- **Rate Limiting**: API protection (per user/endpoint)
-
 ### Real-Time Features
 
 - **WebSocket Reconnection**: Auto-reconnect with exponential backoff
-- **Optimistic Updates**: Instant UI feedback
+- **Optimistic Updates**: Instant UI feedback (useOptimistic)
 - **Conflict Resolution**: For collaborative features
 - **Presence Indicators**: Show who's online/active
 
@@ -107,327 +99,344 @@ These features can be added to projects where they make sense. Not all features 
 
 - **Browser Caching**: Cache-Control headers
 - **CDN Caching**: Static asset delivery
-- **Application Caching**: Redis for hot data
+- **React Query Caching**: Server state caching
 - **Service Worker**: Offline-first approach
 
 ### Security Enhancements
 
-- **Input Sanitization**: XSS prevention
-- **CSRF Protection**: Token-based protection
+- **Input Sanitization**: XSS prevention (React escaping)
+- **CSRF Protection**: Token-based protection (SameSite cookies)
 - **Content Security Policy**: XSS mitigation
-- **Rate Limiting**: DDoS protection
-- **Encryption**: Data at rest and in transit
+- **Secure Storage**: httpOnly cookies for tokens
 
 ### Monitoring & Analytics
 
-- **Error Tracking**: Sentry, LogRocket
+- **Error Tracking**: Sentry for frontend errors
 - **Performance Monitoring**: Web Vitals, Lighthouse
 - **User Analytics**: Event tracking, user behavior
 - **A/B Testing**: Feature flags, experimentation
 
 ## 🎯 Projects
 
-Projects are organized in logical order: Foundation → Full-Stack Apps → Real-Time Systems → Specialized Systems → Infrastructure → System Design → Specific Examples
+Projects are organized in logical order for interview preparation: **Foundation Systems** → **Infrastructure Systems** → **Full-Stack Web Applications** → **Real-Time Systems** → **Specialized Systems** → **Geo-Spatial Systems** → **Real-World Examples**
 
 ### Foundation Systems
 
 ### 1. URL Shortener
 
-- **Type:** Full-Stack Web Application (MERN Stack)
+- **Type:** Frontend System Design
 
-- **Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, CDN
+- **Tech Stack:** React.js, TypeScript, React Query, Redux Toolkit, React Router, Vite
 
-- **Key Focus:** URL encoding, redirect handling, analytics, caching strategies
+- **Key Focus:** URL validation, form handling, analytics dashboard, state management
 
 - **Optional Features:** Code splitting, debouncing (analytics input), CDN caching, error boundaries
 
 - **File:** [01) URL Shortener.md](01%20URL%20Shortener.md)
 
-### Full-Stack Web Applications
+### 2. Search System
 
-### 2. E-commerce App
+- **Type:** Frontend System Design
 
-- **Type:** Full-Stack Web Application (MERN Stack)
+- **Tech Stack:** React.js, TypeScript, React Query, Redux Toolkit, React Router, Vite
 
-- **Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, Elasticsearch, Payment Gateway
+- **Key Focus:** Search interface, autocomplete, result rendering, filtering UI, state management
 
-- **Key Focus:** Product search, shopping cart, payment processing, inventory management
+- **Optional Features:** Debouncing (search input), throttling (autocomplete), virtual scrolling (results), skeleton loading, infinite scroll, code splitting
 
-- **Optional Features:** Image optimization, code splitting, debouncing (search), virtual scrolling, infinite scroll, skeleton loading, PWA support
+- **File:** [02) Search System.md](02%20Search%20System.md)
 
-- **File:** [03) E-commerce App.md](03%20E-commerce%20App.md)
+> **Note:** Search System focuses on search interface design, while E-commerce App includes product search as one feature.
 
-### 3. Social Media Feed
+### 3. File Storage System
 
-- **Type:** Full-Stack Web Application (MERN Stack)
+- **Type:** Frontend System Design
 
-- **Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, Socket.io, Elasticsearch, AWS S3
+- **Tech Stack:** React.js, TypeScript, React Query, Redux Toolkit, React Router, Vite
 
-- **Key Focus:** Feed generation, ranking algorithm, fan-out pattern, real-time updates
+- **Key Focus:** File upload UI, file browser interface, progress tracking, file preview, state management
 
-- **Optional Features:** Image optimization, infinite scroll, virtual scrolling, optimistic updates, skeleton loading, presence indicators, dark mode
+- **Optional Features:** Code splitting, virtual scrolling (file list), image optimization (thumbnails), PWA support, CDN caching, progress indicators, error boundaries
 
-- **File:** [04) Social Media Feed.md](04%20Social%20Media%20Feed.md)
-
-### 4. Video Streaming Platform
-
-- **Type:** Full-Stack Web Application (MERN Stack)
-
-- **Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, Elasticsearch, AWS S3, CloudFront, FFmpeg
-
-- **Key Focus:** Video upload, transcoding, adaptive streaming, content recommendation
-
-- **Optional Features:** Code splitting, infinite scroll, skeleton loading, PWA support, background jobs (transcoding), CDN caching, error boundaries
-
-- **File:** [05) Video Streaming Platform.md](05%20Video%20Streaming%20Platform.md)
-
-### Real-Time Systems
-
-### 5. Chat Messaging System
-
-- **Type:** Full-Stack Web Application (MERN Stack)
-
-- **Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, Socket.io, WebSocket
-
-- **Key Focus:** Real-time messaging, offline handling, group messaging, message ordering
-
-- **Optional Features:** Virtual scrolling (message list), optimistic updates, WebSocket reconnection, presence indicators, image optimization (media sharing), PWA support, debouncing (typing indicators)
-
-- **File:** [06) Chat Messaging System.md](06%20Chat%20Messaging%20System.md)
-
-### 6. Notification System
-
-- **Type:** Full-Stack System Component (MERN Stack)
-
-- **Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, Socket.io Server, Message Queue (RabbitMQ/Kafka)
-
-- **Key Focus:** Multi-channel delivery, real-time notifications, user preferences, reliable delivery
-
-- **Optional Features:** Virtual scrolling (notification list), optimistic updates, WebSocket reconnection, background jobs (delivery), rate limiting, PWA push notifications
-
-- **File:** [07) Notification System.md](07%20Notification%20System.md)
-
-### Specialized Systems
-
-### 7. Time-Limited Content System
-
-- **Type:** Full-Stack Web Application (MERN Stack)
-
-- **Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, CDN
-
-- **Key Focus:** Content expiration, TTL storage, automatic cleanup, view tracking
-
-- **Optional Features:** Image optimization, infinite scroll, skeleton loading, background jobs (cleanup), CDN caching, code splitting
-
-- **File:** [08) Time-Limited Content System.md](08%20Time-Limited%20Content%20System.md)
-
-### 8. Real-Time Collaboration System
-
-- **Type:** Full-Stack Web Application (MERN Stack)
-
-- **Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, Socket.io, OT/CRDT
-
-- **Key Focus:** Real-time editing, conflict resolution, operational transformation, version control
-
-- **Optional Features:** Optimistic updates, WebSocket reconnection, presence indicators, debouncing (auto-save), code splitting, error boundaries, PWA support
-
-- **File:** [09) Real-Time Collaboration System.md](09%20Real-Time%20Collaboration%20System.md)
-
-### 9. Ride-Sharing System
-
-- **Type:** Full-Stack Web Application (MERN Stack)
-
-- **Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, Socket.io, Geo-spatial DB
-
-- **Key Focus:** Ride matching, real-time location tracking, ETA calculation, dynamic pricing
-
-- **Optional Features:** Code splitting, WebSocket reconnection, throttling (location updates), PWA support, background jobs (matching), error boundaries, skeleton loading
-
-- **File:** [10) Ride-Sharing System.md](10%20Ride-Sharing%20System.md)
-
-### 10. Food Delivery System
-
-- **Type:** Full-Stack Web Application (MERN Stack)
-
-- **Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, Socket.io, Geo-spatial DB
-
-- **Key Focus:** Order management, delivery partner assignment, real-time tracking, inventory management
-
-- **Optional Features:** Image optimization (restaurant/menu images), code splitting, infinite scroll, WebSocket reconnection, throttling (location updates), skeleton loading, PWA support, background jobs (order processing)
-
-- **File:** [11) Food Delivery System.md](11%20Food%20Delivery%20System.md)
-
-> **Note:** Ride-Sharing and Food Delivery share similar geospatial matching patterns but differ in core business logic (ride matching vs order fulfillment, dynamic pricing vs fixed pricing, driver management vs restaurant management).
+- **File:** [03) File Storage System.md](03%20File%20Storage%20System.md)
 
 ### Infrastructure Systems
 
-### 11. Payment System
+### 4. Payment System
 
-- **Type:** Full-Stack Web Application (MERN Stack)
+- **Type:** Frontend System Design
 
-- **Tech Stack:** React.js, Node.js, Express.js, MongoDB/PostgreSQL, Redis, Payment Gateway SDKs
+- **Tech Stack:** React.js, TypeScript, React Query, Redux Toolkit, React Router, Vite
 
-- **Key Focus:** Payment processing, idempotency, webhooks, fraud detection, transaction reliability
+- **Key Focus:** Payment form handling, payment gateway integration, transaction status UI, state management
 
-- **Optional Features:** Code splitting, error boundaries, rate limiting, background jobs (webhook processing), request batching, connection pooling, security enhancements (CSRF, encryption)
+- **Optional Features:** Code splitting, error boundaries, security enhancements (CSRF protection, input validation)
 
-- **File:** [12) Payment System.md](12%20Payment%20System.md)
+- **File:** [04) Payment System.md](04%20Payment%20System.md)
 
-> **Note:** Payment System focuses on payment infrastructure (idempotency, webhooks, fraud detection), while E-commerce App includes payment as one feature within a larger shopping platform.
+> **Note:** Payment System focuses on payment form handling and gateway integration UI, while E-commerce App includes payment as one feature within a larger shopping platform.
 
-### 12. File Storage System
+### 5. Notification System
 
-- **Type:** Full-Stack Web Application (MERN Stack)
+- **Type:** Frontend System Design
 
-- **Tech Stack:** React.js, Node.js, Express.js, MongoDB, AWS S3, CDN
+- **Tech Stack:** React.js, TypeScript, React Query, Redux Toolkit, Socket.io Client, React Router, Vite
 
-- **Key Focus:** File upload, chunking, deduplication, versioning, synchronization
+- **Key Focus:** Notification center UI, real-time notification handling, preference management, state management
 
-- **Optional Features:** Code splitting, virtual scrolling (file list), image optimization (thumbnails), PWA support, background jobs (sync), CDN caching, progress indicators, error boundaries
+- **Optional Features:** Virtual scrolling (notification list), optimistic updates, WebSocket reconnection, PWA push notifications
 
-- **File:** [13) File Storage System.md](13%20File%20Storage%20System.md)
+- **File:** [05) Notification System.md](05%20Notification%20System.md)
 
-### 13. Search System
+### Full-Stack Web Applications
 
-- **Type:** Full-Stack Web Application (MERN Stack)
+### 6. E-commerce App
 
-- **Tech Stack:** React.js, Node.js, Express.js, MongoDB, Elasticsearch, Redis
+- **Type:** Frontend System Design
 
-- **Key Focus:** Full-text search, autocomplete, ranking, faceted search, indexing
+- **Tech Stack:** React.js, TypeScript, React Query, Redux Toolkit, React Router, Vite
 
-- **Optional Features:** Debouncing (search input), throttling (autocomplete), virtual scrolling (results), skeleton loading, infinite scroll, code splitting, caching strategies
+- **Key Focus:** Product search interface, shopping cart management, checkout flow, state management
 
-- **File:** [14) Search System.md](14%20Search%20System.md)
+- **Optional Features:** Image optimization, code splitting, debouncing (search), virtual scrolling, infinite scroll, skeleton loading, PWA support
 
-> **Note:** Search System focuses on search infrastructure, while E-commerce App includes product search as one feature.
+- **File:** [06) E-commerce App.md](06%20E-commerce%20App.md)
 
-### 14. Ticket Booking System
+### 7. Social Media Feed
 
-- **Type:** Full-Stack Web Application (MERN Stack)
+- **Type:** Frontend System Design
 
-- **Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, Message Queue
+- **Tech Stack:** React.js, TypeScript, React Query, Redux Toolkit, Socket.io Client, React Router, Vite
 
-- **Key Focus:** Seat locking, booking flow, double booking prevention, concurrent seat selection
+- **Key Focus:** Feed rendering, infinite scroll, real-time updates, post interactions, state management
 
-- **Optional Features:** Code splitting, optimistic updates, skeleton loading, error boundaries, rate limiting, background jobs (cleanup), WebSocket (real-time seat updates)
+- **Optional Features:** Image optimization, infinite scroll, virtual scrolling, optimistic updates, skeleton loading, presence indicators, dark mode
 
-- **File:** [17) Ticket Booking System.md](17%20Ticket%20Booking%20System.md)
+- **File:** [07) Social Media Feed.md](07%20Social%20Media%20Feed.md)
+
+### 8. Video Streaming Platform
+
+- **Type:** Frontend System Design
+
+- **Tech Stack:** React.js, TypeScript, React Query, Redux Toolkit, Video.js, React Router, Vite
+
+- **Key Focus:** Video player integration, adaptive streaming, playlist management, watch history, state management
+
+- **Optional Features:** Code splitting, infinite scroll, skeleton loading, PWA support, CDN caching, error boundaries
+
+- **File:** [08) Video Streaming Platform.md](08%20Video%20Streaming%20Platform.md)
+
+### Real-Time Systems
+
+### 9. Chat Messaging System
+
+- **Type:** Frontend System Design
+
+- **Tech Stack:** React.js, TypeScript, React Query, Redux Toolkit, Socket.io Client, React Router, Vite
+
+- **Key Focus:** Real-time messaging interface, message rendering, typing indicators, offline handling, state management
+
+- **Optional Features:** Virtual scrolling (message list), optimistic updates, WebSocket reconnection, presence indicators, image optimization (media sharing), PWA support, debouncing (typing indicators)
+
+- **File:** [09) Chat Messaging System.md](09%20Chat%20Messaging%20System.md)
+
+### 10. Real-Time Collaboration System
+
+- **Type:** Frontend System Design
+
+- **Tech Stack:** React.js, TypeScript, React Query, Redux Toolkit, Socket.io Client, React Router, Vite
+
+- **Key Focus:** Real-time editing interface, conflict resolution UI, presence indicators, state management
+
+- **Optional Features:** Optimistic updates, WebSocket reconnection, presence indicators, debouncing (auto-save), code splitting, error boundaries, PWA support
+
+- **File:** [10) Real-Time Collaboration System.md](10%20Real-Time%20Collaboration%20System.md)
+
+### Specialized Systems
+
+### 11. Time-Limited Content System
+
+- **Type:** Frontend System Design
+
+- **Tech Stack:** React.js, TypeScript, React Query, Redux Toolkit, React Router, Vite
+
+- **Key Focus:** Content display with expiration, view tracking, countdown timers, state management
+
+- **Optional Features:** Image optimization, infinite scroll, skeleton loading, CDN caching, code splitting
+
+- **File:** [11) Time-Limited Content System.md](11%20Time-Limited%20Content%20System.md)
+
+### 12. Ticket Booking System
+
+- **Type:** Frontend System Design
+
+- **Tech Stack:** React.js, TypeScript, React Query, Redux Toolkit, Socket.io Client, React Router, Vite
+
+- **Key Focus:** Seat selection UI, booking flow, real-time seat availability, state management
+
+- **Optional Features:** Code splitting, optimistic updates, skeleton loading, error boundaries, WebSocket (real-time seat updates)
+
+- **File:** [12) Ticket Booking System.md](12%20Ticket%20Booking%20System.md)
+
+### Geo-Spatial Systems
+
+### 13. Ride-Sharing System
+
+- **Type:** Frontend System Design
+
+- **Tech Stack:** React.js, TypeScript, React Query, Redux Toolkit, Socket.io Client, React Router, Vite
+
+- **Key Focus:** Ride request interface, real-time location tracking UI, ETA display, map integration, state management
+
+- **Optional Features:** Code splitting, WebSocket reconnection, throttling (location updates), PWA support, error boundaries, skeleton loading
+
+- **File:** [13) Ride-Sharing System.md](13%20Ride-Sharing%20System.md)
+
+### 14. Food Delivery System
+
+- **Type:** Frontend System Design
+
+- **Tech Stack:** React.js, TypeScript, React Query, Redux Toolkit, Socket.io Client, React Router, Vite
+
+- **Key Focus:** Restaurant browsing, order placement UI, real-time tracking interface, cart management, state management
+
+- **Optional Features:** Image optimization (restaurant/menu images), code splitting, infinite scroll, WebSocket reconnection, throttling (location updates), skeleton loading, PWA support
+
+- **File:** [14) Food Delivery System.md](14%20Food%20Delivery%20System.md)
+
+> **Note:** Ride-Sharing and Food Delivery share similar frontend patterns (real-time tracking, map integration) but differ in UI/UX (ride request vs order placement, driver tracking vs delivery tracking).
 
 ### Real-World Examples
 
 ### 15. iGamio Fantasy Sports Platform
 
-- **Type:** Full-Stack Web Application (MERN Stack)
+- **Type:** Frontend System Design
 
-- **Tech Stack:** React.js, Node.js, Express.js, MongoDB, Redis, Socket.io, Cashfree, AWS S3
+- **Tech Stack:** React.js, TypeScript, React Query, Redux Toolkit, Socket.io Client, React Router, Vite
 
-- **Key Focus:** Real-time match updates, payment integration, KYC verification, B2B/B2C support, multi-sport architecture
+- **Key Focus:** Team creation UI, contest management, real-time score updates, payment integration UI, state management
 
 - **Optional Features:** Image optimization, code splitting, virtual scrolling, memoization, bundle optimization, WebSocket reconnection, optimistic updates, skeleton loading
 
-- **File:** [19) iGamio Fantasy Sports Platform.md](19%20iGamio%20Fantasy%20Sports%20Platform.md)
+- **File:** [15) iGamio Fantasy Sports Platform.md](15%20iGamio%20Fantasy%20Sports%20Platform.md)
 
 ### 16. Real-Time Poker Game
 
-- **Type:** Full-Stack Web Application (MERN Stack)
+- **Type:** Frontend System Design
 
-- **Tech Stack:** React.js, TypeScript, Socket.io, Node.js, Express.js, MongoDB, Redis
+- **Tech Stack:** React.js, TypeScript, React Query, Redux Toolkit, Socket.io Client, Framer Motion, React Router, Vite
 
-- **Key Focus:** Real-time multiplayer synchronization, server-authoritative game logic, anti-cheating, network latency handling
+- **Key Focus:** Game UI, real-time synchronization, player actions, animations, state management
 
 - **Optional Features:** Code splitting, image optimization, virtual scrolling, memoization, WebSocket reconnection, optimistic updates, error boundaries, bundle optimization
 
-- **File:** [20) Real-Time Poker Game.md](20%20Real-Time%20Poker%20Game.md)
+- **File:** [16) Real-Time Poker Game.md](16%20Real-Time%20Poker%20Game.md)
 
 ## 📖 Design Document Structure
 
 ### High Level Design (HLD)
 
-1. **Requirements**
-   - Functional Requirements
-   - Non-Functional Requirements
+1. **a) Functional Requirements**
+   - User-facing features and capabilities
 
-2. **Scope & Priority**
-   - Phase 1: MVP (Must Have)
+2. **b) Non-Functional Requirements**
+   - Performance, scalability, security, UX goals
+
+3. **c) MVP (Minimum Viable Product)**
+   - Phase 1: Core Features (Must Have)
    - Phase 2: Enhanced Features
    - Phase 3: Advanced Features
 
-3. **Tech Choices**
-   - Frontend Framework
-   - State Management
-   - API Communication
-   - Additional Tools & Libraries
+4. **d) Technology Choices**
+   - Frontend Framework (React.js, TypeScript)
+   - State Management (React Query, Redux Toolkit/Zustand, Context API)
+   - UI/UX Libraries
+   - Build Tools (Vite/Webpack)
+   - Testing (React Testing Library, Vitest/Jest, Playwright/Cypress)
+   - Deployment (Vercel/Netlify, AWS S3 + CloudFront)
 
-4. **Architecture Overview**
-   - System architecture diagrams
-   - Component interactions
-   - Data flow
+5. **e) Architecture Overview**
+   - Frontend Architecture Layers:
+     - Presentation Layer (React Components)
+     - Business/Controller Layer
+     - State Management Layer (Client State, Server State)
+     - API Integration Layer
+     - Routing Layer
+     - Build & Deployment Layer
 
-5. **Key Design Decisions**
-   - Rationale for technology choices
-   - Trade-offs considered
+6. **f) App Flow**
+   - Frontend user journeys
+   - Component interaction flows
+   - State update flows
 
 ### Low Level Design (LLD)
 
-1. **Component Architecture**
+1. **i) Component Architecture**
    - Component hierarchy
-   - Data sharing strategy
-   - State management approach
+   - Component structure
+   - Key React components
 
-2. **Data Models**
-   - TypeScript/JavaScript interfaces
-   - Database schemas
-   - Data structure definitions
+2. **ii) State Management**
+   - Client State (useState, Redux Toolkit/Zustand, Context API)
+   - Server State (React Query, SWR, Service Worker)
 
-3. **Data APIs**
-   - REST API endpoints
+3. **iii) Implementation Details**
+   - Business/Controller Layer
+   - Advanced component patterns
+   - Performance optimizations
+   - UI/UX enhancements
+   - Accessibility features
+
+4. **iv) Testing**
+   - Component Testing
+   - Integration Testing
+   - E2E Testing
+
+5. **Algorithms (if needed)**
+   - Frontend-relevant algorithms only (URL validation, debouncing)
+
+6. **Data Models**
+   - TypeScript interfaces (NO database schemas)
+
+7. **Protocols**
+   - REST API Protocol
+   - WebSocket Protocol (if applicable)
+
+8. **API Design**
    - Request/Response formats
    - Status codes
-   - WebSocket events (if applicable)
 
-4. **Backend Implementation Details**
-   - Server structure
-   - Database operations
-   - Caching strategies
-   - Error handling
+9. **Security**
+   - Frontend security (input validation, XSS prevention, CSRF protection)
 
-5. **Implementation Details**
-   - Pagination
-   - Debouncing/Throttling
-   - Error Handling
-   - Caching Strategy
-   - Code examples
+10. **Deployment and DevOps**
+    - Frontend deployment (build optimization, CI/CD, monitoring)
 
-6. **Protocols**
-   - API protocols (REST, GraphQL, etc.)
-   - Authentication protocols
-   - Real-time communication protocols
+### Interview Answers (Frontend Focus)
 
-### Interview Answers
+All answers follow the **STAR method** and focus on **frontend challenges**:
 
-All answers follow the **STAR method**:
+- **Situation**: Frontend context and problem
 
-- **Situation**: Context and problem
+- **Action**: Frontend technical approach and implementation
 
-- **Action**: Technical approach and implementation
+- **Result**: Quantifiable frontend outcomes and impact
 
-- **Result**: Quantifiable outcomes and impact
-
-- **Takeaway**: Key learnings and insights
+- **Takeaway**: Key frontend learnings and insights
 
 ## 🎤 Interview Questions
 
-Each project includes interview questions covering:
+Each project includes **frontend-focused** interview questions covering:
 
-- Complex technical challenges
+- Complex frontend technical challenges
 
-- Architecture decisions
+- Frontend architecture decisions
 
-- Performance optimizations
+- Frontend performance optimizations
 
-- Scalability solutions
+- Frontend state management
 
-- Problem-solving approaches
+- Frontend problem-solving approaches
 
 See [question.md](question.md) for the complete list of questions for all projects.
 
