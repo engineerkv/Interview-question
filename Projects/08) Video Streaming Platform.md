@@ -1,833 +1,412 @@
-# 1) Problem Statement
+# Video Streaming Platform
 
-Design and implement a video streaming platform that addresses the following challenges:
+## Overview
 
-- **Core Functionality**: Enable users to upload, process, and stream videos globally with adaptive bitrate streaming, playlists, subscriptions, and recommendations
-- **Scale Requirements**: Handle 200M+ users, 1B+ hours watched per day, millions of concurrent viewers, and billions of hours of video content
-- **Performance**: Fast video loading with minimal buffering, adaptive quality based on network speed, CDN delivery for global reach
-- **Video Processing**: Transcode videos into multiple quality formats (360p, 720p, 1080p, 4K) for different devices and network conditions
-- **Content Delivery**: Deliver content through global CDN to minimize latency and optimize bandwidth usage
-- **Video Management**: Support video upload, metadata management, search, and discovery features
-- **User Engagement**: Provide likes, comments, views tracking, watch history, and personalized recommendations
-- **Data Consistency**: Maintain data consistency for view counts, engagement metrics, and video metadata across distributed systems
+Design a video streaming platform like YouTube where users can upload, watch, and interact with videos. The system handles video processing, adaptive streaming, recommendations, and real-time engagement.
 
 ---
 
-# 2) High Level Design (HLD)
+## 1) Requirements
 
-## a) Functional Requirements
+### Functional Requirements
 
-#### User Management
+**Core Features:**
+- Video upload with metadata (title, description, tags, thumbnail)
+- Video playback with quality options (360p, 720p, 1080p, 4K)
+- User channels and subscriptions
+- Video search and discovery
+- Likes, comments, and views tracking
+- Playlists (create, add videos, share)
+- Watch history and watch later
+- Personalized recommendations
+- Trending videos feed
 
-- **User registration and authentication** - Users can sign up with email or Google account - makes it easy to get started
+**Advanced Features:**
+- Live streaming
+- Video editing tools
+- Community features (channels, memberships)
+- Video analytics for creators
+- Monetization features
+- Video chapters and timestamps
 
-- **User profiles** - Users can customize their channel, upload profile picture, add channel description
+### Non-Functional Requirements
 
-- **Channel management** - Users can create and manage their own channels - like having your own TV channel
+**Performance:**
+- Fast video loading with minimal buffering
+- Adaptive bitrate streaming (quality adjusts to network)
+- CDN delivery for global reach
+- Video processing after upload
 
-- **Subscription system** - Users can subscribe to channels, get notified of new videos
+**Scalability:**
+- Handle 200M+ users
+- 1B+ hours watched per day
+- Millions of concurrent viewers
+- Billions of hours of video content
 
-#### Video Management
-
-- **Video upload** - Users can upload videos with title, description, tags, thumbnail
-
-- **Video processing** - Videos are processed (transcoding, thumbnail generation) after upload
-
-- **Video playback** - Users can watch videos with quality options (360p, 720p, 1080p, 4K)
-
-- **Video metadata** - Videos have title, description, tags, category, duration, view count
-
-- **Video search** - Users can search videos by title, description, tags, channel name
-
-#### Video Interaction
-
-- **Likes and dislikes** - Users can like or dislike videos
-
-- **Comments** - Users can comment on videos, reply to comments, like comments
-
-- **Views** - Video view count tracks how many times video was watched
-
-- **Watch history** - Users can see their watch history
-
-- **Watch later** - Users can save videos to watch later
-
-#### Playlists
-
-- **Create playlists** - Users can create custom playlists
-
-- **Add to playlist** - Users can add videos to playlists
-
-- **Playlist management** - Users can edit, delete, reorder playlists
-
-- **Public/Private playlists** - Playlists can be public or private
-
-#### Recommendations
-
-- **Home feed** - Personalized video recommendations on home page
-
-- **Related videos** - Show related videos based on current video
-
-- **Trending videos** - Show trending videos based on views, likes, recent activity
-
-- **Subscriptions feed** - Show videos from subscribed channels
+**User Experience:**
+- Responsive design (mobile-first)
+- Smooth playback (no buffering)
+- Fast search results
+- Intuitive navigation
 
 ---
 
-## b) Non-Functional Requirements
+## 2) Component Hierarchy
 
-#### Performance
-
-- **Fast video loading** - Videos should start playing quickly - users expect instant playback
-
-- **Adaptive streaming** - Video quality adjusts based on network speed automatically
-
-- **CDN delivery** - Videos served from CDN for fast global delivery
-
-- **Efficient encoding** - Videos encoded in multiple formats for different devices
-
-#### Scalability
-
-- **Handle millions of videos** - System should handle millions of videos and users
-
-- **High concurrent viewers** - Support millions of concurrent video viewers
-
-- **Video storage** - Store petabytes of video data efficiently
-
-- **Database optimization** - Fast search and retrieval of video metadata
-
-#### User Experience
-
-- **Responsive design** - Works great on mobile, tablet, desktop
-
-- **Smooth playback** - No buffering, smooth video playback
-
-- **Fast search** - Search results appear instantly
-
-- **Intuitive UI** - Easy to navigate, find videos, manage playlists
-
-#### Security
-
-- **Content moderation** - Moderate videos and comments for inappropriate content
-
-- **Copyright protection** - Detect and handle copyright violations
-
-- **User privacy** - Protect user data and viewing history
-
-- **Secure uploads** - Validate and secure video uploads
-
----
-
----
-
-## c) MVP (Minimum Viable Product)
-
-### Phase 1: Core Features - Must Have
-
-**Core video platform - what users need to watch and upload videos**
-
-#### Functional
-
-- **User authentication** - Sign up, login, user profiles
-
-- **Video upload** - Upload videos with basic metadata
-
-- **Video playback** - Watch videos with quality options
-
-- **Video search** - Search videos by title, description
-
-- **Basic interactions** - Likes, comments, views
-
-- **Subscriptions** - Subscribe to channels, see subscription feed
-
-#### Non-Functional
-
-- **Performance** - Fast video loading, smooth playback
-
-- **Responsive** - Mobile-first design
-
-- **Security** - Secure uploads, content moderation
-
-### Phase 2: Enhanced Features - Priority 2
-
-**Features that improve user experience and engagement**
-
-#### Functional
-
-- **Playlists** - Create and manage playlists
-
-- **Watch history** - Track and display watch history
-
-- **Watch later** - Save videos to watch later
-
-- **Recommendations** - Personalized video recommendations
-
-- **Trending** - Trending videos based on popularity
-
-- **Video analytics** - Channel owners can see video statistics
-
-#### Non-Functional
-
-- **Advanced search** - Better search with filters
-
-- **Analytics** - Track user behavior, video performance
-
-### Phase 3: Advanced Features - Priority 3
-
-**Advanced features for power users and business growth**
-
-#### Functional
-
-- **Live streaming** - Live video streaming capability
-
-- **Monetization** - Ads, channel memberships, super chats
-
-- **Community features** - Community posts, polls
-
-- **Advanced analytics** - Detailed analytics for creators
-
----
-
----
-
-## d) Technology Choices
-
-### Frontend Framework
-
-- **React.js** - Component-based UI library for interactive video platform
-- **TypeScript** - Type safety for video data, user data, playlists
-- **React Router** - Client-side routing for single-page application
-
-### State Management
-
-- **React Query (TanStack Query)** - Server state management, video data caching, refetching
-- **Redux Toolkit** (or **Zustand**) - Global state for current video, playlists, watch history
-- **Context API** - User authentication, app configuration
-- **useState/useReducer** - Local component state
-
-### Video Player
-
-- **Video.js / React Player** - Video player library with adaptive streaming support
-- **HLS.js** - HLS (HTTP Live Streaming) support for adaptive bitrate
-
-### UI/UX Libraries
-
-- **Material-UI / Chakra UI** - Component library for faster development
-- **React Hot Toast** - Toast notifications for user feedback
-
-### Build Tools
-
-- **Vite** - Fast build tool and dev server
-- **Webpack** (alternative) - Module bundler
-
-### Testing
-
-- **React Testing Library** - Component testing
-- **Vitest / Jest** - Unit testing framework
-- **Playwright / Cypress** - E2E testing
-
----
-
-## e) Architecture Overview
-
-The frontend follows a layered architecture with video player integration and real-time updates.
-
-**Component Structure:**
+The frontend is a React application for video streaming. Here's the structure:
 
 ```
-
-Frontend Application
-├── Presentation Layer
-│   ├── UI Components (VideoCard, CommentCard, PlaylistCard, LikeButton)
-│   ├── Feature Components (VideoPlayer, VideoUploader, PlaylistManager, SearchBar)
-│   └── Layout Components (Header, Sidebar, Navigation, MainLayout)
-├── Business/Controller Layer
-│   ├── Business Logic (Video validation, metadata formatting, playlist calculations, search filtering)
-│   ├── Custom Hooks (useVideo, usePlaylist, useSearch)
-│   └── Service Functions (Pure functions for data processing and validation)
-├── Video Player Layer
-│   ├── Video.js Player (HTML5 video player with adaptive bitrate streaming HLS/DASH)
-│   ├── Quality Selection (Automatic quality adjustment based on network speed)
-│   └── Playback Controls (Play, pause, seek, volume, fullscreen, playback speed)
-├── State Management
-│   ├── Client State
-│   │   ├── Local State (useState) - Component-specific UI state
-│   │   ├── Global State (Redux Toolkit/Zustand) - Current video, playlists, watch history
-│   │   └── Context API - User authentication, app configuration
-│   └── Server State
-│       ├── React Query (useQuery) - API data caching, refetching, optimistic updates
-│       └── Service Worker - Offline caching, background sync
-├── API Integration
-│   ├── API Client (Axios with interceptors for auth, error handling)
-│   ├── API Services (videoService, playlistService, userService)
-│   └── Request/Response Transformation (Data normalization and error handling)
-└── Routing
-    ├── Public Routes (Home, Videos)
-    ├── Protected Routes (Channel, Upload, Settings)
-    └── Route Guards (Authentication and authorization checks)
-
-```
-
-**Frontend Deployment:**
-
-- **Build**: Production bundle with code splitting using Webpack/Vite
-- **CDN**: Static assets served from CloudFront/Cloudflare edge locations
-- **Caching**: Aggressive caching for static assets, cache-busting for updates
-- **Environment**: Environment variables for API endpoints and configs
-
-**Key Frontend Components:**
-
-- **React 19 Application**:
-  - Single-page application with client-side routing
-  - Component-based architecture for reusability
-  - React Query with React 19 hooks (useOptimistic, useTransition, useDeferredValue)
-  - Video player with adaptive streaming
-  - Responsive design for mobile and desktop
-  - Modern React 19 features for better performance and UX
-
-- **CDN/Edge**:
-  - Global distribution of static assets
-  - Edge caching for improved performance
-  - DDoS protection and rate limiting at edge
-
----
-
-## f) App Flow
-
-### Complete System Flow (Frontend Perspective)
-
-**Primary User Flow - Video Streaming Platform:**
-
-1. **User lands on homepage** → React Router renders HomePage component
-2. **User enters URL** → URLInput component captures input, validates in real-time
-3. **User clicks submit** → Form triggers React Query mutation
-4. **Loading state** → SubmitButton shows loading spinner, form disabled
-5. **API call** → useMutation sends POST request to /api/v1/shorten
-6. **Success response** → React Query caches response, itemDisplay component renders
-7. **User copies URL** → CopyButton uses Clipboard API, shows toast notification
-8. **State update** → Components re-render with new item data
-
-**Component Interaction Flow:**
-
-```
-
-User Input → URLInput (local state)
-            ↓
-Form Submit → Form (React Query mutation)
-            ↓
-API Call → useShortenURL hook (business logic)
-            ↓
-Response → React Query cache update
-            ↓
-Re-render → itemDisplay (receives cached data)
-
-```
-
-**State Update Flow:**
-
-1. **Local State** → URLInput uses useState for input value
-2. **Server State** → React Query manages API response, caching, refetching
-3. **Global State** → Context API manages user authentication, theme
-4. **Component Re-render** → React updates UI based on state changes
-
-**Error Handling Flow:**
-
-1. **API Error** → React Query mutation returns error
-2. **Error Boundary** → Catches component errors, shows fallback UI
-3. **User Feedback** → Toast notification displays error message
-4. **Retry Logic** → User can retry failed requests
-
-**Analytics Dashboard Flow:**
-
-1. **User navigates** → React Router navigates to /dashboard
-2. **Data Fetching** → React Query useQuery fetches analytics data
-3. **Loading State** → Skeleton screens displayed while loading
-4. **Data Display** → Charts render with analytics data
-5. **Real-time Updates** → Polling every 30 seconds for active URLs
-6. **User Interactions** → Filters update query params, trigger refetch
-
-# 3) Component Architecture
-
-Think of the frontend as a tree of React components - each component handles a specific part of the UI, and they work together to create the complete user experience.
-
-**Component Hierarchy:**
-
-```
-
 App
 ├── Layout
 │   ├── Header
 │   │   ├── Logo
-│   │   ├── Navigation
+│   │   ├── SearchBar
+│   │   ├── UploadButton
 │   │   └── UserMenu
-│   ├── MainContent
-│   └── Footer
+│   └── MainContent
 ├── Pages
 │   ├── HomePage
-│   │   ├── Form
-│   │   │   ├── URLInput
-│   │   │   ├── AliasInput (optional)
-│   │   │   └── SubmitButton
-│   │   └── itemDisplay
-│   │       ├── itemCard
-│   │       ├── CopyButton
-│   │       └── QRCodeButton
-│   ├── DashboardPage
-│   │   ├── URLList
-│   │   │   └── URLItem
-│   │   └── AnalyticsDashboard
-│   │       ├── ClickCountChart
-│   │       ├── CountryChart
-│   │       └── DateRangeFilter
-│   └── AnalyticsPage
+│   │   ├── VideoGrid (recommended videos)
+│   │   └── CategoryTabs
+│   ├── VideoPlayerPage
+│   │   ├── VideoPlayer
+│   │   │   ├── VideoElement (HTML5 video with controls)
+│   │   │   ├── QualitySelector
+│   │   │   ├── PlaybackSpeedSelector
+│   │   │   └── FullscreenToggle
+│   │   ├── VideoInfo
+│   │   │   ├── VideoTitle
+│   │   │   ├── VideoMetadata (views, date, channel)
+│   │   │   ├── EngagementBar
+│   │   │   │   ├── LikeButton (with count)
+│   │   │   │   ├── DislikeButton
+│   │   │   │   ├── ShareButton
+│   │   │   │   └── SaveButton
+│   │   │   └── SubscribeButton
+│   │   ├── VideoDescription
+│   │   ├── CommentSection
+│   │   │   ├── CommentList
+│   │   │   │   └── CommentItem (with replies)
+│   │   │   └── CommentInput
+│   │   └── RelatedVideos (sidebar)
+│   ├── ChannelPage
+│   │   ├── ChannelHeader (banner, avatar, subscribe button)
+│   │   ├── ChannelTabs (Videos, Playlists, About)
+│   │   └── VideoGrid (channel's videos)
+│   ├── SearchPage
+│   │   ├── SearchResults
+│   │   │   ├── VideoResults
+│   │   │   ├── ChannelResults
+│   │   │   └── PlaylistResults
+│   │   └── Filters (Upload date, Type, Duration)
+│   └── UploadPage
+│       ├── VideoUploader (drag-and-drop)
+│       ├── UploadProgress
+│       └── VideoMetadataForm (title, description, tags, thumbnail)
 └── SharedComponents
-    ├── Button
-    ├── Input
-    ├── Card
-    ├── Toast
+    ├── VideoCard (thumbnail, title, channel, views)
+    ├── VideoPlayer
     └── LoadingSpinner
-
 ```
 
-**Key React Components:**
+### Key Components Explained
 
-**1. Form Component:**
+**1. VideoPlayer Component**
+- HTML5 video player with custom controls
+- Adaptive bitrate streaming (HLS or DASH)
+- Quality selector (360p, 720p, 1080p, 4K)
+- Playback speed control
+- Fullscreen support
 
-- Handles form submission logic
-- Manages form state with useState
-- Uses React Query mutation for API call
-- Validates input before submission
+**2. VideoCard Component**
+- Displays video in grid/list
+- Shows thumbnail, title, channel, views, date
+- Clickable to navigate to video page
+- Lazy load thumbnails
 
-**2. itemDisplay Component:**
+**3. CommentSection Component**
+- Display comments with replies
+- Comment input for new comments
+- Like comments functionality
+- Sort options (newest, top comments)
 
-- Displays generated item
-- Handles copy to clipboard functionality
-- Shows QR code generation
-- Manages display state (expanded/collapsed)
+**4. VideoUploader Component**
+- Drag-and-drop file upload
+- Upload progress tracking
+- Video metadata form
+- Thumbnail selection/upload
 
-**3. AnalyticsDashboard Component:**
+**5. EngagementBar Component**
+- Like/dislike buttons with counts
+- Share button (copy link, social media)
+- Save to playlist button
+- Subscribe button
 
-- Fetches analytics data with React Query
-- Renders charts and statistics
-- Handles date range filtering
-- Updates data in real-time via polling
+---
 
-**4. URLList Component:**
+## 3) Data Models
 
-- Displays list of shortened URLs
-- Implements virtual scrolling for performance
-- Handles pagination
-- Supports search and filtering
-
-**Component Communication:**
-
-- **Props** → Parent to child data flow
-- **Callbacks** → Child to parent communication
-- **Context API** → Shared state across components
-- **React Query** → Server state management
-
-# 4) Data Models
-
-### TypeScript Interfaces
+Here are the key data structures:
 
 ```typescript
-interface item {
-  shortCode: string;
-  originalUrl: string;
-  item: string;
-  expiresAt?: string;
+// Video
+interface Video {
+  id: string;
+  title: string;
+  description: string;
+  channelId: string;
+  channel: Channel;
+  thumbnailUrl: string;
+  videoUrl: string;  // Master playlist URL for adaptive streaming
+  duration: number;  // Seconds
+  views: number;
+  likes: number;
+  dislikes: number;
+  commentsCount: number;
+  tags: string[];
+  category: string;
+  isLive: boolean;
+  publishedAt: string;
   createdAt: string;
 }
 
-interface Analytics {
-  shortCode: string;
-  clickCount: number;
-  uniqueClicks: number;
-  topCountries: Array<{ country: string; clicks: number }>;
-  clicksByDate: Array<{ date: string; clicks: number }>;
+// Channel
+interface Channel {
+  id: string;
+  name: string;
+  description: string;
+  avatarUrl: string;
+  bannerUrl: string;
+  subscribersCount: number;
+  videosCount: number;
+  isSubscribed: boolean;
 }
 
-```
-
-# 5) API Design
-
-## Adaptive Bitrate Selection Algorithm
-
-**Purpose:** Automatically select optimal video quality based on network conditions and buffer state.
-
-**Algorithm:**
-
-1. Monitor network bandwidth and buffer level
-2. Calculate available bandwidth (bytes downloaded / time)
-3. Select quality level that matches available bandwidth
-4. Switch to higher quality if buffer is sufficient
-5. Switch to lower quality if buffer is depleting
-
-**Implementation:**
-
-```javascript
-class AdaptiveBitrateSelector {
- private qualities = ['360p', '720p', '1080p', '4K'];
- private currentQuality = 0;
- private bufferThreshold = 10; // seconds
-
- selectQuality(networkSpeed, bufferLevel){
- // Calculate target quality based on network speed
- let targetQuality = 0;
- if (networkSpeed > 10000000) targetQuality = 3; // 4K
- else if (networkSpeed > 5000000) targetQuality = 2; // 1080p
- else if (networkSpeed > 2000000) targetQuality = 1; // 720p
- else targetQuality = 0; // 360p
-
- // Adjust based on buffer level
- if (bufferLevel < this.bufferThreshold && this.currentQuality > 0) {
- targetQuality = Math.max(0, this.currentQuality - 1);
- } else if (bufferLevel > this.bufferThreshold * 2 && targetQuality > this.currentQuality) {
- targetQuality = Math.min(3, this.currentQuality + 1);
- }
-
- this.currentQuality = targetQuality;
- return this.qualities[targetQuality];
- }
+// Comment
+interface Comment {
+  id: string;
+  videoId: string;
+  userId: string;
+  user: User;
+  content: string;
+  likesCount: number;
+  repliesCount: number;
+  replies?: Comment[];
+  replyToId?: string;
+  createdAt: string;
 }
 
+// Playlist
+interface Playlist {
+  id: string;
+  name: string;
+  description?: string;
+  channelId: string;
+  videos: PlaylistVideo[];
+  isPublic: boolean;
+  createdAt: string;
+}
+
+// Playlist video
+interface PlaylistVideo {
+  videoId: string;
+  video: Video;
+  position: number;  // Order in playlist
+  addedAt: string;
+}
+
+// Watch history
+interface WatchHistory {
+  videoId: string;
+  video: Video;
+  watchedAt: string;
+  watchTime: number;  // Seconds watched
+  completed: boolean;
+}
 ```
 
-**Complexity:**
+### Data Flow Explanation
 
-- Time: O(1) for quality selection
-- Space: O(1)
-- **Adaptive Quality:** Improves playback experience based on network conditions
+**When a user watches a video:**
+1. User clicks video card
+2. Navigate to VideoPlayerPage
+3. Fetch video metadata and streaming URLs
+4. Video player loads adaptive streaming playlist
+5. Player automatically selects quality based on network
+6. Track watch time and update history
+7. Increment view count (debounced)
+
+**Video upload flow:**
+1. User selects video file
+2. Upload video file (chunked for large files)
+3. Show upload progress
+4. User enters metadata (title, description, tags)
+5. Server processes video (transcoding, thumbnail generation)
+6. Video appears in channel when processing complete
+
+**Adaptive streaming:**
+1. Video is transcoded into multiple qualities
+2. Master playlist contains all quality URLs
+3. Player selects quality based on network speed
+4. Quality switches automatically during playback
+5. Better user experience with minimal buffering
 
 ---
 
-## Video Recommendation Algorithm
-
-**Purpose:** Recommend videos to users based on watch history, preferences, and trending content.
-
-**Algorithm:**
-
-1. Collect user watch history and preferences
-2. Calculate similarity scores with other users (collaborative filtering)
-3. Calculate content-based similarity (tags, category, channel)
-4. Combine scores with weighted formula
-5. Rank videos by recommendation score
-
-**Implementation:**
-
-```javascript
-function recommendVideos(userId, watchHistory: Video[]): Video[] {
- // Collaborative filtering
- const similarUsers = findSimilarUsers(userId);
- const collaborativeScore = calculateCollaborativeScore(similarUsers);
-
- // Content-based filtering
- const userPreferences = extractPreferences(watchHistory);
- const contentScore = calculateContentScore(userPreferences);
-
- // Trending boost
- const trendingScore = calculateTrendingScore();
-
- // Combined score
- const finalScore = collaborativeScore * 0.4 + contentScore * 0.4 + trendingScore * 0.2;
-
- return videos.sort((a, b) => b.finalScore - a.finalScore);
-}
-
-```
-
-**Complexity:**
-
-- Time: O(n * m) where n is users, m is videos
-- Space: O(n + m)
-- **Recommendation Quality:** Hybrid approach improves recommendation accuracy
-
----
-
-# 6) Protocols
-
-### REST API Protocol
-
-**Request Format:**
-
-## iii) Implementation Details
-
-### Business/Controller Layer
-
-**Custom Hooks:**
-
-- Encapsulate business logic and API calls
-- Example: `useShortenURL`, `useAnalytics`, `useAliasCheck`
-- Handle data transformation and validation
-
-**Service Functions:**
-
-- Pure functions for data processing and validation
-- URL validation, data transformation, format checking
-- Reusable across components
-
-### Advanced Component Patterns
-
-**Compound Components:**
-
-- Group related components together (e.g., Form.Input, Form.Button)
-- Share implicit state between components
-
-**Render Props Pattern:**
-
-- Pass render functions as props for flexible component composition
-
-**Custom Hooks Pattern:**
-
-- Extract reusable logic into custom hooks
-- Example: `useShortenURL`, `useAnalytics`, `useCopyToClipboard`
-
-**Higher-Order Components (HOCs):**
-
-- Wrap components with additional functionality
-- Example: `withAuth`, `withLoading`
-
-### Performance Optimizations
-
-- **Code splitting** with React.lazy() and Suspense
-- **Memoization** with useMemo() and useCallback()
-- **Virtual scrolling** for long lists (react-window, react-virtuoso)
-- **Image optimization** and lazy loading
-- **Debouncing and throttling** for user inputs
-- **React.memo** for preventing unnecessary re-renders
-
-### UI/UX Enhancements
-
-- **Toast notifications** for user feedback (react-hot-toast)
-- **Loading states** and skeleton screens
-- **Error boundaries** for error handling
-- **Responsive design** for mobile and desktop
-- **Accessibility features** (ARIA labels, keyboard navigation, focus management)
-- **Animations** with Framer Motion or CSS transitions
-
-### Code Examples
-
-**Custom Hook Example:**
-
-```typescript
-function useShortenURL() {
-  return useMutation({
-    mutationFn: (url: string) => shortenUrl(url),
-    onSuccess: () => queryClient.invalidateQueries(["urls"])
-  });
-}
-
-```
-
-**Component with React Query:**
-
-```typescript
-function Form() {
-  const { mutate, isPending } = useShortenURL();
-  const [url, setUrl] = useState("");
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    mutate(url);
-  };
-
-  return <form onSubmit={handleSubmit}>...</form>;
-}
-
-```
-
-# 7) Low Level Design (LLD)
-
-## ii) State Management
-
-### Client State
-
-**Local State (useState):**
-
-- Component-specific UI state (form inputs, modal visibility, loading states)
-- Example: `const [isOpen, setIsOpen] = useState(false);`
-
-**Global State:**
-
-- Redux Toolkit OR Zustand for complex global state
-- Context API for user authentication, theme preferences
-- Example: User preferences, app configuration
-
-### Server State
-
-**React Query (TanStack Query):**
-
-- `useQuery` for data fetching and caching
-- `useMutation` for data mutations (create, update, delete)
-- Automatic refetching, background updates, optimistic updates
-- Example: API data caching, synchronization
-
-## iii) Implementation Details
-
-### Business/Controller Layer
-
-**Custom Hooks:**
-
-- Encapsulate business logic and API calls
-- Example: `useShortenURL`, `useAnalytics`, `useAliasCheck`
-
-**Service Functions:**
-
-- Pure functions for data processing and validation
-- URL validation, data transformation, format checking
-
-### Performance Optimizations
-
-- Code splitting with React.lazy()
-- Memoization with useMemo() and useCallback()
-- Virtual scrolling for long lists
-- Image optimization and lazy loading
-- Debouncing and throttling for user inputs
-
-### UI/UX Enhancements
-
-- Toast notifications for user feedback
-- Loading states and skeleton screens
-- Error boundaries for error handling
-- Responsive design for mobile and desktop
-  - Modern React 19 features for better performance and UX
-- Accessibility features (ARIA labels, keyboard navigation)
-
-## iv) Testing
-
-### Component Testing
-
-- React Testing Library for component tests
-- Test user interactions and component behavior
-- Example: Test form submission, button clicks, input validation
-
-### Integration Testing
-
-- Test component interactions
-- Test API integration with mock data
-- Test state management flows
-
-### E2E Testing
-
-- Playwright or Cypress for end-to-end tests
-- Test complete user flows
-- Example: Test Video Streaming Platform flow from start to finish
-
-# 8) Algorithms
-
-### Frontend Algorithms
-
-**URL Validation Algorithm:**
-
-```javascript
-function isValidUrl(url) {
-  try {
-    new URL(url);
-    return url.startsWith("http://") || url.startsWith("https://");
-  } catch {
-    return false;
+## 4) API Design
+
+### REST Endpoints
+
+**GET /api/v1/videos**
+- Get videos (home feed, recommendations)
+- Query params: `page`, `limit`, `category`, `sortBy`
+- Returns: Paginated list of Video objects
+
+**GET /api/v1/videos/:id**
+- Get video details
+- Returns: Video object with full details
+
+**GET /api/v1/videos/:id/stream**
+- Get video streaming URLs (adaptive streaming)
+- Returns: Streaming URLs for different qualities
+
+**POST /api/v1/videos**
+- Upload a video
+- Request: Multipart form data with video file and metadata
+- Returns: Video object (processing status)
+
+**POST /api/v1/videos/:id/like**
+- Like or unlike a video
+- Returns: Updated Video with like status
+
+**GET /api/v1/videos/:id/comments**
+- Get video comments
+- Query params: `page`, `limit`, `sortBy`
+- Returns: Paginated list of Comment objects
+
+**POST /api/v1/videos/:id/comments**
+- Add a comment
+- Request body: `{ content: string, replyToId?: string }`
+- Returns: Comment object
+
+**GET /api/v1/channels/:id**
+- Get channel details
+- Returns: Channel object
+
+**POST /api/v1/channels/:id/subscribe**
+- Subscribe or unsubscribe to channel
+- Returns: Updated Channel with subscription status
+
+**GET /api/v1/search**
+- Search videos, channels, playlists
+- Query params: `q` (query), `type`, `page`, `limit`
+- Returns: Search results
+
+### API Request/Response Examples
+
+**Get Videos:**
+```json
+// GET /api/v1/videos?page=1&limit=20&category=gaming
+// Response
+{
+  "success": true,
+  "data": {
+    "videos": [
+      {
+        "id": "video_123",
+        "title": "Amazing Gameplay",
+        "channel": {
+          "id": "channel_456",
+          "name": "Gaming Channel",
+          "avatarUrl": "https://cdn.example.com/avatar.jpg"
+        },
+        "thumbnailUrl": "https://cdn.example.com/thumb.jpg",
+        "duration": 600,
+        "views": 1250000,
+        "likes": 45000,
+        "publishedAt": "2024-01-15T10:00:00Z"
+      }
+    ],
+    "total": 500,
+    "page": 1,
+    "limit": 20
   }
 }
-
 ```
 
-**Debouncing Algorithm:**
-
-```javascript
-function debounce(func, delay) {
-  let timeoutId;
-  return (...args) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => func(...args), delay);
-  };
+**Get Video Streaming URLs:**
+```json
+// GET /api/v1/videos/video_123/stream
+// Response
+{
+  "success": true,
+  "data": {
+    "masterPlaylist": "https://cdn.example.com/video_123/master.m3u8",
+    "qualities": [
+      { "quality": "360p", "url": "https://cdn.example.com/video_123/360p.m3u8" },
+      { "quality": "720p", "url": "https://cdn.example.com/video_123/720p.m3u8" },
+      { "quality": "1080p", "url": "https://cdn.example.com/video_123/1080p.m3u8" }
+    ]
+  }
 }
-
 ```
 
-# 9) Security
+---
 
-### Frontend Security
+## Key Design Decisions
 
-**Input Validation:**
+**1. Adaptive Bitrate Streaming**
+- Transcode videos into multiple qualities
+- Player selects quality based on network
+- Automatic quality switching during playback
+- Better experience with minimal buffering
 
-- Client-side validation before form submission
-- Sanitize user input to prevent XSS attacks
-- Validate data formats (URLs, emails, custom aliases)
+**2. CDN for Video Delivery**
+- Serve videos from CDN edge locations
+- Faster global delivery
+- Reduced server load
+- Better scalability
 
-**XSS Prevention:**
+**3. Lazy Loading for Thumbnails**
+- Load thumbnails as user scrolls
+- Improves initial page load
+- Better performance with many videos
 
-- React automatically escapes content
-- Use `dangerouslySetInnerHTML` only when necessary with sanitization
-- Content Security Policy (CSP) headers
+**4. Optimistic Updates for Engagement**
+- Show likes/comments immediately
+- Better perceived performance
+- Sync with server state
 
-**CSRF Protection:**
+**5. Infinite Scroll for Feed**
+- Load more videos as user scrolls
+- Cursor-based pagination
+- Smooth scrolling experience
 
-- SameSite cookies for authentication
-- CSRF tokens for state-changing operations
-- Verify origin header on API requests
+**6. Real-time View Count Updates**
+- Debounce view count increments
+- Batch updates for efficiency
+- Real-time updates via polling or WebSocket
 
-**Secure Storage:**
+---
 
-- Never store sensitive data in localStorage
-- Use httpOnly cookies for authentication tokens
-- Clear sensitive data on logout
+## Interview Talking Points
 
-**HTTPS:**
+**When explaining this system, I'd focus on:**
 
-- All API calls over HTTPS
-- Enforce HTTPS in production
-- HSTS headers for security
+1. **Requirements First**: Start with core functionality - upload videos, watch videos, subscriptions, engagement
 
-**Rate Limiting (Client-Side):**
+2. **Component Structure**: Explain the React component hierarchy - video player, video cards, comments, channels
 
-- Debounce API calls to prevent abuse
-- Show user-friendly messages when rate limited
-- Implement exponential backoff for retries
+3. **Data Models**: Walk through Video, Channel, Comment, Playlist - and how they support the platform
 
-# 10) Deployment and DevOps
+4. **API Design**: Show the REST endpoints - videos, streaming, comments, channels, search
 
-### Frontend Deployment
+5. **Key Challenges**: 
+   - Adaptive bitrate streaming for different network conditions
+   - Video processing and transcoding
+   - CDN delivery for global reach
+   - Handling millions of concurrent viewers
+   - Real-time engagement updates
 
-**Build Optimization:**
-
-- Production build with code splitting and tree shaking
-- Minification and compression
-- Asset optimization (images, fonts)
-- Environment variables for API endpoints
-
-**CI/CD Pipeline:**
-
-- Automated testing on pull requests
-- Build and deploy on merge to main
-- Preview deployments for feature branches
-- Rollback capabilities
-
-**Deployment Platforms:**
-
-- Vercel / Netlify for static site hosting with CDN
-- AWS S3 + CloudFront for alternative deployment
-- GitHub Pages for simple static sites
-
-**Monitoring:**
-
-- Error tracking (Sentry, LogRocket)
-- Performance monitoring (Web Vitals)
-- Analytics (user behavior, page views)
-
-# 11) Interview Answers (Frontend Focus)
-
-### Q: How would you handle state management for this system?
-
-**Answer (STAR Method):**
-
-**Situation:** In a Video Streaming Platform system, we need to manage both client-side UI state and server-side data efficiently.
-
-**Action:**
-
-- Use React Query for server state (URL data, analytics) - handles caching, refetching, and synchronization
-- Use useState for local component state (form inputs, modal visibility)
-- Use Context API for global client state (user authentication, theme preferences)
-- Implement optimistic updates for better UX
-
-**Result:** Reduced API calls through caching, improved performance, better user experience with instant feedback.
-
-**Takeaway:** Separating client and server state management leads to cleaner code and better performance.
+**Example explanation flow:**
+> "So for a video streaming platform, the core requirement is allowing users to upload and watch videos. The frontend is a React app with a video player component that uses adaptive bitrate streaming - videos are transcoded into multiple qualities (360p, 720p, 1080p), and the player automatically selects the best quality based on the user's network speed. The data model centers around Video objects with metadata, Channel objects for creators, and Comment objects for engagement. Videos are delivered through a CDN for fast global access. The main API endpoints handle video upload (with processing), video playback (with streaming URLs), comments, subscriptions, and search. Key challenges include adaptive streaming for different network conditions, video processing and transcoding after upload, CDN delivery for scalability, and handling millions of concurrent viewers during popular videos."
