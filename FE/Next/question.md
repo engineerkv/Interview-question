@@ -6,14 +6,14 @@
 
 | Section | Topic | Questions | Difficulty |
 |---------|-------|-----------|------------|
-| [1️⃣](#1-fundamentals) | Fundamentals%20&%20Setup & Setup | Q1–10 | ⭐⭐ |
+| [1️⃣](#1-fundamentals) | Fundamentals & Setup | Q1–10 | ⭐⭐ |
 | [2️⃣](#2-data-fetching--rendering) | Data Fetching & Rendering | Q11–20 | ⭐⭐⭐ |
 | [3️⃣](#3-routing--navigation) | Routing & Navigation | Q21–27 | ⭐⭐⭐ |
 | [4️⃣](#4-performance--optimization) | Performance & Optimization | Q28–37 | ⭐⭐⭐⭐ |
 | [5️⃣](#5-architecture--best-practices) | Architecture & Patterns | Q38–48 | ⭐⭐⭐⭐ |
 | [6️⃣](#6-deployment--tooling) | Deployment & DevOps | Q49–60 | ⭐⭐⭐⭐⭐ |
 
-## ⚛️ 1. Fundamentals%20&%20Setup & Setup
+## ⚛️ 1. Fundamentals & Setup
 
 1. Next.js and how it differs from React
 
@@ -149,7 +149,7 @@
 
 ## 📖 Complete Answer Guide
 
-- [1) Next.js Fundamentals%20&%20Setup](01%29%20Next.js%20Fundamentals%20&%20Setup.md) - Q1-10
+- [1) Fundamentals & Setup](01%29%20Fundamentals%20%26%20Setup.md) - Q1-10
 
 - [2) Data Fetching & Rendering](02%29%20Data%20Fetching%20%26%20Rendering.md) - Q11-20
 

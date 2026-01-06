@@ -6,11 +6,10 @@
 
 | Section | Topic | Questions | Difficulty |
 |---------|-------|-----------|------------|
-| [1️⃣](#1-beginner-level-css) | Fundamentals & Basics | Q1–12 | ⭐⭐ |
-| [2️⃣](#2-intermediate-level-css) | Layout & Styling | Q13–32, Q36, Q40 | ⭐⭐⭐ |
+| [1️⃣](#1-beginner-level-css) | Fundamentals & Basics | Q1–12, Q16–19, Q25–26 | ⭐⭐ |
+| [2️⃣](#2-intermediate-level-css) | Layout & Styling | Q13–15, Q20–24, Q27–32, Q36, Q40 | ⭐⭐⭐ |
 | [3️⃣](#3-css-architecture--design-systems) | Architecture & Design Systems | Q41–48 | ⭐⭐⭐⭐ |
-| [4️⃣](#4-performance--optimization) | Performance & Optimization | Q48–57 | ⭐⭐⭐⭐ |
-| [5️⃣](#5-practical-hands-on-challenges) | Practical Challenges | Q58–67 | ⭐⭐⭐⭐ |
+| [4️⃣](#4-performance--optimization) | Performance & Optimization | Q49–58 | ⭐⭐⭐⭐ |
 
 ## 🧒 1. Fundamentals & Basics
 
@@ -38,14 +37,6 @@
 
 12. `position: relative`, `absolute`, `fixed`, and `sticky`: differences
 
-## 🎯 2. Layout & Styling
-
-13. `visibility: hidden` vs `display: none`
-
-14. `z-index` and stacking context
-
-15. Default positioning value for HTML elements
-
 16. Inheritance in CSS and inheritable properties
 
 17. Vendor prefixes and why they're used
@@ -54,19 +45,29 @@
 
 19. Applying multiple classes to an element
 
+25. CSS cascade and how it works
+
+26. CSS combinators and their usage
+
+## 🎯 2. Layout & Styling
+
+13. `visibility: hidden` vs `display: none`
+
+14. `z-index` and stacking context
+
+15. Default positioning value for HTML elements
+
 20. CSS Flexbox and how it works
 
 21. CSS Grid and its key features
+
+36. CSS subgrid and its use cases
 
 22. Flexbox vs Grid
 
 23. CSS transitions and how to use them
 
 24. CSS animations and how to create them
-
-25. CSS cascade and how it works
-
-26. CSS combinators and their usage
 
 27. `transition` vs `animation`
 
@@ -78,11 +79,9 @@
 
 31. CSS variables (custom properties), their usage, and role in design systems
 
-32. SASS vs LESS
-
-36. CSS subgrid and its use cases
-
 40. CSS `color-mix()` function and its usage
+
+32. SASS vs LESS
 
 ## 🏗️ 3. Architecture & Design Systems
 
@@ -124,41 +123,18 @@
 
 58. CSS optimization and how to implement it
 
-## 🛠️ 5. Practical Challenges
-
-59. Creating a responsive navigation menu
-
-60. Creating a CSS-only carousel
-
-61. Creating a CSS-only modal
-
-62. Creating a CSS-only tooltip
-
-63. Creating a CSS-only accordion
-
-64. Creating a CSS-only tabs component
-
-65. Creating a CSS-only dropdown menu
-
-66. Creating a CSS-only loading spinner
-
-67. Creating a CSS-only progress bar
-
-68. Creating a CSS-only card component
-
 ---
 
 ## 📖 Complete Answer Guide
 
-- [1) Beginner Level CSS](01%29%20Fundamentals%20&%20Basics.md) - Q1-12
+- [1) Beginner Level CSS](01%29%20Fundamentals%20&%20Basics.md) - Q1-12, Q16-19, Q25-26
 
-- [2) Intermediate Level CSS](02%29%20Layout%20&%20Styling.md) - Q13-32, Q36, Q40
+- [2) Intermediate Level CSS](02%29%20Layout%20&%20Styling.md) - Q13-15, Q20-24, Q27-32, Q36, Q40
 
 - [3) CSS Architecture & Design Systems](04%29%20Architecture%20%26%20Design%20Systems.md) - Q41-48
 
-- [4) Performance & Optimization](05%29%20Performance%20%26%20Optimization.md) - Q48–57
+- [4) Performance & Optimization](05%29%20Performance%20%26%20Optimization.md) - Q49–58
 
-- [5) Practical & Hands-On Challenges](06%29%20Practical%20Challenges.md) - Q58-67
 
 ## 📝 Cheatsheet
 

@@ -1,5 +1,19 @@
 # Real-Time Collaboration System
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Chat Messaging System](09%29%20Chat%20Messaging%20System.md) • [Next: Time-Limited Content System →](11%29%20Time-Limited%20Content%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
 ## Overview
 
 Design a real-time collaborative editing system where multiple users can edit documents simultaneously without conflicts. The system uses operational transformation for conflict resolution and provides presence indicators and version history.
@@ -294,3 +308,19 @@ interface CursorPosition {
 
 **Example explanation flow:**
 > "So for a real-time collaboration system, the core requirement is allowing multiple users to edit documents simultaneously without conflicts. The frontend is a React app with a rich text editor component that tracks operations (insert, delete, format) as users type. Documents are structured as blocks (paragraphs, headings) rather than plain text, which makes collaboration easier. For conflict resolution, we use operational transformation - when two users edit simultaneously, operations are transformed so both changes are preserved correctly. Real-time updates are delivered via WebSocket for instant propagation (< 100ms). The data model includes Document objects with block-based content, Operation objects for changes, and Collaborator objects for presence tracking. The main API endpoints handle document operations and version history, while WebSocket handles real-time operation broadcasting. Key challenges include implementing operational transformation correctly, ensuring low-latency real-time updates, and maintaining document consistency across all clients."
+
+---
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Chat Messaging System](09%29%20Chat%20Messaging%20System.md) • [Next: Time-Limited Content System →](11%29%20Time-Limited%20Content%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---

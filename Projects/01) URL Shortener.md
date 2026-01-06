@@ -1,5 +1,19 @@
 # URL Shortener System
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [Next: Search System →](02%29%20Search%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
 ## Overview
 
 Design a URL shortening service like bit.ly or TinyURL that converts long URLs into short, shareable links. Users can shorten URLs, customize aliases, and track analytics.
@@ -291,10 +305,10 @@ interface ClickEvent {
     "data": {
       "shortCode": "my-link",
       "originalUrl": "https://www.example.com/very/long/url/path",
-    "shortUrl": "https://short.ly/my-link",
-    "createdAt": "2024-01-15T10:00:00Z",
-    "expiresAt": "2024-12-31T23:59:59Z",
-    "clickCount": 0
+      "shortUrl": "https://short.ly/my-link",
+      "createdAt": "2024-01-15T10:00:00Z",
+      "expiresAt": "2024-12-31T23:59:59Z",
+      "clickCount": 0
     }
   }
   ```
@@ -411,3 +425,17 @@ interface ClickEvent {
 
 **Example explanation flow:**
 > "So for a URL shortener, the core requirement is converting long URLs to short ones. The frontend is a React app with a form component where users enter URLs, optionally with custom aliases. When submitted, it calls the shorten API which generates a unique short code. The data model is simple - a ShortUrl object with the original URL, short code, and metadata. For redirects, when someone visits the short URL, we look up the original URL and return a 301 redirect. Analytics are tracked on each click and aggregated for the dashboard. The main challenge is handling the high read/write ratio - most traffic is redirects, so we heavily cache the short code mappings."
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [Next: Search System →](02%29%20Search%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---

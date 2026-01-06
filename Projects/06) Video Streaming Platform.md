@@ -1,5 +1,19 @@
 # Video Streaming Platform
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Notification System](05%29%20Notification%20System.md) • [Next: Social Media Feed →](07%29%20Social%20Media%20Feed.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
 ## Overview
 
 Design a video streaming platform like YouTube where users can upload, watch, and interact with videos. The system handles video processing, adaptive streaming, recommendations, and real-time engagement.
@@ -410,3 +424,17 @@ interface WatchHistory {
 
 **Example explanation flow:**
 > "So for a video streaming platform, the core requirement is allowing users to upload and watch videos. The frontend is a React app with a video player component that uses adaptive bitrate streaming - videos are transcoded into multiple qualities (360p, 720p, 1080p), and the player automatically selects the best quality based on the user's network speed. The data model centers around Video objects with metadata, Channel objects for creators, and Comment objects for engagement. Videos are delivered through a CDN for fast global access. The main API endpoints handle video upload (with processing), video playback (with streaming URLs), comments, subscriptions, and search. Key challenges include adaptive streaming for different network conditions, video processing and transcoding after upload, CDN delivery for scalability, and handling millions of concurrent viewers during popular videos."
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Notification System](05%29%20Notification%20System.md) • [Next: Social Media Feed →](07%29%20Social%20Media%20Feed.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---

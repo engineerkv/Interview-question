@@ -18,9 +18,9 @@
 
 ## Q11. 📝 Type in TypeScript
 
-A type is a way to define the shape, structure, and behavior of data, providing compile-time type checking and better developer experience. When you use types, TypeScript catches type mismatches at compile time, which prevents runtime errors and gives you compile-time guarantees.
+A type defines the shape and structure of your data, giving you compile-time type checking that catches errors before your code runs. When you use types, TypeScript checks for type mismatches at compile time, which prevents runtime errors and gives you guarantees about your code.
 
-- **Trade-offs**: The catch is you can use types to represent any data structure, function signature, or primitive - types can be combined, extended, and reused throughout the codebase. Types provide compile-time guarantees, but watch out - they also serve as self-documenting code and provide better IDE support with autocomplete.
+- **Trade-offs**: The catch is you can use types for any data structure, function signature, or primitive - you can combine them, extend them, and reuse them throughout your codebase. Types give you compile-time safety, but watch out - they also work as self-documenting code and give you better IDE autocomplete.
 
 Example:
 
@@ -42,9 +42,9 @@ type ID = string | number;
 
 ## Q12. 📝 Interface in TypeScript
 
-An interface defines the contract or shape that an object must follow, specifying what properties and methods it should have. When you use interfaces, they ensure objects conform to the expected structure, which helps catch errors early.
+An interface defines the contract that an object must follow - it specifies what properties and methods the object should have. When you use interfaces, they make sure objects match the expected structure, which helps you catch errors early.
 
-- **Trade-offs**: The catch is declaration merging allows multiple interface declarations with the same name to be merged - classes can implement interfaces to ensure they follow the contract. Interfaces ensure objects conform to the expected structure, but watch out - you can extend them using inheritance or intersection.
+- **Trade-offs**: The catch is declaration merging allows you to declare the same interface multiple times and TypeScript merges them together - classes can implement interfaces to follow the contract. Interfaces ensure objects match the expected structure, but watch out - you can extend them using inheritance or intersection types.
 
 Example:
 
@@ -72,9 +72,9 @@ interface Config {
 
 ## Q13. 📝 Difference between `type` and `interface`
 
-`type` aliases can represent any type, while `interface` specifically defines object shapes and can be extended - use types for unions/primitives, interfaces for object shapes. Type aliases can represent unions, primitives, and complex types.
+`type` aliases can represent any type including unions, primitives, and complex types, while `interface` specifically defines object shapes and can be extended - use types for unions and primitives, interfaces for object shapes. When you need to combine types, interfaces use inheritance while types use intersection.
 
-- **Trade-offs**: The catch is declaration merging works with interfaces, not types - interfaces support inheritance, types use intersection. Use types for unions/primitives, interfaces for object shapes, but watch out - interfaces only for object shapes, can be extended and merged.
+- **Trade-offs**: The catch is declaration merging works with interfaces, not types - you can declare the same interface multiple times and TypeScript merges them together. Interfaces support inheritance with `extends`, while types use intersection with `&`. Use types for unions and primitives, interfaces for object shapes, but watch out - interfaces only work for object shapes, while types can represent anything.
 
 Example:
 

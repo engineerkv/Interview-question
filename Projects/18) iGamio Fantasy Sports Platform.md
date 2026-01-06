@@ -1,5 +1,19 @@
 # Fantasy Sports Platform
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Real-Time Poker Game](17%29%20Real-Time%20Poker%20Game.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
 ## Overview
 
 Design a fantasy sports platform where users create teams, join contests, and compete based on real-world sports match performance. The system handles team selection, real-time match data, player points calculation, and dynamic leaderboards.
@@ -360,3 +374,19 @@ interface LeaderboardEntry {
 
 **Example explanation flow:**
 > "So for a fantasy sports platform, the core requirement is allowing users to create teams by selecting players within a budget, join contests, and compete based on real-world match performance. The frontend is a React app with a team builder component where users select players, a budget tracker that shows remaining budget, and team validation that checks rules (budget limits, position requirements). When matches are live, real-time match events (goals, wickets) trigger player points calculation, which updates fantasy team points and leaderboards instantly via WebSocket. The data model includes Match objects, Player objects with prices and stats, FantasyTeam objects with selected players and budget tracking, and Contest objects with prize pools. The main API endpoints handle team creation, contest joining, and leaderboard retrieval, while WebSocket handles real-time match events and points updates. Key challenges include real-time points calculation during live matches, ensuring fair team validation, handling traffic spikes during major sporting events, and maintaining accurate leaderboards with thousands of participants."
+
+---
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Real-Time Poker Game](17%29%20Real-Time%20Poker%20Game.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---

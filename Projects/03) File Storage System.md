@@ -1,5 +1,19 @@
 # File Storage System
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Search System](02%29%20Search%20System.md) • [Next: Payment System →](04%29%20Payment%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
 ## Overview
 
 Design a cloud file storage system like Dropbox or Google Drive where users can upload, organize, share, and sync files across devices. The system handles large files, versioning, and real-time synchronization.
@@ -468,3 +482,17 @@ interface FileSearchResult {
 
 **Example explanation flow:**
 > "So for a file storage system, the core requirement is allowing users to upload, organize, and share files. The frontend is a React app with a file browser component that displays files in a grid or list view. Users can upload files via drag-and-drop, and for large files, we chunk them into smaller pieces for reliable upload with progress tracking. The data model centers around FileItem objects that represent files or folders, with a hierarchical structure using parentId. Files can be shared with permissions (read, write, admin), and we support file versioning so users can restore previous versions. For real-time sync, we use WebSockets to notify users when files are shared or updated. The main API endpoints handle upload (with chunking), download (with signed URLs), sharing, and search. Key challenges include handling large file uploads efficiently, real-time synchronization, and providing fast search across billions of files."
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Search System](02%29%20Search%20System.md) • [Next: Payment System →](04%29%20Payment%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---

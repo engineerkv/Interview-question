@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[Home: README](../README.md) • [Hooks & Lifecycle →](02%29%20Hooks%20%26%20Lifecycle.md)
+[Home: README](../README.md) • [Next: Hooks & Lifecycle →](02%29%20Hooks%20%26%20Lifecycle.md)
 
 [📋 Cheatsheet](React%20Interview%20Cheatsheet.md)
 
@@ -488,7 +488,7 @@ function App() {
 
 <div align="center">
 
-[Home: README](../README.md) • [Hooks & Lifecycle →](02%29%20Hooks%20%26%20Lifecycle.md)
+[Home: README](../README.md) • [Next: Hooks & Lifecycle →](02%29%20Hooks%20%26%20Lifecycle.md)
 
 [📋 Cheatsheet](React%20Interview%20Cheatsheet.md)
 

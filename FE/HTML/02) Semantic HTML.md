@@ -149,7 +149,7 @@ Example:
 
 ---
 
-## Q22. 🤔 `<figure>` vs `<img>`
+## Q22. 🤔 When to use `<figure>` vs `<img>`?
 
 `<figure>` groups self-contained content like images or code with its caption for better accessibility, while `<img>` is just the image element. When you use `<figure>` with `<figcaption>`, screen readers automatically associate the caption with the content.
 

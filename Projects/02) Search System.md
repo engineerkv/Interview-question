@@ -1,5 +1,19 @@
 # Search System
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: URL Shortener](01%29%20URL%20Shortener.md) • [Next: File Storage System →](03%29%20File%20Storage%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
 ## Overview
 
 Design a full-text search system that enables fast and relevant search across billions of documents. Users can search, filter, and get real-time autocomplete suggestions.
@@ -424,3 +438,17 @@ interface SearchAnalytics {
 
 **Example explanation flow:**
 > "So for a search system, the core requirement is fast, relevant search across billions of documents. The frontend is a React app with a search bar component that debounces input to reduce API calls. As users type, we fetch autocomplete suggestions in real-time. The search results are displayed in a list with highlighted matching terms. We have a filter sidebar for faceted search - users can filter by category, price, rating, etc. The data model includes SearchQuery with the query string and filters, SearchResult with the result data, and Facets which show available filter options with counts. The main API endpoint is GET /search with query parameters for the search query and filters. Key challenges include debouncing for performance, real-time autocomplete, and efficiently handling large result sets with virtual scrolling."
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: URL Shortener](01%29%20URL%20Shortener.md) • [Next: File Storage System →](03%29%20File%20Storage%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---

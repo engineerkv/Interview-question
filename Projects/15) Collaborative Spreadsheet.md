@@ -1,5 +1,19 @@
 # Collaborative Spreadsheet System
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Food Delivery System](14%29%20Food%20Delivery%20System.md) • [Next: Collaborative Word Processor →](16%29%20Collaborative%20Word%20Processor.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
 ## Overview
 
 Design a collaborative spreadsheet application where multiple users can edit spreadsheets in real-time, similar to Google Sheets or Microsoft Excel Online. The system needs to handle formulas, cell formatting, and real-time synchronization.
@@ -428,3 +442,19 @@ interface SpreadsheetUpdate {
 
 **Example explanation flow:**
 > "So for a collaborative spreadsheet, I'd start with the requirements: we need real-time editing, formulas, and formatting. The frontend would be a React app with a virtualized grid component that only renders visible cells for performance. Each cell is a component that can display values or formula results. The data model centers around a Spreadsheet containing Sheets, which contain Cells. Cells can have formulas that depend on other cells, so we maintain a dependency graph. For real-time collaboration, we use WebSockets to broadcast changes, and operational transformation to resolve conflicts when multiple users edit simultaneously."
+
+---
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Food Delivery System](14%29%20Food%20Delivery%20System.md) • [Next: Collaborative Word Processor →](16%29%20Collaborative%20Word%20Processor.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---

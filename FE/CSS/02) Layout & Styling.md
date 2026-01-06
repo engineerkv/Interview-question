@@ -1,4 +1,4 @@
-# 🎯 2. Layout & Styling (Q13–32, Q36, Q40)
+# 🎯 2. Layout & Styling (Q13–15, Q20–24, Q27–32, Q36, Q40)
 
 ---
 
@@ -76,88 +76,6 @@ Example:
 
 ---
 
-## Q16. 🧬 Inheritance in CSS and inheritable properties
-
-Inheritance means child elements automatically get some properties from their parents, like font-family or color - inherited properties are more efficient than explicitly setting them on every element. Inherited properties include `font-family`, `font-size`, `color`, `line-height`, `text-align`, and `visibility`.
-
-- **Trade-offs**: The catch is properties cascade down through the DOM tree from parent to child - child elements can override inherited properties with their own values. Non-inherited properties include `width`, `height`, `margin`, `padding`, `border`, and `background`.
-
-Example:
-
-```css
-body {
-  font-family: 'Arial', sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #333;
-}
-
-```
-
----
-
-## Q17. ❓ Vendor prefixes and why they're used
-
-Vendor prefixes are browser-specific prefixes added to CSS properties during experimental or early implementation phases - vendor prefixes are for experimental features, standard property comes last. Common prefixes include `-webkit-` (Chrome, Safari, newer Edge), `-moz-` (Firefox), `-ms-` (Internet Explorer, older Edge), and `-o-` (Opera, legacy).
-
-- **Trade-offs**: The catch is not including standard property or forgetting prefixes - use build tools like autoprefixer to handle prefixes automatically. Always include standard property last, and use autoprefixer tools for automatic prefixing.
-
-Example:
-
-```css
-.animation {
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-
-```
-
----
-
-## Q18. 🎨 Shorthand properties in CSS
-
-Shorthand properties allow setting multiple related CSS properties in a single declaration - shorthand properties are more efficient but order matters. Common shorthands include `margin`, `padding`, `border`, and `background`, which reduce code size and improve readability.
-
-- **Trade-offs**: The catch is not understanding shorthand order (top, right, bottom, left) - use shorthand for efficiency and longhand for clarity. You can mix shorthand and longhand properties as needed.
-
-Example:
-
-```css
-.element {
-  margin-top: 10px;
-  margin-right: 20px;
-  margin-bottom: 10px;
-  margin-left: 20px;
-}
-.element { margin: 10px 20px; }
-
-```
-
----
-
-## Q19. 🏛️ Applying multiple classes to an element
-
-Separate multiple class names with spaces in the HTML class attribute - each class applies its styles independently, and specificity combines. Multiple classes combine their styles, and order in HTML doesn't affect CSS.
-
-- **Trade-offs**: The catch is CSS specificity is based on selector, not class order - combine utility classes for flexible, maintainable styling. Multiple classes enable modular, reusable styling patterns.
-
-Example:
-
-```html
-<div class="button primary large">Click me</div>
-
-```
-
-```css
-.button { padding: 10px; }
-.primary { background-color: blue; }
-.large { font-size: 18px; }
-
-```
-
----
-
 ## Q20. 🎨 CSS Flexbox and how it works
 
 Flexbox is a one-dimensional layout system for arranging items in rows or columns - use `justify-content` for main axis alignment and `align-items` for cross axis alignment. Perfect for component layouts, navigation bars, and centering content.
@@ -198,6 +116,30 @@ Example:
 .item {
   grid-column: 1 / 3;
 }
+```
+
+---
+
+## Q36. 🎨 CSS subgrid and its use cases
+
+CSS subgrid allows grid items to participate in their parent's grid layout, enabling complex nested grid structures with consistent alignment - subgrid has limited support, requires fallbacks for older browsers. Allows child grids to inherit parent grid structure and alignment.
+
+- **Trade-offs**: The catch is ensures nested elements align with parent grid lines - enables sophisticated page layouts with multiple grid levels. Perfect for magazine-style layouts, complex dashboards, and nested components.
+
+Example:
+
+```css
+.main-grid {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  gap: 20px;
+}
+.nested-grid {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+}
+
 ```
 
 ---
@@ -262,41 +204,6 @@ Example:
   100% { transform: translateX(0); opacity: 1; }
 }
 .element { animation: slideIn 0.5s ease-in-out; }
-
-```
-
----
-
-## Q25. 🎨 CSS cascade and how it works
-
-The cascade is CSS's priority system—it decides which styles win based on order, specificity, and !important - later styles override earlier ones when specificity is equal (source order). Some properties inherit from parent elements automatically.
-
-- **Trade-offs**: The catch is `!important` has highest priority but breaks cascade flow - modern CSS supports `@layer` for explicit cascade control. Higher specificity overrides lower specificity.
-
-Example:
-
-```css
-.button { color: red; }
-.button { color: blue; }
-.button { color: green !important; }
-
-```
-
----
-
-## Q26. 🎨 CSS combinators and how to use them
-
-Combinators let you target elements based on their relationship to other elements—like children, siblings, or descendants - useful for styling nested structures. Descendant (space) targets any descendant, child (>) targets only direct children.
-
-- **Trade-offs**: The catch is child combinators are generally faster than descendant combinators - use combinators to avoid adding unnecessary classes. Adjacent sibling (+) targets immediately following sibling, general sibling (~) targets all following siblings - combinators help maintain clean HTML structure.
-
-Example:
-
-```css
-.container p { color: blue; }
-.container > p { font-weight: bold; }
-h1 + p { margin-top: 0; }
-h2 ~ p { color: gray; }
 
 ```
 
@@ -424,6 +331,31 @@ Example:
 
 ---
 
+## Q40. 🔧 CSS `color-mix()` function and its usage
+
+The `color-mix()` function allows you to blend two colors in a specified color space, giving you more control than traditional CSS - perfect for creating color variations and theming. Blends two colors in specified color space (srgb, display-p3, etc.).
+
+- **Trade-offs**: The catch is supports percentage mixing and different color spaces - works with CSS custom properties for dynamic theming. Perfect for creating color variations, theming, and dynamic color schemes.
+
+Example:
+
+```css
+:root {
+  --primary: #007bff;
+  --secondary: #6c757d;
+}
+.element {
+  background-color: color-mix(
+    in srgb,
+    var(--primary) 70%,
+    var(--secondary) 30%
+  );
+}
+
+```
+
+---
+
 ## Q32. 🤔 SASS vs LESS
 
 SASS and LESS are CSS preprocessors that add features like variables and mixins - SASS uses indentation or SCSS syntax, LESS uses CSS-like syntax, both compile to CSS. SASS has two syntaxes (indented SASS, SCSS), LESS uses CSS-like syntax.
@@ -448,55 +380,6 @@ $primary-color: #007bff;
 .button-style() {
   padding: 10px 20px;
   background-color: @primary-color;
-}
-
-```
-
----
-
-## Q36. 🎨 CSS subgrid and its use cases
-
-CSS subgrid allows grid items to participate in their parent's grid layout, enabling complex nested grid structures with consistent alignment - subgrid has limited support, requires fallbacks for older browsers. Allows child grids to inherit parent grid structure and alignment.
-
-- **Trade-offs**: The catch is ensures nested elements align with parent grid lines - enables sophisticated page layouts with multiple grid levels. Perfect for magazine-style layouts, complex dashboards, and nested components.
-
-Example:
-
-```css
-.main-grid {
-  display: grid;
-  grid-template-columns: 200px 1fr 200px;
-  gap: 20px;
-}
-.nested-grid {
-  display: grid;
-  grid-template-columns: subgrid;
-  grid-column: 1 / -1;
-}
-
-```
-
----
-
-## Q40. 🔧 CSS `color-mix()` function and its usage
-
-The `color-mix()` function allows you to blend two colors in a specified color space, giving you more control than traditional CSS - perfect for creating color variations and theming. Blends two colors in specified color space (srgb, display-p3, etc.).
-
-- **Trade-offs**: The catch is supports percentage mixing and different color spaces - works with CSS custom properties for dynamic theming. Perfect for creating color variations, theming, and dynamic color schemes.
-
-Example:
-
-```css
-:root {
-  --primary: #007bff;
-  --secondary: #6c757d;
-}
-.element {
-  background-color: color-mix(
-    in srgb,
-    var(--primary) 70%,
-    var(--secondary) 30%
-  );
 }
 
 ```

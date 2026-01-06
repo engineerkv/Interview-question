@@ -1,4 +1,4 @@
-# 🎯 3. Objects & Prototypes (Q25–44)
+# 🎯 3. Objects & Prototypes (Q25–43)
 
 ---
 
@@ -54,25 +54,7 @@ console.log(obj.b); // 2 (accessed from prototype chain, not own property)
 
 ---
 
-## Q26. 💡 `__proto__` in JavaScript
-
-`__proto__` is a hidden link inside every object that points to another object—its prototype, but modern code should avoid it and use `Object.getPrototypeOf` instead. It exposes the internal [Prototype] slot and can be used to read or set prototype links.
-
-- **Trade-offs**: The catch is `__proto__` is deprecated for better compatibility - use `Object.getPrototypeOf`/`Object.setPrototypeOf` or `Object.create` instead. `Object.create` is the preferred way to set prototypes, and it's cleaner than using `__proto__`.
-
-Example:
-
-```js
-const proto = { greet() { return 'hi'; } };
-const obj = Object.create(proto);
-console.log(obj.__proto__ === proto); // true
-console.log(Object.getPrototypeOf(obj) === proto); // true (preferred)
-
-```
-
----
-
-## Q27. 🔗 Prototype chain
+## Q28. 🔗 Prototype chain
 
 The prototype chain is how JavaScript looks up properties by checking each object in a linked list until it finds what it needs or reaches `Object.prototype` - the chain ends at `Object.prototype` (whose prototype is `null`). Property lookup follows the chain until found, and own properties always override inherited ones.
 
@@ -90,7 +72,25 @@ console.log(arr.toString); // Found in Object.prototype (inherited method)
 
 ---
 
-## Q28. 📝 `__proto__` vs `prototype`
+## Q27. 💡 `__proto__` in JavaScript
+
+`__proto__` is a hidden link inside every object that points to another object—its prototype, but modern code should avoid it and use `Object.getPrototypeOf` instead. It exposes the internal [Prototype] slot and can be used to read or set prototype links.
+
+- **Trade-offs**: The catch is `__proto__` is deprecated for better compatibility - use `Object.getPrototypeOf`/`Object.setPrototypeOf` or `Object.create` instead. `Object.create` is the preferred way to set prototypes, and it's cleaner than using `__proto__`.
+
+Example:
+
+```js
+const proto = { greet() { return 'hi'; } };
+const obj = Object.create(proto);
+console.log(obj.__proto__ === proto); // true
+console.log(Object.getPrototypeOf(obj) === proto); // true (preferred)
+
+```
+
+---
+
+## Q29. 📝 `__proto__` vs `prototype`
 
 `__proto__` is an object's link to its parent, while `prototype` is a function's blueprint for creating new objects - only functions have `prototype`. When you use `new` with a function, the instance's `__proto__` points to the function's `prototype`.
 
@@ -109,7 +109,29 @@ console.log(p.__proto__ === Person.prototype); // true (prototype link establish
 
 ---
 
-## Q29. 🤔 `hasOwn` vs `in` operator
+## Q31. 🔧 `Object.create()` vs `new` operator
+
+`Object.create()` sets up prototype links directly, while `new` operator calls a constructor function and sets up the prototype automatically - `Object.create` is explicit, `new` is more convenient. `Object.create` is great for simple inheritance, while `new` is better for constructor-based object creation.
+
+- **Trade-offs**: The catch is using `new` when `Object.create` would be simpler - `Object.create` is explicit and gives you more control, while `new` is syntactic sugar that does constructor chaining automatically. `Object.create(null)` creates objects without a prototype, which is useful for pure data structures.
+
+Example:
+
+```js
+// Object.create: explicit prototype setup
+const base = { x: 1 }; // Base object
+const child = Object.create(base); // Create object with base as prototype
+child.y = 2; // Add own property
+
+// new operator: constructor-based creation
+function Parent(x) { this.x = x; } // Constructor function
+const child2 = new Parent(1); // Creates instance, sets prototype automatically
+
+```
+
+---
+
+## Q30. 🤔 `hasOwn` vs `in` operator
 
 `Object.hasOwn` checks if a property exists on the object itself (not inherited), while `in` operator checks the entire prototype chain including inherited properties. `Object.hasOwn` is the modern safer way to check own properties - it works everywhere, even on objects created with `Object.create(null)`.
 
@@ -135,29 +157,7 @@ console.log(Object.hasOwn(nullObj, 'x')); // true - works perfectly
 
 ---
 
-## Q30. 🔧 `Object.create()` vs `new` operator
-
-`Object.create()` sets up prototype links directly, while `new` operator calls a constructor function and sets up the prototype automatically - `Object.create` is explicit, `new` is more convenient. `Object.create` is great for simple inheritance, while `new` is better for constructor-based object creation.
-
-- **Trade-offs**: The catch is using `new` when `Object.create` would be simpler - `Object.create` is explicit and gives you more control, while `new` is syntactic sugar that does constructor chaining automatically. `Object.create(null)` creates objects without a prototype, which is useful for pure data structures.
-
-Example:
-
-```js
-// Object.create: explicit prototype setup
-const base = { x: 1 }; // Base object
-const child = Object.create(base); // Create object with base as prototype
-child.y = 2; // Add own property
-
-// new operator: constructor-based creation
-function Parent(x) { this.x = x; } // Constructor function
-const child2 = new Parent(1); // Creates instance, sets prototype automatically
-
-```
-
----
-
-## Q31. 🤔 `Object.assign()` vs spread operator
+## Q32. 🤔 `Object.assign()` vs spread operator
 
 `Object.assign()` copies properties from source objects to a target object, while spread operator creates a new object with copied properties - both do shallow copies. `Object.assign` mutates the target, while spread creates a new object.
 
@@ -175,7 +175,7 @@ const obj3 = { ...obj1 };
 
 ---
 
-## Q32. 🤔 `Object.freeze()` vs `Object.seal()`
+## Q33. 🤔 `Object.freeze()` vs `Object.seal()`
 
 `Object.freeze()` makes an object completely immutable - you can't add, delete, or modify properties. `Object.seal()` prevents adding or deleting properties but allows modifying existing ones. Both prevent adding new properties, but `freeze` is stricter.
 
@@ -197,7 +197,7 @@ obj2.y = 3; // fails
 
 ---
 
-## Q33. 🤔 `Object.keys()` vs `Object.getOwnPropertyNames()`
+## Q34. 🤔 `Object.keys()` vs `Object.getOwnPropertyNames()`
 
 `Object.keys()` returns only enumerable own property names, while `Object.getOwnPropertyNames()` returns all own property names including non-enumerable ones. Both ignore inherited properties, but `getOwnPropertyNames` includes properties like `length` on arrays.
 
@@ -215,7 +215,7 @@ console.log(Object.getOwnPropertyNames(obj)); // ['hidden']
 
 ---
 
-## Q34. 🤔 `Object.entries()` vs `Object.values()` vs `Object.keys()`
+## Q35. 🤔 `Object.entries()` vs `Object.values()` vs `Object.keys()`
 
 `Object.keys()` returns an array of property names (keys), `Object.values()` returns an array of property values, and `Object.entries()` returns an array of `[key, value]` pairs - all three only include enumerable own properties. `keys` is useful when you need just the property names, `values` when you only need values, and `entries` when you need both keys and values together.
 
@@ -233,7 +233,7 @@ console.log(Object.entries(obj)); // ['a', 1], ['b', 2]
 
 ---
 
-## Q35. 💡 Getters and setters in JavaScript
+## Q36. 💡 Getters and setters in JavaScript
 
 Getters and setters are special methods that control property access, allowing custom logic on read/write - getters run when reading, setters run when writing. They're useful for validation, computed properties, and data transformation.
 
@@ -253,7 +253,7 @@ obj.count = -5; // becomes 0
 
 ---
 
-## Q36. 🏛️ Classes in JavaScript
+## Q37. 🏛️ Classes in JavaScript
 
 Classes in JavaScript are syntactic sugar over prototype-based inheritance - they provide a cleaner way to create objects and handle inheritance, but work like constructor functions underneath. `typeof Person` is `'function'` because classes are just constructor functions with special syntax.
 
@@ -272,7 +272,7 @@ const p = new Person('Alice');
 
 ---
 
-## Q37. 🏛️ Class declaration vs class expression
+## Q38. 🏛️ Class declaration vs class expression
 
 Class declarations create classes with names, while class expressions create classes as values - both create constructor functions, but expressions are useful when you need classes as values. Named expressions help with debugging, and expressions are useful for conditional class creation.
 
@@ -289,7 +289,7 @@ const Named = class Inner {}; // named expression
 
 ---
 
-## Q38. ❓ `extends` keyword and how it works
+## Q39. ❓ `extends` keyword and how it works
 
 `extends` allows one class to inherit from another class, giving it access to all the parent's properties and methods - it creates a prototype chain between classes. `super` is lexically bound, not dynamic, which means it always refers to the parent class in the same lexical scope.
 
@@ -309,7 +309,7 @@ class Dog extends Animal {
 
 ---
 
-## Q39. ❓ `super()` and when to use it
+## Q40. ❓ `super()` and when to use it
 
 `super()` calls the parent class constructor and must be called before using `this` in a child constructor - it initializes parent properties in child constructors. `super()` returns the current instance, not the parent, which can be confusing.
 
@@ -330,7 +330,7 @@ class Child extends Parent {
 
 ---
 
-## Q40. 🏛️ Static members in classes
+## Q41. 🏛️ Static members in classes
 
 Static methods and properties belong to the class itself, not to individual instances, and are called directly on the class - they're useful for utility functions and constants. Static members are inherited by subclasses, so child classes can access parent static methods.
 
@@ -349,7 +349,7 @@ Math.add(1, 2); // 3
 
 ---
 
-## Q41. 🏛️ Private class fields
+## Q42. 🏛️ Private class fields
 
 Private fields use the `#` prefix and can only be accessed from within the same class, making them truly private - they're not just conventionally private like `_private`. Private fields are not accessible from subclasses, which is different from protected fields in other languages.
 
@@ -371,7 +371,7 @@ console.log(counter.getCount()); // 1
 
 ---
 
-## Q42. 🔗 ES6 classes vs prototype-based inheritance
+## Q43. 🔗 ES6 classes vs prototype-based inheritance
 
 Classes provide cleaner syntax but work exactly like constructor functions and prototypes underneath - they're just syntactic sugar over prototype-based inheritance. Both approaches create the same result, so choose based on preference and tooling support.
 

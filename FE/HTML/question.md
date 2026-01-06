@@ -1,6 +1,6 @@
 # 🌐 HTML Interview Questions
 
-78 carefully curated questions covering HTML fundamentals to advanced web standards.
+83 carefully curated questions covering HTML fundamentals to advanced web standards.
 
 ## 📋 Quick Navigation
 
@@ -10,7 +10,7 @@
 | [2️⃣](#2-semantic-html) | Semantic HTML | Q16–26 | ⭐⭐⭐ |
 | [3️⃣](#3-forms-inputs) | Forms & Inputs | Q31–43 | ⭐⭐⭐ |
 | [4️⃣](#4-accessibility-a11y) | Accessibility | Q46–58 | ⭐⭐⭐⭐ |
-| [5️⃣](#5-html5-features) | HTML5 & Modern APIs | Q61–71 | ⭐⭐⭐ |
+| [5️⃣](#5-html5-features) | HTML5 & Modern APIs | Q61–72 | ⭐⭐⭐ |
 | [6️⃣](#6-media-elements) | Media & Images | Q76–85 | ⭐⭐ |
 | [7️⃣](#7-performance-seo) | Performance & SEO | Q86–96 | ⭐⭐⭐⭐ |
 
@@ -176,37 +176,37 @@
 
 87. Structuring HTML for SEO
 
-86. Meta tags and their usage
+88. Meta tags and their usage
 
 89. Implementing structured data
 
 90. Implementing caching
 
-87. Resource hints and their usage for optimizing page performance
+91. Resource hints and their usage for optimizing page performance
 
-86. `fetchpriority` and its usage for optimizing resource loading
+92. `fetchpriority` and its usage for optimizing resource loading
 
-89. SEO and how to optimize it
+93. SEO and how to optimize it
 
 94. `sitemap.xml` and how to create it
 
-90. `robots.txt` and its usage
+95. `robots.txt` and its usage
 
-87. Open Graph tags and their usage
+96. Open Graph tags and their usage
 
 ## 📖 Complete Answer Guide
 
-- [1) HTML Fundamentals](01%29%20Fundamentals%20&%20Basics.md) - Q1-15
+- [1) Fundamentals & Basics](01%29%20Fundamentals%20&%20Basics.md) - Q1-13
 
-- [2) Semantic HTML & Structure](02%29%20Semantic%20HTML%20%26%20Structure.md) - Q16-30
+- [2) Semantic HTML](02%29%20Semantic%20HTML.md) - Q16-26
 
-- [3) Forms & Input Elements](03%29%20Forms%20%26%20Input%20Elements.md) - Q31-45
+- [3) Forms & Inputs](03%29%20Forms%20%26%20Inputs.md) - Q31-43
 
-- [4) Accessibility (A11y)](04%29%20Accessibility.md) - Q46-60
+- [4) Accessibility](04%29%20Accessibility.md) - Q46-58
 
-- [5) HTML5 Features & APIs](05%29%20HTML5%20Features%20%26%20APIs.md) - Q61-75
+- [5) HTML5 & Modern APIs](05%29%20HTML5%20%26%20Modern%20APIs.md) - Q61-72
 
-- [6) Media Elements](06%29%20Media%20&%20Images.md) - Q76-85
+- [6) Media & Images](06%29%20Media%20%26%20Images.md) - Q76-85
 
 - [7) Performance & SEO](07%29%20Performance%20%26%20SEO.md) - Q86-96
 

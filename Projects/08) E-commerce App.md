@@ -1,5 +1,19 @@
 # E-commerce App
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Social Media Feed](07%29%20Social%20Media%20Feed.md) • [Next: Chat Messaging System →](09%29%20Chat%20Messaging%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
 ## Overview
 
 Design a full-featured e-commerce platform where users can browse products, manage shopping carts, process secure payments, and track orders. The system handles inventory management, product recommendations, and order processing.
@@ -516,3 +530,17 @@ interface Review {
 
 **Example explanation flow:**
 > "So for an e-commerce app, the core requirement is allowing users to browse products, add them to a cart, and complete purchases. The frontend is a React app with a product list page showing products in a grid with filters. Users can view product details, add items to cart with optimistic updates for instant feedback, and proceed to checkout. The data model centers around Product objects with inventory tracking, CartItem objects for the shopping cart, and Order objects for completed purchases. Inventory is validated at multiple points - before adding to cart, at checkout, and atomically reserved when placing an order to prevent overselling. The main API endpoints handle product browsing with filters, cart management, order creation, and order tracking. Key challenges include managing inventory accurately to prevent overselling, providing real-time stock updates, handling traffic spikes during sales events, and ensuring secure payment processing."
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Social Media Feed](07%29%20Social%20Media%20Feed.md) • [Next: Chat Messaging System →](09%29%20Chat%20Messaging%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---

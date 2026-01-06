@@ -1,5 +1,19 @@
 # Ticket Booking System
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Time-Limited Content System](11%29%20Time-Limited%20Content%20System.md) • [Next: Ride-Sharing System →](13%29%20Ride-Sharing%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
 ## Overview
 
 Design a ticket booking system for events, movies, or shows where users can browse available seats, select seats, and complete bookings while preventing double booking through seat locking and real-time availability updates.
@@ -279,3 +293,19 @@ interface Booking {
 
 **Example explanation flow:**
 > "So for a ticket booking system, the core requirement is allowing users to select seats and book tickets while preventing double booking. The frontend is a React app with a seat map component that displays the venue layout with color-coded seats (available, occupied, locked, selected). When a user selects a seat, we lock it on the server for a few minutes to prevent others from booking it. The lock expires if the booking isn't completed. Real-time seat availability is updated via WebSocket so all users see the same seat status. The data model includes Event objects, Seat objects with status tracking, and Booking objects for completed bookings. The main API endpoints handle seat locking, unlocking, and booking creation. Key challenges include preventing double booking through proper seat locking, handling high concurrency during popular events, and ensuring real-time seat availability updates so users see accurate seat status."
+
+---
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Time-Limited Content System](11%29%20Time-Limited%20Content%20System.md) • [Next: Ride-Sharing System →](13%29%20Ride-Sharing%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---

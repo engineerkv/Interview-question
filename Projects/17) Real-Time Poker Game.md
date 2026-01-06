@@ -1,5 +1,19 @@
 # Real-Time Poker Game
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Collaborative Word Processor](16%29%20Collaborative%20Word%20Processor.md) • [Next: Fantasy Sports Platform →](18%29%20iGamio%20Fantasy%20Sports%20Platform.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
 ## Overview
 
 Design a real-time multiplayer poker game where multiple players can join tables, play Texas Hold'em poker with synchronized game state, and handle player actions in real-time with minimal latency.
@@ -362,3 +376,19 @@ interface PlayerAction {
 
 **Example explanation flow:**
 > "So for a real-time poker game, the core requirement is allowing multiple players to join tables and play poker with synchronized game state. The frontend is a React app with a game table component showing player seats in a circular arrangement, community cards in the center, and action buttons for the current player. When a player makes an action (fold, call, raise), it's sent via WebSocket to the server, which validates the action, updates the game state, and broadcasts to all players. The data model includes GameRoom objects for game tables, Player objects with chips and status, Hand objects tracking the current hand with betting rounds, and Card objects for the deck. Real-time synchronization ensures all players see the same game state simultaneously with minimal latency (< 100ms). The main API endpoints handle room management and hand history, while WebSocket handles all real-time game events (actions, card dealing, pot updates). Key challenges include ensuring fair gameplay through server-side validation, maintaining game state consistency across all clients, handling player disconnections gracefully, and providing smooth animations for card dealing and betting."
+
+---
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Collaborative Word Processor](16%29%20Collaborative%20Word%20Processor.md) • [Next: iGamio Fantasy Sports Platform →](18%29%20iGamio%20Fantasy%20Sports%20Platform.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---

@@ -35,6 +35,12 @@
 
 ## 🧩 2. Functions & Execution Context
 
+22. Creation and execution phases in JavaScript
+
+21. Call stack in JavaScript
+
+24. How lexical environment relates to closures
+
 16. Closures in JavaScript
 
 17. Higher-order functions
@@ -45,13 +51,7 @@
 
 20. How `this` keyword behaves in different contexts
 
-21. Call stack in JavaScript
-
-22. Creation and execution phases in JavaScript
-
 23. Synchronous vs asynchronous execution
-
-24. How lexical environment relates to closures
 
 ## 🏗️ 3. Objects & Prototypes
 
@@ -59,15 +59,15 @@
 
 26. Prototype in JavaScript
 
-27. `__proto__` in JavaScript
-
 28. Prototype chain
+
+27. `__proto__` in JavaScript
 
 29. `__proto__` vs `prototype`
 
-30. `hasOwn` vs `in` operator
-
 31. `Object.create()` vs `new` operator
+
+30. `hasOwn` vs `in` operator
 
 32. `Object.assign()` vs spread operator
 
@@ -189,11 +189,11 @@
 
 134. How Service Workers enable offline caching
 
-135. Difference between Web Workers and Service Workers
-
 136. Handling background sync or push notifications
 
 137. Unregistering a Service Worker
+
+135. Difference between Web Workers and Service Workers
 
 138. Event delegation
 

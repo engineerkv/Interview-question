@@ -1,5 +1,19 @@
 # Notification System
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Payment System](04%29%20Payment%20System.md) • [Next: Video Streaming Platform →](06%29%20Video%20Streaming%20Platform.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
 ## Overview
 
 Design a scalable notification system that delivers millions of notifications per day across multiple channels (in-app, email, push, SMS) with high reliability and real-time delivery.
@@ -464,3 +478,17 @@ interface PushSubscription {
 
 **Example explanation flow:**
 > "So for a notification system, the core requirement is delivering notifications across multiple channels (in-app, email, push, SMS) with high reliability. The frontend is a React app with a notification bell component that shows unread count and opens a dropdown with recent notifications. For real-time in-app notifications, we use WebSocket to deliver notifications instantly (< 1 second). The data model includes Notification objects with type, category, channels, and delivery status. Users have NotificationPreferences that control which channels and categories they receive, plus frequency preferences (real-time, batched, or digest). The main API endpoints handle getting notifications, marking as read, and managing preferences. For push notifications, users subscribe and we send push notifications through the browser's push service. Key challenges include ensuring real-time delivery, respecting user preferences, handling batching for less urgent notifications, and tracking delivery status across multiple channels."
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Payment System](04%29%20Payment%20System.md) • [Next: Video Streaming Platform →](06%29%20Video%20Streaming%20Platform.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---

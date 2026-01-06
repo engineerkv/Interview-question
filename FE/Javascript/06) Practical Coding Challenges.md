@@ -1,4 +1,4 @@
-# 💼 6. Practical Coding Challenges (Q80–127)
+# 💼 6. Practical Coding Challenges (Q80–126)
 
 ---
 

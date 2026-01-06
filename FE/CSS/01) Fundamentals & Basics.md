@@ -1,4 +1,4 @@
-# 🧒 1. Fundamentals & Basics (Q1–13)
+# 🧒 1. Fundamentals & Basics (Q1–12, Q16–19, Q25–26)
 
 ---
 
@@ -276,39 +276,125 @@ Example:
 
 ---
 
-## Q13. 🛠️ What is a CSS preprocessor?
+## Q16. 🧬 Inheritance in CSS and inheritable properties
 
-CSS preprocessors are tools that extend CSS with programming features like variables, nesting, mixins, and functions, then compile back to standard CSS that browsers can understand - preprocessors enhance CSS with powerful features while maintaining browser compatibility. They add variables, nesting, mixins, functions, and imports to CSS before compilation.
+Inheritance means child elements automatically get some properties from their parents, like font-family or color - inherited properties are more efficient than explicitly setting them on every element. Inherited properties include `font-family`, `font-size`, `color`, `line-height`, `text-align`, and `visibility`.
 
-- **Trade-offs**: The catch is requiring a build step to compile preprocessor code to CSS and learning new syntax - preprocessors improve maintainability and reduce code duplication. Popular preprocessors include Sass/SCSS, Less, and Stylus, each with unique syntax and features.
+- **Trade-offs**: The catch is properties cascade down through the DOM tree from parent to child - child elements can override inherited properties with their own values. Non-inherited properties include `width`, `height`, `margin`, `padding`, `border`, and `background`.
 
 Example:
 
-```scss
-// Variables
-$primary-color: #007bff;
-$spacing: 20px;
-
-// Nesting
-.button {
-  padding: $spacing;
-  background-color: $primary-color;
-
-  &:hover {
-    background-color: darken($primary-color, 10%);
-  }
+```css
+body {
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
 }
 
-// Mixins
-@mixin flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+```
+
+---
+
+## Q17. ❓ Vendor prefixes and why they're used
+
+Vendor prefixes are browser-specific prefixes added to CSS properties during experimental or early implementation phases - vendor prefixes are for experimental features, standard property comes last. Common prefixes include `-webkit-` (Chrome, Safari, newer Edge), `-moz-` (Firefox), `-ms-` (Internet Explorer, older Edge), and `-o-` (Opera, legacy).
+
+- **Trade-offs**: The catch is not including standard property or forgetting prefixes - use build tools like autoprefixer to handle prefixes automatically. Always include standard property last, and use autoprefixer tools for automatic prefixing.
+
+Example:
+
+```css
+.animation {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
-.container {
-  @include flex-center;
+```
+
+---
+
+## Q18. 🎨 Shorthand properties in CSS
+
+Shorthand properties allow setting multiple related CSS properties in a single declaration - shorthand properties are more efficient but order matters. Common shorthands include `margin`, `padding`, `border`, and `background`, which reduce code size and improve readability.
+
+- **Trade-offs**: The catch is not understanding shorthand order (top, right, bottom, left) - use shorthand for efficiency and longhand for clarity. You can mix shorthand and longhand properties as needed.
+
+Example:
+
+```css
+.element {
+  margin-top: 10px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  margin-left: 20px;
 }
+.element { margin: 10px 20px; }
+
+```
+
+---
+
+## Q19. 🏛️ Applying multiple classes to an element
+
+Separate multiple class names with spaces in the HTML class attribute - each class applies its styles independently, and specificity combines. Multiple classes combine their styles, and order in HTML doesn't affect CSS.
+
+- **Trade-offs**: The catch is CSS specificity is based on selector, not class order - combine utility classes for flexible, maintainable styling. Multiple classes enable modular, reusable styling patterns.
+
+Example:
+
+```html
+<div class="button primary large">Click me</div>
+
+```
+
+```css
+.button { padding: 10px; }
+.primary { background-color: blue; }
+.large { font-size: 18px; }
+
+```
+
+---
+
+## Q25. 🎨 CSS cascade and how it works
+
+The cascade is CSS's priority system—it decides which styles win based on order, specificity, and !important - later styles override earlier ones when specificity is equal (source order). Some properties inherit from parent elements automatically.
+
+- **Trade-offs**: The catch is `!important` has highest priority but breaks cascade flow - modern CSS supports `@layer` for explicit cascade control. Higher specificity overrides lower specificity.
+
+Example:
+
+```css
+.button { color: red; }
+.button { color: blue; }
+.button { color: green !important; }
+
+```
+
+---
+
+## Q26. 🎨 CSS combinators and how to use them
+
+Combinators let you target elements based on their relationship to other elements—like children, siblings, or descendants - useful for styling nested structures without adding extra classes. There are four types: descendant (space) targets any nested element at any level, child (>) targets only direct children, adjacent sibling (+) targets the immediately following sibling, and general sibling (~) targets all following siblings.
+
+- **Trade-offs**: The catch is child combinators are generally faster than descendant combinators because they don't need to search through all descendants - use combinators to avoid adding unnecessary classes and keep HTML clean. Descendant selectors are more flexible but slower, child selectors are faster but more restrictive - adjacent sibling is useful for styling the first element after another, general sibling is useful for styling multiple following elements.
+
+Example:
+
+```css
+/* Descendant - targets all p inside .container at any level */
+.container p { color: blue; }
+
+/* Child - targets only direct p children of .container */
+.container > p { font-weight: bold; }
+
+/* Adjacent sibling - targets p immediately after h1 */
+h1 + p { margin-top: 0; }
+
+/* General sibling - targets all p elements after h2 */
+h2 ~ p { color: gray; }
 ```
 
 ---

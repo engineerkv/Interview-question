@@ -1,5 +1,19 @@
 # Time-Limited Content System
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Real-Time Collaboration System](10%29%20Real-Time%20Collaboration%20System.md) • [Next: Ticket Booking System →](12%29%20Ticket%20Booking%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
 ## Overview
 
 Design a time-limited content system like Instagram Stories where users can create content (images, videos) that automatically expires after a configurable duration (e.g., 24 hours), with view tracking and engagement features.
@@ -227,3 +241,19 @@ interface StoryReaction {
 
 **Example explanation flow:**
 > "So for a time-limited content system like Stories, the core requirement is allowing users to create content that automatically expires after a set duration. The frontend is a React app with a stories feed showing story circles for each user, and a story viewer that displays content with a countdown timer. When a user creates a story, they upload media and set an expiration duration (default 24 hours). The story has an expiresAt timestamp, and the frontend shows a countdown timer. When expired, stories are hidden and cleaned up. View tracking records who viewed each story and when. The data model centers around Story objects with expiration timestamps, StoryView objects for tracking, and StoryReaction objects for engagement. The main API endpoints handle creating stories, viewing stories, tracking views, and reactions. Key challenges include ensuring accurate expiration timing, automatic cleanup of expired content, and handling millions of concurrent viewers during popular stories."
+
+---
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Real-Time Collaboration System](10%29%20Real-Time%20Collaboration%20System.md) • [Next: Ticket Booking System →](12%29%20Ticket%20Booking%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---

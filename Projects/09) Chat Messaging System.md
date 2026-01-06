@@ -1,5 +1,19 @@
 # Chat Messaging System
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: E-commerce App](08%29%20E-commerce%20App.md) • [Next: Real-Time Collaboration System →](10%29%20Real-Time%20Collaboration%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
 ## Overview
 
 Design a real-time chat messaging system where users can send instant messages, support one-on-one and group chats, with message delivery status, typing indicators, and media sharing.
@@ -421,3 +435,19 @@ interface Attachment {
 
 **Example explanation flow:**
 > "So for a chat messaging system, the core requirement is enabling real-time messaging between users. The frontend is a React app with a chat window component that displays messages and handles sending/receiving. For real-time delivery, we use WebSocket to send messages instantly (< 100ms latency). The data model centers around Conversation objects (chats) containing Message objects, with Participant objects for users. Messages have delivery status tracking (sent, delivered, read) and support reactions, replies, and media attachments. When a user sends a message, we use optimistic updates to show it immediately, then sync with the server via WebSocket. Typing indicators are shown when users are typing, and presence status shows who's online. The main API endpoints handle conversations, messages, and reactions, while WebSocket handles real-time events. Key challenges include ensuring low-latency message delivery, maintaining message ordering, handling millions of concurrent WebSocket connections, and providing reliable message persistence and search."
+
+---
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: E-commerce App](08%29%20E-commerce%20App.md) • [Next: Real-Time Collaboration System →](10%29%20Real-Time%20Collaboration%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---

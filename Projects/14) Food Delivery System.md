@@ -1,5 +1,19 @@
 # Food Delivery System
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Ride-Sharing System](13%29%20Ride-Sharing%20System.md) • [Next: Collaborative Spreadsheet →](15%29%20Collaborative%20Spreadsheet.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
 ## Overview
 
 Design a food delivery platform where users can browse restaurants and menus, place orders, track deliveries in real-time, and process payments. The system handles order management, delivery partner matching, and real-time tracking.
@@ -300,3 +314,19 @@ interface DeliveryPartner {
 
 **Example explanation flow:**
 > "So for a food delivery system, the core requirement is allowing users to browse restaurants, place orders, and track deliveries in real-time. The frontend is a React app with a restaurant list showing available restaurants, a menu view for selecting items with customization options, and an order tracking page with a map showing the delivery partner's location. When a user places an order, it goes through status transitions (pending, confirmed, preparing, out_for_delivery, delivered). Real-time tracking updates the delivery partner's location every 5 seconds via WebSocket, and the map and ETA update accordingly. The data model includes Restaurant objects, MenuItem objects with customization options, and Order objects with status tracking. The main API endpoints handle restaurant browsing, order creation, and order tracking, while WebSocket handles real-time location and status updates. Key challenges include real-time delivery tracking, handling traffic spikes during peak meal times, and ensuring accurate order status updates."
+
+---
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Ride-Sharing System](13%29%20Ride-Sharing%20System.md) • [Next: Collaborative Spreadsheet →](15%29%20Collaborative%20Spreadsheet.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---

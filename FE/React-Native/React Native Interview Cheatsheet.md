@@ -2,7 +2,7 @@
 
 > **⏱️ Review Time: 15-20 minutes** | **Priority: ⭐⭐ Medium** | Quick reference for React Native interviews
 >
-> **Coverage: Q1-Q95** (95 questions across 10 topics)
+> **Coverage: Q1-Q125** (125 questions across 12 topics)
 
 **Quick Review Checklist:**
 

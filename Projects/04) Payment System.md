@@ -1,5 +1,19 @@
 # Payment System
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: File Storage System](03%29%20File%20Storage%20System.md) • [Next: Notification System →](05%29%20Notification%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
 ## Overview
 
 Design a secure payment processing system that handles payments through payment gateways, supports multiple payment methods, and ensures secure, reliable transactions with fraud detection.
@@ -459,3 +473,17 @@ interface PaymentAnalytics {
 
 **Example explanation flow:**
 > "So for a payment system, the core requirement is processing payments securely through payment gateways. The frontend uses a payment gateway SDK (like Stripe) for card input - this is critical for PCI-DSS compliance because the SDK handles card data securely and never sends raw card numbers to our servers. Instead, it returns a tokenized payment method. When processing a payment, we generate an idempotency key to prevent duplicate charges - if the same key is used twice, the server returns the existing payment instead of charging again. The data model includes Payment objects with status tracking, PaymentMethod objects for saved payment methods (tokenized), and PaymentRequest with the idempotency key. The main API endpoints handle payment processing, refunds, payment history, and payment method management. Key challenges include ensuring PCI-DSS compliance, implementing idempotency correctly, handling payment gateway failures gracefully, and providing real-time status updates."
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: File Storage System](03%29%20File%20Storage%20System.md) • [Next: Notification System →](05%29%20Notification%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---

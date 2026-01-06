@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[Home: README](../README.md) • [Functions & Execution Context →](02%29%20Functions%20%26%20Execution%20Context.md)
+[Home: README](../README.md) • [Next: Functions & Execution Context →](02%29%20Functions%20%26%20Execution%20Context.md)
 
 [📋 Cheatsheet](JavaScript%20Interview%20Cheatsheet.md)
 
@@ -167,7 +167,7 @@ console.log('5' * 3); // 15 (numeric multiplication)
 
 <div align="center">
 
-[Home: README](../README.md) • [Functions & Execution Context →](02%29%20Functions%20%26%20Execution%20Context.md)
+[Home: README](../README.md) • [Next: Functions & Execution Context →](02%29%20Functions%20%26%20Execution%20Context.md)
 
 [📋 Cheatsheet](JavaScript%20Interview%20Cheatsheet.md)
 

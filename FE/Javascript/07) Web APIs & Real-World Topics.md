@@ -162,26 +162,6 @@ self.addEventListener('fetch', e => {
 
 ---
 
-## Q135. 👷 Difference between Web Workers and Service Workers
-
-Web Workers run background tasks for CPU-intensive work, while Service Workers act as network proxies for offline functionality - Web Workers handle CPU tasks with one-to-one communication, Service Workers handle network proxy with one-to-many communication. Web Workers can be dedicated or shared, Service Workers are persistent and event-driven.
-
-- **Trade-offs**: The catch is they have different use cases and capabilities - choose based on use case: computation vs. network/caching needs. Each serves different purposes in web apps, but watch out - don't confuse them - use Web Workers for heavy computation, Service Workers for network and caching.
-
-Example:
-
-```js
-// Web Worker - background computation
-const worker = new Worker('compute.js');
-worker.postMessage(data);
-
-// Service Worker - network proxy
-navigator.serviceWorker.register('sw.js');
-
-```
-
----
-
 ## Q136. 🔔 Handling background sync or push notifications
 
 Use Service Worker events for background sync and push notifications when the app isn't active - background sync runs when connection restored, push events trigger when server sends notification. Use `waitUntil()` for async operations and handle user interactions with notification clicks.
@@ -214,6 +194,26 @@ Example:
 ```js
 navigator.serviceWorker.getRegistrations().then(regs =>
   regs.forEach(reg => reg.unregister()));
+
+```
+
+---
+
+## Q135. 👷 Difference between Web Workers and Service Workers
+
+Web Workers run background tasks for CPU-intensive work, while Service Workers act as network proxies for offline functionality - Web Workers handle CPU tasks with one-to-one communication, Service Workers handle network proxy with one-to-many communication. Web Workers can be dedicated or shared, Service Workers are persistent and event-driven.
+
+- **Trade-offs**: The catch is they have different use cases and capabilities - choose based on use case: computation vs. network/caching needs. Each serves different purposes in web apps, but watch out - don't confuse them - use Web Workers for heavy computation, Service Workers for network and caching.
+
+Example:
+
+```js
+// Web Worker - background computation
+const worker = new Worker('compute.js');
+worker.postMessage(data);
+
+// Service Worker - network proxy
+navigator.serviceWorker.register('sw.js');
 
 ```
 

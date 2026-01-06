@@ -1,5 +1,19 @@
 # Collaborative Word Processor System
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Collaborative Spreadsheet](15%29%20Collaborative%20Spreadsheet.md) • [Next: Real-Time Poker Game →](17%29%20Real-Time%20Poker%20Game.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
 ## Overview
 
 Design a collaborative word processor where multiple users can edit documents in real-time, similar to Google Docs or Microsoft Word Online. The system needs to handle rich text editing, formatting, comments, and real-time synchronization.
@@ -549,3 +563,19 @@ interface DocumentUpdate {
 
 **Example explanation flow:**
 > "So for a collaborative word processor, I'd start with the requirements: we need real-time editing, rich text formatting, comments, and version history. The frontend would be a React app with a rich text editor component (like Slate.js) that handles the editing. Documents are structured as blocks - paragraphs, headings, lists - rather than plain text, which makes formatting and comments easier. Each block contains inline content with formatting marks. For real-time collaboration, we use WebSockets to broadcast changes, and operational transformation to resolve conflicts when multiple users edit simultaneously. Comments are anchored to text selections, and we maintain version history so users can restore previous versions."
+
+---
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Collaborative Spreadsheet](15%29%20Collaborative%20Spreadsheet.md) • [Next: Real-Time Poker Game →](17%29%20Real-Time%20Poker%20Game.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---

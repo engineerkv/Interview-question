@@ -2,7 +2,7 @@
 
 > **⏱️ Review Time: 10-15 minutes** | **Priority: ⭐⭐⭐ High** | Essential HTML concepts for interviews
 >
-> **Coverage: Q1-Q111** (111 questions across 8 topics)
+> **Coverage: Q1-Q96** (96 questions across 7 topics)
 
 **Quick Review Checklist:**
 

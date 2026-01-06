@@ -16,6 +16,60 @@
 
 ---
 
+## Q22. 💡 Creation and execution phases in JavaScript
+
+JavaScript runs code in two main phases: Creation phase (memory is set up) and Execution phase (code actually runs line by line). In creation, variables are set to `undefined` and functions get their full definitions - this explains hoisting behavior.
+
+- **Trade-offs**: Creation phase allocates memory first, then execution phase runs code top to bottom, replacing `undefined` with actual values. This is why you can call functions before declaring them, but using a variable before initialization gives `undefined` or ReferenceError.
+
+Example:
+
+```js
+var x = 10;
+function greet() { console.log("Hi"); }
+greet();
+
+```
+
+---
+
+## Q21. 💡 Call stack in JavaScript
+
+The call stack is how JavaScript keeps track of which function is running and where to return after each one finishes - it works in Last In, First Out (LIFO) order. It pushes functions when called and pops them when done.
+
+- **Trade-offs**: The call stack helps debug stack traces when an error shows "where" it happened, but deep recursion causes "Maximum call stack size exceeded" errors. JavaScript handles only sync code in the stack - async tasks wait in the event queue.
+
+Example:
+
+```js
+function one() { two(); console.log("One"); }
+function two() { three(); console.log("Two"); }
+function three() { console.log("Three"); }
+one(); // Output: Three, Two, One
+
+```
+
+---
+
+## Q24. 🔒 How lexical environment relates to closures
+
+A lexical environment tracks variables in each scope. Each scope includes an environment record and an outer link, and lookups follow the outer links. Closures maintain access to these variables through the environment chain after the outer function completes.
+
+- **Trade-offs**: Closures preserve the chain for later use, enabling useful patterns, but garbage collection frees environments when no references remain. This clarifies variable lifetime and capture.
+
+Example:
+
+```js
+function makeAdder(a) {
+  return b => a + b;
+}
+const add5 = makeAdder(5);
+add5(2); // 7
+
+```
+
+---
+
 ## Q16. 🔒 Closures in JavaScript
 
 A closure allows an inner function to access variables from its outer function, even after the outer function finishes. This happens because the inner function "closes over" the outer scope's variables, keeping them alive in memory.
@@ -119,41 +173,6 @@ bound(); // 20
 
 ---
 
-## Q21. 💡 Call stack in JavaScript
-
-The call stack is how JavaScript keeps track of which function is running and where to return after each one finishes - it works in Last In, First Out (LIFO) order. It pushes functions when called and pops them when done.
-
-- **Trade-offs**: The call stack helps debug stack traces when an error shows "where" it happened, but deep recursion causes "Maximum call stack size exceeded" errors. JavaScript handles only sync code in the stack - async tasks wait in the event queue.
-
-Example:
-
-```js
-function one() { two(); console.log("One"); }
-function two() { three(); console.log("Two"); }
-function three() { console.log("Three"); }
-one(); // Output: Three, Two, One
-
-```
-
----
-
-## Q22. 💡 Creation and execution phases in JavaScript
-
-JavaScript runs code in two main phases: Creation phase (memory is set up) and Execution phase (code actually runs line by line). In creation, variables are set to `undefined` and functions get their full definitions - this explains hoisting behavior.
-
-- **Trade-offs**: Creation phase allocates memory first, then execution phase runs code top to bottom, replacing `undefined` with actual values. This is why you can call functions before declaring them, but using a variable before initialization gives `undefined` or ReferenceError.
-
-Example:
-
-```js
-var x = 10;
-function greet() { console.log("Hi"); }
-greet();
-
-```
-
----
-
 ## Q23. ⚡ Synchronous vs asynchronous execution
 
 Synchronous code runs one line at a time, blocking the next until the current finishes. Asynchronous code allows other tasks to run while waiting - it doesn't block execution, and the event loop handles async tasks via callback/microtask queues.
@@ -167,25 +186,6 @@ console.log("Start");
 setTimeout(() => console.log("Async Task"), 1000);
 console.log("End");
 // Output: Start, End, Async Task
-
-```
-
----
-
-## Q24. 🔒 How lexical environment relates to closures
-
-A lexical environment tracks variables in each scope. Each scope includes an environment record and an outer link, and lookups follow the outer links. Closures maintain access to these variables through the environment chain after the outer function completes.
-
-- **Trade-offs**: Closures preserve the chain for later use, enabling useful patterns, but garbage collection frees environments when no references remain. This clarifies variable lifetime and capture.
-
-Example:
-
-```js
-function makeAdder(a) {
-  return b => a + b;
-}
-const add5 = makeAdder(5);
-add5(2); // 7
 
 ```
 

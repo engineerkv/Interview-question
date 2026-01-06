@@ -148,10 +148,6 @@ describe('MyComponent', () => {
 
 ## Q89. 🐛 Debugging native crashes on Android
 
----
-
-## Q89. 🐛 Debugging native crashes on Android
-
 Debug Android native crashes using logcat, Android Studio debugger, and native crash reports - critical for identifying native module issues. Use logcat for crash logs (logcat), Use Android Studio debugger (native debugging), Analyze native stack traces (stack traces).
 
 - **Trade-offs**: The catch is requires understanding native Android code (native knowledge) - different from JavaScript debugging (debugging approach). Critical for identifying native module issues, but watch out - use symbolication for readable stack traces (symbolication).

@@ -1,5 +1,19 @@
 # Social Media Feed
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Video Streaming Platform](06%29%20Video%20Streaming%20Platform.md) • [Next: E-commerce App →](08%29%20E-commerce%20App.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
 ## Overview
 
 Design a social media feed system where users can create posts, follow other users, and view personalized content feeds in real-time. The system handles likes, comments, shares, and real-time engagement updates.
@@ -428,3 +442,17 @@ interface LikeRequest {
 
 **Example explanation flow:**
 > "So for a social media feed, the core requirement is allowing users to create posts, follow others, and see a personalized feed. The frontend is a React app with a feed list component that displays posts from followed users. Users can like, comment, and share posts, with real-time updates via WebSocket so changes appear instantly. The data model centers around Post objects with content, media, engagement counts, and User objects with profile information. When a user likes a post, we use optimistic updates to show the like immediately, then sync with the server. The feed uses infinite scroll with cursor-based pagination for efficient loading. Real-time updates are delivered via WebSocket for likes, comments, and new posts. Key challenges include generating personalized feeds efficiently, handling real-time updates at scale, and managing traffic spikes when posts go viral."
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Video Streaming Platform](06%29%20Video%20Streaming%20Platform.md) • [Next: E-commerce App →](08%29%20E-commerce%20App.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---

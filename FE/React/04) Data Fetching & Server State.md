@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[← Previous: State Management](03%29%20State%20Management.md) • [Home: README](../README.md) • [Advanced Features & Concurrent Rendering →](05%29%20Advanced%20Features%20%26%20Concurrent%20Rendering.md)
+[← Previous: State Management](03%29%20State%20Management.md) • [Home: README](../README.md) • [Next: Advanced Features & Concurrent Rendering →](05%29%20Advanced%20Features%20%26%20Concurrent%20Rendering.md)
 
 [📋 Cheatsheet](React%20Interview%20Cheatsheet.md)
 
@@ -301,7 +301,7 @@ return (
 
 <div align="center">
 
-[← Previous: State Management](03%29%20State%20Management.md) • [Home: README](../README.md) • [Advanced Features & Concurrent Rendering →](05%29%20Advanced%20Features%20%26%20Concurrent%20Rendering.md)
+[← Previous: State Management](03%29%20State%20Management.md) • [Home: README](../README.md) • [Next: Advanced Features & Concurrent Rendering →](05%29%20Advanced%20Features%20%26%20Concurrent%20Rendering.md)
 
 [📋 Cheatsheet](React%20Interview%20Cheatsheet.md)
 

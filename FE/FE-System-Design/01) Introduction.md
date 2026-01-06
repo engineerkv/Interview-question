@@ -16,7 +16,7 @@
 
 ---
 
-## 1. ⚛️ React vs Other Frameworks (React vs Vue vs Angular)
+## 1. ⚛️ React vs Vue vs Angular
 
 **Core Concept**: Each framework solves UI development differently - React gives flexibility, Vue balances ease and power, Angular provides complete structure.
 

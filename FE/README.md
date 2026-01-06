@@ -8,17 +8,17 @@
 
 Master the core web technologies that every frontend developer must know.
 
-1. **[HTML Fundamentals](HTML/)** - Q1-111
+1. **[HTML Fundamentals](HTML/)** - Q1-96
    - Start here: HTML structure, semantic elements, forms, accessibility
    - **Time**: 2-3 days
    - **Priority**: ⭐⭐⭐ Critical
 
-2. **[CSS Fundamentals](CSS/)** - Q1-70
+2. **[CSS Fundamentals](CSS/)** - Q1-58
    - Styling, layout (Flexbox/Grid), responsive design, performance
    - **Time**: 3-4 days
    - **Priority**: ⭐⭐⭐ Critical
 
-3. **[JavaScript Core](Javascript/)** - Q1-186
+3. **[JavaScript Core](Javascript/)** - Q1-207
    - Fundamentals → Advanced → Practical → Output Questions
    - **Time**: 7-10 days
    - **Priority**: ⭐⭐⭐ Critical
@@ -27,7 +27,7 @@ Master the core web technologies that every frontend developer must know.
 
 Type-safe JavaScript for large-scale applications.
 
-4. **[TypeScript](Typescript/)** - Q1-53
+4. **[TypeScript](Typescript/)** - Q1-44
    - Type system, interfaces, generics, advanced types
    - **Time**: 2-3 days
    - **Priority**: ⭐⭐ Medium (Required for many companies)
@@ -50,7 +50,7 @@ The most popular frontend framework and its ecosystem.
 
 Cross-platform mobile development.
 
-7. **[React Native](React-Native/)** - Q1-95
+7. **[React Native](React-Native/)** - Q1-125
    - Mobile development, native modules, performance
    - **Time**: 4-5 days
    - **Priority**: ⭐⭐ Medium (If applying for mobile roles)
@@ -70,15 +70,15 @@ Architecture and design patterns for large-scale applications.
 
 | Technology | Questions | Sections | Difficulty |
 |------------|-----------|----------|------------|
-| HTML | 111 | 8 | ⭐⭐ - ⭐⭐⭐⭐ |
-| CSS | 70 | 7 | ⭐⭐ - ⭐⭐⭐⭐ |
-| JavaScript | 186 | 11 | ⭐⭐ - ⭐⭐⭐⭐⭐ |
-| TypeScript | 53 | 5 | ⭐⭐ - ⭐⭐⭐⭐⭐ |
-| React | 100 | 10 | ⭐⭐ - ⭐⭐⭐⭐⭐ |
+| HTML | 96 | 7 | ⭐⭐ - ⭐⭐⭐⭐ |
+| CSS | 58 | 4 | ⭐⭐ - ⭐⭐⭐⭐ |
+| JavaScript | 207 | 8 | ⭐⭐ - ⭐⭐⭐⭐⭐ |
+| TypeScript | 44 | 4 | ⭐⭐ - ⭐⭐⭐⭐⭐ |
+| React | 100 | 8 | ⭐⭐ - ⭐⭐⭐⭐⭐ |
 | Next.js | 60 | 6 | ⭐⭐ - ⭐⭐⭐⭐⭐ |
-| React Native | 95 | 10 | ⭐⭐ - ⭐⭐⭐⭐ |
-| System Design | 142 | 10 | ⭐⭐ - ⭐⭐⭐⭐⭐ |
-| **TOTAL** | **817** | **67** | |
+| React Native | 125 | 12 | ⭐⭐ - ⭐⭐⭐⭐ |
+| System Design | 142 | 24 | ⭐⭐ - ⭐⭐⭐⭐⭐ |
+| **TOTAL** | **832** | **73** | |
 
 ---
 

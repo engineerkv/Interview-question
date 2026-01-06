@@ -167,30 +167,9 @@ function Button({ children, size }) {
 
 ## Q46. 🎨 CSS architecture and how to organize large stylesheets
 
-CSS custom properties enable consistent theming and design tokens in design systems, allowing dynamic theme switching and centralized style management - CSS variables are essential for modern design systems. Centralized values for colors, spacing, typography, and other design elements.
+CSS architecture involves organizing stylesheets into logical sections and using methodologies to create maintainable, scalable CSS codebases - CSS architecture requires documentation and consistent conventions. Group related styles into separate files for better maintainability, use consistent naming patterns (BEM, OOCSS, SMACSS), and break large stylesheets into smaller, focused modules.
 
-- **Trade-offs**: The catch is ensures consistent spacing, colors, and typography across components - single source of truth for design values, can be updated with JavaScript. Easy to switch between different themes by changing root variables.
-
-Example:
-
-```css
-:root {
-  --color-primary: #007bff;
-  --color-secondary: #6c757d;
-  --color-success: #28a745;
-  --spacing-unit: 8px;
-  --border-radius: 4px;
-}
-
-```
-
----
-
-## Q47. 🎨 CSS preprocessors in large projects
-
-CSS architecture involves organizing stylesheets into logical sections and using methodologies to create maintainable, scalable CSS codebases - CSS architecture requires documentation and consistent conventions. Group related styles into separate files for better maintainability.
-
-- **Trade-offs**: The catch is use consistent naming patterns (BEM, OOCSS, SMACSS) - break large stylesheets into smaller, focused modules. Import files in logical order (reset, base, utilities, layout, components, pages).
+- **Trade-offs**: The catch is import files in logical order (reset, base, utilities, layout, components, pages) - use consistent naming patterns to avoid conflicts and improve maintainability. Breaking large stylesheets into smaller modules makes it easier to find and update styles, but requires good documentation and team conventions.
 
 Example:
 
@@ -203,6 +182,13 @@ Example:
 
 ```
 
+---
+
+## Q47. 🎨 CSS preprocessors in large projects
+
+CSS preprocessors like SASS and LESS extend CSS with variables, mixins, nesting, and functions - they compile to regular CSS and help manage large codebases. Preprocessors provide features like variables for reusable values, mixins for reusable code blocks, nesting for better organization, and functions for calculations.
+
+- **Trade-offs**: The catch is preprocessors require a build step to compile to CSS, but they make large projects more maintainable with features like variables, mixins, and nesting. SASS and LESS are the most popular, with SASS having more features and better tooling support.
 
 Example:
 
@@ -217,6 +203,12 @@ $breakpoints: (
 @mixin responsive($breakpoint) {
   @media (min-width: map-get($breakpoints, $breakpoint)) {
     @content;
+  }
+}
+.button {
+  background-color: $primary-color;
+  @include responsive(tablet) {
+    padding: 12px 24px;
   }
 }
 

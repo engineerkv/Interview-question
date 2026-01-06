@@ -1,5 +1,19 @@
 # Ride-Sharing System
 
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Ticket Booking System](12%29%20Ticket%20Booking%20System.md) • [Next: Food Delivery System →](14%29%20Food%20Delivery%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
+
 ## Overview
 
 Design a ride-sharing platform like Uber where users can request rides, get matched with nearby drivers, track rides in real-time, and process payments. The system handles geospatial matching, dynamic pricing, and real-time location tracking.
@@ -300,3 +314,19 @@ interface PriceEstimate {
 
 **Example explanation flow:**
 > "So for a ride-sharing system, the core requirement is connecting riders with nearby drivers and tracking rides in real-time. The frontend is a React app with a map component (Google Maps/Mapbox) that shows pickup/dropoff locations and driver location. When a user requests a ride, they enter pickup and dropoff locations, and the system matches them with the nearest available driver. Real-time location tracking updates the driver's position every 5 seconds via WebSocket, and the map and ETA update accordingly. The data model includes Ride objects with status tracking (requested, matched, arriving, in_progress, completed), Location objects for geospatial data, and Driver objects with availability status. Dynamic pricing calculates the fare based on distance, time, and surge multipliers during peak hours. The main API endpoints handle ride requests, price estimates, and ride management, while WebSocket handles real-time location and status updates. Key challenges include geospatial matching for efficient driver assignment, real-time location tracking at scale, and handling traffic spikes during peak hours."
+
+---
+
+---
+
+## 📍 Navigation
+
+<div align="center">
+
+[Home: README](README.md) • [← Previous: Ticket Booking System](12%29%20Ticket%20Booking%20System.md) • [Next: Food Delivery System →](14%29%20Food%20Delivery%20System.md)
+
+[📋 Cheatsheet](Projects%20Interview%20Cheatsheet.md)
+
+</div>
+
+---
