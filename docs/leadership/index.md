@@ -1,10 +1,10 @@
 ---
 sidebar_position: 0
 sidebar_label: Overview
-description: "Tech Lead interview preparation: code reviews, architecture decisions, mentoring, delivery, and behavioral rounds."
+description: "Staff Craft: reviews, decisions, mentoring, and STAR stories for Tech Lead loops."
 ---
 
-# Tech Lead & Leadership
+# Staff Craft
 
 > **Reviewed:** 2026-09 · **Level:** Tech Lead / Senior
 

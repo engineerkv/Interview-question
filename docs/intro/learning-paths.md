@@ -1,14 +1,14 @@
 ---
 sidebar_position: 1
-sidebar_label: Learning Paths
-description: Interview preparation tracks for Frontend, Full-Stack, System Design, DevOps, AI, Agentic Workflows, and Tech Lead.
+sidebar_label: Paths
+description: Ordered tracks through Roundbook: Interface, Services, Design Rounds, Production, Applied AI, Agent Systems, and Staff Craft.
 ---
 
-# Learning Paths
+# Paths
 
 > **Reviewed:** 2026-09 · **Level:** Senior / Tech Lead
 
-Choose one track and stay on it until you can explain each step out loud. Legacy topics are labeled in the notes; prefer modern defaults unless the company still runs an older stack.
+Choose one shelf and stay on it until you can explain each step out loud. Legacy topics are labeled in the notes; prefer modern defaults unless the company still runs an older stack.
 
 ## 1. Frontend Interview Path
 

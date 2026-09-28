@@ -1,8 +1,9 @@
 {
-  "label": "Programming Fundamentals",
+  "label": "Language Core",
   "position": 1,
   "link": {
     "type": "generated-index",
-    "description": "Programming Fundamentals interview preparation."
+    "title": "Language Core",
+    "description": "JavaScript, TypeScript, and DSA you should be able to write from memory."
   }
 }

@@ -1,8 +1,9 @@
 {
-  "label": "Contributing",
+  "label": "House Style",
   "position": 11,
   "link": {
     "type": "generated-index",
-    "description": "Contributing interview preparation."
+    "title": "House Style",
+    "description": "How answers are written so Roundbook stays consistent."
   }
 }

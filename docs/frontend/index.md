@@ -1,9 +1,10 @@
 ---
 sidebar_label: "Overview"
+description: "Interface Engineering: HTML, CSS, React, Next.js, and how the browser actually renders."
 ---
-# 🎯 Frontend Interview Preparation Guide
+# Interface Engineering
 
-> **Complete roadmap for frontend engineering interviews** - Organized for efficient learning and preparation
+> Interface Engineering: from HTML to React internals, organized so you can speak the short answer, then go deep.
 
 ## 📚 Preparation Order (Recommended Learning Path)
 

@@ -1,10 +1,10 @@
 ---
 sidebar_position: 1
-sidebar_label: Content standards
-description: Format profiles and modernization rules for interview answers on this site.
+sidebar_label: House Style
+description: Format profiles and modernization rules so Roundbook answers stay speakable and consistent.
 ---
 
-# Content Standards
+# House Style
 
 > **Reviewed:** 2026-09
 

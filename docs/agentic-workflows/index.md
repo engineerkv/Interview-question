@@ -1,10 +1,10 @@
 ---
 sidebar_position: 0
 sidebar_label: Overview
-description: "Overview of agentic workflows for senior engineers: agent foundations, tools and MCP, orchestration, memory, evaluation, human oversight, production operations, and applied scenarios."
+description: "Agent Systems: when to use an agent, how to tool it, and where humans stay in the loop."
 ---
 
-# Agentic Workflows
+# Agent Systems
 
 > **Reviewed:** 2026-09 · **Level:** Senior / Tech Lead · **Type:** Emerging
 

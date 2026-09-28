@@ -1,10 +1,10 @@
 ---
 sidebar_position: 0
 sidebar_label: Overview
-description: Quick-reference cheatsheets for last-minute interview revision.
+description: Pocket cards for last-mile revision the night before a round.
 ---
 
-# Cheatsheets & Quick Reference
+# Pocket Cards
 
 > **Reviewed:** 2026-09
 

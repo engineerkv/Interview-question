@@ -2,7 +2,7 @@
   "name": "interview-question",
   "version": "1.0.0",
   "private": true,
-  "description": "Senior Engineer and Tech Lead interview preparation knowledge base",
+  "description": "Roundbook: spoken interview answers, full-stack designs, and pocket cards for Senior Engineer and Tech Lead rounds",
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",

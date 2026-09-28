@@ -1,20 +1,25 @@
-# Interview Prep Hub
+# Roundbook
 
-Personal interview knowledge base for Senior Engineer, Frontend Architect, and Tech Lead preparation. Content is Markdown; the site is Docusaurus 3 on GitHub Pages.
+Spoken interview answers, full-stack designs, and pocket cards for Senior Engineer and Tech Lead rounds. Markdown notes, published as a quiet reading site.
 
 **Site:** https://engineerkv.github.io/Interview-question/
 
-## Learning paths
+## The library
 
-| Path | Start here |
+| Section | What it is |
 | --- | --- |
-| Frontend | HTML → CSS → JavaScript → TypeScript → React → Next.js → Frontend architecture |
-| Full-stack | Node **or** Python → SQL / Mongo → Celery / RabbitMQ / MinIO → Backend architecture → DevOps |
-| System design | Backend architecture + frontend architecture + [case studies](docs/case-studies/index.md) |
-| DevOps | Git → Docker → CI/CD → Cloud → Kubernetes → Telemetry → Reliability → Security |
-| AI | LLM fundamentals → RAG → evaluation → AI-assisted development |
-| Agentic workflows | Agents → tools/MCP → orchestration → evals → human gates |
-| Tech Lead | Code reviews (manual + automated) → leadership → behavioral STAR |
+| **Start Here** | How to use the book, pick a path, and practise out loud |
+| **Language Core** | JavaScript, TypeScript, and DSA you can write from memory |
+| **Interface Engineering** | HTML, CSS, React, Next.js, and how the browser actually renders |
+| **Service Engineering** | APIs, data, workers, and messaging behind the product |
+| **Production Engineering** | Ship, observe, and recover: Git through Kubernetes, SLOs, and security |
+| **Design Rounds** | Timed full-stack designs with trade-offs you can defend |
+| **Applied AI** | LLMs, RAG, evals, and AI in the delivery loop without shipping fiction |
+| **Agent Systems** | When to use an agent, how to tool it, and where humans stay in the loop |
+| **Staff Craft** | Reviews, decisions, mentoring, and STAR stories for Tech Lead loops |
+| **Warmups** | Short puzzles for a 10-minute reset |
+| **Pocket Cards** | One-page cheatsheets for last-mile revision |
+| **House Style** | How answers are written so the book stays consistent |
 
 Open [docs/intro/learning-paths.md](docs/intro/learning-paths.md) for the full sequence.
 
@@ -47,23 +52,23 @@ Repository settings:
 
 ```text
 docs/
-├── intro/                  How to use the site, learning paths, assessment
-├── fundamentals/           JavaScript, TypeScript, DSA
-├── frontend/               HTML, CSS, React, Next.js, React Native, architecture
-├── backend/                Node, SQL, Mongo, Python, Celery, RabbitMQ, MinIO, architecture
-├── devops/                 Git, Docker, K8s, CI/CD, cloud, IaC, telemetry, SRE, security
-├── case-studies/           Full-stack project designs
-├── ai/                     LLM, RAG, evals, AI-assisted SDLC
-├── agentic-workflows/      Agents, MCP, orchestration, human-in-the-loop
-├── leadership/             Reviews, Tech Lead, behavioral
-├── puzzles/
-├── reference/              Cheatsheet index
-└── contributing/           Content standards
+├── intro/                  Start Here
+├── fundamentals/           Language Core
+├── frontend/               Interface Engineering
+├── backend/                Service Engineering
+├── devops/                 Production Engineering
+├── case-studies/           Design Rounds
+├── ai/                     Applied AI
+├── agentic-workflows/      Agent Systems
+├── leadership/             Staff Craft
+├── puzzles/                Warmups
+├── reference/              Pocket Cards
+└── contributing/           House Style
 ```
 
 ## How to contribute
 
-1. Read [content standards](docs/contributing/content-standards.md).
+1. Read [House Style](docs/contributing/content-standards.md).
 2. Prefer updating existing answers over adding duplicate questions.
 3. Label legacy topics instead of deleting them.
 4. Add a practical example, and a Mermaid diagram when the topic is a flow or architecture.

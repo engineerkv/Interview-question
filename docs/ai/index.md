@@ -1,10 +1,10 @@
 ---
 sidebar_position: 0
 sidebar_label: Overview
-description: "AI engineering for senior engineers and tech leads: LLM fundamentals, RAG, evaluation and safety, AI app architecture, and AI-assisted development."
+description: "Applied AI: LLMs, RAG, evals, and using AI in the delivery loop without shipping fiction."
 ---
 
-# AI Engineering
+# Applied AI
 
 > **Reviewed:** 2026-09 · **Level:** Senior / Tech Lead · **Type:** Foundational with Emerging topics marked
 

@@ -3,8 +3,8 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'Interview Prep Hub',
-  tagline: 'Senior Engineer and Tech Lead interview preparation, from fundamentals to leadership',
+  title: 'Roundbook',
+  tagline: 'Spoken answers for Senior Engineer and Tech Lead rounds',
   favicon: 'img/favicon.svg',
 
   future: {
@@ -34,6 +34,26 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.googleapis.com',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: 'anonymous',
+      },
+    },
+  ],
+
+  clientModules: ['./src/client/route-motion.ts'],
 
   presets: [
     [
@@ -71,9 +91,17 @@ const config: Config = {
   ],
 
   themeConfig: {
+    metadata: [
+      {
+        name: 'description',
+        content:
+          'Roundbook is a quiet study book for Senior Engineer and Tech Lead interviews: spoken answers, design rounds, and pocket cards.',
+      },
+    ],
     colorMode: {
       defaultMode: 'light',
-      respectPrefersColorScheme: true,
+      respectPrefersColorScheme: false,
+      disableSwitch: false,
     },
     docs: {
       sidebar: {
@@ -86,21 +114,29 @@ const config: Config = {
       maxHeadingLevel: 3,
     },
     navbar: {
-      title: 'Interview Prep Hub',
+      title: 'Roundbook',
       logo: {
-        alt: 'Interview Prep Hub logo',
+        alt: 'Roundbook',
         src: 'img/logo.svg',
       },
-      hideOnScroll: false,
+      hideOnScroll: true,
       items: [
-        {to: '/intro/learning-paths', label: 'Learning Paths', position: 'left'},
-        {to: '/frontend', label: 'Frontend', position: 'left'},
-        {to: '/case-studies', label: 'System Design', position: 'left'},
-        {to: '/devops', label: 'DevOps', position: 'left'},
-        {to: '/ai', label: 'AI', position: 'left'},
-        {to: '/agentic-workflows', label: 'Agents', position: 'left'},
-        {to: '/leadership', label: 'Tech Lead', position: 'left'},
-        {to: '/reference', label: 'Cheatsheets', position: 'right'},
+        {to: '/intro/learning-paths', label: 'Paths', position: 'left'},
+        {
+          type: 'dropdown',
+          label: 'Library',
+          position: 'left',
+          items: [
+            {to: '/frontend', label: 'Interface Engineering'},
+            {to: '/backend/python', label: 'Service Engineering'},
+            {to: '/case-studies', label: 'Design Rounds'},
+            {to: '/devops', label: 'Production Engineering'},
+            {to: '/ai', label: 'Applied AI'},
+            {to: '/agentic-workflows', label: 'Agent Systems'},
+            {to: '/leadership', label: 'Staff Craft'},
+          ],
+        },
+        {to: '/reference', label: 'Pocket Cards', position: 'right'},
         {
           href: 'https://github.com/engineerkv/Interview-question',
           label: 'GitHub',
@@ -109,42 +145,42 @@ const config: Config = {
       ],
     },
     footer: {
-      style: 'dark',
+      style: 'light',
       links: [
         {
-          title: 'Prepare',
+          title: 'Study',
           items: [
-            {label: 'Learning paths', to: '/intro/learning-paths'},
-            {label: 'Cheatsheets', to: '/reference'},
-            {label: 'Case studies', to: '/case-studies'},
+            {label: 'Paths', to: '/intro/learning-paths'},
+            {label: 'Pocket Cards', to: '/reference'},
+            {label: 'Design Rounds', to: '/case-studies'},
           ],
         },
         {
-          title: 'Grow',
+          title: 'Craft',
           items: [
-            {label: 'Tech Lead', to: '/leadership'},
-            {label: 'AI-assisted development', to: '/ai/ai-assisted-development'},
-            {label: 'Agentic workflows', to: '/agentic-workflows'},
+            {label: 'Staff Craft', to: '/leadership'},
+            {label: 'Applied AI', to: '/ai'},
+            {label: 'Agent Systems', to: '/agentic-workflows'},
           ],
         },
         {
-          title: 'Project',
+          title: 'The book',
           items: [
-            {label: 'Content standards', to: '/contributing/content-standards'},
-            {label: 'Repository assessment', to: '/intro/repository-assessment'},
+            {label: 'House Style', to: '/contributing/content-standards'},
+            {label: 'How to use Roundbook', to: '/intro'},
             {label: 'GitHub', href: 'https://github.com/engineerkv/Interview-question'},
           ],
         },
       ],
-      copyright: `Personal interview knowledge base. Built with Docusaurus.`,
+      copyright: `Roundbook · personal study notes for Senior Engineer and Tech Lead rounds.`,
     },
     prism: {
       theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
+      darkTheme: prismThemes.nightOwl,
       additionalLanguages: ['bash', 'json', 'python', 'sql', 'yaml', 'docker', 'typescript'],
     },
     mermaid: {
-      theme: {light: 'neutral', dark: 'dark'},
+      theme: {light: 'neutral', dark: 'forest'},
     },
   } satisfies Preset.ThemeConfig,
 };

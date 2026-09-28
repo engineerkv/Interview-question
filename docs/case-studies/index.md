@@ -1,9 +1,10 @@
 ---
 sidebar_label: "Overview"
+description: "Design Rounds: timed full-stack system designs with trade-offs you can defend."
 ---
-# 📁 Projects Directory
+# Design Rounds
 
-This directory contains **interview-friendly project documentation** focused on frontend system design. Each project follows a consistent structure optimized for explaining systems in interviews.
+Timed full-stack designs you can walk in 45 minutes: frontend, backend, scale, and the follow-ups that come next.
 
 ## 🧭 Navigation
 

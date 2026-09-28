@@ -1,10 +1,10 @@
 ---
 sidebar_position: 0
 sidebar_label: Overview
-description: "DevOps and production engineering for Senior and Tech Lead interviews: from Git to Kubernetes, IaC, observability, reliability, security and platforms."
+description: "Production Engineering: the path from a merged PR to a healthy system — Git, containers, Kubernetes, SLOs, and recovery."
 ---
 
-# DevOps & Production Engineering
+# Production Engineering
 
 > **Reviewed:** 2026-09 · **Level:** Senior / Tech Lead · **Type:** Foundational (Platform Engineering is Emerging)
 

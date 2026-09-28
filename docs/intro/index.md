@@ -1,14 +1,14 @@
 ---
 sidebar_position: 0
-sidebar_label: How to use this site
-description: How to use this interview knowledge base for revision, deep study, and Tech Lead preparation.
+sidebar_label: How to use Roundbook
+description: How to use Roundbook for spoken drills, design rounds, and last-mile revision.
 ---
 
-# How to use this site
+# How to use Roundbook
 
 > **Reviewed:** 2026-09 · **Level:** Senior / Tech Lead
 
-This is a personal interview knowledge base for Senior Engineer, Frontend Architect, and Tech Lead preparation. Content is Markdown-first: drills for 30–60 second answers, deep dives for architecture, case studies for timed design rounds, and cheatsheets for last-minute revision.
+Roundbook is a quiet study book for Senior Engineer, Frontend Architect, and Tech Lead rounds. Content is Markdown-first: drills for 30–60 second spoken answers, deep dives for architecture, design rounds for timed walkthroughs, and pocket cards for last-minute revision.
 
 ## How pages are organized
 
@@ -18,11 +18,11 @@ This is a personal interview knowledge base for Senior Engineer, Frontend Archit
 | **Deep dives** | Frontend architecture, backend architecture | Read intuition first, then mechanism, then production notes |
 | **Case studies** | [Case studies](../case-studies/index.md) | Time-box a 45-minute walkthrough: FE + backend + scale + follow-ups |
 | **Agentic workflows** | [Agents](../agentic-workflows/index.md) | Pattern → when to use → failure modes → human gates |
-| **Reference** | [Cheatsheets](../reference/index.md) | Night-before revision only |
+| **Reference** | [Pocket Cards](../reference/index.md) | Night-before revision only |
 
 ## Suggested starting points
 
-1. Pick a [learning path](./learning-paths.md) instead of browsing every folder.
+1. Pick a [path](./learning-paths.md) instead of browsing every folder.
 2. Search from the homepage for a specific question or concept.
 3. Use cheatsheets the day before an interview; use drills and case studies for practice.
 

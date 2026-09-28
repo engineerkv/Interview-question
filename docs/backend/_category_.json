@@ -1,8 +1,9 @@
 {
-  "label": "Backend Engineering",
+  "label": "Service Engineering",
   "position": 3,
   "link": {
     "type": "generated-index",
-    "description": "Backend Engineering interview preparation."
+    "title": "Service Engineering",
+    "description": "APIs, data stores, workers, and messaging behind the product."
   }
 }

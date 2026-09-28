@@ -1,7 +1,8 @@
 ---
 sidebar_label: "Overview"
+description: "Warmups: short puzzles for a 10-minute mental reset before a study session."
 ---
-# 🧩 Puzzle Interview Preparation Guide
+# Warmups
 
 > **Complete guide for puzzle and brain teaser interview preparation** - Logic puzzles, optimization problems, and algorithmic puzzles commonly asked in technical interviews
 
