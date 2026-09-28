@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 sidebar_label: Paths
-description: Ordered tracks through Roundbook: Interface, Services, Design Rounds, Production, Applied AI, Agent Systems, and Staff Craft.
+description: "Ordered tracks through Roundbook: Interface, Services, Design Rounds, Production, Applied AI, Agent Systems, and Staff Craft."
 ---
 
 # Paths
